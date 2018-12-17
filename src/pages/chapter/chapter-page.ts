@@ -14,7 +14,7 @@ import NavAppDrawer from '../../views/nav-app-drawer/NavAppDrawer.vue';
 import ShareSocialBar from '../../components/share-social-bar/ShareSocialBar.vue';
 import SyntaxErrorReportDialog from '../../components/syntax-error-report-dialog/SyntaxErrorReportDialog.vue';
 import { mapActions, mapGetters } from 'vuex';
-import NotFoundPlaceholder from '../../not-found-placeholder/NotFoundPlaceholder.vue';
+import NotFoundPlaceholder from '../../components/not-found-placeholder/NotFoundPlaceholder.vue';
 
 export interface IComponent extends Vue {}
 

@@ -2,6 +2,7 @@ import { DirectiveOptions } from 'vue';
 import Selection, {
     ISelection
 } from '@/directives/selected/selection.controller';
+import { ISignalHandler } from '@/directives/selected/signal/ISignalHandler';
 
 interface IBindings {
     expression: string;
@@ -11,7 +12,7 @@ interface IBindings {
     };
     value: {
         id?: string;
-        selected: (selection: ISelection) => void;
+        selected: ISignalHandler<ISelection>;
         unselected: () => void;
     };
 }

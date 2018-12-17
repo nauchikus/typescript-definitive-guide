@@ -1,5 +1,5 @@
 {
-  "name": "vue-example",
+  "name": "typescript-definitive-guide-app",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -14,7 +14,16 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "npm run prettier"
+      "pre-commit": "npm run prettier",
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS -g './config/git/commitlint.js'"
+    }
+  },
+  "config": {
+    "commitizen": {
+      "path": "node_modules/cz-customizable"
+    },
+    "cz-customizable": {
+      "config": "configs/git/commitizen.js"
     }
   },
   "dependencies": {
@@ -29,6 +38,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.1.6",
+    "@commitlint/cli": "^7.2.1",
     "@types/jest": "^23.1.4",
     "@vue/cli-plugin-e2e-cypress": "^3.1.2",
     "@vue/cli-plugin-pwa": "^3.1.2",
@@ -38,6 +48,8 @@
     "@vue/test-utils": "^1.0.0-beta.26",
     "babel-loader": "^8.0.4",
     "babel-preset-vue": "^2.0.2",
+    "commitizen": "^3.0.5",
+    "cz-customizable": "^5.3.0",
     "html-loader": "^0.5.5",
     "husky": "^1.2.1",
     "node-sass": "^4.10.0",

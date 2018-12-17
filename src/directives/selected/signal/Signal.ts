@@ -16,7 +16,7 @@ export default class Signal<Event = void> {
 
     public dispatch = (event?: Event): Event | undefined => {
         if (!this.handlerAll.length) {
-            return null;
+            return;
         }
 
         let cloneHandlerAll: ISignalHandler<Event>[] = this.handlerAll.concat();
