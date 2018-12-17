@@ -16,6 +16,7 @@ install:
 - npm i -g @vue/cli
 
 script:
+- vue --version
 - npm run build
 deploy:
   provider: pages
