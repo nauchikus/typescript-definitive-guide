@@ -1,0 +1,86 @@
+{
+    "defaultSeverity": "warning",
+    "extends": [
+        "tslint:recommended",
+        "tslint:latest",
+        "tslint-config-prettier"
+    ],
+    "linterOptions": {
+        "exclude": [
+            "node_modules/**",
+            "types/**",
+            "tests/**"
+        ]
+    },
+    "rules": {
+        "no-empty": false,
+        "prefer-for-of": false,
+        "array-type": [
+            false,
+            "array-simple"
+        ],
+        "no-shadowed-variable": false,
+        "prefer-const": false,
+        "no-console": false,
+        "quotemark": [
+            true,
+            "single"
+        ],
+        "indent": [
+            true,
+            "spaces",
+            4
+        ],
+        "variable-name": false,
+        "semicolon": [true, "always", "ignore-bound-class-methods"],
+        "interface-name": false,
+        "ordered-imports": false,
+        "object-literal-sort-keys": false,
+        "no-consecutive-blank-lines": false,
+        "arrow-parens": false,
+        "no-empty-interface": false,
+        "max-line-length": [
+            false,
+            {
+                "limit": 120,
+                "ignore-pattern": "^import |^export {(.*?)}"
+            }
+        ],
+        "space-before-function-paren": [
+            false,
+            "always"
+        ],
+        "no-submodule-imports": [
+            true,
+            "../",
+            "./",
+            "@/views",
+            "@/utils",
+            "@/pages",
+            "@/enums",
+            "@/services",
+            "@/directives",
+            "@/components",
+            "@/facade",
+            "vue-material/dist/components",
+            "vue-material/dist/vue-material.min.css",
+            "vue-material/dist/theme/default.css"
+        ],
+        "no-implicit-dependencies": [
+            true,
+            [
+                "@/facade",
+                "@/views",
+                "@/pages",
+                "@/enums",
+                "@/components",
+                "@/directives",
+                "@/services",
+                "@/store",
+                "@/utils",
+                "@vue/test-utils"
+            ]
+        ]
+
+    }
+}

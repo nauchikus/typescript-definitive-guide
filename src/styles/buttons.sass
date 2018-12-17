@@ -1,0 +1,15 @@
+
+@mixin yellow-button()
+    &
+        background: rgba(255, 204, 2, 0.5)!important
+
+        color: #302600!important
+
+        text-transform: none
+        font-weight: initial
+
+        margin: 16px 0
+    &:hover
+        background: rgba(255, 204, 2, 0.6)!important
+    &[disabled="disabled"]
+        background: rgba(0,0,0,.15)!important

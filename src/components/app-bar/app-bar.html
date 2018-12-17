@@ -1,0 +1,83 @@
+<div class="md-layout-item md-layout md-alignment-center-right">
+    <md-menu md-derection="button-end" md-size="auto" md-align-trigger md-close-on-select>
+        <md-button class="md-icon-button" md-menu-trigger>
+            <svg-icon class="custom-icon" name="baseline-info-24px"></svg-icon>
+            <md-tooltip md-direction="bottom">Техническая информация</md-tooltip>
+        </md-button>
+        <md-menu-content class="md-double-line" >
+            <md-subheader>Техническая информация</md-subheader>
+            <md-menu-item @click="showAuthorContactDialog()">
+                <div class="md-layout md-alignment-center-left">
+                    <div class="md-layout-item menu__menu-item__icon-container">
+                        <svg-icon class="custom-icon" name="baseline-person-24px"></svg-icon>
+                    </div>
+                    <div class="md-layout-item">
+                        <span>Связь с автором</span>
+                    </div>
+                </div>
+            </md-menu-item>
+            <md-menu-item @click="showBugReportHelperDialog()">
+                <div class="md-layout md-alignment-center-left">
+                    <div class="md-layout-item menu__menu-item__icon-container">
+                        <svg-icon class="custom-icon" name="iconmonstr-bug-3"></svg-icon>
+                    </div>
+                    <div class="md-layout-item">
+                        <span>Сообщить об ошибке</span>
+                    </div>
+                </div>
+            </md-menu-item>
+        </md-menu-content>
+    </md-menu>
+    <md-button class="md-icon-button" :href="appTelegramChanelLink" target="_blank">
+        <svg-icon class="custom-icon" name="iconmonstr-telegram-1"></svg-icon>
+        <md-tooltip md-direction="bottom">Следите за обновлениями в Telegram</md-tooltip>
+    </md-button>
+    <md-button class="md-icon-button" :href="yandexDonateLink" target="_blank">
+        <svg-icon class="custom-icon" name="piggy-bank"></svg-icon>
+        <md-tooltip md-direction="bottom">Сбор средств на развитие</md-tooltip>
+    </md-button>
+</div>
+
+<!--<md-app  class="app-bar" mode="fixed">-->
+    <!--<md-app-toolbar class="md-layout md-alignment-center-right">-->
+        <!--<div class="md-layout-item md-layout md-alignment-center-right">-->
+            <!--<md-menu md-derection="button-end" md-size="auto" md-align-trigger md-close-on-select>-->
+                <!--<md-button class="md-icon-button" md-menu-trigger>-->
+                    <!--<svg-icon class="custom-icon" name="baseline-info-24px"></svg-icon>-->
+                    <!--<md-tooltip md-direction="bottom">Техническая информация</md-tooltip>-->
+                <!--</md-button>-->
+                <!--<md-menu-content class="md-double-line" >-->
+                    <!--<md-subheader>Техническая информация</md-subheader>-->
+                    <!--<md-menu-item @click="showAuthorContactDialog()">-->
+                        <!--<div class="md-layout md-alignment-center-left">-->
+                            <!--<div class="md-layout-item menu__menu-item__icon-container">-->
+                                <!--<svg-icon class="custom-icon" name="baseline-person-24px"></svg-icon>-->
+                            <!--</div>-->
+                            <!--<div class="md-layout-item">-->
+                                <!--<span>Связь с автором</span>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    <!--</md-menu-item>-->
+                    <!--<md-menu-item @click="showBugReportHelperDialog()">-->
+                        <!--<div class="md-layout md-alignment-center-left">-->
+                            <!--<div class="md-layout-item menu__menu-item__icon-container">-->
+                                <!--<svg-icon class="custom-icon" name="iconmonstr-bug-3"></svg-icon>-->
+                            <!--</div>-->
+                            <!--<div class="md-layout-item">-->
+                                <!--<span>Сообщить об ошибке</span>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    <!--</md-menu-item>-->
+                <!--</md-menu-content>-->
+            <!--</md-menu>-->
+            <!--<md-button class="md-icon-button" :href="appTelegramChanelLink" target="_blank">-->
+                <!--<svg-icon class="custom-icon" name="iconmonstr-telegram-1"></svg-icon>-->
+                <!--<md-tooltip md-direction="bottom">Следите за обновлениями в Telegram</md-tooltip>-->
+            <!--</md-button>-->
+            <!--<md-button class="md-icon-button" :href="yandexDonateLink" target="_blank">-->
+                <!--<svg-icon class="custom-icon" name="piggy-bank"></svg-icon>-->
+                <!--<md-tooltip md-direction="bottom">Сбор средств на развитие</md-tooltip>-->
+            <!--</md-button>-->
+        <!--</div>-->
+    <!--</md-app-toolbar>-->
+<!--</md-app>-->

@@ -1,0 +1,7 @@
+<md-dialog class="custom-dialog" :md-active.sync="isDialogToggle">
+    <md-content class="custom-dialog__scrollbar md-scrollbar" @click.self.sync="hideDialog()">
+        <div class="custom-dialog__dialog">
+            <slot></slot>
+        </div>
+    </md-content>
+</md-dialog>

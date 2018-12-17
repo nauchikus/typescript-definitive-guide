@@ -1,0 +1,42 @@
+<custom-dialog :active.sync="isDialogToggle">
+    <md-card class="custom-dialog__card h-100">
+        <md-card-header class="md-layout md-alignment-center-space-between">
+            <h1 class="md-title">Контакты</h1>
+            <md-button class="md-icon-button" @click="hideDialog()">
+                <svg-icon name="baseline-close-24px"></svg-icon>
+            </md-button>
+        </md-card-header>
+        <md-card-content class="custom-dialog__card__card-content">
+            <div class="contact__section contact__section--email">
+                <div class="contact__section__custom-card md-layout">
+                    <div class="md-layout md-alignment-center-space-between">
+                        <h4 class="contact__section__custom-card__title">Яндексю.Почта</h4>
+                        <h4 class="contact__section__custom-card__title">nauchikus@yandex.ru</h4>
+                    </div>
+                    <div class="contact__section__custom-card__icon md-layout md-alignment-center-center">
+                        <img src="/assets/icons/png/yandex_mail__icon.png" alt="yandex mail icon">
+                    </div>
+                    <div class="md-layout md-alignment-center-center">
+                        <md-button class="md-dense">Отправить</md-button>
+                        <md-button class="md-dense">Копировать</md-button>
+                    </div>
+                </div>
+            </div>
+            <div class="contact__section contact__section--telegram">
+                <div class="contact__section__custom-card md-layout">
+                    <div class="md-layout md-alignment-center-space-between">
+                        <h4 class="contact__section__custom-card__title">Telegram</h4>
+                        <h4 class="contact__section__custom-card__title">https://t.me/nauchikus</h4>
+                    </div>
+                    <div class="contact__section__custom-card__icon md-layout md-alignment-center-center">
+                        <img src="/assets/icons/png/telegram__icon.png" alt="yandex mail icon">
+                    </div>
+                    <div class="md-layout md-alignment-center-center">
+                        <md-button class="md-dense md-primary">Добавить</md-button>
+                        <md-button class="md-dense md-primary">Копировать</md-button>
+                    </div>
+                </div>
+            </div>
+        </md-card-content>
+    </md-card>
+</custom-dialog>

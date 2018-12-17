@@ -1,0 +1,43 @@
+<div class="content-chapter-page book-adaptive-drawer" :drawer="drawerState">
+    <div class="grid-container__book-content">
+        <div class="book-content-grid-item__left-control">
+            <div class="chapter-page__book__control">
+                <md-button class="content-chapter-page__change-chapter-button__prev-chapter md-icon-button"
+                           @click="bookPrevChapter()"
+                           :disabled="!isBookPrevChapter">
+                    <svg-icon name="baseline-navigate_before-24px"></svg-icon>
+                </md-button>
+            </div>
+        </div>
+        <div class="book-content-grid-item__content">
+            <div class="book__content"
+                 v-html="bookCurrentChapterContent"
+                 v-selection.include="{ selected: bookChapterTextSelected, unselected: bookChapterTextUnselected, id: SelectionExcludes.ReportAboutSyntaxError }"
+                 @click.prevent="bookContent_click"
+                 ref="bookChapterContentRef"></div>
+        </div>
+        <div class="book-content-grid-item__right-control">
+            <div class="chapter-page__book__control">
+                <md-button class="content-chapter-page__button--edit-chapter-on-repo md-icon-button interactive-icon-button"
+                           :href="chapterRepoHref"
+                           target="_blank">
+                    <svg-icon class="custom-icon" name="iconmonstr-pencil-9"></svg-icon>
+                </md-button>
+                <md-button class="content-chapter-page__inform-about-syntax-error md-icon-button interactive-icon-button"
+                           :style="reportAboutSyntaxErrorButtonPositionStyle"
+                           @mousedown.stop=""
+                           :selection-id="SelectionExcludes.ReportAboutSyntaxError"
+                           selection-strategy="exclude"
+                           @click.stop="showReportAboutSyntaxErrorPopup()"
+                           v-if="isBookChapterTextSelected">
+                    <svg-icon class="custom-icon" name="iconmonstr-error-3"></svg-icon>
+                </md-button>
+                <md-button class="content-chapter-page__change-chapter-button__next-chapter md-icon-button"
+                           @click="bookNextChapter()"
+                           :disabled="!isBookNextChapter">
+                    <svg-icon name="baseline-navigate_next-24px"></svg-icon>
+                </md-button>
+            </div>
+        </div>
+    </div>
+</div>

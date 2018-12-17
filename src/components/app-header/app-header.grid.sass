@@ -1,0 +1,22 @@
+@import "../../styles/media.var"
+
+.grid-container__app-header
+    display: inline-grid
+
+    grid-template-columns: 56px auto 1fr auto
+    grid-template-areas: "drawer-toggle logo info control"
+
+    @media (min-width: $min-size)
+        grid-template-columns: 80px auto 1fr auto
+
+
+.app-header-grid-item__app-drawer-toggle
+    grid-area: drawer-toggle
+
+.app-header-grid-item__app-logo
+    grid-area: logo
+.app-header-grid-item__app-info
+    padding: 0 16px
+    grid-area: info
+.app-header-grid-item__app-control
+    grid-area: control

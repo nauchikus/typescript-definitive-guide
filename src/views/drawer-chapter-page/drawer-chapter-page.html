@@ -1,0 +1,26 @@
+<div class="chapter-page__drawer">
+    <ul class="drawer grid-container__drawer list list__vertical">
+        <li class="drawer-grid-item__app-nav list__item">
+            <nav-app-drawer></nav-app-drawer>
+        </li>
+        <li class="chapter-page__drawer__book-subcontents drawer-grid-item__book-subcontents list__item">
+            <div class="chapter-page__drawer__book-subcontents__container">
+                <span class="list__item__subheader">Содержание Главы</span>
+                <md-content class="chapter-page__drawer__book-subcontents__scrollbar md-scrollbar">
+                    <ul class="list">
+                        <li class="list__item list__item__item-with-background list__item list__item-with-ellipsis" v-for="(subchapter, index) in bookCurrentSubchapterAll" :key="index">
+                            <router-link class="list__item__link"
+                                         :title="subchapter.data.name"
+                                         :to="subchapter.data.anchor"
+                                         exact-active-class="nav__active">{{subchapter.data.name}}</router-link>
+                        </li>
+                    </ul>
+                </md-content>
+            </div>
+        </li>
+        <li class="drawer-grid-item__share-social list__item">
+            <span class="list__item__subheader">Поделится</span>
+            <share-social-bar></share-social-bar>
+        </li>
+    </ul>
+</div>

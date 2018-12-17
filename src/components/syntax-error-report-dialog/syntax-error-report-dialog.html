@@ -1,0 +1,47 @@
+<custom-dialog :active.sync="isDialogToggle"
+               :selection-id="SelectionExcludes.ReportAboutSyntaxError"
+               selection-strategy="exclude">
+    <md-card class="custom-dialog__card h-100">
+        <md-card-header class="md-layout md-alignment-center-space-between">
+            <h1 class="md-title">Сообщить об ошибке</h1>
+            <md-button class="md-icon-button"
+                       :selection-id="SelectionExcludes.ReportAboutSyntaxError"
+                       selection-strategy="include"
+                       @click="hideDialog()">
+                <svg-icon name="baseline-close-24px"></svg-icon>
+            </md-button>
+        </md-card-header>
+        <md-card-content class="custom-dialog__card__card-content">
+            <form class="report-about-syntax-error__dialog__form"
+                  ref="reportAboutSyntaxErrorForm"
+                  @submit.prevent="reportAboutSyntaxErrorForm_submitHandler">
+                <div class="report-about-syntax-error-dialog__text-with-error md-layout-item grow--max">
+                    <md-field class="h-100">
+                        <label>Текст с ошибкой</label>
+                        <md-textarea class="h-100"
+                                     name="text-with-syntax-error"
+                                     v-model="textWithSyntaxError"
+                                     readonly></md-textarea>
+                    </md-field>
+                </div>
+                <div class="report-about-syntax-error-dialog__text-with-fix-error md-layout-item grow--max">
+                    <md-field class="h-100" :class="isMessageValid">
+                        <label>Укажите свой вариант</label>
+                        <md-textarea class="h-100"
+                                     name="text-with-fix-syntax-error"
+                                     v-model="textWithFixSyntaxError"
+                                     v-auto-focus="{ delay: 1000 }"
+                                     required></md-textarea>
+                        <span class="md-error">There is an error</span>
+                    </md-field>
+                </div>
+                <div class="report-about-syntax-error__dialog__control">
+                    <md-button class="report-about-syntax-error__dialog__control_submit-button"
+                               type="submit"
+                               :disabled="isSubmitReportAboutSyntaxErrorButtonDisabled">Отправить</md-button>
+                </div>
+            </form>
+            <animation-sending-promotion v-if="isAnimationSendingPromotionActive" @done="animationSendingPromotion_done"></animation-sending-promotion>
+        </md-card-content>
+    </md-card>
+</custom-dialog>

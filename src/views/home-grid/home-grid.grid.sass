@@ -1,0 +1,70 @@
+@import "../../styles/media.var"
+
+.grid-container__home-page
+    width: 100%
+    height: 100%
+
+    padding: 64px 0 96px 96px
+
+    display: inline-grid
+
+    grid-template-columns: auto 1fr
+    grid-template-rows: auto .8fr auto
+    grid-template-areas: "title gallery" "social gallery" "control gallery"
+
+    @media (max-width: $lg)
+        padding: 24px 0 24px 72px
+    @media (orientation: portrait)
+        padding: 0 72px
+
+        grid-template-columns: 1fr
+        grid-template-rows: auto 1fr auto auto auto
+        grid-template-areas: "title" "gallery" "control" "social"
+
+    @media (max-width: $sm) and (max-height: 320px)
+        padding-top: 0
+
+
+
+.home-page-grid-item__title
+    padding: 0 0 48px 0
+
+    grid-area: title
+
+    @media (max-width: $lg)
+        padding: 0
+    @media (min-width: $md) and (orientation: portrait)
+        padding: 0 0 0 72px
+.home-page-grid-item__gallery
+    //max-height: calc(100% - 80px)
+
+    grid-area: gallery
+
+    position: relative
+
+    //@media (min-width: $min-size)
+    @media (orientation: portrait)
+        display: flex
+        align-items: center
+        justify-content: center
+.home-page-grid-item__social
+    padding: 0 0 24px 0
+
+    grid-area: social
+
+    @media (max-width: $lg)
+        padding: 0 0 12px 0
+    @media (orientation: portrait)
+        padding: 0 0 32px 0
+
+        display: flex
+
+        justify-content: center
+.home-page-grid-item__control
+    grid-area: control
+
+    @media (orientation: portrait)
+        padding: 0 0 24px 0
+
+        display: flex
+        justify-content: center

@@ -1,0 +1,10 @@
+<div class="book-grid-grid-item__content">
+    <custom-drawer :toggle="isAppDrawerToggle">
+        <template slot="drawer">
+            <slot name="drawer"></slot>
+        </template>
+        <template slot="content">
+            <slot name="content"></slot>
+        </template>
+    </custom-drawer>
+</div>

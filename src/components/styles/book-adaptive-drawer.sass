@@ -1,0 +1,16 @@
+.book-adaptive-drawer
+    min-width:  800px
+    max-width: 800px
+
+    position: relative
+
+    transition: margin-left 0.4s cubic-bezier(0.25, 0.8, 0.25, 1)
+
+    @media (max-width: 800px)
+        min-width: 100vw
+    @media (min-width: 800px)
+        &[drawer="close"]
+            margin: 0 0 0 calc(50vw - 400px)
+    @media (min-width: 1180px)
+        &[drawer="open"]
+            margin: 0 0 0 calc(50vw - (400px + 280px))

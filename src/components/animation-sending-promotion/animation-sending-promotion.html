@@ -1,0 +1,14 @@
+<div class=animation-sending-promotion>
+    <transition name="circle-to-rect">
+        <div class="animation-sending-promotion__background animation-sending-promotion__background--green" v-if="isBackgroundActive"></div>
+    </transition>
+    <transition name="circle-to-rect">
+        <div class="animation-sending-promotion__background animation-sending-promotion__background--white" v-if="isBackgroundActive"></div>
+    </transition>
+    <transition name="show-done-icon">
+        <svg-icon class="animation-sending-promotion__done-icon" name="baseline-done-24px" v-if="isBackgroundActive"></svg-icon>
+    </transition>
+    <transition name="show-text" @after-enter="animation_done()">
+        <span class="animation-sending-promotion__text" v-if="isBackgroundActive">Благодарим за помощь!</span>
+    </transition>
+</div>

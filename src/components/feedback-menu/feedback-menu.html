@@ -1,0 +1,38 @@
+<md-card class="feedback-menu__slider__slide custom-dialog__card h-100">
+    <md-card-header class="md-layout md-alignment-center-space-between">
+        <h1 class="custom-dialog__title">Ошибка</h1>
+        <md-button class="md-icon-button" @click="hideBugReportHelperDialog()">
+            <svg-icon name="baseline-close-24px"></svg-icon>
+        </md-button>
+    </md-card-header>
+    <md-card-content class="custom-dialog__card__card-content">
+        <div class="feedback-menu__list">
+            <div class="feedback-menu__list__list-item">
+                <div class="feedback-menu__list__list-item__icon">
+                    <img src="/assets/icons/png/spelling_error__icon.png" alt="spelling error icon">
+                </div>
+                <div class="feedback-menu__list__list-item__title">
+                    <span>Орфография или неточность в книге</span>
+                </div>
+                <div class="feedback-menu__list__list-item__control">
+                    <md-button class="md-list-action md-icon-button" @click="goToSpellingErrorStep()">
+                        <svg-icon name="baseline-arrow_forward-24px"></svg-icon>
+                    </md-button>
+                </div>
+            </div>
+            <div class="feedback-menu__list__list-item">
+                <div class="feedback-menu__list__list-item__icon">
+                    <img src="/assets/icons/png/app-error__icon.png" alt="app error icon">
+                </div>
+                <div class="feedback-menu__list__list-item__title">
+                    <span>Ошибка в работе приложения</span>
+                </div>
+                <div class="feedback-menu__list__list-item__control">
+                    <md-button class="md-list-action md-icon-button" @click="goToAppBugStep()">
+                        <svg-icon name="baseline-arrow_forward-24px"></svg-icon>
+                    </md-button>
+                </div>
+            </div>
+        </div>
+    </md-card-content>
+</md-card>

@@ -1,0 +1,109 @@
+@import "../../styles/media.var"
+@import "../../styles/reset/button-reset"
+@import "home-grid.grid"
+
+.home-page__title-group
+    //color: #4d6a83
+    color: #2c5aa0
+    font-family: 'Alfa Slab One', cursive
+
+    display: flex
+
+    flex-direction: column
+.home-page__title-group > .title-section:nth-child(1)
+    //font-size: 56px
+    font-size: 56px
+    line-height: 56px
+
+    @media (max-width:  $lg)
+        font-size: 6vw
+        line-height: 6vw
+.home-page__title-group > .title-section:nth-child(2),
+.home-page__title-group > .title-section:nth-child(3)
+    //font-size: 48px
+    font-size: 48px
+    line-height: 48px
+
+    @media (max-width:  $lg)
+        font-size: 5vw
+        line-height: 5vw
+
+.home-page__title__book-version
+    color: tomato
+
+    margin: 0 0 0 24px
+
+
+.home-page__read-button
+    @include button-reset()
+
+    background: tomato!important
+
+    color: white!important
+
+    font-family: "Roboto Medium"
+    font-size: 20px
+
+
+
+    border-radius: 2px
+
+    padding: 24px!important
+
+    display: flex
+
+
+
+    @media (orientation: portrait)
+        width: 100%
+
+        padding: 16px 24px!important
+
+        display: flex
+        justify-content: center
+
+        @media (min-width: $xs)
+            width: 300px
+
+        @media (min-width: 1000px)
+            padding: 24px!important
+    @media (max-width: $sm)
+        padding: 16px!important
+
+
+.home-page__read-button__icon
+    margin: 0 24px 0 0
+
+    @media (orientation: portrait)
+        display: none
+.home-page__read-button__label
+    color: white!important
+
+    text-decoration: none!important
+
+
+
+.cover-wrapper
+    padding: 0 0 0 56.25%
+
+    position: relative
+.home-page__book__cover
+    max-height: 100%
+    //max-height: calc(100% - 160px)
+    //min-height: calc(100% - 160px)
+
+    //height: 100%
+
+    width: auto
+
+    display: block
+
+    position: absolute
+
+    right: 0
+
+    @media (orientation: portrait)
+        right: initial
+
+
+

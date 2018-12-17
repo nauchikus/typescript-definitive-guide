@@ -1,0 +1,19 @@
+
+.grid-container__book-content
+    --control__width: 96px
+    --control__height: calc(100vh - 80px)
+    --book__max-width: 800px
+
+    display: grid
+
+    grid-template-columns: var(--control__width) 1fr var(--control__width)
+    //grid-template-columns: var(--control__width) calc(var(--book__max-width) - calc(var(--control__width) * 2)) var(--control__width)
+    grid-template-rows: 1fr
+    grid-template-areas: "left-control content right-control"
+
+.book-content-grid-item__left-control
+    grid-area: left-control
+.book-content-grid-item__content
+    grid-area: content
+.book-content-grid-item__right-control
+    grid-area: right-control

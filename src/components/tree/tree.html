@@ -1,0 +1,20 @@
+<ul :class="classes">
+    <li class="tree-leaf" v-for="node in nodes" :key="node.key">
+        <slot :data="node.data"
+              :count="count + (node.index + 1)"
+              :index="node.index"
+              :level="node.level"
+              :isCollapsed="node.isCollapsed"
+              :isNode="node.isNode"></slot>
+        <tree :nodes="node.children" :count="`${count + (node.index + 1)}.`":level="level + 1" v-if="node.isNode && !node.isCollapsed">
+            <template slot-scope="{ data, count, index, level, isNode, isCollapsed }">
+                <slot :data="data"
+                      :count="count"
+                      :index="index"
+                      :level="level"
+                      :isCollapsed="isCollapsed"
+                      :isNode="isNode"></slot>
+            </template>
+        </tree>
+    </li>
+</ul>

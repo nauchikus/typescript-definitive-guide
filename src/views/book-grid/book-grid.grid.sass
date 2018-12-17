@@ -1,0 +1,48 @@
+\:root
+    --drawer__width: 280px
+    --body__width: 800px
+    --header__height: 80px
+    --content__height: 1fr
+
+    --footer__height: 80px
+
+    --control-bar__height: 80px
+
+
+
+.grid-container__book-grid-grid
+    min-height: 100vh
+
+    width: 100%
+    height: 100%
+
+
+    display: inline-grid
+
+    grid-template-columns: 1fr
+    grid-template-rows: 80px auto
+    grid-template-areas: "header" "content"
+
+.book-grid-grid-item__header
+    max-width: 100vw
+
+    padding: 0 8px
+
+    display: flex
+
+    align-items: center
+
+    grid-area: header
+
+    position: relative
+
+
+.book-grid-grid-item__content
+    min-height: 100%
+
+    max-width: 100%
+    max-height: calc(100vh - 80px)
+
+    grid-area: content
+
+    display: grid

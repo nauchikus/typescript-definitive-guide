@@ -1,0 +1,28 @@
+.grid-container__content-contents-page
+    min-height: 100%
+
+    max-width: 800px
+
+    display: grid
+
+    grid-template-rows: 48px 1fr
+    grid-template-areas: "subbar" "content"
+
+.content-contents-page-grid-item__subbar
+    width: 800px
+
+    background: white
+
+    padding: 0 16px 0 8px
+
+    grid-area: subbar
+
+    position: fixed
+
+    @media (max-width: 800px)
+        width: 100vw
+
+.content-contents-page-grid-item__content
+    padding: 24px
+
+    grid-area: content

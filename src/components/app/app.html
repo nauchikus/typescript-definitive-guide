@@ -1,0 +1,14 @@
+<div id="app" :istouch="isTouch">
+    <progress-bar-layout v-if="isGlobalProgressBar" :position="'fixed'"></progress-bar-layout>
+    <app-grid>
+        <template slot="header">
+            <app-header></app-header>
+        </template>
+        <template slot="content">
+            <router-view></router-view>
+        </template>
+    </app-grid>
+    <author-contact-dialog></author-contact-dialog>
+    <bug-report-helper-dialog></bug-report-helper-dialog>
+</div>
+

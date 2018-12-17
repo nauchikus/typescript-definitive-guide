@@ -1,0 +1,55 @@
+@import "../../styles/reset/button-reset"
+@import "../../styles/mixins/interactive-icon-button"
+@import "../../styles/collapse-icon"
+
+
+
+.book-contents-chapter-info
+    margin: 0 0 16px 0
+
+    display: flex
+
+    align-items: flex-start
+
+    flex-wrap: nowrap
+
+#app[istouch="hover"] .book-contents-chapter-info:not(:hover) > .book-contents-tree__control
+    visibility: hidden
+
+
+.book-contents-tree__preview__index
+    color: #979797
+
+
+.book-contents-tree__title-container
+    text-overflow: ellipsis
+
+.book-contents-tree__title > a
+    color: rgba(0,0,0,.8)!important
+.book-contents-tree__title
+    color: rgba(0,0,0,.8)!important
+
+    margin: 0 24px
+
+    display: inline-block
+
+    @media (max-width: 440px)
+        word-break: break-word
+
+.book-contents-tree__prewiev__control__icon-button
+    @include button-reset()
+    @include interactive-icon-button()
+
+    display: flex
+
+    align-items: center
+
+.book-contents-tree__control
+    height: 20px
+
+    display: flex
+
+    align-items: center
+    flex-wrap: nowrap
+.book-contents-tree__control[collapsed="uncollapsed"]
+    display: flex!important

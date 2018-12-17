@@ -1,0 +1,13 @@
+<custom-dialog :active.sync="isDialogToggle">
+    <div class="bug-report-helper__slider" :class="{slider: !isMenuErrorActive}">
+        <feedback-menu
+                @goToSpellingError="goToSpellingErrorStep()"
+                @goToAppBug="goToAppErrorStep()"></feedback-menu>
+        <spilling-error-feedback-menu-item
+                v-if="isSpellingErrorActive"
+                @goToBack="goToMenuErrorStep()"></spilling-error-feedback-menu-item>
+        <app-bug-feedback-menu-item
+                v-if="isAppBugActive "
+                @goToBack="goToMenuErrorStep()"></app-bug-feedback-menu-item>
+    </div>
+</custom-dialog>

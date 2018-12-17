@@ -1,0 +1,8 @@
+<div class="custom-drawer">
+    <div class="custom-drawer__drawer" :toggle="isToggle">
+        <slot name="drawer"></slot>
+    </div>
+    <md-content class="custom-drawer__content md-scrollbar" ref="customDrawerContentRef">
+        <slot name="content"></slot>
+    </md-content>
+</div>

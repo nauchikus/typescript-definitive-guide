@@ -1,0 +1,11 @@
+<md-card class="feedback-menu__slider__slide custom-dialog__card h-100">
+    <md-card-header class="md-layout md-alignment-center-left">
+        <md-button class="md-icon-button" @click="goToBackButtonClick()">
+            <svg-icon name="baseline-arrow_back-24px"></svg-icon>
+        </md-button>
+        <h1 class="custom-dialog__title">{{ title }}</h1>
+    </md-card-header>
+    <md-card-content class="custom-dialog__card__card-content">
+        <slot></slot>
+    </md-card-content>
+</md-card>

@@ -1,0 +1,25 @@
+<div class="grid-container__content-contents-page content-contents-page book-adaptive-drawer" :drawer="drawerState">
+    <div class="content-contents-page-grid-item__subbar">
+        <div class="md-layout md-alignment-center-space-between">
+            <md-subheader>Оглавление</md-subheader>
+            <md-button class="md-icon-button md-mini md-raised" @click="bookContentsToggleAll()">
+                <svg-icon class="collapse-icon" name="baseline-keyboard_arrow_down-24px" :collapsed="isBookContentsCollapseAll"></svg-icon>
+                <md-tooltip md-direction="bottom">Открыть\закрыть все</md-tooltip>
+            </md-button>
+        </div>
+    </div>
+    <div class="content-contents-page-grid-item__content">
+        <tree :nodes="bookContents">
+            <template slot-scope="{ data, count, index, level, isCollapsed, isNode }">
+                <book-contents-chapter-info
+                        :key="index"
+                        :index="count"
+                        :title="data.name"
+                        :url="data.path"
+                        :isCollapsed="isCollapsed"
+                        :isNode="isNode"
+                        @collapse="toggle(level, index)"></book-contents-chapter-info>
+            </template>
+        </tree>
+    </div>
+</div>

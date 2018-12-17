@@ -1,0 +1,127 @@
+<section id="Nastroika-rabochego-okrujeniya" name="Настройка рабочего окружения" class="subchapter">
+            <h2 class="subchapter-title">
+                <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="Nastroika-rabochego-okrujeniya" type="absolute-url">
+                    <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <use href="#icon_link"/>
+                    </svg>
+                </button>
+                Настройка рабочего окружения
+            </h2>
+        
+<hr>
+<p>Важным фактом является то, что насколько бы не была продуктивной работа создателей <em>TypeScript</em>, им не успеть за развитием всей индустрии, всего сообщества. Простыми словами, насколько бы не был продвинут компилятор, на практике его возможностей не хватает. Для того чтобы покрыть все потребности, разработчикам приходится прибегать к использованию сторонних библиотек, распространяемых через пакетный менеджер <em>npm</em>. </p>
+<p>Кроме того <em>html</em> и <em>css</em> используют в чистом виде, по большей части, только в образовательных целях. В реальных проектах используют их более продвинутые аналоги, как например <em>jade</em> или <em>sass</em>, которые также как <em>TypeScript</em>, нуждаются в компиляторах. Кроме того, приложения не обходятся без шрифтов, иконок и изображений, которые в целях оптимизации, также принято предварительно обрабатывать. Поэтому современный процесс разработки не представляется возможным без специализированных сборщиков, таких как <em>webpack</em> или <em>gulp</em>.</p>
+<p>Если последний относится к так называемым <em>task runner’ам</em>, при использовании которого, разработчик самостоятельно создает для каждого конкретного процесса уникальную задачу, самостоятельно настраивает отлов ошибок и самостоятельно создает композицию из получившихся задач. В свою очередь <em>webpack</em>, это настоящий комбайн, для которого нужно устанавливать требуемые для конкретного проекта плагины, которые затем нужно конфигурировать, указывая пути к тем или иным директориям. </p>
+<p>Но так как книга посвящена языку <em>TypeScript</em>, то прежде всего, для большего понимания, нужно рассмотреть сборку проекта с помощью только одного компилятора <em>TypeScript</em>. Только прежде чем приступить стоит уточнить несколько важных деталей. Первое на что стоит обратить внимание, что все устанавливаемые модули устанавливаются в проект локально. Кроме того, все проделывается на операционной системе <em>Ubuntu</em> на которой настроен <em>NodeJS</em>.</p>
+</section><section id="Sborka-proekta-s-pomoshchu-tsc-TypeScript-compiler" name="Сборка проекта с помощью tsc (TypeScript compiler)" class="subchapter">
+            <h2 class="subchapter-title">
+                <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="Sborka-proekta-s-pomoshchu-tsc-TypeScript-compiler" type="absolute-url">
+                    <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <use href="#icon_link"/>
+                    </svg>
+                </button>
+                Сборка проекта с помощью tsc (TypeScript compiler)
+            </h2>
+        
+<hr>
+<p>Первым делом нужно создать директорию, в данном случаи это будет директория я с названием <em>typescript-with-tsc</em>, которая будут содержать две поддиректории <em>src</em> и <em>dest</em>. В первой будут находится все исходные файлы с расширением <em>.ts</em>, а во второй будут размещаться преобразованные файлы с расширением <em>.js</em>. </p>
+<p>Теперь нужно открыть консоль в рабочей директории и выполнить инициализацию <em>npm</em>, в данном случаи ускоренную.</p>
+<pre><code class="hljs language-typescript">npm init -y</code></pre>
+<p>На этот момент, в директории должен появится файл <em>package.json</em>. После инициализации npm, установим компилятор <em>TypeScript</em>, выполнив в консоли </p>
+<pre><code class="hljs language-typescript">npm i -D typescript</code></pre>
+<p>После успешной установки прежде всего нужно конфигурировать <em>TypeScript</em>. Для этого нужно выполнить в консоли</p>
+<pre><code class="hljs language-typescript">tsc init</code></pre>
+<p>Но так как <em>TypeScript</em> установлен локально, следует указать полный путь.</p>
+<pre><code class="hljs language-typescript">./node_modules/.bin/tsc --init</code></pre>
+<p>После этого в директории должен появится файл <em>tsconfig.json</em>, точную настройку которого можно произвести после прочтения главы посвященной опциям компилятора (глава <a class="book__chapter__chapter-link" ref="/book/contents/Opcii-kompilyatora" title="Опции компилятора">Опции компилятора</a>), а пока просто укажем нужные настройки. В сгенерированном файле <em>tsconfig.json</em> будет очень много опций, большинство из которых закомментировано, но в итоге должно получиться нечто подобное.</p>
+<pre><code class="hljs language-typescript">{
+<span class="hljs-string">"compilerOptions"</span>: {
+  <span class="hljs-string">"target"</span>: <span class="hljs-string">"es5"</span>,
+   <span class="hljs-string">"module"</span>: <span class="hljs-string">"system"</span>, 
+   <span class="hljs-string">"outFile"</span>: <span class="hljs-string">"./dest/build.js"</span>, 
+   <span class="hljs-string">"rootDir"</span>: <span class="hljs-string">"./src"</span> 
+},
+<span class="hljs-string">"exclude"</span>: [
+  <span class="hljs-string">"/node_modules/"</span>
+]
+}</code></pre>
+<p>Теперь можно приступить к <em>dev</em> сборке. Для этого нужно открыть файл <em>package.json</em> и в поле <code class="inline-code">script</code> прописать команды для пакетного менеджера <em>npm</em>.</p>
+<pre><code class="hljs language-typescript">{
+<span class="hljs-string">"name"</span>: <span class="hljs-string">"typescript-with-tsc"</span>,
+<span class="hljs-string">"version"</span>: <span class="hljs-string">"1.0.0"</span>,
+<span class="hljs-string">"description"</span>: <span class="hljs-string">""</span>,
+<span class="hljs-string">"main"</span>: <span class="hljs-string">"index.js"</span>,
+<span class="hljs-string">"scripts"</span>: {
+  <span class="hljs-string">"build"</span>: <span class="hljs-string">"./node_modules/.bin/tsc --project ./tsconfig.json --watch
+"</span>,
+  <span class="hljs-string">"test"</span>: <span class="hljs-string">"echo \"Error: no test specified\" &#x26;&#x26; exit 1"</span>
+},
+<span class="hljs-string">"author"</span>: <span class="hljs-string">""</span>,
+<span class="hljs-string">"license"</span>: <span class="hljs-string">"ISC"</span>,
+<span class="hljs-string">"devDependencies"</span>: {
+  <span class="hljs-string">"typescript"</span>: <span class="hljs-string">"^2.5.2"</span>
+}
+}</code></pre>
+<p>Теперь осталось только создать в директории <em>src</em> файл <em>index.ts</em> и запустить процесс разработки выполнив в консоли</p>
+<pre><code class="hljs language-typescript">npm run build</code></pre>
+<p>После этого в папке <em>dest</em> должен появится скомпилированный <em>index.js</em>, а при изменении файлов в директории <em>src</em>, преобразование должно запускаться автоматически. Сразу стоит обратить внимание на то, как именно компилятор понимает что компилировать. </p>
+<p>Для примера, создадим в директории <em>src</em> файл <em>hello-world.ts</em> в котором объявим функцию возвращающее приветствие.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-comment">// Файл hello-world.ts</span>
+
+
+<span class="hljs-keyword">export</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getMassage</span>(<span class="hljs-params"></span>): <span class="hljs-title">string</span> </span>{
+  <span class="hljs-keyword">return</span> <span class="hljs-string">'Hello World!'</span>;
+}</code></pre>
+<p>Важный момент заключается в том, что компилятор не будет обращать на этот файл внимание, пока он не будет задействован в программе.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">import</span> {getMassage} <span class="hljs-keyword">from</span> <span class="hljs-string">'./hello-world'</span>;
+
+<span class="hljs-built_in">console</span>.log(getMassage()); <span class="hljs-comment">// Hello World!</span></code></pre>
+<p>Такое поведение называется <em>Tree Shaking</em> и если по каким-либо причинам его нужно переопределить, то для этого нужно поправить конфигурацию компилятора.</p>
+<pre><code class="hljs language-typescript">{
+<span class="hljs-string">"compilerOptions"</span>: {
+  <span class="hljs-string">"target"</span>: <span class="hljs-string">"es5"</span>,
+  <span class="hljs-string">"module"</span>: <span class="hljs-string">"system"</span>,
+  <span class="hljs-string">"outFile"</span>: <span class="hljs-string">"./dest/build.js"</span>,
+  <span class="hljs-string">"rootDir"</span>: <span class="hljs-string">"./src/"</span>  
+},
+<span class="hljs-string">"include"</span>: [
+  <span class="hljs-string">"./src/**/*.ts"</span>
+],
+<span class="hljs-string">"exclude"</span>: [
+  <span class="hljs-string">"/node_modules/"</span>
+]
+}</code></pre>
+<p>Очень часто бывает так, что при разработки в коде используются библиотеки, которых не должно быть в конечной сборке. Для этого можно было  бы каждый раз переписывать конфигурационный файл <em>tsconfig.json</em>, но есть способ сделать это элегантнее.</p>
+<p>Для того, чтобы разделить <em>dev</em> сборку от <em>prod</em> сборки, следует создать ещё один конфигурационный файл. Назовем его <em>tsconfig.prod.json</em>  и поместим его, также как и <em>dev</em> конфигурационный файл, в корне проекта. Стоит добавить что конфигурационные файлы можно размещать где угодно, главное при запуске компилятора передавать ссылку на нужный конфигурационный файл с помощью опции <code class="inline-code">--project</code>. В случае если путь до конфигурационного файла не был указан, компилятор будет искать файл <em>tsconfig.json</em> в той директории из под которой он был запущен.</p>
+<pre><code class="hljs language-typescript">tsc
+tsc --project ./tsconfig.json
+
+
+<span class="hljs-comment">// or</span>
+
+tsc --project ./tsconfig.props.json</code></pre>
+<p>После того, как конфигурационный файл был создан и в нем были установлены нужные опции, остается только создать команду для запуска <em>prod</em> сборки. Для этого снова откройте файл <em>package.json</em> и в свойстве <code class="inline-code">script</code> укажите команду для запуска компиляции, только на этот раз укажите путь до <em>tsconfig.prod.json</em>. Единственное на что стоит обратить внимание, что при финальной сборке не нужно указывать опцию  <code class="inline-code">--watch</code>, которая говорит компилятору, что нужно отслеживать изменения в файлах и запускать сборку автоматически.</p>
+<pre><code class="hljs language-typescript">{
+<span class="hljs-string">"name"</span>: <span class="hljs-string">"typescript-with-tsc"</span>,
+<span class="hljs-string">"version"</span>: <span class="hljs-string">"1.0.0"</span>,
+<span class="hljs-string">"description"</span>: <span class="hljs-string">""</span>,
+<span class="hljs-string">"main"</span>: <span class="hljs-string">"index.js"</span>,
+<span class="hljs-string">"scripts"</span>: {
+  <span class="hljs-string">"build"</span>: <span class="hljs-string">"./node_modules/.bin/tsc --project ./tsconfig.json --watch"</span>,
+  <span class="hljs-string">"build:prod"</span>: <span class="hljs-string">"./node_modules/.bin/tsc --project ./tsconfig.prod.json"</span>,
+  <span class="hljs-string">"test"</span>: <span class="hljs-string">"echo \"Error: no test specified\" &#x26;&#x26; exit 1"</span>
+},
+<span class="hljs-string">"author"</span>: <span class="hljs-string">""</span>,
+<span class="hljs-string">"license"</span>: <span class="hljs-string">"ISC"</span>,
+<span class="hljs-string">"devDependencies"</span>: {
+  <span class="hljs-string">"@types/react"</span>: <span class="hljs-string">"^16.0.5"</span>,
+  <span class="hljs-string">"@types/react-dom"</span>: <span class="hljs-string">"^15.5.4"</span>,
+  <span class="hljs-string">"react"</span>: <span class="hljs-string">"^15.6.1"</span>,
+  <span class="hljs-string">"react-dom"</span>: <span class="hljs-string">"^15.6.1"</span>,
+  <span class="hljs-string">"typescript"</span>: <span class="hljs-string">"^2.5.2"</span>
+}
+}</code></pre>
+<p>Чтобы запустить такую сборку нужно, как и прежде, выполнить команду в терминале, только на этот раз указать другое имя.</p>
+<pre><code class="hljs language-typescript">npm run build:prod</code></pre>
+<p>Также не будет лишним упомянуть, что в реальных проектах, практически всегда изобилуют множеством конфигурационных файлов. Поэтому если у Вас возникает мысль, что один конфигурационный файл не удовлетворяет условия нескольких сборок, даже не раздумывайте, сразу создавайте отдельный конфигурационный файл. При этом не отбрасывайте вариант с расширением одного конфигурационного файла, другим с помощью <code class="inline-code">extends</code>, более подробно о котором можно узнать из  главы посвященной опциям компилятора.</p>
+</section>

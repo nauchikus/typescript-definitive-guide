@@ -1,0 +1,29 @@
+<div class="app-bug-feedback-menu-item-content">
+    <form class="h-100" @submit.prevent="form_submit()">
+        <div class="md-layout app-bug__list md-gutter h-100 direction--column">
+            <div class="app-bug__list__list-item__email md-layout-item grow--0">
+                <md-field md-inline :class="isEmailValid">
+                    <label>Email</label>
+                    <md-input type="email" @blur="email_blur()" ref="emailInputRef" v-model.trim="email" required></md-input>
+                    <span class="md-error">Некорректный email</span>
+                </md-field>
+            </div>
+            <div class="app-bug__list__list-item__message md-layout-item grow--max">
+                <md-field class="h-100" :class="isMessageValid">
+                    <label>Опишите проблему</label>
+                    <md-textarea class="h-100" v-model="message" @blur="message_blur" required></md-textarea>
+                    <span class="md-error">There is an error</span>
+                </md-field>
+            </div>
+            <div class="app-bug__list__list-item__control md-layout-item">
+                <md-button
+                        type="submit"
+                        class="app-bug__list__list-item__control__submit-button md-primary"
+                        :disabled="isSubmitButtonDisabledValid">
+                    Отправить
+                </md-button>
+            </div>
+        </div>
+    </form>
+    <animation-sending-promotion v-if="isAnimationSendingPromotionActive" @done="animationSendingPromotion_done"></animation-sending-promotion>
+</div>

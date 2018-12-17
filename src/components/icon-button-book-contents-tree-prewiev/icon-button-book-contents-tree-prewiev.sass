@@ -1,0 +1,33 @@
+\:root
+    --drawer__width: 280px
+
+.custom-drawer
+    width: 100%
+    height: 100%
+
+    display: flex
+
+
+
+.custom-drawer__drawer
+    width: var(--drawer__width)
+    height: 100%
+
+    border: 1px solid green
+
+    transition: margin-left .4s cubic-bezier(.25,.8,.25,1)
+
+    &[toggle="close"]
+        margin: 0 0 0 calc(var(--drawer__width) * -1)
+
+
+
+
+.custom-drawer__content
+    width: auto
+    height: 100%
+
+    border: 1px solid blue
+
+    flex-grow: 1
+
