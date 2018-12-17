@@ -13,7 +13,7 @@ cache:
   - node_modules
 
 install:
-- npm install -g @vue/cli
+- npm i -g @vue/cli
 
 script:
 - npm run build
