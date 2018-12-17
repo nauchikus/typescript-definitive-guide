@@ -10,7 +10,7 @@ branches:
 
 cache:
   directories:
-  - node_modulesNotFoundPlaceholder
+  - node_modules
 
 install:
 - npm install -g @vue/cli
