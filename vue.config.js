@@ -1,4 +1,7 @@
 module.exports = {
+    baseUrl: process.env.NODE_ENV === 'production'
+        ? '/typescript-definitive-guide/'
+        : '/',
     pluginOptions: {
         svgSprite: {
             /*
@@ -26,16 +29,16 @@ module.exports = {
     },
 
     chainWebpack: config => {
-      config.module
-        .rule('svg-sprite')
-        .use('svgo-loader')
-        .loader('svgo-loader')
+        config.module
+              .rule( 'svg-sprite' )
+              .use( 'svgo-loader' )
+              .loader( 'svgo-loader' );
     },
 
     devServer: {
         host: '192.168.0.226',
         port: 1234,
-        before(app){
+        before ( app ) {
             const fs = require( 'fs' );
             const path = require( 'path' );
             //
