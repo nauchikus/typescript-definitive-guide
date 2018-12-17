@@ -1,5 +1,7 @@
 import { DirectiveOptions } from 'vue';
-import Selection, { ISelection } from '@/directives/selected/selection.controller';
+import Selection, {
+    ISelection
+} from '@/directives/selected/selection.controller';
 
 interface IBindings {
     expression: string;

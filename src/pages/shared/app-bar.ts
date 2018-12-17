@@ -2,12 +2,9 @@ import CustomDialog from '../../components/dialog/CustomDialog.vue';
 import AuthorContactDialog from '../../components/author-contact-dialog/AuthorContactDialog.vue';
 import BugReportHelperDialog from '../../components/bug-report-helper-dialog/BugReportHelperDialog.vue';
 import FeedbackMenu from '../../components/feedback-menu/FeedbackMenu.vue';
-import SpillingErrorFeedbackMenuItem
-    from '../../components/spilling-error-feedback-menu-item/SpillingErrorFeedbackMenuItem.vue';
-import SpillingErrorFeedbackMenuItemContent
-    from '../../components/spilling-error-feedback-menu-item-content/SpillingErrorFeedbackMenuItemContent.vue';
-import AppBugFeedbackMenuItemContent
-    from '../../components/app-bug-feedback-menu-item-content/AppBugFeedbackMenuItemContent.vue';
+import SpillingErrorFeedbackMenuItem from '../../components/spilling-error-feedback-menu-item/SpillingErrorFeedbackMenuItem.vue';
+import SpillingErrorFeedbackMenuItemContent from '../../components/spilling-error-feedback-menu-item-content/SpillingErrorFeedbackMenuItemContent.vue';
+import AppBugFeedbackMenuItemContent from '../../components/app-bug-feedback-menu-item-content/AppBugFeedbackMenuItemContent.vue';
 import AppBugFeedbackMenuItem from '../../components/app-bug-feedback-menu-item/AppBugFeedbackMenuItem.vue';
 import AnimationSendingPromotion from '../../components/animation-sending-promotion/AnimationSendingPromotion.vue';
 import AppHeader from '../../components/app-header/AppHeader.vue';

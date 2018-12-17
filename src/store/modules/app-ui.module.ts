@@ -1,6 +1,8 @@
 import { Module } from 'vuex';
 import { copyToBuffer } from '@/utils/copy-to-buffer';
-import Selection, { ISelection } from '@/directives/selected/selection.controller';
+import Selection, {
+    ISelection
+} from '@/directives/selected/selection.controller';
 
 interface ILocalState {
     scroll: {
