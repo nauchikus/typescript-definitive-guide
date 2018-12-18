@@ -13,10 +13,9 @@ cache:
   - node_modules
 
 install:
-- npm i -g @vue/cli
+- npm i
 
 script:
-- vue --version
 - npm run build
 deploy:
   provider: pages
