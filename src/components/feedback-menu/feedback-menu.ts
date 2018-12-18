@@ -8,10 +8,7 @@ export default {
     //     return {};
     // },
     computed: {
-        ...mapGetters([
-            'BASE_URL',
-            'ORIGIN',
-        ])
+        ...mapGetters(['BASE_URL', 'ORIGIN'])
     },
     // mounted () {
     //

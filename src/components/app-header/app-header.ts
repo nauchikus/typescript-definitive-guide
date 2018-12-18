@@ -13,7 +13,7 @@ const component: ComponentOptions<IComponent> = {
             'bookChapterTotalIndex',
             'isCurrentChapterContentLoaded',
             'BASE_URL',
-            'ORIGIN',
+            'ORIGIN'
         ]),
         isPageWithoutDrawer(this: any) {
             return this.$route.name === 'home';

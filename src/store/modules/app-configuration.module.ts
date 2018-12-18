@@ -37,6 +37,6 @@ export const module: Module<ILocalState, {}> = {
         appTelegramChanelLink: state => state.telegram.appChanelLink,
         yandexDonateLink: state => state.donate.yandex.link,
         BASE_URL: state => state.BASE_URL,
-        ORIGIN: state => state.ORIGIN,
+        ORIGIN: state => state.ORIGIN
     }
 };
