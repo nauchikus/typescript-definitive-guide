@@ -1,4 +1,4 @@
-import { mapActions } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
 
 export default {
     name: 'app',
@@ -7,7 +7,12 @@ export default {
     // data () {
     //     return {};
     // },
-    // computed: {},
+    computed: {
+        ...mapGetters([
+            'BASE_URL',
+            'ORIGIN',
+        ])
+    },
     // mounted () {
     //
     // },

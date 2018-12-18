@@ -3,7 +3,6 @@ const {
     VUE_APP_CHAPTERS_URL: chapters
 } = process.env;
 
-
 export default {
     book: {
         contents,

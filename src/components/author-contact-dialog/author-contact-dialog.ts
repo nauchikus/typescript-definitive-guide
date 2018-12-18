@@ -6,7 +6,11 @@ export default {
     // props: [],
     // data: ()=>({}),
     computed: {
-        ...mapGetters(['isAuthorContactDialogToggle']),
+        ...mapGetters([
+            'isAuthorContactDialogToggle',
+            'BASE_URL',
+            'ORIGIN',
+        ]),
         isDialogToggle: {
             get(this: any) {
                 return this.isAuthorContactDialogToggle;

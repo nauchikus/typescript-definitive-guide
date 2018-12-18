@@ -14,16 +14,16 @@ export default {
         ...AppBarComponents
     },
     directives: {
-        autoFocus: Vue.directive('auto-focus', AutoFocusDirective)
+        autoFocus: Vue.directive( 'auto-focus', AutoFocusDirective )
     },
     // props: [],
-    data() {
+    data () {
         return {
             isTouch: TouchDetecter.isTouch()
         };
     },
     computed: {
-        ...mapGetters(['isGlobalProgressBar', 'isNotFoundRoute'])
+        ...mapGetters( [ 'isGlobalProgressBar', 'isNotFoundRoute' ] )
     }
     // mounted () {
     //

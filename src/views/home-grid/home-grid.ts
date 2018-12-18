@@ -11,7 +11,11 @@ export default {
     },
 
     computed: {
-        ...mapGetters(['isAppDrawerToggle'])
+        ...mapGetters([
+            'isAppDrawerToggle',
+            'BASE_URL',
+            'ORIGIN',
+        ]),
     },
     methods: {
         readButton_click(this: any) {

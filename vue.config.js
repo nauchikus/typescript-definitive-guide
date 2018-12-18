@@ -8,7 +8,7 @@ const PATH_TO_DIR_WITH_ENVIRONMENT = path.join( process.cwd(), 'environment' );
 
 module.exports = {
     baseUrl: process.env.NODE_ENV === 'production'
-        ? '/typescript-definitive-guide/'
+        ? '/typescript-definitive-guide'
         : '/',
     pluginOptions: {
         svgSprite: {
