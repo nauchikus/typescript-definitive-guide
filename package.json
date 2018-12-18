@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "env NODE_ENV=production vue-cli-service build",
+    "build": "vue-cli-service build",
     "lint": "tslint -c tslint.json 'src/**/*.ts'",
     "prettier": "prettier --write 'src/**/*.ts'",
     "register-service-worker": "^1.0.0",
