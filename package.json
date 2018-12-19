@@ -3,6 +3,23 @@
   "version": "1.0.0",
   "description": "book",
   "main": "index.js",
+  "config": {
+    "fromDomain": "http://192.168.0.226:1234",
+    "toDomain": "http://example.ru",
+    "chapter_base_url": "book/contents/",
+    "path_to_dir_with_md": "chapters",
+    "path_to_input_file_with_book_contents": "contents.md",
+    "path_to_output_file_with_book_contents": "dest/book/contents.json",
+    "path_to_dir_with_html": "dest/book/chapters",
+    "path_to_book_dir": "dest/book",
+    "path_to_book_chapters_dir": "dest/book/chapters",
+    "path_to_book_contents_dir": "dest/book",
+    "book_chapter_content_extension": ".html",
+    "prod_assets_link_prefix": "/typescript-definitive-guide",
+    "clear_before_build_path_all": [
+      "dest/book/**/*.*"
+    ]
+  },
   "dependencies": {
     "commitizen": "^3.0.5"
   },
