@@ -9,6 +9,7 @@
   },
   "devDependencies": {},
   "scripts": {
+    "build": "book-builder",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
