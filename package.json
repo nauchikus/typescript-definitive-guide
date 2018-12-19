@@ -1,0 +1,20 @@
+{
+  "name": "typescript-definitive-guide",
+  "version": "1.0.0",
+  "description": "book",
+  "main": "index.js",
+  "dependencies": {
+    "commitizen": "^3.0.5",
+    "del": "^3.0.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github-nauchikus:nauchikus/typescript-definitive-guide.git"
+  },
+  "author": "",
+  "license": "ISC"
+}
