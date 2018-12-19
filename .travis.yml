@@ -20,8 +20,9 @@ script:
   - npm run build
 deploy:
   provider: pages
-  skip_cleanup: false
+  skip_cleanup: true
   github_token: $GITHUB_TOKEN
   local_dir: dest/
+  keep-history: true
   on:
     branch: master
