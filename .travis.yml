@@ -20,7 +20,7 @@ script:
   - npm run build
 deploy:
   provider: pages
-  skip_cleanup: true
+  skip_cleanup: false
   github_token: $GITHUB_TOKEN
   local_dir: dest/
   on:
