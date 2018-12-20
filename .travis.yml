@@ -8,6 +8,7 @@ sudo: false
 branches:
   only:
     - master
+    - app
 
 cache:
   directories:
@@ -23,6 +24,5 @@ deploy:
   skip_cleanup: true
   github_token: $GITHUB_TOKEN
   local_dir: dest/
-  keep-history: true
   on:
     branch: master
