@@ -14,7 +14,7 @@ cache:
 
 install:
   - npm i nauchikus/typescript-definitive-guide#builder
-  - npm i cross-en
+  - npm i cross-env
 
 script:
   - sh build.sh
