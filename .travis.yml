@@ -13,7 +13,8 @@ cache:
     - node_modules
 
 install:
-  - npm install -g nauchikus/typescript-definitive-guide#builder
+  - npm i nauchikus/typescript-definitive-guide#builder
+  - npm i cross-en
 
 script:
   - sh build.sh

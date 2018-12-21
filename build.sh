@@ -7,7 +7,7 @@ export CYAN_COLOR=\033[46m
 echo " [book build] start"
 
 #build book
-npm run build
+cross-env NODE_ENV=production npm run build
 
 #copy app
 git clone --depth=1 --branch=gh-pages   https://${GITHUB_TOKEN}@github.com/$TRAVIS_REPO_SLUG.git app
