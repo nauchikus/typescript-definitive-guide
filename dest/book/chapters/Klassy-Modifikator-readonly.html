@@ -1,0 +1,136 @@
+<section id="Modifikator-readonly-tolko-dlya-chteniya" name="Модификатор readonly (только для чтения)" class="subchapter">
+            <h2 class="subchapter-title">
+                <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="Modifikator-readonly-tolko-dlya-chteniya" type="absolute-url">
+                    <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <use href="#icon_link"/>
+                    </svg>
+                </button>
+                Модификатор readonly (только для чтения)
+            </h2>
+        
+<hr>
+<p>В <em>TypeScript</em>, существует модификатор, с помощью которого, поле объекта помечается, как <em>“только для чтения”</em>.</p>
+<p>Модификатор, запрещающий изменение значений полей объектов указывается с помощью ключевого слова <code class="inline-code">readonly</code>. Модификатор <code class="inline-code">readonly</code> применяется к полям как при их объявлении в классе, так и при их описании в интерфейсе.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">interface</span> IAnimal {
+  readonly name: <span class="hljs-built_in">string</span>;
+}
+
+<span class="hljs-keyword">class</span> Animal {
+  <span class="hljs-keyword">public</span> readonly name: <span class="hljs-built_in">string</span> = <span class="hljs-string">'name'</span>;
+}</code></pre>
+<p>Если при описании интерфейса, полю было помечено, как <code class="inline-code">readonly</code>, то классам, реализующим этот интерфейс, не обязательно указывать модификатор <code class="inline-code">readonly</code>. Но в таком случае, значения поля будет изменяемым.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">interface</span> IAnimal {
+  readonly name: <span class="hljs-built_in">string</span>;
+}
+
+<span class="hljs-keyword">class</span> Bird <span class="hljs-keyword">implements</span> IAnimal {
+  <span class="hljs-keyword">public</span> readonly name: <span class="hljs-built_in">string</span> = <span class="hljs-string">'bird'</span>; <span class="hljs-comment">// Ok</span>
+}
+
+<span class="hljs-keyword">class</span> Fish <span class="hljs-keyword">implements</span> IAnimal {
+  <span class="hljs-keyword">public</span> name: <span class="hljs-built_in">string</span> = <span class="hljs-string">'fish'</span>; <span class="hljs-comment">// Ok</span>
+}
+
+<span class="hljs-keyword">let</span> bird: Bird = <span class="hljs-keyword">new</span> Bird();
+bird.name = <span class="hljs-string">'newbird'</span>; <span class="hljs-comment">// Error</span>
+
+<span class="hljs-keyword">let</span> fish: Fish = <span class="hljs-keyword">new</span> Fish();
+fish.name = <span class="hljs-string">'newfish'</span>; <span class="hljs-comment">// Ok</span></code></pre>
+<p>Это правило работает и в обратном направлении. То есть, поле, описанное в интерфейсе без указания модификатора <code class="inline-code">readonly</code>, может быть помечено этим модификатором при реализации.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">interface</span> IAnimal {
+  name: <span class="hljs-built_in">string</span>;
+}
+
+<span class="hljs-keyword">class</span> Bird <span class="hljs-keyword">implements</span> IAnimal {
+  <span class="hljs-keyword">public</span> readonly name: <span class="hljs-built_in">string</span> = <span class="hljs-string">'bird'</span>; <span class="hljs-comment">// Ok</span>
+}
+
+
+<span class="hljs-keyword">let</span> bird: Bird = <span class="hljs-keyword">new</span> Bird();
+bird.name = <span class="hljs-string">'newbird'</span>; <span class="hljs-comment">// Error</span></code></pre>
+<p>Модификатор <code class="inline-code">readonly</code> можно применять к свойствам, объявленным, как параметры.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">interface</span> IAnimal {
+  name: <span class="hljs-built_in">string</span>;
+}
+
+<span class="hljs-keyword">class</span> Bird <span class="hljs-keyword">implements</span> IAnimal {
+  <span class="hljs-keyword">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">public</span> readonly name: <span class="hljs-built_in">string</span></span>){}
+}
+
+
+<span class="hljs-keyword">let</span> bird: Bird = <span class="hljs-keyword">new</span> Bird( <span class="hljs-string">'bird'</span> );</code></pre>
+<p>В случае применения модификатора <code class="inline-code">readonly</code> к свойствам объявленным как параметры, модификаторы доступа, можно не указывать.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">interface</span> IAnimal {
+  name: <span class="hljs-built_in">string</span>;
+}
+
+<span class="hljs-keyword">class</span> Bird <span class="hljs-keyword">implements</span> IAnimal {
+  <span class="hljs-keyword">constructor</span>(<span class="hljs-params">readonly name: <span class="hljs-built_in">string</span></span>){}
+}
+
+
+<span class="hljs-keyword">let</span> bird: Bird = <span class="hljs-keyword">new</span> Bird( <span class="hljs-string">'bird'</span> );</code></pre>
+<p>Кроме того, полю, к которому применен модификатор <code class="inline-code">readonly</code>, не обязательно присваивать значение в момент объявления. Но в таком случае, присвоить значение полю, помеченному <em>“только для чтения”</em>, можно будет только из конструктора класса, в котором это поле объявлено. Поле, которому не было присвоено значение, и к которому применен модификатор <code class="inline-code">readonly</code>, так же как и любое другое неинициализированное поле, имеет значение <code class="inline-code">undefined</code>.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">interface</span> IAnimal {
+  readonly name: <span class="hljs-built_in">string</span>;
+}
+
+<span class="hljs-keyword">class</span> Animal <span class="hljs-keyword">implements</span> IAnimal {
+  <span class="hljs-keyword">public</span> readonly name: <span class="hljs-built_in">string</span>; <span class="hljs-comment">// Ok</span>
+
+  <span class="hljs-keyword">constructor</span>(<span class="hljs-params"></span>){
+      <span class="hljs-keyword">this</span>.name = <span class="hljs-string">'animal'</span>; <span class="hljs-comment">// Ok</span>
+  }
+}</code></pre>
+<p>Попытка присвоить значение полю, к которому применен модификатор <code class="inline-code">readonly</code>, в месте, отличным от места объявления или конструктора класса, в котором это поле объявлено, приведет к возникновению ошибки.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">interface</span> IAnimal {
+  readonly name: <span class="hljs-built_in">string</span>;
+}
+
+<span class="hljs-keyword">class</span> Animal <span class="hljs-keyword">implements</span> IAnimal {
+  <span class="hljs-keyword">public</span> readonly name: <span class="hljs-built_in">string</span>; <span class="hljs-comment">// Ok</span>
+
+  <span class="hljs-keyword">public</span> setName( name: <span class="hljs-built_in">string</span> ): <span class="hljs-built_in">void</span> {
+      <span class="hljs-keyword">this</span>.name = name; <span class="hljs-comment">// Error</span>
+  }
+}</code></pre>
+<p>Не получится избежать возникновения ошибки и при попытке присвоить значение из конструктора класса-потомка, с условием, что потомок не переопределяет его.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">interface</span> IAnimal {
+  readonly name: <span class="hljs-built_in">string</span>;
+  readonly age: <span class="hljs-built_in">number</span>;
+}
+
+<span class="hljs-keyword">class</span> Animal <span class="hljs-keyword">implements</span> IAnimal {
+  <span class="hljs-keyword">public</span> readonly name: <span class="hljs-built_in">string</span>; <span class="hljs-comment">// Ok</span>
+  <span class="hljs-keyword">public</span> readonly age: <span class="hljs-built_in">number</span>; <span class="hljs-comment">// Ok</span>
+}
+
+<span class="hljs-keyword">class</span> Bird <span class="hljs-keyword">extends</span> Animal {
+  <span class="hljs-keyword">public</span> readonly age: <span class="hljs-built_in">number</span>; <span class="hljs-comment">// override field</span>
+
+  <span class="hljs-keyword">constructor</span>(<span class="hljs-params"></span>){
+      <span class="hljs-keyword">super</span>();
+      <span class="hljs-keyword">super</span>.name = <span class="hljs-string">'bird'</span>; <span class="hljs-comment">// Error</span>
+      <span class="hljs-keyword">this</span>.age = <span class="hljs-number">0</span>; <span class="hljs-comment">// Ok</span>
+  }
+}</code></pre>
+<p>Поля объекта, созданного с помощью литерала объекта, невозможно будет изменить, если в связанном с ним типе, к этим полям применен модификатор <code class="inline-code">readonly</code>.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">interface</span> IAnimal {
+  readonly name: <span class="hljs-built_in">string</span>;
+}
+
+<span class="hljs-keyword">let</span> animal: IAnimal = { name: <span class="hljs-string">'animal'</span> };
+
+animal.name = <span class="hljs-string">'newanimal'</span>; <span class="hljs-comment">// Error</span></code></pre>
+<p>Если полям, помеченным <em>“только для чтения”</em>, не указан тип данных, а присвоение примитивного значения происходит в месте объявления, то для таких полей, вывод типов укажет принадлежность к литеральному типу.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">class</span> Animal {
+  <span class="hljs-keyword">public</span> readonly nameReadonly = <span class="hljs-string">'animal'</span>; <span class="hljs-comment">// nameReadonly: "animal"</span>
+  <span class="hljs-keyword">public</span> nameDefault = <span class="hljs-string">'animal'</span>;           <span class="hljs-comment">// nameDefault: string</span>
+
+  <span class="hljs-keyword">public</span> readonly ageReadonly = <span class="hljs-number">0</span>; <span class="hljs-comment">// ageReadonly: 0</span>
+  <span class="hljs-keyword">public</span> ageDefault = <span class="hljs-number">0</span>;           <span class="hljs-comment">// ageReadonly: number</span>
+
+  <span class="hljs-keyword">public</span> readonly isLifeReadonly = <span class="hljs-literal">true</span>; <span class="hljs-comment">// isLifeReadonly: true</span>
+  <span class="hljs-keyword">public</span> isLifeDefault = <span class="hljs-literal">true</span>;           <span class="hljs-comment">// isLifeDefault: boolean</span>
+}</code></pre>
+</section>
