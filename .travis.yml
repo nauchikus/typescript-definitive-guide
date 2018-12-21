@@ -17,6 +17,7 @@ install:
 
 script:
   - sh build.sh
+
 deploy:
   provider: pages
   skip_cleanup: true
