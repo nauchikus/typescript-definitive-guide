@@ -16,10 +16,11 @@ install:
 - npm i
 
 script:
-- npm run build
+  - sh build.sh
 deploy:
   provider: pages
   skip_cleanup: true
+  keep-history: true
   github_token: $GITHUB_TOKEN
   local_dir: dist/
   on:
