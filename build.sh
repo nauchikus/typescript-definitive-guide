@@ -13,6 +13,6 @@ npm run build
 git clone --depth=1 --branch=gh-pages   https://${GITHUB_TOKEN}@github.com/$TRAVIS_REPO_SLUG.git app
 
 #copy book
-cp -rf $WORKING_DIR/app/book $WORKING_DIR/dest
+cp -rf $WORKING_DIR/app/book $WORKING_DIR/dist
 
 echo "\033[46m [app build] complete"
