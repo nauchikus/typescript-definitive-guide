@@ -37,7 +37,6 @@ export default {
             return this.isAppDrawerToggle ? 'open' : 'close';
         },
         reportAboutSyntaxErrorButtonPositionStyle(this: any) {
-            console.log(this.bookChapterTextSelectionPosition);
             return { top: `${this.bookChapterTextSelectionPosition.y}px` };
         }
     },
@@ -54,7 +53,8 @@ export default {
         bookContent_click(this: any, event: MouseEvent) {
             let target = event.target as Node;
 
-            if ((target as HTMLElement).tagName !== 'a') {
+
+            if ((target as HTMLElement).tagName !== 'A') {
                 return;
             }
 
