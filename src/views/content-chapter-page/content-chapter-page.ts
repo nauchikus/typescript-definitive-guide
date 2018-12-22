@@ -22,14 +22,18 @@ export default {
             'isBookPrevChapter',
 
             'isBookChapterTextSelected',
-            'bookChapterTextSelectionPosition'
+            'bookChapterTextSelectionPosition',
+
+            'getChapterNameByChapterPath',
         ]),
         chapterRepoHref(this: any) {
             let {
-                params: { chapter }
+                params: { chapter:chapterPath }
             } = this.$route;
+            let chapterName = this.getChapterNameByChapterPath( chapterPath );
 
-            let chapterRepoHref = `https://github.com/nauchikus/typescript-definitive-guide/blob/master/chapters/${chapter}.md`;
+
+            let chapterRepoHref = `https://github.com/nauchikus/typescript-definitive-guide/blob/master/chapters/${chapterName}.md`;
 
             return chapterRepoHref;
         },
