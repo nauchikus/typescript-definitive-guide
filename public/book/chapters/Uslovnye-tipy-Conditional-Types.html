@@ -1,0 +1,196 @@
+<section id="Uslovnye-Tipy-Conditional-Types" name="Условные Типы (Conditional Types)" class="subchapter">
+            <h2 class="subchapter-title">
+                <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="Uslovnye-Tipy-Conditional-Types" type="absolute-url">
+                    <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <use href="#icon_link"/>
+                    </svg>
+                </button>
+                Условные Типы (Conditional Types)
+            </h2>
+        
+<hr>
+<p><em>Условные типы</em> (Conditional Types), это типы способные принимать одно из двух значений, основываясь на выражении,в котором устанавливается принадлежность к заданному типу данных. Условные типы семантически схожи с тернарным оператором. </p>
+<pre><code class="hljs language-typescript">T <span class="hljs-keyword">extends</span> U ? T1 : T2</code></pre>
+<p>В блоке выражение, с помощью ключевого слова <code class="inline-code">extends</code>, устанавливается принадлежность к заданному типу. Если тип, указанный слева от ключевого слова <code class="inline-code">extends</code> совместим с типом указанным по правую сторону, то условный тип будет принадлежать к типу <code class="inline-code">T1</code>, иначе к типу <code class="inline-code">T2</code>. Стоит заметить, что в качестве типов <code class="inline-code">T1</code> и <code class="inline-code">T2</code> могут выступать в том числе и условные типы, что в свою очередь создаст цепочку условий для определения типа.</p>
+<p>Помимо того, что невозможно переоценить пользу от условных типов, очень сложно придумать минимальный пример, который бы эту пользу проиллюстрировал. Поэтому в этой главе, будут приведены лишь бессмысленные примеры, демонстрирующие принцип их работы.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">type</span> T0&#x3C;T> = T <span class="hljs-keyword">extends</span> <span class="hljs-built_in">number</span> ? <span class="hljs-built_in">string</span> : <span class="hljs-built_in">boolean</span>;
+
+
+<span class="hljs-keyword">let</span> v0: T0&#x3C;<span class="hljs-number">5</span>>; <span class="hljs-comment">// let v0: string</span>
+<span class="hljs-keyword">let</span> v1: T0&#x3C;<span class="hljs-string">'text'</span>>; <span class="hljs-comment">// let v1: boolean</span>
+
+
+<span class="hljs-keyword">type</span> T1&#x3C;T> = T <span class="hljs-keyword">extends</span> <span class="hljs-built_in">number</span> | <span class="hljs-built_in">string</span> ? object : never;
+
+
+<span class="hljs-keyword">let</span> v2: T1&#x3C;<span class="hljs-number">5</span>>; <span class="hljs-comment">// let v2: object</span>
+<span class="hljs-keyword">let</span> v3: T1&#x3C;<span class="hljs-string">'text'</span>>; <span class="hljs-comment">// let v3: object</span>
+<span class="hljs-keyword">let</span> v4: T1&#x3C;<span class="hljs-literal">true</span>>; <span class="hljs-comment">// let v2: never</span>
+
+
+<span class="hljs-keyword">type</span> T2&#x3C;T> = T <span class="hljs-keyword">extends</span> <span class="hljs-built_in">number</span> ? <span class="hljs-string">"Ok"</span> : <span class="hljs-string">"Oops"</span>;
+
+<span class="hljs-keyword">let</span> v5: T2&#x3C;<span class="hljs-number">5</span>>; <span class="hljs-comment">// let v5: "Ok"</span>
+<span class="hljs-keyword">let</span> v6: T2&#x3C;<span class="hljs-string">'text'</span>>; <span class="hljs-comment">// let v6: "oops"</span>
+
+
+<span class="hljs-comment">// вложенные условные типы</span>
+
+<span class="hljs-keyword">type</span> T3&#x3C;T> =
+  T <span class="hljs-keyword">extends</span> <span class="hljs-built_in">number</span> ? <span class="hljs-string">"IsNumber"</span> :
+  T <span class="hljs-keyword">extends</span> <span class="hljs-built_in">string</span> ? <span class="hljs-string">"IsString"</span> :
+  <span class="hljs-string">"Oops"</span>;
+
+
+<span class="hljs-keyword">let</span> v7: T3&#x3C;<span class="hljs-number">5</span>>; <span class="hljs-comment">// let v7: "IsNumber"   </span>
+<span class="hljs-keyword">let</span> v8: T3&#x3C;<span class="hljs-string">'text'</span>>; <span class="hljs-comment">// let v8: "IsString"</span>
+<span class="hljs-keyword">let</span> v9: T3&#x3C;<span class="hljs-literal">true</span>>; <span class="hljs-comment">// let v9: "Opps"</span></code></pre>
+<p>Нужно быть внимательным, когда в условиях вложенных условных типов проверяются совместимые типы, так как порядок условий может повлиять на  результат.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">type</span> T0&#x3C;T> =
+  T <span class="hljs-keyword">extends</span> IAnimal ? <span class="hljs-string">"animal"</span> :
+  T <span class="hljs-keyword">extends</span> IBird ? <span class="hljs-string">"bird"</span> :
+  T <span class="hljs-keyword">extends</span> IRaven ? <span class="hljs-string">"raven"</span> :
+  <span class="hljs-string">"no animal"</span>;
+
+<span class="hljs-keyword">type</span> T1&#x3C;T> =
+  T <span class="hljs-keyword">extends</span> IRaven ? <span class="hljs-string">"raven"</span> :
+  T <span class="hljs-keyword">extends</span> IBird ? <span class="hljs-string">"bird"</span> :
+  T <span class="hljs-keyword">extends</span> IAnimal ? <span class="hljs-string">"animal"</span> :
+  <span class="hljs-string">"no animal"</span>;
+
+
+<span class="hljs-comment">// всегда "animal"</span>
+<span class="hljs-keyword">let</span> v0:T0&#x3C;IAnimal>; <span class="hljs-comment">// let v0: "animal"</span>
+<span class="hljs-keyword">let</span> v1: T0&#x3C;IBird>; <span class="hljs-comment">// let v1: "animal"</span>
+<span class="hljs-keyword">let</span> v2: T0&#x3C;IRaven>; <span class="hljs-comment">// let v2: "animal"</span>
+
+
+<span class="hljs-comment">// никогда "bird"</span>
+<span class="hljs-keyword">let</span> v3:T1&#x3C;IRaven>; <span class="hljs-comment">// let v3: "raven"</span>
+<span class="hljs-keyword">let</span> v4: T1&#x3C;IBird>; <span class="hljs-comment">// let v4: "raven"</span>
+<span class="hljs-keyword">let</span> v5: T1&#x3C;IAnimal>; <span class="hljs-comment">// let v5: "animal"</span></code></pre>
+<p>Если в качестве аргумента условного типа выступает тип объединение (<code class="inline-code">Union</code>, глава <a class="book__chapter__chapter-link" href="book/contents/Tipy-Union-Intersection" title="Типы - Union, Intersection">Типы - Union, Intersection</a>), то условия будут выполняться для каждого типа составляющего объединенный тип.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">interface</span> IAnimal { <span class="hljs-keyword">type</span>: <span class="hljs-built_in">string</span>; }
+<span class="hljs-keyword">interface</span> IBird <span class="hljs-keyword">extends</span> IAnimal { fly():<span class="hljs-built_in">void</span>; }
+<span class="hljs-keyword">interface</span> IRaven <span class="hljs-keyword">extends</span> IBird {}
+
+
+<span class="hljs-keyword">type</span> T0&#x3C;T> =
+  T <span class="hljs-keyword">extends</span> IAnimal ? <span class="hljs-string">"animal"</span> :
+  T <span class="hljs-keyword">extends</span> IBird ? <span class="hljs-string">"bird"</span> :
+  T <span class="hljs-keyword">extends</span> IRaven ? <span class="hljs-string">"raven"</span> :
+  <span class="hljs-string">"no animal"</span>;
+
+<span class="hljs-keyword">type</span> T1&#x3C;T> =
+  T <span class="hljs-keyword">extends</span> IRaven ? <span class="hljs-string">"raven"</span> :
+  T <span class="hljs-keyword">extends</span> IBird ? <span class="hljs-string">"bird"</span> :
+  T <span class="hljs-keyword">extends</span> IAnimal ? <span class="hljs-string">"animal"</span> :
+  <span class="hljs-string">"no animal"</span>;
+
+
+<span class="hljs-comment">// всегда "animal"</span>
+<span class="hljs-keyword">let</span> v0:T0&#x3C;IAnimal | IBird>; <span class="hljs-comment">// let v0: "animal"</span>
+<span class="hljs-keyword">let</span> v1: T0&#x3C;IBird>; <span class="hljs-comment">// let v1: "animal"</span>
+<span class="hljs-keyword">let</span> v2: T0&#x3C;IRaven>; <span class="hljs-comment">// let v2: "animal"</span>
+
+
+<span class="hljs-comment">// никогда "bird"</span>
+<span class="hljs-keyword">let</span> v3:T1&#x3C;IAnimal | IRaven>; <span class="hljs-comment">// let v3: "raven"</span>
+<span class="hljs-keyword">let</span> v4: T1&#x3C;IBird>; <span class="hljs-comment">// let v4: "raven"</span>
+<span class="hljs-keyword">let</span> v5: T1&#x3C;IAnimal | IBird>; <span class="hljs-comment">// let v5: "animal"</span></code></pre>
+<p>Помимо конкретного типа, в качестве правого ( от ключевого слова <code class="inline-code">extends</code> ) типа, также может выступать другой параметр типа. </p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">type</span> T0&#x3C;T, U> = T <span class="hljs-keyword">extends</span> U ? <span class="hljs-string">"Ok"</span> : <span class="hljs-string">"Oops"</span>;
+
+<span class="hljs-keyword">let</span> v0: T0&#x3C;<span class="hljs-built_in">number</span>, <span class="hljs-built_in">any</span>>; <span class="hljs-comment">// Ok</span>
+<span class="hljs-keyword">let</span> v1:T0&#x3C;<span class="hljs-built_in">number</span>, <span class="hljs-built_in">string</span>>; <span class="hljs-comment">// Oops</span></code></pre>
+</section><section id="Raspredelitelnye-Uslovnye-Tipy-Distributive-Conditional-Types" name="Распределительные Условные Типы (Distributive Conditional Types)" class="subchapter">
+            <h2 class="subchapter-title">
+                <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="Raspredelitelnye-Uslovnye-Tipy-Distributive-Conditional-Types" type="absolute-url">
+                    <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <use href="#icon_link"/>
+                    </svg>
+                </button>
+                Распределительные Условные Типы (Distributive Conditional Types)
+            </h2>
+        
+<hr>
+<p>Условные типы, которым, в качестве аргумента типа, устанавливается объединенный тип (<code class="inline-code">Union Type</code>, глава <a class="book__chapter__chapter-link" href="book/contents/Tipy-Union-Intersection" title="Типы - Union, Intersection">Типы - Union, Intersection</a>), называются <em>распределительные условные типы</em> (<code class="inline-code">Distributive Conditional Types</code>). Называются они так потому, что каждый тип, составляющий объединенный тип, будет распределен таким образом, чтобы выражение условного типа было выполнено для каждого. Это, в свою очередь, также может определить условный тип, как тип объединение.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">type</span> T0&#x3C;T> =
+  T <span class="hljs-keyword">extends</span> <span class="hljs-built_in">number</span> ? <span class="hljs-string">"numeric"</span> :
+  T <span class="hljs-keyword">extends</span> <span class="hljs-built_in">string</span> ? <span class="hljs-string">"text"</span> :
+  <span class="hljs-string">"other"</span>;
+
+<span class="hljs-keyword">let</span> v0: T0&#x3C; <span class="hljs-built_in">string</span> | <span class="hljs-built_in">number</span> >; <span class="hljs-comment">// let v0: "numeric" | "text"</span>
+<span class="hljs-keyword">let</span> v1: T0&#x3C; <span class="hljs-built_in">string</span> | <span class="hljs-built_in">boolean</span> >; <span class="hljs-comment">// let v1: "text" | "other"</span></code></pre>
+<p>Для лучшего понимания процесса происходящего при определении условного типа в случае, когда аргумент типа принадлежит к объединенному типу, стоит рассмотреть следующий минимальный пример, в котором будет проиллюстрирован условный тип так,как его видит компилятор.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-comment">// так видит разработчик</span>
+
+<span class="hljs-keyword">type</span> T0&#x3C;T> =
+  T <span class="hljs-keyword">extends</span> <span class="hljs-built_in">number</span> ? <span class="hljs-string">"numeric"</span> :
+  T <span class="hljs-keyword">extends</span> <span class="hljs-built_in">string</span> ? <span class="hljs-string">"text"</span> :
+  <span class="hljs-string">"other"</span>;
+
+<span class="hljs-keyword">let</span> v0: T0&#x3C; <span class="hljs-built_in">string</span> | <span class="hljs-built_in">number</span> >; <span class="hljs-comment">// let v0: "numeric" | "text"</span>
+<span class="hljs-keyword">let</span> v1: T0&#x3C; <span class="hljs-built_in">string</span> | <span class="hljs-built_in">boolean</span> >; <span class="hljs-comment">// let v1: "text" | "other"</span>
+
+<span class="hljs-comment">// так видит компилятор</span>
+
+<span class="hljs-keyword">type</span> T0&#x3C;T> =
+  <span class="hljs-comment">// получаем первый тип составляющий union тип ( в данном  случаи number ) и начинаем подставлять его на место T</span>
+
+  <span class="hljs-built_in">number</span> <span class="hljs-keyword">extends</span> <span class="hljs-built_in">number</span> ? <span class="hljs-string">"numeric"</span> : <span class="hljs-comment">// number соответствует number? Да! Определяем "numeric"</span>
+  T <span class="hljs-keyword">extends</span> <span class="hljs-built_in">string</span> ? <span class="hljs-string">"text"</span> :
+  <span class="hljs-string">"other"</span>
+
+  | <span class="hljs-comment">// законцили определять один тип, приступаемк другому, в данном случаи string</span>
+
+  <span class="hljs-built_in">string</span> <span class="hljs-keyword">extends</span> <span class="hljs-built_in">number</span> ? <span class="hljs-string">"numeric"</span> : <span class="hljs-comment">// string соответствует number? Нет! Продолжаем.</span>
+  <span class="hljs-built_in">string</span> <span class="hljs-keyword">extends</span> <span class="hljs-built_in">string</span> ? <span class="hljs-string">"text"</span> : <span class="hljs-comment">// string соответствует string? Да! Определяем "text".</span>
+  <span class="hljs-string">"other"</span>
+
+  <span class="hljs-comment">// Итого: условный тип T0&#x3C;string | number> определен, как "numeric" | "text"</span></code></pre>
+</section><section id="Vyvod-tipov-v-uslovnom-tipe" name="Вывод типов в условном типе" class="subchapter">
+            <h2 class="subchapter-title">
+                <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="Vyvod-tipov-v-uslovnom-tipe" type="absolute-url">
+                    <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <use href="#icon_link"/>
+                    </svg>
+                </button>
+                Вывод типов в условном типе
+            </h2>
+        
+<hr>
+<p>Условные типы позволяют в блоке выражения объявлять переменные, тип которых будет устанавливать вывод типов. Переменная типа объявляется с помощью ключевого слова <code class="inline-code">infer</code> и,как уже говорилось, может быть объявлена исключительно в типе указанном в блоке выражения, расположенном правее оператора <code class="inline-code">extends</code>.</p>
+<p>Это очень простой механизм, который проще сразу рассмотреть на примере.</p>
+<p>Предположим, что нужно установить, к какому типу принадлежит единственный параметр функции. </p>
+<pre><code class="hljs language-typescript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">f</span>(<span class="hljs-params"> param: <span class="hljs-built_in">string</span></span>): <span class="hljs-title">void</span> </span>{}</code></pre>
+<p>Для этого нужно создать условный тип, в условии которого, происходит проверка напренадлежность к типу-функции. Кроме того, единственный параметр, вместо конкретного типа, в аннотации будет содержать объявление переменной типа.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">type</span> ParamType&#x3C;T> = T <span class="hljs-keyword">extends</span> ( p: infer U ) => <span class="hljs-built_in">void</span> ? U : <span class="hljs-literal">undefined</span>;
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">f0</span>(<span class="hljs-params"> param: <span class="hljs-built_in">number</span></span>): <span class="hljs-title">void</span> </span>{}
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">f1</span>(<span class="hljs-params"> param: <span class="hljs-built_in">string</span></span>): <span class="hljs-title">void</span> </span>{}
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">f2</span>(<span class="hljs-params"> </span>): <span class="hljs-title">void</span> </span>{}
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">f3</span>(<span class="hljs-params"> p0: <span class="hljs-built_in">number</span>, p1: <span class="hljs-built_in">string</span> </span>): <span class="hljs-title">void</span> </span>{}
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">f4</span>(<span class="hljs-params"> param: <span class="hljs-built_in">number</span>[ ] </span>): <span class="hljs-title">void</span> </span>{}
+
+<span class="hljs-keyword">let</span> v0: ParamType&#x3C;<span class="hljs-keyword">typeof</span> f0>; <span class="hljs-comment">// let v0: number</span>
+<span class="hljs-keyword">let</span> v1: ParamType&#x3C;<span class="hljs-keyword">typeof</span> f1>; <span class="hljs-comment">// let v1: string</span>
+<span class="hljs-keyword">let</span> v2: ParamType&#x3C;<span class="hljs-keyword">typeof</span> f2>; <span class="hljs-comment">// let v2: {}</span>
+<span class="hljs-keyword">let</span> v3: ParamType&#x3C;<span class="hljs-keyword">typeof</span> f3>; <span class="hljs-comment">// let v3: undefined</span>
+<span class="hljs-keyword">let</span> v4: ParamType&#x3C;<span class="hljs-keyword">typeof</span> f4>; <span class="hljs-comment">// let v4: number[ ]. Oops, ожидалось тип number вместо number[ ]</span>
+
+
+<span class="hljs-comment">// определяем новый тип, чтобы разрешить последний случай</span>
+
+<span class="hljs-keyword">type</span> WithoutArrayParamType&#x3C;T> =
+  T <span class="hljs-keyword">extends</span> ( p: <span class="hljs-function">(<span class="hljs-params"> infer U </span>)[ ] ) =></span> <span class="hljs-built_in">void</span> ? U :
+  T <span class="hljs-keyword">extends</span> ( p: infer U ) => <span class="hljs-built_in">void</span> ? U :
+  <span class="hljs-literal">undefined</span>;
+
+ 
+<span class="hljs-keyword">let</span> v5: WithoutArrayParamType&#x3C;<span class="hljs-keyword">typeof</span> f4>; <span class="hljs-comment">// let v5: number. Ok</span></code></pre>
+<p>Принципы определения переменных в условных типах, продемонстрированные на примере функционального типа, идентичны и для объектных типов.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">type</span> ParamType&#x3C;T> = T <span class="hljs-keyword">extends</span> { a: infer A, b: infer B } ? A | B : <span class="hljs-literal">undefined</span>;
+
+<span class="hljs-keyword">let</span> v: ParamType&#x3C;{ a: <span class="hljs-built_in">number</span>, b:<span class="hljs-built_in">string</span> }>; <span class="hljs-comment">// let v: string | number</span></code></pre>
+</section>

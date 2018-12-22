@@ -1,0 +1,141 @@
+<section id="Abstraktnye-klassy-abstract-classes" name="Абстрактные классы (abstract classes)" class="subchapter">
+            <h2 class="subchapter-title">
+                <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="Abstraktnye-klassy-abstract-classes" type="absolute-url">
+                    <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <use href="#icon_link"/>
+                    </svg>
+                </button>
+                Абстрактные классы (abstract classes)
+            </h2>
+        
+<hr>
+<p>Если у всех начинающих разработчиков, при размышлениях о интерфейсах, возникают вопросы, когда  и зачем их использовать, то при размышлении об абстрактных классах, ещё добавляются вопросы, чем они отличаются от интерфейсов и когда та или иная конструкция предпочтительней. Ответы на эти вопросы, я постараюсь дать в этой главе, но для начала стоит рассмотреть их общие характеристики.</p>
+</section><section id="Obshchie-harakteristiki" name="Общие характеристики" class="subchapter">
+            <h2 class="subchapter-title">
+                <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="Obshchie-harakteristiki" type="absolute-url">
+                    <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <use href="#icon_link"/>
+                    </svg>
+                </button>
+                Общие характеристики
+            </h2>
+        
+<hr>
+<p>В <em>TypeScript</em>, объявление абстрактного класса, отличается от объявления обычного класса, только добавлением ключевого слова <code class="inline-code">abstract</code> перед ключевым словом <code class="inline-code">class</code>.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">abstract</span> <span class="hljs-keyword">class</span> Identifier { }</code></pre>
+<p>Абстрактные классы, также как и обычные классы, могут расширять другие, как обычные, так и абстрактные классы, а также реализовывать интерфейсы.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">interface</span> IInterface {}
+
+<span class="hljs-keyword">class</span> StandardClass {}
+
+<span class="hljs-keyword">abstract</span> <span class="hljs-keyword">class</span> SuperAbstractClass <span class="hljs-keyword">extends</span> StandardClass <span class="hljs-keyword">implements</span> IInterface { } <span class="hljs-comment">// абстрактный класс расширяет обычный класс и реализует интерфейс</span>
+<span class="hljs-keyword">abstract</span> <span class="hljs-keyword">class</span> SubAbstractClass <span class="hljs-keyword">extends</span> SuperAbstractClass {} <span class="hljs-comment">//  абстрактныйкласс расширяет другой абстрактный класс</span></code></pre>
+<p>Несмотря на то, что абстрактный класс, все же класс, главное его отличие от обычного класса заключается в том, что идеологически не предполагается создания его экземпляров. Другими словами, нельзя создать экземпляр абстрактного класса.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">abstract</span> <span class="hljs-keyword">class</span> SuperAbstractClass { }
+<span class="hljs-keyword">class</span> SubStandartClass <span class="hljs-keyword">extends</span> SuperAbstractClass {}
+
+<span class="hljs-keyword">let</span> v0: SuperAbstractClass = <span class="hljs-keyword">new</span> SuperAbstractClass(); <span class="hljs-comment">// Error, нельзясоздавать экземпляры абстрактного класса</span>
+<span class="hljs-keyword">let</span> v1: SuperAbstractClass = <span class="hljs-keyword">new</span> SubStandartClass(); <span class="hljs-comment">// Ok</span>
+<span class="hljs-keyword">let</span> v2: SubStandartClass = <span class="hljs-keyword">new</span> SubStandartClass(); <span class="hljs-comment">// Ok</span></code></pre>
+<p>Абстрактные классы могут содержать абстрактные члены, принадлежность к которым, также, указывается с помощью ключевого слова <code class="inline-code">abstract</code>. С помощью ключевого слова <code class="inline-code">abstract</code> можно помечать поля, свойства (аксессоры), а также методы объекта. При этом свойства и методы не должны иметь реализацию. В отличие от них, полям, помеченным как абстрактные, может быть присвоено значение по умолчанию.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">abstract</span> <span class="hljs-keyword">class</span> Identifier {
+ <span class="hljs-keyword">public</span> <span class="hljs-keyword">abstract</span> field: <span class="hljs-built_in">string</span> = <span class="hljs-string">'default value'</span>; <span class="hljs-comment">// реализация допустима</span>
+ <span class="hljs-keyword">public</span> <span class="hljs-keyword">abstract</span> <span class="hljs-keyword">get</span> prop(): <span class="hljs-built_in">string</span>; <span class="hljs-comment">// реализация не допустима</span>
+ <span class="hljs-keyword">public</span> <span class="hljs-keyword">abstract</span> <span class="hljs-keyword">set</span> prop(value:<span class="hljs-built_in">string</span>); <span class="hljs-comment">// реализация не допустима</span>
+
+ <span class="hljs-keyword">public</span> <span class="hljs-keyword">abstract</span> method(): <span class="hljs-built_in">void</span>; <span class="hljs-comment">// реализация не допустима</span>
+}
+~~~~~typescript
+
+Абстрактный класс, который расширяет другой абстрактный класс, не обязан переопределять все абстрактные члены своего суперкласса. В отличии от абстрактных классов, обычные классы, которые расширяют абстрактные классы, обязанные переопределить все поля, свойства и методы, находящиеся в иерархической цепочке и помеченные ключевым словом <span class="hljs-string">`abstract`</span>, если они не были реализованы предками ранее.
+
+~~~~~typescript
+<span class="hljs-keyword">abstract</span> <span class="hljs-keyword">class</span> SuperAbstractClass {
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">abstract</span> field: <span class="hljs-built_in">string</span>; <span class="hljs-comment">// объявление абстрактного поля</span>
+}
+
+<span class="hljs-keyword">abstract</span> <span class="hljs-keyword">class</span> SubAbstractClass <span class="hljs-keyword">extends</span> SuperAbstractClass {} <span class="hljs-comment">// в абстрактных потомках допускается не переопределять абстрактные члены предков </span>
+
+<span class="hljs-keyword">class</span> SubConcreteClass <span class="hljs-keyword">extends</span> SubAbstractClass { <span class="hljs-comment">// конкретный подкласс обязан переопределять абстрактные члены, если они...</span>
+<span class="hljs-keyword">public</span> field: <span class="hljs-built_in">string</span>;
+}
+<span class="hljs-keyword">class</span> SubSubConcreteClass <span class="hljs-keyword">extends</span> SubConcreteClass {} <span class="hljs-comment">// ююю если они не были переопределены в классах-предках</span></code></pre>
+<p>Как было сказано ранее, абстрактным полям может быть задано значение по умолчанию, но в этом случае, обратится к нему могут только абстрактные классы в иерархии наследования. </p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">abstract</span> <span class="hljs-keyword">class</span> SuperAbstractClass {
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">abstract</span> field0: <span class="hljs-built_in">string</span> = <span class="hljs-string">'default value'</span>; <span class="hljs-comment">// объявление абстрактного поля с значением по умолчанию</span>
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">abstract</span> field1: <span class="hljs-built_in">string</span>;
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">abstract</span> field2: <span class="hljs-built_in">string</span>;
+}
+
+<span class="hljs-keyword">abstract</span> <span class="hljs-keyword">class</span> SubAbstractClass <span class="hljs-keyword">extends</span> SuperAbstractClass {
+<span class="hljs-keyword">public</span> field1:  <span class="hljs-built_in">string</span> = <span class="hljs-keyword">this</span>.field0; <span class="hljs-comment">// переопределение абстрактного поля и инициализация его значением абстрактного поля, которому было присвоено значение по умолчанию в абстрактном предке</span>
+} 
+
+<span class="hljs-keyword">class</span> SuboncreteClass <span class="hljs-keyword">extends</span> SubAbstractClass {
+<span class="hljs-keyword">public</span> field0: <span class="hljs-built_in">string</span>; <span class="hljs-comment">// конкретному классу необходимо переопределить два абстрактных поля, так как в предках было переопределено только один член</span>
+<span class="hljs-keyword">public</span> field2: <span class="hljs-built_in">string</span>;
+}</code></pre>
+<p>Абстрактные члены в полной мере удовлетворяют все условия реализации интерфейса. Другими словами, абстрактный класс, который декларирует реализацию интерфейса, может не реализовывать его члены, а лишь пометить их как абстрактные и тем самым переложить реализацию на своих потомков.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">interface</span> IInterface {
+field: <span class="hljs-built_in">string</span>;
+method(): <span class="hljs-built_in">void</span>;
+}
+
+
+<span class="hljs-keyword">abstract</span> <span class="hljs-keyword">class</span> AbstractSuperClass <span class="hljs-keyword">implements</span> IInterface { <span class="hljs-comment">// абстрактный класс декларирует реализацию интерфейса</span>
+<span class="hljs-keyword">public</span>  <span class="hljs-keyword">abstract</span> field: <span class="hljs-built_in">string</span>; <span class="hljs-comment">// поле без реализации...</span>
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">abstract</span> method(): <span class="hljs-built_in">void</span>; <span class="hljs-comment">// ...метод без реализации. тем не менее ошибки не возникает</span>
+}</code></pre>
+<p>Кроме абстрактных членов, абстрактные классы могут содержать обычные члены, обращение к которым ничем не отличается от членов объявленных в обычных классах.</p>
+<p>Как правило, абстрактные классы реализуют только ту логику, которая не будет ни при каких обстоятельствах противоречить логики своих подклассов.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">abstract</span> <span class="hljs-keyword">class</span> AbstractSuperClass {
+<span class="hljs-keyword">abstract</span> name: <span class="hljs-built_in">string</span> = <span class="hljs-string">"AbstractSuperClass"</span>;
+
+<span class="hljs-keyword">public</span> toString(): <span class="hljs-built_in">string</span> {
+  <span class="hljs-comment">// реализация общего не абстрактного метода</span>
+  <span class="hljs-keyword">return</span> <span class="hljs-string">`[object <span class="hljs-subst">${this.name}</span>]`</span>;
+}
+}
+
+<span class="hljs-keyword">class</span> FirstConcreteSubClass <span class="hljs-keyword">extends</span> AbstractSuperClass {
+<span class="hljs-keyword">public</span> name: <span class="hljs-built_in">string</span> = <span class="hljs-string">"T2"</span>; <span class="hljs-comment">// реализуем абстрактное поле</span>
+}
+
+<span class="hljs-keyword">class</span> SecondConcreteSubClass <span class="hljs-keyword">extends</span> AbstractSuperClass {
+<span class="hljs-keyword">public</span> name: <span class="hljs-built_in">string</span> = <span class="hljs-string">"T2"</span>; <span class="hljs-comment">// реализуем абстрактное поле</span>
+}
+
+<span class="hljs-keyword">let</span> first: FirstConcreteSubClass = <span class="hljs-keyword">new</span> FirstConcreteSubClass();
+<span class="hljs-keyword">let</span> second: SecondConcreteSubClass = <span class="hljs-keyword">new</span> SecondConcreteSubClass();
+
+first.toString(); <span class="hljs-comment">// [object FirstConcreteSubClass] реализация в абстрактном предке</span>
+second.toString(); <span class="hljs-comment">// [object SecondConcreteSubClass] реализация в абстрактном предке</span></code></pre>
+</section><section id="Teoriya" name="Теория" class="subchapter">
+            <h2 class="subchapter-title">
+                <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="Teoriya" type="absolute-url">
+                    <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <use href="#icon_link"/>
+                    </svg>
+                </button>
+                Теория
+            </h2>
+        
+<hr>
+<p>Пришло время разобраться в теории абстрактных классов, а именно ответить на вопросы, которые могут возникнуть при разработке программ.</p>
+<p>Интерфейс или абстрактный класс - частый вопрос, ответ на который не всегда очевиден.  В действительности, это абсолютно разные конструкции, как с точки зрения реализации, так и идеологии. Интерфейсы предназначены для описания публичного <em>api</em>, которое служит для сопряжение с программой. Кроме того, они не должны, а в <em>TypeScript</em> и не могут, реализовывать бизнес логику той части, которую представляют. Они идеальные кандидаты для реализации <em>слабой связанности</em> (low coupling). При проектировании программ упор должен делаться именно на интерфейсы.</p>
+<p>Абстрактные классы, при необходимости, должны реализовывать интерфейсы, в той же степени и для тех же целей, что и обычные классы. Их однозначно нужно использовать в качестве базового типа тогда, когда множество, логически связанных классов, имеет общую для всех логику. </p>
+<p>К примеру, абстрактный класс <code class="inline-code">Animal</code>, реализующий интерфейс <code class="inline-code">IAnimal</code>, с двумя членами, свойством <code class="inline-code">isLife</code> и методом <code class="inline-code">voice</code>, может и должен реализовать свойство <code class="inline-code">isLife</code>, так как это свойство имеет заранее известное количество состояний, жив или мертв, и не может отличаться в зависимости от потомка. В то время как метод <code class="inline-code">voice</code> (подать голос), как раз таки будет иметь разную реализацию, в зависимости от потомков, ведь коты мяукают, а вороны каркают. </p>
+<p>Тем не менее, резонно может возникнуть вопрос, а почему бы не вынести этот функционал в обычный базовый класс? </p>
+<p>Абстрактный класс способен не только подсказать архитектору, что данная сущность является абстрактной для предметной области, но и не позволить разработчику создать экземпляр класса, работа которого может сломать приложение. Ведь окажись на его месте обычный базовый класс, часть логики которого должна быть реализованной в потомках, то возникла бы возможность, что его экземпляр будет задействован в тех местах, которые зависят от этой логики и тогда её отсутствие приведет к непредсказуемому результату. </p>
+<p>Еще раз тоже самое, но другими словами. Базовый класс будет реализовывать основную часть базовых типов определенных интерфейсами, с помощью которых будет происходить сопряжение с остальными частями программы. Ведь как было рассмотрено в главе <a class="book__chapter__chapter-link" href="book/contents/Tipy-Interface" title="Типы - Interface">Типы - Interface</a>, чтобы не нарушить <em>“Принцип разделения интерфейсов”</em>, интерфейс <code class="inline-code">IAnimal</code>, должен состоять из более специфичных (более конкретных) интерфейсов, на которых и будет завязана программа. А это в свою очередь означает, что экземпляр базового класса, который реализует интерфейс <code class="inline-code">IAnimal</code> и у которого отсутствует основная логика, может быть использован в тех частях программы, в которых предполагается использовать экземпляры более специфичных типов, принадлежащих  к типам этих интерфейсов (проще говоря потомков базового типа). </p>
+<p>И тот факт, что абстрактный класс мог бы уберечь от этого сценария, доказывает то, что обычный класс, в качестве его замены, может привести к ошибкам, которые могут возникнуть только на этапе выполнения. То есть обычный класс, в роли замены абстрактного класса, снижает типобезопасность программы. </p>
+<p>Кроме того, абстрактный класс, с помощью абстрактных членов, не даст разработчику забыть реализовать необходимую логику в потомках.</p>
+<p>Но и это ещё не все. Интерфейс <code class="inline-code">IAnimal</code>, в реальности, будет составным типом. То есть, он будет принадлежать к типам <code class="inline-code">ILiveable</code>, описывающим свойство <code class="inline-code">isLife</code> и <code class="inline-code">IVoiceable</code>, описывающим метод <code class="inline-code">voice</code>. Реализовать подобное с помощью абстрактного класса не получится, так как один класс может расширять только один класс. В то время, как интерфейсы могу расширять множество других интерфейсов, а следовательно и принадлежить ко множеству типов данных одновременно. Что и делает интерфейс <code class="inline-code">IAnimal</code> расширяя интерфейсы <code class="inline-code">ILiveable</code> и <code class="inline-code">IVoiceable</code>. Но даже, если бы язык поддерживал механизм мультинаследования, то в реальности функционал <code class="inline-code">IAnimal</code> одним методом <code class="inline-code">voice</code> не ограничивался. Как минимум были ли бы ещё <code class="inline-code">move</code> (передвижение), <code class="inline-code">eat</code> (кушать). И несмотря  на то, что все эти методы могут быть объединены в одном классе, так как они логически связаны (описывают механизмы жизнедеятельности животного), в программе, в тех её местах, которые будут их использовать, они не могут быть представлены типом этого класса. Они должны быть представлены типами, которые будут описывать только их область функциональности. Например <code class="inline-code">IMovable</code>, помимо метода move, может ещё включать в себя поле  <code class="inline-code">speed</code> (скорость), так как скорость непосредственно связана с передвижением.</p>
+<p>Если, в рассуждениях, пойти ещё дальше и представить совсем уже бессмысленную ситуацию, когда каждый метод будет реализован в одном классе, чтобы не нарушить <em>“Принцип разделения интерфейсов”</em>, то создав в программе множество маленьких  классов, будет реализован такой архитектурный антипаттерн, как <em>“Мышиная возня”</em>.</p>
+<p>Бывает так, что при проектировании компонента программы, разработчик, уже на стадии проектирования, знает, что их функционал, в будущем, будет расширен. И может показаться, что точка сопряжения, в данной ситуации, кандидат на использование абстрактного класса, вместо интерфейса. С одной стороны, да. Если заменить тип интерфейса ,на тип представляемый абстрактным классом, то в дальнейшем, при расширении его логики, можно воспользоваться механизмом наследования (<code class="inline-code">extends</code>), который для этого и предназначен. Но с другой стороны, существует такое устоявшееся правило, которое гласит - <em>“Предпочитайте композицию наследованию класса”</em> (<em>“Банда Четырех”</em>), что склоняет к использованию интерфейса. Тем не менее выбор не заключается между лучшим и худшим. В конкретном случае разработчику просто предстоит выбрать один, из двух вариантов. И если вы относитесь к тем, кто предпочитает композицию наследованию, то обязательно должны знать, что существует случай, который в общей практике и является исключительным, но в контексте <em>TypeScript</em>, его, скорее всего, правильно причислить к “щекотливым”.</p>
+<p>Существуют ситуации, когда архитектору заранее известно, что внутренний функционал программы в будущем будет расширен. То есть, описание точки сопряжения будет дополнена новыми членами.</p>
+<p>Если в этом случае будет использоваться интерфейс, то добавление в него новой декларации члена, будет требовать вмешательства разработчика в существующий код. Ведь классы, реализующие интерфейсы, обязаны реализовывать все его члены. Следовательно, декларирование в интерфейс нового члена приведет к обязательному изменению (дополнению) кода использующего его.</p>
+<p>В случае декларирования нового члена в абстрактном классе появляется возможность изменения без вмешательства в основной код. Хотя при декларировании новых членов придется отказаться от модификатора <code class="inline-code">abstract</code>, так как при его использовании, точно также, как и при использовании интерфейса, потребуется вмешательства в код. Но зато, в отличии от случаев при которых используется интерфейс, это хотя бы становится возможным. А добавление нового функционала, на самом деле, очень частая практика, на начальных этапах разработки. Кто тому же абстрактный класс, все также устраняет недостатки обычных классов. </p>
+<p>Хотя интерфейсы в <em>TypeScript</em> могут иметь необязательные члены ( глава <a class="book__chapter__chapter-link" href="book/contents/Operatory-Optional-Not-Null-Not-Undefined-Definite-Assignment-Assertion" title="Операторы - Optional, Not-Null, Not-Undefined, Definite Assignment Assertion">Операторы - Optional, Not-Null, Not-Undefined, Definite Assignment Assertion</a>), что в некоторой степени, сводит на нет преимущество абстрактных классов в ситуациях, когда точки соприкосновения подвержены добавлению новых членов.</p>
+<p>И последняя момент, о котором стоит упомянуть, что технически, абстрактный класс состоящий только из абстрактных членов, может исполнять ту роль в программе, которая идеологически, была отведена интерфейсу. Но это не лучшая идея.</p>
+</section>

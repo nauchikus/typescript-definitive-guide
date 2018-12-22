@@ -1,0 +1,742 @@
+<section id="React-rasshirenie-tsx" name="React - расширение .tsx" class="subchapter">
+            <h2 class="subchapter-title">
+                <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="React-rasshirenie-tsx" type="absolute-url">
+                    <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <use href="#icon_link"/>
+                    </svg>
+                </button>
+                React - расширение .tsx
+            </h2>
+        
+<hr>
+<p><em>React</em> - это библиотека для создания пользовательских интерфейсов, от компании <em>Facebook</em>. В основе библиотеки продвинутого рендера React лежит компонентный подход, для улучшения которого, стандартный синтаксис <em>JavaScript</em> был расширен <em>XML</em>-подобным синтаксисом. В связи с этим было создано новое расширение <em>.jsx</em>.</p>
+<p>Из-за высокой популярности <em>React</em>, создателями <em>TypeScript</em> было принято решение создать расширение <em>.tsx</em>. Но одного расширения недостаточно чтобы благополучно компилировать <em>.tsx</em>. Так как реакт можно использовать для создания как вэб, так и мобильных приложений, компилятору с помощью флага <code class="inline-code">--jsx</code> нужно указать конкретную принадлежность к <code class="inline-code">“react”</code>, либо <code class="inline-code">“react-native”</code>. По умолчанию выставлено значение <code class="inline-code">“preserve”</code>.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-comment">// tsconfig.json  </span>
+{
+  <span class="hljs-string">"compilerOptions"</span>: {
+      <span class="hljs-string">"jsx"</span>: <span class="hljs-string">"react"</span>
+  }
+}</code></pre>
+<p>За исключением типизации, написание шаблонов <em>.tsx</em> ничем не отличается от <em>.jsx</em>. Но так как при переходе с <em>.jsx</em> на <em>.tsx</em> возникает лишь один вопрос, как правильно писать те или иные виды компонентов в типизированном стиле, то данная глава будет отличаться от остальных и будет построена таким образом, чтобы общую информацию изучить по ходу детального рассмотрения каждого вида компонентов в отдельности. Кроме того, если раньше примеры кода были придуманы таким образом, чтобы помимо информативности, быть ещё и компактными, то в случаи с компонентами React, ничего поделать нельзя. Чтобы хоть как-то сгладить это, компоненты будут показываться небольшими частями, а уже после будет описываться важные-неочевидные моменты. Помимо этого, компоненты не будут иметь какой-то осмысленный характер. Если попытаться смоделировать, что-то, что можно продемонстрировать, то кода было бы в разы больше и сделало его менее понятным.</p>
+<p>Также, возможности <em>TypeScript</em>, позволяют аннотировать языковые конструкции, как в классическом, так и в минималистическом стиле. В первом случае аннотацию типа содержит каждая конструкция. Во втором часть работы перекладывают на вывод типов. Так как предполагается, что читатели, если ещё не разрабатывают большие приложения, то всеми силами к этому стремятся. Поэтому все примеры в этой главе будут выполнены в классическом-максимальном стиле. Кроме того, стоит уточнить, что на момент написание этой главы используется React <em>v16.4.1</em> и <em>TypeScript</em> <em>3.1</em> и если вы заметили несоответствие, которое может произойти из-за изменение в версиях выше указанных, то можете об этом сообщить всеми доступными способами, указанными в соответствующем разделе.</p>
+</section><section id="React-proizvodnye-ot-Component" name="React - производные от Component" class="subchapter">
+            <h2 class="subchapter-title">
+                <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="React-proizvodnye-ot-Component" type="absolute-url">
+                    <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <use href="#icon_link"/>
+                    </svg>
+                </button>
+                React - производные от Component
+            </h2>
+        
+<hr>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> React <span class="hljs-keyword">from</span> <span class="hljs-string">"react"</span>;
+<span class="hljs-keyword">import</span> { Component, ReactElement, ReactEventHandler, RefObject, SyntheticEvent } <span class="hljs-keyword">from</span> <span class="hljs-string">"react"</span>;
+<span class="hljs-keyword">import</span> { ErrorInfo } <span class="hljs-keyword">from</span> <span class="hljs-string">"react"</span>;
+
+<span class="hljs-keyword">interface</span> GreeterDefaultProps {} <span class="hljs-comment">// для декларации свойст по умолчанию</span>
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">interface</span> GreeterProps <span class="hljs-keyword">extends</span> GreeterDefaultProps {} <span class="hljs-comment">// для декларации свойст + экспорт интерфейса</span>
+<span class="hljs-keyword">interface</span> GreeterState {} <span class="hljs-comment">// для декларации состояния</span>
+<span class="hljs-keyword">interface</span> GreeterSnapshot {} <span class="hljs-comment">// для декларации снимка</span>
+
+<span class="hljs-keyword">type</span> DefaultProps = Readonly&#x3C;GreeterDefaultProps>; <span class="hljs-comment">// помечаем как неизменяемые члены объекта defaultProps</span>
+<span class="hljs-keyword">type</span> Props = Readonly&#x3C;GreeterProps>; <span class="hljs-comment">// помечаем как неизменяемые члены объекта props</span>
+<span class="hljs-keyword">type</span> State = Readonly&#x3C;GreeterState>; <span class="hljs-comment">// помечаем как неизменяемые члены объекта state</span>
+<span class="hljs-keyword">type</span> Snapshot = Readonly&#x3C;GreeterSnapshot>; <span class="hljs-comment">// помечаем как неизменяемые члены объекта Snapshot</span>
+
+<span class="hljs-keyword">type</span> TextRefCallback = <span class="hljs-function">(<span class="hljs-params"> element: HTMLSpanElement </span>) =></span> <span class="hljs-built_in">void</span>; <span class="hljs-comment">// декларация псевдонима типа для типа описывающего функцию обратного вызова устанавливающего ссылку на dom  элемент</span>
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-keyword">class</span> Greeter <span class="hljs-keyword">extends</span> Component&#x3C;Props, State, Snapshot> {
+  <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> readonly defaultProps: DefaultProps = {}; <span class="hljs-comment">// помечаем как неизменяемый сам объект defaultProps, модификатор доступа которого должен быть public</span>
+
+  <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> getDerivedStateToProps ? ( nextProps: Readonly&#x3C;Props>, prevState: State ): Partial&#x3C;State> | <span class="hljs-literal">null</span> {
+      <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>;
+  }
+ 
+  <span class="hljs-keyword">public</span> readonly state: State = {}; <span class="hljs-comment">// помечаем как неизменяемый сам объект state, модификатор доступа которого должен быть public</span>
+
+  <span class="hljs-keyword">private</span> readonly containerRef: RefObject&#x3C;HTMLDivElement> = React.createRef(); <span class="hljs-comment">// создание объекта RefObject с помощью которого будет получена ссылка на dom элемент</span>
+  <span class="hljs-keyword">private</span> textRef: HTMLSpanElement; <span class="hljs-comment">// поле в которое будет сохранена ссылка на dom элемент</span>
+  <span class="hljs-keyword">private</span> readonly textRefCallback: TextRefCallback = <span class="hljs-function"><span class="hljs-params">element</span> =></span> <span class="hljs-keyword">this</span>.textRef = element; <span class="hljs-comment">// объявление функции обратного вызова для установления ссылки на dom элемент</span>
+
+  <span class="hljs-keyword">constructor</span> (<span class="hljs-params"> props: Props </span>) {
+      <span class="hljs-keyword">super</span>( props );
+  }
+
+  <span class="hljs-keyword">public</span> componentDidMount ? ():<span class="hljs-built_in">void</span> {}
+  <span class="hljs-keyword">public</span> componentWillUnmount ? (): <span class="hljs-built_in">void</span> {}
+  <span class="hljs-keyword">public</span> shouldComponentUpdate  ? ( nextProps: Readonly&#x3C;Props>, nextState: Readonly&#x3C;State>, nextContext: <span class="hljs-built_in">any</span> ):
+      <span class="hljs-built_in">boolean</span> { <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>; }
+  <span class="hljs-keyword">public</span> componentDidUpdate ? ( prevProps: Readonly&#x3C;Props>, prevState: Readonly&#x3C;State>, Snapshot?: Snapshot ):
+      <span class="hljs-built_in">void</span> { }
+  <span class="hljs-keyword">public</span> componentDidCatch ? ( error: <span class="hljs-built_in">Error</span>, errorInfo: ErrorInfo ): <span class="hljs-built_in">void</span> {}
+  <span class="hljs-keyword">public</span> getSnapshotBeforeUpdate ? ( prevProps: Readonly&#x3C;Props>, prevState: Readonly&#x3C;State> ): Snapshot | <span class="hljs-literal">null</span> {
+      <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>
+  }
+
+  <span class="hljs-keyword">private</span> readonly closeButton_clickHandler: ReactEventHandler&#x3C;HTMLButtonElement> = <span class="hljs-function">(<span class="hljs-params"> event: SyntheticEvent&#x3C;HTMLButtonElement> </span>) =></span> {
+      <span class="hljs-keyword">this</span>.setState( <span class="hljs-function">(<span class="hljs-params"> prevState: State, prevProps: Props </span>) =></span> {
+          <span class="hljs-keyword">return</span> {  };
+      } )
+  };
+
+  <span class="hljs-keyword">public</span> render (): ReactElement&#x3C;Props> {
+      <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>;
+  }
+}</code></pre>
+<p>Первым делом стоит обратить внимание, на объявление, после четырех интерфейсов, идентификаторы которых начинаются с идентификатора создаваемого компонента <code class="inline-code">*DefaultProps</code>, <code class="inline-code">*Props</code>, <code class="inline-code">*State</code>, <code class="inline-code">*Snapshot</code>.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">interface</span> GreeterDefaultProps {}
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">interface</span> GreeterProps <span class="hljs-keyword">extends</span> IGreeterDefaultProps {}
+<span class="hljs-keyword">interface</span> GreeterState {}
+<span class="hljs-keyword">interface</span> GreeterSnapShot {}</code></pre>
+<p>По названиям не сложно догадаться, что в первом интерфейсе, предполагается описывать свойства имеющие значение по умолчанию, а во втором обязательные свойства создаваемого компонента. Второй интерфейс предназначен для описания состояния компонента. Ну а третий интерфейс описывает снимок, который возвращает метод <code class="inline-code">getSnapshotBeforeUpdate()</code>.</p>
+<p>Также  интерфейс <code class="inline-code">*Props</code>, расширяет и интерфейс <code class="inline-code">*DefaultProps</code>. Сделано так по одной простой причине, обязательные свойства хранятся в объекте props,  а необязательные в объекте <code class="inline-code">defaultProps</code>. И если создать общую декларацию, то указав её в аннотации объекта <code class="inline-code">defaultProps</code>, в нем потребуется объявлять ещё и обязательные, что попросту не логично. Кроме того, в реальных проектах, интерфейс <code class="inline-code">*Props</code>, помимо <code class="inline-code">*DefaultProps</code>, очень часто расширяет множество других интерфейсов. В их число входят типы предоставляемые библиотеками <em>ui</em>, <em>hoc обертками</em>, обычными библиотеками, как например <em>react-router</em> и его тип <code class="inline-code">RouteComponentProps&#x3C;T></code>. Но самым часто расширяемым типом, помимо <code class="inline-code">*DefaultProps</code>, является тип <code class="inline-code">HTMLAttributes&#x3C;T></code>, речь о котором пойдет далеев этой главе.</p>
+<p>К тому же модуль, к которому принадлежит рассматриваемый код, экспортирует интерфейс <code class="inline-code">*Props</code>. У этого есть веская причина, которая будет рассматриваться далее в теме посвященной созданию <em>HOC</em>.</p>
+<p>Следующее, на что стоит обратить внимание, это создание псевдонимов типа для всех объявленных ранее интерфейсов.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">type</span> DefaultProps = Readonly&#x3C;GreeterDefaultProps>;
+<span class="hljs-keyword">type</span> Props = Readonly&#x3C;GreeterProps>;
+<span class="hljs-keyword">type</span> State = Readonly&#x3C;GreeterState>;
+<span class="hljs-keyword">type</span> Snapshot = Readonly&#x3C;GreeterSnapShot>;</code></pre>
+<p>Сделано это по причине того, что идентификаторы типов, для которых создаются псевдонимы, настолько сложные и большие, что использование их в многочисленных аннотациях, в теле компонента, сделает его трудно читаемым. Кроме того, тип <code class="inline-code">Readonly</code>, которые защищают объектные типы от случайных изменений, часто дополняется типом <code class="inline-code">Partial</code>.</p>
+<p>Далее, в теле класса компонента, происходит объявление <code class="inline-code">defaultProps</code> и <code class="inline-code">state</code>. Нужно обратить внимание, что эти поля объявлены лишь в демонстрационных целях, так из-за отсутствия у них членов, в них нет потребности. Кроме того,при их объявлении также используется модификатор <code class="inline-code">readonly</code>, чтобы защитить сами поля от случайного изменения.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> readonly defaultProps: DefaultProps = {};
+
+<span class="hljs-keyword">public</span> readonly state: State = {};</code></pre>
+<p>Затем, в теле класса компонента, происходит объявление полей, которые нужны для получение ссылок на нативные dom элементы (<code class="inline-code">ref</code>).</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">private</span> readonly containerRef: RefObject&#x3C;HTMLDivElement> = React.createRef();
+
+<span class="hljs-keyword">private</span> textRef: HTMLSpanElement;
+<span class="hljs-keyword">private</span> readonly textRefCallback: TextRefCallback = <span class="hljs-function"><span class="hljs-params">element</span> =></span> <span class="hljs-keyword">this</span>.textRef = element;</code></pre>
+<p>В первом случаи, ссылку на dom элемент предполагается получить с помощь вызова статического метода <code class="inline-code">React.createRef()</code>, который возвращает объект, принадлежащий к обобщенному типу <code class="inline-code">RefObject&#x3C;T></code>. В качестве обязательного параметра типа, <code class="inline-code">RefObject&#x3C;T></code> ожидает тип нативного элемента, в конкретном случае тип <em>html</em> элемента <em>div</em> <code class="inline-code">HTMLDivElement</code>.</p>
+<p>Два остальных поля предназначены для получения ссылки на нативный dom элемент с помощью функции обратного вызова (<em>callback</em>). Для этого сначала объявляется поле, которому в дальнейшем будет присвоено значение, принадлежащие к типу <em>html</em> элемента, в данном случаи это элемент <em>span</em> <code class="inline-code">HTMLSpanElement</code>. На следующем шаге объявляется поле, в качестве значения которого выступает стрелочная функция, в теле которой происходит присваивание dom элемента, ожидаемого в качестве единственного параметра, полю, объявленному на предыдущем шаге. Стоит обратить внимание, что описание типа функции обратного вызова, происходит до объявления компонента и в целях повышения семантики кода, для него создается псевдоним типа <code class="inline-code">TextRefCallback</code>, который и используется в аннотации поля. Для предотвращения случайного изменения, поле, в качестве значения которому присвоена ссылка на функцию обратного вызова, объявлен с модификатором <code class="inline-code">readonly</code>.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-comment">// ...</span>
+
+<span class="hljs-keyword">type</span> TextRefCallback = <span class="hljs-function">(<span class="hljs-params"> element: HTMLSpanElement </span>) =></span> <span class="hljs-built_in">void</span>;
+
+<span class="hljs-comment">// ...</span>
+
+<span class="hljs-keyword">private</span> textRef: HTMLSpanElement;
+<span class="hljs-keyword">private</span> readonly textRefCallback: TextRefCallback = <span class="hljs-function"><span class="hljs-params">element</span> =></span> <span class="hljs-keyword">this</span>.textRef = element;
+
+<span class="hljs-comment">// ...</span></code></pre>
+<p>Следующим по очереди идет конструктор, в объявлении которого нет ничего необычно. Вслед за ним, объявляется поле <code class="inline-code">closeButton_clickHandler</code>, которому в качестве значения присваивается стрелочная функция, выступающая в роли слушателя события (<em>event handler</em>).</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">private</span> readonly closeButton_clickHandler: ReactEventHandler&#x3C;HTMLButtonElement> = <span class="hljs-function">(<span class="hljs-params"> event: SyntheticEvent&#x3C;HTMLButtonElement> </span>) =></span> {
+  <span class="hljs-keyword">this</span>.setState( <span class="hljs-function">(<span class="hljs-params"> prevState: State, prevProps: Props </span>) =></span> {
+      <span class="hljs-keyword">return</span> {  };
+  } )
+};</code></pre>
+<p>И прежде, чем перейти к рассмотрению кода в её теле, обязательно стоит пролить свет на один очень важный момент, связанный с аннотированием типов. Как было сказано в начале этой главы, все примеры являются классическими, с точки зрения типизации, но несмотря на это, всем, кто придерживается подобного подхода в повседневной разработке, рекомендуется делать отступления от правил, особенно в случаях с функциями передаваемых в качестве значения. В данном случае, подобное аннотирование, является явным перебором.</p>
+<p>В случаях, когда параметры слушателя событий не требуются, лучше вообще опускать аннотацию типа и переложить эту заботу на вывод типов. К тому же, отсутствие аннотации даже подчеркнет тот факт, что важен лишь вызов этого слушателя.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">private</span> readonly closeButton_clickHandler = <span class="hljs-function"><span class="hljs-params">( )</span> =></span> {
+   <span class="hljs-comment">// произвести какие-то операции, которые не требуют объекта event</span>
+};</code></pre>
+<p>Если же, для операций в теле слушателя, требуется объект <code class="inline-code">event</code>, то обойтись без аннотации уже не получится. Вывод типов не сможет вывести тип, а значит параметр event будет принадлежать к типу <code class="inline-code">Any</code> и следовательно автодополнение будет отсутствовать.  Но в случаи нативных слушателей событий, существует аж два способа явной аннотации.</p>
+<p>Первая из них заключается в аннотировании параметра event, без аннотирования поля, которому присваивается слушатель событий. Из-за того, что этот код нельзя трактовать двусмысленно, не страдает его читаемость. Но кроме того, вывод типов сможет вывести тип для поля, если информацию о нем потребуется получить с помощью подсказок предоставляемых всеми современными idea.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">private</span> readonly closeButton_clickHandler = <span class="hljs-function">(<span class="hljs-params"> event: SyntheticEvent&#x3C;HTMLButtonElement> </span>) =></span> {
+  <span class="hljs-comment">// какие-то операции с объектом event</span>
+};
+
+<span class="hljs-comment">// вывод типа видит этот код как private readonly closeButton_clickHandler: ( event: SyntheticEvent&#x3C;HTMLButtonElement> ) => void = ( event: SyntheticEvent&#x3C;HTMLButtonElement> ) => {};</span></code></pre>
+<p>Второй способ диаметрально противоположен первому и предполагает явно аннотировать поле, а не значение, в роли которого выступает слушатель событий.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">private</span> readonly closeButton_clickHandler: ReactEventHandler&#x3C;HTMLButtonElement> = <span class="hljs-function"><span class="hljs-params">event</span> =></span> {
+        <span class="hljs-comment">// какие-то операции с параметром event  </span>
+};</code></pre>
+<p>Какой способ выбрать зависит лишь от конвенций по стилю кода установленного в команде и от специфики некоторых ситуации.</p>
+<p>Далее стоит обратить внимание на код в теле слушателя событий, а именно операции асинхронного изменения состояния при помощи функции, также называемой <em>“функциональным состоянием”</em>. Именно этот способ был выбран по той причине, что он отлично дополняет сказанное относительно отступления от правил касающихся классического подхода при аннотировании языковых конструкций. </p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">this</span>.setState( <span class="hljs-function">(<span class="hljs-params"> prevState: State, prevProps: Props </span>) =></span> {
+    <span class="hljs-keyword">return</span> {  };
+}</code></pre>
+<p>В том случае, если бы передаваемая в метод <code class="inline-code">setState</code> функция, по каким-либо причинам, нуждалась в явной аннотации возвращаемого типа, и при этом из нее возвращалось лишь часть состояния, то пришлось бы описывать создавать описания типа с нуля. Другими словами, указать тип <code class="inline-code">State</code> не получилось бы, так как тип <code class="inline-code">State</code>   не совместим с типом обладающими лишь некоторыми его признаками (глава <a class="book__chapter__chapter-link" href="book/contents/Tipizaciya-Sovmestimost-obektov" title="Типизация - Совместимость объектов">Типизация - Совместимость объектов</a>). Либо пришлось описывать члены типа <code class="inline-code">State</code>, из-за которых возникает несоответствие, необязательными (необязательные свойства рассматриваются в главе <a class="book__chapter__chapter-link" href="book/contents/Operatory-Optional-Not-Null-Not-Undefined-Definite-Assignment-Assertion" title="Операторы - Optional, Not-Null, Not-Undefined, Definite Assignment Assertion">Операторы - Optional, Not-Null, Not-Undefined, Definite Assignment Assertion</a>). Ситуация не очень распространенная, но о ней нужно знать.</p>
+<p>Осталось рассмотреть лишь метод <code class="inline-code">render</code>, у которого все внимание будет приковано к возвращаемому типу.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">public</span> render (): ReactElement&#x3C;Props> {
+  <span class="hljs-keyword">return</span> (  );
+}</code></pre>
+<p>На самом деле с методом <code class="inline-code">render</code> связан один нюанс, который обязательно нужно знать, а кроме того надеятся, что создатели деклараций для <code class="inline-code">React</code>, исправят положение. И дело вот в чем. Предположим, что разработчику потребовалось создать компонент лист.</p>
+<pre><code>interface ListItemProps {}
+interface ListItemState {}
+
+class ListItem extends Component&#x3C;ListItemProps, ListItemState> {
+render(){
+  return &#x3C;li>{this.props.children}&#x3C;/li>;
+}
+}
+    
+
+interface ListProps {}
+interface ListState {}
+
+class List extends Component&#x3C;ListProps, ListState> {
+render(){
+  return &#x3C;ul>{this.props.children}&#x3C;/ul>;
+}
+}
+</code></pre>
+<p>И в какой-то момент, разработчик решает воспользоваться силой типизации и поставить точку в давнем вопросе, а именно запретить добавлять в <code class="inline-code">ul</code>, элементы отличные от <code class="inline-code">li</code>. Казалось бы, что может быть проще? Всего-то навсего, нужно для компонента <code class="inline-code">List</code> ограничить тип <code class="inline-code">children</code>  типом компонента <code class="inline-code">ListItem</code>.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">interface</span> ListItemProps {}
+<span class="hljs-keyword">interface</span> ListItemState {}
+
+<span class="hljs-keyword">class</span> ListItem <span class="hljs-keyword">extends</span> Component&#x3C;ListItemProps, ListItemState> {
+render(): ReactElement&#x3C;ListItemProps> { <span class="hljs-comment">// уточняем возвращаемы тип</span>
+  <span class="hljs-keyword">return</span> &#x3C;li>{<span class="hljs-keyword">this</span>.props.children}&#x3C;<span class="hljs-regexp">/li>;
+}
+}
+
+
+interface ListProps {
+children: ReactElement&#x3C;ListItemProps>; /</span><span class="hljs-regexp">/ ограничиваем children
+}
+interface ListState {}
+
+class List extends Component&#x3C;ListProps, ListState> {
+render(){
+  return &#x3C;ul>{this.props.children}&#x3C;/u</span>l>;
+}
+}
+	
+
+<span class="hljs-comment">// почему нет ошибки сообщающей что div это не ReactElement&#x3C;ListItemProps>?</span>
+<span class="hljs-keyword">let</span> list = (
+&#x3C;List>
+  &#x3C;div>&#x3C;<span class="hljs-regexp">/div>
+&#x3C;/</span>List>
+);</code></pre>
+<p>Но на деле всё не так, как ожидалось. И все дело в том, что метод класса <code class="inline-code">Component</code>, должен возвращать один из нескольких типов - <code class="inline-code">string</code>, <code class="inline-code">number</code>, <code class="inline-code">boolean</code>, <code class="inline-code">null</code>, <code class="inline-code">undefined</code>, <code class="inline-code">ReactPortal</code>, <code class="inline-code">ReactFragment</code>, <code class="inline-code">ReactChild</code>, который является типом <code class="inline-code">Union</code> для типов <code class="inline-code">string</code>, <code class="inline-code">number</code> и <code class="inline-code">ReactElement&#x3C;T></code>. Кроме того, в качестве возвращаемого типа можно указывать <code class="inline-code">ReactNode</code>, который принадлежит ко всем перечисленным типам. </p>
+<p>В случаи кастомизации, эти ограничения вынуждают разработчика указывать тип, возвращаемый из переопределяемого метода render, как <code class="inline-code">ReactElement&#x3C;T></code>, который, к несчастью, является базовым типом для типа <code class="inline-code">Element</code>, который в свою очередь является базовым для всех реакт-элементов. Это делает все реакт-элементы совместимые со всеми реакт-компонентами. Кроме того, метод <code class="inline-code">React.createElement</code>, во всех его перегруженных вариантах, возвращает тип, совместимый с <code class="inline-code">ReactElement&#x3C;T></code>, что, делает совместимыми абсолютно все компоненты.</p>
+<p>Эти два факта сводят на нет саму идею аннотирования возвращаемого типа из метода <code class="inline-code">render</code>. Но возможно именно вам и предстоит поменять положение дел и тем самым снискать нескончаемую благодарность реакт сообщества.</p>
+<p>И напоследок осталось рассмотреть методы жизненного цикла компонента. Но так как в них нет ничего такого, на что читатели, к этому моменту, не смогли дать ответ самостоятельно, комментариев не будет.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">public</span> componentDidMount ? ():<span class="hljs-built_in">void</span> {}
+<span class="hljs-keyword">public</span> componentWillUnmount ? (): <span class="hljs-built_in">void</span> {}
+<span class="hljs-keyword">public</span> shouldComponentUpdate  ? ( nextProps: Readonly&#x3C;Props>, nextState: Readonly&#x3C;State>, nextContext: <span class="hljs-built_in">any</span> ):
+  <span class="hljs-built_in">boolean</span> { <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>; }
+<span class="hljs-keyword">public</span> componentDidUpdate ? ( prevProps: Readonly&#x3C;Props>, prevState: Readonly&#x3C;State>, Snapshot?: Snapshot ):
+  <span class="hljs-built_in">void</span> { }
+<span class="hljs-keyword">public</span> componentDidCatch ? ( error: <span class="hljs-built_in">Error</span>, errorInfo: ErrorInfo ): <span class="hljs-built_in">void</span> {}
+<span class="hljs-keyword">public</span> getSnapshotBeforeUpdate ? ( prevProps: Readonly&#x3C;Props>, prevState: Readonly&#x3C;State> ): Snapshot | <span class="hljs-literal">null</span> {
+  <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>
+} </code></pre>
+</section><section id="React-proizvodnye-ot-PureComponent" name="React - производные от PureComponent" class="subchapter">
+            <h2 class="subchapter-title">
+                <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="React-proizvodnye-ot-PureComponent" type="absolute-url">
+                    <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <use href="#icon_link"/>
+                    </svg>
+                </button>
+                React - производные от PureComponent
+            </h2>
+        
+<hr>
+<p>Кроме того, что в <code class="inline-code">React</code> пользовательские компоненты могут расширять обобщенный класс <code class="inline-code">Component&#x3C;Props, State, Snapshot></code>, они также могут использовать в качестве базового класса обобщенный класс <code class="inline-code">PureComponent&#x3C;Props, State, Snapshot></code>. С точки зрения описания компонента, <code class="inline-code">PureComponent</code> ничем не отличается от <code class="inline-code">Component</code>, поэтому обойдемся только кодом, который на все сто идентичен предыдущему.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> React <span class="hljs-keyword">from</span> <span class="hljs-string">"react"</span>;
+<span class="hljs-keyword">import</span> { PureComponent, ReactElement, ReactEventHandler, RefObject, SyntheticEvent } <span class="hljs-keyword">from</span> <span class="hljs-string">"react"</span>;
+<span class="hljs-keyword">import</span> { ErrorInfo } <span class="hljs-keyword">from</span> <span class="hljs-string">"react"</span>;
+
+<span class="hljs-comment">// здесь точно такой же код, как был разобран на предыдущем шаге</span>
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-keyword">class</span> Greeter <span class="hljs-keyword">extends</span> PureComponent&#x3C;Props, State, Snapshot> {
+  <span class="hljs-comment">// здесь точно такой же код, как был разобран на предыдущем шаге</span>
+}</code></pre>
+</section><section id="React-Functional-Component" name="React - Functional Component" class="subchapter">
+            <h2 class="subchapter-title">
+                <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="React-Functional-Component" type="absolute-url">
+                    <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <use href="#icon_link"/>
+                    </svg>
+                </button>
+                React - Functional Component
+            </h2>
+        
+<hr>
+<p>Поскольку в <em>React</em> функциональные компоненты, которые чаще называют <em>Stateless Components</em>, являются обычной функцией, то объявлять их можно двумя способами, в виде обычной функции (<em>Function Declaration</em>) и в виде функционального выражения (<em>Function Expression</em>), декларация которого также разделяется на два варианта, аннотирование самой функции и декларирования ссылки на неё. Так как <em>stateless</em> компоненты очень компактные и в них нет ничего, что не было рассмотрено на предыдущих шагах, здесь будет приведен код всех трех вариантов, но особое внимание будет уделено последнему варианту.</p>
+<p>Как уже было сказано, первый способ, аннотирование <em>Function Declaration</em> ничем не отличается от аннотирования обычных функций.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> React <span class="hljs-keyword">from</span> <span class="hljs-string">"react"</span>;
+<span class="hljs-keyword">import</span> { ReactElement } <span class="hljs-keyword">from</span> <span class="hljs-string">"react"</span>;
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">interface</span> GreeterProps {
+  requiredProperty: <span class="hljs-built_in">string</span>;
+  optionalProperty: <span class="hljs-built_in">string</span>;
+}
+
+<span class="hljs-keyword">type</span> Props = GreeterProps;
+
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Greeter</span> (<span class="hljs-params"> { requiredProperty, optionalProperty = 'value' }: Props </span>): <span class="hljs-title">ReactElement</span>&#x3C;<span class="hljs-title">Props</span>> </span>{
+  <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>;
+}
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> Greeter;</code></pre>
+<p>Второй способ, аннотирование  функции, выступающей в качестве значения, также не отличается от аннотирования обычной функции.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> React <span class="hljs-keyword">from</span> <span class="hljs-string">"react"</span>;
+<span class="hljs-keyword">import</span> { ReactElement } <span class="hljs-keyword">from</span> <span class="hljs-string">"react"</span>;
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">interface</span> GreeterProps {
+  requiredProperty: <span class="hljs-built_in">string</span>;
+  optionalProperty: <span class="hljs-built_in">string</span>;
+}
+
+<span class="hljs-keyword">type</span> Props = GreeterProps;
+
+
+<span class="hljs-keyword">const</span> Greeter = ( { requiredProperty, optionalProperty = <span class="hljs-string">'value'</span> }: Props ): ReactElement&#x3C;Props> => {
+  <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>;
+};
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> Greeter;</code></pre>
+<p>Третий способ, на который стоит обратить внимание, заключается в аннотировании ссылки на компонент с помощью встроенного в систему типов React обобщенного типа <code class="inline-code">StatelessComponent&#x3C;P></code>. В нем нет ничего неординарного, поэтому о нём можно добавить, что в качестве аргумента типа, он ожидает тип, описывающий свойства (<code class="inline-code">props</code>) компонента.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> React <span class="hljs-keyword">from</span> <span class="hljs-string">"react"</span>;
+<span class="hljs-keyword">import</span> { StatelessComponent } <span class="hljs-keyword">from</span> <span class="hljs-string">"react"</span>;
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">interface</span> GreeterProps {
+  requiredProperty: <span class="hljs-built_in">string</span>;
+  optionalProperty: <span class="hljs-built_in">string</span>;
+}
+
+<span class="hljs-keyword">type</span> Props = GreeterProps;
+
+<span class="hljs-keyword">const</span> Greeter: StatelessComponent&#x3C;Props> = <span class="hljs-function">(<span class="hljs-params"> { requiredProperty, optionalProperty = 'value' } </span>) =></span> {
+  <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>;
+};
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> Greeter;</code></pre>
+<p>Все варианты одинаковые и выбор зависит от личных предпочтений. Хотя я склоняюсь к третьему варианту.</p>
+</section><section id="React-Obobshchennye-komponenty-Generics-Component" name="React - Обобщенные компоненты (Generics Component)" class="subchapter">
+            <h2 class="subchapter-title">
+                <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="React-Obobshchennye-komponenty-Generics-Component" type="absolute-url">
+                    <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <use href="#icon_link"/>
+                    </svg>
+                </button>
+                React - Обобщенные компоненты (Generics Component)
+            </h2>
+        
+<hr>
+<p>В <em>TypeScript</em> существует возможность объявлять пользовательские компоненты обобщенными. Это делает работу с ними более удобной, а кроме того, повышает их переиспользование. Чтобы избавить читателя от пересказа того, что подробно было рассказано в главе <a class="book__chapter__chapter-link" href="book/contents/Tipy-Obobshcheniya-Generics" title="Типы - Обобщения (Generics)">Типы - Обобщения (Generics)</a>, опустим теорию, которая относится к обобщенным типам и сосредоточимся на закреплении их использования. Для этого  сначала будет  смоделирована проблема, а затем предоставлено её решение при помощью обобщенных типов. Но прежде, рассмотрим сам синтаксис обобщенных компонентов.</p>
+<p>В случае компонентов расширяющих классы Component или <code class="inline-code">PureComponent</code>, нет ничего особенного, на что стоит обратить внимание.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">interface</span> Props&#x3C;T> {}
+<span class="hljs-keyword">class</span> CustomComponent&#x3C;T> <span class="hljs-keyword">extends</span> Component&#x3C;Props&#x3C;T>, State, Snapshot> {}
+<span class="hljs-keyword">class</span> CustomComponent&#x3C;T> <span class="hljs-keyword">extends</span> PureComponent&#x3C;Props&#x3C;T>, State, Snapshot> {}</code></pre>
+<p>Нет ничего особенного и в объявлении функциональной декларации (<em>Function Declaration</em>).</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">interface</span> Props&#x3C;T> {}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">CustomComponent</span> &#x3C;<span class="hljs-title">T</span>>(<span class="hljs-params">props: Props&#x3C;T></span>): <span class="hljs-title">ReactElement</span>&#x3C;<span class="hljs-title">Props</span>&#x3C;<span class="hljs-title">T</span>>> </span>{
+  <span class="hljs-keyword">return</span> &#x3C;div>&#x3C;<span class="hljs-regexp">/div>;
+}</span></code></pre>
+<p>Но относительно функциональных компонентов, в роли которых выступают стрелочные функции (<em>arrow function</em>), без курьезов не обошлось. Дело в том, что на данный момент, <em>TypeScript</em> не поддерживает обобщенные стрелочные функции, в файлах, с расширением <em>.tsx</em>. </p>
+<pre><code class="hljs language-typescript"><span class="hljs-comment">// Erorr, в файлах с расширением .tsx нельзя объявлять обобщенные стрелочные функции</span>
+<span class="hljs-keyword">const</span> CustomComponent: StatelessComponent&#x3C;Props> = &#x3C;T>(props: Props): ReactElement&#x3C;Props> => (
+  &#x3C;div>&#x3C;<span class="hljs-regexp">/div>
+);</span></code></pre>
+<p>Кроме того, объявление обобщенного функционального компонента в виде функционального выражения тоже накладывает некоторые ограничения. В большинстве случаев, использование параметров типа предполагается использовать в обобщенном интерфейсе описывающим свойства (<code class="inline-code">props</code>) компонент. А это в свою очередь делает бессмысленным аннотацию идентификатора ссылающегося на функцию.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">interface</span> Props&#x3C;T> {}
+
+<span class="hljs-keyword">const</span> CustomComponent: StatelessComponent&#x3C;Props&#x3C; <span class="hljs-comment">/** как получить тут, то... */</span> >> = <span class="hljs-function"><span class="hljs-keyword">function</span> &#x3C; /** ...что объявляется здесь */ > (<span class="hljs-params">props</span>) </span>{
+  <span class="hljs-keyword">return</span> &#x3C;div>&#x3C;<span class="hljs-regexp">/div>;
+}</span></code></pre>
+<p>Можно было бы указать в качестве аргумента типа тип <code class="inline-code">any</code>, <code class="inline-code">StatelessComponent&#x3C;Props&#x3C;any>></code>, но это бы сделало бессмысленным саму типизацию. Поэтому, единственный вариант объявления обобщенного функционального компонента, в виде функционального выражение, возможен путем аннотирования самой функции и переложением ответственности за аннотирование ссылки на вывод типов.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">interface</span> Props&#x3C;T> {}
+
+<span class="hljs-comment">// переложить аннотирование ссылки на вывод типов</span>
+<span class="hljs-keyword">const</span> CustomComponent =  <span class="hljs-function"><span class="hljs-keyword">function</span> &#x3C;<span class="hljs-title">T</span>>(<span class="hljs-params">props: Props&#x3C;T></span>): <span class="hljs-title">ReactElement</span>&#x3C;<span class="hljs-title">Props</span>&#x3C;<span class="hljs-title">T</span>>> </span>{
+  <span class="hljs-keyword">return</span> &#x3C;div>&#x3C;<span class="hljs-regexp">/div>;
+};</span></code></pre>
+<p>После того, как обобщенный тип был объявлен, его можно начать использовать в <em>.jsx</em> шаблонах.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-comment">// ...где-то в коде</span>
+
+<span class="hljs-keyword">interface</span> IData {  }
+
+&#x3C;CustomComponent&#x3C;IData> <span class="hljs-regexp">/></span></code></pre>
+<p>На этом, беглое рассмотрение объявления и создания обобщенных компонентов закончено, можно переходить к более практическим примерам.</p>
+<p>Сложно представить приложение, в котором при построении отображения, обошлось бы без идентичного кода, который повторяется в нескольких частях программы. Поэтому разработчики, на основе готовых, низкоуровневых компонентов, создают свои, более высокоуровневые компоненты. При этом, чтобы их можно было переиспользовать, они должны быть максимально универсальными. Поэтому давайте, на простых примерах, выясним, почему к этому стоит стремится и как этого добится.</p>
+<p>В качестве простого примера, представим, что существует используемый во множестве частей программы, такой компонент, как <code class="inline-code">Select</code>. Каждый раз,когда пользователь выбирает тот или иной Option, компонент <code class="inline-code">Select</code> посылает вместе с событием <code class="inline-code">id</code> выбранного <code class="inline-code">Option</code>. При этом, чтобы воспользоваться этим компонентом, необходимо, по данным, построить дерево состоящее из компонентов <code class="inline-code">Select</code> и <code class="inline-code">Option</code>. То есть появляется потребность в использовании циклов. Кроме того, очень часто, после получения id выбранного <code class="inline-code">Option</code>, требуются операции над данными, с которыми он ассоциирован. Это означает, что каждый раз, когда вызывается слушатель событий, нужно перебирать массив с данными, для поиска в нем элемента с нужным <code class="inline-code">id</code>. </p>
+<p>Представьте сколько действий нужно проделать. А если в приложении, будет создаваться множество компонентов <code class="inline-code">Select</code>, то эти действия придется повторить для каждого отдельного случая. Налицо нарушения принципа <em>DRY</em> (<em>“Don't repeat yourself”</em> или по русски <em>“Не повторяйся”</em>).</p>
+<p>Кроме того, бывают случаи, когда массив с данными, по которому строятся компоненты, собирается на основе других данных и сразу же передается в тот компонент, в котором с ним происходит дальнейшая работа. В случаи, когда с этими данными нужно работать после того, как по ним отрендерятся визуальные компоненты, их требуется сохранить в локальное состояние. При повторении данного сценария, это снова приведет к повторению кода и кроме того код программы будет усложнен операциями по сохранению и поддержке данных в актуальном состоянии. Это приводит к нарушению ещё одного принципа известного как принцип <em>KISS</em> (<em>“Keep it simple, stupid”</em>).</p>
+<p>Чтобы устранить эти проблемы, разработчику придется создать новый слой абстракции (новый компонент), который инкапсулирует всю работу над компонентом <code class="inline-code">Select</code>.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">interface</span> IContactInfo { <span class="hljs-comment">// описание каких-то данных</span>
+  id: <span class="hljs-built_in">string</span>;
+ 
+  phone: <span class="hljs-built_in">string</span>;
+  person: <span class="hljs-built_in">string</span>;
+}
+
+<span class="hljs-keyword">interface</span> Props { <span class="hljs-comment">// описание свойств компонента высокого уровня</span>
+  data: IContactInfo[]; <span class="hljs-comment">// данные</span>
+  onSelect: <span class="hljs-function">(<span class="hljs-params">data: IContactInfo</span>) =></span> <span class="hljs-built_in">void</span>; <span class="hljs-comment">// слушатель событий с помощью которого компонент высокого уровня будет сообщать об изменении внутреннего состояния</span>
+}
+
+<span class="hljs-comment">// компонент более высокого уровня абстракции, который инкапсулировал хранение данных, логику построения компонентов по данным</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">SelectWithData</span>(<span class="hljs-params">{data, onSelect}:Props</span>):<span class="hljs-title">ReactElement</span>&#x3C;<span class="hljs-title">Props</span>></span>{
+  <span class="hljs-comment">// функция для динамического построения элементов Option по данным</span>
+  <span class="hljs-keyword">const</span> getOptionAll = <span class="hljs-function">(<span class="hljs-params"> data: IContactInfo[] </span>) =></span> data.map&#x3C;ReactElement&#x3C;OptionProps>><span class="hljs-function">(<span class="hljs-params"> (<span class="hljs-params"> { id, person } </span>) => (<span class="hljs-params">
+      &#x3C;Option key={ id }>{ person }&#x3C;/Option>
+  </span>) </span>);
+
+  // внутренний слушатель событий, который отслеживает изменение более низкоуровневого комопнента <span class="hljs-params">Select</span>
+  <span class="hljs-params">const</span> <span class="hljs-params">onInternalSelect</span> = (<span class="hljs-params"> id: <span class="hljs-built_in">string</span> </span>) =></span> {
+      <span class="hljs-keyword">let</span> currentData = data.find( <span class="hljs-function"><span class="hljs-params">item</span> =></span> item.id === id ); <span class="hljs-comment">// ищем данные</span>
+
+      <span class="hljs-keyword">if</span> ( currentData ) {
+          onSelect( currentData ); <span class="hljs-comment">// посылаем данные во внешний мир</span>
+      }
+  };
+
+  <span class="hljs-keyword">let</span> optionAll = getOptionAll( data );
+
+  <span class="hljs-keyword">return</span> (
+      &#x3C;Select onSelect={ onInternalSelect }>{ optionAll }&#x3C;<span class="hljs-regexp">/Select>
+  );
+}
+	
+
+/</span><span class="hljs-regexp">/ ...
+
+const data: IContactInfo[]  = [
+  { id: '0', person: 'Ivan', phone: '00000000' },
+  { id: '1', person: 'Vasya', phone: '0000000' }
+];
+
+const onSelect = ( data: IContactInfo ) => {
+  /</span><span class="hljs-regexp">/ данные принадлежат к типу IContactInfo
+};
+
+/</span><span class="hljs-regexp">/ где-то в коде
+
+&#x3C;SelectWithData data={data} onSelect={ onSelect } /</span>>
+
+<span class="hljs-comment">// ещё где-то в коде</span>
+
+&#x3C;SelectWithData data={data} onSelect={ onSelect } /></code></pre>
+<p>Как видно из примера, у разработчика получилось решить проблему с хранением данных и повторение кода, но тем не менее появилась другая. Данный компонент нельзя назвать универсальным, так как жестко зависит от типа <code class="inline-code">IContactInfo</code>, что причисляет код к “неправильному”. Этот “неправильный” код, специально был включен в примеры, чтобы ещё раз показать начинающим разработчикам, как делать нельзя. Нельзя завязывать код на специфических типах. Если потребуется отобразить данные не принадлежащие к типу <code class="inline-code">IContactInfo</code>, придется создать новый компонент и тем самым снова нарушить принцип <em>DRY</em>.</p>
+<p>Как минимум тип данных, которые ожидает универсальный компонент, должен иметь собственную декларацию и описывать только минимально требующиеся  для успешного выполнения характеристики.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">interface</span> ISelectData { <span class="hljs-comment">// декларируем минимально требующиеся для работы компонента характеристики</span>
+  id: <span class="hljs-built_in">string</span>;
+  value: <span class="hljs-built_in">string</span>;
+}
+
+<span class="hljs-keyword">interface</span> Props { <span class="hljs-comment">// описание свойств компонента высокого уровня</span>
+  data: ISelectData[]; <span class="hljs-comment">// ожидаем данные...</span>
+  onSelect: <span class="hljs-function">(<span class="hljs-params">data: ISelectData</span>) =></span> <span class="hljs-built_in">void</span>; <span class="hljs-comment">// ...и выдаем данные принадлежащие к специфическому, для конкретного компонента, типу данных</span>
+}
+
+<span class="hljs-comment">// для успешного выполнения работы компонента достаточно данных принадлежащих к типу ISelectData</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">SelectWithData</span>(<span class="hljs-params">{data, onSelect}:Props</span>):<span class="hljs-title">ReactElement</span>&#x3C;<span class="hljs-title">Props</span>></span>{
+  <span class="hljs-keyword">const</span> getOptionAll = <span class="hljs-function">(<span class="hljs-params"> data: ISelectData[] </span>) =></span> data.map&#x3C;ReactElement&#x3C;OptionProps>><span class="hljs-function">(<span class="hljs-params"> (<span class="hljs-params"> { id, value } </span>) => (<span class="hljs-params">
+      &#x3C;Option key={ id }>{ value }&#x3C;/Option>
+  </span>) </span>);
+
+  <span class="hljs-params">const</span> <span class="hljs-params">onInternalSelect</span> = (<span class="hljs-params"> id: <span class="hljs-built_in">string</span> </span>) =></span> {
+      <span class="hljs-keyword">let</span> currentData = data.find( <span class="hljs-function"><span class="hljs-params">item</span> =></span> item.id === id );
+
+      <span class="hljs-keyword">if</span> ( currentData ) {
+          onSelect( currentData );
+      }
+  };
+
+  <span class="hljs-keyword">let</span> optionAll = getOptionAll( data );
+
+  <span class="hljs-keyword">return</span> (
+      &#x3C;Select onSelect={ onInternalSelect }>{ optionAll }&#x3C;<span class="hljs-regexp">/Select>
+  );
+}
+	
+
+/</span><span class="hljs-regexp">/ ...
+
+interface IContactInfo {
+  id: string;
+
+  phone: string;
+  person: string;
+}
+
+interface IContactForSelectWithDataInfo extends ISelectData { /</span><span class="hljs-regexp">/ декларируем тип который будет предназначен только для данных IContact и только для работы с компонентом SelectWithData
+  data: IContactInfo;
+}
+
+const data: IContactInfo[]  = [
+  { id: '0', person: 'Ivan', phone: '00000000' },
+  { id: '1', person: 'Vasya', phone: '0000000' }
+];
+
+/</span><span class="hljs-regexp">/ преобразовываем данные с типом IContactInfo к данным с типом IContactForSelectWithDataInfo
+const transformedВata: IContactForSelectWithDataInfo[] = data.map( ( { id, person, phone } ) => ( {
+  id,
+  value: person,
+
+  data: { id, person, phone }
+} ) );
+
+const onSelect = ( data: ISelectData ) => {
+  /</span><span class="hljs-regexp">/ данные принадлежат к типу ISelectData, чтобы работать с ними, как с типом IContactForSelectWithDataInfo, потребуется явное приведение типа
+};
+
+/</span><span class="hljs-regexp">/ где-то в коде
+
+&#x3C;SelectWithData data={transformedВata} onSelect={ onSelect } /</span>>
+
+<span class="hljs-comment">// ещё где-то в коде</span>
+
+&#x3C;SelectWithData data={transformedВata} onSelect={ onSelect } /></code></pre>
+<p>В этот раз получилось избавится от всех описанных проблем (повторения кода, усложнения программы, отсутствие универсальности), но появилась новая. Теперь данные, которые компонент передает в качестве аргументов при вызове слушателя событий, ограничены типом данных <code class="inline-code">ISelectData</code>, в то время, как ожидается <code class="inline-code">IContactForSelectWithDataInfo</code>,  который не получится получить без явного приведения типов (механизм приведения типов рассматривается в главе <a class="book__chapter__chapter-link" href="book/contents/Tipizaciya-Utverjdenie-tipov" title="Типизация - Утверждение типов">Типизация - Утверждение типов</a>). Простыми словами, отсутствие возможности работать с компонентом не прибегая к механизмам преобразования типов, делает его не полностью универсальным. Решить это, можно было бы с помощью более общего типа, коим является тип <code class="inline-code">any</code>. Но в таком случае снизится типобезопасность программы, к тому же разработчик лишится такого замечательного механизма, как автодополнение.</p>
+<p>В типизированных языках, проблемы с универсальностью, решается с помощью механизма создания обобщенных типов. К тому же <em>TypeScript</em>, поддерживает синтаксис параметризированных компонентов, что будет продемонстрировано в последнем примере. </p>
+<p>Оставшейся код ничем не отличается от предыдущего, за исключением введения обобщений, поэтому комментариев по нему не будет. Но стоит обратить внимание, на параметры типов, как у типа <code class="inline-code">Props</code>, так и функционального компонента. Для того, чтобы не возникло ситуации, при которой данные не будут соответствовать минимально требующемуся, для успешной работы компонента, типу данных, параметр типа, объявленный в типе <code class="inline-code">Props</code> расширяет тип данных <code class="inline-code">ISelectData</code>.И так как тип Props, имеет параметр типа ограниченный типом данных <code class="inline-code">ISelectData</code>, тип, выступающий в качестве аргумента типа <code class="inline-code">Props</code>, должен также быть совместимым с типом <code class="inline-code">ISelectData</code>. Другими словами, параметр типа функционального компонента также должен расширять тип данных <code class="inline-code">ISelectData</code> или же совместимый с ним.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">interface</span> ISelectData {
+  id: <span class="hljs-built_in">string</span>;
+  value: <span class="hljs-built_in">string</span>;
+}
+
+
+<span class="hljs-keyword">interface</span> Props&#x3C;Data <span class="hljs-keyword">extends</span> ISelectData> { <span class="hljs-comment">// обобщенные свойства. будет лучше, если параметр типа Data будет расширять минимально требующийся для успешной работы тип данных</span>
+  data: Data[]; <span class="hljs-comment">// указываем параметр типа в аннотации</span>
+  onSelect: <span class="hljs-function">(<span class="hljs-params">data: Data</span>) =></span> <span class="hljs-built_in">void</span>; <span class="hljs-comment">// указываем параметр типа в аннотации параметра</span>
+}
+
+
+<span class="hljs-comment">// параметр типа компонента также, как и Params, должен расширять ISelectData</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">SelectWithData</span> &#x3C;<span class="hljs-title">Data</span> <span class="hljs-title">extends</span> <span class="hljs-title">ISelectData</span>> (<span class="hljs-params">{data, onSelect}:Props&#x3C;Data></span>):<span class="hljs-title">ReactElement</span>&#x3C;<span class="hljs-title">Props</span>&#x3C;<span class="hljs-title">Data</span>>></span>{
+  <span class="hljs-keyword">const</span> getOptionAll = <span class="hljs-function">(<span class="hljs-params"> data: ISelectData[] </span>) =></span> data.map&#x3C;ReactElement&#x3C;OptionProps>><span class="hljs-function">(<span class="hljs-params"> (<span class="hljs-params"> { id, value } </span>) => (<span class="hljs-params">
+      &#x3C;Option key={ id } id={id}>{ value }&#x3C;/Option>
+  </span>) </span>);
+
+  <span class="hljs-params">const</span> <span class="hljs-params">onInternalSelect</span> = (<span class="hljs-params"> id: <span class="hljs-built_in">string</span> </span>) =></span> {
+      <span class="hljs-keyword">let</span> currentData = data.find( <span class="hljs-function"><span class="hljs-params">item</span> =></span> item.id === id );
+
+      <span class="hljs-keyword">if</span> ( currentData ) {
+          onSelect( currentData );
+      }
+  };
+
+  <span class="hljs-keyword">let</span> optionAll = getOptionAll( data );
+
+  <span class="hljs-keyword">return</span> (
+      &#x3C;Select onSelect={ onInternalSelect }>{ optionAll }&#x3C;<span class="hljs-regexp">/Select>
+  );
+}
+	
+
+/</span><span class="hljs-regexp">/ ...
+
+interface IContactInfo {
+  id: string;
+
+  phone: string;
+  person: string;
+}
+
+interface IContactForSelectWithDataInfo extends ISelectData {
+  data: IContactInfo;
+}
+
+const data: IContactInfo[]  = [
+  { id: '0', person: 'Ivan', phone: '00000000' },
+  { id: '1', person: 'Vasya', phone: '0000000' }
+];
+
+const transformedВata: IContactForSelectWithDataInfo[] = data.map( ( { id, person, phone } ) => ( {
+  id,
+  value: person,
+
+  data: { id, person, phone }
+} ) );
+
+const onSelect = ( data: IContactForSelectWithDataInfo ) => {
+  /</span><span class="hljs-regexp">/ данные принадлежат к требуемому по сценарию типу
+};
+	
+
+/</span><span class="hljs-regexp">/ где-то в коде
+
+/</span><span class="hljs-regexp">/ передаем аргументы типа SelectWithData&#x3C;IContactForSelectWithDataInfo>
+&#x3C;SelectWithData&#x3C;IContactForSelectWithDataInfo> data={transformedВata} onSelect={onSelect}/</span>>
+
+<span class="hljs-comment">// ещё где-то в коде</span>
+
+<span class="hljs-comment">// передаем аргументы типа SelectWithData&#x3C;IContactForSelectWithDataInfo></span>
+&#x3C;SelectWithData&#x3C;IContactForSelectWithDataInfo> data={transformedВata} onSelect={onSelect}/></code></pre>
+</section><section id="React-HOC-Higher-Order-Components" name="React  - HOC (Higher-Order Components)" class="subchapter">
+            <h2 class="subchapter-title">
+                <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="React-HOC-Higher-Order-Components" type="absolute-url">
+                    <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <use href="#icon_link"/>
+                    </svg>
+                </button>
+                React  - HOC (Higher-Order Components)
+            </h2>
+        
+<hr>
+<p>Очень часто, при разработке React приложений, разработчикам приходится создавать конструкцию, известную в <em>react</em> сообществе, как <em>HOC</em> (<em>Higher-Order Components</em>). </p>
+<p><em>HOC</em>, это функция, которая принимает компонент и возвращает новый компонент. Другими словами, <em>hoc</em>, это функция, ожидающая в качестве параметров компонент (назовем его входным), который оборачивается в другой, объявленный в теле функции, компонент, который выступает в роли возвращаемого из функции значения (назовем его выходным). Слово “оборачивание” применимое относительно компонентов, означает, что один компонент, отрисовывает (рендерит) другой компонент, со всеми вытекающими из этого процесса (проксирование). За счет того, что входной компонент оборачивается в выходной, достигается расширение его и\или общего функционала. Кроме того, это позволяет устанавливать входному компоненту, как зависимости, так и данные, полученные из внешних сервисов. </p>
+<p>Если объяснения, что такое hoc и в каких случаях в нем появляется необходимость, выходит за рамки данной книги, то с примерами, иллюстрирующими самые распространенные случаи, для общей картины, ознакомится все же стоит.</p>
+<p>Но прежде чем приступить к краткому рассмотрению примеров, будет полезно более подробно ознакомиться с сигнатурой hoc-функции  </p>
+<p>Как уже было сказано, входной компонент, оборачивается, в объявленный в теле функции, выходной компонент, который может быть как классовым так и функциональным компонентом. И прежде чем кратко ознакомится с каждым из случаев, будет полезно, отдельно рассмотреть сигнатуру hoc-функции на распространенном в практике примере, когда свойства (<code class="inline-code">props</code>) выходного компонента,  лишь дополняются свойствами входного компонента.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">interface</span> OutputProps {}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">withHOC</span>&#x3C;<span class="hljs-title">InputProps</span> <span class="hljs-title">extends</span> <span class="hljs-title">OutputProps</span>>(<span class="hljs-params">WrappedComponent:
+      StatelessComponent&#x3C;OutputProps> |
+      ComponentClass&#x3C;OutputProps></span>): <span class="hljs-title">ComponentClass</span>&#x3C;<span class="hljs-title">InputProps</span>>
+	</span></code></pre>
+<p>Первым делом, при необходимости, декларируются тип-интерфейс, описывающий специфические для выходного компонента свойства (<code class="inline-code">props</code>). Далее, объявляется параметр типа <code class="inline-code">InputProps</code>, который представляет специфические для входного компонента свойства и который расширяет тип данных <code class="inline-code">OutputProps</code>. В данном простом примере, в теле <em>hoc</em>, оперировать требуется таким типом, которому полностью соответствует композиция типов входных и входных свойств. Поэтому для удобства и сокращения кода, тип входных параметров расширяет тип выходных параметров. Но стоит заметить, что бывают случаи, один из которых будет рассмотрен далее, при котором подобное недопустимо.</p>
+<p>Так как входной компонент может быть, как классовым, так и функциональным компонентом, в аннотации параметра указывается объединенный тип <code class="inline-code">Union</code>, который состоит из обобщенных типов <code class="inline-code">StatelessComponent&#x3C;OutputProps></code> и <code class="inline-code">ComponentClass&#x3C;OutputProps></code>. Указывая в качестве аргументов типа тип данных <code class="inline-code">OutputProps</code>, аннотация, как бы говорит разработчику, что для успешного выполнения <em>hoc</em>, требуется компонент обладающий признаками лишь одного типа <code class="inline-code">OutputProps</code>.</p>
+<p>И наконец указывается аннотация возвращаемого из функции типа. В данном случае предполагается, что выходной компонент является классовым компонентом, поэтому тип указан как <code class="inline-code">ComponentClass&#x3C;OutputProps></code>. В  случаи, если выходной компонент являлся функциональным компонентом, то тип был бы указан как  <code class="inline-code">StatelessComponent&#x3C;OutputProps></code>.</p>
+<p>Теперь перейдем к рассмотрению кода, описывающего hoc целиком. Но так как его сигнатура уже была подробно изучена, а в его теле не происходит ничего, что не было бы рассмотрено в этой главе, нет необходимости в каких-либо комментариях.</p>
+<p>И начать стоит с <em>hoc</em>, выходной компонент которого является классовым компонентом, использование которого требуется тогда, когда логика зависит от жизненного цикла компонента.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> React <span class="hljs-keyword">from</span> <span class="hljs-string">"react"</span>;
+<span class="hljs-keyword">import</span> { StatelessComponent, ComponentClass } <span class="hljs-keyword">from</span> <span class="hljs-string">"react"</span>;
+
+
+<span class="hljs-keyword">interface</span> OutputProps {
+  outputProp: <span class="hljs-built_in">string</span>;
+}
+<span class="hljs-keyword">interface</span> State {}
+<span class="hljs-keyword">interface</span> Snapshot {}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">withHOC</span>&#x3C;<span class="hljs-title">InputProps</span> <span class="hljs-title">extends</span> <span class="hljs-title">OutputProps</span>>(<span class="hljs-params">WrappedComponent:
+  StatelessComponent&#x3C;OutputProps> |
+  ComponentClass&#x3C;OutputProps></span>): <span class="hljs-title">StatelessComponent</span>&#x3C;<span class="hljs-title">InputProps</span>> </span>{
+ 
+ 
+  <span class="hljs-keyword">const</span> WrapperComponent: StatelessComponent&#x3C;InputProps> = <span class="hljs-function"><span class="hljs-params">props</span> =></span> (
+      &#x3C;WrappedComponent {...props} />
+  );
+
+  <span class="hljs-keyword">return</span> WrapperComponent;
+}
+
+<span class="hljs-comment">// файл CustomComponent.tsx</span>
+
+<span class="hljs-keyword">interface</span> CustomComponentProps <span class="hljs-keyword">extends</span> OutputProps {
+  inputProp: <span class="hljs-built_in">string</span>;
+}
+
+<span class="hljs-keyword">const</span> CustomComponent: StatelessComponent&#x3C;CustomComponentProps> = <span class="hljs-function">(<span class="hljs-params">{inputProp, outputProp}</span>) =></span> {
+  <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>;
+}
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> withHOC&#x3C;CustomComponentProps>(CustomComponent);
+
+
+<span class="hljs-comment">// где-то в другом модуле</span>
+
+<span class="hljs-keyword">import</span> CustomComponent <span class="hljs-keyword">from</span> <span class="hljs-string">"./CustomComponent"</span>;
+
+&#x3C;CustomComponent /> <span class="hljs-comment">// Error, отсутсвуют обязательные свойства inputProp и outputProp</span>
+&#x3C;CustomComponent inputProp={ <span class="hljs-string">''</span> } /> <span class="hljs-comment">// Error, отсутсвует обязательное свойство outputProp</span>
+&#x3C;CustomComponent inputProp={ <span class="hljs-string">''</span> } outputProp={ <span class="hljs-string">''</span> } /> <span class="hljs-comment">// Ok</span></code></pre>
+<p>Если же потребности в жизненом цикле нет, то предпочтительней использовать <em>hoc</em>, у которого выходной компонент является функциональным.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> React <span class="hljs-keyword">from</span> <span class="hljs-string">"react"</span>;
+<span class="hljs-keyword">import</span> { StatelessComponent, ComponentClass } <span class="hljs-keyword">from</span> <span class="hljs-string">"react"</span>
+
+
+<span class="hljs-keyword">interface</span> OutputProps {
+  outputProp: <span class="hljs-built_in">string</span>;
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">withHOC</span>&#x3C;<span class="hljs-title">InputProps</span> <span class="hljs-title">extends</span> <span class="hljs-title">OutputProps</span>>(<span class="hljs-params">WrappedComponent:
+  StatelessComponent&#x3C;OutputProps> |
+  ComponentClass&#x3C;OutputProps></span>): <span class="hljs-title">StatelessComponent</span>&#x3C;<span class="hljs-title">InputProps</span>> </span>{
+ 
+  <span class="hljs-keyword">const</span> WrapperComponent:StatelessComponent&#x3C;InputProps> = <span class="hljs-function"><span class="hljs-params">props</span> =></span> &#x3C;WrappedComponent {...props} />
+
+  <span class="hljs-keyword">return</span> WrapperComponent;
+}
+
+<span class="hljs-comment">// файл CustomComponent.tsx</span>
+
+<span class="hljs-keyword">interface</span> CustomProps <span class="hljs-keyword">extends</span> OutputProps {
+  inputProp: <span class="hljs-built_in">string</span>;
+}
+
+<span class="hljs-keyword">const</span> CustomComponent: StatelessComponent&#x3C;CustomProps> = <span class="hljs-function">(<span class="hljs-params">{inputProp, outputProp}</span>) =></span> {
+  <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>;
+}
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> withHOC&#x3C;CustomProps>(CustomComponent);
+
+
+<span class="hljs-comment">// // // где-то в другом модуле</span>
+
+<span class="hljs-keyword">import</span> CustomComponent <span class="hljs-keyword">from</span> <span class="hljs-string">"./CustomComponent"</span>;
+
+&#x3C;CustomComponent /> <span class="hljs-comment">// Error, отсутсвуют обязательные свойства inputProp и outputProp</span>
+&#x3C;CustomComponent inputProp={ <span class="hljs-string">''</span> } /> <span class="hljs-comment">// Error, отсутсвует обязательное свойство outputProp</span>
+&#x3C;CustomComponent inputProp={ <span class="hljs-string">''</span> } outputProp={ <span class="hljs-string">''</span> } /> <span class="hljs-comment">// Ok</span></code></pre>
+<p>И в заключение предлагаю рассмотреть случай, когда параметры устанавливаемые компоненту обертке отличаются от тех, которые он устанавливает оборачиваемому компоненту. И несмотря на то, что код показанный ниже, отличается от предыдущего, подробного разбора не будет, так как в нем нет ничего, что к этому моменту не было бы известно читателю.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-comment">// hoc требует декларирования двух типов описывающих свойства</span>
+
+<span class="hljs-comment">// входные свойства hoc</span>
+<span class="hljs-keyword">interface</span> InputProps {
+  inputProps: <span class="hljs-built_in">string</span>;
+}
+<span class="hljs-comment">// выходные свойства hoc</span>
+<span class="hljs-keyword">interface</span> OutputProps {
+  outputProp: <span class="hljs-built_in">number</span>;
+}
+<span class="hljs-keyword">interface</span> State {}
+<span class="hljs-keyword">interface</span> Snapshot {}
+
+
+<span class="hljs-comment">// параметру типа SharedProps не требуется расширять другие типы</span>
+<span class="hljs-comment">// обобщенный тип указанный в аннотации параметра функции, принимает в качестве аргумента типа тип пересечение Intersection</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">withHOC</span>&#x3C;<span class="hljs-title">SharedProps</span>>(<span class="hljs-params">WrappedComponent:
+  StatelessComponent&#x3C;SharedProps &#x26; OutputProps> |
+  ComponentClass&#x3C;SharedProps &#x26; OutputProps></span>): <span class="hljs-title">ComponentClass</span>&#x3C;<span class="hljs-title">SharedProps</span> &#x26; <span class="hljs-title">InputProps</span>> </span>{
+ 
+
+ 
+
+  <span class="hljs-keyword">type</span> InternalInputProps = SharedProps &#x26; InputProps; <span class="hljs-comment">// делаем код читабельным (повышаем его семантику)</span>
+
+  <span class="hljs-comment">// тип свойст выходного компонента указан как псевдоним типа</span>
+  <span class="hljs-keyword">class</span> WrapperComponent <span class="hljs-keyword">extends</span> Component&#x3C;InternalInputProps, State, Snapshot> {
+      <span class="hljs-keyword">constructor</span>(<span class="hljs-params">props: InternalInputProps</span>){
+          <span class="hljs-keyword">super</span>(props);
+      }
+
+      <span class="hljs-keyword">private</span> getOutputProps():OutputProps {
+          <span class="hljs-comment">// здесь создаем часть выходных свойств определяемую типом OutputProps</span>
+          <span class="hljs-keyword">let</span> outputProps: OutputProps = {outputProp: <span class="hljs-number">0</span>};
+
+          <span class="hljs-keyword">return</span> outputProps;
+      }
+
+      <span class="hljs-keyword">private</span> inputToOutputProps(inputProps: Readonly&#x3C;InternalInputProps>, outputProps: OutputProps): SharedProps &#x26; OutputProps {
+          <span class="hljs-comment">// здесь создаем выходные свойства определяемые типами OutputProps и SharedProps</span>
+         
+          <span class="hljs-keyword">let</span> {propInputInHOC, ...sharedProps} = inputProps <span class="hljs-keyword">as</span> <span class="hljs-built_in">any</span>; <span class="hljs-comment">// фильтруем ствойства</span>
+          <span class="hljs-keyword">let</span> resultProps: SharedProps &#x26; OutputProps = {...outputProps, ...sharedProps}; <span class="hljs-comment">// комбинируем свойства</span>
+
+          <span class="hljs-keyword">return</span> resultProps;
+      }
+
+
+      render(): ReactElement&#x3C;SharedProps &#x26; OutputProps> {
+          <span class="hljs-keyword">let</span> outputProps = <span class="hljs-keyword">this</span>.inputToOutputProps(<span class="hljs-keyword">this</span>.props, <span class="hljs-keyword">this</span>.getOutputProps()); <span class="hljs-comment">// трансформируем свойства</span>
+
+          <span class="hljs-keyword">return</span> &#x3C;WrappedComponent {...outputProps} />
+      };
+  }
+
+  <span class="hljs-keyword">return</span> WrapperComponent;
+}
+
+<span class="hljs-comment">// файл CustomComponent.tsx</span>
+
+<span class="hljs-comment">// расширение другого типа не требуется</span>
+<span class="hljs-keyword">interface</span> CustomProps {
+  sharedProp: <span class="hljs-built_in">string</span>;
+}
+
+<span class="hljs-comment">// параметры выражены типом пересечения</span>
+<span class="hljs-keyword">const</span> CustomComponent: StatelessComponent&#x3C;CustomProps &#x26; OutputProps> = <span class="hljs-function">(<span class="hljs-params">{sharedProp, outputProp}</span>) =></span> {
+  <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>;
+}
+
+<span class="hljs-comment">// export default withHOC&#x3C;InputProps>(CustomComponent);</span>
+
+
+<span class="hljs-comment">// // // // где-то в другом модуле</span>
+
+<span class="hljs-keyword">import</span> CustomComponent <span class="hljs-keyword">from</span> <span class="hljs-string">"./CustomComponent"</span>;
+
+&#x3C;CustomComponent /> <span class="hljs-comment">// Error, отсутсвуют обязательные свойства sharedProp и outputProps</span>
+&#x3C;CustomComponent sharedProp={ <span class="hljs-string">''</span> } /> <span class="hljs-comment">// Error, отсутсвует обязательное свойство outputProps</span>
+&#x3C;CustomComponent sharedProp={ <span class="hljs-string">''</span> } outputProps={ <span class="hljs-string">''</span> } /> <span class="hljs-comment">// Ok</span></code></pre>
+</section>

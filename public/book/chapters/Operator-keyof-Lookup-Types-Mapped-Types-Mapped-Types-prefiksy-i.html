@@ -1,0 +1,237 @@
+<section id="Operator-keyof-Lookup-Types-Mapped-Types-Mapped-Types-prefiksy-i" name="Оператор keyof, Lookup Types, Mapped Types, Mapped Types - префиксы + и -" class="subchapter">
+            <h2 class="subchapter-title">
+                <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="Operator-keyof-Lookup-Types-Mapped-Types-Mapped-Types-prefiksy-i" type="absolute-url">
+                    <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <use href="#icon_link"/>
+                    </svg>
+                </button>
+                Оператор keyof, Lookup Types, Mapped Types, Mapped Types - префиксы + и -
+            </h2>
+        
+<hr>
+<p>Для того, чтобы повысить уровень выявления ошибок и при этом сократить время разработки программы, создатели <em>TypeScript</em> не прекращают радовать разработчиков добавлением новых возможностей для взаимодействия с типами данных. Благодаря усилиям разработчиков со всего земного шара, стало осуществимо получать объединенный тип состоящий, как ключей, так и значений описания типа данных. И кроме того, стало возможно итерировать типами данных.</p>
+</section><section id="Zapros-kluchei-keyof" name="Запрос ключей keyof" class="subchapter">
+            <h2 class="subchapter-title">
+                <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="Zapros-kluchei-keyof" type="absolute-url">
+                    <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <use href="#icon_link"/>
+                    </svg>
+                </button>
+                Запрос ключей keyof
+            </h2>
+        
+<hr>
+<p>В <em>TypeScript</em> существует возможность выводить все публичные не статические ключи принадлежащие типу и на их основе создавать литеральный объединенный тип (<code class="inline-code">Union</code>). Для получения ключей нужно указать оператор <code class="inline-code">keyof</code> после которого указан тип данных, чьи ключи будут объединены в тип <code class="inline-code">Union - keyof Type</code>.</p>
+<p>Оператор <code class="inline-code">keyof</code> может применяться к любому типу данных.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">type</span> AliasType = { f1: <span class="hljs-built_in">number</span>, f2: <span class="hljs-built_in">string</span> };
+
+<span class="hljs-keyword">interface</span> IInterfaceType {
+  f1: <span class="hljs-built_in">number</span>;
+  f2: <span class="hljs-built_in">string</span>;
+}
+
+<span class="hljs-keyword">class</span> ClassType {
+  f1: <span class="hljs-built_in">number</span>;
+  f2: <span class="hljs-built_in">string</span>;
+}
+
+<span class="hljs-keyword">let</span> v1: keyof AliasType; <span class="hljs-comment">// v1: "f1" | "f2"</span>
+<span class="hljs-keyword">let</span> v2: keyof IInterfaceType; <span class="hljs-comment">// v2: "f1" | "f2"</span>
+<span class="hljs-keyword">let</span> v3: keyof ClassType; <span class="hljs-comment">// v3: "f1" | "f2"</span>
+<span class="hljs-keyword">let</span> v4: keyof <span class="hljs-built_in">number</span>; <span class="hljs-comment">// v4: "toString" | "toFixed" | "toExponential" | "toPrecision" | "valueOf" | "toLocaleString"</span></code></pre>
+<p>Как уже было замечено, оператор <code class="inline-code">keyof</code> выводит только публичные не статические ключи типа.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">class</span> Type {
+  <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> fieldClass: <span class="hljs-built_in">number</span>;
+  <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> methodClass(): <span class="hljs-built_in">void</span> {}
+
+  <span class="hljs-keyword">private</span> privateField: <span class="hljs-built_in">number</span>;
+  <span class="hljs-keyword">protected</span> protectedField: <span class="hljs-built_in">string</span>;
+  <span class="hljs-keyword">public</span> publicField: <span class="hljs-built_in">boolean</span>;
+
+  <span class="hljs-keyword">public</span> <span class="hljs-keyword">get</span> property(): <span class="hljs-built_in">number</span> { <span class="hljs-keyword">return</span> <span class="hljs-literal">NaN</span>; }
+  <span class="hljs-keyword">public</span> <span class="hljs-keyword">set</span> property( value: <span class="hljs-built_in">number</span> ) {  }
+
+  <span class="hljs-keyword">public</span> <span class="hljs-keyword">constructor</span>(<span class="hljs-params"></span>) {}
+
+  <span class="hljs-keyword">public</span> instanceMethod(): <span class="hljs-built_in">void</span> {}
+}
+
+<span class="hljs-keyword">let</span> v1: keyof Type; <span class="hljs-comment">// a: "publicField" | "property" | "instanceMethod"</span></code></pre>
+<p>В случае, если тип данных не содержит публичных ключей, оператор <code class="inline-code">keyof</code> определит его, как тип <code class="inline-code">never</code>.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">type</span> AliasType = { };
+
+<span class="hljs-keyword">interface</span> IInterfaceType { }
+
+<span class="hljs-keyword">class</span> ClassType {
+  <span class="hljs-keyword">private</span> f1: <span class="hljs-built_in">number</span>;
+  <span class="hljs-keyword">protected</span> f2: <span class="hljs-built_in">string</span>;
+}
+
+<span class="hljs-keyword">let</span> v1: keyof AliasType; <span class="hljs-comment">// v1: never</span>
+<span class="hljs-keyword">let</span> v2: keyof IInterfaceType; <span class="hljs-comment">// v2: never</span>
+<span class="hljs-keyword">let</span> v3: keyof ClassType; <span class="hljs-comment">// v3: never</span>
+<span class="hljs-keyword">let</span> v4: keyof object; <span class="hljs-comment">// v4: never</span></code></pre>
+<p>Оператор <code class="inline-code">keyof</code> также может использоваться в объявлении обобщенного типа данных. Точнее, с помощью оператора <code class="inline-code">keyof</code> можно получить тип, а затем расширить его параметром типа. Важно понимать, что в качестве значения по умолчанию, может выступать только тип, совместимый с объединенным типом, полученным на основе ключей.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">f1</span>&#x3C;<span class="hljs-title">T</span>, <span class="hljs-title">U</span> <span class="hljs-title">extends</span> <span class="hljs-title">keyof</span> <span class="hljs-title">T</span> = <span class="hljs-title">keyof</span> <span class="hljs-title">T</span>>(<span class="hljs-params"></span>): <span class="hljs-title">void</span> </span>{}</code></pre>
+<p>На последок стоит упомянуть об одном не очевидном моменте. Оператор <code class="inline-code">keyof</code> можно совмещать с оператором <code class="inline-code">typeof</code> (Type Queries).</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">class</span> Animal {
+  <span class="hljs-keyword">public</span> name: <span class="hljs-built_in">string</span>;
+  <span class="hljs-keyword">public</span> age: <span class="hljs-built_in">number</span>;
+}
+
+<span class="hljs-keyword">let</span> animal = <span class="hljs-keyword">new</span> Animal();
+
+<span class="hljs-keyword">let</span> <span class="hljs-keyword">type</span>: <span class="hljs-keyword">typeof</span> animal; <span class="hljs-comment">// type: { name: string; age: number; }</span>
+<span class="hljs-keyword">let</span> union: keyof <span class="hljs-keyword">typeof</span> animal; <span class="hljs-comment">// union: "name" | "age"</span></code></pre>
+</section><section id="Poisk-tipov-Lookup-Types" name="Поиск типов (Lookup Types)" class="subchapter">
+            <h2 class="subchapter-title">
+                <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="Poisk-tipov-Lookup-Types" type="absolute-url">
+                    <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <use href="#icon_link"/>
+                    </svg>
+                </button>
+                Поиск типов (Lookup Types)
+            </h2>
+        
+<hr>
+<p>Если оператор <code class="inline-code">keyof</code> выбирает все доступные ключи, то с помощью поиска типов, можно получить заданные типы по известным ключам. Получить связанный с ключом тип, можно с помощью скобочночной нотации, в которой, через оператор вертикальная черта <code class="inline-code">|</code>, будут перечислены от одного и более, существующего в типе, ключа. В качестве типа данных могут выступать только интерфейсы, классы и в ограниченных случаях операторы типа.</p>
+<p>В случаях, когда в качестве типа данных выступает интерфейс, то получить можно все типы, без исключения. При попытке получить тип несуществующего ключа, возникнет ошибка.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">interface</span> IInterfaceType {
+  p1: <span class="hljs-built_in">number</span>;
+  p2: <span class="hljs-built_in">string</span>;
+}
+
+
+<span class="hljs-keyword">let</span> v1: IInterfaceType[ <span class="hljs-string">'p1'</span> ]; <span class="hljs-comment">// v1: number</span>
+<span class="hljs-keyword">let</span> v2: IInterfaceType[ <span class="hljs-string">'p2'</span> ]; <span class="hljs-comment">// p2: number</span>
+<span class="hljs-keyword">let</span> union: IInterfaceType[ <span class="hljs-string">'p1'</span> | <span class="hljs-string">'p2'</span> ]; <span class="hljs-comment">// union: number | string</span>
+<span class="hljs-keyword">let</span> notexist: IInterfaceType[ <span class="hljs-string">'notexist'</span> ]; <span class="hljs-comment">// Error -> Property 'notexist' does not exist on type 'IAnimal'</span></code></pre>
+<p>Если в качестве типа выступает класс, то получить типы можно только у членов его экземпляра. При попытке получить тип несуществующего члена, возникнет ошибка.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">class</span> ClassType {
+  <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> publicFieldClass: <span class="hljs-built_in">number</span>;
+ 
+  <span class="hljs-keyword">public</span> publicInstanceField: <span class="hljs-built_in">number</span>;
+  <span class="hljs-keyword">protected</span> protectedInstanceField: <span class="hljs-built_in">string</span>;
+  <span class="hljs-keyword">private</span> privateInstanceField: <span class="hljs-built_in">boolean</span>;
+
+  <span class="hljs-keyword">public</span> <span class="hljs-keyword">get</span> propertyInstance(): <span class="hljs-built_in">number</span> { <span class="hljs-keyword">return</span> <span class="hljs-literal">NaN</span>; }
+  <span class="hljs-keyword">public</span> <span class="hljs-keyword">set</span> propertyInstance(value: <span class="hljs-built_in">number</span>) {}
+
+  <span class="hljs-keyword">public</span> methodInstance(): <span class="hljs-built_in">void</span> {}
+}
+
+
+<span class="hljs-keyword">let</span> publicFieldClass: ClassType[<span class="hljs-string">'publicFieldClass'</span>]; <span class="hljs-comment">// Error</span>
+
+<span class="hljs-keyword">let</span> publicFieldInstance: ClassType[<span class="hljs-string">'publicInstanceField'</span>]; <span class="hljs-comment">// publicFieldInstance: number</span>
+<span class="hljs-keyword">let</span> protectedFieldInstance: ClassType[<span class="hljs-string">'protectedInstanceField'</span>]; <span class="hljs-comment">// protectedFieldInstance: string</span>
+<span class="hljs-keyword">let</span> privateFieldInstance: ClassType[<span class="hljs-string">'privateInstanceField'</span>]; <span class="hljs-comment">// privateFieldInstance: boolean</span>
+<span class="hljs-keyword">let</span> propertyInstance: ClassType[<span class="hljs-string">'propertyInstance'</span>]; <span class="hljs-comment">// propertyInstance: number</span>
+<span class="hljs-keyword">let</span> methodInstance: ClassType[<span class="hljs-string">'methodInstance'</span>]; <span class="hljs-comment">// methodInstance: () => void</span>
+
+<span class="hljs-keyword">let</span> notexist: ClassType[<span class="hljs-string">'notexist'</span>]; <span class="hljs-comment">// Error</span></code></pre>
+<p>Нельзя переоценить вклад возможностей поиска типов, которые пришлись на динамическую часть типизированного мира <em>TypeScript</em>. Благодаря поиску типов в паре с оператором keyof, появилась возможность, позволяющая выводу типов, устанавливать связь между динамическими ключами и их типами. Это в свою очередь позволяет производить дополнительные проверки, которые повышают <em>“типобезопасность”</em> кода.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">class</span> Model&#x3C;T> {
+  <span class="hljs-keyword">constructor</span>(<span class="hljs-params"> <span class="hljs-keyword">private</span> entity: T </span>) {}
+
+  <span class="hljs-keyword">public</span> getValueByName&#x3C;U <span class="hljs-keyword">extends</span> keyof T>( key: U ): T[ U ] {
+      <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.entity[ key ];
+  }
+}
+
+<span class="hljs-keyword">interface</span> IAnimalModel {
+  id: <span class="hljs-built_in">string</span>;
+  age: <span class="hljs-built_in">number</span>;
+}
+
+<span class="hljs-keyword">let</span> json = <span class="hljs-string">'"{"id": "animal", "age": 0}"'</span>;
+<span class="hljs-keyword">let</span> entity: IAnimalModel = <span class="hljs-built_in">JSON</span>.parse(json);
+
+<span class="hljs-keyword">let</span> userModel: Model&#x3C;IAnimalModel> = <span class="hljs-keyword">new</span> Model(entity);
+
+<span class="hljs-keyword">let</span> id = userModel.getValueByName( <span class="hljs-string">'id'</span> ); <span class="hljs-comment">// id: string</span>
+<span class="hljs-keyword">let</span> age = userModel.getValueByName( <span class="hljs-string">'age'</span> ); <span class="hljs-comment">// age: number</span></code></pre>
+</section><section id="Sopostavlenie-tipov-Mapped-Types" name="Сопоставление типов (Mapped Types)" class="subchapter">
+            <h2 class="subchapter-title">
+                <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="Sopostavlenie-tipov-Mapped-Types" type="absolute-url">
+                    <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <use href="#icon_link"/>
+                    </svg>
+                </button>
+                Сопоставление типов (Mapped Types)
+            </h2>
+        
+<hr>
+<p>Сопоставленные типы, это типы данных, которые при помощи механизма итерирования, модифицируют лежащие в основе конкретные типы данных.</p>
+<p>Сопоставленные типы могут быть созданы только из псевдонимов типов объявленных с помощью ключевого слова type. Итерация может производится только для объединенных строковых литеральных типов. Выражение итерации состоит из идентификатора, которому последовательно присваиваются значения литеральных строковых типов. После идентификатора следует оператор in, после которого, с помощью ключевого слова <code class="inline-code">keyof</code>, определяется объединенный строковой литеральный тип. К тому же, все выражение заключается в квадратные скобки <code class="inline-code">[ ]</code>.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">type</span> AliasType&#x3C;T> = {
+  [P <span class="hljs-keyword">in</span> keyof T]: T[ P ];
+}
+
+<span class="hljs-comment">// or</span>
+
+<span class="hljs-keyword">type</span> AliasType&#x3C;T, K <span class="hljs-keyword">extends</span> keyof T> = {
+  [P <span class="hljs-keyword">in</span> K]: T[ P ];
+}</code></pre>
+<p>Левая часть выражения, в которой описана итерация ( <code class="inline-code">[P in keyof T]</code> ) , будет заменена на идентификатор поля, а правая ( <code class="inline-code">T[ P ]</code> ), при условие что в ней будет необходимость, на тип данных. Поэтому сопоставление типов можно представить, как полную копию типа T, плюс модификаторы. В качестве модификаторов могут выступать любые модификаторы доступные для описания типов (<code class="inline-code">readonly</code>, <code class="inline-code">?:</code>)</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">type</span> ReadonlyMember&#x3C;T> = {
+  readonly [P <span class="hljs-keyword">in</span> keyof T]: T[ P ];
+}
+
+<span class="hljs-keyword">interface</span> IAnimal {
+  name: <span class="hljs-built_in">string</span>;
+  age: <span class="hljs-built_in">number</span>;
+}
+
+<span class="hljs-keyword">let</span> animal: ReadonlyMember&#x3C;IAnimal>;  <span class="hljs-comment">// animal: { readonly name: string; readonly age: number; }</span></code></pre>
+<p>Как уже было замечено, в правой части выражения можно указать любой тип данных, в том числе и объединенный тип, в состав которого войдет тип, полученный при помощи поиска типов.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">type</span> Nullable&#x3C;T> = {
+  [P <span class="hljs-keyword">in</span> keyof T]: T[ P ] | <span class="hljs-literal">null</span>;
+}
+
+<span class="hljs-keyword">type</span> Stringify&#x3C;T> = {
+  [P <span class="hljs-keyword">in</span> keyof T]: <span class="hljs-built_in">string</span>;
+}
+
+<span class="hljs-keyword">interface</span> IAnimal {
+  name: <span class="hljs-built_in">string</span>;
+  age: <span class="hljs-built_in">number</span>;
+}
+
+
+<span class="hljs-keyword">let</span> nullable: Nullable&#x3C;IAnimal>; <span class="hljs-comment">// { name: string | null; age: number | null; }</span>
+<span class="hljs-keyword">let</span> stringify: Stringify&#x3C;IAnimal>; <span class="hljs-comment">// { name: string; age: string; }</span></code></pre>
+<p>Кроме того в левой части выражения, в качестве типа, можно использовать любой тип данных.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">type</span> ElementKey = {
+  [P <span class="hljs-keyword">in</span> keyof Element]: <span class="hljs-built_in">string</span>;
+}</code></pre>
+<p>Сопоставленные типы не могут содержать более одной итерации в типе, и кроме того не могу содержать объявление других членов.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">type</span> AliasType&#x3C;T, U> = {
+  [P <span class="hljs-keyword">in</span> keyof T]: T[ P ]; <span class="hljs-comment">// Ok</span>
+  [V <span class="hljs-keyword">in</span> keyof U]: U[ V ]; <span class="hljs-comment">// Error</span>
+  f1: <span class="hljs-built_in">number</span>; <span class="hljs-comment">// Error</span>
+}</code></pre>
+<p>К тому же в <em>TypeScript</em> существует несколько готовых типов, таких как <code class="inline-code">Readonly&#x3C;T></code>, <code class="inline-code">Partial&#x3C;T></code>, <code class="inline-code">Record&#x3C;K, T></code> и <code class="inline-code">Pick&#x3C;T, K></code> (глава <a class="book__chapter__chapter-link" href="book/contents/Rasshirennye-tipy-Readonly-Partial-Required-Pick-Record" title="Расширенные типы - Readonly, Partial, Required, Pick, Record">Расширенные типы - Readonly, Partial, Required, Pick, Record</a>).</p>
+</section><section id="Prefiksy-i-v-sopostavlennyh-tipah" name="Префиксы + и - в сопоставленных типах" class="subchapter">
+            <h2 class="subchapter-title">
+                <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="Prefiksy-i-v-sopostavlennyh-tipah" type="absolute-url">
+                    <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <use href="#icon_link"/>
+                    </svg>
+                </button>
+                Префиксы + и - в сопоставленных типах
+            </h2>
+        
+<hr>
+<p>Сопоставленные типы позволяют добавлять модификаторы, но не позволяют их удалять, что в свою очередь имеет большое значение в случаи с гомоморфными типами, которые по умолчанию сохраняют модификаторы своего базового типа (гомоморфные типы будут рассмотрены в главе <a class="book__chapter__chapter-link" href="book/contents/Rasshirennye-tipy-Readonly-Partial-Required-Pick-Record" title="Расширенные типы - Readonly, Partial, Required, Pick, Record">Расширенные типы - Readonly, Partial, Required, Pick, Record</a>). </p>
+<p>Для разрешения этого, к модификаторам, в типах сопоставления, были добавлены префиксы <code class="inline-code">+</code> и <code class="inline-code">-</code>, с помощью которых указывается поведение модификатора - добавить или удалить.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">type</span> T1&#x3C;T> = { +readonly [P <span class="hljs-keyword">in</span> keyof T]+?: T[P] }; <span class="hljs-comment">// добавит указанные модификаторы</span>
+<span class="hljs-keyword">type</span> T0&#x3C;T> = { -readonly [P <span class="hljs-keyword">in</span> keyof T]-?: T[P] }; <span class="hljs-comment">// удалит указынные модификаторы</span>
+
+
+<span class="hljs-keyword">interface</span> IT { a: <span class="hljs-built_in">number</span>; b: <span class="hljs-built_in">string</span>; }
+
+
+<span class="hljs-keyword">let</span> v0: T0&#x3C;IT>; <span class="hljs-comment">// { readonly a?: number; readonly b?: string; }</span>
+<span class="hljs-keyword">let</span> v1: T1&#x3C;IT>; <span class="hljs-comment">// { a: number; b: string; }</span></code></pre>
+</section>
