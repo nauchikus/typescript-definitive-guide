@@ -9,7 +9,7 @@
             </h2>
         
 <hr>
-<p><code class="inline-code">--strict</code> - активирует все флаги сопутствующие строгости проверки типов. на данный момент флаг <code class="inline-code">strict</code> активирует следующие опции компилятора - <code class="inline-code">--strictNullChecks</code>, <code class="inline-code">--noImplicitAny</code>, <code class="inline-code">--noImplicitThis</code>, <code class="inline-code">--alwaysStrict</code>, <code class="inline-code">--strictFunctionTypes</code>, <code class="inline-code">--strictPropertyInitialization</code>. Несмотря на то, что флаг <code class="inline-code">strict</code> активирует сразу все указанные флаги, при желании конкретные флаги можно исключать </p>
+<p><code class="inline-code">--strict</code> - активирует все флаги сопутствующие строгости проверки типов. на данный момент флаг <code class="inline-code">strict</code> активирует следующие опции компилятора - <code class="inline-code">--strictNullChecks</code>, <code class="inline-code">--noImplicitAny</code>, <code class="inline-code">--noImplicitThis</code>, <code class="inline-code">--alwaysStrict</code>, <code class="inline-code">--strictFunctionTypes</code>, <code class="inline-code">--strictPropertyInitialization</code>, <code class="inline-code">--strictBindCallApply</code>. Несмотря на то, что флаг <code class="inline-code">strict</code> активирует сразу все указанные флаги, при желании конкретные флаги можно исключать </p>
 <pre><code class="hljs language-typescript">{
   <span class="hljs-string">"compilerOptions"</span>: {
       <span class="hljs-string">"strict"</span>: <span class="hljs-literal">false</span>,
@@ -346,6 +346,46 @@ ________________
 <p><strong>type</strong>: <code class="inline-code">string</code>
 <strong>default</strong>: <code class="inline-code">""</code>
 <strong>values</strong>: <code class="inline-code">*</code></p>
+<p>Кроме того, при использовании механизма расширения (<code class="inline-code">extends</code>), поиск файла конфигурации <code class="inline-code">taconfig.json</code> может осуществлятся по пакетам (<code class="inline-code">packages</code>) <code class="inline-code">NodeJS</code> модулей, находящихся в директории <code class="inline-code">node_modules</code>. </p>
+<pre><code class="hljs language-typescript"><span class="hljs-comment">// tsconfig.json</span>
+
+{
+  <span class="hljs-string">"extends"</span>: <span class="hljs-string">"some-npm-module"</span> 
+}
+
+<span class="hljs-comment">// or</span>
+
+{
+  <span class="hljs-string">"extends"</span>: <span class="hljs-string">"some-npm-module/some-tsconfig.json"</span> 
+}</code></pre>
+<p>Алгоритм разрешения аналогичен алгоритму поиска модулей самого <code class="inline-code">NodeJS</code>. Проще говоря, если путь, указанный в качестве значения атрибута <code class="inline-code">extends</code> не будет найден в директории <code class="inline-code">node_modules</code>  находящейся в текущей директории, то поиск продолжится в директории <code class="inline-code">node_modules</code> вверх по дереву. Но есть одна особенность,которая заключается в том, что при разрешении пути, компилятор <code class="inline-code">tsc</code>, зайдя в директорию <code class="inline-code">node_modules</code>, сначала  проверяет <code class="inline-code">package.json</code> на наличие атрибута <code class="inline-code">tsconfig</code>, которому в качестве значения указывают путь до конфигурационного файла <code class="inline-code">TypeScript</code>. Если атрибут <code class="inline-code">tsconfig</code> найден, то конфигурация на которую он ссылается будет установлена в качестве расширяемой. Если <code class="inline-code">package.json</code> не содержит атрибут <code class="inline-code">tsconfig</code>, то в качестве расширяемого конфигурационного файла будет выбран файл <code class="inline-code">tsconfig.json</code> находящийся в корне директории. Если в корне директории файла <code class="inline-code">tsconfig.json</code> найдено не будет, то поиск продолжится вверх по дереву.</p>
+<pre><code class="hljs language-typescript">/project
+    /node_modules
+        /some-<span class="hljs-keyword">module</span>
+            package.json // with attr "tsconfig": "tsconfig.custom.json"
+            tsconfig.custom.json
+            tsconfig.json
+    tsconfig.json // "extends": "some-<span class="hljs-keyword">module</span>"
+
+// в этом случаи в качестве расширяемого конфигурационного файла будет вбран файл находящийся по пути /node_modules/some-<span class="hljs-keyword">module</span>/tsconfig.custom.json</code></pre>
+<pre><code class="hljs language-typescript">/project
+    /node_modules
+        /some-<span class="hljs-keyword">module</span>
+            package.json // without attr "tsconfig"
+            tsconfig.custom.json
+            tsconfig.json
+    tsconfig.json // "extends": "some-<span class="hljs-keyword">module</span>"
+
+// в этом случаи в качестве расширяемого конфигурационного файла будет вбран файл находящийся по пути /node_modules/some-<span class="hljs-keyword">module</span>/tsconfig.json</code></pre>
+<pre><code class="hljs language-typescript">/project
+    /node_modules
+        /some-<span class="hljs-keyword">module</span>
+            package.json // without attr  "tsconfig"
+            tsconfig.custom.json
+            tsconfig.json
+    tsconfig.json // "extends": "some-<span class="hljs-keyword">module</span>/tsconfig.custom.json"
+
+// в этом случаи в качестве расширяемого конфигурационного файла будет вбран файл находящийся по пути /node_modules/some-<span class="hljs-keyword">module</span>/tsconfig.custom.json</code></pre>
 </section><section id="alwaysStrict" name="alwaysStrict" class="subchapter">
             <h2 class="subchapter-title">
                 <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="alwaysStrict" type="absolute-url">
@@ -2043,6 +2083,63 @@ config.name = <span class="hljs-number">0</span>; <span class="hljs-comment">// 
 <pre><code class="hljs language-typescript">{
   <span class="hljs-string">"compilerOptions"</span>: {
       <span class="hljs-string">"declarationMap"</span>: <span class="hljs-literal">false</span>
+  }
+}</code></pre>
+<p><strong>type</strong>: <code class="inline-code">boolean</code>
+<strong>default</strong>: <code class="inline-code">false</code>
+<strong>values</strong>: <code class="inline-code">true</code>, <code class="inline-code">false</code></p>
+</section><section id="strictBindCallApply" name="strictBindCallApply" class="subchapter">
+            <h2 class="subchapter-title">
+                <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="strictBindCallApply" type="absolute-url">
+                    <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <use href="#icon_link"/>
+                    </svg>
+                </button>
+                strictBindCallApply
+            </h2>
+        
+<hr>
+<p><code class="inline-code">--strictBindCallApply</code> - текущий флаг, входящий в групперовку <code class="inline-code">--strict</code>, активирует проверку вызова таких методов, как <code class="inline-code">apply</code>, <code class="inline-code">call</code> и <code class="inline-code">bind</code>. Это стало возможным благодаря добавлению двух новых типов <code class="inline-code">CallableFunction</code> и <code class="inline-code">NewableFunction</code>, которые содержат обобщенное описание методов <code class="inline-code">apply</code>, <code class="inline-code">call</code> и <code class="inline-code">bind</code>, как для обычных aeyrwbq, так и для функций конструкторов соответственно.</p>
+<pre><code class="hljs language-typescript">{
+  <span class="hljs-string">"compilerOptions"</span>: {
+      <span class="hljs-string">"strictBindCallApply"</span>: <span class="hljs-literal">false</span>
+  }
+}</code></pre>
+<p><strong>type</strong>: <code class="inline-code">boolean</code>
+<strong>default</strong>: <code class="inline-code">false</code>
+<strong>values</strong>: <code class="inline-code">true</code>, <code class="inline-code">false</code></p>
+<pre><code class="hljs language-typescript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">f</span>(<span class="hljs-params">p0: <span class="hljs-built_in">number</span>, p1: <span class="hljs-built_in">string</span></span>)</span>{}
+
+
+f.call(<span class="hljs-literal">null</span>, <span class="hljs-number">0</span>, <span class="hljs-string">''</span>); <span class="hljs-comment">// ok</span>
+f.call(<span class="hljs-literal">null</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>); <span class="hljs-comment">// error</span>
+f.call(<span class="hljs-literal">null</span>, <span class="hljs-number">0</span>); <span class="hljs-comment">// error</span>
+f.call(<span class="hljs-literal">null</span>, <span class="hljs-number">0</span>, <span class="hljs-string">''</span>, <span class="hljs-number">0</span>); <span class="hljs-comment">// error</span>
+
+f.apply(<span class="hljs-literal">null</span>, [<span class="hljs-number">0</span>, <span class="hljs-string">''</span>]); <span class="hljs-comment">// ok</span>
+f.apply(<span class="hljs-literal">null</span>, [<span class="hljs-number">0</span>, <span class="hljs-number">0</span>]); <span class="hljs-comment">// error</span>
+f.apply(<span class="hljs-literal">null</span>, [<span class="hljs-number">0</span>]); <span class="hljs-comment">// error</span>
+f.apply(<span class="hljs-literal">null</span>, [<span class="hljs-number">0</span>, <span class="hljs-string">''</span>, <span class="hljs-number">0</span>]); <span class="hljs-comment">// error</span>
+
+f.bind(<span class="hljs-literal">null</span>, <span class="hljs-number">0</span>, <span class="hljs-string">''</span>); <span class="hljs-comment">// ok</span>
+f.bind(<span class="hljs-literal">null</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>); <span class="hljs-comment">// error</span>
+f.bind(<span class="hljs-literal">null</span>, <span class="hljs-number">0</span>); <span class="hljs-comment">// ok</span>
+f.bind(<span class="hljs-literal">null</span>, <span class="hljs-number">0</span>, <span class="hljs-string">''</span>, <span class="hljs-number">0</span>); <span class="hljs-comment">// ok</span></code></pre>
+</section><section id="showConfig" name="showConfig" class="subchapter">
+            <h2 class="subchapter-title">
+                <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="showConfig" type="absolute-url">
+                    <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <use href="#icon_link"/>
+                    </svg>
+                </button>
+                showConfig
+            </h2>
+        
+<hr>
+<p><code class="inline-code">--showConfig</code> - при активном текущем флаге, компилятор <code class="inline-code">tsc</code> во время компиляции, вывидет в консоль содержимое конфигурационного файла <code class="inline-code">tsconfig.json</code> разрешенного с учетом механизма расширения (<code class="inline-code">extends</code>), если таковой механизм имеет место быть. Этот функционал может быть очень полезным при отладке.</p>
+<pre><code class="hljs language-typescript">{
+  <span class="hljs-string">"compilerOptions"</span>: {
+      <span class="hljs-string">"showConfig"</span>: <span class="hljs-literal">false</span>
   }
 }</code></pre>
 <p><strong>type</strong>: <code class="inline-code">boolean</code>
