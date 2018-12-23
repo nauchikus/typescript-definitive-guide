@@ -24,7 +24,7 @@
     "commitizen": "^3.0.5"
   },
   "devDependencies": {
-    "typescript": "^3.2.2"
+    "typescript": "^3.0.3"
   },
   "scripts": {
     "build": "book-builder"
