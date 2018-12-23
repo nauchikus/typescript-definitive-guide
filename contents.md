@@ -11,7 +11,7 @@
 Экскурс в типизацию - Совместимость типов на основе вариантности
 Аннотация типов
 Типы - Базовый тип Any
-Типы - Примитивные типы Number, String, Boolean, Symbol
+Типы - Примитивные типы Number, String, Boolean, Symbol, BigInt
 Типы - Примитивные типы Null, Undefined, Void, Never, Unknown
 Типы - Примитивный тип Enum
 Типы - Union, Intersection
