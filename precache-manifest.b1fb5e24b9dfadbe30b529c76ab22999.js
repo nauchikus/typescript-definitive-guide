@@ -1,19 +1,19 @@
 self.__precacheManifest = [
   {
-    "revision": "0626ac7da58e839da945",
+    "revision": "34cadf7a570bf4b9bd50",
     "url": "/typescript-definitive-guide/css/app.726b422a.css"
   },
   {
-    "revision": "0626ac7da58e839da945",
-    "url": "/typescript-definitive-guide/js/app.0c6dc79f.js"
+    "revision": "34cadf7a570bf4b9bd50",
+    "url": "/typescript-definitive-guide/js/app.ae33c22f.js"
   },
   {
-    "revision": "c1d6387b55ecd3b0361b",
-    "url": "/typescript-definitive-guide/css/chapter.ba4f381f.css"
+    "revision": "7609566d47b41c6c7894",
+    "url": "/typescript-definitive-guide/css/chapter.070cebbf.css"
   },
   {
-    "revision": "c1d6387b55ecd3b0361b",
-    "url": "/typescript-definitive-guide/js/chapter.c510aab2.js"
+    "revision": "7609566d47b41c6c7894",
+    "url": "/typescript-definitive-guide/js/chapter.4e04af81.js"
   },
   {
     "revision": "3d384f9e77c66e2c3f9c",
@@ -24,34 +24,34 @@ self.__precacheManifest = [
     "url": "/typescript-definitive-guide/js/chunk-vendors.4a5ad94a.js"
   },
   {
-    "revision": "b71458b4979c02a24fe7",
+    "revision": "3cf630fe51dad9abc448",
     "url": "/typescript-definitive-guide/css/contents.34684a4a.css"
   },
   {
-    "revision": "b71458b4979c02a24fe7",
-    "url": "/typescript-definitive-guide/js/contents.28066e30.js"
+    "revision": "3cf630fe51dad9abc448",
+    "url": "/typescript-definitive-guide/js/contents.37cdf467.js"
   },
   {
-    "revision": "999b531810437ee7eccd",
+    "revision": "f060d510de7be1f7ab3a",
     "url": "/typescript-definitive-guide/css/hode.46fffa41.css"
   },
   {
-    "revision": "999b531810437ee7eccd",
-    "url": "/typescript-definitive-guide/js/hode.f424a4d6.js"
+    "revision": "f060d510de7be1f7ab3a",
+    "url": "/typescript-definitive-guide/js/hode.52b95702.js"
   },
   {
-    "revision": "16f1846e4a44b2e41b65",
-    "url": "/typescript-definitive-guide/css/not-found.91f525e7.css"
+    "revision": "b6a2287d6c03bbe51aca",
+    "url": "/typescript-definitive-guide/css/not-found.c94675dd.css"
   },
   {
-    "revision": "16f1846e4a44b2e41b65",
-    "url": "/typescript-definitive-guide/js/not-found.7c2b069f.js"
+    "revision": "b6a2287d6c03bbe51aca",
+    "url": "/typescript-definitive-guide/js/not-found.5cb95a09.js"
   },
   {
     "url": "/typescript-definitive-guide/img/icons.16e33dde.svg"
   },
   {
-    "revision": "5fda93b32af9cd0a806abe161a308a0e",
+    "revision": "49b40af548b510d2880c76058c6bffc6",
     "url": "/typescript-definitive-guide/index.html"
   },
   {
