@@ -41,7 +41,6 @@ module.exports = {
               .loader( 'svgo-loader' );
 
         config.plugin( 'define' ).tap( v => {
-            console.log( v );
             return v;
         } );
     },

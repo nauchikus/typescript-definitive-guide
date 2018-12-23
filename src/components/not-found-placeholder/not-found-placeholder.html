@@ -9,11 +9,12 @@
     <!--</div>-->
 <!--</md-empty-state>-->
 <div class="not-found">
-    <div class="md-layout md-alignment-center-center">
-        <h1 class="md-display-4">Страница Не Найдена</h1>
+    <div class="not-found__content md-layout md-alignment-center-center">
+        <h1 class="not-found__conten__title">Страница Не Найдена</h1>
         <div class="md-layout md-alignment-center">
             <md-button @click="home()">На Главную</md-button>
             <md-button v-if="!isEnterRoute" @click="back()">Назад</md-button>
         </div>
     </div>
 </div>
+
