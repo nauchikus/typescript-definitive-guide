@@ -11,7 +11,7 @@
                         <li class="list__item list__item__item-with-background list__item list__item-with-ellipsis" v-for="(subchapter, index) in bookCurrentSubchapterAll" :key="index">
                             <router-link class="list__item__link"
                                          :title="subchapter.data.name"
-                                         :to="subchapter.data.anchor"
+                                         :to="'/book/contents/' + subchapter.data.path"
                                          exact-active-class="nav__active">{{subchapter.data.name}}</router-link>
                         </li>
                     </ul>
