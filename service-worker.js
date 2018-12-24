@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "/typescript-definitive-guide/precache-manifest.456973e98751501b10932a6b78729fe8.js"
+  "/typescript-definitive-guide/precache-manifest.6b3f41c0288c7ae07544ee22e4b14810.js"
 );
 
 workbox.core.setCacheNameDetails({prefix: "typescript-definitive-guide"});
