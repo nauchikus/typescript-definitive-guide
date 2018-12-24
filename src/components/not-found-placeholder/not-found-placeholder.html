@@ -1,17 +1,7 @@
-
-
-<!--<md-empty-state-->
-        <!--md-icon="close"-->
-        <!--md-label="Страница Не Найдена">-->
-    <!--<div class="md-layout md-alignment-center">-->
-        <!--<md-button @click="home()">На Главную</md-button>-->
-        <!--<md-button v-if="!isEnterRoute" @click="back()">Назад</md-button>-->
-    <!--</div>-->
-<!--</md-empty-state>-->
 <div class="not-found">
     <div class="not-found__content md-layout md-alignment-center-center">
         <h1 class="not-found__conten__title">Страница Не Найдена</h1>
-        <div class="md-layout md-alignment-center">
+        <div class="not-found__content__control">
             <md-button @click="home()">На Главную</md-button>
             <md-button v-if="!isEnterRoute" @click="back()">Назад</md-button>
         </div>

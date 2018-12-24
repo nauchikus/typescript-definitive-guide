@@ -53,7 +53,7 @@ export const create = (store: Store<{}>) => {
                 }
             },
             {
-                path: '/book/:id/:a',
+                path: '*',
                 name: 'not-found',
                 component: () =>
                     import(/* webpackChunkName: "not-found" */ './pages/not-found/NotFoundPage.vue')
