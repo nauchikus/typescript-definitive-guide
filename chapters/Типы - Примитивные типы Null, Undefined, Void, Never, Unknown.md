@@ -228,7 +228,7 @@ function action() { } // function action(): void {}
 function action(): void { }
 
 let identifier = action(); // identifier: void
-~~~~~typescript
+~~~~~
 
 Тип `Void` является уникальным для *TypeScript*. В *JavaScript* подобного типа не существует.
 
