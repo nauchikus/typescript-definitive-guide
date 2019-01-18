@@ -182,23 +182,23 @@ TypeSystem.void = TypeSystem.void; <span class="hljs-comment">// Ok</span></code
 <p>В отличие от <code class="inline-code">Null</code> и <code class="inline-code">Undefined</code>, тип данных <code class="inline-code">Void</code> не имеет ни одного значения, которое могло бы явно продемонстрировать присвоение. Однако компилятор понимает что имеет дело с типом <code class="inline-code">Void</code> при вызове функции или метода, которые не возвращают значение. Этот становится ещё нагляднее, когда вывод типов устанавливает тип полученный при вызове функции или метода, которые ничего  не возвращают.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">action</span>(<span class="hljs-params"></span>): <span class="hljs-title">void</span> </span>{ }
 
-<span class="hljs-keyword">let</span> identifier = action(); <span class="hljs-comment">// identifier: void</span>
-~~~~~typescript
-
-Тип <span class="hljs-string">`Void`</span> является уникальным для *TypeScript*. В *JavaScript* подобного типа не существует.
-
-
-## Never (never) примитивный тип
-________________
-
-Примитивный типа данных <span class="hljs-string">`Never`</span> служит для указания того, что какие-либо операции никогда не будут выполнены.
-
-<span class="hljs-string">`Never`</span> обозначается ключевым словом <span class="hljs-string">`never`</span> и также как и <span class="hljs-string">`Void`</span> не имеет явных значений.
-
-Тип данных <span class="hljs-string">`Never`</span> является подтипом всех типов, что делает его совместим со всеми остальными типами.
-
-~~~~~typescript
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">action</span>(<span class="hljs-params"></span>): <span class="hljs-title">never</span> </span>{
+<span class="hljs-keyword">let</span> identifier = action(); <span class="hljs-comment">// identifier: void</span></code></pre>
+<p>Тип <code class="inline-code">Void</code> является уникальным для <em>TypeScript</em>. В <em>JavaScript</em> подобного типа не существует.</p>
+</section><section id="Never-never-primitivnyi-tip" name="Never (never) примитивный тип" class="subchapter">
+            <h2 class="subchapter-title">
+                <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="Never-never-primitivnyi-tip" type="absolute-url">
+                    <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <use href="#icon_link"/>
+                    </svg>
+                </button>
+                Never (never) примитивный тип
+            </h2>
+        
+<hr>
+<p>Примитивный типа данных <code class="inline-code">Never</code> служит для указания того, что какие-либо операции никогда не будут выполнены.</p>
+<p><code class="inline-code">Never</code> обозначается ключевым словом <code class="inline-code">never</code> и также как и <code class="inline-code">Void</code> не имеет явных значений.</p>
+<p>Тип данных <code class="inline-code">Never</code> является подтипом всех типов, что делает его совместим со всеми остальными типами.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">action</span>(<span class="hljs-params"></span>): <span class="hljs-title">never</span> </span>{
   <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>();
 };
 
@@ -263,7 +263,7 @@ TypeSystem.never = TypeSystem.never; <span class="hljs-comment">// Ok</span></co
             </h2>
         
 <hr>
-<p>Тип <code class="inline-code">Unknown</code> является пипобезопасным аналогом типа <code class="inline-code">any</code> и представлен в виде литарала <code class="inline-code">unknown</code>. Все типы совместимы с типом <code class="inline-code">unknown</code>, в то время, как сам тип <code class="inline-code">unknown</code> совместим только с самим собой и типом <code class="inline-code">any</code>.</p>
+<p>Тип <code class="inline-code">Unknown</code> является типобезопасным аналогом типа <code class="inline-code">any</code> и представлен в виде литарала <code class="inline-code">unknown</code>. Все типы совместимы с типом <code class="inline-code">unknown</code>, в то время, как сам тип <code class="inline-code">unknown</code> совместим только с самим собой и типом <code class="inline-code">any</code>.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">class</span> TypeSystem {
 <span class="hljs-keyword">static</span> unknown: unknown;
 
