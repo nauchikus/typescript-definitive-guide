@@ -26,8 +26,7 @@ export const module: Module<ILocalState, {}> = {
         },
         donate: {
             yandex: {
-                link:
-                    'https://yasobe.ru/na/typescript_definitive_guide'
+                link: 'https://yasobe.ru/na/typescript_definitive_guide'
             }
         }
     },
