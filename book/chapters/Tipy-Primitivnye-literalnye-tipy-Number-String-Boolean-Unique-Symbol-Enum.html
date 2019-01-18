@@ -131,7 +131,7 @@ f(Symbol.for(<span class="hljs-string">'bad key'</span>)); <span class="hljs-com
   <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> f1: unique symbol = Symbol.for(<span class="hljs-string">'key'</span>); <span class="hljs-comment">// Error</span>
   <span class="hljs-keyword">public</span> f2: unique symbol = Symbol.for(<span class="hljs-string">'key'</span>); <span class="hljs-comment">// Error</span>
 }</code></pre>
-<p>Кроме того, чтобы ограничить значение до значения принадлежащего к типу <code class="inline-code">unique symbol</code>, требуется  прибегать к механизму запроса типа, который подробно рассматривается в главе <a class="book__chapter__chapter-link" href="/book/contents/Tipy-Type-Queries-zaprosy-tipa-Alias-psevdonimy-tipa" title="Типы - Type Queries (запросы типа), Alias (псевдонимы типа)">Типы - Type Queries (запросы типа), Alias (псевдонимы типа)</a>.</p>
+<p>Кроме того, чтобы ограничить значение до значения принадлежащего к типу <code class="inline-code">unique symbol</code>, требуется  прибегать к механизму запроса типа, который подробно рассматривается в главе <a class="book__chapter__chapter-link" href="/typescript-definitive-guide/book/contents/Tipy-Type-Queries-zaprosy-tipa-Alias-psevdonimy-tipa" title="Типы - Type Queries (запросы типа), Alias (псевдонимы типа)">Типы - Type Queries (запросы типа), Alias (псевдонимы типа)</a>.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">const</span> KEY: unique symbol = Symbol.for( <span class="hljs-string">'key'</span> );
 
 <span class="hljs-comment">// аннотация параметра и возвращаемого из функции типа при помощи механизма запросов типа</span>

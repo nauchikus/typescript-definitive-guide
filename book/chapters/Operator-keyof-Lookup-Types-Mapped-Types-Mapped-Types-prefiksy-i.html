@@ -211,7 +211,7 @@
   [V <span class="hljs-keyword">in</span> keyof U]: U[ V ]; <span class="hljs-comment">// Error</span>
   f1: <span class="hljs-built_in">number</span>; <span class="hljs-comment">// Error</span>
 }</code></pre>
-<p>К тому же в <em>TypeScript</em> существует несколько готовых типов, таких как <code class="inline-code">Readonly&#x3C;T></code>, <code class="inline-code">Partial&#x3C;T></code>, <code class="inline-code">Record&#x3C;K, T></code> и <code class="inline-code">Pick&#x3C;T, K></code> (глава <a class="book__chapter__chapter-link" href="/book/contents/Rasshirennye-tipy-Readonly-Partial-Required-Pick-Record" title="Расширенные типы - Readonly, Partial, Required, Pick, Record">Расширенные типы - Readonly, Partial, Required, Pick, Record</a>).</p>
+<p>К тому же в <em>TypeScript</em> существует несколько готовых типов, таких как <code class="inline-code">Readonly&#x3C;T></code>, <code class="inline-code">Partial&#x3C;T></code>, <code class="inline-code">Record&#x3C;K, T></code> и <code class="inline-code">Pick&#x3C;T, K></code> (глава <a class="book__chapter__chapter-link" href="/typescript-definitive-guide/book/contents/Rasshirennye-tipy-Readonly-Partial-Required-Pick-Record" title="Расширенные типы - Readonly, Partial, Required, Pick, Record">Расширенные типы - Readonly, Partial, Required, Pick, Record</a>).</p>
 </section><section id="Prefiksy-i-v-sopostavlennyh-tipah" name="Префиксы + и - в сопоставленных типах" class="subchapter">
             <h2 class="subchapter-title">
                 <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="Prefiksy-i-v-sopostavlennyh-tipah" type="absolute-url">
@@ -223,7 +223,7 @@
             </h2>
         
 <hr>
-<p>Сопоставленные типы позволяют добавлять модификаторы, но не позволяют их удалять, что в свою очередь имеет большое значение в случаи с гомоморфными типами, которые по умолчанию сохраняют модификаторы своего базового типа (гомоморфные типы будут рассмотрены в главе <a class="book__chapter__chapter-link" href="/book/contents/Rasshirennye-tipy-Readonly-Partial-Required-Pick-Record" title="Расширенные типы - Readonly, Partial, Required, Pick, Record">Расширенные типы - Readonly, Partial, Required, Pick, Record</a>). </p>
+<p>Сопоставленные типы позволяют добавлять модификаторы, но не позволяют их удалять, что в свою очередь имеет большое значение в случаи с гомоморфными типами, которые по умолчанию сохраняют модификаторы своего базового типа (гомоморфные типы будут рассмотрены в главе <a class="book__chapter__chapter-link" href="/typescript-definitive-guide/book/contents/Rasshirennye-tipy-Readonly-Partial-Required-Pick-Record" title="Расширенные типы - Readonly, Partial, Required, Pick, Record">Расширенные типы - Readonly, Partial, Required, Pick, Record</a>). </p>
 <p>Для разрешения этого, к модификаторам, в типах сопоставления, были добавлены префиксы <code class="inline-code">+</code> и <code class="inline-code">-</code>, с помощью которых указывается поведение модификатора - добавить или удалить.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">type</span> T1&#x3C;T> = { +readonly [P <span class="hljs-keyword">in</span> keyof T]+?: T[P] }; <span class="hljs-comment">// добавит указанные модификаторы</span>
 <span class="hljs-keyword">type</span> T0&#x3C;T> = { -readonly [P <span class="hljs-keyword">in</span> keyof T]-?: T[P] }; <span class="hljs-comment">// удалит указынные модификаторы</span>

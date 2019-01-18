@@ -46,7 +46,7 @@
         
 <hr>
 <p>Члены помеченные ключевым словом <code class="inline-code">public</code>, доступны как в классах, в которых они объявлены, так и в классах потомках. Также к публичным членам можно обращаться через экземпляры класса.</p>
-<p>Если при разработки приложения, особое внимание уделяется архитектуре, то как правило, модификатором доступа <code class="inline-code">public</code> помечаются только члены, описанные в интерфейсе (глава <a class="book__chapter__chapter-link" href="/book/contents/Tipy-Interface" title="Типы - Interface">Типы - Interface</a>).</p>
+<p>Если при разработки приложения, особое внимание уделяется архитектуре, то как правило, модификатором доступа <code class="inline-code">public</code> помечаются только члены, описанные в интерфейсе (глава <a class="book__chapter__chapter-link" href="/typescript-definitive-guide/book/contents/Tipy-Interface" title="Типы - Interface">Типы - Interface</a>).</p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">class</span> Animal {
   <span class="hljs-keyword">public</span> nickname: <span class="hljs-built_in">string</span>;
 
@@ -260,7 +260,7 @@ bird.isUpdate = <span class="hljs-literal">true</span>; <span class="hljs-commen
       <span class="hljs-keyword">public</span> isLife: <span class="hljs-built_in">boolean</span>
   </span>){}
 }</code></pre>
-<p>В сокращенном варианте, поля не указываются в теле класса, а указываются только в конструкторе. При этом обязательным условием является указание одного из существующих модификатора доступа (либо модификатора <code class="inline-code">readonly</code>, о котором речь пойдет в главе <a class="book__chapter__chapter-link" href="/book/contents/Klassy-Modifikator-readonly" title="Классы - Модификатор readonly">Классы - Модификатор readonly</a>), без которого идентификатор является обычным параметром.</p>
+<p>В сокращенном варианте, поля не указываются в теле класса, а указываются только в конструкторе. При этом обязательным условием является указание одного из существующих модификатора доступа (либо модификатора <code class="inline-code">readonly</code>, о котором речь пойдет в главе <a class="book__chapter__chapter-link" href="/typescript-definitive-guide/book/contents/Klassy-Modifikator-readonly" title="Классы - Модификатор readonly">Классы - Модификатор readonly</a>), без которого идентификатор является обычным параметром.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">class</span> FishEntity { <span class="hljs-comment">// short</span>
   <span class="hljs-keyword">constructor</span>(<span class="hljs-params">
       <span class="hljs-keyword">public</span> name: <span class="hljs-built_in">string</span>, <span class="hljs-comment">// field</span>
