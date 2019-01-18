@@ -110,7 +110,7 @@ animalModel.update(newEntity); <span class="hljs-comment">// Ok</span>
             </h2>
         
 <hr>
-<p>Тип сопоставления <code class="inline-code">Required&#x3C;T></code> удаляет все необязательные модификаторы <code class="inline-code">:?</code> приводя члены объекта к обязательным. Простыми словами, <code class="inline-code">Required&#x3C;T></code>, с помощью префикса - (глава <a class="book__chapter__chapter-link" href="/typescript-definitive-guide/book/contents/Operator-keyof-Lookup-Types-Mapped-Types-Mapped-Types-prefiksy-i" title="Оператор keyof, Lookup Types, Mapped Types, Mapped Types - префиксы + и -">Оператор keyof, Lookup Types, Mapped Types, Mapped Types - префиксы + и -</a>),  помечает модификатор <code class="inline-code">:?</code> на удаление.</p>
+<p>Тип сопоставления <code class="inline-code">Required&#x3C;T></code> удаляет все необязательные модификаторы <code class="inline-code">:?</code> приводя члены объекта к обязательным. Простыми словами, <code class="inline-code">Required&#x3C;T></code>, с помощью префикса - (глава <a class="book__chapter__chapter-link" href="/book/contents/Operator-keyof-Lookup-Types-Mapped-Types-Mapped-Types-prefiksy-i" title="Оператор keyof, Lookup Types, Mapped Types, Mapped Types - префиксы + и -">Оператор keyof, Lookup Types, Mapped Types, Mapped Types - префиксы + и -</a>),  помечает модификатор <code class="inline-code">:?</code> на удаление.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">type</span> Required&#x3C;T> = {
   [P <span class="hljs-keyword">in</span> keyof T]-?: T[P];
 };</code></pre>

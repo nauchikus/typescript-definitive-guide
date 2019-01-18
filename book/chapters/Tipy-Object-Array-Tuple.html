@@ -95,14 +95,14 @@ animalAll.push( <span class="hljs-literal">undefined</span> ); <span class="hljs
 <span class="hljs-keyword">new</span> Rhino(),
 <span class="hljs-keyword">new</span> Gorilla()
 ];</code></pre>
-<p>Если для смешанного массива не указать тип явно, то вывод типов самостоятельно укажет все типы, которые хранятся в массиве. Более подробно эта тема будет рассмотрена в главе <a class="book__chapter__chapter-link" href="/typescript-definitive-guide/book/contents/Tipizaciya-Vyvod-tipov" title="Типизация - Вывод типов">Типизация - Вывод типов</a>.</p>
+<p>Если для смешанного массива не указать тип явно, то вывод типов самостоятельно укажет все типы, которые хранятся в массиве. Более подробно эта тема будет рассмотрена в главе <a class="book__chapter__chapter-link" href="/book/contents/Tipizaciya-Vyvod-tipov" title="Типизация - Вывод типов">Типизация - Вывод типов</a>.</p>
 <p>В случае, если типы данных неизвестны  при создании экземпляра массива, следует указать в качестве типа тип <code class="inline-code">any</code>.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">let</span> dataAll: <span class="hljs-built_in">any</span>[] = [];
 
 dataAll.push(<span class="hljs-number">5</span>); <span class="hljs-comment">// Ok -> number</span>
 dataAll.push(<span class="hljs-string">'5'</span>); <span class="hljs-comment">// Ok -> string</span>
 dataAll.push(<span class="hljs-literal">true</span>); <span class="hljs-comment">// Ok -> boolean</span></code></pre>
-<p>Нужно стараться использовать, как можно реже массивы со смешанными типами, а к массивам с типом <code class="inline-code">any</code> нужно прибегать только в самых крайних случаях. Кроме того, как было рассказано в главе <a class="book__chapter__chapter-link" href="/typescript-definitive-guide/book/contents/Ekskurs-v-tipizaciu-Sovmestimost-tipov-na-osnove-variantnosti" title="Экскурс в типизацию - Совместимость типов на основе вариантности">Экскурс в типизацию - Совместимость типов на основе вариантности</a>, из-за того, что нужно крайне осторожно относится к массивам, у которых входные типы являются ковариантными, не рекомендуется указывать массиву базовые типы. </p>
+<p>Нужно стараться использовать, как можно реже массивы со смешанными типами, а к массивам с типом <code class="inline-code">any</code> нужно прибегать только в самых крайних случаях. Кроме того, как было рассказано в главе <a class="book__chapter__chapter-link" href="/book/contents/Ekskurs-v-tipizaciu-Sovmestimost-tipov-na-osnove-variantnosti" title="Экскурс в типизацию - Совместимость типов на основе вариантности">Экскурс в типизацию - Совместимость типов на основе вариантности</a>, из-за того, что нужно крайне осторожно относится к массивам, у которых входные типы являются ковариантными, не рекомендуется указывать массиву базовые типы. </p>
 <p>В случаях, в которых требуется создавать массив при помощи оператора new, приходится прибегать к типу глобального обобщённого интерфейса <code class="inline-code">Array&#x3C;T></code>. Обобщения будут рассмотрены чуть позднее, а пока нужно запомнить следующее.</p>
 <p>При попытке создать экземпляр массива путем вызова конструктора, операция завершится успехом в тех случаях, когда создаваемый массив будет инициализирован пустым, либо с элементами одного типа данных. В случаях смешанного массива, необходимо явно указывать типы обобщения, заключенные в угловые  скобки.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">let</span> animalData: <span class="hljs-built_in">string</span>[] = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Array</span>(); <span class="hljs-comment">//Ok</span>
@@ -188,7 +188,7 @@ f( <span class="hljs-number">5</span>, <span class="hljs-string">''</span>, <spa
 }
 
 <span class="hljs-keyword">let</span> l = f( <span class="hljs-number">5</span> ).length; <span class="hljs-comment">// let l: 1 | 2 | 3</span></code></pre>
-<p>Еще несколько неочевидных моментов связанным с выводом типов при работе с типом кортеж будет рассмотрено в главе <a class="book__chapter__chapter-link" href="/typescript-definitive-guide/book/contents/Tipizaciya-Vyvod-tipov" title="Типизация - Вывод типов">Типизация - Вывод типов</a>. </p>
+<p>Еще несколько неочевидных моментов связанным с выводом типов при работе с типом кортеж будет рассмотрено в главе <a class="book__chapter__chapter-link" href="/book/contents/Tipizaciya-Vyvod-tipov" title="Типизация - Вывод типов">Типизация - Вывод типов</a>. </p>
 <p>И последнее на что стоит обратить внимание, что кортеж не указывается выводом типов при не явном указании.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">let</span> elephantData = [ <span class="hljs-string">'Dambo'</span>, <span class="hljs-number">1</span> ]; <span class="hljs-comment">// type Array (string | number)[]</span></code></pre>
 <p>Тип <code class="inline-code">Tuple</code> является уникальным для <code class="inline-code">TypeScript</code>, в <code class="inline-code">JavaScript</code> подобного типа не существует.</p>
