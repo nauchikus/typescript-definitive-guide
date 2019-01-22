@@ -12,6 +12,11 @@ interface ILocalState {
             link: string;
         };
     };
+    github: {
+        repository: {
+            link: string;
+        };
+    };
 }
 
 export interface AppUiModuleAction {}
@@ -28,6 +33,11 @@ export const module: Module<ILocalState, {}> = {
             yandex: {
                 link: 'https://yasobe.ru/na/typescript_definitive_guide'
             }
+        },
+        github: {
+            repository: {
+                link: 'https://github.com/nauchikus/typescript-definitive-guide'
+            }
         }
     },
     mutations: {},
@@ -35,6 +45,7 @@ export const module: Module<ILocalState, {}> = {
     getters: {
         appTelegramChanelLink: state => state.telegram.appChanelLink,
         yandexDonateLink: state => state.donate.yandex.link,
+        githubRepositoryLink: state => state.github.repository.link,
         BASE_URL: state => state.BASE_URL,
         ORIGIN: state => state.ORIGIN
     }

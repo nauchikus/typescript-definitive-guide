@@ -1,13 +1,17 @@
 @import "app-header.grid"
+@import "../../styles/mixins/interactive-icon-button"
 
-//.custom-icon
-    fill: tomato
 
 .custom-icon
     fill: rgba(0,0,0,.6)
 
 .app-header__menu__button__icon
     margin: 0 16px 0 0
+
+
+.interactive-icon-button .svg-icon--piggy-bank
+    @include interactive-icon-button(rgba(255,99,71,.8), rgba(255,99,71,1))
+
 
 
 .app-info__book-info__chapter-index

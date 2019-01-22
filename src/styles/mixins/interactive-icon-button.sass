@@ -1,7 +1,7 @@
-@mixin interactive-icon-button()
-    & svg
-        fill: rgba(0, 0, 0, 0.4)!important
+@mixin interactive-icon-button($defaultColor: rgba(0, 0, 0, 0.4), $hoverColor: rgba(0, 0, 0, 0.6))
+    &
+        fill: $defaultColor!important
 
         transition: fill .2s
-    &:hover svg
-        fill: rgba(0, 0, 0, 0.6)!important
+    &:hover
+        fill: $hoverColor!important

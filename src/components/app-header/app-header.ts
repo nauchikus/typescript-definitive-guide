@@ -8,6 +8,7 @@ const component: ComponentOptions<IComponent> = {
         ...mapGetters([
             'appTelegramChanelLink',
             'yandexDonateLink',
+            'githubRepositoryLink',
             'bookCurrentChapterName',
             'bookCurrentChapterIndex',
             'bookChapterTotalIndex',
