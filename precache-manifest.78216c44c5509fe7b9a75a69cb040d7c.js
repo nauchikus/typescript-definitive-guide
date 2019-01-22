@@ -1,18 +1,18 @@
 self.__precacheManifest = [
   {
-    "revision": "09aae0bd714adc45cd49",
+    "revision": "b287a88dcfeb58751949",
     "url": "/typescript-definitive-guide/css/app.bf78a0d6.css"
   },
   {
-    "revision": "09aae0bd714adc45cd49",
-    "url": "/typescript-definitive-guide/js/app.3f597416.js"
+    "revision": "b287a88dcfeb58751949",
+    "url": "/typescript-definitive-guide/js/app.2e3b8e7e.js"
   },
   {
-    "revision": "14e8511cbda71b091d70",
-    "url": "/typescript-definitive-guide/css/chapter.2f8402e4.css"
+    "revision": "38416ba119467c58fa0f",
+    "url": "/typescript-definitive-guide/css/chapter.2cf155cb.css"
   },
   {
-    "revision": "14e8511cbda71b091d70",
+    "revision": "38416ba119467c58fa0f",
     "url": "/typescript-definitive-guide/js/chapter.8a29fcd8.js"
   },
   {
@@ -24,19 +24,19 @@ self.__precacheManifest = [
     "url": "/typescript-definitive-guide/js/chunk-vendors.4a5ad94a.js"
   },
   {
-    "revision": "f796447349a9ed16c78d",
-    "url": "/typescript-definitive-guide/css/contents.6520ab8d.css"
+    "revision": "21317407d4ca7517fdc0",
+    "url": "/typescript-definitive-guide/css/contents.b3e46df0.css"
   },
   {
-    "revision": "f796447349a9ed16c78d",
-    "url": "/typescript-definitive-guide/js/contents.37cdf467.js"
+    "revision": "21317407d4ca7517fdc0",
+    "url": "/typescript-definitive-guide/js/contents.cfcd1941.js"
   },
   {
-    "revision": "de20ca0db862dadfc50e",
-    "url": "/typescript-definitive-guide/css/hode.72bbc2ba.css"
+    "revision": "d577e27965305f25fc72",
+    "url": "/typescript-definitive-guide/css/hode.339bafd1.css"
   },
   {
-    "revision": "de20ca0db862dadfc50e",
+    "revision": "d577e27965305f25fc72",
     "url": "/typescript-definitive-guide/js/hode.52b95702.js"
   },
   {
@@ -51,7 +51,7 @@ self.__precacheManifest = [
     "url": "/typescript-definitive-guide/img/icons.84286bb2.svg"
   },
   {
-    "revision": "e44f0137ae8b2a3ff14155dc9360e047",
+    "revision": "70649649b36224ed986ead76bb203abc",
     "url": "/typescript-definitive-guide/index.html"
   },
   {
