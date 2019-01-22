@@ -1,18 +1,18 @@
 self.__precacheManifest = [
   {
-    "revision": "d42a53a40dea6a7bfdd6",
-    "url": "/typescript-definitive-guide/css/app.726b422a.css"
+    "revision": "09aae0bd714adc45cd49",
+    "url": "/typescript-definitive-guide/css/app.bf78a0d6.css"
   },
   {
-    "revision": "d42a53a40dea6a7bfdd6",
-    "url": "/typescript-definitive-guide/js/app.5a42bdfb.js"
+    "revision": "09aae0bd714adc45cd49",
+    "url": "/typescript-definitive-guide/js/app.3f597416.js"
   },
   {
-    "revision": "cd03ee1b1116adce7c66",
-    "url": "/typescript-definitive-guide/css/chapter.cef5e12c.css"
+    "revision": "14e8511cbda71b091d70",
+    "url": "/typescript-definitive-guide/css/chapter.2f8402e4.css"
   },
   {
-    "revision": "cd03ee1b1116adce7c66",
+    "revision": "14e8511cbda71b091d70",
     "url": "/typescript-definitive-guide/js/chapter.8a29fcd8.js"
   },
   {
@@ -24,19 +24,19 @@ self.__precacheManifest = [
     "url": "/typescript-definitive-guide/js/chunk-vendors.4a5ad94a.js"
   },
   {
-    "revision": "3cf630fe51dad9abc448",
-    "url": "/typescript-definitive-guide/css/contents.34684a4a.css"
+    "revision": "f796447349a9ed16c78d",
+    "url": "/typescript-definitive-guide/css/contents.6520ab8d.css"
   },
   {
-    "revision": "3cf630fe51dad9abc448",
+    "revision": "f796447349a9ed16c78d",
     "url": "/typescript-definitive-guide/js/contents.37cdf467.js"
   },
   {
-    "revision": "f060d510de7be1f7ab3a",
-    "url": "/typescript-definitive-guide/css/hode.46fffa41.css"
+    "revision": "de20ca0db862dadfc50e",
+    "url": "/typescript-definitive-guide/css/hode.72bbc2ba.css"
   },
   {
-    "revision": "f060d510de7be1f7ab3a",
+    "revision": "de20ca0db862dadfc50e",
     "url": "/typescript-definitive-guide/js/hode.52b95702.js"
   },
   {
@@ -48,10 +48,10 @@ self.__precacheManifest = [
     "url": "/typescript-definitive-guide/js/not-found.7c8dca4f.js"
   },
   {
-    "url": "/typescript-definitive-guide/img/icons.16e33dde.svg"
+    "url": "/typescript-definitive-guide/img/icons.84286bb2.svg"
   },
   {
-    "revision": "cdd96c5223ccd8258794af52c79c1b37",
+    "revision": "e44f0137ae8b2a3ff14155dc9360e047",
     "url": "/typescript-definitive-guide/index.html"
   },
   {
