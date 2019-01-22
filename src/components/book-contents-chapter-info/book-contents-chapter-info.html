@@ -3,10 +3,10 @@
     <router-link class="book-contents-tree__title" :to="url" append>{{ title }}</router-link>
     <div class="book-contents-tree__control md-layout md-alignment-center-left" :collapsed="collapse">
         <md-button class="book-contents-tree__prewiev__control__icon-button md-icon-button md-dense" @click="copyToBuffer(url)">
-            <svg-icon name="baseline-link-24px"></svg-icon>
+            <svg-icon class="custom-icon" name="baseline-link-24px"></svg-icon>
         </md-button>
         <md-button class="book-contents-tree__prewiev__control__icon-button md-icon-button md-dense" v-show="isNode" @click="toggleCollapseContents()">
-            <svg-icon class="collapse-icon" name="baseline-keyboard_arrow_down-24px" :collapsed="collapse"></svg-icon>
+            <svg-icon class="custom-icon collapse-icon" name="baseline-keyboard_arrow_down-24px" :collapsed="collapse"></svg-icon>
         </md-button>
     </div>
 </div>

@@ -38,11 +38,13 @@
 
 .book-contents-tree__prewiev__control__icon-button
     @include button-reset()
-    @include interactive-icon-button()
 
     display: flex
 
     align-items: center
+
+.book-contents-tree__prewiev__control__icon-button svg
+    @include interactive-icon-button()
 
 .book-contents-tree__control
     height: 20px
