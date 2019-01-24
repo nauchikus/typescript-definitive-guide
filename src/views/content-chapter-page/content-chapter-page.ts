@@ -68,6 +68,8 @@ export default {
             this.$router.push(path);
         },
         bookNextChapter(this: any) {
+            let { subchapter } = this.$route.params;
+
             this.$router.push(this.bookNextChapterPath);
         },
         bookPrevChapter(this: any) {

@@ -1,5 +1,6 @@
 import { Module } from 'vuex';
 import { BookLoader } from '@/facade';
+import * as RouterUtils from '../../utils/router.utils';
 
 /// TODO think about going back to Leaf type
 interface ILeaf {}
@@ -49,6 +50,7 @@ interface ILocalState {
     currentChapterName: string | null;
 
     currentChapterContent: string;
+
 
     currentChapterPath: string | null;
     nextChapterPath: string | null;
@@ -265,8 +267,6 @@ export const module: Module<ILocalState, {}> = {
         async bookLoadChapterByName({ state, commit }, chapterName: string) {
             let chapter = await BookLoader.loadChapterByName(chapterName);
 
-            console.log('load chapter with name', chapterName);
-
             commit('setChapter', { chapter, chapterName });
         },
         bookContentsToggleAll: ({ state, commit }) => {
@@ -285,8 +285,8 @@ export const module: Module<ILocalState, {}> = {
         bookCurrentChapterName: state => state.currentChapterName,
 
         bookCurrentChapterPath: state => state.currentChapterPath,
-        bookNextChapterPath: state => state.nextChapterPath,
-        bookPrevChapterPath: state => state.prevChapterPath,
+        bookNextChapterPath: state => RouterUtils.toBookBasePath(state.nextChapterPath as string),
+        bookPrevChapterPath: state => RouterUtils.toBookBasePath(state.prevChapterPath as string),
 
         isBookNextChapter: state => state.isNextChapter,
         isBookPrevChapter: state => state.isPrevChapter,
