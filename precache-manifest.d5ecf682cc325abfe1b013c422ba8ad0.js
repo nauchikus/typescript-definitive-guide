@@ -1,19 +1,19 @@
 self.__precacheManifest = [
   {
-    "revision": "b287a88dcfeb58751949",
+    "revision": "5dc2d642d2ad699ffde7",
     "url": "/typescript-definitive-guide/css/app.bf78a0d6.css"
   },
   {
-    "revision": "b287a88dcfeb58751949",
-    "url": "/typescript-definitive-guide/js/app.2e3b8e7e.js"
+    "revision": "5dc2d642d2ad699ffde7",
+    "url": "/typescript-definitive-guide/js/app.47bc5a32.js"
   },
   {
-    "revision": "38416ba119467c58fa0f",
+    "revision": "ea5a238fc3637f71d1e9",
     "url": "/typescript-definitive-guide/css/chapter.2cf155cb.css"
   },
   {
-    "revision": "38416ba119467c58fa0f",
-    "url": "/typescript-definitive-guide/js/chapter.8a29fcd8.js"
+    "revision": "ea5a238fc3637f71d1e9",
+    "url": "/typescript-definitive-guide/js/chapter.cea39a3b.js"
   },
   {
     "revision": "3d384f9e77c66e2c3f9c",
@@ -51,7 +51,7 @@ self.__precacheManifest = [
     "url": "/typescript-definitive-guide/img/icons.84286bb2.svg"
   },
   {
-    "revision": "70649649b36224ed986ead76bb203abc",
+    "revision": "3e061340f8ecee39b3f13098943f2a19",
     "url": "/typescript-definitive-guide/index.html"
   },
   {
