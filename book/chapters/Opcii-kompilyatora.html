@@ -317,21 +317,23 @@ renderer[<span class="hljs-string">"default"</span>](<span class="hljs-string">"
   <span class="hljs-string">"compilerOptions"</span>: {
         <span class="hljs-string">"target"</span>: <span class="hljs-string">"es3"</span>
   }
-}
-~~~~~typescript
-
-**<span class="hljs-keyword">type</span>**: <span class="hljs-string">`string`</span>
-**<span class="hljs-keyword">default</span>**: <span class="hljs-string">`es3`</span>
-**values**: <span class="hljs-string">`es3`</span>, <span class="hljs-string">`es5`</span>, <span class="hljs-string">`es6`</span> / <span class="hljs-string">`es2015`</span>, <span class="hljs-string">`es2016`</span>, <span class="hljs-string">`es2017`</span>, <span class="hljs-string">`esnext`</span> 
-
-
-## <span class="hljs-keyword">extends</span>
-________________
-
-<span class="hljs-string">`extends`</span> - с помощью этого свойства можно расширять конфигурацию *tsconfig.json*.
-
-~~~~~typescript
-<span class="hljs-comment">// tsconfig.base.json</span>
+}</code></pre>
+<p><strong>type</strong>: <code class="inline-code">string</code>
+<strong>default</strong>: <code class="inline-code">es3</code>
+<strong>values</strong>: <code class="inline-code">es3</code>, <code class="inline-code">es5</code>, <code class="inline-code">es6</code> / <code class="inline-code">es2015</code>, <code class="inline-code">es2016</code>, <code class="inline-code">es2017</code>, <code class="inline-code">esnext</code></p>
+</section><section id="extends" name="extends" class="subchapter">
+            <h2 class="subchapter-title">
+                <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="extends" type="absolute-url">
+                    <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <use href="#icon_link"/>
+                    </svg>
+                </button>
+                extends
+            </h2>
+        
+<hr>
+<p><code class="inline-code">extends</code> - с помощью этого свойства можно расширять конфигурацию <em>tsconfig.json</em>.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-comment">// tsconfig.base.json</span>
 
 {
   <span class="hljs-string">"compilerOptions"</span>: {
@@ -516,22 +518,23 @@ ________________
   <span class="hljs-string">"compilerOptions"</span>: {
       <span class="hljs-string">"noImplicitUseStrict"</span>: <span class="hljs-literal">false</span>
   }
-}
-	
-
-**<span class="hljs-keyword">type</span>**: <span class="hljs-string">`boolean`</span>
-**<span class="hljs-keyword">default</span>**: <span class="hljs-string">`false`</span>
-**values**: <span class="hljs-string">`true`</span>, <span class="hljs-string">`false`</span>
-
-
-## baseUrl
-________________
-
-
-<span class="hljs-string">`--baseUrl`</span> - указывает базовый путь, относительно которого будет производится поиск модулей.
-
-~~~~~typescript
-{
+}</code></pre>
+<p><strong>type</strong>: <code class="inline-code">boolean</code>
+<strong>default</strong>: <code class="inline-code">false</code>
+<strong>values</strong>: <code class="inline-code">true</code>, <code class="inline-code">false</code></p>
+</section><section id="baseUrl" name="baseUrl" class="subchapter">
+            <h2 class="subchapter-title">
+                <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="baseUrl" type="absolute-url">
+                    <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <use href="#icon_link"/>
+                    </svg>
+                </button>
+                baseUrl
+            </h2>
+        
+<hr>
+<p><code class="inline-code">--baseUrl</code> - указывает базовый путь, относительно которого будет производится поиск модулей.</p>
+<pre><code class="hljs language-typescript">{
   <span class="hljs-string">"compilerOptions"</span>: {
       <span class="hljs-string">"baseUrl"</span>: <span class="hljs-string">""</span>
   }
@@ -1330,8 +1333,7 @@ define(<span class="hljs-string">"index"</span>, [<span class="hljs-string">"req
 <p><em>Пример</em></p>
 <pre><code class="hljs language-typescript"><span class="hljs-comment">// index.tsx</span>
 
-<span class="hljs-keyword">import</span> {
-jsxFactory} <span class="hljs-keyword">from</span> <span class="hljs-string">"jsxFactory"</span>;
+<span class="hljs-keyword">import</span> {jsxFactory} <span class="hljs-keyword">from</span> <span class="hljs-string">"jsxFactory"</span>;
 
 <span class="hljs-keyword">const</span> div = &#x3C;div>Hello JSX!&#x3C;<span class="hljs-regexp">/div>;
 
@@ -1394,10 +1396,10 @@ var div = jsxFactory_1.jsxFactory.createElement("div", null, "Hello JSX!");</spa
 <p><code class="inline-code">exclude</code> - в обычной ситуации, под компиляцию, рекурсивно, попадают все файлы, которые включает в себя директория, содержащая <em>tsconfig.json</em>. Решением этой проблемы является свойство <code class="inline-code">exclude</code>, определенное в корне конфигурационного  файла. В качестве его значения выступает массив с ссылками на файлы или директории, которые следует исключить из компиляции.</p>
 <pre><code class="hljs language-typescript">{
   <span class="hljs-string">"exclude"</span>: [
-     
+
   ]
 }</code></pre>
-<p><strong>type</strong>: <code class="inline-code">syring[ ]</code>
+<p><strong>type</strong>: <code class="inline-code">string[ ]</code>
 <strong>default</strong>: <code class="inline-code">null</code>
 <strong>values</strong>: <code class="inline-code">path to file or dir</code></p>
 </section><section id="noEmitHelpers" name="noEmitHelpers" class="subchapter">
@@ -2033,7 +2035,7 @@ tsc -w</code></pre>
         
 <hr>
 <p><code class="inline-code">--resolveJsonModule</code> - данная опция, при активной опции <code class="inline-code">--esModuleInterop</code>
-и опции <code class="inline-code">--module</code> установленной в <code class="inline-code">commonjs</code>, позволяет в среде <em>NodeJS</em> полноценно взаимодействовать с <em>json</em>. </p>
+и опции <code class="inline-code">--module</code> установленной в <code class="inline-code">commonjs</code>, позволяет в среде <em>NodeJS</em> полноценно взаимодействовать с <em>json</em>.</p>
 <pre><code class="hljs language-typescript">{
   <span class="hljs-string">"compilerOptions"</span>: {
       <span class="hljs-string">"resolveJsonModule"</span>: <span class="hljs-literal">false</span>

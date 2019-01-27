@@ -78,12 +78,12 @@ start( <span class="hljs-number">81</span> ); <span class="hljs-comment">// ош
             </h2>
         
 <hr>
-<p>Литеральный тип <code class="inline-code">String</code> может быть указан только строковыми литералами заключенные в одинарные ( <code class="inline-code">‘ ’</code> ) или двойные ( <code class="inline-code">“ ”</code> ) кавычки. Так называемые шаблонные строки, которые заключены в обратные кавычки ( <code class="inline-code"></code> ) не могут быть  использоваться в качестве строкового литерального типа.</p>
+<p>Литеральный тип <code class="inline-code">String</code> может быть указан только строковыми литералами заключенные в одинарные ( <code class="inline-code">' '</code> ) или двойные ( <code class="inline-code">" "</code> ) кавычки. Так называемые шаблонные строки, которые заключены в обратные кавычки ( <code class="inline-code">` `</code> ) не могут быть  использоваться в качестве строкового литерального типа.</p>
 <p>В ходе разработки, конвенциями проекта, могут быть наложены ограничения на типы используемой анимации. Чтобы не допустить ошибочных идентификационных значений, можно ограничить тип <code class="inline-code">string</code> литеральными значениями.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">animate</span>(<span class="hljs-params"> name: "ease-<span class="hljs-keyword">in</span>" | "ease-out" </span>): <span class="hljs-title">void</span> </span>{}
 
 animate( <span class="hljs-string">'ease-in'</span> ); <span class="hljs-comment">// Ok</span>
-animate(<span class="hljs-string">'ease-in-out'</span>); <span class="hljs-comment">// Error</span></code></pre>
+animate( <span class="hljs-string">'ease-in-out'</span> ); <span class="hljs-comment">// Error</span></code></pre>
 <p>Примитивный литеральный тип <code class="inline-code">string</code> является уникальным для <em>TypeScript</em>, в <em>JavaScript</em> подобного типа не существует.</p>
 </section><section id="Literalnyi-Tip-Boolean-Boolean-Literal-Types" name="Литеральный Тип Boolean (Boolean Literal Types)" class="subchapter">
             <h2 class="subchapter-title">
@@ -99,7 +99,7 @@ animate(<span class="hljs-string">'ease-in-out'</span>); <span class="hljs-comme
 <p>Литеральный тип <code class="inline-code">Boolean</code> ограничен всего двумя литеральными значениями <code class="inline-code">true</code> и <code class="inline-code">false</code>.</p>
 <p>Так как литеральный тип <code class="inline-code">Boolean</code>, также как и обычный тип <code class="inline-code">Boolean</code> состоит всего из двух литеральных значение <code class="inline-code">true</code> и <code class="inline-code">false</code>, то детально разбирать собственно и нечего.</p>
 <p>Это прекрасный повод чтобы ещё раз повторить определение. Каждый раз, когда встречаться часть кода, работа которой зависит от заранее определенного значения-константы, стоит подумать, нужно ли ограничивать тип литеральным типом и может ли литеральный тип повысить типобезопасность и семантику кода .</p>
-<pre><code class="hljs language-typescript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">setFlag</span>(<span class="hljs-params"> flag: <span class="hljs-literal">true</span> | “<span class="hljs-literal">true</span>” </span>): <span class="hljs-title">void</span> </span>{}</code></pre>
+<pre><code class="hljs language-typescript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">setFlag</span>(<span class="hljs-params"> flag: <span class="hljs-literal">true</span> | "<span class="hljs-literal">true</span>" </span>): <span class="hljs-title">void</span> </span>{}</code></pre>
 <p>Примитивный Литеральный тип <code class="inline-code">boolean</code> является уникальным для <em>TypeScript</em>, в <em>JavaScript</em> подобного типа не существует.</p>
 </section><section id="Literalnyi-Tip-Unique-Symbol-unique-symbol-unikalnyi-simvolnyi-tip" name="Литеральный Тип Unique Symbol (unique symbol) уникальный символьный тип" class="subchapter">
             <h2 class="subchapter-title">
@@ -214,7 +214,7 @@ f(key); <span class="hljs-comment">// Error</span></code></pre>
 <p>Подведем итоги - </p>
 <ul class="book__list">
 <li class="book__list__item">Литеральный тип <code class="inline-code">Number</code> должен указываться числовыми литералами входящими в допустимый диапазон от <code class="inline-code">Number.MIN_VALUE</code> до <code class="inline-code">Number.MAX_VALUE</code> и может записываться в двоичной, восьмеричной, десятичной и шестнадцатеричной системе счисления.</li>
-<li class="book__list__item">Литеральный тип <code class="inline-code">String</code> должен указываться литералами строк заключенные в одинарные ( <code class="inline-code">‘ ’</code> ) или двойные кавычки ( <code class="inline-code">“ ”</code> ).</li>
+<li class="book__list__item">Литеральный тип <code class="inline-code">String</code> должен указываться литералами строк заключенные в одинарные ( <code class="inline-code">' '</code> ) или двойные кавычки ( <code class="inline-code">" "</code> ).</li>
 <li class="book__list__item">Литеральные тип <code class="inline-code">Boolean</code> указывается при помощи литеральных значения <code class="inline-code">true</code> и <code class="inline-code">false</code>.</li>
 <li class="book__list__item">Литеральный тип <code class="inline-code">Enum</code> указывается с помощью констант объявленных в перечислении.</li>
 <li class="book__list__item">На литеральный тип <code class="inline-code">Enum</code> действуют те же правила сопоставления типов что и на обычный <code class="inline-code">Enum</code>.</li>

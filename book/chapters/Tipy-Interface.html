@@ -226,7 +226,7 @@
 
 <span class="hljs-keyword">let</span> raven: Raven = <span class="hljs-keyword">new</span> Raven();
 
-AnimalUtil.print(animal);</code></pre>
+AnimalUtil.print(raven);</code></pre>
 <p>В такой программе, кроме интересов архитектора, ничего пострадать не может, так как она выполняет только одну операцию вывода информации о животном.</p>
 <p>Но если переписать программу, чтобы она выполняла несколько, не связанных логически, операций над одним типом, в данном случаи <code class="inline-code">IAnimal</code>, то ситуация изменить на противоположную.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">interface</span> IAnimal {<span class="hljs-comment">/*...*/</span>}
@@ -247,15 +247,15 @@ AnimalUtil.print(animal);</code></pre>
 
 <span class="hljs-keyword">let</span> raven: Raven = <span class="hljs-keyword">new</span> Raven();
 
-AnimalUtil.printId(animal);
-AnimalUtil.printAge(animal);</code></pre>
+AnimalUtil.printId(raven);
+AnimalUtil.printAge(raven);</code></pre>
 <p>В этом случае программа нарушает принцип <em>ISP</em>, так как статические методы <code class="inline-code">printId</code> и <code class="inline-code">printAge</code> получили доступ к данным, которые им не требуются для успешного выполнения. Это может привести к намеренной или по неосторожности порче данных.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">class</span> AnimalUtil {
  <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> printId(animal: IAnimal): <span class="hljs-built_in">void</span> {
    <span class="hljs-comment">// для успешного выполнения этого метода </span>
    <span class="hljs-comment">// не требуется доступ к данным о animal.age</span>
 
-   <span class="hljs-built_in">console</span>.log(animal.id);
+   <span class="hljs-built_in">console</span>.log( animal.id );
  }
  <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> printAge(animal: IAnimal): <span class="hljs-built_in">void</span> {
    <span class="hljs-comment">// для успешного выполнения этого метода </span>
@@ -276,7 +276,7 @@ AnimalUtil.printAge(animal);</code></pre>
  <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> printId(animal: IIdentifiable): <span class="hljs-built_in">void</span> {
    <span class="hljs-comment">// параметр animal ограничен типом IIdentifiable</span>
 
-   <span class="hljs-built_in">console</span>.log(animal.id);
+   <span class="hljs-built_in">console</span>.log( animal.id );
  }
  <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> printAge(animal: ILiving): <span class="hljs-built_in">void</span> {
    <span class="hljs-comment">// параметр animal ограничен типом ILiving</span>
@@ -290,8 +290,8 @@ AnimalUtil.printAge(animal);</code></pre>
 
 <span class="hljs-keyword">let</span> raven: Raven = <span class="hljs-keyword">new</span> Raven();
 
-AnimalUtil.printId(animal);
-AnimalUtil.printAge(animal);</code></pre>
+AnimalUtil.printId(raven);
+AnimalUtil.printAge(raven);</code></pre>
 </section><section id="Rasshirenie-interfeisom-klassa-extends-class" name="Расширение интерфейсом класса (extends class)" class="subchapter">
             <h2 class="subchapter-title">
                 <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="Rasshirenie-interfeisom-klassa-extends-class" type="absolute-url">
@@ -303,28 +303,27 @@ AnimalUtil.printAge(animal);</code></pre>
             </h2>
         
 <hr>
-<p>В случаях, когда нужно создать интерфейс для уже имеющегося класса, больше не нужно тратить силы, для перечисления членов класса в интерфейсе. В <em>TypeScript</em>, интерфейсу, достаточно расширить класс. </p>
+<p>В случаях, когда нужно создать интерфейс для уже имеющегося класса, больше не нужно тратить силы, для перечисления членов класса в интерфейсе. В <em>TypeScript</em>, интерфейсу, достаточно расширить класс.</p>
 <p>Когда интерфейс расширяет класс, он наследует описание членов, но не их реализацию.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">class</span> Animal {
-nickname: <span class="hljs-built_in">string</span>;
-age: <span class="hljs-built_in">number</span>;
+  nickname: <span class="hljs-built_in">string</span>;
+  age: <span class="hljs-built_in">number</span>;
 }
 
 <span class="hljs-keyword">interface</span> IAnimal <span class="hljs-keyword">extends</span> Animal {}
 
 <span class="hljs-keyword">class</span> Bird <span class="hljs-keyword">implements</span> IAnimal {
-nickname:<span class="hljs-built_in">string</span>;
-age: <span class="hljs-built_in">number</span>;
+  nickname:<span class="hljs-built_in">string</span>;
+  age: <span class="hljs-built_in">number</span>;
 }
 
 <span class="hljs-keyword">let</span> bird: IAnimal = <span class="hljs-keyword">new</span> Bird();</code></pre>
-<p>Но с расширением класса интерфейсом существует один нюанс. </p>
+<p>Но с расширением класса интерфейсом существует один нюанс.</p>
 <p>Наравне с публичными (<code class="inline-code">public</code>), интерфейс также наследует закрытые (<code class="inline-code">private</code>) и защищенные (<code class="inline-code">protected</code>) члены класса. Подобный интерфейс может быть реализован только самим классам или его потомками.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">class</span> Animal {
  <span class="hljs-keyword">private</span> uid: <span class="hljs-built_in">string</span>;
  <span class="hljs-keyword">protected</span> maxAge: <span class="hljs-built_in">number</span>;
  <span class="hljs-keyword">public</span> name: <span class="hljs-built_in">string</span>;
- 
 }
 
 <span class="hljs-keyword">interface</span> IAnimal <span class="hljs-keyword">extends</span> Animal {}
@@ -352,7 +351,7 @@ age: <span class="hljs-built_in">number</span>;
             </h2>
         
 <hr>
-<p>Известный факт, что в <em>JavaScript</em>, а следовательно и в iypeScript, конструкция <code class="inline-code">class</code>, это всего навсего <em>“синтаксический сахар”</em> над старой-доброй функцией конструктором. Эта особенность позволяет описывать интерфейсы не только для экземпляров класса, но и для самих классов (функций-конструкторов). Другими словами, в интерфейсе можно описать конструктор, а также статические члены класса, с одной оговоркой. Этот интерфейс можно использовать только в качестве типа. То есть, класс не может указывать реализацию такого интерфейса с помощью ключевого слова <code class="inline-code">implements</code>.</p>
+<p>Известный факт, что в <em>JavaScript</em>, а следовательно и в TypeScript, конструкция <code class="inline-code">class</code>, это всего навсего <em>“синтаксический сахар”</em> над старой-доброй функцией конструктором. Эта особенность позволяет описывать интерфейсы не только для экземпляров класса, но и для самих классов (функций-конструкторов). Другими словами, в интерфейсе можно описать конструктор, а также статические члены класса, с одной оговоркой. Этот интерфейс можно использовать только в качестве типа. То есть, класс не может указывать реализацию такого интерфейса с помощью ключевого слова <code class="inline-code">implements</code>.</p>
 <p>Описывать интерфейс для функции конструктора, может потребоваться тогда, когда в качестве значения выступает сам класс.</p>
 <p>Конструктор указывается с помощью ключевого слова new после которого указываются фигурные скобки, в которых, при наличии указываются параметры, после которых следует указания возвращаемого типа <code class="inline-code">new(p1: type, p2: type): type;</code>.</p>
 <p>Статические члены описываются также как и обычные.</p>
