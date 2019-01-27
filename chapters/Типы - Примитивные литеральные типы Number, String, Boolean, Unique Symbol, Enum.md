@@ -196,7 +196,7 @@ enum Berrys {
 type RedBerry = Berrys.Raspberry | Berrys.Strawberry;
 
 var berry: RedBerry = Berrys.Strawberry; // Ok
-var berry: RedBerry = Berrys.Strawberry; // Ok
+var berry: RedBerry = Berrys.Raspberry; // Ok
 var berry: RedBerry = Berrys.Blueberry; // Error
 var berry: RedBerry = 123; // Error
 var berry: RedBerry = "strawberry"; // Error
