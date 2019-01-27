@@ -193,7 +193,7 @@ let elephantDiet: string = elephantData[ 2 ]; // Error, type string | number
 type Tuple = [number, string, boolean, number, string];
 
 let v1: [number, string, boolean, number, string]; // Bad
-let v2: Tuple; // Gook
+let v2: Tuple; // Good
 ~~~~~
 
 Кроме того, тип кортеж можно указывать в аннотации остаточных параметров (`...rest`).
