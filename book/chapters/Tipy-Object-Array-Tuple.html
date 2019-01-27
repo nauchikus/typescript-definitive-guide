@@ -161,7 +161,7 @@ elephantData[ <span class="hljs-number">2</span> ] = <span class="hljs-string">'
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">type</span> Tuple = [<span class="hljs-built_in">number</span>, <span class="hljs-built_in">string</span>, <span class="hljs-built_in">boolean</span>, <span class="hljs-built_in">number</span>, <span class="hljs-built_in">string</span>];
 
 <span class="hljs-keyword">let</span> v1: [<span class="hljs-built_in">number</span>, <span class="hljs-built_in">string</span>, <span class="hljs-built_in">boolean</span>, <span class="hljs-built_in">number</span>, <span class="hljs-built_in">string</span>]; <span class="hljs-comment">// Bad</span>
-<span class="hljs-keyword">let</span> v2: Tuple; <span class="hljs-comment">// Gook</span></code></pre>
+<span class="hljs-keyword">let</span> v2: Tuple; <span class="hljs-comment">// Good</span></code></pre>
 <p>Кроме того, тип кортеж можно указывать в аннотации остаточных параметров (<code class="inline-code">...rest</code>).</p>
 <pre><code class="hljs language-typescript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">f</span>(<span class="hljs-params"> ...rest: [ <span class="hljs-built_in">number</span>, <span class="hljs-built_in">string</span> ,<span class="hljs-built_in">boolean</span> ] </span>): <span class="hljs-title">void</span> </span>{}
 
