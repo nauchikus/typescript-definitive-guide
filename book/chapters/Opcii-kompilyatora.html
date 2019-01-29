@@ -2147,4 +2147,67 @@ f.bind(<span class="hljs-literal">null</span>, <span class="hljs-number">0</span
 <p><strong>type</strong>: <code class="inline-code">boolean</code>
 <strong>default</strong>: <code class="inline-code">false</code>
 <strong>values</strong>: <code class="inline-code">true</code>, <code class="inline-code">false</code></p>
+</section><section id="build" name="build" class="subchapter">
+            <h2 class="subchapter-title">
+                <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="build" type="absolute-url">
+                    <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <use href="#icon_link"/>
+                    </svg>
+                </button>
+                build
+            </h2>
+        
+<hr>
+<p><code class="inline-code">--build</code> - данный флаг указывает компилятору <code class="inline-code">tsc</code> что проект нужно собирать как проект использующий ссылки на другие проекты. Подробнее об этом можно узнать из главы <a class="book__chapter__chapter-link" href="/book/contents/Sboraka-s-pomoshch-ssylok-na-proekty" title="Сборака с помощь ссылок на проекты">Сборака с помощь ссылок на проекты</a>. Также, флаг <code class="inline-code">--build</code> может использоваться в сочетании с специфичными только для него такими флагами как <code class="inline-code">--verbose</code>, <code class="inline-code">--dry</code>, <code class="inline-code">--clean</code>, <code class="inline-code">--force</code>, а также с флагом <code class="inline-code">--watch</code>.</p>
+<p><strong>type</strong>: <code class="inline-code">string</code>
+<strong>default</strong>: <code class="inline-code"></code>
+<strong>values</strong>: <code class="inline-code">paths to tsconfig.json or dir with tsconfig.json</code></p>
+</section><section id="verbose" name="verbose" class="subchapter">
+            <h2 class="subchapter-title">
+                <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="verbose" type="absolute-url">
+                    <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <use href="#icon_link"/>
+                    </svg>
+                </button>
+                verbose
+            </h2>
+        
+<hr>
+<p><code class="inline-code">--verbose</code> - текущий флаг указывает компилятору выводить более подробный отчет при инкрементальной сборке проекта. Используется только совместно с флагом <code class="inline-code">--build</code>.</p>
+</section><section id="dry" name="dry" class="subchapter">
+            <h2 class="subchapter-title">
+                <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="dry" type="absolute-url">
+                    <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <use href="#icon_link"/>
+                    </svg>
+                </button>
+                dry
+            </h2>
+        
+<hr>
+<p><code class="inline-code">--dry</code> - при указании текущего флага сборка будет выполнена без порождения выходных файлов. данный флаг полезно использовать совместно с флагом <code class="inline-code">--verbose</code>. Используется только совместно с флагом <code class="inline-code">--build</code>.</p>
+</section><section id="clean" name="clean" class="subchapter">
+            <h2 class="subchapter-title">
+                <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="clean" type="absolute-url">
+                    <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <use href="#icon_link"/>
+                    </svg>
+                </button>
+                clean
+            </h2>
+        
+<hr>
+<p><code class="inline-code">--clean</code> - удаляет выходные файлы соответствующие заданным входным. Используется только совместно с флагом <code class="inline-code">--build</code>.</p>
+</section><section id="force" name="force" class="subchapter">
+            <h2 class="subchapter-title">
+                <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="force" type="absolute-url">
+                    <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <use href="#icon_link"/>
+                    </svg>
+                </button>
+                force
+            </h2>
+        
+<hr>
+<p><code class="inline-code">--force</code> - принудительно выполняет не инкрементальную сборку. Используется только совместно с флагом <code class="inline-code">--build</code>.</p>
 </section>
