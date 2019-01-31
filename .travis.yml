@@ -6,7 +6,7 @@ sudo: false
 
 branches:
   only:
-    - master
+    - whats-is-new
 
 cache:
   directories:
