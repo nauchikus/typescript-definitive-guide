@@ -13,7 +13,7 @@ cache:
     - node_modules
 
 install:
-  - npm i nauchikus/typescript-definitive-guide#builder
+  - npm i nauchikus/typescript-definitive-guide#whats-is-new-builder
   - npm i cross-env
 
 script:
