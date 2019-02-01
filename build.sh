@@ -4,6 +4,8 @@ export WORKING_DIR=`pwd`
 
 export CYAN_COLOR=\033[46m
 
+
+echo " > [meta WorkingDir] $WORKING_DIR"
 echo " [build WhatsIsNew] Start Build."
 
 #build book
