@@ -11,7 +11,7 @@
   "devDependencies": {
   },
   "scripts": {
-    "build": "whatsis-new-builder"
+    "build": "whats-is-new-builder"
   },
   "repository": {
     "type": "git",
