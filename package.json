@@ -1,38 +1,80 @@
 {
-  "name": "typescript-definitive-guide",
+  "name": "whats-is-new-builder",
   "version": "1.0.0",
-  "description": "book",
-  "main": "index.js",
-  "config": {
-    "fromDomain": "http://192.168.0.226:1234",
-    "toDomain": "http://example.ru",
-    "chapter_base_url": "book/contents/",
-    "path_to_dir_with_md": "chapters",
-    "path_to_input_file_with_book_contents": "contents.md",
-    "path_to_output_file_with_book_contents": "dest/book/contents.json",
-    "path_to_dir_with_html": "dest/book/chapters",
-    "path_to_book_dir": "dest/book",
-    "path_to_book_chapters_dir": "dest/book/chapters",
-    "path_to_book_contents_dir": "dest/book",
-    "book_chapter_content_extension": ".html",
-    "prod_assets_link_prefix": "/typescript-definitive-guide",
-    "clear_before_build_path_all": [
-      "dest/book/**/*.*"
-    ]
-  },
-  "dependencies": {
-    "commitizen": "^3.0.5"
-  },
-  "devDependencies": {
-    "typescript": "^3.0.3"
-  },
-  "scripts": {
-    "build": "book-builder"
-  },
+  "description": "",
+  "main": "./index.js",
   "repository": {
     "type": "git",
     "url": "git@github-nauchikus:nauchikus/typescript-definitive-guide.git"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "bin": {
+    "whats-is-new-builder": "bin/whats-is-new-builder"
+  },
+  "scripts": {
+    "sitemap-replace-domain": "node ./whats-is-new-builder/actions/replace-domain-in-sitemmap-action.js",
+    "prestart": "env NODE_ENV=development npm run book:build",
+    "create-book-contents-info-action": "node ./whats-is-new-builder/actions/create-book-contents-info-action.js",
+    "test::md-to-html-action": "node ./tests/md-to-html-action-entry.js",
+    "test::create-book-contents-info-action": "node ./tests/create-book-contents-info-action-entry.js",
+    "test::delete-temporary-directory-action": "node ./tests/delete-temporary-directory-action-entry.js",
+    "test::build-part-into-single-file-action-entry": "node ./tests/build-part-into-single-file-action-entry.js",
+    "test::index-entry": "node ./tests/index-entry.js",
+    "clear-old-build": "node whats-is-new-builder/actions/clear-old-build.js",
+    "md-to-html-action": "node ./whats-is-new-builder/actions/md-to-html-action.js",
+    "format-html-action": "node ./whats-is-new-builder/actions/format-html-action.js",
+    "scripts": "ntl",
+    "start": "cross-env NODE_ENV=development",
+    "update": "npm i -D npm-upgrade && npm-upgrade"
+  },
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS -g './config/git/commitlint.js'"
+    }
+  },
+  "config": {
+    "commitizen": {
+      "path": "node_modules/cz-customizable"
+    },
+    "cz-customizable": {
+      "config": "config/git/commitizen.js"
+    },
+    "fromDomain": "http://192.168.0.226:1234",
+    "toDomain": "http://example.ru",
+    "chapter_base_url": "whats-is-new/",
+    "path_to_dir_with_md": "notes",
+    "note_filename": "note.html",
+    "path_to_input_file_with_book_contents": "contents.md",
+    "path_to_output_file_with_book_contents": "dest/whats-is-new/contents.json",
+    "path_to_dir_with_html": "dest/whats-is-new",
+    "path_to_dir_with_temporary_html": "dest/temporary",
+    "path_to_book_dir": "dest/whats-is-new",
+    "path_to_book_chapters_dir": "dest/whats-is-new",
+    "path_to_book_contents_dir": "dest/whats-is-new",
+    "book_chapter_content_extension": ".html",
+    "prod_assets_link_prefix": "/typescript-definitive-guide",
+    "clear_before_build_path_all": [
+      "dest/whats-is-new/**/*.*"
+    ]
+  },
+  "dependencies": {
+    "cross-env": "^5.2.0",
+    "copy-dir": "^0.4.0",
+    "del": "^3.0.0",
+    "hastscript": "^5.0.0",
+    "highlightjs": "^9.12.0",
+    "remark-highlight.js": "^5.1.0",
+    "remark-html": "^9.0.0",
+    "remark-parse": "^6.0.3",
+    "shelljs": "^0.8.3",
+    "textract": "^2.4.0",
+    "translit-rus-eng": "^1.0.7",
+    "unified": "^7.1.0",
+    "rimraf": "^2.6.3"
+  },
+  "devDependencies": {
+    "commitizen": "^3.0.5",
+    "cz-customizable": "^5.3.0"
+  }
 }
