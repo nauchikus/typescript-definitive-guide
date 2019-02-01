@@ -26,4 +26,4 @@ deploy:
   github_token: $GITHUB_TOKEN
   local_dir: dest/
   on:
-    branch: master
+    branch: whats-is-new
