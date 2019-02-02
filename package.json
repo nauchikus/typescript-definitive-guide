@@ -28,18 +28,7 @@
     "start": "cross-env NODE_ENV=development",
     "update": "npm i -D npm-upgrade && npm-upgrade"
   },
-  "husky": {
-    "hooks": {
-      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS -g './config/git/commitlint.js'"
-    }
-  },
   "config": {
-    "commitizen": {
-      "path": "node_modules/cz-customizable"
-    },
-    "cz-customizable": {
-      "config": "config/git/commitizen.js"
-    },
     "fromDomain": "http://192.168.0.226:1234",
     "toDomain": "http://example.ru",
     "chapter_base_url": "whats-is-new/",
@@ -74,7 +63,5 @@
     "rimraf": "^2.6.3"
   },
   "devDependencies": {
-    "commitizen": "^3.0.5",
-    "cz-customizable": "^5.3.0"
   }
 }
