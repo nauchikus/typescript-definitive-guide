@@ -26,6 +26,7 @@
     "format-html-action": "node ./book-builder/actions/format-html-action.js",
     "scripts": "ntl",
     "start": "cross-env NODE_ENV=development",
+    "build": "book-builder",
     "update": "npm i -D npm-upgrade && npm-upgrade"
   },
   "config": {
