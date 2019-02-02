@@ -1,17 +1,14 @@
 {
   "name": "typescript-definitive-guide",
   "version": "1.0.0",
-  "description": "",
+  "description": "book",
   "main": "./index.js",
   "repository": {
     "type": "git",
     "url": "git@github-nauchikus:nauchikus/typescript-definitive-guide.git"
   },
-  "author": "",
+  "author": "nauchikus",
   "license": "ISC",
-  "bin": {
-    "book-builder": "bin/book-builder"
-  },
   "scripts": {
     "sitemap-replace-domain": "node ./book-builder/actions/replace-domain-in-sitemmap-action.js",
     "prestart": "env NODE_ENV=development npm run book:build",
