@@ -1,0 +1,156 @@
+<section id="Rasshirennye-tipy-Exclude-Extract-NonNullable-ReturnType-InstanceType" name="Расширенные типы - Exclude, Extract, NonNullable, ReturnType, InstanceType" class="subchapter">
+            <h2 class="subchapter-title">
+                <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="Rasshirennye-tipy-Exclude-Extract-NonNullable-ReturnType-InstanceType" type="absolute-url">
+                    <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <use href="#icon_link"/>
+                    </svg>
+                </button>
+                Расширенные типы - Exclude, Extract, NonNullable, ReturnType, InstanceType
+            </h2>
+        
+<hr>
+<p>Чтобы сэкономить время разработчиков, в систему типов <em>TypeScript</em> были включены несколько часто требующихся условных типов, которые подробно будут рассмотрены в этой главе.</p>
+</section><section id="Exclude" name="Exclude" class="subchapter">
+            <h2 class="subchapter-title">
+                <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="Exclude" type="absolute-url">
+                    <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <use href="#icon_link"/>
+                    </svg>
+                </button>
+                Exclude
+            </h2>
+        
+<hr>
+<p>В результате разрешения условный тип <code class="inline-code">Exclude&#x3C;T, U></code>, будет представлять разницу типа <code class="inline-code">T</code> относительно типа <code class="inline-code">U</code>. </p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">type</span> Exclude&#x3C;T, U> = T <span class="hljs-keyword">extends</span> U ? never : T;</code></pre>
+<p>В случае, если оба аргумента типа принадлежат к одному и тому же типу данных, <code class="inline-code">Exclude&#x3C;T, U></code> будет представлять тип <code class="inline-code">never</code>.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">let</span> v: ParamType&#x3C;{ a: <span class="hljs-built_in">number</span>, b:<span class="hljs-built_in">string</span> }>; <span class="hljs-comment">// let v: string | number</span>
+
+<span class="hljs-keyword">let</span> v0 :Extract&#x3C; <span class="hljs-built_in">number</span>|<span class="hljs-built_in">string</span>, <span class="hljs-built_in">boolean</span>|object >; <span class="hljs-comment">// let v0: never</span>
+<span class="hljs-keyword">let</span> v1 :Extract&#x3C; <span class="hljs-built_in">number</span>|<span class="hljs-built_in">string</span>, <span class="hljs-built_in">number</span>|<span class="hljs-built_in">string</span> >; <span class="hljs-comment">// let v1: number</span>
+<span class="hljs-keyword">let</span> v2 :Extract&#x3C; <span class="hljs-built_in">number</span>|<span class="hljs-built_in">string</span>, <span class="hljs-built_in">number</span>|<span class="hljs-built_in">boolean</span> >; <span class="hljs-comment">// let v2: string|number</span>
+
+<span class="hljs-keyword">interface</span> IT0 { a: <span class="hljs-built_in">number</span>; b: <span class="hljs-built_in">string</span>; }
+<span class="hljs-keyword">interface</span> IT1 { a: <span class="hljs-built_in">number</span>; c: <span class="hljs-built_in">boolean</span>; }
+
+<span class="hljs-keyword">let</span> v3 :Extract&#x3C; keyof IT0, keyof IT1 >; <span class="hljs-comment">// let v3: "a"</span></code></pre>
+<p>Его реальную пользу лучше всего продемонстрировать на реализации функции, которая на входе получает два разных объекта, а на выходе возвращает новый объект, состоящий из членов, присутствующих в первом объекте, но отсутствующих во втором. Аналог функции <code class="inline-code">difference</code> из всеми известной в мире <em>frontend</em> библиотеки <em>lodash</em>.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">interface</span> IA { a: <span class="hljs-built_in">number</span>; b: <span class="hljs-built_in">string</span>; }
+<span class="hljs-keyword">interface</span> IB { a: <span class="hljs-built_in">number</span>; c: <span class="hljs-built_in">boolean</span>; }
+
+<span class="hljs-keyword">interface</span> IDifference { b: <span class="hljs-built_in">string</span>; }
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">difference</span>&#x3C;<span class="hljs-title">T</span>, <span class="hljs-title">U</span>>(<span class="hljs-params">a: T, b: U</span>): <span class="hljs-title">Pick</span>&#x3C;<span class="hljs-title">T</span>, <span class="hljs-title">Exclude</span>&#x3C;<span class="hljs-title">keyof</span> <span class="hljs-title">T</span>, <span class="hljs-title">keyof</span> <span class="hljs-title">U</span>>> </span>{
+  <span class="hljs-comment">// ... code</span>
+}
+
+<span class="hljs-keyword">let</span> a: IA = { a: <span class="hljs-number">5</span>, b: <span class="hljs-string">''</span> };
+<span class="hljs-keyword">let</span> b: IB = { a: <span class="hljs-number">10</span>, c: <span class="hljs-literal">true</span> };
+
+
+<span class="hljs-keyword">let</span> v0: IDifference = difference( a, b ); <span class="hljs-comment">// Ok</span>
+<span class="hljs-keyword">let</span> v1: IA = difference( a, b ); <span class="hljs-comment">// Error</span>
+<span class="hljs-keyword">let</span> v2: IB = difference( a, b ); <span class="hljs-comment">// Error</span></code></pre>
+</section><section id="Extract" name="Extract" class="subchapter">
+            <h2 class="subchapter-title">
+                <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="Extract" type="absolute-url">
+                    <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <use href="#icon_link"/>
+                    </svg>
+                </button>
+                Extract
+            </h2>
+        
+<hr>
+<p>В результате разрешения, условный тип <code class="inline-code">Extract&#x3C;T, U></code>,будет представлять пересечения типа <code class="inline-code">T</code> относительно типа <code class="inline-code">U</code>.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">type</span> Extract&#x3C;T, U> = T <span class="hljs-keyword">extends</span> U ? T : never;</code></pre>
+<p>Простыми словами, после разрешения <code class="inline-code">Extract&#x3C;T, U></code> будет принадлежать к типу, признаки которого присущи обоим аргументам типа. То есть, тип <code class="inline-code">Extract&#x3C;T, U></code> является противоположностью типа <code class="inline-code">Exclude&#x3C;T, U></code>. В случае, когда общие признаки отсутствуют, тип <code class="inline-code">Extract&#x3C;T, U></code> будет представлять тип <code class="inline-code">never</code>.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">let</span> v0 :Exclude&#x3C; <span class="hljs-built_in">number</span>|<span class="hljs-built_in">string</span>, <span class="hljs-built_in">boolean</span>|object >; <span class="hljs-comment">// let v0: string|number</span>
+<span class="hljs-keyword">let</span> v1 :Exclude&#x3C; <span class="hljs-built_in">number</span>|<span class="hljs-built_in">string</span>, <span class="hljs-built_in">number</span>|<span class="hljs-built_in">string</span> >; <span class="hljs-comment">// let v1: never</span>
+<span class="hljs-keyword">let</span> v2 :Exclude&#x3C; <span class="hljs-built_in">number</span>|<span class="hljs-built_in">string</span>, <span class="hljs-built_in">number</span>|<span class="hljs-built_in">boolean</span> >; <span class="hljs-comment">// let v2: string</span>
+
+<span class="hljs-keyword">interface</span> IT0 { a: <span class="hljs-built_in">number</span>; b: <span class="hljs-built_in">string</span>; }
+<span class="hljs-keyword">interface</span> IT1 { a: <span class="hljs-built_in">number</span>; c: <span class="hljs-built_in">boolean</span>; }
+
+<span class="hljs-keyword">let</span> v3 :Exclude&#x3C; keyof IT0, keyof IT1 >; <span class="hljs-comment">// let v3: "a"</span></code></pre>
+<p>Условный тип <code class="inline-code">Extract&#x3C;T, U></code> стоит рассмотреть на примере реализации функции, на входе которая принимает два разных объекта, а на выходе возвращает новый объект, состоящий из членов первого объекта, которые также присутствуют и во втором объекте.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">interface</span> IA { a: <span class="hljs-built_in">number</span>; b: <span class="hljs-built_in">string</span>; }
+<span class="hljs-keyword">interface</span> IB { a: <span class="hljs-built_in">number</span>; c: <span class="hljs-built_in">boolean</span>; }
+
+<span class="hljs-keyword">interface</span> IIntersection { a: <span class="hljs-built_in">number</span>; }
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">intersection</span>&#x3C;<span class="hljs-title">T</span>, <span class="hljs-title">U</span>>(<span class="hljs-params">a: T, b: U</span>): <span class="hljs-title">Pick</span>&#x3C;<span class="hljs-title">T</span>, <span class="hljs-title">Extract</span>&#x3C;<span class="hljs-title">keyof</span> <span class="hljs-title">T</span>, <span class="hljs-title">keyof</span> <span class="hljs-title">U</span>>> </span>{
+  <span class="hljs-comment">// ... code</span>
+}
+
+<span class="hljs-keyword">let</span> a: IA = { a: <span class="hljs-number">5</span>, b: <span class="hljs-string">''</span> };
+<span class="hljs-keyword">let</span> b: IB = { a: <span class="hljs-number">10</span>, c: <span class="hljs-literal">true</span> };
+
+
+<span class="hljs-keyword">let</span> v0: IIntersection = intersection( a, b ); <span class="hljs-comment">// Ok</span>
+<span class="hljs-keyword">let</span> v1: IA = intersection( a, b ); <span class="hljs-comment">// Error</span>
+<span class="hljs-keyword">let</span> v2: IB = intersection( a, b ); <span class="hljs-comment">// Error</span></code></pre>
+</section><section id="NonNullable" name="NonNullable" class="subchapter">
+            <h2 class="subchapter-title">
+                <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="NonNullable" type="absolute-url">
+                    <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <use href="#icon_link"/>
+                    </svg>
+                </button>
+                NonNullable
+            </h2>
+        
+<hr>
+<p>Условный тип <code class="inline-code">NonNullable&#x3C;T></code> служит для исключения из типа признаков типов <code class="inline-code">Null</code> и <code class="inline-code">Undefined</code>.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">type</span> NonNullable&#x3C;T> = T <span class="hljs-keyword">extends</span> <span class="hljs-literal">null</span> | <span class="hljs-literal">undefined</span> ? never : T;</code></pre>
+<p>В случае, когда тип, выступающий в роли единственного аргумента типа, принадлежит только к типам <code class="inline-code">Null</code> и\или <code class="inline-code">Undefined</code>, <code class="inline-code">NonNullable&#x3C;T></code> представляет тип <code class="inline-code">never</code>.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">let</span> v0: NonNullable&#x3C;<span class="hljs-built_in">string</span> | <span class="hljs-literal">undefined</span> | <span class="hljs-literal">null</span>>; <span class="hljs-comment">// let v0: string</span>
+<span class="hljs-keyword">let</span> v1: NonNullable&#x3C;<span class="hljs-built_in">string</span> | <span class="hljs-built_in">number</span> | <span class="hljs-literal">undefined</span> | <span class="hljs-literal">null</span>>; <span class="hljs-comment">// let v1: string|number</span>
+<span class="hljs-keyword">let</span> v2: NonNullable&#x3C;<span class="hljs-literal">undefined</span> | <span class="hljs-literal">null</span>>; <span class="hljs-comment">// let v2: never</span></code></pre>
+</section><section id="ReturnType" name="ReturnType" class="subchapter">
+            <h2 class="subchapter-title">
+                <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="ReturnType" type="absolute-url">
+                    <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <use href="#icon_link"/>
+                    </svg>
+                </button>
+                ReturnType
+            </h2>
+        
+<hr>
+<p>Условный тип <code class="inline-code">ReturnType&#x3C;T></code> служит для установления возвращаемого из функции типа.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">type</span> ReturnType&#x3C;T <span class="hljs-keyword">extends</span> (...args: <span class="hljs-built_in">any</span>[]) => <span class="hljs-built_in">any</span>> = T <span class="hljs-keyword">extends</span> (...args: <span class="hljs-built_in">any</span>[]) => infer R ? R : <span class="hljs-built_in">any</span>;
+	
+
+<span class="hljs-keyword">let</span> v0: ReturnType&#x3C; <span class="hljs-function"><span class="hljs-params">()</span> =></span> <span class="hljs-built_in">void</span> >; <span class="hljs-comment">// let v0: void</span>
+<span class="hljs-keyword">let</span> v1: ReturnType&#x3C; <span class="hljs-function"><span class="hljs-params">()</span> =></span> <span class="hljs-built_in">number</span> | <span class="hljs-built_in">string</span> >; <span class="hljs-comment">// let v1: string|number</span>
+<span class="hljs-keyword">let</span> v2: ReturnType&#x3C; &#x3C;T><span class="hljs-function"><span class="hljs-params">()</span> =></span> T >; <span class="hljs-comment">// let v2: {}</span>
+<span class="hljs-keyword">let</span> v3: ReturnType&#x3C; &#x3C;T <span class="hljs-keyword">extends</span> U, U <span class="hljs-keyword">extends</span> <span class="hljs-built_in">string</span>[]><span class="hljs-function"><span class="hljs-params">()</span> =></span> T >; <span class="hljs-comment">// let v3: string[]</span>
+<span class="hljs-keyword">let</span> v4: ReturnType&#x3C; <span class="hljs-built_in">any</span> >; <span class="hljs-comment">// let v4: any</span>
+<span class="hljs-keyword">let</span> v5: ReturnType&#x3C; never >; <span class="hljs-comment">// let v5: never</span>
+<span class="hljs-keyword">let</span> v6: ReturnType&#x3C; <span class="hljs-built_in">Function</span> >; <span class="hljs-comment">// Error</span>
+<span class="hljs-keyword">let</span> v7: ReturnType&#x3C; <span class="hljs-built_in">number</span> >; <span class="hljs-comment">// Error</span></code></pre>
+</section><section id="InstanceType" name="InstanceType" class="subchapter">
+            <h2 class="subchapter-title">
+                <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="InstanceType" type="absolute-url">
+                    <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <use href="#icon_link"/>
+                    </svg>
+                </button>
+                InstanceType
+            </h2>
+        
+<hr>
+<p>Условный тип <code class="inline-code">InstanceType&#x3C;T></code> предназначен для установления тип экземпляра.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">class</span> T {}
+
+<span class="hljs-keyword">interface</span> IT { <span class="hljs-keyword">new</span>(): T; }
+
+
+<span class="hljs-keyword">let</span> v0: InstanceType&#x3C; <span class="hljs-keyword">typeof</span> T >; <span class="hljs-comment">// let v0: T</span>
+<span class="hljs-keyword">let</span> v1: InstanceType&#x3C; IT >; <span class="hljs-comment">// let v1: never</span>
+<span class="hljs-keyword">let</span> v2: InstanceType&#x3C; <span class="hljs-built_in">any</span> >; <span class="hljs-comment">// let v2: any</span>
+<span class="hljs-keyword">let</span> v3: InstanceType&#x3C; never >; <span class="hljs-comment">// let v3: never</span>
+<span class="hljs-keyword">let</span> v4: InstanceType&#x3C; <span class="hljs-built_in">number</span> >; <span class="hljs-comment">// Error</span>
+<span class="hljs-keyword">let</span> v5: InstanceType&#x3C; <span class="hljs-built_in">Function</span> >; <span class="hljs-comment">// Error</span></code></pre>
+</section>

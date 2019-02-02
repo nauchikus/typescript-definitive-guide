@@ -1,0 +1,88 @@
+<section id="Sovmestimost-tipov-na-osnove-variantnosti" name="Совместимость типов на основе вариантности" class="subchapter">
+            <h2 class="subchapter-title">
+                <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="Sovmestimost-tipov-na-osnove-variantnosti" type="absolute-url">
+                    <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <use href="#icon_link"/>
+                    </svg>
+                </button>
+                Совместимость типов на основе вариантности
+            </h2>
+        
+<hr>
+<p>Помимо того, что совместимость типов зависит от вида типизации, которая была подробно разобрана в главе <a class="book__chapter__chapter-link" href="/book/contents/Ekskurs-v-tipizaciu-Sovmestimost-tipov-na-osnove-vida-tipizacii" title="Экскурс в типизацию - Совместимость типов на основе вида типизации">Экскурс в типизацию - Совместимость типов на основе вида типизации</a>, она также может зависть от такого механизма, как вариантность.</p>
+<p><em>Вариантность</em>, это механизм переноса иерархии наследования типов на производные от них типы. В данном случае производные не означает <em>связанные отношением наследования</em>. Производные, скорее, означает - <em>определяемые теми типами, с которых переносится наследование</em>. </p>
+<p>Если вы впервые сталкиваетесь с этим понятием и определение вариантности кажется бессмысленным набором слов, то не стоит расстраиваться, эта тема очень простая, в чем вы сами скоро убедитесь.</p>
+<p>В основе системы типов могут быть заложены следующие виды вариантности - <em>ковариантность</em>, <em>контрвариантность</em>, <em>инвариантность</em>, <em>бивариантность</em>. Кроме того, что система типов использует механизм вариантности для своих служебных целей, она также может предоставлять разработчикам возможность управлять им зависящими от конкретного языка способами.</p>
+<p>Но прежде чем познакомится с каждым из этих видов вариантности отдельно, стоит сделать некоторые уточнения, касательно иерархии наследования.</p>
+</section><section id="Ierarhiya-nasledovaniya" name="Иерархия наследования" class="subchapter">
+            <h2 class="subchapter-title">
+                <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="Ierarhiya-nasledovaniya" type="absolute-url">
+                    <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <use href="#icon_link"/>
+                    </svg>
+                </button>
+                Иерархия наследования
+            </h2>
+        
+<hr>
+<p><em>Иерархия наследования</em>, это дерево, вверху которого, расположен <em>корень</em>, самый <em>базовый тип</em> (<em>менее конкретный тип</em>), ниже которого располагаются его <em>подтипы</em> (<em>более конкретные типы</em>). В случаях преобразования подтипа к базовому типу, говорят что выполняется <em>восходящее преобразование</em>  (<em>upcasting</em>). И наоборот, когда выполняется приведение базового типа к его подтипу, говорят что выполняется <em>нисходящее приведение</em> (<em>downcasting</em>). Отношения между супертипом и его подтипом описываются, как отношение <em>родитель-ребенок</em> (child-parent). Отношения между родителем типа и его ребенком описываются, как <em>предок-потомок</em> (ancestor-descendant). Кроме того, при логическом сравнении, тип,  находящийся выше по дереву, больше (<code class="inline-code">></code>), чем тип, находящийся ниже по дереву. И наоборот. Можно сказать, что <code class="inline-code">parent > child</code>, <code class="inline-code">child &#x3C; parent</code>, <code class="inline-code">ancestor > descendant</code>, <code class="inline-code">descendant &#x3C; ancestor</code>. Все это представлено на диаграмме ниже.</p>
+<p><img src="/typescript-definitive-guide/book/images/type-system/nominative-types-hierarchical-tree.png" class="book__image"></p>
+<p>Этого вполне достаточно для того, чтобы приступить разбору вариантности, точнее её видов.</p>
+</section><section id="Kovariantnost" name="Ковариантность" class="subchapter">
+            <h2 class="subchapter-title">
+                <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="Kovariantnost" type="absolute-url">
+                    <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <use href="#icon_link"/>
+                    </svg>
+                </button>
+                Ковариантность
+            </h2>
+        
+<hr>
+<p><em>Ковариантность</em>, это механизм, позволяющий использовать более конкретный тип, там, где изначально предполагалось использовать менее конкретный тип. Простыми словами, совместимыми считаются типы имеющие отношение <code class="inline-code">A > B</code> и <code class="inline-code">A = B</code>.</p>
+<p><img src="/typescript-definitive-guide/book/images/type-system/nominative-types-covariance-compatible.png" class="book__image"></p>
+<p>Ковариантность не рекомендуется в местах допускающими запись. И чтобы понять смысл этих слов, ниже представлена диаграмма, которая иллюстрирует, как через базовый тип, можно добавить в массив с подтипом, другой несовместимый подтип и тем самым нарушить типобезопасность программы.</p>
+<p><img src="/typescript-definitive-guide/book/images/type-system/nominative-types-covariace-bad-example.png" class="book__image"></p>
+<p>Ковариантность рекомендуется применять в местах допускающих чтение.</p>
+</section><section id="Kontrvariantnost" name="Контрвариантность" class="subchapter">
+            <h2 class="subchapter-title">
+                <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="Kontrvariantnost" type="absolute-url">
+                    <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <use href="#icon_link"/>
+                    </svg>
+                </button>
+                Контрвариантность
+            </h2>
+        
+<hr>
+<p><em>Контвариантность</em>, это противоположный ковариантности механизм, позволяющий использовать менее конкретный тип, там, где изначально предполагалось использовать более конкретный тип. Другими словами, совместимыми считаются типы имеющие отношения <code class="inline-code">A &#x3C; B</code> и <code class="inline-code">A = B</code>.</p>
+<p><img src="/typescript-definitive-guide/book/images/type-system/nominative-types-contrvariance-compatible.png" class="book__image"></p>
+<p>Контрвариантность не рекомендуется в местах допускающих чтение. И наоборот, рекомендуется применять в местах допускающих запись.</p>
+</section><section id="Invariantnost" name="Инвариантность" class="subchapter">
+            <h2 class="subchapter-title">
+                <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="Invariantnost" type="absolute-url">
+                    <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <use href="#icon_link"/>
+                    </svg>
+                </button>
+                Инвариантность
+            </h2>
+        
+<hr>
+<p><em>Инвариантность</em>, это механизм, позволяющий использовать только заданный тип. Совместимыми считаются только идентичные типы <code class="inline-code">A = A</code>.</p>
+<p><img src="/typescript-definitive-guide/book/images/type-system/nominative-types-invariance-compatible.png" class="book__image"></p>
+</section><section id="Bivariantnost" name="Бивариантность" class="subchapter">
+            <h2 class="subchapter-title">
+                <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="Bivariantnost" type="absolute-url">
+                    <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <use href="#icon_link"/>
+                    </svg>
+                </button>
+                Бивариантность
+            </h2>
+        
+<hr>
+<p><em>Бивариантность</em>, это механизм, который является представлением всех, перечисленных ранее, видов вариантности. В его случаи совместимыми считаются любые, из перечисленных ранее варианты типы <code class="inline-code">A > B</code>, <code class="inline-code">A &#x3C; B</code> и <code class="inline-code">A = B</code>.</p>
+<p><img src="/typescript-definitive-guide/book/images/type-system/nominative-types-bivariance-compatible.png" class="book__image"></p>
+<p>Бивариантность является самым нетипобезопасным видом вариантности.</p>
+</section>

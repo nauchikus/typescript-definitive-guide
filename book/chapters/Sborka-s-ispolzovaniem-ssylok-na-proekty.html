@@ -1,0 +1,32 @@
+<section id="Ssylki-na-proekty" name="Ссылки на проекты" class="subchapter">
+            <h2 class="subchapter-title">
+                <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="Ssylki-na-proekty" type="absolute-url">
+                    <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <use href="#icon_link"/>
+                    </svg>
+                </button>
+                Ссылки на проекты
+            </h2>
+        
+<hr>
+<p>Начиная с версии <em>3.0</em>, в <em>TypeScript</em> стало возможным более эффективно работать с проектами за счет объединения множества зависимых проектов в общий процесс сборки. Это стало возможным за счет реализации функционала позволяющего ссылаться на другие проекты. Добавленный функционал упростил работу с так называемыми общими репозиториями, то есть, проектами, состоящими из отдельных, зависимых друг от друга и логически схожих, проектами. </p>
+<p>Благодаря ссылкам на проекты значительно сократилось время сборки проекта. В этом компилятору <code class="inline-code">tsc</code> помогают алгоритмы  интеллектуальных инкрементальных сборок, которые компилируют только те части, которые в этом нуждаются. При том что под словом часть подразумевается не только фрагмент программы, но и отдельные проекты. Кроме того, ссылки на проекты, после сборки, повторяют исходную структуру связанных зависимостей, что немаловажно при работе с разбитыми на части проектами.</p>
+<p>Ссылки на проекты указываются в конфигурационном файле <code class="inline-code">tsconfig.json</code>, в который было добавлено новое свойство верхнего уровня <code class="inline-code">references</code>. Свойство references ассоциируется с массивом объектов, поля которого описывают установки для связываемых проектов. Одним из ключевых полей является path, которое ссылается на конфигурационный файл <code class="inline-code">tsconfig.json</code> либо же директорию, которая должна обязательно его содержать.</p>
+<pre><code class="hljs language-typescript">{
+ <span class="hljs-string">"compilerOptions"</span>: {
+   <span class="hljs-string">"composite"</span>: <span class="hljs-literal">true</span>,
+   <span class="hljs-string">"declaration"</span>: <span class="hljs-literal">true</span>,
+
+   <span class="hljs-string">"outDir"</span>: <span class="hljs-string">"path/to/outdir/"</span>
+ },
+ <span class="hljs-string">"references"</span>: [
+   { <span class="hljs-string">"path"</span>: <span class="hljs-string">"path/to/tsconfig.json"</span> },
+   { <span class="hljs-string">"path"</span>: <span class="hljs-string">"path/to/dir/with/tsconfig.json/"</span> }
+ ]
+}</code></pre>
+<p>Не менее важную роль в конфигурационном файле играет новый флаг <code class="inline-code">composite</code>, который, при использовании ссылок на проекты, должен быть обязательно установлено в <code class="inline-code">true</code>, чтобы гарантировать активацию других параметров необходимых для более эффективной и быстрой работы поиска зависимостей. Активация флага composite переопределяет некоторое стандартное поведение. Так например, если параметр <code class="inline-code">rootDir</code> не установлен явно, то он будет ссылается на директорию содержащую конфигурационный файл <code class="inline-code">tsconfig.json</code>. Кроме того, активация флага <code class="inline-code">composite</code> требует активацию флага <code class="inline-code">declaration</code>.</p>
+<p>Помимо перечисленного разработчики <em>TypeScript</em> добавили возможность для других инструментов сборки взаимодействовать с механизмом ссылок на проекты с помощью <em>API</em>. Это будет неоценимо на крупных проектах, а для случаев работы над небольшими проектами, специально был добавлен новый флаг компилятора <code class="inline-code">--build</code>. </p>
+<p>Команда компилятора <code class="inline-code">--build</code> ожидает перечисление конфигурационных файлов файлов и может быть использована совместно с такими специфичными для данной команды флагами, как <code class="inline-code">--verbose</code>, <code class="inline-code">--dry</code>, <code class="inline-code">--clean</code>  и <code class="inline-code">--force</code>.</p>
+<p>Флаг <code class="inline-code">--verbose</code> выводит подробную информацию о сборке и может сочетаться с любыми другими фрагами. Флаг <code class="inline-code">--dry</code> выполняет сборку не порождая выходные файлы. Флаг <code class="inline-code">--clean</code> удаляет выходные файлы соответствующие заданным входным. <code class="inline-code">--force</code> принудительно выполняет не инкрементальную сборку. Кроме того, команда <code class="inline-code">--build</code> может сочетаться с такой командой как <code class="inline-code">--watch</code>, которая, из всех специфичных для <code class="inline-code">--build</code> флагов, сочетается только с флагом <code class="inline-code">--verbose</code>.</p>
+<p>Также не лишним будет упомянуть, что при использовании команды <code class="inline-code">--build</code> компилятор ведет себя так, будто опция <code class="inline-code">--noEmitOnError</code> установлена в <code class="inline-code">true</code>. Причина этому инкрементальная сборка, которая, при наличии ошибки в коде, выводит уведомления только при непосредственной компиляции, которая возникает исключительно при условии внесения изменения в компилируемый граф зависимостей, что может привести к трудно выявляемым багам. Ведь если разработчик, при возникновении множества ошибок, первым делом возьмется за устранение ошибок возникших в других зависимостях, об ошибках в коде, которого изменения не коснулись, компилятор сообщать уже не будет. Но несмотря на отсутствие ошибок в консоли, ошибки так и останутся в программе. </p>
+</section>

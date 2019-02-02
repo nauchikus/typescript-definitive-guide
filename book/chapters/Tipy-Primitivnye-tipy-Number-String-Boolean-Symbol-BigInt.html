@@ -1,0 +1,135 @@
+<section id="Vajno" name="Важно" class="subchapter">
+            <h2 class="subchapter-title">
+                <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="Vajno" type="absolute-url">
+                    <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <use href="#icon_link"/>
+                    </svg>
+                </button>
+                Важно
+            </h2>
+        
+<hr>
+<p>Помимо того, что система типов <em>TypeScript</em> включает в себя все существующие в <em>JavaScript</em> типы данных, некоторые из них подверглись более очевидному уточнению.</p>
+<p>Типы данных, чьи идентификаторы начинаются с прописной буквы (<code class="inline-code">Type</code>) представляют <em>объектные типы</em> (ссылочные типы), описывающие одноименные типы из <em>JavaScript</em> (<code class="inline-code">Number</code>, <code class="inline-code">String</code>, <code class="inline-code">Boolean</code> и т.д.). В <em>TypeScript</em> такие типы описаны с помощью глобальных интерфейсов (<code class="inline-code">interface</code>) и помимо того, что их можно указывать в аннотации типа, их также можно расширять (<code class="inline-code">extends</code>) и реализовывать (<code class="inline-code">implements</code>) другими объектными типами.  </p>
+<p>Типы данных, чьи идентификаторы начинаются со строчной буквы (<code class="inline-code">type</code>) представляют литералы примитивных значений. Подобные типы определены ключевыми зарезервированными словами, что в свою очередь означает невозможность объявлять типы данных с идентичными идентификаторами. Типы данных, которые обозначают примитивы, можно указывать в аннотации, но их нельзя расширять или реализовывать объектными типами данных.</p>
+</section><section id="Number-number-primitivnyi-chislovoi-tip" name="Number (number) примитивный числовой тип" class="subchapter">
+            <h2 class="subchapter-title">
+                <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="Number-number-primitivnyi-chislovoi-tip" type="absolute-url">
+                    <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <use href="#icon_link"/>
+                    </svg>
+                </button>
+                Number (number) примитивный числовой тип
+            </h2>
+        
+<hr>
+<p>В <em>TypeScript</em>, собственно как и в <em>JavaScript</em>,  все числа являются 64-битными числами двойной точности с плавающей точкой. </p>
+<p>Помимо того, что в <em>TypeScript</em> существует объектный тип <code class="inline-code">Number</code>, описывающий с помощью глобального интерфейса одноименный тип из <em>JavaScript</em>, также существует тип данных, который представляет примитивные значения числовых литералов, и который указывается с помощью ключевого слова <code class="inline-code">number</code>. Кроме того, тип <code class="inline-code">number</code> неявно преобразуется в тип описанный с помощью глобального интерфейса <code class="inline-code">Number</code>, что делает его совместимым с ним, но не наоборот.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">let</span> v1: <span class="hljs-built_in">number</span>; <span class="hljs-comment">// v1: number explicit</span>
+<span class="hljs-keyword">let</span> v2 = <span class="hljs-number">5.6</span>; <span class="hljs-comment">// v2: number implicit</span></code></pre>
+<p>Напомню, что числа могут записываться в двоичной, восьмеричной, десятичной, шестнадцатеричной системе счисления. </p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">let</span> binary: <span class="hljs-built_in">number</span> = <span class="hljs-number">0b101</span>;
+<span class="hljs-keyword">let</span> octal: <span class="hljs-built_in">number</span> = <span class="hljs-number">0o5</span>;
+<span class="hljs-keyword">let</span> decimal: <span class="hljs-built_in">number</span> = <span class="hljs-number">5</span>;
+<span class="hljs-keyword">let</span> hex: <span class="hljs-built_in">number</span> = <span class="hljs-number">0x5</span>;</code></pre>
+<p>В <em>TypeScript</em>, поведение типа <code class="inline-code">Number</code> идентично поведению одноименного типа в <em>JavaScript</em>.</p>
+</section><section id="String-string-primitivnyi-strokovoi-tip" name="String (string) примитивный строковой тип" class="subchapter">
+            <h2 class="subchapter-title">
+                <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="String-string-primitivnyi-strokovoi-tip" type="absolute-url">
+                    <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <use href="#icon_link"/>
+                    </svg>
+                </button>
+                String (string) примитивный строковой тип
+            </h2>
+        
+<hr>
+<p>Примитивный тип <code class="inline-code">String</code> представляет собой последовательность символов в кодировке <em>Unicode</em> <em>UTF-16</em>. Строки должны быть заключены в одинарные, двойные или обратные кавычки, последнии из которых являются инициаторами, так называемых шаблонных строк.</p>
+<p>Помимо того, что в <em>TypeScript</em> существует объектный тип <code class="inline-code">String</code>, описывающий одноименный тип из <em>JavaScript</em>, также существует тип данных, который представляет примитивные значения строковых литералов, и который указывается с помощью ключевого слова <code class="inline-code">string</code>. Кроме того, тип <code class="inline-code">string</code> неявно преобразуется в тип описанный с помощью глобального интерфейса <code class="inline-code">String</code>, что делает его совместимым с ним, но не наоборот.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">let</span> v1: <span class="hljs-built_in">string</span>; <span class="hljs-comment">// v1: string explicit</span>
+<span class="hljs-keyword">let</span> v2 = <span class="hljs-string">'Bird'</span>; <span class="hljs-comment">// v2: string implicit</span>
+<span class="hljs-keyword">let</span> v3: <span class="hljs-built_in">string</span> = <span class="hljs-string">"Fish"</span>; <span class="hljs-comment">// v3: string explicit</span>
+<span class="hljs-keyword">let</span> v4: <span class="hljs-built_in">string</span> = <span class="hljs-string">`Animals: <span class="hljs-subst">${ v2 }</span>, <span class="hljs-subst">${ v3 }</span>.`</span>; <span class="hljs-comment">// v4: string explicit</span></code></pre>
+<p>В <em>TypeScript</em>, поведение типа <code class="inline-code">String</code> идентично поведению одноименного типа в <code class="inline-code">JavaScript</code>.</p>
+</section><section id="Boolean-boolean-primitivnyi-logicheskii-tip" name="Boolean (boolean) примитивный логический тип" class="subchapter">
+            <h2 class="subchapter-title">
+                <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="Boolean-boolean-primitivnyi-logicheskii-tip" type="absolute-url">
+                    <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <use href="#icon_link"/>
+                    </svg>
+                </button>
+                Boolean (boolean) примитивный логический тип
+            </h2>
+        
+<hr>
+<p>Примитивный тип <code class="inline-code">Boolean</code> является логическим типом и представляется значениями (истина) <code class="inline-code">true</code> либо (ложью) <code class="inline-code">false</code>. </p>
+<p>Помимо того, что в <em>TypeScript</em> существует объектный тип <code class="inline-code">Boolean</code>, описывающий одноименный тип из <em>JavaScript</em>, также существует тип данных, который представляет примитивные значения логических литералов, и который указывается с помощью ключевого слова <code class="inline-code">boolean</code>. Кроме того, тип <code class="inline-code">boolean</code> неявно преобразуется в тип описанный с помощью глобального интерфейса <code class="inline-code">Boolean</code>, что делает его совместимым с ним, но не наоборот.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">let</span> isV1Valid: <span class="hljs-built_in">boolean</span>; <span class="hljs-comment">// explicit</span>
+<span class="hljs-keyword">let</span> isV2Valid = <span class="hljs-literal">false</span>; <span class="hljs-comment">// implicit</span></code></pre>
+<p>В <em>TypeScript</em>, поведение типа <code class="inline-code">Boolean</code> идентично поведению одноименного типа в <em>JavaScript</em>.</p>
+</section><section id="Symbol-symbol-primitivnyi-simvolnyi-tip" name="Symbol (symbol) примитивный символьный тип" class="subchapter">
+            <h2 class="subchapter-title">
+                <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="Symbol-symbol-primitivnyi-simvolnyi-tip" type="absolute-url">
+                    <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <use href="#icon_link"/>
+                    </svg>
+                </button>
+                Symbol (symbol) примитивный символьный тип
+            </h2>
+        
+<hr>
+<p>Примитивный тип <code class="inline-code">Symbol</code> предоставляет уникальные идентификаторы, которое при желании могут использоваться в качестве индексируемых членов объекта. </p>
+<p>Помимо того, что в <em>TypeScript</em> существует объектный тип <code class="inline-code">Symbol</code>, описывающий одноименный тип из <em>JavaScript</em>, также существует тип данных, который представляет примитивные значения числовых литералов, и который указывается с помощью ключевого слова <code class="inline-code">symbol</code>. Кроме того, тип <code class="inline-code">symbol</code> неявно преобразуется в тип описанный с помощью глобального интерфейса <code class="inline-code">Symbol</code>, что делает его совместимым с ним, но не наоборот.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">let</span> v1: symbol; <span class="hljs-comment">// v1: symbol explicit</span>
+<span class="hljs-keyword">let</span> v2 = Symbol( <span class="hljs-string">'animal'</span> ); <span class="hljs-comment">// v2: symbol implicit</span></code></pre>
+<p>Если указав <code class="inline-code">Symbol</code> в качестве ключа для члена класса, то в дальнейшем к нему можно будет обратиться только при наличии того же ключа. Но не будет лишнем напомнить, что при желании можно достать символ из самого объекта.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">class</span> ZooTool {
+  <span class="hljs-keyword">public</span> readonly <span class="hljs-keyword">static</span> CAGE_KEY: <span class="hljs-built_in">string</span> = <span class="hljs-string">'technical key'</span>;
+}
+
+<span class="hljs-keyword">class</span> AnimalCage {
+  [Symbol.for(ZooTool.CAGE_KEY)]() {
+      <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'open: ...'</span>);
+  }
+}
+
+<span class="hljs-keyword">class</span> KeeperZoo {
+  key: symbol = Symbol.for(ZooTool.CAGE_KEY);
+}
+
+<span class="hljs-keyword">let</span> lionCage: AnimalCage = <span class="hljs-keyword">new</span> AnimalCage();
+<span class="hljs-keyword">let</span> keeperZoo: KeeperZoo = <span class="hljs-keyword">new</span> KeeperZoo();
+
+lionCage[keeperZoo.key](); <span class="hljs-comment">// open: ...</span></code></pre>
+<p>Тип <code class="inline-code">symbol</code> предназначен для аннотирования символьных литералов. В <em>TypeScript</em>, поведение типа <code class="inline-code">Symbol</code> идентично поведению одноименного типа в <code class="inline-code">JavaScript</code>.</p>
+</section><section id="BigInt-bgint-primitivnyi-chislovoi-tip" name="BigInt (bgint) примитивный числовой тип" class="subchapter">
+            <h2 class="subchapter-title">
+                <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="BigInt-bgint-primitivnyi-chislovoi-tip" type="absolute-url">
+                    <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <use href="#icon_link"/>
+                    </svg>
+                </button>
+                BigInt (bgint) примитивный числовой тип
+            </h2>
+        
+<hr>
+<p><code class="inline-code">BigInt</code> примитивный числовой тип данных позволяющий работать с числами произвольной точности, позволяющий безопасно работать со значениями выходящими за пределы установленные типом <code class="inline-code">Number</code>. Примитивный тип <code class="inline-code">BigInt</code> указывается с помощью ключевого слова <code class="inline-code">bigint</code>.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">let</span> bigInt: bigint = BigInt( <span class="hljs-built_in">Number</span>.MAX_VALUE ) + BigInt( <span class="hljs-built_in">Number</span>.MAX_VALUE );</code></pre>
+<p>Но стоит заметить, что наданный момент (конец 2018 года), из-за плохой поддержки типа <code class="inline-code">BigInt</code>, <code class="inline-code">TypeScript</code> позволяет работать с ним лишь при установленной опции компилятора в значение <code class="inline-code">esnext</code>.</p>
+<p>Тип <code class="inline-code">bigint</code> предназначен для аннотирования числовых значений с произвольной точность. В <em>TypeScript</em>, поведение типа <code class="inline-code">BigInt</code> идентично поведению одноименного типа в <code class="inline-code">JavaScript</code>.</p>
+</section><section id="Itog" name="Итог" class="subchapter">
+            <h2 class="subchapter-title">
+                <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="Itog" type="absolute-url">
+                    <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <use href="#icon_link"/>
+                    </svg>
+                </button>
+                Итог
+            </h2>
+        
+<p>Подведем итоги -</p>
+<ul class="book__list">
+<li class="book__list__item">В аннотации примитивов указываются типы представленные ключевыми словами начинающиеся со строчной буквы - <code class="inline-code">number</code>, <code class="inline-code">string</code>, <code class="inline-code">boolean</code>, <code class="inline-code">symbol</code>.</li>
+<li class="book__list__item">В случаях, когда в аннотации нуждаются ссылки на класс типа, указываются типы, чьи имена начинаются с прописной буквы.</li>
+</ul>
+</section>

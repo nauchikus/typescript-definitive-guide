@@ -1,0 +1,202 @@
+<section id="namespace-i-module-prednaznachenie" name="namespace и module - предназначение" class="subchapter">
+            <h2 class="subchapter-title">
+                <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="namespace-i-module-prednaznachenie" type="absolute-url">
+                    <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <use href="#icon_link"/>
+                    </svg>
+                </button>
+                namespace и module - предназначение
+            </h2>
+        
+<hr>
+<p>Начать рассмотрение такой темы, как пространства имен и модули, стоит с уточнение области применения обсуждаемых механизмов <em>TypeScript</em>. Механизмы, речь о которых пойдет далее, не предназначены для масштабных приложений, которые должны строится при помощи модулей и загружаться с применением модульных загрузчиков. Такие механизмы, как пространство имен и модули, в настоящее время, можно использовать при написании небольших скриптов, внедряемых непосредственно в <em>html</em> страницу при помощи тега <code class="inline-code">&#x3C;script>&#x3C;/script></code>, либо в приложениях, которые по различным причинам, не могут использовать модульную систему.</p>
+</section><section id="namespace-opredelenie" name="namespace - определение" class="subchapter">
+            <h2 class="subchapter-title">
+                <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="namespace-opredelenie" type="absolute-url">
+                    <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <use href="#icon_link"/>
+                    </svg>
+                </button>
+                namespace - определение
+            </h2>
+        
+<hr>
+<p>Пространство имен это конструкция, которая объявляется при помощи ключевого слова namespace и которая представляется в коде обычным <em>JavaScript</em> объектом. </p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">namespace</span> Identifier {
+
+}</code></pre>
+<p>Механизм пространства имен является решением такой проблемы, как коллизии в глобальном пространстве имен, дошедшего до наших дней из тех времён, когда ещё в спецификации <em>JavaScript</em> не было определено такое понятие, как модули. Простыми словами пространства имен, это совокупность обычной глобальной переменной и безымянного функционального выражения.</p>
+<p>Конструкции объявленные внутри пространства имен, инкапсулируются в безымянном функциональном выражении. Те части, которые должны быть видны снаружи, записываются в объект, ссылка на который была сохранена в глобальную переменную, которая при вызове была передана в качестве аргумента. Что записывать в глобальный объект, а что нет, компилятору указывают при помощи ключевого слова <code class="inline-code">export</code>, о котором речь пойдет совсем скоро.</p>
+<p><em>До компиляции</em></p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">namespace</span> NamespaceIdentifier {
+  <span class="hljs-keyword">class</span> PrivateClassIdentifier {}
+  <span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> PublicClassIdentifier{}
+}</code></pre>
+<p><em>После компиляции</em></p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">var</span> NamespaceIdentifier;
+
+(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">NamespaceIdentifier</span>) </span>{
+
+  <span class="hljs-keyword">class</span> PrivateClassIdentifier {
+  }
+  <span class="hljs-keyword">class</span> PublicClassIdentifier {
+  }
+
+  NamespaceIdentifier.PublicClassIdentifier = PublicClassIdentifier;
+
+})(NamespaceIdentifier || (NamespaceIdentifier = {}));</code></pre>
+<p>Также стоит добавить, что namespace является глобальным объявлением. Это дословно означает, что пространство имен, объявленное, как глобальное, не нуждается в экспортировании и импортировании, а ссылка на него доступна в любой точке программы.</p>
+</section><section id="moduli-export-import-opredelenie" name="модули (export\import) определение" class="subchapter">
+            <h2 class="subchapter-title">
+                <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="moduli-export-import-opredelenie" type="absolute-url">
+                    <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <use href="#icon_link"/>
+                    </svg>
+                </button>
+                модули (export\import) определение
+            </h2>
+        
+<hr>
+<p>Модули в <em>TypeScript</em> определяются с помощью ключевых слов <code class="inline-code">export</code> \ <code class="inline-code">import</code> и представляют механизм определения связей между модулями. Данный механизм являются внутренним для <em>TypeScript</em> и не имеет никакого отношения к модулям <code class="inline-code">es2015</code>. В остальном они идентичны <code class="inline-code">es2015</code> модулям, за исключением определения модуля по умолчанию (<em>export default</em>).</p>
+<pre><code class="hljs language-typescript"><span class="hljs-comment">// Файл declaration.ts</span>
+
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">type</span> T1 = {};
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> T2 {}
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> T3 {}
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">interface</span> IT4 {}
+
+<span class="hljs-keyword">export</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">f1</span>(<span class="hljs-params"></span>)</span>{}
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> v1 = <span class="hljs-string">'v1'</span>;
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">let</span> v2 = <span class="hljs-string">'v2'</span>;
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">var</span> v3 = <span class="hljs-string">'v3'</span>;</code></pre>
+<pre><code class="hljs language-typescript">Файл index.ts
+
+
+<span class="hljs-keyword">import</span> {T2} <span class="hljs-keyword">from</span> <span class="hljs-string">'./declaration'</span>;
+<span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> declaratios <span class="hljs-keyword">from</span> <span class="hljs-string">'./declaration'</span>;</code></pre>
+<p>Кроме того, объявить, с использованием ключевого слова export, можно даже namespace, что ограничит его глобальную область видимости и его использование, в других  файлах, становится возможным, только после явного импортирования.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-comment">// Файл declaration.ts</span>
+
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">namespace</span> Bird {
+  <span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> Raven {}
+  <span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> Owl {}
+}</code></pre>
+<pre><code class="hljs language-typescript"><span class="hljs-comment">// Файл index.ts</span>
+
+
+<span class="hljs-keyword">import</span> {Bird} <span class="hljs-keyword">from</span> <span class="hljs-string">"./declaration"</span>;
+
+<span class="hljs-keyword">const</span> birdAll = [ Bird.Raven, Bird.Owl ];</code></pre>
+<p>Стоит отметить что экспортировать namespace стоит только тогда, когда он объявлен в теле другого namespace и тем не менее до него  нужно добрать из программы.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">namespace</span> NS1 {
+  <span class="hljs-keyword">export</span> <span class="hljs-keyword">namespace</span> NS2 {
+      <span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> T1 {}
+  }
+}</code></pre>
+</section><section id="Konfigurirovanie-proekta" name="Конфигурирование проекта" class="subchapter">
+            <h2 class="subchapter-title">
+                <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="Konfigurirovanie-proekta" type="absolute-url">
+                    <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <use href="#icon_link"/>
+                    </svg>
+                </button>
+                Конфигурирование проекта
+            </h2>
+        
+<hr>
+<p>Для закрепления пройденного будет не лишним взглянуть на  конфигурирование минимального проекта.</p>
+<p><em>Структура проекта</em></p>
+<pre><code class="hljs language-typescript">* <span class="hljs-regexp">/
+   * dest
+   * src
+      * Raven.ts
+      * Owl.ts
+      * index.ts
+   * package.json
+   * tsconfig.json</span></code></pre>
+<pre><code class="hljs language-typescript"><span class="hljs-comment">// Файл Raven.ts</span>
+
+
+<span class="hljs-keyword">namespace</span> Bird {
+  <span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> Owl {}
+}</code></pre>
+<pre><code class="hljs language-typescript"><span class="hljs-comment">// Файл Owl.ts</span>
+
+
+<span class="hljs-keyword">namespace</span> Bird {
+  <span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> Raven {}
+}</code></pre>
+<pre><code class="hljs language-typescript"><span class="hljs-comment">// Файл index.ts</span>
+
+
+<span class="hljs-keyword">namespace</span> App {
+  <span class="hljs-keyword">const</span> {Raven, Owl} = Bird;
+
+  <span class="hljs-keyword">const</span> birdAll = [Raven, Owl];
+
+  birdAll.forEach( <span class="hljs-function"><span class="hljs-params">item</span> =></span> <span class="hljs-built_in">console</span>.log(item) );
+}</code></pre>
+<pre><code class="hljs language-typescript"><span class="hljs-comment">// Файл tsconfig.json</span>
+
+
+{
+  <span class="hljs-string">"compilerOptions"</span>: {
+      <span class="hljs-string">"target"</span>: <span class="hljs-string">"es2015"</span>,
+      <span class="hljs-string">"module"</span>: <span class="hljs-string">"none"</span>,
+      <span class="hljs-string">"rootDir"</span>: <span class="hljs-string">"./src"</span>,
+      <span class="hljs-string">"outFile"</span>: <span class="hljs-string">"./dest/index.bundle.js"</span>
+  }
+}</code></pre>
+<pre><code class="hljs language-typescript"><span class="hljs-comment">// Файл package.json</span>
+
+
+{
+<span class="hljs-string">"name"</span>: <span class="hljs-string">"namespaces-and-modules"</span>,
+<span class="hljs-string">"version"</span>: <span class="hljs-string">"1.0.0"</span>,
+<span class="hljs-string">"description"</span>: <span class="hljs-string">"training project"</span>,
+<span class="hljs-string">"main"</span>: <span class="hljs-string">"index.js"</span>,
+<span class="hljs-string">"scripts"</span>: {
+  <span class="hljs-string">"start"</span>: <span class="hljs-string">"./node_modules/.bin/tsc --watch"</span>,
+  <span class="hljs-string">"build"</span>: <span class="hljs-string">"./node_modules/.bin/tsc"</span>
+},
+<span class="hljs-string">"author"</span>: <span class="hljs-string">""</span>,
+<span class="hljs-string">"license"</span>: <span class="hljs-string">"ISC"</span>,
+<span class="hljs-string">"devDependencies"</span>: {
+  <span class="hljs-string">"typescript"</span>: <span class="hljs-string">"^2.5.2"</span>
+}
+}</code></pre>
+<p>Осталось собрать проект выполнив в консоли команду</p>
+<pre><code class="hljs language-typescript">npm run build</code></pre>
+<p>Если все было сделано правильно, то в директории <em>dest</em> должен появится файл <em>index.bundle.js</em></p>
+<pre><code class="hljs language-typescript"><span class="hljs-comment">// Файл index.bundle.js</span>
+
+
+<span class="hljs-keyword">var</span> Bird;
+
+(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">Bird</span>) </span>{
+  <span class="hljs-keyword">class</span> Owl {
+  }
+  Bird.Owl = Owl;
+})(Bird || (Bird = {}));
+
+<span class="hljs-keyword">var</span> Bird;
+
+(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">Bird</span>) </span>{
+  <span class="hljs-keyword">class</span> Raven {
+  }
+  Bird.Raven = Raven;
+})(Bird || (Bird = {}));
+
+<span class="hljs-keyword">var</span> App;
+
+(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">App</span>) </span>{
+  <span class="hljs-keyword">const</span> { Raven, Owl } = Bird;
+  <span class="hljs-keyword">const</span> birdAll = [Raven, Owl];
+  birdAll.forEach(<span class="hljs-function"><span class="hljs-params">item</span> =></span> <span class="hljs-built_in">console</span>.log(item));
+})(App || (App = {}));</code></pre>
+</section>

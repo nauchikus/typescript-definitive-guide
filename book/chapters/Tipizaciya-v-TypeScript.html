@@ -1,0 +1,301 @@
+<section id="Tipizaciya-v-TypeScript" name="Типизация в TypeScript" class="subchapter">
+            <h2 class="subchapter-title">
+                <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="Tipizaciya-v-TypeScript" type="absolute-url">
+                    <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <use href="#icon_link"/>
+                    </svg>
+                </button>
+                Типизация в TypeScript
+            </h2>
+        
+<hr>
+<p>Самое время взять паузу и рассмотреть типизацию в <em>TypeScript</em> более детально через призму полученных знаний.</p>
+<p>И так, что известно о <em>TypeScript</em>? <em>TypeScript</em> -</p>
+<ol class="book__list">
+<li class="book__list__item">Статически типизированный язык, с возможность динамического связывания</li>
+<li class="book__list__item">Сильно типизированный</li>
+<li class="book__list__item">Явно типизированный с возможность вывода типов</li>
+<li class="book__list__item">Совместимость типов проходит по правилам структурной типизации </li>
+<li class="book__list__item">Совместимость типов зависит от вариантности, чей конкретный вид определяется конкретным случаем</li>
+</ol>
+<p>Кроме этого, существуют понятия, которые входят в уже упомянутые, но в <em>TypeScript</em> вынесены в отдельные определения. Именно поэтому они будут рассматриваться отдельно. Такими понятиями являются - </p>
+<ol class="book__list">
+<li class="book__list__item">Наилучший общий тип</li>
+<li class="book__list__item">Контекстный тип</li>
+</ol>
+<p>Начнем с повторения определений в том порядке, в котором они были перечислены.</p>
+</section><section id="Staticheskaya-Tipizaciya-static-typing" name="Статическая Типизация (static typing)" class="subchapter">
+            <h2 class="subchapter-title">
+                <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="Staticheskaya-Tipizaciya-static-typing" type="absolute-url">
+                    <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <use href="#icon_link"/>
+                    </svg>
+                </button>
+                Статическая Типизация (static typing)
+            </h2>
+        
+<hr>
+<p><em>Статическая типизация</em> обуславливается тем, что связывание с типом данных происходит на этапе компиляции и при этом, тип не может изменится на протяжении всего своего существования.</p>
+</section><section id="Silnaya-Tipizaciya-strongly-typed" name="Сильная Типизация (strongly typed)" class="subchapter">
+            <h2 class="subchapter-title">
+                <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="Silnaya-Tipizaciya-strongly-typed" type="absolute-url">
+                    <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <use href="#icon_link"/>
+                    </svg>
+                </button>
+                Сильная Типизация (strongly typed)
+            </h2>
+        
+<hr>
+<p>Язык с <em>сильной типизацией</em> не позволяет операции с несовместимыми типами данных, а также не выполняет явного преобразования типов.</p>
+</section><section id="Yavno-Tipizirovannyi-explicit-typing-s-Vyvodom-Tipov-type-inference" name="Явно Типизированный (explicit typing) с Выводом Типов (type inference)" class="subchapter">
+            <h2 class="subchapter-title">
+                <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="Yavno-Tipizirovannyi-explicit-typing-s-Vyvodom-Tipov-type-inference" type="absolute-url">
+                    <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <use href="#icon_link"/>
+                    </svg>
+                </button>
+                Явно Типизированный (explicit typing) с Выводом Типов (type inference)
+            </h2>
+        
+<hr>
+<p>Язык с <em>явной типизацией</em> предполагает, что указание типов будет выполнено разработчиком. Но современные языки с явной типизацией имеют возможность указывать типы неявно. Это становится возможным за счет вывода типов.</p>
+<p><em>Вывод типов</em> - это возможность компилятора(интерпретатора) самостоятельно выводить-указывать тип данных на основе анализа выражения.</p>
+</section><section id="Sovmestimost-Tipov-Type-Compatibility-Strukturnaya-Tipizaciya-structural-typing" name="Совместимость Типов (Type Compatibility) Структурная Типизация (structural typing)" class="subchapter">
+            <h2 class="subchapter-title">
+                <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="Sovmestimost-Tipov-Type-Compatibility-Strukturnaya-Tipizaciya-structural-typing" type="absolute-url">
+                    <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <use href="#icon_link"/>
+                    </svg>
+                </button>
+                Совместимость Типов (Type Compatibility) Структурная Типизация (structural typing)
+            </h2>
+        
+<hr>
+<p><em>Совместимость типов</em> - это, механизм, по которому происходит сравнение типов.</p>
+<p>Простыми словами, совместимость типов, это совокупность правил, на основе которых, программа, анализируя два типа данных, приходит к выводу, производить над ними операции считая их совместимыми, либо они нуждаются в преобразовании.</p>
+<p>Правила совместимости типов делятся на три вида, один из которых имеет название структурная типизация.</p>
+<p><em>Структурная Типизация</em> - это принцип, определяющий совместимость типов не основываясь на иерархии наследования или явной реализации интерфейсов, а основываясь на их описании.</p>
+<p>С определениями закончили, осталось закрепить конкретными примерами.</p>
+<p><em>[ 2 ]</em> Сильная типизация, в <em>TypeScript</em>, проявляет себя в случаях схожих с операцией сложения числа с массивом. В этом случае компилятор выбрасывает ошибки.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">let</span> value = <span class="hljs-number">5</span> + []; <span class="hljs-comment">// Error</span></code></pre>
+<p><em>[ 1 ]</em> Статическая типизация в <em>TypeScript</em>, проявляется в том, что к моменту окончания компиляции, компилятор уже знает к какому конкретному типу принадлежат все конструкции нуждающиеся в аннотации типа.</p>
+<p><em>[ 3 ]</em> В <em>TypeScript</em> если тип не указывается явно, то компилятор с помощью вывода типов выводит и указывает тип самостоятельно.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">var</span> animal: Animal = <span class="hljs-keyword">new</span> Animal(); <span class="hljs-comment">// animal: Animal</span>
+<span class="hljs-keyword">var</span> animal = <span class="hljs-keyword">new</span> Animal(); <span class="hljs-comment">// animal: Animal</span></code></pre>
+<p><em>[ 4 ]</em> Несмотря на то, что <code class="inline-code">Bird</code> и <code class="inline-code">Fish</code> не имеют явно заданного общего предка, <code class="inline-code">TypeScript</code> разрешает присваивать экземпляр класса <code class="inline-code">Fish</code> переменной с типом <code class="inline-code">Bird</code> и наоборот.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">class</span> Bird { name; }
+<span class="hljs-keyword">class</span> Fish { name; }
+
+<span class="hljs-keyword">var</span> bird: Bird = <span class="hljs-keyword">new</span> Fish();
+<span class="hljs-keyword">var</span> fish: Fish = <span class="hljs-keyword">new</span> Bird();</code></pre>
+<p>В таких языках как <em>Java</em> или <em>C#</em> такое поведение недопустимо. В <em>TypeScript</em> это становится возможно из-за структурной типизации.</p>
+<p>Так как совместимость типов происходит на основе описания типов, то в первом случае, компилятор запоминает все члены типа <code class="inline-code">Fish</code> и если он находит аналогичные члены в типе <code class="inline-code">Bird</code>, то типы считаются совместимы. Тоже самое компилятор проделывает тогда, когда во втором случае присваивает экземпляр класса <code class="inline-code">Bird</code> переменной с типом <code class="inline-code">Fish</code>. Так как оба типа имеют по одному полю, с одинаковым типом и идентификатором, то они считаются совместимыми.</p>
+<p>Если добавить классу <code class="inline-code">Bird</code> поле <code class="inline-code">wings</code>, то при попытке присвоить его экземпляр переменной с типом <code class="inline-code">Fish</code>, возникнет ошибка, так как в типе <code class="inline-code">Fish</code> отсутствует после <code class="inline-code">wings</code>. Обратные действия, присвоение экземпляра класса <code class="inline-code">Bird</code> переменной с типом <code class="inline-code">Fish</code>, ошибки не вызывают, так как в типе <code class="inline-code">Bird</code> найдены все члены объявленные в типе <code class="inline-code">Fish</code>.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">class</span> Bird { name; wings; }
+<span class="hljs-keyword">class</span> Fish { name; }
+
+<span class="hljs-keyword">var</span> bird: Bird = <span class="hljs-keyword">new</span> Fish(); <span class="hljs-comment">// Error</span>
+<span class="hljs-keyword">var</span> fish: Fish = <span class="hljs-keyword">new</span> Bird();</code></pre>
+<p>Стоит добавить, что правилам структурной типизации подчиняются все объекты в <em>TypeScript</em>. А как известно, в <em>JavaScript</em>, все кроме примитивных типов, объекты. Это же утверждение верно и для <em>TypeScript</em>.</p>
+<p>С первыми четырьмя пунктами разобрались. Двигаемся дальше.</p>
+</section><section id="Variantnost-variance" name="Вариантность (variance)" class="subchapter">
+            <h2 class="subchapter-title">
+                <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="Variantnost-variance" type="absolute-url">
+                    <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <use href="#icon_link"/>
+                    </svg>
+                </button>
+                Вариантность (variance)
+            </h2>
+        
+<hr>
+<p>Простыми словами, вариантность, это механизм определяющий правила на основе которых принимается решение о совместимости двух типов. Правила зависят от конкретного вида вариантности - ковариантность, контрвариантность, бивариантность и инвариантность. В случае с <em>TypeScript</em> нас интересуют первые три.</p>
+<p>Ковариантность позволяет больший тип совместимым с меньшими типом.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">interface</span> IAnimal { <span class="hljs-keyword">type</span>: <span class="hljs-built_in">string</span>; }
+<span class="hljs-keyword">interface</span> IBird <span class="hljs-keyword">extends</span> IAnimal { fly(): <span class="hljs-built_in">void</span>; }
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">f0</span>(<span class="hljs-params">  </span>): <span class="hljs-title">IAnimal</span> </span>{
+  <span class="hljs-keyword">let</span> v: IAnimal = { <span class="hljs-keyword">type</span>: <span class="hljs-string">'animal'</span> };
+
+  <span class="hljs-keyword">return</span> v;
+}
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">f1</span>(<span class="hljs-params">  </span>): <span class="hljs-title">IBird</span> </span>{
+  <span class="hljs-keyword">let</span> v: IBird = { <span class="hljs-keyword">type</span>: <span class="hljs-string">'bird'</span>, fly(){} };
+
+  <span class="hljs-keyword">return</span> v;
+}
+
+
+<span class="hljs-keyword">type</span> T0 = <span class="hljs-keyword">typeof</span> f0;
+<span class="hljs-keyword">type</span> T1 = <span class="hljs-keyword">typeof</span> f1;
+
+
+<span class="hljs-keyword">let</span> v0: T0 = f1; <span class="hljs-comment">// Ok</span>
+<span class="hljs-keyword">let</span> v1: T1 = f0; <span class="hljs-comment">// Error</span></code></pre>
+<p>Контрвариантность позволяет меньшему типу быть совместимым с большим типом.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">interface</span> IAnimal { <span class="hljs-keyword">type</span>: <span class="hljs-built_in">string</span>; }
+<span class="hljs-keyword">interface</span> IBird <span class="hljs-keyword">extends</span> IAnimal { fly(): <span class="hljs-built_in">void</span>; }
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">f0</span>(<span class="hljs-params"> p: IAnimal </span>): <span class="hljs-title">void</span> </span>{}
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">f1</span>(<span class="hljs-params"> p: IBird </span>): <span class="hljs-title">void</span> </span>{}
+
+
+<span class="hljs-keyword">type</span> T0 = <span class="hljs-keyword">typeof</span> f0;
+<span class="hljs-keyword">type</span> T1 = <span class="hljs-keyword">typeof</span> f1;
+
+
+<span class="hljs-keyword">let</span> v0: T0 = f1; <span class="hljs-comment">// Error</span>
+<span class="hljs-keyword">let</span> v1: T1 = f0; <span class="hljs-comment">// Ok</span></code></pre>
+<p>Бивариантность позволяет быть совместимыми как большему типу с меньшим ,так и меньшему с большим типом.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">interface</span> IAnimal { <span class="hljs-keyword">type</span>: <span class="hljs-built_in">string</span>; }
+<span class="hljs-keyword">interface</span> IBird <span class="hljs-keyword">extends</span> IAnimal { fly(): <span class="hljs-built_in">void</span>; }
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">f0</span>(<span class="hljs-params"> p: IAnimal </span>): <span class="hljs-title">void</span> </span>{}
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">f1</span>(<span class="hljs-params"> p: IBird </span>): <span class="hljs-title">void</span> </span>{}
+
+
+<span class="hljs-keyword">type</span> T0 = <span class="hljs-keyword">typeof</span> f0;
+<span class="hljs-keyword">type</span> T1 = <span class="hljs-keyword">typeof</span> f1;
+
+
+<span class="hljs-keyword">let</span> v0: T0 = f1; <span class="hljs-comment">// Ok</span>
+<span class="hljs-keyword">let</span> v1: T1 = f0; <span class="hljs-comment">// Ok</span></code></pre>
+</section><section id="Nailuchshii-Obshchii-Tip-Best-common-type" name="Наилучший Общий Тип (Best common type)" class="subchapter">
+            <h2 class="subchapter-title">
+                <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="Nailuchshii-Obshchii-Tip-Best-common-type" type="absolute-url">
+                    <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <use href="#icon_link"/>
+                    </svg>
+                </button>
+                Наилучший Общий Тип (Best common type)
+            </h2>
+        
+<hr>
+<p>С выводом типов в <em>TypeScript</em> связано такое понятие, как наилучший общий тип. Это очень простое правило, название которого в большей мере раскрывает его суть. </p>
+<p>Как уже было сказано, <em>TypeScript</em> статически типизированный язык и поэтому он пытается всему указать типы. В случаях, когда тип не был указан явно, в работу включается вывод типов. Предположим что существует массив, ссылка на который присваивается переменной, объявленной без явного указания типа. Для того, чтобы вывод типов смог вывести тип для переменной, ему нужно проанализировать данные, которые хранятся в массиве, если они хранятся. По легенде, существуют два класса <code class="inline-code">Elephant</code> и <code class="inline-code">Lion</code>, которые расширяют класс <code class="inline-code">Animal</code>. И экземпляры всех трех классов хранятся в массиве, ссылку на который присваивается переменной.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">class</span> Animal {}
+<span class="hljs-keyword">class</span> Elephant <span class="hljs-keyword">extends</span> Animal {}
+<span class="hljs-keyword">class</span> Lion <span class="hljs-keyword">extends</span> Animal {}
+
+<span class="hljs-keyword">let</span> animalAll = [
+  <span class="hljs-keyword">new</span> Elephant(),
+  <span class="hljs-keyword">new</span> Lion(),
+  <span class="hljs-keyword">new</span> Animal()
+]; <span class="hljs-comment">// animalAll: Elephant[ ]</span></code></pre>
+<p>Так как <em>TypeScript</em> проверяет совместимость типов по правилам структурной типизации, а все три типа идентичны с точки зрения их описания, то с точки зрения вывода типов все три типа выглядят идентичными.
+Поэтому, скорее всего вывод типов укажет переменной тип данных первого элемента массива.</p>
+<p>Если типу <code class="inline-code">Elephant</code> будет добавлено поле, пусть будет хобот (<code class="inline-code">trunk</code>), что  сделает его отличным от всех, то вывод типов будет вынужден указать массиву базовый для всех типов тип данных <code class="inline-code">Animal</code>.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">class</span> Animal {}
+<span class="hljs-keyword">class</span> Elephant <span class="hljs-keyword">extends</span> Animal{ thrunk; }
+<span class="hljs-keyword">class</span> Lion <span class="hljs-keyword">extends</span> Animal{}
+
+<span class="hljs-keyword">let</span> animalAll = [
+  <span class="hljs-keyword">new</span> Elephant(),
+  <span class="hljs-keyword">new</span> Lion (),
+  <span class="hljs-keyword">new</span> Animal()
+]; <span class="hljs-comment">// animalAll: Animal[ ]</span></code></pre>
+<p>В случае, если в массиве не будет присутствовать базовый для всех типов тип <code class="inline-code">Animal</code>, то вывод типов укажет в качестве типа массива тип <code class="inline-code">Lion</code>. Сделает он это  потому, что из двух типов присутствующих в массиве, тип <code class="inline-code">Lion</code> совместим с каждым из них. Тип <code class="inline-code">Lion</code> считается совместимым с типом <code class="inline-code">Elephant</code> потому, что все члены описанные в типе <code class="inline-code">Lion</code> присутствуют в типе <code class="inline-code">Elephant</code>. В данном случае в типе <code class="inline-code">Lion</code> вообще не описано ни одного члена. А то что вывод типов не привел массив, как ранее к базовому типу <code class="inline-code">Animal</code>, наглядно иллюстрирует то, что вывод типов делает заключение на основе анализа конкретного выражения. В данном случае выражением является литерал массива, в который заключены два типа <code class="inline-code">Elephant</code> и <code class="inline-code">Lion</code>. Базового типа <code class="inline-code">Animal</code> в этом выражении нет и поэтому вывод типов не берет его в расчет.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">class</span> Animal {}
+<span class="hljs-keyword">class</span> Elephant <span class="hljs-keyword">extends</span> Animal{ thrunk; }
+<span class="hljs-keyword">class</span> Lion <span class="hljs-keyword">extends</span> Animal{}
+
+<span class="hljs-keyword">let</span> animalAll = [
+  <span class="hljs-keyword">new</span> Elephant(),
+  <span class="hljs-keyword">new</span> Lion()
+]; <span class="hljs-comment">// animalAll: Lion[ ]</span></code></pre>
+<p>После того, как типу <code class="inline-code">Lion</code> тоже будет добавлено уникальное поле, скажем грива (<code class="inline-code">mane</code>), выводу типов ничего не останется, кроме как указать в качестве типа массива тип объединение (<code class="inline-code">union</code>), состоящий из типов <code class="inline-code">Elephant</code> и <code class="inline-code">Lion</code>.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">class</span> Animal {}
+<span class="hljs-keyword">class</span> Elephant <span class="hljs-keyword">extends</span> Animal{ thrunk; }
+<span class="hljs-keyword">class</span> Lion <span class="hljs-keyword">extends</span> Animal{ mane; }
+
+<span class="hljs-keyword">let</span> animalAll = [
+  <span class="hljs-keyword">new</span> Elephant(),
+  <span class="hljs-keyword">new</span> Lion()
+]; <span class="hljs-comment">// animalAll: ( Elephant | Lion )[ ]</span></code></pre>
+<p>Как видно, ничего неожиданного или сложного в теме наилучшего общего типа совершенно нет.</p>
+</section><section id="Kontekstnyi-Tip-Contextual-Type" name="Контекстный Тип (Contextual Type)" class="subchapter">
+            <h2 class="subchapter-title">
+                <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="Kontekstnyi-Tip-Contextual-Type" type="absolute-url">
+                    <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <use href="#icon_link"/>
+                    </svg>
+                </button>
+                Контекстный Тип (Contextual Type)
+            </h2>
+        
+<hr>
+<p>Контекстным типом называется тип, который при не явном объявлении указывается не с помощью вывода типов, а за счет декларации контекста.</p>
+<p>Лучшим примером контекстного типа может служить подписка <code class="inline-code">document</code> на событие мыши <code class="inline-code">mousedown</code>. Так как у слушателя события, параметру <code class="inline-code">event</code>, тип не указан явно, а также ему в момент объявления не было присвоено значение, то как мы уже знаем, вывод типов должен был указать тип any. Но в данном случае компилятор указывает тип <code class="inline-code">MouseEvent</code>, потому что именно он указан в декларации типа слушателя событий. В случае подписания <code class="inline-code">document</code> на событие <code class="inline-code">keydown</code>, компилятор указывает тип как <code class="inline-code">KeyboardEvent</code>.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-built_in">document</span>.addEventListener( <span class="hljs-string">'mousedown'</span>, <span class="hljs-function">(<span class="hljs-params"> event </span>) =></span> { } ); <span class="hljs-comment">// event: MouseEvent</span>
+<span class="hljs-built_in">document</span>.addEventListener( <span class="hljs-string">'keydown'</span>, <span class="hljs-function">(<span class="hljs-params"> event </span>) =></span> { } ); <span class="hljs-comment">// event: KeyboardEvent</span></code></pre>
+<p>Для того чтобы понять как это работает, опишем случай из жизни зоопарка, а именно представление с морским львом. Для этого создадим класс морской лев <code class="inline-code">SeaLion</code> и объявим в нем два метода вращаться (<code class="inline-code">rotate</code>) и голос (<code class="inline-code">voice</code>).</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">class</span> SeaLion {
+  rotate( ): <span class="hljs-built_in">void</span> { }
+  voice( ): <span class="hljs-built_in">void</span> { }
+}</code></pre>
+<p>Далее, создадим класс дрессировщик <code class="inline-code">Trainer</code> и объявим в нем метод <code class="inline-code">addEventListener</code> с двумя параметрами <code class="inline-code">type</code> с типом <code class="inline-code">string</code> и <code class="inline-code">handler</code> с типом <code class="inline-code">Function</code>. </p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">class</span> Trainer {
+  addEventListener( <span class="hljs-keyword">type</span>: <span class="hljs-built_in">string</span>, handler: <span class="hljs-built_in">Function</span> ) {}
+}</code></pre>
+<p>Затем объявим два класса события, выражающие команды дрессировщика <code class="inline-code">RotateTrainerEvent</code> и <code class="inline-code">VoiceTrainerEvent</code>. </p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">class</span> RotateTrainerEvent {}
+<span class="hljs-keyword">class</span> VoiceTrainerEvent {}</code></pre>
+<p>После объявим два псевдонима (<code class="inline-code">type</code>) для литеральных типов <code class="inline-code">string</code>. Первому зададим имя <code class="inline-code">RotateEventType</code> и в качестве значения присвоим строковой литерал <code class="inline-code">“rotate”</code>. Второму зададим имя <code class="inline-code">VoiceEventType</code> и в качестве  значения присвоим строковой литерал <code class="inline-code">“voice”</code>.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">type</span> RotateEventType = <span class="hljs-string">"rotate"</span>;
+<span class="hljs-keyword">type</span> VoiceEventType = <span class="hljs-string">"voice"</span>;</code></pre>
+<p>Теперь осталось только задекларировать ещё два псевдонима типов для функциональных типов, у обоих из которых будет один параметр <code class="inline-code">event</code> и отсутствовать возвращаемое значение. Первому псевдониму зададим имя <code class="inline-code">RotateTrainerHandler</code>, а его параметру установим тип  <code class="inline-code">RotateTrainerEvent</code>. Второму псевдониму зададим имя <code class="inline-code">VoiceTrainerHandler</code>, а его параметру установим тип <code class="inline-code">VoiceTrainerEvent</code>.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">type</span> RotateTrainerHandler = <span class="hljs-function">(<span class="hljs-params"> event: RotateTrainerEvent </span>) =></span> <span class="hljs-built_in">void</span>;
+<span class="hljs-keyword">type</span> VoiceTrainerHandler = <span class="hljs-function">(<span class="hljs-params"> event: VoiceTrainerEvent </span>) =></span> <span class="hljs-built_in">void</span>;</code></pre>
+<p>Соберём части воедино. Для этого в классе дрессировщик <code class="inline-code">Trainer</code>  перегрузим метод <code class="inline-code">addEventListener</code>. У первого перегруженного метода параметр <code class="inline-code">type</code> будет иметь тип <code class="inline-code">RotateEventType</code>, а параметру <code class="inline-code">handler</code> укажем тип <code class="inline-code">RotateTrainerHandler</code>. Второму перегруженному методу в качестве типа параметра <code class="inline-code">type</code> укажем <code class="inline-code">VoiceEventType</code>, а параметру <code class="inline-code">handler</code> укажем тип <code class="inline-code">VoiceTrainerHandler</code>.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">class</span> Trainer {
+  addEventListener( <span class="hljs-keyword">type</span>: RotateEventType, handler: RotateTrainerHandler );
+  addEventListener( <span class="hljs-keyword">type</span>: VoiceEventType, handler: VoiceTrainerHandler );
+  addEventListener( <span class="hljs-keyword">type</span>: <span class="hljs-built_in">string</span>, handler: <span class="hljs-built_in">Function</span> ) {}
+}</code></pre>
+<p>Осталось только убедится что все работает правильно. Для этого создадим экземпляр класса <code class="inline-code">Trainer</code> и подпишемся на события. Сразу же можно увидеть подтверждение того, что цель достигнута. У слушателя события <code class="inline-code">RotateTrainerEvent</code> параметру event указан контекстный тип <code class="inline-code">RotateTrainerEvent</code>. А слушателю события <code class="inline-code">VoiceTrainerEvent</code> параметру event указан контекстный тип <code class="inline-code">VoiceTrainerEvent</code>.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">type</span> RotateTrainerHandler = <span class="hljs-function">(<span class="hljs-params"> event: RotateTrainerEvent </span>) =></span> <span class="hljs-built_in">void</span>;
+<span class="hljs-keyword">type</span> VoiceTrainerHandler = <span class="hljs-function">(<span class="hljs-params"> event: VoiceTrainerEvent </span>) =></span> <span class="hljs-built_in">void</span>;
+
+<span class="hljs-keyword">type</span> RotateEventType = <span class="hljs-string">"rotate"</span>;
+<span class="hljs-keyword">type</span> VoiceEventType = <span class="hljs-string">"voice"</span>;
+
+<span class="hljs-keyword">class</span> RotateTrainerEvent {}
+<span class="hljs-keyword">class</span> VoiceTrainerEvent {}
+
+<span class="hljs-keyword">class</span> SeaLion {
+  rotate( ): <span class="hljs-built_in">void</span> { }
+  voice( ): <span class="hljs-built_in">void</span> { }
+}
+
+<span class="hljs-keyword">class</span> Trainer {
+  addEventListener( <span class="hljs-keyword">type</span>: RotateEventType, handler: RotateTrainerHandler );
+  addEventListener( <span class="hljs-keyword">type</span>: VoiceEventType, handler: VoiceTrainerHandler );
+  addEventListener( <span class="hljs-keyword">type</span>: <span class="hljs-built_in">string</span>, handler: <span class="hljs-built_in">Function</span> ) {}
+}
+
+<span class="hljs-keyword">let</span> seaLion: SeaLion = <span class="hljs-keyword">new</span> SeaLion();
+
+<span class="hljs-keyword">let</span> trainer: Trainer = <span class="hljs-keyword">new</span> Trainer();
+trainer.addEventListener( <span class="hljs-string">'rotate'</span>, <span class="hljs-function">(<span class="hljs-params"> event </span>) =></span> seaLion.rotate() );
+trainer.addEventListener( <span class="hljs-string">'voice'</span>, <span class="hljs-function">(<span class="hljs-params"> event </span>) =></span> seaLion.voice() );</code></pre>
+</section><section id="Itog" name="Итог" class="subchapter">
+            <h2 class="subchapter-title">
+                <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="Itog" type="absolute-url">
+                    <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <use href="#icon_link"/>
+                    </svg>
+                </button>
+                Итог
+            </h2>
+        
+<p>Подведем итоги - </p>
+<ul class="book__list">
+<li class="book__list__item"><em>TypeScript</em>, это статически типизированный язык, а это говорит о том, что значение связывается с типом данных на этапе компиляции, при этом тип остается неизменным.</li>
+<li class="book__list__item"><em>TypeScript</em>, это язык с сильной типизацией, которая не позволяет операции с несовместимыми типами данных и не выполняет их неявных преобразований в случаях, в которых требуется явное приведение.</li>
+<li class="book__list__item"><em>TypeScript</em>, это явно типизированный язык с возможностью вывода типов. Это говорит о том что <em>TypeScript</em> настаивает на указании типов явно, а в случаях не явного указания прибегает к выводу типов.</li>
+<li class="book__list__item"><em>TypeScript</em> проверяет типы на совместимость на основе правил структурной типизации, при которой два типа считаются совместимыми, если у приводимого типа найдены все члены типа к которому приводят.</li>
+<li class="book__list__item">Наилучший общий тип выбирается на основе типов данных присутствующих в  выражения.</li>
+<li class="book__list__item">Контекстный тип устанавливается не за счет вывода типов, а за счет контекста.</li>
+</ul>
+</section>

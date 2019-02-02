@@ -1,0 +1,163 @@
+<section id="Utverjdenie-Tipov-Type-Assertion" name="Утверждение Типов (Type Assertion)" class="subchapter">
+            <h2 class="subchapter-title">
+                <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="Utverjdenie-Tipov-Type-Assertion" type="absolute-url">
+                    <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <use href="#icon_link"/>
+                    </svg>
+                </button>
+                Утверждение Типов (Type Assertion)
+            </h2>
+        
+<hr>
+<p>При разработке приложений на языках со статической типизацией, время от времени возникают нестыковки из-за несоответствия типов. Простыми словами, приходится работать с объектом принадлежащего к известному типу, но ограниченного более специализированным интерфейсом.</p>
+<p>В <em>TypeScript</em>, большинство операций с несоответствием типов, приходится на работу с <em>DOM</em> (Document Object Model).</p>
+<p>В качестве примера, можно рассмотреть работу с таким, часто используемым методом, как <code class="inline-code">querySelector</code>. Но для начала вспомним, что в основе составляющей иерархию dom дерева, лежит базовый тип <code class="inline-code">Node</code>, наделенный минимальными признаками необходимыми для построения коллекции. Базовый тип Node, расширяет в том числе и тип <code class="inline-code">Element</code>, который является базовым для всех элементов dom дерева и обладает знакомыми  всем признаками необходимыми для работы с элементами dom, такие как атрибуты  (attributes), лист классов (<code class="inline-code">classList</code>), размеры клиента (<code class="inline-code">client*</code>). Элементы dom дерева, можно разделить на те, что не отображаются, унаследованные от <code class="inline-code">Element</code>, как например <code class="inline-code">script</code>, <code class="inline-code">link</code>, и те что отображаются, как например <code class="inline-code">div</code>, <code class="inline-code">body</code>. Последние имеют в своей иерархии наследования тип <code class="inline-code">HTMLElement</code>, который расширяет тип <code class="inline-code">Element</code> и имеет все признаки, как например координаты, стили, а также свойства <code class="inline-code">dataset</code> и <code class="inline-code">hidden</code>, которые необходимы для отображаемых объектов.</p>
+<p>Возвращаясь к методу <code class="inline-code">querySelector</code>, стоит уточнить, что результатом его вызова может стать любой элемент, находящийся в dom дереве. Если бы в качестве типа возвращаемого значения был указан тип <code class="inline-code">HTMLElement</code>, то операция получения элемента <code class="inline-code">&#x3C;script>&#x3C;/script></code> или &#x3C;<code class="inline-code">link/></code>, завершилась неудачей, так как они не принадлежат к этому типу. Именно поэтому методу <code class="inline-code">querySelector</code>, в качестве типа возвращаемого значения, указан более базовый тип <code class="inline-code">Element</code>.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-comment">// &#x3C;canvas id="stage" data-unactive="false">&#x3C;/canvas></span>
+
+<span class="hljs-keyword">const</span> element: Element = <span class="hljs-built_in">document</span>.querySelector( <span class="hljs-string">'#stage'</span> );
+<span class="hljs-keyword">const</span> stage: HTMLElement = element <span class="hljs-comment">// Error, Element is not assignable to type HTMLElement</span></code></pre>
+<p>Но при попытке обратится к свойству <code class="inline-code">dataset</code>, объекта, полученного с помощью <code class="inline-code">querySelector</code>, возникнет ошибка, так как у типа <code class="inline-code">Element</code> отсутствует свойство <code class="inline-code">dataset</code>.</p>
+<p>Но факт, что разработчику известен тип, к которому принадлежит объект по конкретному селектору, дает основания, попросить компилятор, пересмотреть свое отношение к типу конкретного объекта.</p>
+<p>Попросить, дословно означает, что мы можем лишь попросить компилятор пересмотреть отношение к типу, но решение, разрешить операцию или нет, все-равно остается за ним. В тех случаях, когда тип объекта несовместим с типом, с которым, как мы утверждали, он должен быть совместим, компилятор уведомит, при помощи ошибки, о своем отказе.</p>
+<p>Выражаясь человеческим языком, в <em>TypeScript</em>, процесс, который вынуждает компилятор пересмотреть свое отношение к типу данных, называется <em>утверждением типа</em> (<code class="inline-code">Type Assertion</code>).</p>
+<p>Утверждение типа, похоже на <em>преобразование</em> (приведение) типов (type conversion, typecasting), за исключением того, что от них не остается и следа в скомпилированном коде, а внутренний механизм, различен. Именно поэтому они и называются утверждения. </p>
+<p>Утверждая тип, разработчик говорит компилятору - <em>“поверь мне, я знаю, что делаю”</em> (<em>Trust me, I know what I'm doing</em>).</p>
+<p>Нельзя не уточнить, что хотя в <em>TypeScript</em> и существует термин утверждение типа, по ходу изложения, в качестве синонимов будут употребляться слова преобразование, реже приведение. И не будет лишним напомнить, что приведение, это процесс, в котором объект одного типа преобразуется в объект другого типа. </p>
+<p>Утверждение типа имеют две формы. Первый способ заключается в указании принадлежности к типу с помощью угловых скобок <code class="inline-code">&#x3C;Type></code>. Второй, с помощью оператора as.</p>
+</section><section id="Utverjdenie-Tipa-Type-sintaksis" name="Утверждение Типа <Type> синтаксис" class="subchapter">
+            <h2 class="subchapter-title">
+                <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="Utverjdenie-Tipa-Type-sintaksis" type="absolute-url">
+                    <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <use href="#icon_link"/>
+                    </svg>
+                </button>
+                Утверждение Типа <Type> синтаксис
+            </h2>
+        
+<hr>
+<p>Утверждение типа, с помощью угловых скобок, осуществляется путем указания типа, к которому нужно преобразовать, заключенного в угловые скобки. Утверждение типа указывается перед выражением, результатом которого будет преобразуемый тип.</p>
+<pre><code class="hljs language-typescript">&#x3C;ToType>FromType</code></pre>
+<p>Перепишим предыдущий код и исправим в нем ошибку связанную с несоответствием типов.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-comment">// &#x3C;canvas id="stage" data-unactive="false">&#x3C;/canvas></span>
+
+<span class="hljs-keyword">const</span> element: Element = <span class="hljs-built_in">document</span>.querySelector( <span class="hljs-string">'#stage'</span> );
+
+<span class="hljs-keyword">const</span> stage: HTMLElement = &#x3C;HTMLElement> element <span class="hljs-comment">// Ok</span>
+stage.dataset.unactive = <span class="hljs-string">'true'</span>;</code></pre>
+<p>Если тип данных, к которому разработчик просит преобразовать компилятор, не совместим с преобразуемым типом, то в процессе утверждения возникнет ошибка.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">class</span> Bird {
+  <span class="hljs-keyword">public</span> fly(): <span class="hljs-built_in">void</span> {}
+}
+<span class="hljs-keyword">class</span> Fish {
+  <span class="hljs-keyword">public</span> swim(): <span class="hljs-built_in">void</span> {}
+}
+
+<span class="hljs-keyword">let</span> bird: Bird = <span class="hljs-keyword">new</span> Bird();
+<span class="hljs-keyword">let</span> fish: Fish = &#x3C;Fish>bird; <span class="hljs-comment">// Error, 'Bird' cannot be converted to type 'Fish'</span></code></pre>
+<p>Кроме того, существуют ситуации, когда одного утверждения недостаточно. Ярким примером является извлеченное из <em>dom</em> элементов, любых числовых значений, которые на самом деле являются строковыми.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-comment">// &#x3C;div id="#container">&#x3C;/div></span>
+
+<span class="hljs-keyword">let</span> element = <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">'#container'</span>) <span class="hljs-keyword">as</span> HTMLElement;
+<span class="hljs-keyword">let</span> {width, height} = element.style;
+<span class="hljs-keyword">let</span> area: <span class="hljs-built_in">number</span> = width * height; <span class="hljs-comment">// Error -> width and heigh is string</span></code></pre>
+<p>Дело в том, что в <em>TypeScript</em> невозможно привести тип <code class="inline-code">string</code>, к типу <code class="inline-code">number</code>.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-comment">// &#x3C;div id="#container">&#x3C;/div></span>
+
+<span class="hljs-keyword">let</span> element = <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">'#container'</span>) <span class="hljs-keyword">as</span> HTMLElement;
+<span class="hljs-keyword">let</span> {width: widthString, height: heightString} = element.style;
+
+<span class="hljs-keyword">let</span> width: <span class="hljs-built_in">number</span> = &#x3C;<span class="hljs-built_in">number</span>>widthString; <span class="hljs-comment">// Error -> Type 'string' cannot be converted to type 'number'</span>
+<span class="hljs-keyword">let</span> height: <span class="hljs-built_in">number</span> = &#x3C;<span class="hljs-built_in">number</span>>heightString; <span class="hljs-comment">// Error -> Type 'string' cannot be converted to type 'number'</span></code></pre>
+<p>Но осуществить задуманное, можно преобразовав тип <code class="inline-code">string</code> сначала в тип <code class="inline-code">any</code>, а затем тип <code class="inline-code">any</code>, в тип <code class="inline-code">number</code>.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-comment">// &#x3C;div id="#container">&#x3C;/div></span>
+
+<span class="hljs-keyword">let</span> element = <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">'#container'</span>) <span class="hljs-keyword">as</span> HTMLElement;
+<span class="hljs-keyword">let</span> {width: widthString, height: heightString} = element.style;
+
+<span class="hljs-keyword">let</span> width: <span class="hljs-built_in">number</span> = &#x3C;<span class="hljs-built_in">number</span>>&#x3C;<span class="hljs-built_in">any</span>>widthString; <span class="hljs-comment">// Ok</span>
+<span class="hljs-keyword">let</span> height: <span class="hljs-built_in">number</span> = &#x3C;<span class="hljs-built_in">number</span>>&#x3C;<span class="hljs-built_in">any</span>>heightString; <span class="hljs-comment">// Ok</span>
+
+<span class="hljs-keyword">let</span> area: <span class="hljs-built_in">number</span> = width * height; <span class="hljs-comment">// Ok</span></code></pre>
+<p>Стоит также заметить, что данный способ утверждения типа, кроме синтаксиса, больше ничем не отличается от указания с помощью оператора <code class="inline-code">as</code>.</p>
+</section><section id="Utverjdenie-Tipa-as-operator" name="Утверждение Типа as оператор" class="subchapter">
+            <h2 class="subchapter-title">
+                <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="Utverjdenie-Tipa-as-operator" type="absolute-url">
+                    <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <use href="#icon_link"/>
+                    </svg>
+                </button>
+                Утверждение Типа as оператор
+            </h2>
+        
+<hr>
+<p>В отличии от синтаксиса угловых скобок, которые указываются перед преобразуемым типом, оператор <code class="inline-code">as</code> указывается после преобразуемого типа и до типа, к которому требуется преобразовать.</p>
+<pre><code class="hljs language-typescript">FromType <span class="hljs-keyword">as</span> ToType</code></pre>
+<p>Для демонстрации оператора as рассмотрим ещё один часто встречающийся случай, который требует утверждения типов.</p>
+<p>Обычное дело, при помощи метода <code class="inline-code">querySelector</code>, получить объект, принадлежащий к типу <code class="inline-code">HTMLElement</code> и подписать его на событие <code class="inline-code">click</code>. Задача заключается в том, что при возникновении события, нужно изменить значение поля <code class="inline-code">dataset</code>, объявленного в типе <code class="inline-code">HTMLElement</code>. Было бы нерационально, снова получать ссылку на объект при помощи метода <code class="inline-code">querySelector</code>, ведь нужный объект, хранится в свойстве события <code class="inline-code">target</code>. Но дело в том, что свойство <code class="inline-code">target</code> имеет тип <code class="inline-code">EventTarget</code>, который не находится в иерархической зависимости с типом <code class="inline-code">HTMLElement</code>, который содержит нужный атрибут <code class="inline-code">dataset</code>.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-comment">// &#x3C;span id="counter">&#x3C;/span></span>
+
+<span class="hljs-keyword">let</span> element = <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">'#counter'</span>) <span class="hljs-keyword">as</span> HTMLElement;
+element.dataset.count = (<span class="hljs-number">0</span>).toString();
+
+
+element.addEventListener(<span class="hljs-string">'click'</span>, <span class="hljs-function">(<span class="hljs-params">{target}</span>) =></span> {
+  <span class="hljs-keyword">let</span> count: <span class="hljs-built_in">number</span> = target.dataset.count; <span class="hljs-comment">// Error -> Property 'dataset' does not exist on type 'EventTarget'</span>
+});</code></pre>
+<p>Но эту проблему легко решить с помощью оператора утверждения типа <code class="inline-code">as</code>. Кроме того с помощью этого же оператора можно привести тип <code class="inline-code">string</code>, к которому принадлежность все свойства находящиеся в <code class="inline-code">dataset</code>, к типу <code class="inline-code">any</code>, а уже затем к типу <code class="inline-code">number</code>.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">let</span> element = <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">'#counter'</span>) <span class="hljs-keyword">as</span> HTMLElement;
+element.dataset.count = (<span class="hljs-number">0</span>).toString();
+
+
+element.addEventListener(<span class="hljs-string">'click'</span>, <span class="hljs-function">(<span class="hljs-params">{target}</span>) =></span> {
+  <span class="hljs-keyword">let</span> element = target <span class="hljs-keyword">as</span> HTMLElement;
+  <span class="hljs-keyword">let</span> count: <span class="hljs-built_in">number</span> = element.dataset.count <span class="hljs-keyword">as</span> <span class="hljs-built_in">any</span> <span class="hljs-keyword">as</span> <span class="hljs-built_in">number</span>;
+
+  element.dataset.count = (++count).toString();
+});</code></pre>
+<p>В случаи несовместимости типов, в результате операции утверждения, возникнет ошибка.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">class</span> Bird {
+  <span class="hljs-keyword">public</span> fly(): <span class="hljs-built_in">void</span> {}
+}
+<span class="hljs-keyword">class</span> Fish {
+  <span class="hljs-keyword">public</span> swim(): <span class="hljs-built_in">void</span> {}
+}
+
+<span class="hljs-keyword">let</span> bird: Bird = <span class="hljs-keyword">new</span> Bird();
+<span class="hljs-keyword">let</span> fish: Fish = bird <span class="hljs-keyword">as</span> Fish; <span class="hljs-comment">// Error, 'Bird' cannot be converted to type 'Fish'</span></code></pre>
+<p>Ещё одна острая необходимость, требующая утверждения типа, возникает тогда, когда
+разработчику приходится работать с объектом, ссылка на который ограничена более общим типом, как например <code class="inline-code">any</code>.</p>
+<p>Тот факт, что над значением, принадлежащему к типу <code class="inline-code">any</code>, разрешено выполнение любых операций, говорит только о том, что компилятор эти операции не проверяет. Другими словами, разработчик, указывая тип <code class="inline-code">any</code>, усложняет процесс разработки, мешая компилятору проводить статический анализ кода, а также лишает себя помощи со стороны редактора кода.</p>
+<p>В случаях, когда разработчику известно, к какому типу принадлежит значение, можно попросить компилятор изменить мнение о принадлежности значения к его типу с помощью механизма утверждения типов.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">class</span> DataProvider {
+  <span class="hljs-keyword">constructor</span>(<span class="hljs-params"> readonly data: <span class="hljs-built_in">any</span> </span>){}
+}
+
+<span class="hljs-keyword">let</span> provider: DataProvider = <span class="hljs-keyword">new</span> DataProvider( <span class="hljs-string">'text'</span> );
+
+<span class="hljs-keyword">var</span> charAll: <span class="hljs-built_in">string</span>[ ] = provider.data.split(<span class="hljs-string">''</span>); <span class="hljs-comment">// Good, Ok</span>
+<span class="hljs-keyword">var</span> charAll: <span class="hljs-built_in">string</span>[ ] = provider.data.sPlIt(<span class="hljs-string">''</span>); <span class="hljs-comment">// Bad, Ok, runtime error</span>
+<span class="hljs-keyword">var</span> charAll: <span class="hljs-built_in">string</span>[ ] = (provider.data <span class="hljs-keyword">as</span> <span class="hljs-built_in">string</span>).split(<span class="hljs-string">''</span>); <span class="hljs-comment">// Good, Ok</span>
+
+<span class="hljs-keyword">let</span> test: <span class="hljs-built_in">string</span> = provider.data <span class="hljs-keyword">as</span> <span class="hljs-built_in">string</span>;
+
+<span class="hljs-keyword">var</span> charAll: <span class="hljs-built_in">string</span>[ ] = provider.data.split(<span class="hljs-string">''</span>); <span class="hljs-comment">// Very Good, Ok</span></code></pre>
+<p>На последок стоит сказать, что выражения, требующие указание типа, при работе с <em>dom api</em>, это неизбежность. Кроме того, для работы с методом <code class="inline-code">document.querySelector</code>, который был использован в примерах к этой главе, вместо приведения типов с помощью операторов <code class="inline-code">&#x3C;Type></code> или <code class="inline-code">as</code>, предпочтительней использовать такой механизм, как обобщения, которые рассматриваются в главе <a class="book__chapter__chapter-link" href="/book/contents/Tipy-Obobshcheniya-Generics" title="Типы - Обобщения (Generics)">Типы - Обобщения (Generics)</a>. Но в случае, если утверждение требуется для кода, написанного самим разработчиком, то скорее всего, это является следствием плохо-продуманной архитектуры.</p>
+</section><section id="Itogi" name="Итоги" class="subchapter">
+            <h2 class="subchapter-title">
+                <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="Itogi" type="absolute-url">
+                    <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <use href="#icon_link"/>
+                    </svg>
+                </button>
+                Итоги
+            </h2>
+        
+<p>Подведем итоги - </p>
+<ul class="book__list">
+<li class="book__list__item">Процесс, который в других языках принято называть приведение или преобразование, в <em>TypeScript</em> называется утверждение типа.</li>
+<li class="book__list__item">Процесс утверждения типа лишь просит компилятор пересмотреть свое отношение к типу, но конечное решение остается за ним.</li>
+<li class="book__list__item">Утверждение типа может указываться двумя способами, при помощи синтаксиса угловых скобок, в которые заключен тип (<code class="inline-code">&#x3C;ToType>FromType</code>), а также с помощью оператора <code class="inline-code">as</code> (FromType as ToType).</li>
+<li class="book__list__item">Код который был создан разработчиком и требующий утверждения типов, скорее всего является признаком не продуманной архитектуры.</li>
+</ul>
+</section>
