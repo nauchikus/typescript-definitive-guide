@@ -59,7 +59,7 @@ self.__precacheManifest = [
     "url": "/typescript-definitive-guide/img/icons.84286bb2.svg"
   },
   {
-    "revision": "f8683ee379ab14b389ed6bc6fb70e8e3",
+    "revision": "78cd229a3574ee030df0150439f00beb",
     "url": "/typescript-definitive-guide/index.html"
   },
   {
