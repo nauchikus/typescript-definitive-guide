@@ -1,57 +1,65 @@
 self.__precacheManifest = [
   {
-    "revision": "5dc2d642d2ad699ffde7",
-    "url": "/typescript-definitive-guide/css/app.bf78a0d6.css"
+    "revision": "8152e2f4023e9b6f57fb",
+    "url": "/typescript-definitive-guide/css/app.370fd3ba.css"
   },
   {
-    "revision": "5dc2d642d2ad699ffde7",
-    "url": "/typescript-definitive-guide/js/app.47bc5a32.js"
+    "revision": "8152e2f4023e9b6f57fb",
+    "url": "/typescript-definitive-guide/js/app.5126bf29.js"
   },
   {
-    "revision": "ea5a238fc3637f71d1e9",
-    "url": "/typescript-definitive-guide/css/chapter.2cf155cb.css"
+    "revision": "6cb8866b679fedfeea9e",
+    "url": "/typescript-definitive-guide/css/chapter.0b8f9ff7.css"
   },
   {
-    "revision": "ea5a238fc3637f71d1e9",
-    "url": "/typescript-definitive-guide/js/chapter.cea39a3b.js"
+    "revision": "6cb8866b679fedfeea9e",
+    "url": "/typescript-definitive-guide/js/chapter.55e7c9a0.js"
   },
   {
-    "revision": "3d384f9e77c66e2c3f9c",
+    "revision": "5f556f5376f41b58b31a",
     "url": "/typescript-definitive-guide/css/chunk-vendors.c4ea8f33.css"
   },
   {
-    "revision": "3d384f9e77c66e2c3f9c",
-    "url": "/typescript-definitive-guide/js/chunk-vendors.4a5ad94a.js"
+    "revision": "5f556f5376f41b58b31a",
+    "url": "/typescript-definitive-guide/js/chunk-vendors.c858302f.js"
   },
   {
-    "revision": "21317407d4ca7517fdc0",
-    "url": "/typescript-definitive-guide/css/contents.b3e46df0.css"
+    "revision": "3239767755c0cd7b64ad",
+    "url": "/typescript-definitive-guide/css/contents.308b725f.css"
   },
   {
-    "revision": "21317407d4ca7517fdc0",
-    "url": "/typescript-definitive-guide/js/contents.cfcd1941.js"
+    "revision": "3239767755c0cd7b64ad",
+    "url": "/typescript-definitive-guide/js/contents.9fe876b8.js"
   },
   {
-    "revision": "d577e27965305f25fc72",
-    "url": "/typescript-definitive-guide/css/hode.339bafd1.css"
+    "revision": "aa9917e328369ed48f74",
+    "url": "/typescript-definitive-guide/css/home.15b474e8.css"
   },
   {
-    "revision": "d577e27965305f25fc72",
-    "url": "/typescript-definitive-guide/js/hode.52b95702.js"
+    "revision": "aa9917e328369ed48f74",
+    "url": "/typescript-definitive-guide/js/home.dfbb3fcb.js"
   },
   {
-    "revision": "4450490797d322ad8181",
+    "revision": "bf4d4ec8bb72d97fcf79",
     "url": "/typescript-definitive-guide/css/not-found.c7735f99.css"
   },
   {
-    "revision": "4450490797d322ad8181",
-    "url": "/typescript-definitive-guide/js/not-found.7c8dca4f.js"
+    "revision": "bf4d4ec8bb72d97fcf79",
+    "url": "/typescript-definitive-guide/js/not-found.75290eb2.js"
+  },
+  {
+    "revision": "9f3dddf4757ac01f4f59",
+    "url": "/typescript-definitive-guide/css/what-is-new.fc3d98a6.css"
+  },
+  {
+    "revision": "9f3dddf4757ac01f4f59",
+    "url": "/typescript-definitive-guide/js/what-is-new.5a6f2b7f.js"
   },
   {
     "url": "/typescript-definitive-guide/img/icons.84286bb2.svg"
   },
   {
-    "revision": "3e061340f8ecee39b3f13098943f2a19",
+    "revision": "f8683ee379ab14b389ed6bc6fb70e8e3",
     "url": "/typescript-definitive-guide/index.html"
   },
   {
@@ -105,5 +113,9 @@ self.__precacheManifest = [
   {
     "revision": "6ff95256bf356aa51f9ddd917fe89a57",
     "url": "/typescript-definitive-guide/assets/images/book-cover-with-ufo.png"
+  },
+  {
+    "revision": "49fca63ccf239c3e5961992d6aa812e6",
+    "url": "/typescript-definitive-guide/assets/images/book-cover-with-ufo-v3-3.png"
   }
 ];
