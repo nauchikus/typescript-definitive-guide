@@ -57,7 +57,7 @@ TypeSystem.null = TypeSystem.any; // Ok
 TypeSystem.null = TypeSystem.number; // Error
 TypeSystem.null = TypeSystem.string; // Error
 TypeSystem.null = TypeSystem.boolean; // Error
-TypeSystem.null = TypeSystem.null; // Ok
+TypeSystem.null = TypeSystem.undefined; // Ok
 ~~~~~
 
 При активном флаге `--strictNullChecks`, при условии что в качестве значения выступает значение `null`, вывод типов определяет принадлежность к типу `Null`.
