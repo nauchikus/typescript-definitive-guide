@@ -53,7 +53,7 @@ TypeSystem.null = TypeSystem.any; <span class="hljs-comment">// Ok</span>
 TypeSystem.null = TypeSystem.number; <span class="hljs-comment">// Error</span>
 TypeSystem.null = TypeSystem.string; <span class="hljs-comment">// Error</span>
 TypeSystem.null = TypeSystem.boolean; <span class="hljs-comment">// Error</span>
-TypeSystem.null = TypeSystem.null; <span class="hljs-comment">// Ok</span></code></pre>
+TypeSystem.null = TypeSystem.undefined; <span class="hljs-comment">// Ok</span></code></pre>
 <p>При активном флаге <code class="inline-code">--strictNullChecks</code>, при условии что в качестве значения выступает значение <code class="inline-code">null</code>, вывод типов определяет принадлежность к типу <code class="inline-code">Null</code>.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">let</span> identifier = <span class="hljs-literal">null</span>; <span class="hljs-comment">// identifier: null</span></code></pre>
 <p>Тип <code class="inline-code">Null</code> идентичен по своей работе с одноименным типом из <em>JavaScript</em>.</p>
