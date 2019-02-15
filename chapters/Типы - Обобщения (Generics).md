@@ -117,7 +117,7 @@ let identifier = <T>() => {};
 
 ~~~~~typescript
 type T1< T > = { f1: T };
-~~~~~
+~~~~~Параметра типа - значение 
 
 Область видимости параметров типа, при объявлении функции и функционального выражения, включая стрелочное, а также методов, ограничивается их сигнатурой и телом. Другими словами, переменную типа можно указывать в качестве типа при объявлении параметров, возвращаемого значения, а также в своем теле при объявлениях любых конструкций требующих аннотацию типа.
 
@@ -492,94 +492,88 @@ class T2 <T extends Bird = Animal > {} // Error
 // -------(    Bird    ) = Animal
 ~~~~~
 
-Важным моментом является понимание того, как именно значение по умолчанию изменяет поведение кода. Но чтобы не запутаться, нужно разграничить поведение типа `T` на внешнее, обозначим его как outside behavior, и внутреннее, обозначим его как inside behavior. Внешнее поведение обуславливается операциями которые можно производить над значениями снаружи обобщенного типа. Соответственно, внутренним поведением, обуславливаются операции, которые можно производить внутри обобщенного типа. Проще говоря, слово поведение, в данном контексте, нужно понимать как - к какому типу данных, вывод типов, установит принадлженость для значение, чей тип, указан с помощью параметров типа.
+Важным моментом является понимание того, как вывод типов обрабатывает значение по умолчанию. Но чтобы не запутаться, нужно разграничить поведение типа `T` на внешнее, обозначим его как outside behavior, и внутреннее, обозначим его как inside behavior. Внешнее поведение обуславливается операциями которые можно производить над значениями снаружи обобщенного типа. Соответственно, внутренним поведением, обуславливаются операции, которые можно производить внутри обобщенного типа, то есть в области видимости параметров типа. В данном контексте, слово поведение, нужно понимать как - к какому типу данных, вывод типов, установит принадлженость для значения, чей тип, указан с помощью параметра типа `T`. Но обо всем по порядку.
 
-Как известно на данный момент, обобщенный тип (`GenericType<T>`), которому не установили принадлежность к конкретному типу с помощью аргументов типа, расценивается компилятором как обобщенный объектный тип (`GenericType<{}>`). Для того, чтобы наделить значения, конкретными признаками, параметрам типа указывают значение по умолчанию.
+
+Как известно на данный момент, с точки зрения внешнего поведения, обобщенный класс `GenericType<T>`, экземпляр который был ассоциирован с конструкцией без явного анотирования типа, будет расцениваться выводом типа, как `GenericType<{}>`. 
+
+~~~~~typescript
+// outside behavior
+class Animal { name: string = 'animal'; }
+
+class CustomArray<T> extends Array<T> {}
+
+let animalArray = new CustomArray(); // let CustomArray: CustomArray<{}>
+let animal = animalArray[0]; // let anima: {}
+animal.name // Error
+
+~~~~~
+
+Установив для типа `T` значение по умолчанию, с точки зрения внешнего поведения, вывод типов будет расценивать тип `T`, как тип наделенный некоторыми характеристиками. Другими словами, вывод типов будет считать тип `T` принадлежащим к типу указанному по умолчанию.
 
 ~~~~~typescript
 // outside behavior
 
-interface IName { name: string; }
+class Animal { name: string = 'animal'; }
 
+class CustomArray<T = Animal> extends Array<T> {}
 
-class SomeArray<T> extends Array<T> {}
-class OtherArray<T = IName> extends Array<T> {}
-
-
-let someAll = new SomeArray(); // someAll: SomeArray<{}>
-let otherAll = new OtherArray(); // otherAll: OtherArray<IName>
+let animalArray = new CustomArray(); // let animalArray: CustomArray<Animal>
+let animal = animalArray[0]; // let anima: Animal
+animal.name // Ok
 ~~~~~
 
-Значение по умолчанию, при отсутствии явной аннотации, ограничивает тип `T`, что не позволяет указывать в качестве значения несовместимые типы и  гарантирует, что значения будут наделены некоторыми характеристиками.
+При этом значение по умолчанию можно переопределить.
 
 ~~~~~typescript
 // outside behavior
 
-interface IName { name: string; }
-interface IAnimal extends IName {}
+class Animal { name: string = 'animal'; }
+class Car { type: string = 'car'; }
 
-abstract class Animal implements IAnimal {
-  constructor( readonly name: string ) {}
-}
+class CustomArray<T = Animal> extends Array<T> {}
 
-class Bird extends Animal {}
-class Fish extends Animal {}
+let animalArray = new CustomArray(); // let animalArray: CustomArray<Animal>
+let animal = animalArray[0]; // let anima: Animal
+animal.name // Ok
 
-class SomeArray<T> extends Array<T> {}
-class OtherArray<T = IName> extends Array<T> {}
-
-
-let someAll = new SomeArray(); // someAll: SomeArray<{}>
-someAll.push( new Bird( 'bird' ) ); // Ok
-someAll.push( new Fish( 'fish' ) ); // Ok
-someAll.push( 'text' ); // Ok
-
-let someValue = someAll.pop(); // someValue: {}
-
-
-let otherAll = new OtherArray(); // otherAll: OtherArray<IName>
-otherAll.push( new Bird( 'bird' ) ); // Ok
-otherAll.push( new Fish( 'fish' ) ); // Ok
-otherAll.push( 'text' ); // Error
-
-let otherValue = otherAll.pop(); // otherValue: IName
+let carArray = new CustomArray<Car>(); // let carArray: CustomArray<Car>
+let car = carArray[0]; // let car: Car
+car.type // Ok
 ~~~~~
 
-Как уже говорилось ранее, нельзя выполнять какие-либо операции над типом-заполнителем `T`, если он не расширяет тип с подходящими признаками. Но не удивительно, если начинающему разработчику, покажется, что характеристики типа, указанного в роли необязательно, также передадутся типу-заполнителю. Но это  не так. Значение по умолчанию не являются значениями по умолчанию для типов-заполнителей (параметров типа).
+Кроме того, обобщенный тип, которому задано значением по умолчанию, можно указать в аннотации без явного указания параметра типа.
+
+~~~~~typescript
+// outside behavior
+
+class A<T> {}
+class B<T = number> {}
+
+let a: A = new A(); // Error
+let b: B = new B(); // Ok, let b: B<number>
+~~~~~
+
+В случаи с внутренним поведением, главное не забывать, что поведение для значения по умолчанию не имеет ничего общего с поведением возникающим при использовании механизма ограничения параметров типа с помощью ключевого слова `extends`. При использовании механизма ограничения, парамтр типа в области его видения расценивается как тип, наделенный характеристиками типов указанных после ключевого слова `extends`. Тем не менее параметр типа, которому указано лишь значение по умолчанию, в области видимости, расценивается как парамтр типа, которому вообще ничего не задано, то есть как тип `T`.
 
 ~~~~~typescript
 // inside behavior
 
-interface IAnimal { name: string; }
-
-
-function f1<T>( prop: T ): void {
-  console.log( prop.name ); // Error -> Property 'name' does not exist on type 'T'
+class A<T extends string> {
+    method(p: T) {
+        p.toLocaleLowerCase(); // Ok
+    }
 }
-function f2<T extends IAnimal>( prop: T ): void {
-  console.log( prop.name ); // Ok
-}
-function f3<T = IAnimal>( prop: T ): void {
-  console.log( prop.name ); // Error -> Property 'name' does not exist on type 'T'
+class B<T = string> {
+    method(p: T) {
+        p.toLocaleLowerCase(); // Error, Property 'toLocaleLowerCase' does not exist on type 'T'.
+    }
 }
 ~~~~~
 
-Несмотря на то, что значения по умолчанию указываются в объявлении параметров типа, предназначаются они для аргументов типа. Простыми словами, с помощью оператора равно `=` указывается значение по умолчанию для аргументов типа.
 
-~~~~~typescript
-class Bird<T> {
-  public name: T;
-}
-class Fish<T = String> {
-  public name: T;
-}
+Несмотря на то, что значения по умолчанию указываются в объявлении параметров типа, предназначаются они для аргументов типа. Простыми словами, с помощью оператора равно `=` указывается значение по умолчанию для аргументов типа, а не для парамтров типа.
 
-let v1: Bird; // Error -> Generic type 'Bird<T>' requires 1 type argument(s)
-let v2: Bird<string>; // Ok
-
-let v3: Fish; // Ok
-let v4: Fish<string>; // Ok
-~~~~~
 
 
 ## Параметры типа - как тип данных
