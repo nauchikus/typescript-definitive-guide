@@ -11,7 +11,7 @@
 <hr>
 <p>Из всех тем, в которых подробно было и будет рассказано о возможностях <em>TypeScript</em>, тема обобщений является самой примечательной, и порой, тем, кто впервые с ней знакомится, представляется сложной. Поэтому вернемся назад во времени, в мир, в котором ещё не существует обобщений. </p>
 <p>Для примера представим ситуацию, когда опытному разработчику поручили создать программу - виртуальный тур по зоопарку. Так как задание очень важное, разработчик решает подойти со всей серьезностью и начинает проектирование с моделирования предметной области.</p>
-<p>Время шло, проект разрастаться и таким образом стал включать в себя - интерфейс, описывающий общее для всех животных поле <code class="inline-code">id</code>, абстрактный класс <code class="inline-code">Animal</code>, который реализует интерфейс и ещё два абстрактных класса <code class="inline-code">Bird</code> и <code class="inline-code">Fish</code>, расширяющие абстрактный класс <code class="inline-code">Animal</code> и реализующие уникальные для своего типа методы <code class="inline-code">fly</code> и <code class="inline-code">swim</code>, а кроме того ещё два конкретных класса <code class="inline-code">Eagle</code> и <code class="inline-code">Shark</code>, расширяющие <code class="inline-code">Bird</code> и <code class="inline-code">Fish</code> соответственно.</p>
+<p>Время шло, проект начал разрастаться и таким образом стал включать в себя - интерфейс, описывающий общее для всех животных поле <code class="inline-code">id</code>, абстрактный класс <code class="inline-code">Animal</code>, который реализует интерфейс и ещё два абстрактных класса <code class="inline-code">Bird</code> и <code class="inline-code">Fish</code>, расширяющие абстрактный класс <code class="inline-code">Animal</code> и реализующие уникальные для своего типа методы <code class="inline-code">fly</code> и <code class="inline-code">swim</code>, а кроме того ещё два конкретных класса <code class="inline-code">Eagle</code> и <code class="inline-code">Shark</code>, расширяющие <code class="inline-code">Bird</code> и <code class="inline-code">Fish</code> соответственно.</p>
 <p>В момент, когда разработчик задумался о создании общего, для всех животных, хранилища-коллекции, его лицо застыло, словно печатная форма, на которой был выбит реквием по возможности написать правильный код. И это неудивительно. Для того, чтобы коллекция могла служить хранилищем для всех экземпляров животных, её данные должны быть ограничены общим, для всех типов, базовым типом интерфейса. Но в таком случае, чтобы выполнять операции присущие конкретным типам, как например вызов методов <code class="inline-code">fly</code> или <code class="inline-code">swim</code>, объекты, извлеченные из коллекции, будут нуждаться в дополнительной операции приведении типа.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">interface</span> IAnimal {
  id: <span class="hljs-built_in">string</span>;
@@ -24,6 +24,7 @@
 <span class="hljs-keyword">abstract</span> <span class="hljs-keyword">class</span> Bird <span class="hljs-keyword">extends</span> Animal {
  <span class="hljs-keyword">public</span> fly(): <span class="hljs-built_in">void</span> {}
 }
+
 <span class="hljs-keyword">abstract</span> <span class="hljs-keyword">class</span> Fish <span class="hljs-keyword">extends</span> Animal {
  <span class="hljs-keyword">public</span> swim(): <span class="hljs-built_in">void</span> {}
 }
@@ -50,7 +51,6 @@
  Shark = <span class="hljs-string">'shark'</span>
 }
 
-
 <span class="hljs-keyword">const</span> collection: AnimalCollection = <span class="hljs-keyword">new</span> AnimalCollection();
 
 collection.add( <span class="hljs-keyword">new</span> Eagle( AnimalIDs.Eagle ) );
@@ -61,7 +61,7 @@ collection.add( <span class="hljs-keyword">new</span> Shark( AnimalIDs.Shark ) )
 
 <span class="hljs-keyword">var</span> shark: Fish = collection.getItemByID( AnimalIDs.Eagle ); <span class="hljs-comment">// Error -> Type 'IAnimal' is not assignable to type 'Fish'</span>
 <span class="hljs-keyword">var</span> shark: Fish = collection.getItemByID( AnimalIDs.Eagle ) <span class="hljs-keyword">as</span> Fish; <span class="hljs-comment">// Ok</span></code></pre>
-<p>При этом, операция приведение типа не самая серьезная проблема на которой стоит заострять внимание. Настоящая проблема себя проявит тогда, когда возникнет необходимость расширить программу, введя в неё дополнительные типы, как например множество сотрудников различающихся по признакам, характерным конкретно для их профессии. В этом случае придется написать ещё одну коллекцию, которая будет отличаться от предыдущей лишь типом к которому принадлежат хранимые ей данные, что приведет к увеличению кода.</p>
+<p>При этом, операция приведения типа не самая серьезная проблема на которой стоит заострять внимание. Настоящая проблема себя проявит тогда, когда возникнет необходимость расширить программу, введя в неё дополнительные типы, как например множество сотрудников различающихся по признакам, характерным конкретно для их профессии. В этом случае придется написать ещё одну коллекцию, которая будет отличаться от предыдущей лишь типом к которому принадлежат хранимые ей данные, что приведет к увеличению кода.</p>
 <p>Причина возникновения повторяющихся объявлений конструкций, чьё отличие состоит лишь в типах хранимых данных, подтолкнуло разработчиков языков программирования к созданию типов данных, которые определяются в момент обращения к ним. Так на свет появилась парадигма обобщенного программирования.</p>
 <p><em>Обобщенное программирование</em> (Generic Programming) - это подход, при котором алгоритмы могут одинаково работать с данными, принадлежащими к разным типам данных, без изменения декларации.</p>
 <p>Обобщенное программирование, позволяет разработчикам, таких языков, как например <em>C#</em>, <em>Java</em>, <em>F#</em>, <em>Scala</em>, сокращать количество преобразований (приведения), писать многократно используемый код и при этом повышать его типобезопасность.</p>
@@ -77,8 +77,8 @@ collection.add( <span class="hljs-keyword">new</span> Shark( AnimalIDs.Shark ) )
 <p>Типы данных которым указывается обобщение, называются обобщенными или <em>универсальными типами данных</em>.</p>
 <p>Обобщения объявляются при помощи пары угловых скобок, в которые, через запятую, заключены <em>параметры типа</em>, которые ещё называют <em>типо-заполнителями</em> или <em>универсальными параметрами</em> <code class="inline-code">&#x3C; T1, T2 ></code>. Параметры типа могут быть указаны в качестве типа везде, где требуется аннотация типа, за исключением членов класса (static members). Область видимости параметров типа ограничена областью обобщенного типа. Все вхождения параметров типа, будут заменены на конкретные типы, переданные в качестве аргументов типа. Аргументы типа указываются в угловых скобках, в которых через запятую указываются конкретные типы данных <code class="inline-code">&#x3C;number, string></code>.</p>
 <p>Идентификаторы параметров типа, должны начинаться с заглавной буквы и кроме фантазии разработчика, они также ограничены общими для <em>TypeScript</em> правилами. Параметрам типа, которые присутствуют в аннотации логически понятных обобщенных типов, как например <code class="inline-code">Array&#x3C;T></code>, принято начинать перечисление типов с идентификаторов <code class="inline-code">T</code>, <code class="inline-code">S</code>, <code class="inline-code">U</code>, <code class="inline-code">V</code> и т.д. С помощью <code class="inline-code">K</code> и <code class="inline-code">V</code> принято обозначать типы <code class="inline-code">Key</code>/<code class="inline-code">Value</code>, а при помощи <code class="inline-code">P</code>, <code class="inline-code">Property</code>. Идентификатором <code class="inline-code">Z</code> принято обозначать полиморфный тип <code class="inline-code">this</code>.</p>
-<p>Кроме того, не исключены случаи случаи, в которых предпочтительнее выглядят полные имена, как например <code class="inline-code">RequestService</code>, <code class="inline-code">ResponseService</code>, к которым ещё можно применить <em>Венгерскую нотацию</em> - <code class="inline-code">TRequestService</code>, <code class="inline-code">TResponseService</code>.</p>
-<p>К примеру, увидев в автокомплите редактор тип <code class="inline-code">Array&#x3C;T></code>, в голову сразу же приходит верный вариант, что массив будет содержать тип указанный в качестве <code class="inline-code">T</code>. Но увидев <code class="inline-code">Animal&#x3C;T, S></code>, можно никогда не догадаться, что это типы данных, которые будут указаны для полей <code class="inline-code">id</code> и <code class="inline-code">arial</code>. В этом случаи, было бы гораздо предпочтительней дать говорящие имена <code class="inline-code">Animal&#x3C;AnimalID, AnimalArial></code>.</p>
+<p>Кроме того, не исключены случаи, в которых предпочтительнее выглядят полные имена, как например <code class="inline-code">RequestService</code>, <code class="inline-code">ResponseService</code>, к которым ещё можно применить <em>Венгерскую нотацию</em> - <code class="inline-code">TRequestService</code>, <code class="inline-code">TResponseService</code>.</p>
+<p>К примеру, увидев в автокомплите редактора тип <code class="inline-code">Array&#x3C;T></code>, в голову сразу же приходит верный вариант, что массив будет содержать тип указанный в качестве <code class="inline-code">T</code>. Но увидев <code class="inline-code">Animal&#x3C;T, S></code>, можно никогда не догадаться, что это типы данных, которые будут указаны для полей <code class="inline-code">id</code> и <code class="inline-code">arial</code>. В этом случаи, было бы гораздо предпочтительней дать говорящие имена <code class="inline-code">Animal&#x3C;AnimalID, AnimalArial></code>.</p>
 <p>Указывается обобщение сразу после идентификатора типа. Это правило остается неизменным даже в тех случаях, когда идентификатор отсутствует (как в случаи с безымянным классовым или функциональным выражением), или же не предусмотрен вовсе (стрелочная функция).</p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">type</span> Identifier&#x3C;T> = {};
 
@@ -95,7 +95,7 @@ collection.add( <span class="hljs-keyword">new</span> Shark( AnimalIDs.Shark ) )
 <span class="hljs-keyword">let</span> identifier = <span class="hljs-function"><span class="hljs-keyword">function</span> &#x3C;<span class="hljs-title">T</span>>(<span class="hljs-params"></span>): <span class="hljs-title">void</span> </span>{};
 
 <span class="hljs-keyword">let</span> identifier = &#x3C;T><span class="hljs-function"><span class="hljs-params">()</span> =></span> {};</code></pre>
-<p>Но прежде чем приступить к детальному рассмотрению, нужно уточнить, что правила для функции идентичны, как для функциональных выражений, так и методов. Правила для классов ничем не отличаются от правил для классовых выражений. исходя из этого, все дальнейшие примеры будут приводится исключительно на классах и функциях.</p>
+<p>Но прежде чем приступить к детальному рассмотрению, нужно уточнить, что правила для функции идентичны, как для функциональных выражений, так и методов. Правила для классов ничем не отличаются от правил для классовых выражений. Исходя из этого, все дальнейшие примеры будут приводиться исключительно на классах и функциях.</p>
 <p>В случае, когда обобщение указанно псевдониму типа (<code class="inline-code">type</code>) область видимости параметров типа ограничена самим выражением. </p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">type</span> T1&#x3C; T > = { f1: T };</code></pre>
 <p>Область видимости параметров типа, при объявлении функции и функционального выражения, включая стрелочное, а также методов, ограничивается их сигнатурой и телом. Другими словами, переменную типа можно указывать в качестве типа при объявлении параметров, возвращаемого значения, а также в своем теле при объявлениях любых конструкций требующих аннотацию типа.</p>
@@ -123,16 +123,16 @@ collection.add( <span class="hljs-keyword">new</span> Shark( AnimalIDs.Shark ) )
 
 <span class="hljs-keyword">class</span> T2&#x3C;T> <span class="hljs-keyword">extends</span> T1&#x3C;T> <span class="hljs-keyword">implements</span> IT1&#x3C;T> {}
 <span class="hljs-keyword">class</span> T3 <span class="hljs-keyword">extends</span> T1&#x3C;<span class="hljs-built_in">string</span>> <span class="hljs-keyword">implements</span> IT1&#x3C;<span class="hljs-built_in">string</span>> {}</code></pre>
-<p>Если класс/интерфейс объявлен, как обобщенный, а внутри него объявлен обобщенный метод имеющий идентичную параметр типа, то параметр типа метода перекроет параметр типа класса (более конкретно это поведение будет рассмотрено позднее).</p>
+<p>Если класс/интерфейс объявлен как обобщенный, а внутри него объявлен обобщенный метод, имеющий идентичный параметр типа, то параметр типа метода перекроет параметр типа класса (более конкретно это поведение будет рассмотрено позднее).</p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">interface</span> IT1&#x3C;T> {
  m2&#x3C;T>(p1: T): T;
 }
 
 <span class="hljs-keyword">class</span> T1&#x3C;T> {
  <span class="hljs-keyword">public</span> m1&#x3C;T>(p1: T): T {
-     <span class="hljs-keyword">let</span> v1: T;
+  <span class="hljs-keyword">let</span> v1: T;
 
-     <span class="hljs-keyword">return</span> p1;
+  <span class="hljs-keyword">return</span> p1;
  }
 }</code></pre>
 <p>Принадлежность параметра типа к конкретному типу данных устанавливается в момент передачи аргументов типа. При этом конкретные типы данных указываются в паре угловых скобок, а количество конкретных типов должно соответствовать количеству обязательных параметров типа.</p>
@@ -158,8 +158,9 @@ collection.add( <span class="hljs-keyword">new</span> Shark( AnimalIDs.Shark ) )
 <span class="hljs-keyword">let</span> bird: Animal&#x3C;<span class="hljs-built_in">string</span>> = <span class="hljs-keyword">new</span> Animal( <span class="hljs-string">'bird'</span> ); <span class="hljs-comment">// Ok -> bird: Animal&#x3C;string></span>
 <span class="hljs-keyword">let</span> fish = <span class="hljs-keyword">new</span> Animal( <span class="hljs-string">'fish'</span> ); <span class="hljs-comment">// Ok -> fish: Animal&#x3C;string></span>
 <span class="hljs-keyword">let</span> insect = <span class="hljs-keyword">new</span> Animal(  ); <span class="hljs-comment">// Ok -> insect: Animal&#x3C;{}></span></code></pre>
-<p>Относительно обобщенных типов существуют такие понятия, как <em>открытый</em> (open) и <em>закрытый</em> (closed) тип. Обобщенный тип данных, в момент определения, называется <em>открытым</em>. Кроме того, типы, которые указаны в аннотации и у которых хотя бы один из аргументов типа является параметром типа, также являются открытыми типами. И наоборот, если все аргументы типа принадлежать к конкретным типам, то такой обобщенный тип является <em>закрытым</em> типом.</p>
+<p>Относительно обобщенных типов существуют такие понятия, как <em>открытый</em> (open) и <em>закрытый</em> (closed) тип. Обобщенный тип данных, в момент определения, называется <em>открытым</em>. Кроме того, типы, которые указаны в аннотации и у которых хотя бы один из аргументов типа является параметром типа, также являются открытыми типами. И наоборот, если все аргументы типа принадлежат к конкретным типам, то такой обобщенный тип является <em>закрытым</em> типом.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">class</span> T0&#x3C;T, U> {} <span class="hljs-comment">//  T0 - открытый тип</span>
+
 <span class="hljs-keyword">class</span> T1&#x3C;T> {
   <span class="hljs-keyword">public</span> f: T0&#x3C;<span class="hljs-built_in">number</span>, T>; <span class="hljs-comment">// T0 - открытый тип</span>
   <span class="hljs-keyword">public</span> f1: T0&#x3C;<span class="hljs-built_in">number</span>, <span class="hljs-built_in">string</span>>; <span class="hljs-comment">// T0 - закрытый тип</span>
@@ -216,19 +217,19 @@ action(  );
 <p>В случаях, когда обобщенный класс содержит обобщенный метод, параметры типа метода, будут затенять параметры типа класса.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">type</span> ReturnParam&#x3C;T, U> = {a: T, b: U};
 
-<span class="hljs-keyword">class</span> GenericClass &#x3C; T, U > {
-  <span class="hljs-keyword">public</span> defaultMethod &#x3C;T> (a: T, b?: U): ReturnParam&#x3C;T, U> {
+<span class="hljs-keyword">class</span> GenericClass&#x3C;T, U> {
+  <span class="hljs-keyword">public</span> defaultMethod&#x3C;T> (a: T, b?: U): ReturnParam&#x3C;T, U> {
       <span class="hljs-keyword">return</span> {a, b};
   }
 
-  <span class="hljs-keyword">public</span> genericMethod &#x3C;T> (a: T, b?: U): ReturnParam&#x3C;T, U> {
+  <span class="hljs-keyword">public</span> genericMethod&#x3C;T> (a: T, b?: U): ReturnParam&#x3C;T, U> {
       <span class="hljs-keyword">return</span> {a, b};
   }
 }
 
-<span class="hljs-keyword">let</span> generic: GenericClass &#x3C; <span class="hljs-built_in">string</span>, <span class="hljs-built_in">number</span> > = <span class="hljs-keyword">new</span> GenericClass();
+<span class="hljs-keyword">let</span> generic: GenericClass&#x3C;<span class="hljs-built_in">string</span>, <span class="hljs-built_in">number</span>> = <span class="hljs-keyword">new</span> GenericClass();
 generic.defaultMethod( <span class="hljs-string">'0'</span>, <span class="hljs-number">0</span> );
-generic.genericMethod &#x3C;<span class="hljs-built_in">boolean</span>> ( <span class="hljs-literal">true</span>, <span class="hljs-number">0</span> );
+generic.genericMethod&#x3C;<span class="hljs-built_in">boolean</span>> ( <span class="hljs-literal">true</span>, <span class="hljs-number">0</span> );
 generic.genericMethod( <span class="hljs-string">'0'</span> );
 
 <span class="hljs-comment">// Ok -> generic: GenericClass&#x3C;string, number></span>
@@ -361,7 +362,7 @@ fishCollection.add( <span class="hljs-keyword">new</span> Bird( <span class="hlj
 
 <span class="hljs-keyword">class</span> T4&#x3C;T = U, U <span class="hljs-keyword">extends</span> <span class="hljs-built_in">number</span>> {} <span class="hljs-comment">// Error -> optional before required</span>
 <span class="hljs-keyword">class</span> T5&#x3C;U <span class="hljs-keyword">extends</span> <span class="hljs-built_in">number</span>, T = U> {} <span class="hljs-comment">// Ok.</span></code></pre>
-<p>Кроме того, можно указывать значение по умолчанию для типа расширяющего другой тип. В этом случае, оператор равно = указывается после расширяемого типа.</p>
+<p>Кроме того, можно указывать значение по умолчанию для типа расширяющего другой тип. В этом случае, оператор равно <code class="inline-code">=</code> указывается после расширяемого типа.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">class</span> T1 &#x3C;T <span class="hljs-keyword">extends</span> T2 = T3> {}</code></pre>
 <p>В момент, когда тип <code class="inline-code">T</code> расширяет другой тип, он получает признаки этого типа. Именно поэтому для параметра типа, расширяющего другой тип, в качестве типа по умолчанию, можно указывать только совместимый с ним тип. </p>
 <p>Чтобы было проще понять, нужно представить два класса, один из которых расширяет другой. Так вот, переменной с типом суперкласса, можно в качестве значения присвоить объект его подкласса. Но не наоборот.</p>
@@ -475,7 +476,7 @@ otherAll.push( <span class="hljs-string">'text'</span> ); <span class="hljs-comm
 <pre><code class="hljs language-typescript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">f0</span>&#x3C;<span class="hljs-title">T</span>>(<span class="hljs-params">p: <span class="hljs-built_in">any</span></span>): <span class="hljs-title">T</span> </span>{ <span class="hljs-comment">// Ok, any совместим с T</span>
   <span class="hljs-keyword">return</span> p;
 }
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">f1</span>&#x3C;<span class="hljs-title">T</span>>(<span class="hljs-params">p: <span class="hljs-literal">null</span></span>): <span class="hljs-title">T</span> </span>{ <span class="hljs-comment">// Ok, noll при неактивном флаге --strictNullChecks совместим с T</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">f1</span>&#x3C;<span class="hljs-title">T</span>>(<span class="hljs-params">p: <span class="hljs-literal">null</span></span>): <span class="hljs-title">T</span> </span>{ <span class="hljs-comment">// Ok, null при неактивном флаге --strictNullChecks совместим с T</span>
   <span class="hljs-keyword">return</span> p;
 }
 <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">f2</span>&#x3C;<span class="hljs-title">T</span>>(<span class="hljs-params">p: <span class="hljs-literal">undefined</span></span>): <span class="hljs-title">T</span> </span>{ <span class="hljs-comment">// Ok, undefined при неактивном флаге --strictNullChecks совместим с T</span>
@@ -552,7 +553,7 @@ otherAll.push( <span class="hljs-string">'text'</span> ); <span class="hljs-comm
   array:T[] = [];
 
   method&#x3C;T>(param: T): <span class="hljs-built_in">void</span>  {
-      <span class="hljs-keyword">this</span>.array.push( param ); <span class="hljs-comment">// Error, T обявленный всигнатуре функции не совместим с типмо T объявленном в сигнатуре класса</span>
+      <span class="hljs-keyword">this</span>.array.push( param ); <span class="hljs-comment">// Error, T обявленный в сигнатуре функции не совместим с типмо T объявленном в сигнатуре класса</span>
   }
 }</code></pre>
 </section>
