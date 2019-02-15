@@ -97,9 +97,13 @@ collection.add( <span class="hljs-keyword">new</span> Shark( AnimalIDs.Shark ) )
 <span class="hljs-keyword">let</span> identifier = &#x3C;T><span class="hljs-function"><span class="hljs-params">()</span> =></span> {};</code></pre>
 <p>Но прежде чем приступить к детальному рассмотрению, нужно уточнить, что правила для функции идентичны, как для функциональных выражений, так и методов. Правила для классов ничем не отличаются от правил для классовых выражений. Исходя из этого, все дальнейшие примеры будут приводиться исключительно на классах и функциях.</p>
 <p>В случае, когда обобщение указанно псевдониму типа (<code class="inline-code">type</code>) область видимости параметров типа ограничена самим выражением. </p>
-<pre><code class="hljs language-typescript"><span class="hljs-keyword">type</span> T1&#x3C; T > = { f1: T };</code></pre>
-<p>Область видимости параметров типа, при объявлении функции и функционального выражения, включая стрелочное, а также методов, ограничивается их сигнатурой и телом. Другими словами, переменную типа можно указывать в качестве типа при объявлении параметров, возвращаемого значения, а также в своем теле при объявлениях любых конструкций требующих аннотацию типа.</p>
-<pre><code class="hljs language-typescript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">f1</span>&#x3C;<span class="hljs-title">T</span>>(<span class="hljs-params">p1: T</span>): <span class="hljs-title">T</span> </span>{
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">type</span> T1&#x3C; T > = { f1: T };
+~~~~~Параметра типа - значение 
+
+Область видимости параметров типа, при объявлении функции и функционального выражения, включая стрелочное, а также методов, ограничивается их сигнатурой и телом. Другими словами, переменную типа можно указывать в качестве типа при объявлении параметров, возвращаемого значения, а также в своем теле при объявлениях любых конструкций требующих аннотацию типа.
+
+~~~~~typescript
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">f1</span>&#x3C;<span class="hljs-title">T</span>>(<span class="hljs-params">p1: T</span>): <span class="hljs-title">T</span> </span>{
   <span class="hljs-keyword">let</span> v1: T;
 
   <span class="hljs-keyword">return</span> v1;
@@ -388,78 +392,63 @@ fishCollection.add( <span class="hljs-keyword">new</span> Bird( <span class="hlj
 
 <span class="hljs-keyword">class</span> T2 &#x3C;T <span class="hljs-keyword">extends</span> Bird = Animal > {} <span class="hljs-comment">// Error</span>
 <span class="hljs-comment">// -------(    Bird    ) = Animal</span></code></pre>
-<p>Важным моментом является понимание того, как именно значение по умолчанию изменяет поведение кода. Но чтобы не запутаться, нужно разграничить поведение типа <code class="inline-code">T</code> на внешнее, обозначим его как outside behavior, и внутреннее, обозначим его как inside behavior. Внешнее поведение обуславливается операциями которые можно производить над значениями снаружи обобщенного типа. Соответственно, внутренним поведением, обуславливаются операции, которые можно производить внутри обобщенного типа. Проще говоря, слово поведение, в данном контексте, нужно понимать как - к какому типу данных, вывод типов, установит принадлженость для значение, чей тип, указан с помощью параметров типа.</p>
-<p>Как известно на данный момент, обобщенный тип (<code class="inline-code">GenericType&#x3C;T></code>), которому не установили принадлежность к конкретному типу с помощью аргументов типа, расценивается компилятором как обобщенный объектный тип (<code class="inline-code">GenericType&#x3C;{}></code>). Для того, чтобы наделить значения, конкретными признаками, параметрам типа указывают значение по умолчанию.</p>
+<p>Важным моментом является понимание того, как вывод типов обрабатывает значение по умолчанию. Но чтобы не запутаться, нужно разграничить поведение типа <code class="inline-code">T</code> на внешнее, обозначим его как outside behavior, и внутреннее, обозначим его как inside behavior. Внешнее поведение обуславливается операциями которые можно производить над значениями снаружи обобщенного типа. Соответственно, внутренним поведением, обуславливаются операции, которые можно производить внутри обобщенного типа, то есть в области видимости параметров типа. В данном контексте, слово поведение, нужно понимать как - к какому типу данных, вывод типов, установит принадлженость для значения, чей тип, указан с помощью параметра типа <code class="inline-code">T</code>. Но обо всем по порядку.</p>
+<p>Как известно на данный момент, с точки зрения внешнего поведения, обобщенный класс <code class="inline-code">GenericType&#x3C;T></code>, экземпляр который был ассоциирован с конструкцией без явного анотирования типа, будет расцениваться выводом типа, как <code class="inline-code">GenericType&#x3C;{}></code>. </p>
+<pre><code class="hljs language-typescript"><span class="hljs-comment">// outside behavior</span>
+<span class="hljs-keyword">class</span> Animal { name: <span class="hljs-built_in">string</span> = <span class="hljs-string">'animal'</span>; }
+
+<span class="hljs-keyword">class</span> CustomArray&#x3C;T> <span class="hljs-keyword">extends</span> <span class="hljs-built_in">Array</span>&#x3C;T> {}
+
+<span class="hljs-keyword">let</span> animalArray = <span class="hljs-keyword">new</span> CustomArray(); <span class="hljs-comment">// let CustomArray: CustomArray&#x3C;{}></span>
+<span class="hljs-keyword">let</span> animal = animalArray[<span class="hljs-number">0</span>]; <span class="hljs-comment">// let anima: {}</span>
+animal.name <span class="hljs-comment">// Error</span></code></pre>
+<p>Установив для типа <code class="inline-code">T</code> значение по умолчанию, с точки зрения внешнего поведения, вывод типов будет расценивать тип <code class="inline-code">T</code>, как тип наделенный некоторыми характеристиками. Другими словами, вывод типов будет считать тип <code class="inline-code">T</code> принадлежащим к типу указанному по умолчанию.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-comment">// outside behavior</span>
 
-<span class="hljs-keyword">interface</span> IName { name: <span class="hljs-built_in">string</span>; }
+<span class="hljs-keyword">class</span> Animal { name: <span class="hljs-built_in">string</span> = <span class="hljs-string">'animal'</span>; }
 
+<span class="hljs-keyword">class</span> CustomArray&#x3C;T = Animal> <span class="hljs-keyword">extends</span> <span class="hljs-built_in">Array</span>&#x3C;T> {}
 
-<span class="hljs-keyword">class</span> SomeArray&#x3C;T> <span class="hljs-keyword">extends</span> <span class="hljs-built_in">Array</span>&#x3C;T> {}
-<span class="hljs-keyword">class</span> OtherArray&#x3C;T = IName> <span class="hljs-keyword">extends</span> <span class="hljs-built_in">Array</span>&#x3C;T> {}
-
-
-<span class="hljs-keyword">let</span> someAll = <span class="hljs-keyword">new</span> SomeArray(); <span class="hljs-comment">// someAll: SomeArray&#x3C;{}></span>
-<span class="hljs-keyword">let</span> otherAll = <span class="hljs-keyword">new</span> OtherArray(); <span class="hljs-comment">// otherAll: OtherArray&#x3C;IName></span></code></pre>
-<p>Значение по умолчанию, при отсутствии явной аннотации, ограничивает тип <code class="inline-code">T</code>, что не позволяет указывать в качестве значения несовместимые типы и  гарантирует, что значения будут наделены некоторыми характеристиками.</p>
+<span class="hljs-keyword">let</span> animalArray = <span class="hljs-keyword">new</span> CustomArray(); <span class="hljs-comment">// let animalArray: CustomArray&#x3C;Animal></span>
+<span class="hljs-keyword">let</span> animal = animalArray[<span class="hljs-number">0</span>]; <span class="hljs-comment">// let anima: Animal</span>
+animal.name <span class="hljs-comment">// Ok</span></code></pre>
+<p>При этом значение по умолчанию можно переопределить.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-comment">// outside behavior</span>
 
-<span class="hljs-keyword">interface</span> IName { name: <span class="hljs-built_in">string</span>; }
-<span class="hljs-keyword">interface</span> IAnimal <span class="hljs-keyword">extends</span> IName {}
+<span class="hljs-keyword">class</span> Animal { name: <span class="hljs-built_in">string</span> = <span class="hljs-string">'animal'</span>; }
+<span class="hljs-keyword">class</span> Car { <span class="hljs-keyword">type</span>: <span class="hljs-built_in">string</span> = <span class="hljs-string">'car'</span>; }
 
-<span class="hljs-keyword">abstract</span> <span class="hljs-keyword">class</span> Animal <span class="hljs-keyword">implements</span> IAnimal {
-  <span class="hljs-keyword">constructor</span>(<span class="hljs-params"> readonly name: <span class="hljs-built_in">string</span> </span>) {}
-}
+<span class="hljs-keyword">class</span> CustomArray&#x3C;T = Animal> <span class="hljs-keyword">extends</span> <span class="hljs-built_in">Array</span>&#x3C;T> {}
 
-<span class="hljs-keyword">class</span> Bird <span class="hljs-keyword">extends</span> Animal {}
-<span class="hljs-keyword">class</span> Fish <span class="hljs-keyword">extends</span> Animal {}
+<span class="hljs-keyword">let</span> animalArray = <span class="hljs-keyword">new</span> CustomArray(); <span class="hljs-comment">// let animalArray: CustomArray&#x3C;Animal></span>
+<span class="hljs-keyword">let</span> animal = animalArray[<span class="hljs-number">0</span>]; <span class="hljs-comment">// let anima: Animal</span>
+animal.name <span class="hljs-comment">// Ok</span>
 
-<span class="hljs-keyword">class</span> SomeArray&#x3C;T> <span class="hljs-keyword">extends</span> <span class="hljs-built_in">Array</span>&#x3C;T> {}
-<span class="hljs-keyword">class</span> OtherArray&#x3C;T = IName> <span class="hljs-keyword">extends</span> <span class="hljs-built_in">Array</span>&#x3C;T> {}
+<span class="hljs-keyword">let</span> carArray = <span class="hljs-keyword">new</span> CustomArray&#x3C;Car>(); <span class="hljs-comment">// let carArray: CustomArray&#x3C;Car></span>
+<span class="hljs-keyword">let</span> car = carArray[<span class="hljs-number">0</span>]; <span class="hljs-comment">// let car: Car</span>
+car.type <span class="hljs-comment">// Ok</span></code></pre>
+<p>Кроме того, обобщенный тип, которому задано значением по умолчанию, можно указать в аннотации без явного указания параметра типа.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-comment">// outside behavior</span>
 
+<span class="hljs-keyword">class</span> A&#x3C;T> {}
+<span class="hljs-keyword">class</span> B&#x3C;T = <span class="hljs-built_in">number</span>> {}
 
-<span class="hljs-keyword">let</span> someAll = <span class="hljs-keyword">new</span> SomeArray(); <span class="hljs-comment">// someAll: SomeArray&#x3C;{}></span>
-someAll.push( <span class="hljs-keyword">new</span> Bird( <span class="hljs-string">'bird'</span> ) ); <span class="hljs-comment">// Ok</span>
-someAll.push( <span class="hljs-keyword">new</span> Fish( <span class="hljs-string">'fish'</span> ) ); <span class="hljs-comment">// Ok</span>
-someAll.push( <span class="hljs-string">'text'</span> ); <span class="hljs-comment">// Ok</span>
-
-<span class="hljs-keyword">let</span> someValue = someAll.pop(); <span class="hljs-comment">// someValue: {}</span>
-
-
-<span class="hljs-keyword">let</span> otherAll = <span class="hljs-keyword">new</span> OtherArray(); <span class="hljs-comment">// otherAll: OtherArray&#x3C;IName></span>
-otherAll.push( <span class="hljs-keyword">new</span> Bird( <span class="hljs-string">'bird'</span> ) ); <span class="hljs-comment">// Ok</span>
-otherAll.push( <span class="hljs-keyword">new</span> Fish( <span class="hljs-string">'fish'</span> ) ); <span class="hljs-comment">// Ok</span>
-otherAll.push( <span class="hljs-string">'text'</span> ); <span class="hljs-comment">// Error</span>
-
-<span class="hljs-keyword">let</span> otherValue = otherAll.pop(); <span class="hljs-comment">// otherValue: IName</span></code></pre>
-<p>Как уже говорилось ранее, нельзя выполнять какие-либо операции над типом-заполнителем <code class="inline-code">T</code>, если он не расширяет тип с подходящими признаками. Но не удивительно, если начинающему разработчику, покажется, что характеристики типа, указанного в роли необязательно, также передадутся типу-заполнителю. Но это  не так. Значение по умолчанию не являются значениями по умолчанию для типов-заполнителей (параметров типа).</p>
+<span class="hljs-keyword">let</span> a: A = <span class="hljs-keyword">new</span> A(); <span class="hljs-comment">// Error</span>
+<span class="hljs-keyword">let</span> b: B = <span class="hljs-keyword">new</span> B(); <span class="hljs-comment">// Ok, let b: B&#x3C;number></span></code></pre>
+<p>В случаи с внутренним поведением, главное не забывать, что поведение для значения по умолчанию не имеет ничего общего с поведением возникающим при использовании механизма ограничения параметров типа с помощью ключевого слова <code class="inline-code">extends</code>. При использовании механизма ограничения, парамтр типа в области его видения расценивается как тип, наделенный характеристиками типов указанных после ключевого слова <code class="inline-code">extends</code>. Тем не менее параметр типа, которому указано лишь значение по умолчанию, в области видимости, расценивается как парамтр типа, которому вообще ничего не задано, то есть как тип <code class="inline-code">T</code>.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-comment">// inside behavior</span>
 
-<span class="hljs-keyword">interface</span> IAnimal { name: <span class="hljs-built_in">string</span>; }
-
-
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">f1</span>&#x3C;<span class="hljs-title">T</span>>(<span class="hljs-params"> prop: T </span>): <span class="hljs-title">void</span> </span>{
-  <span class="hljs-built_in">console</span>.log( prop.name ); <span class="hljs-comment">// Error -> Property 'name' does not exist on type 'T'</span>
+<span class="hljs-keyword">class</span> A&#x3C;T <span class="hljs-keyword">extends</span> <span class="hljs-built_in">string</span>> {
+    method(p: T) {
+        p.toLocaleLowerCase(); <span class="hljs-comment">// Ok</span>
+    }
 }
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">f2</span>&#x3C;<span class="hljs-title">T</span> <span class="hljs-title">extends</span> <span class="hljs-title">IAnimal</span>>(<span class="hljs-params"> prop: T </span>): <span class="hljs-title">void</span> </span>{
-  <span class="hljs-built_in">console</span>.log( prop.name ); <span class="hljs-comment">// Ok</span>
-}
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">f3</span>&#x3C;<span class="hljs-title">T</span> = <span class="hljs-title">IAnimal</span>>(<span class="hljs-params"> prop: T </span>): <span class="hljs-title">void</span> </span>{
-  <span class="hljs-built_in">console</span>.log( prop.name ); <span class="hljs-comment">// Error -> Property 'name' does not exist on type 'T'</span>
+<span class="hljs-keyword">class</span> B&#x3C;T = <span class="hljs-built_in">string</span>> {
+    method(p: T) {
+        p.toLocaleLowerCase(); <span class="hljs-comment">// Error, Property 'toLocaleLowerCase' does not exist on type 'T'.</span>
+    }
 }</code></pre>
-<p>Несмотря на то, что значения по умолчанию указываются в объявлении параметров типа, предназначаются они для аргументов типа. Простыми словами, с помощью оператора равно <code class="inline-code">=</code> указывается значение по умолчанию для аргументов типа.</p>
-<pre><code class="hljs language-typescript"><span class="hljs-keyword">class</span> Bird&#x3C;T> {
-  <span class="hljs-keyword">public</span> name: T;
-}
-<span class="hljs-keyword">class</span> Fish&#x3C;T = <span class="hljs-built_in">String</span>> {
-  <span class="hljs-keyword">public</span> name: T;
-}
-
-<span class="hljs-keyword">let</span> v1: Bird; <span class="hljs-comment">// Error -> Generic type 'Bird&#x3C;T>' requires 1 type argument(s)</span>
-<span class="hljs-keyword">let</span> v2: Bird&#x3C;<span class="hljs-built_in">string</span>>; <span class="hljs-comment">// Ok</span>
-
-<span class="hljs-keyword">let</span> v3: Fish; <span class="hljs-comment">// Ok</span>
-<span class="hljs-keyword">let</span> v4: Fish&#x3C;<span class="hljs-built_in">string</span>>; <span class="hljs-comment">// Ok</span></code></pre>
+<p>Несмотря на то, что значения по умолчанию указываются в объявлении параметров типа, предназначаются они для аргументов типа. Простыми словами, с помощью оператора равно <code class="inline-code">=</code> указывается значение по умолчанию для аргументов типа, а не для парамтров типа.</p>
 </section><section id="Parametry-tipa-kak-tip-dannyh" name="Параметры типа - как тип данных" class="subchapter">
             <h2 class="subchapter-title">
                 <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="Parametry-tipa-kak-tip-dannyh" type="absolute-url">
