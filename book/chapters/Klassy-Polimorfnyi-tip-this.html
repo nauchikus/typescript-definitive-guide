@@ -75,10 +75,10 @@
 .fly(); <span class="hljs-comment">// Ok</span></code></pre>
 <p>Стоит отдельно подчеркнуть, что полиморфный тип <code class="inline-code">this</code> не принадлежит к типу класса или интерфейса, в котором указан. Полиморфный тип <code class="inline-code">this</code> может быть определен только на основе экземпляра класса. Проще говоря, полиморфный тип <code class="inline-code">this</code> принадлежит к типу своего экземпляра и может быть определен только в момент создания экземпляра. Так же тип <code class="inline-code">this</code> совместим с типом <code class="inline-code">Any</code>, а при условии что флаг <code class="inline-code">--strictNullChecks</code> установлен в <code class="inline-code">false</code> ещё и к типами <code class="inline-code">Null</code> и <code class="inline-code">Undefined</code>. К тому же тип <code class="inline-code">this</code> совместим с типом экземпляра, ссылку на который можно получить с помощью ключевого слова <code class="inline-code">this</code>.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">class</span> Animal {
-<span class="hljs-keyword">public</span> animalAll: <span class="hljs-keyword">this</span>[] = []; <span class="hljs-comment">// массив с типом полиморфным типо this</span>
+<span class="hljs-keyword">public</span> animalAll: <span class="hljs-keyword">this</span>[] = []; <span class="hljs-comment">// массив с полиморфным типом this</span>
 
 <span class="hljs-keyword">constructor</span>(<span class="hljs-params"></span>) {
-  <span class="hljs-keyword">this</span>.add(<span class="hljs-keyword">new</span> Animal()); <span class="hljs-comment">// Error, так как наданном этапе не известно ккакому типубудет принадлежать полиморфный тип this</span>
+  <span class="hljs-keyword">this</span>.add(<span class="hljs-keyword">new</span> Animal()); <span class="hljs-comment">// Error, так как на данном этапе не известно к какому типу будет принадлежать полиморфный тип this</span>
   <span class="hljs-keyword">this</span>.add(<span class="hljs-keyword">this</span>); <span class="hljs-comment">// Ok</span>
 }
 

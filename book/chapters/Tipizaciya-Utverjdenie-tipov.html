@@ -38,7 +38,7 @@
 <hr>
 <p>Утверждение типа, с помощью угловых скобок, осуществляется путем указания типа, к которому нужно преобразовать, заключенного в угловые скобки. Утверждение типа указывается перед выражением, результатом которого будет преобразуемый тип.</p>
 <pre><code class="hljs language-typescript">&#x3C;ToType>FromType</code></pre>
-<p>Перепишим предыдущий код и исправим в нем ошибку связанную с несоответствием типов.</p>
+<p>Перепишем предыдущий код и исправим в нем ошибку связанную с несоответствием типов.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-comment">// &#x3C;canvas id="stage" data-unactive="false">&#x3C;/canvas></span>
 
 <span class="hljs-keyword">const</span> element: Element = <span class="hljs-built_in">document</span>.querySelector( <span class="hljs-string">'#stage'</span> );
@@ -115,7 +115,7 @@ element.addEventListener(<span class="hljs-string">'click'</span>, <span class="
 
   element.dataset.count = (++count).toString();
 });</code></pre>
-<p>В случаи несовместимости типов, в результате операции утверждения, возникнет ошибка.</p>
+<p>В случае несовместимости типов, в результате операции утверждения, возникнет ошибка.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">class</span> Bird {
   <span class="hljs-keyword">public</span> fly(): <span class="hljs-built_in">void</span> {}
 }
@@ -142,7 +142,7 @@ element.addEventListener(<span class="hljs-string">'click'</span>, <span class="
 <span class="hljs-keyword">let</span> test: <span class="hljs-built_in">string</span> = provider.data <span class="hljs-keyword">as</span> <span class="hljs-built_in">string</span>;
 
 <span class="hljs-keyword">var</span> charAll: <span class="hljs-built_in">string</span>[ ] = provider.data.split(<span class="hljs-string">''</span>); <span class="hljs-comment">// Very Good, Ok</span></code></pre>
-<p>На последок стоит сказать, что выражения, требующие указание типа, при работе с <em>dom api</em>, это неизбежность. Кроме того, для работы с методом <code class="inline-code">document.querySelector</code>, который был использован в примерах к этой главе, вместо приведения типов с помощью операторов <code class="inline-code">&#x3C;Type></code> или <code class="inline-code">as</code>, предпочтительней использовать такой механизм, как обобщения, которые рассматриваются в главе <a class="book__chapter__chapter-link" href="/book/contents/Tipy-Obobshcheniya-Generics" title="Типы - Обобщения (Generics)">Типы - Обобщения (Generics)</a>. Но в случае, если утверждение требуется для кода, написанного самим разработчиком, то скорее всего, это является следствием плохо-продуманной архитектуры.</p>
+<p>Напоследок стоит сказать, что выражения, требующие указание типа, при работе с <em>dom api</em>, это неизбежность. Кроме того, для работы с методом <code class="inline-code">document.querySelector</code>, который был использован в примерах к этой главе, вместо приведения типов с помощью операторов <code class="inline-code">&#x3C;Type></code> или <code class="inline-code">as</code>, предпочтительней использовать такой механизм, как обобщения, которые рассматриваются в главе <a class="book__chapter__chapter-link" href="/book/contents/Tipy-Obobshcheniya-Generics" title="Типы - Обобщения (Generics)">Типы - Обобщения (Generics)</a>. Но в случае, если утверждение требуется для кода, написанного самим разработчиком, то скорее всего, это является следствием плохо-продуманной архитектуры.</p>
 </section><section id="Itogi" name="Итоги" class="subchapter">
             <h2 class="subchapter-title">
                 <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="Itogi" type="absolute-url">

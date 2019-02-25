@@ -161,7 +161,7 @@ TypeSystem.void = TypeSystem.null; <span class="hljs-comment">// Error</span>
 TypeSystem.void = TypeSystem.undefined; <span class="hljs-comment">// Ok</span>
 TypeSystem.void = TypeSystem.void; <span class="hljs-comment">// Ok</span></code></pre>
 <p>Кому-то может показаться, что примеры чересчур излишни. Что примеры, в которых результат вызова функции не имеющей возвращаемого значения, присваивается полям с различными типами, не имеет никакого отношения к реальности. Да это так. Но целью является научить думать как компилятор <em>TypeScript</em>.
-Когда функции в качестве возвращаемого типа указан тип <code class="inline-code">Void</code>, может показаться, что возвращая различные значения с помощью оператора return, компилятор выбрасывает  ошибки лишь потому, что он понимает что функция помечена как ничего не возвращающающая. Но это не так. Ошибка возникает по причине несовместимости типов.</p>
+Когда функции в качестве возвращаемого типа указан тип <code class="inline-code">Void</code>, может показаться, что возвращая различные значения с помощью оператора return, компилятор выбрасывает  ошибки лишь потому, что он понимает что функция помечена как ничего не возвращающая. Но это не так. Ошибка возникает по причине несовместимости типов.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">a</span>(<span class="hljs-params">  </span>): <span class="hljs-title">void</span> </span>{
   <span class="hljs-keyword">let</span> result: <span class="hljs-built_in">number</span> = <span class="hljs-number">5</span>;
 
@@ -263,7 +263,7 @@ TypeSystem.never = TypeSystem.never; <span class="hljs-comment">// Ok</span></co
             </h2>
         
 <hr>
-<p>Тип <code class="inline-code">Unknown</code> является типобезопасным аналогом типа <code class="inline-code">any</code> и представлен в виде литарала <code class="inline-code">unknown</code>. Все типы совместимы с типом <code class="inline-code">unknown</code>, в то время, как сам тип <code class="inline-code">unknown</code> совместим только с самим собой и типом <code class="inline-code">any</code>.</p>
+<p>Тип <code class="inline-code">Unknown</code> является типобезопасным аналогом типа <code class="inline-code">any</code> и представлен в виде литерала <code class="inline-code">unknown</code>. Все типы совместимы с типом <code class="inline-code">unknown</code>, в то время, как сам тип <code class="inline-code">unknown</code> совместим только с самим собой и типом <code class="inline-code">any</code>.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">class</span> TypeSystem {
 <span class="hljs-keyword">static</span> unknown: unknown;
 

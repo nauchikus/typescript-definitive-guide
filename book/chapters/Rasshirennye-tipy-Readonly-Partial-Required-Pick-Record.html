@@ -27,7 +27,7 @@
 <span class="hljs-keyword">type</span> Readonly&#x3C;T> = {
   readonly [P <span class="hljs-keyword">in</span> keyof T]: T[P];
 };</code></pre>
-<p>Применение сопоставимого типа <code class="inline-code">Readonly</code> может сократить написание кода, во всех случаях, когда нужна иммутабельность. Представьте ситуацию, когда в качестве значения выступают сериализованные из строки <em>.json</em> объекты, состоящие из одних полей, а в качестве их описания, интерфейсы (<code class="inline-code">interface</code>). Для того чтобы добится  иммутабельности придется каждому описанному полю, указывать модификатор <code class="inline-code">readonly</code>. Этой рутины можно избежать, воспользовавшись встроенным типом сопоставлением <code class="inline-code">Readonly&#x3C;T></code>.</p>
+<p>Применение сопоставимого типа <code class="inline-code">Readonly</code> может сократить написание кода, во всех случаях, когда нужна иммутабельность. Представьте ситуацию, когда в качестве значения выступают сериализованные из строки <em>.json</em> объекты, состоящие из одних полей, а в качестве их описания, интерфейсы (<code class="inline-code">interface</code>). Для того чтобы добиться иммутабельности придется каждому описанному полю, указывать модификатор <code class="inline-code">readonly</code>. Этой рутины можно избежать, воспользовавшись встроенным типом сопоставлением <code class="inline-code">Readonly&#x3C;T></code>.</p>
 <p>После указания в качестве типа <code class="inline-code">Readonly&#x3C;T></code>, поля объекта изменить будет нельзя.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">interface</span> IAnimalEntity {
   name: <span class="hljs-built_in">string</span>;
@@ -116,7 +116,7 @@ animalModel.update(newEntity); <span class="hljs-comment">// Ok</span>
 };</code></pre>
 <p>Тип сопоставления   Required<T>  является полной противоположностью типу сопоставления <code class="inline-code">Partial&#x3C;T></code>.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">let</span> v0: Partial&#x3C;IT>; <span class="hljs-comment">// { a?: number; b?: string; }, необязательные члены</span>
-<span class="hljs-keyword">let</span> v1: Required&#x3C;IT>; <span class="hljs-comment">// { a: number; b: string; }, обязательныечлены</span></code></pre>
+<span class="hljs-keyword">let</span> v1: Required&#x3C;IT>; <span class="hljs-comment">// { a: number; b: string; }, обязательные члены</span></code></pre>
 </section><section id="Pick" name="Pick" class="subchapter">
             <h2 class="subchapter-title">
                 <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="Pick" type="absolute-url">

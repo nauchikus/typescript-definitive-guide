@@ -78,7 +78,7 @@
 <span class="hljs-keyword">let</span> v2: T = <span class="hljs-function">(<span class="hljs-params"> p0, p1 </span>) =></span> {}; <span class="hljs-comment">// Error, more params</span></code></pre>
 <p>Такое поведение проще всего объяснить на примере работы с методами массива. За основу будет взят метод <code class="inline-code">forEach</code>, из библиотеки <em>TypeScript</em>.</p>
 <pre><code class="hljs language-typescript">forEach(callbackfn: <span class="hljs-function">(<span class="hljs-params">value: T, index: <span class="hljs-built_in">number</span>, array: T[]</span>) =></span> <span class="hljs-built_in">void</span>, thisArg?: <span class="hljs-built_in">any</span>): <span class="hljs-built_in">void</span>;</code></pre>
-<p>В данном случаи  нужно обратить внимание на функциональный тип первого параметра, в котором задекларировано три других параметра.</p>
+<p>В данном случае нужно обратить внимание на функциональный тип первого параметра, в котором задекларировано три других параметра.</p>
 <pre><code class="hljs language-typescript">callbackfn: <span class="hljs-function">(<span class="hljs-params">value: T, index: <span class="hljs-built_in">number</span>, array: T[]</span>) =></span> <span class="hljs-built_in">void</span></code></pre>
 <p>Если бы функциональный тип с большим числом параметров не был совместим с функциональным типом с меньшим числом параметров, то при работе с методом forEach, при необходимости только в одном, первом параметре, обязательно бы приходилось создавать callback со всеми, тремя параметрами, что привело бы к излишнему коду.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">class</span> Animal { name: <span class="hljs-built_in">string</span>; }
@@ -208,7 +208,7 @@ animalAll.forEach( <span class="hljs-function"><span class="hljs-params">value</
 
 <span class="hljs-keyword">let</span> nameAnimalAll: <span class="hljs-built_in">string</span>[ ] = [ ];
 
-animalAll.forEach( <span class="hljs-function"><span class="hljs-params">value</span> =></span> nameAnimalAll.push( value.name ) ); <span class="hljs-comment">// forEach ожидает () => void, а получает () => number, так как стрелочная функциябез тела неявно возвращает значение, возвращаемое методом push.</span></code></pre>
+animalAll.forEach( <span class="hljs-function"><span class="hljs-params">value</span> =></span> nameAnimalAll.push( value.name ) ); <span class="hljs-comment">// forEach ожидает () => void, а получает () => number, так как стрелочная функция ыбез тела неявно возвращает значение, возвращаемое методом push.</span></code></pre>
 <p>И напоследок стоит упомянуть, что две обобщенные функции считаются совместимы, если у них в аннотации возвращаемого значения указан параметр типа.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">f0</span>&#x3C;<span class="hljs-title">T</span>>(<span class="hljs-params"> p: T </span>): <span class="hljs-title">T</span> </span>{ <span class="hljs-keyword">return</span> p; }
 <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">f1</span>&#x3C;<span class="hljs-title">S</span>>(<span class="hljs-params"> p: S </span>): <span class="hljs-title">S</span> </span>{ <span class="hljs-keyword">return</span> p; }

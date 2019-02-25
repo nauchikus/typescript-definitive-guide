@@ -82,7 +82,7 @@
 
  execute( command: <span class="hljs-built_in">string</span> ): <span class="hljs-built_in">void</span> {}
 }</code></pre>
-<p>Один класс может реализовывать сколько угодно интерфейсов. В этом случаи реализуемые интерфейсы должны быть перечислены через запятую.</p>
+<p>Один класс может реализовывать сколько угодно интерфейсов. В этом случае реализуемые интерфейсы должны быть перечислены через запятую.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">interface</span> IAnimal { }
 <span class="hljs-keyword">interface</span> IOviparous { } <span class="hljs-comment">// указывает на возможность откладывать яйца</span>
 
@@ -153,7 +153,7 @@
 
 <span class="hljs-keyword">let</span> bird: IAnimal = <span class="hljs-keyword">new</span> Bird();
 <span class="hljs-keyword">let</span> raven: IAnimal = <span class="hljs-keyword">new</span> Raven();</code></pre>
-<p>Класс реализующий множество интерфейсов принадлежит к типу каждого из них. Когда экземпляр класса ( который сам по себе является типом ), реализующего интерфейс, присваивают ссылки с типом интерфейса, то говорят, что ссылку ограничивают типом интерфейса. То  есть, функционал экземпляра  класса урезается до описанного в интерфейсе (подробнее об этом речь пойдет в главе <a class="book__chapter__chapter-link" href="/book/contents/Tipizaciya-Sovmestimost-obektov" title="Типизация - Совместимость объектов">Типизация - Совместимость объектов</a> и <a class="book__chapter__chapter-link" href="/book/contents/Tipizaciya-Sovmestimost-funkcii" title="Типизация - Совместимость функций">Типизация - Совместимость функций</a>). </p>
+<p>Класс реализующий множество интерфейсов принадлежит к типу каждого из них. Когда экземпляр класса ( который сам по себе является типом ), реализующего интерфейс, присваивают ссылки с типом интерфейса, то говорят, что ссылку ограничивают типом интерфейса. То есть, функционал экземпляра класса урезается до описанного в интерфейсе (подробнее об этом речь пойдет в главе <a class="book__chapter__chapter-link" href="/book/contents/Tipizaciya-Sovmestimost-obektov" title="Типизация - Совместимость объектов">Типизация - Совместимость объектов</a> и <a class="book__chapter__chapter-link" href="/book/contents/Tipizaciya-Sovmestimost-funkcii" title="Типизация - Совместимость функций">Типизация - Совместимость функций</a>). </p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">interface</span> IAnimal {
    name: <span class="hljs-built_in">string</span>;
 }
@@ -228,7 +228,7 @@
 
 AnimalUtil.print(raven);</code></pre>
 <p>В такой программе, кроме интересов архитектора, ничего пострадать не может, так как она выполняет только одну операцию вывода информации о животном.</p>
-<p>Но если переписать программу, чтобы она выполняла несколько, не связанных логически, операций над одним типом, в данном случаи <code class="inline-code">IAnimal</code>, то ситуация изменить на противоположную.</p>
+<p>Но если переписать программу, чтобы она выполняла несколько, не связанных логически, операций над одним типом, в данном случае <code class="inline-code">IAnimal</code>, то ситуация изменить на противоположную.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">interface</span> IAnimal {<span class="hljs-comment">/*...*/</span>}
 
 <span class="hljs-keyword">class</span> Animal <span class="hljs-keyword">implements</span> IAnimal {<span class="hljs-comment">/*...*/</span>}
@@ -416,7 +416,7 @@ AnimalUtil.printAge(raven);</code></pre>
 <span class="hljs-keyword">let</span> numberAll: <span class="hljs-built_in">number</span>[ ] = [ <span class="hljs-number">5</span>, <span class="hljs-number">5</span>, <span class="hljs-number">10</span>, <span class="hljs-number">30</span> ];
 
 <span class="hljs-keyword">let</span> sum: <span class="hljs-built_in">number</span> = numberAll.reduce( callback ); <span class="hljs-comment">// 50</span></code></pre>
-<p>Но в случаи, если функциональное выражение является параметрами функции, как например метод массива <code class="inline-code">reduce</code>, то решением может служить только явная декларация типа.</p>
+<p>Но в случае, если функциональное выражение является параметрами функции, как например метод массива <code class="inline-code">reduce</code>, то решением может служить только явная декларация типа.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">class</span> Collection&#x3C;T> {
   reduce(callbackfn: <span class="hljs-function">(<span class="hljs-params">previousValue: T, currentValue: T, currentIndex: <span class="hljs-built_in">number</span>, array: T[]</span>) =></span> T, initialValue?: T): T {
       <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>;

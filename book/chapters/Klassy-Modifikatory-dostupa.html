@@ -193,7 +193,7 @@ bird.isUpdate = <span class="hljs-literal">true</span>; <span class="hljs-commen
 
 <span class="hljs-comment">// нельзя расширить класс конструктор которого имеет модификатор доступа private</span>
 <span class="hljs-keyword">class</span> AnimalStringUtil <span class="hljs-keyword">extends</span> AnimalUtil { } <span class="hljs-comment">// compilation error</span></code></pre>
-<p>Класс, в котором конструктор объявлен с модификатором доступа <code class="inline-code">protected</code>, также, как и в случаи с модификатором доступа <code class="inline-code">private</code>, не позволит создать свой экземпляр, но открыт для расширения (<code class="inline-code">extends</code>).</p>
+<p>Класс, в котором конструктор объявлен с модификатором доступа <code class="inline-code">protected</code>, также, как и в случае с модификатором доступа <code class="inline-code">private</code>, не позволит создать свой экземпляр, но открыт для расширения (<code class="inline-code">extends</code>).</p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">class</span> Animal {
   <span class="hljs-keyword">protected</span> <span class="hljs-keyword">constructor</span>(<span class="hljs-params"></span>){}
 }

@@ -35,7 +35,7 @@
 
 <span class="hljs-keyword">let</span> v1: <span class="hljs-built_in">number</span> = NumberEnum.A;
 <span class="hljs-keyword">let</span> v2: NumberEnum.A = <span class="hljs-number">0</span>;</code></pre>
-<p>На последок стоит вспомнить о совместимости объектного типа, у которого отсутствует объявленное в другом объектном типе необязательно член.</p>
+<p>Напоследок стоит вспомнить о совместимости объектного типа, у которого отсутствует объявленное в другом объектном типе необязательно член.</p>
 </section><section id="Tipizaciya-Object-Types-sovmestimost-obektov" name="Типизация (Object Types) - совместимость объектов" class="subchapter">
             <h2 class="subchapter-title">
                 <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="Tipizaciya-Object-Types-sovmestimost-obektov" type="absolute-url">
@@ -141,7 +141,7 @@
 
 <span class="hljs-keyword">let</span> v1: Bird = fish; <span class="hljs-comment">// Ok</span>
 <span class="hljs-keyword">let</span> v2: Fish = bird; <span class="hljs-comment">// Ok</span></code></pre>
-<p>Дело в том, что необязательные параметры, в объектных типах, не берутся в расчет при проверке на совместимость. Однако это правило действует только в одну сторону. Тип который содержит обязательный член несовместим с типом, у которого идентичный член является необязательным. Такое поведение логично, ведь в случаи, когда необязательный член будет отсутствовать, тип содержащий его, не будет удовлетворять условия заданные типом с обязательным членом.</p>
+<p>Дело в том, что необязательные параметры, в объектных типах, не берутся в расчет при проверке на совместимость. Однако это правило действует только в одну сторону. Тип который содержит обязательный член несовместим с типом, у которого идентичный член является необязательным. Такое поведение логично, ведь в случае, когда необязательный член будет отсутствовать, тип содержащий его, не будет удовлетворять условия заданные типом с обязательным членом.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">class</span> Bird {
 <span class="hljs-keyword">public</span> name: <span class="hljs-built_in">string</span>;
 <span class="hljs-keyword">public</span> age?: <span class="hljs-built_in">number</span>;

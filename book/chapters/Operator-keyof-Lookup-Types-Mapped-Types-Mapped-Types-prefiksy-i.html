@@ -73,7 +73,7 @@
 <span class="hljs-keyword">let</span> v4: keyof object; <span class="hljs-comment">// v4: never</span></code></pre>
 <p>Оператор <code class="inline-code">keyof</code> также может использоваться в объявлении обобщенного типа данных. Точнее, с помощью оператора <code class="inline-code">keyof</code> можно получить тип, а затем расширить его параметром типа. Важно понимать, что в качестве значения по умолчанию, может выступать только тип, совместимый с объединенным типом, полученным на основе ключей.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">f1</span>&#x3C;<span class="hljs-title">T</span>, <span class="hljs-title">U</span> <span class="hljs-title">extends</span> <span class="hljs-title">keyof</span> <span class="hljs-title">T</span> = <span class="hljs-title">keyof</span> <span class="hljs-title">T</span>>(<span class="hljs-params"></span>): <span class="hljs-title">void</span> </span>{}</code></pre>
-<p>На последок стоит упомянуть об одном не очевидном моменте. Оператор <code class="inline-code">keyof</code> можно совмещать с оператором <code class="inline-code">typeof</code> (Type Queries).</p>
+<p>Напоследок стоит упомянуть об одном не очевидном моменте. Оператор <code class="inline-code">keyof</code> можно совмещать с оператором <code class="inline-code">typeof</code> (Type Queries).</p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">class</span> Animal {
   <span class="hljs-keyword">public</span> name: <span class="hljs-built_in">string</span>;
   <span class="hljs-keyword">public</span> age: <span class="hljs-built_in">number</span>;
@@ -223,10 +223,10 @@
             </h2>
         
 <hr>
-<p>Сопоставленные типы позволяют добавлять модификаторы, но не позволяют их удалять, что в свою очередь имеет большое значение в случаи с гомоморфными типами, которые по умолчанию сохраняют модификаторы своего базового типа (гомоморфные типы будут рассмотрены в главе <a class="book__chapter__chapter-link" href="/book/contents/Rasshirennye-tipy-Readonly-Partial-Required-Pick-Record" title="Расширенные типы - Readonly, Partial, Required, Pick, Record">Расширенные типы - Readonly, Partial, Required, Pick, Record</a>). </p>
+<p>Сопоставленные типы позволяют добавлять модификаторы, но не позволяют их удалять, что в свою очередь имеет большое значение в случае с гомоморфными типами, которые по умолчанию сохраняют модификаторы своего базового типа (гомоморфные типы будут рассмотрены в главе <a class="book__chapter__chapter-link" href="/book/contents/Rasshirennye-tipy-Readonly-Partial-Required-Pick-Record" title="Расширенные типы - Readonly, Partial, Required, Pick, Record">Расширенные типы - Readonly, Partial, Required, Pick, Record</a>). </p>
 <p>Для разрешения этого, к модификаторам, в типах сопоставления, были добавлены префиксы <code class="inline-code">+</code> и <code class="inline-code">-</code>, с помощью которых указывается поведение модификатора - добавить или удалить.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">type</span> T1&#x3C;T> = { +readonly [P <span class="hljs-keyword">in</span> keyof T]+?: T[P] }; <span class="hljs-comment">// добавит указанные модификаторы</span>
-<span class="hljs-keyword">type</span> T0&#x3C;T> = { -readonly [P <span class="hljs-keyword">in</span> keyof T]-?: T[P] }; <span class="hljs-comment">// удалит указынные модификаторы</span>
+<span class="hljs-keyword">type</span> T0&#x3C;T> = { -readonly [P <span class="hljs-keyword">in</span> keyof T]-?: T[P] }; <span class="hljs-comment">// удалит указанные модификаторы</span>
 
 
 <span class="hljs-keyword">interface</span> IT { a: <span class="hljs-built_in">number</span>; b: <span class="hljs-built_in">string</span>; }

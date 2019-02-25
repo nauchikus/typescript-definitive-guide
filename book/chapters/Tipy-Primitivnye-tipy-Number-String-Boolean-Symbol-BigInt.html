@@ -44,7 +44,7 @@
             </h2>
         
 <hr>
-<p>Примитивный тип <code class="inline-code">String</code> представляет собой последовательность символов в кодировке <em>Unicode</em> <em>UTF-16</em>. Строки должны быть заключены в одинарные, двойные или обратные кавычки, последнии из которых являются инициаторами, так называемых шаблонных строк.</p>
+<p>Примитивный тип <code class="inline-code">String</code> представляет собой последовательность символов в кодировке <em>Unicode</em> <em>UTF-16</em>. Строки должны быть заключены в одинарные, двойные или обратные кавычки, последний из которых являются инициаторами, так называемых шаблонных строк.</p>
 <p>Помимо того, что в <em>TypeScript</em> существует объектный тип <code class="inline-code">String</code>, описывающий одноименный тип из <em>JavaScript</em>, также существует тип данных, который представляет примитивные значения строковых литералов, и который указывается с помощью ключевого слова <code class="inline-code">string</code>. Кроме того, тип <code class="inline-code">string</code> неявно преобразуется в тип описанный с помощью глобального интерфейса <code class="inline-code">String</code>, что делает его совместимым с ним, но не наоборот.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">let</span> v1: <span class="hljs-built_in">string</span>; <span class="hljs-comment">// v1: string explicit</span>
 <span class="hljs-keyword">let</span> v2 = <span class="hljs-string">'Bird'</span>; <span class="hljs-comment">// v2: string implicit</span>
@@ -115,7 +115,7 @@ lionCage[keeperZoo.key](); <span class="hljs-comment">// open: ...</span></code>
 <hr>
 <p><code class="inline-code">BigInt</code> примитивный числовой тип данных позволяющий работать с числами произвольной точности, позволяющий безопасно работать со значениями выходящими за пределы установленные типом <code class="inline-code">Number</code>. Примитивный тип <code class="inline-code">BigInt</code> указывается с помощью ключевого слова <code class="inline-code">bigint</code>.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">let</span> bigInt: bigint = BigInt( <span class="hljs-built_in">Number</span>.MAX_VALUE ) + BigInt( <span class="hljs-built_in">Number</span>.MAX_VALUE );</code></pre>
-<p>Но стоит заметить, что наданный момент (конец 2018 года), из-за плохой поддержки типа <code class="inline-code">BigInt</code>, <code class="inline-code">TypeScript</code> позволяет работать с ним лишь при установленной опции компилятора в значение <code class="inline-code">esnext</code>.</p>
+<p>Но стоит заметить, что на данный момент (конец 2018 года), из-за плохой поддержки типа <code class="inline-code">BigInt</code>, <code class="inline-code">TypeScript</code> позволяет работать с ним лишь при установленной опции компилятора в значение <code class="inline-code">esnext</code>.</p>
 <p>Тип <code class="inline-code">bigint</code> предназначен для аннотирования числовых значений с произвольной точность. В <em>TypeScript</em>, поведение типа <code class="inline-code">BigInt</code> идентично поведению одноименного типа в <code class="inline-code">JavaScript</code>.</p>
 </section><section id="Itog" name="Итог" class="subchapter">
             <h2 class="subchapter-title">

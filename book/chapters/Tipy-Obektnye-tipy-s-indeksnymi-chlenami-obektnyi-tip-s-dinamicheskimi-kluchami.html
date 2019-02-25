@@ -34,7 +34,7 @@
 
 
 <span class="hljs-keyword">let</span> a: A = {
-  validKeyDeclareStatic: <span class="hljs-string">'value'</span>, <span class="hljs-comment">// Ok, значениепринадлежит к string</span>
+  validKeyDeclareStatic: <span class="hljs-string">'value'</span>, <span class="hljs-comment">// Ok, значение принадлежит к string</span>
   invalidKeyDeclareStatic: <span class="hljs-number">0</span> <span class="hljs-comment">// Error, значение должно быть совместимым с типом string</span>
 };
 a.validKeyDefineDynamicKey = <span class="hljs-string">'value'</span>; <span class="hljs-comment">// Ok</span>
@@ -104,7 +104,7 @@ identifier[<span class="hljs-number">3</span>] = <span class="hljs-number">0</sp
 }</code></pre>
 <p>Правда есть один нюанс. И даже не один, а несколько нюансов. И связаны они все с модификатором <code class="inline-code">readonly</code>, который подробно рассматривается в главе <a class="book__chapter__chapter-link" href="/book/contents/Klassy-Modifikator-readonly" title="Классы - Модификатор readonly">Классы - Модификатор readonly</a>.  Чтобы ничего не ускользнуло от понимания, начнем по порядку.</p>
 <p>При  указании модификатора <code class="inline-code">readonly</code> искажается смысл использования индексной сигнатуры, так как это дает ровно противоположный эффект. Вместо объекта, с возможность инициировать значение указанного типа с динамическими ключами, после его создания, мы получаем объект, всем членам которого нельзя ничего присвоить. То есть, объект полностью закрыт для изменения.</p>
-<pre><code class="hljs language-typescript"><span class="hljs-comment">// в случаис интерфейсом</span>
+<pre><code class="hljs language-typescript"><span class="hljs-comment">// в случае с интерфейсом</span>
 
 <span class="hljs-keyword">interface</span> IIdentifier {
   readonly [key: <span class="hljs-built_in">string</span>]: <span class="hljs-built_in">string</span>; <span class="hljs-comment">// Ok, модификатор readonly</span>
@@ -114,7 +114,7 @@ identifier[<span class="hljs-number">3</span>] = <span class="hljs-number">0</sp
 
 instanceObject.a; <span class="hljs-comment">// Ok, можно объявить</span>
 instanceObject.a = <span class="hljs-string">'value'</span>; <span class="hljs-comment">// Error, но нельзя присвоить значение</span></code></pre>
-<pre><code class="hljs language-typescript"><span class="hljs-comment">// в случаи с классом</span>
+<pre><code class="hljs language-typescript"><span class="hljs-comment">// в случае с классом</span>
 
 <span class="hljs-keyword">class</span> Identifier {
   readonly [key: <span class="hljs-built_in">string</span>]: <span class="hljs-built_in">string</span>;
@@ -125,7 +125,7 @@ instanseClass.a; <span class="hljs-comment">// Ok, можно объявить</
 instanseClass.a = <span class="hljs-string">'value'</span>; <span class="hljs-comment">// Error, но нельзя присвоить значение</span></code></pre>
 <p>Но это только в теории и именно с этим связаны оставшиеся нюансы.</p>
 <p>Второй нюанс заключается в том, что когда в классе или объекте, объявлена индексная сигнатура, становится невозможным объявить в теле или добавить через точечную,а также скобочную нотацию, ключи ассоциированные с несовместимым типом данных. Это означает, что правило применимое к индексной сигнатуре распространяется на весь объект, как в момент его инициализации, так и после.</p>
-<pre><code class="hljs language-typescript"><span class="hljs-comment">// в случаис интерфейсом</span>
+<pre><code class="hljs language-typescript"><span class="hljs-comment">// в случае с интерфейсом</span>
 
 <span class="hljs-keyword">interface</span> IIdentifier {
   [key: <span class="hljs-built_in">string</span>]: <span class="hljs-built_in">string</span>;
@@ -137,7 +137,7 @@ instanseClass.a = <span class="hljs-string">'value'</span>; <span class="hljs-co
   b: <span class="hljs-number">0</span> <span class="hljs-comment">// Error, [в момент объявления] допускается объявление идентификаторов принадлежащих только типу string</span>
 };
 instanceObject.c = <span class="hljs-number">0</span>; <span class="hljs-comment">// Error, [после объявления] допускается объявление идентификаторов принадлежащих только типу string</span></code></pre>
-<pre><code class="hljs language-typescript"><span class="hljs-comment">// в случаи с классом</span>
+<pre><code class="hljs language-typescript"><span class="hljs-comment">// в случае с классом</span>
 
 <span class="hljs-keyword">class</span> Identifier {
   readonly [key: <span class="hljs-built_in">string</span>]: <span class="hljs-built_in">string</span>;
@@ -147,8 +147,8 @@ instanceObject.c = <span class="hljs-number">0</span>; <span class="hljs-comment
 
 <span class="hljs-keyword">let</span> instanseClass = <span class="hljs-keyword">new</span> Identifier();
 instanseClass.b = <span class="hljs-number">0</span>; <span class="hljs-comment">// Error, [после объявления] допускается объявление идентификаторов принадлежащих только типу string</span></code></pre>
-<p>Но в случаи с модификатором <code class="inline-code">readonly</code> поведение отличается. Несмотря на то, что указывать идентификаторы членов, принадлежащие к несовместимым типам, по прежнему нельзя, допускается их декларация и объявление.</p>
-<pre><code class="hljs language-typescript"><span class="hljs-comment">// в случаис интерфейсом</span>
+<p>Но в случае с модификатором <code class="inline-code">readonly</code> поведение отличается. Несмотря на то, что указывать идентификаторы членов, принадлежащие к несовместимым типам, по прежнему нельзя, допускается их декларация и объявление.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-comment">// в случае с интерфейсом</span>
 
 <span class="hljs-keyword">interface</span> IIdentifier {
   readonly [key: <span class="hljs-built_in">string</span>]: <span class="hljs-built_in">string</span>; <span class="hljs-comment">// Ok</span>
@@ -162,7 +162,7 @@ instanseClass.b = <span class="hljs-number">0</span>; <span class="hljs-comment"
 };
 
 instanceObject.с = <span class="hljs-string">'value'</span>; <span class="hljs-comment">// Error, ассоциировать ключа со значением после создания объекта по прежнему нельзя</span></code></pre>
-<pre><code class="hljs language-typescript"><span class="hljs-comment">// в случаи с классом</span>
+<pre><code class="hljs language-typescript"><span class="hljs-comment">// в случае с классом</span>
 
 <span class="hljs-keyword">class</span> Identifier {
   readonly [key: <span class="hljs-built_in">string</span>]: <span class="hljs-built_in">string</span>;
@@ -174,7 +174,7 @@ instanceObject.с = <span class="hljs-string">'value'</span>; <span class="hljs-
 instanseClass.b = <span class="hljs-string">'value'</span>; <span class="hljs-comment">// Error, ассоциировать ключа со значением после создания объекта по прежнему нельзя</span></code></pre>
 <p>Такая особенность или даже неочевидность, существует и о ней просто нужно знать. Кроме того, из этой особенности, берет начало другая особенность.</p>
 <p>Третий нюанс заключается в том, что значения ассоциированные с идентификаторами, которые были задекларированы в типе, можно перезаписать после инициализации объекта.</p>
-<pre><code class="hljs language-typescript"><span class="hljs-comment">// в случаис интерфейсом</span>
+<pre><code class="hljs language-typescript"><span class="hljs-comment">// в случае с интерфейсом</span>
 
 <span class="hljs-keyword">interface</span> IIdentifier {
   readonly [key: <span class="hljs-built_in">string</span>]: <span class="hljs-built_in">string</span>; <span class="hljs-comment">// Ok</span>
@@ -189,7 +189,7 @@ instanseClass.b = <span class="hljs-string">'value'</span>; <span class="hljs-co
 
 instanceObject.a = <span class="hljs-string">'new value'</span>; <span class="hljs-comment">// Ok, можно перезаписать значение</span>
 instanceObject.b = <span class="hljs-string">'new value'</span>; <span class="hljs-comment">// Error, нельзя перезаписать значение</span></code></pre>
-<pre><code class="hljs language-typescript"><span class="hljs-comment">// в случаи с классом</span>
+<pre><code class="hljs language-typescript"><span class="hljs-comment">// в случае с классом</span>
 
 <span class="hljs-keyword">class</span> Identifier {
   readonly [key: <span class="hljs-built_in">string</span>]: <span class="hljs-built_in">string</span>;

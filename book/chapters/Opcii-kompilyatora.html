@@ -277,7 +277,7 @@ React.createElement(<span class="hljs-string">"h1"</span>, <span class="hljs-lit
 exports.__esModule = <span class="hljs-literal">true</span>;
 <span class="hljs-keyword">var</span> dom = <span class="hljs-built_in">require</span>(<span class="hljs-string">"dom"</span>);
 dom[<span class="hljs-string">"default"</span>](<span class="hljs-string">"h1"</span>, <span class="hljs-literal">null</span>, <span class="hljs-string">"Ok"</span>);</code></pre>
-<p>Кроме того, подобное поведение можно добится при помощи натации <code class="inline-code">/** @jsx identifier */</code>, которая указывается в начале файла, а вместо <em>identifier</em> вписывается имя функции рендера.</p>
+<p>Кроме того, подобное поведение можно добиться при помощи нотации <code class="inline-code">/** @jsx identifier */</code>, которая указывается в начале файла, а вместо <em>identifier</em> вписывается имя функции рендера.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-comment">// from file .tsx</span>
 
 <span class="hljs-comment">/** @jsx renderer */</span>
@@ -348,7 +348,7 @@ renderer[<span class="hljs-string">"default"</span>](<span class="hljs-string">"
 <p><strong>type</strong>: <code class="inline-code">string</code>
 <strong>default</strong>: <code class="inline-code">""</code>
 <strong>values</strong>: <code class="inline-code">*</code></p>
-<p>Кроме того, при использовании механизма расширения (<code class="inline-code">extends</code>), поиск файла конфигурации <code class="inline-code">taconfig.json</code> может осуществлятся по пакетам (<code class="inline-code">packages</code>) <code class="inline-code">NodeJS</code> модулей, находящихся в директории <code class="inline-code">node_modules</code>. </p>
+<p>Кроме того, при использовании механизма расширения (<code class="inline-code">extends</code>), поиск файла конфигурации <code class="inline-code">taconfig.json</code> может осуществляться по пакетам (<code class="inline-code">packages</code>) <code class="inline-code">NodeJS</code> модулей, находящихся в директории <code class="inline-code">node_modules</code>. </p>
 <pre><code class="hljs language-typescript"><span class="hljs-comment">// tsconfig.json</span>
 
 {
@@ -369,7 +369,7 @@ renderer[<span class="hljs-string">"default"</span>](<span class="hljs-string">"
             tsconfig.json
     tsconfig.json // "extends": "some-<span class="hljs-keyword">module</span>"
 
-// в этом случаи в качестве расширяемого конфигурационного файла будет вбран файл находящийся по пути /node_modules/some-<span class="hljs-keyword">module</span>/tsconfig.custom.json</code></pre>
+// в этом случае в качестве расширяемого конфигурационного файла будет выбран файл находящийся по пути /node_modules/some-<span class="hljs-keyword">module</span>/tsconfig.custom.json</code></pre>
 <pre><code class="hljs language-typescript">/project
     /node_modules
         /some-<span class="hljs-keyword">module</span>
@@ -378,7 +378,7 @@ renderer[<span class="hljs-string">"default"</span>](<span class="hljs-string">"
             tsconfig.json
     tsconfig.json // "extends": "some-<span class="hljs-keyword">module</span>"
 
-// в этом случаи в качестве расширяемого конфигурационного файла будет вбран файл находящийся по пути /node_modules/some-<span class="hljs-keyword">module</span>/tsconfig.json</code></pre>
+// в этом случае в качестве расширяемого конфигурационного файла будет выбран файл находящийся по пути /node_modules/some-<span class="hljs-keyword">module</span>/tsconfig.json</code></pre>
 <pre><code class="hljs language-typescript">/project
     /node_modules
         /some-<span class="hljs-keyword">module</span>
@@ -387,7 +387,7 @@ renderer[<span class="hljs-string">"default"</span>](<span class="hljs-string">"
             tsconfig.json
     tsconfig.json // "extends": "some-<span class="hljs-keyword">module</span>/tsconfig.custom.json"
 
-// в этом случаи в качестве расширяемого конфигурационного файла будет вбран файл находящийся по пути /node_modules/some-<span class="hljs-keyword">module</span>/tsconfig.custom.json</code></pre>
+// в этом случае в качестве расширяемого конфигурационного файла будет вбран файл находящийся по пути /node_modules/some-<span class="hljs-keyword">module</span>/tsconfig.custom.json</code></pre>
 </section><section id="alwaysStrict" name="alwaysStrict" class="subchapter">
             <h2 class="subchapter-title">
                 <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="alwaysStrict" type="absolute-url">
@@ -1236,7 +1236,7 @@ define(<span class="hljs-string">"index"</span>, [<span class="hljs-string">"req
             </h2>
         
 <hr>
-<p><code class="inline-code">--allowSyntheticDefaultImports</code> - позволяет предотвращать ошибки, которыевозникают во время сборки, по причине несовместимости <em>SystemJS</em> и <em>CommonJS</em>. Дело в том, что в <em>ES6</em> синтаксисе, есть возможность экспорта по умолчанию (<code class="inline-code">export default</code>), после компиляции которого, <em>CommonJS</em> испытывает трудности, так как не знает, что такое <code class="inline-code">default</code>. Чаще всего проблема возникает в тех случая, когда разработка ведется с применением одних модулей, а подключаемые библиотеки используют другие.</p>
+<p><code class="inline-code">--allowSyntheticDefaultImports</code> - позволяет предотвращать ошибки, которые возникают во время сборки, по причине несовместимости <em>SystemJS</em> и <em>CommonJS</em>. Дело в том, что в <em>ES6</em> синтаксисе, есть возможность экспорта по умолчанию (<code class="inline-code">export default</code>), после компиляции которого, <em>CommonJS</em> испытывает трудности, так как не знает, что такое <code class="inline-code">default</code>. Чаще всего проблема возникает в тех случая, когда разработка ведется с применением одних модулей, а подключаемые библиотеки используют другие.</p>
 <pre><code class="hljs language-typescript">{
   <span class="hljs-string">"compilerOptions"</span>: {
       <span class="hljs-string">"allowSyntheticDefaultImports"</span>: <span class="hljs-literal">false</span>
@@ -1289,7 +1289,7 @@ define(<span class="hljs-string">"index"</span>, [<span class="hljs-string">"req
             </h2>
         
 <hr>
-<p><code class="inline-code">--allowJs</code> - в случаи, когда код, одна часть которого написана на <em>TypeScript</em>, а другая на <em>JavaScript</em>, требуется собрать в общий файл, достаточно активировать текущую опцию.</p>
+<p><code class="inline-code">--allowJs</code> - в случае, когда код, одна часть которого написана на <em>TypeScript</em>, а другая на <em>JavaScript</em>, требуется собрать в общий файл, достаточно активировать текущую опцию.</p>
 <pre><code class="hljs language-typescript">{
   <span class="hljs-string">"compilerOptions"</span>: {
       <span class="hljs-string">"allowJs"</span>: <span class="hljs-literal">false</span>
@@ -1827,7 +1827,7 @@ tsc -h</code></pre>
             </h2>
         
 <hr>
-<p><code class="inline-code">--maxNodeModuleJsDepth</code> - максимальная лубина поиска зависимостей в <em>node_modules</em> и загрузки файлов <em>.js</em>. Работает только с активной опцией <code class="inline-code">--allowJs</code>.</p>
+<p><code class="inline-code">--maxNodeModuleJsDepth</code> - максимальная глубина поиска зависимостей в <em>node_modules</em> и загрузки файлов <em>.js</em>. Работает только с активной опцией <code class="inline-code">--allowJs</code>.</p>
 <pre><code class="hljs language-typescript">{
   <span class="hljs-string">"compilerOptions"</span>: {
       <span class="hljs-string">"maxNodeModuleJsDepth"</span>: <span class="hljs-number">0</span>
@@ -1925,7 +1925,7 @@ tsc -w</code></pre>
             </h2>
         
 <hr>
-<p><code class="inline-code">--strictFunctionTypes</code> - при активной  опции, параметры функций начинают сравниваться по контрвариантным правилам, в то время, как при не активной опции, сравнения производятся по бивариантным правилам.</p>
+<p><code class="inline-code">--strictFunctionTypes</code> - при активной опции, параметры функций начинают сравниваться по контрвариантным правилам, в то время, как при не активной опции, сравнения производятся по бивариантным правилам.</p>
 <pre><code class="hljs language-typescript">{
   <span class="hljs-string">"compilerOptions"</span>: {
       <span class="hljs-string">"strictFunctionTypes"</span>: <span class="hljs-literal">false</span>
@@ -2101,7 +2101,7 @@ config.name = <span class="hljs-number">0</span>; <span class="hljs-comment">// 
             </h2>
         
 <hr>
-<p><code class="inline-code">--strictBindCallApply</code> - текущий флаг, входящий в групперовку <code class="inline-code">--strict</code>, активирует проверку вызова таких методов, как <code class="inline-code">apply</code>, <code class="inline-code">call</code> и <code class="inline-code">bind</code>. Это стало возможным благодаря добавлению двух новых типов <code class="inline-code">CallableFunction</code> и <code class="inline-code">NewableFunction</code>, которые содержат обобщенное описание методов <code class="inline-code">apply</code>, <code class="inline-code">call</code> и <code class="inline-code">bind</code>, как для обычных aeyrwbq, так и для функций конструкторов соответственно.</p>
+<p><code class="inline-code">--strictBindCallApply</code> - текущий флаг, входящий в группировку <code class="inline-code">--strict</code>, активирует проверку вызова таких методов, как <code class="inline-code">apply</code>, <code class="inline-code">call</code> и <code class="inline-code">bind</code>. Это стало возможным благодаря добавлению двух новых типов <code class="inline-code">CallableFunction</code> и <code class="inline-code">NewableFunction</code>, которые содержат обобщенное описание методов <code class="inline-code">apply</code>, <code class="inline-code">call</code> и <code class="inline-code">bind</code>, как для обычных функций, так и для функций конструкторов соответственно.</p>
 <pre><code class="hljs language-typescript">{
   <span class="hljs-string">"compilerOptions"</span>: {
       <span class="hljs-string">"strictBindCallApply"</span>: <span class="hljs-literal">false</span>
@@ -2138,7 +2138,7 @@ f.bind(<span class="hljs-literal">null</span>, <span class="hljs-number">0</span
             </h2>
         
 <hr>
-<p><code class="inline-code">--showConfig</code> - при активном текущем флаге, компилятор <code class="inline-code">tsc</code> во время компиляции, вывидет в консоль содержимое конфигурационного файла <code class="inline-code">tsconfig.json</code> разрешенного с учетом механизма расширения (<code class="inline-code">extends</code>), если таковой механизм имеет место быть. Этот функционал может быть очень полезным при отладке.</p>
+<p><code class="inline-code">--showConfig</code> - при активном текущем флаге, компилятор <code class="inline-code">tsc</code> во время компиляции, выведет в консоль содержимое конфигурационного файла <code class="inline-code">tsconfig.json</code> разрешенного с учетом механизма расширения (<code class="inline-code">extends</code>), если таковой механизм имеет место быть. Этот функционал может быть очень полезным при отладке.</p>
 <pre><code class="hljs language-typescript">{
   <span class="hljs-string">"compilerOptions"</span>: {
       <span class="hljs-string">"showConfig"</span>: <span class="hljs-literal">false</span>
@@ -2158,7 +2158,7 @@ f.bind(<span class="hljs-literal">null</span>, <span class="hljs-number">0</span
             </h2>
         
 <hr>
-<p><code class="inline-code">--build</code> - данный флаг указывает компилятору <code class="inline-code">tsc</code> что проект нужно собирать как проект использующий ссылки на другие проекты. Подробнее об этом можно узнать из главы <a class="book__chapter__chapter-link" href="/book/contents/Sboraka-s-ispolzovaniem-ssylok-na-proekty" title="Сборака с использованием ссылок на проекты">Сборака с использованием ссылок на проекты</a>. Также, флаг <code class="inline-code">--build</code> может использоваться в сочетании с специфичными только для него такими флагами как <code class="inline-code">--verbose</code>, <code class="inline-code">--dry</code>, <code class="inline-code">--clean</code>, <code class="inline-code">--force</code>, а также с флагом <code class="inline-code">--watch</code>.</p>
+<p><code class="inline-code">--build</code> - данный флаг указывает компилятору <code class="inline-code">tsc</code> что проект нужно собирать как проект использующий ссылки на другие проекты. Подробнее об этом можно узнать из главы <a class="book__chapter__chapter-link" href="/book/contents/Sborka-s-ispolzovaniem-ssylok-na-proekty" title="Сборка с использованием ссылок на проекты">Сборка с использованием ссылок на проекты</a>. Также, флаг <code class="inline-code">--build</code> может использоваться в сочетании с специфичными только для него такими флагами как <code class="inline-code">--verbose</code>, <code class="inline-code">--dry</code>, <code class="inline-code">--clean</code>, <code class="inline-code">--force</code>, а также с флагом <code class="inline-code">--watch</code>.</p>
 <p><strong>type</strong>: <code class="inline-code">string</code>
 <strong>default</strong>: <code class="inline-code"></code>
 <strong>values</strong>: <code class="inline-code">paths to tsconfig.json or dir with tsconfig.json</code></p>

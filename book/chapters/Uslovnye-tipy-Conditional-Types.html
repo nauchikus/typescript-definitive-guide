@@ -136,13 +136,13 @@
 <span class="hljs-comment">// так видит компилятор</span>
 
 <span class="hljs-keyword">type</span> T0&#x3C;T> =
-  <span class="hljs-comment">// получаем первый тип составляющий union тип ( в данном  случаи number ) и начинаем подставлять его на место T</span>
+  <span class="hljs-comment">// получаем первый тип составляющий union тип ( в данном случае number ) и начинаем подставлять его на место T</span>
 
   <span class="hljs-built_in">number</span> <span class="hljs-keyword">extends</span> <span class="hljs-built_in">number</span> ? <span class="hljs-string">"numeric"</span> : <span class="hljs-comment">// number соответствует number? Да! Определяем "numeric"</span>
   T <span class="hljs-keyword">extends</span> <span class="hljs-built_in">string</span> ? <span class="hljs-string">"text"</span> :
   <span class="hljs-string">"other"</span>
 
-  | <span class="hljs-comment">// законцили определять один тип, приступаемк другому, в данном случаи string</span>
+  | <span class="hljs-comment">// закончили определять один тип, приступаем к другому, в данном случае string</span>
 
   <span class="hljs-built_in">string</span> <span class="hljs-keyword">extends</span> <span class="hljs-built_in">number</span> ? <span class="hljs-string">"numeric"</span> : <span class="hljs-comment">// string соответствует number? Нет! Продолжаем.</span>
   <span class="hljs-built_in">string</span> <span class="hljs-keyword">extends</span> <span class="hljs-built_in">string</span> ? <span class="hljs-string">"text"</span> : <span class="hljs-comment">// string соответствует string? Да! Определяем "text".</span>
@@ -164,7 +164,7 @@
 <p>Это очень простой механизм, который проще сразу рассмотреть на примере.</p>
 <p>Предположим, что нужно установить, к какому типу принадлежит единственный параметр функции. </p>
 <pre><code class="hljs language-typescript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">f</span>(<span class="hljs-params"> param: <span class="hljs-built_in">string</span></span>): <span class="hljs-title">void</span> </span>{}</code></pre>
-<p>Для этого нужно создать условный тип, в условии которого, происходит проверка напренадлежность к типу-функции. Кроме того, единственный параметр, вместо конкретного типа, в аннотации будет содержать объявление переменной типа.</p>
+<p>Для этого нужно создать условный тип, в условии которого, происходит проверка на принадлежность к типу-функции. Кроме того, единственный параметр, вместо конкретного типа, в аннотации будет содержать объявление переменной типа.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">type</span> ParamType&#x3C;T> = T <span class="hljs-keyword">extends</span> ( p: infer U ) => <span class="hljs-built_in">void</span> ? U : <span class="hljs-literal">undefined</span>;
 
 <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">f0</span>(<span class="hljs-params"> param: <span class="hljs-built_in">number</span></span>): <span class="hljs-title">void</span> </span>{}

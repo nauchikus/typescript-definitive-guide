@@ -174,7 +174,7 @@
 <span class="hljs-keyword">let</span> v0 = <span class="hljs-literal">false</span> ? <span class="hljs-keyword">new</span> A() : <span class="hljs-keyword">new</span> B();  <span class="hljs-comment">// let v0: A</span>
 <span class="hljs-keyword">let</span> v1 = <span class="hljs-literal">false</span> ? <span class="hljs-keyword">new</span> B() : <span class="hljs-keyword">new</span> C();  <span class="hljs-comment">// let v1: B | C</span>
 <span class="hljs-keyword">let</span> v2 = <span class="hljs-literal">false</span> ? <span class="hljs-keyword">new</span> C() : <span class="hljs-keyword">new</span> D();  <span class="hljs-comment">// let v2: C | D</span></code></pre>
-<p>Так как результат выражения, расположенного в блоке тернарного опретора условие, вычисляется на этапе выполнения, вывод типов не может знать его результата на этапе компиляции. Поэтому, чтобы не нарушить типобезопасность, он вынужден указывать объединенный тип определяемый всеми блоками выражение.</p>
+<p>Так как результат выражения, расположенного в блоке тернарного оператора условие, вычисляется на этапе выполнения, вывод типов не может знать его результата на этапе компиляции. Поэтому, чтобы не нарушить типобезопасность, он вынужден указывать объединенный тип определяемый всеми блоками выражение.</p>
 </section><section id="Vyvod-tipov-kortej-Tuple" name="Вывод типов кортеж (Tuple)" class="subchapter">
             <h2 class="subchapter-title">
                 <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="Vyvod-tipov-kortej-Tuple" type="absolute-url">
