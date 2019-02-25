@@ -93,10 +93,10 @@ new Bird()
 
 ~~~~~typescript
 class Animal {
-public animalAll: this[] = []; // массив с типом полиморфным типо this
+public animalAll: this[] = []; // массив с полиморфным типом this
 
 constructor() {
-  this.add(new Animal()); // Error, так как наданном этапе не известно ккакому типубудет принадлежать полиморфный тип this
+  this.add(new Animal()); // Error, так как на данном этапе не известно к какому типу будет принадлежать полиморфный тип this
   this.add(this); // Ok
 }
 
