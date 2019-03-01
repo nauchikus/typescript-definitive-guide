@@ -321,11 +321,11 @@ birdCollection.add( <span class="hljs-keyword">new</span> Bird( <span class="hlj
 
 <span class="hljs-keyword">let</span> raven: Bird = birdCollection.getItemByName( <span class="hljs-string">'raven'</span> ); <span class="hljs-comment">// Ok</span>
 
-<span class="hljs-keyword">let</span> fishCollection: Collection&#x3C;Bird> = <span class="hljs-keyword">new</span> Collection();
-fishCollection.add( <span class="hljs-keyword">new</span> Bird( <span class="hljs-string">'shark'</span> ) );
-fishCollection.add( <span class="hljs-keyword">new</span> Bird( <span class="hljs-string">'barracuda'</span> ) );
+<span class="hljs-keyword">let</span> fishCollection: Collection&#x3C;Fish> = <span class="hljs-keyword">new</span> Collection();
+fishCollection.add( <span class="hljs-keyword">new</span> Fish( <span class="hljs-string">'shark'</span> ) );
+fishCollection.add( <span class="hljs-keyword">new</span> Fish( <span class="hljs-string">'barracuda'</span> ) );
 
-<span class="hljs-keyword">let</span> shark: Bird = fishCollection.getItemByName( <span class="hljs-string">'shark'</span> ); <span class="hljs-comment">// Ok</span></code></pre>
+<span class="hljs-keyword">let</span> shark: Fish = fishCollection.getItemByName( <span class="hljs-string">'shark'</span> ); <span class="hljs-comment">// Ok</span></code></pre>
 <p>Для того чтобы избежать повторения материала и его своевременную подачу, пример, когда параметр типа расширяет другой параметр типа, будет рассмотрен немного позднее.</p>
 <p>Также не лишним будет заметить, что когда параметр типа расширяет другой тип, то в качестве аргумента типа, можно будет передать только совместимый с ним тип.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">interface</span> Bird { fly(): <span class="hljs-built_in">void</span>; }
