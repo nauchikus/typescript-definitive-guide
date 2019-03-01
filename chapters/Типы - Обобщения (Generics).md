@@ -399,11 +399,11 @@ birdCollection.add( new Bird( 'owl' ) );
 
 let raven: Bird = birdCollection.getItemByName( 'raven' ); // Ok
 
-let fishCollection: Collection<Bird> = new Collection();
-fishCollection.add( new Bird( 'shark' ) );
-fishCollection.add( new Bird( 'barracuda' ) );
+let fishCollection: Collection<Fish> = new Collection();
+fishCollection.add( new Fish( 'shark' ) );
+fishCollection.add( new Fish( 'barracuda' ) );
 
-let shark: Bird = fishCollection.getItemByName( 'shark' ); // Ok
+let shark: Fish = fishCollection.getItemByName( 'shark' ); // Ok
 ~~~~~
 
 Для того чтобы избежать повторения материала и его своевременную подачу, пример, когда параметр типа расширяет другой параметр типа, будет рассмотрен немного позднее.
