@@ -69,7 +69,7 @@
 <span class="hljs-keyword">let</span> v3:T1&#x3C;IRaven>; <span class="hljs-comment">// let v3: "raven"</span>
 <span class="hljs-keyword">let</span> v4: T1&#x3C;IBird>; <span class="hljs-comment">// let v4: "raven"</span>
 <span class="hljs-keyword">let</span> v5: T1&#x3C;IAnimal>; <span class="hljs-comment">// let v5: "animal"</span></code></pre>
-<p>Если в качестве аргумента условного типа выступает тип объединение (<code class="inline-code">Union</code>, глава <a class="book__chapter__chapter-link" href="/book/contents/Tipy-Union-Intersection" title="Типы - Union, Intersection">Типы - Union, Intersection</a>), то условия будут выполняться для каждого типа составляющего объединенный тип.</p>
+<p>Если в качестве аргумента условного типа выступает тип объединение (<code class="inline-code">Union</code>, глава <a class="book__chapter__chapter-link" href="/book/contents/Tipy-Union-Intersection" title="Типы - Union, Intersection" target="_blank">Типы - Union, Intersection</a>), то условия будут выполняться для каждого типа составляющего объединенный тип.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">interface</span> IAnimal { <span class="hljs-keyword">type</span>: <span class="hljs-built_in">string</span>; }
 <span class="hljs-keyword">interface</span> IBird <span class="hljs-keyword">extends</span> IAnimal { fly():<span class="hljs-built_in">void</span>; }
 <span class="hljs-keyword">interface</span> IRaven <span class="hljs-keyword">extends</span> IBird {}
@@ -114,7 +114,7 @@
             </h2>
         
 <hr>
-<p>Условные типы, которым, в качестве аргумента типа, устанавливается объединенный тип (<code class="inline-code">Union Type</code>, глава <a class="book__chapter__chapter-link" href="/book/contents/Tipy-Union-Intersection" title="Типы - Union, Intersection">Типы - Union, Intersection</a>), называются <em>распределительные условные типы</em> (<code class="inline-code">Distributive Conditional Types</code>). Называются они так потому, что каждый тип, составляющий объединенный тип, будет распределен таким образом, чтобы выражение условного типа было выполнено для каждого. Это, в свою очередь, также может определить условный тип, как тип объединение.</p>
+<p>Условные типы, которым, в качестве аргумента типа, устанавливается объединенный тип (<code class="inline-code">Union Type</code>, глава <a class="book__chapter__chapter-link" href="/book/contents/Tipy-Union-Intersection" title="Типы - Union, Intersection" target="_blank">Типы - Union, Intersection</a>), называются <em>распределительные условные типы</em> (<code class="inline-code">Distributive Conditional Types</code>). Называются они так потому, что каждый тип, составляющий объединенный тип, будет распределен таким образом, чтобы выражение условного типа было выполнено для каждого. Это, в свою очередь, также может определить условный тип, как тип объединение.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">type</span> T0&#x3C;T> =
   T <span class="hljs-keyword">extends</span> <span class="hljs-built_in">number</span> ? <span class="hljs-string">"numeric"</span> :
   T <span class="hljs-keyword">extends</span> <span class="hljs-built_in">string</span> ? <span class="hljs-string">"text"</span> :

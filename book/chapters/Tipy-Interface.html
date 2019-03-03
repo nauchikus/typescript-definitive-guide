@@ -153,7 +153,7 @@
 
 <span class="hljs-keyword">let</span> bird: IAnimal = <span class="hljs-keyword">new</span> Bird();
 <span class="hljs-keyword">let</span> raven: IAnimal = <span class="hljs-keyword">new</span> Raven();</code></pre>
-<p>Класс реализующий множество интерфейсов принадлежит к типу каждого из них. Когда экземпляр класса ( который сам по себе является типом ), реализующего интерфейс, присваивают ссылки с типом интерфейса, то говорят, что ссылку ограничивают типом интерфейса. То есть, функционал экземпляра класса урезается до описанного в интерфейсе (подробнее об этом речь пойдет в главе <a class="book__chapter__chapter-link" href="/book/contents/Tipizaciya-Sovmestimost-obektov" title="Типизация - Совместимость объектов">Типизация - Совместимость объектов</a> и <a class="book__chapter__chapter-link" href="/book/contents/Tipizaciya-Sovmestimost-funkcii" title="Типизация - Совместимость функций">Типизация - Совместимость функций</a>). </p>
+<p>Класс реализующий множество интерфейсов принадлежит к типу каждого из них. Когда экземпляр класса ( который сам по себе является типом ), реализующего интерфейс, присваивают ссылки с типом интерфейса, то говорят, что ссылку ограничивают типом интерфейса. То есть, функционал экземпляра класса урезается до описанного в интерфейсе (подробнее об этом речь пойдет в главе <a class="book__chapter__chapter-link" href="/book/contents/Tipizaciya-Sovmestimost-obektov" title="Типизация - Совместимость объектов" target="_blank">Типизация - Совместимость объектов</a> и <a class="book__chapter__chapter-link" href="/book/contents/Tipizaciya-Sovmestimost-funkcii" title="Типизация - Совместимость функций" target="_blank">Типизация - Совместимость функций</a>). </p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">interface</span> IAnimal {
    name: <span class="hljs-built_in">string</span>;
 }
@@ -176,7 +176,7 @@
 
 <span class="hljs-keyword">var</span> animal: IAnimal = <span class="hljs-keyword">new</span> Bird( <span class="hljs-string">'bird'</span> ); <span class="hljs-comment">// принадлежит к типу IAnimal</span>
 <span class="hljs-keyword">var</span> fly: IFlyable = <span class="hljs-keyword">new</span> Bird( <span class="hljs-string">'bird'</span> ); <span class="hljs-comment">// принадлежит к типу IFlyable</span></code></pre>
-<p>Несмотря на то, что интерфейс является синтаксической конструкцией и может указываться в качестве типа, после компиляции от него не остается и следа. Это в свою очередь означает, что интерфейс, как тип данных, может использоваться только на этапе компиляции. Другими словами, компилятор сможет предупредить об ошибки несоответствия объекта описанному интерфейсу, но проверить на принадлежность к типу интерфейса, с помощью таких операторов, как <code class="inline-code">typeof</code> или <code class="inline-code">instanceof</code>,  во время выполнения, не получится. Но в <em>TypeScript</em> существует механизм (который будет рассмотрен далее в главе <a class="book__chapter__chapter-link" href="/book/contents/Tipizaciya-Zashchitniki-tipa" title="Типизация - Защитники типа">Типизация - Защитники типа</a> ) позволяющий в некоторой мере, решить эту проблему.</p>
+<p>Несмотря на то, что интерфейс является синтаксической конструкцией и может указываться в качестве типа, после компиляции от него не остается и следа. Это в свою очередь означает, что интерфейс, как тип данных, может использоваться только на этапе компиляции. Другими словами, компилятор сможет предупредить об ошибки несоответствия объекта описанному интерфейсу, но проверить на принадлежность к типу интерфейса, с помощью таких операторов, как <code class="inline-code">typeof</code> или <code class="inline-code">instanceof</code>,  во время выполнения, не получится. Но в <em>TypeScript</em> существует механизм (который будет рассмотрен далее в главе <a class="book__chapter__chapter-link" href="/book/contents/Tipizaciya-Zashchitniki-tipa" title="Типизация - Защитники типа" target="_blank">Типизация - Защитники типа</a> ) позволяющий в некоторой мере, решить эту проблему.</p>
 </section><section id="Rasshirenie-interfeisov-extends-interface" name="Расширение интерфейсов (extends interface)" class="subchapter">
             <h2 class="subchapter-title">
                 <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="Rasshirenie-interfeisov-extends-interface" type="absolute-url">
@@ -422,7 +422,7 @@ AnimalUtil.printAge(raven);</code></pre>
       <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>;
   }
 }</code></pre>
-<p>Поэтому тогда, когда необходимо указать тип явно, помимо рассмотренного в главе <a class="book__chapter__chapter-link" href="/book/contents/Tipy-Type-Queries-zaprosy-tipa-Alias-psevdonimy-tipa" title="Типы - Type Queries (запросы типа), Alias (псевдонимы типа)">Типы - Type Queries (запросы типа), Alias (псевдонимы типа)</a> механизма создания псевдонимов типа (<code class="inline-code">type</code>), можно описать функциональное выражение с помощью интерфейса.</p>
+<p>Поэтому тогда, когда необходимо указать тип явно, помимо рассмотренного в главе <a class="book__chapter__chapter-link" href="/book/contents/Tipy-Type-Queries-zaprosy-tipa-Alias-psevdonimy-tipa" title="Типы - Type Queries (запросы типа), Alias (псевдонимы типа)" target="_blank">Типы - Type Queries (запросы типа), Alias (псевдонимы типа)</a> механизма создания псевдонимов типа (<code class="inline-code">type</code>), можно описать функциональное выражение с помощью интерфейса.</p>
 <p>Для этого в теле интерфейса декларируется сигнатура функции без указания идентификатора.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">interface</span> ISumAll {
  ( ...valueAll: <span class="hljs-built_in">number</span>[ ] ): <span class="hljs-built_in">number</span>;
@@ -446,7 +446,7 @@ AnimalUtil.printAge(raven);</code></pre>
             </h2>
         
 <hr>
-<p>Индексные члены подробно будут рассматриваться в главе <a class="book__chapter__chapter-link" href="/book/contents/Tipy-Obektnye-tipy-s-indeksnymi-chlenami-obektnyi-tip-s-dinamicheskimi-kluchami" title="Типы - Объектные типы с индексными членами (объектный тип с динамическими ключами)">Типы - Объектные типы с индексными членами (объектный тип с динамическими ключами)</a>, но не будет лишним и здесь просто указать способ их декларации в типе интерфейсе.</p>
+<p>Индексные члены подробно будут рассматриваться в главе <a class="book__chapter__chapter-link" href="/book/contents/Tipy-Obektnye-tipy-s-indeksnymi-chlenami-obektnyi-tip-s-dinamicheskimi-kluchami" title="Типы - Объектные типы с индексными членами (объектный тип с динамическими ключами)" target="_blank">Типы - Объектные типы с индексными членами (объектный тип с динамическими ключами)</a>, но не будет лишним и здесь просто указать способ их декларации в типе интерфейсе.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">interface</span> IIndentifier  {
   [ BindingIdentifier: <span class="hljs-built_in">string</span> ]: Type;
   [ BindingIdentifier: <span class="hljs-built_in">number</span> ]: Type;
@@ -465,7 +465,7 @@ AnimalUtil.printAge(raven);</code></pre>
 <p>Помимо описания объекта, в конструкции объявляемой с помощью ключевого слова <code class="inline-code">interface</code>, тип объекта можно описать прямо в месте указания типа. Такой способ объявления типа данных, неформально называют <em>инлайн интерфейс</em> (inline interface). Всё ранее описанное для типов определяемых интерфейсами, полностью верно для типов определяемых инлайн интерфейсами.</p>
 <p>Различие между обычным интерфейсом и инлайн интерфейсом в том, что второй имеет только тело и объявляется прямо в аннотации типа.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">let</span> identifier: { p1: <span class="hljs-keyword">type</span>, p2: <span class="hljs-keyword">type</span> };</code></pre>
-<p>Интерфейс, объявленный с помощью  ключевого слова <code class="inline-code">interface</code> считается идентичным инлайн интерфейсу, если их описание совпадает. Но стоит обратить внимание, что это возможно благодаря структурной типизации, которая рассматривается в главе <a class="book__chapter__chapter-link" href="/book/contents/Ekskurs-v-tipizaciu-Sovmestimost-tipov-na-osnove-vida-tipizacii" title="Экскурс в типизацию - Совместимость типов на основе вида типизации">Экскурс в типизацию - Совместимость типов на основе вида типизации</a>.</p>
+<p>Интерфейс, объявленный с помощью  ключевого слова <code class="inline-code">interface</code> считается идентичным инлайн интерфейсу, если их описание совпадает. Но стоит обратить внимание, что это возможно благодаря структурной типизации, которая рассматривается в главе <a class="book__chapter__chapter-link" href="/book/contents/Ekskurs-v-tipizaciu-Sovmestimost-tipov-na-osnove-vida-tipizacii" title="Экскурс в типизацию - Совместимость типов на основе вида типизации" target="_blank">Экскурс в типизацию - Совместимость типов на основе вида типизации</a>.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">interface</span> IAnimal {
   nickname: <span class="hljs-built_in">string</span>;
 }
@@ -491,7 +491,7 @@ AnimalUtil.printAge(raven);</code></pre>
 <span class="hljs-keyword">class</span> T4 <span class="hljs-keyword">implements</span> { f1: T1, f2: T2 } { <span class="hljs-comment">// Error</span>
 
 }</code></pre>
-<p>Хотя последнее утверждение и не совсем верно. В дальнейшем будет рассказано о такой замечательной конструкции, как обобщения (глава <a class="book__chapter__chapter-link" href="/book/contents/Tipy-Obobshcheniya-Generics" title="Типы - Обобщения (Generics)">Типы - Обобщения (Generics)</a>), в которых, как раз таки возможно расширять (<code class="inline-code">extends</code>) инлайн интерфейсы.</p>
+<p>Хотя последнее утверждение и не совсем верно. В дальнейшем будет рассказано о такой замечательной конструкции, как обобщения (глава <a class="book__chapter__chapter-link" href="/book/contents/Tipy-Obobshcheniya-Generics" title="Типы - Обобщения (Generics)" target="_blank">Типы - Обобщения (Generics)</a>), в которых, как раз таки возможно расширять (<code class="inline-code">extends</code>) инлайн интерфейсы.</p>
 </section><section id="Sliyanie-interfeisov" name="Слияние интерфейсов" class="subchapter">
             <h2 class="subchapter-title">
                 <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="Sliyanie-interfeisov" type="absolute-url">
