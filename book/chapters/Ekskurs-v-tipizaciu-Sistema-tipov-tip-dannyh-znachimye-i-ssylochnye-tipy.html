@@ -1,0 +1,89 @@
+<section id="Ekskurs-v-tipizaciu-Sistema-Tipov-Tip-Dannyh-Znachimye-Ssylochnye-Tipy" name="Экскурс в типизацию - Система Типов, Тип Данных, Значимые\Ссылочные Типы" class="subchapter">
+            <h2 class="subchapter-title">
+                <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="Ekskurs-v-tipizaciu-Sistema-Tipov-Tip-Dannyh-Znachimye-Ssylochnye-Tipy" type="absolute-url">
+                    <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <use href="#icon_link"/>
+                    </svg>
+                </button>
+                Экскурс в типизацию - Система Типов, Тип Данных, Значимые\Ссылочные Типы
+            </h2>
+        
+<hr>
+<p>В зависимости от среды выполнения, операции над данными могут быть ограничены некими правилами. Для каждого конкретного вида данных декларируются конкретные правила. В роли конкретного свода правил выступает тип данных.</p>
+<p>Среда выполнения, в которой отсутствует классификация данных и ограничения на операции над ними, не имеет типов. Поэтому такую среду выполнения справедливо называть не типизированной. И наоборот, среду выполнения, которая классифицирует данные и операции над ними, справедливо называть типизированной.</p>
+<p>В основе любой типизированной среды выполнения, лежит такое фундаментальное понятие, как система типов. Сложно сформулировать исчерпывающие определение термину система типов, затронув все аспекты, все значения, которые вкладывают в этот термин разработчики из различных областей.</p>
+</section><section id="Sistema-Tipov" name="Система Типов" class="subchapter">
+            <h2 class="subchapter-title">
+                <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="Sistema-Tipov" type="absolute-url">
+                    <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <use href="#icon_link"/>
+                    </svg>
+                </button>
+                Система Типов
+            </h2>
+        
+<hr>
+<p><em>Система Типов</em> - это совокупность правил, назначающих свойства, называемые типами, различным конструкциям, составляющим программу. Обычно, к конструкциям нуждающихся в аннотации типов, относятся - переменные, поля и свойства объекта, а также параметры и возвращаемое функцией значение.</p>
+<p>В основе системы типов любого языка программирования всегда лежит базисная система типов встроенных в язык. К базисным или встроенным типам данных, относятся такие типы, как - <code class="inline-code">byte</code>, <code class="inline-code">int</code>, <code class="inline-code">string</code>, <code class="inline-code">boolean</code>, <code class="inline-code">object</code> и им подобные. На основе этих типов, среда выполнения, а также разработчик определяют типы данных более высокого уровня - <code class="inline-code">Date</code>, <code class="inline-code">Array</code> и т.д.</p>
+</section><section id="Tip-dannyh-tip" name="Тип данных (тип)" class="subchapter">
+            <h2 class="subchapter-title">
+                <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="Tip-dannyh-tip" type="absolute-url">
+                    <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <use href="#icon_link"/>
+                    </svg>
+                </button>
+                Тип данных (тип)
+            </h2>
+        
+<hr>
+<p>Понятие <em>тип данных</em> является фундаментальным понятием теории программирования. Тип данных (или просто тип) - это характеристика данных, которая определяет множество значений и операций, которые могут быть выполнены над этими данными.</p>
+<p>Простыми словами, тип данных, в зависимости от языка программирования, может хранить информацию о членах, к которым относятся поля, свойства.  методы и д.р. О том, в каком месте, в <em>стеке</em> (stack) или <em>куче</em> (heap) будет выделятся память во время выполнения программы, а также её объем. В каких операциях (как например сложение <code class="inline-code">+</code>, умножение <code class="inline-code">*</code>, присваивание = и т.д.)  может участвовать тип данных.</p>
+<p>Типы Данных делятся на два вида - <em>типы значения</em> (его ещё называют <em>значимым типом</em>) (value type), которые хранят значение и <em>ссылочные типы</em> (reference types), которые хранят ссылку на значение.</p>
+<p>При операции присваивания значения, принадлежащего к значимому типу, данные копируются-дублируются в памяти. При операции присваивания значения принадлежащему к ссылочным типам, копируется лишь ссылка на данные.</p>
+</section><section id="Tip-dannyh-peredaushchiisya-po-znacheniu-primitivnyi-tip" name="Тип данных передающийся по значению (примитивный тип)" class="subchapter">
+            <h2 class="subchapter-title">
+                <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="Tip-dannyh-peredaushchiisya-po-znacheniu-primitivnyi-tip" type="absolute-url">
+                    <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <use href="#icon_link"/>
+                    </svg>
+                </button>
+                Тип данных передающийся по значению (примитивный тип)
+            </h2>
+        
+<hr>
+<p>Когда переменная, ассоциированная со значением, принадлежащим к значимому типу данных, участвует в операции присвоения, то операнд из левой части будет ассоциирован не с значением правого операнда, а с его копией. Другими словами, значение будет дублировано в памяти и переменные будут ассоциированы с разными значениями - участками памяти. При изменении любой переменной своего значения, значения других переменных затронуто не будет.</p>
+<p><img src="/typescript-definitive-guide/book/images/type-system/type-conversion-value-type.png" class="book__image">  </p>
+<p>Обычно говорят, что переменные с типом значения хранят значение и передаются по значению.</p>
+</section><section id="Tip-dannyh-peredaushchiisya-po-ssylke" name="Тип данных передающийся по ссылке" class="subchapter">
+            <h2 class="subchapter-title">
+                <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="Tip-dannyh-peredaushchiisya-po-ssylke" type="absolute-url">
+                    <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <use href="#icon_link"/>
+                    </svg>
+                </button>
+                Тип данных передающийся по ссылке
+            </h2>
+        
+<hr>
+<p>В случае, когда переменная, ассоциированная с ссылочным типом данных, участвует в операции присваивания, то операнду из левой части будет присвоена ссылка на значение, с которым ассоциирован операнд из правой части. Другими словами обе переменные будут ассоциированы с одним и тем же значением - участком памяти. При изменении значения любой переменной, изменения затронут все переменные ассоциированные с этим значением.</p>
+<p><img src="/typescript-definitive-guide/book/images/type-system/type-conversion-ref-type.png" class="book__image"> </p>
+<p>Обычно говорят, что переменные ссылочного типа ссылаются на значение или разделяют значение.</p>
+</section><section id="Itogi" name="Итоги" class="subchapter">
+            <h2 class="subchapter-title">
+                <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="Itogi" type="absolute-url">
+                    <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <use href="#icon_link"/>
+                    </svg>
+                </button>
+                Итоги
+            </h2>
+        
+<p>Подведем итоги - </p>
+<ul class="book__list">
+<li class="book__list__item">Системой Типов - называется совокупность правил, назначающих свойства, называемые типами, различным конструкциям, составляющим программу, чья база, позволяет среде выполнения и разработчику определять типы данных более высокого уровня.</li>
+<li class="book__list__item">Тип данных (или просто тип) - это характеристика данных, которая определяет множество значений и операций, которые могут быть выполнены над этими значениями.</li>
+<li class="book__list__item">Типы данных разделяются на - типы значения и ссылочные типы.</li>
+<li class="book__list__item">Типы значения передаются по значению, при этом выделяется дополнительная память.</li>
+<li class="book__list__item">Ссылочные типы передаются с помощью ссылок на участок памяти хранящий данные.</li>
+</ul>
+</section>

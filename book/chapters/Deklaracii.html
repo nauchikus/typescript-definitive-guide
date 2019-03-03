@@ -1,0 +1,611 @@
+<section id="Chto-takoe-deklaraciya-Declaration" name="Что такое декларация (Declaration)" class="subchapter">
+            <h2 class="subchapter-title">
+                <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="Chto-takoe-deklaraciya-Declaration" type="absolute-url">
+                    <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <use href="#icon_link"/>
+                    </svg>
+                </button>
+                Что такое декларация (Declaration)
+            </h2>
+        
+<hr>
+<p>В то время, когда в программах, разрабатываемых на <em>TypeScript</em> используются библиотеки написанные на <em>JavaScript</em>, компилятор <em>tsc</em> чувствует себя словно у него завязаны глаза. И несмотря на то, что с каждой новой версией, вывод типов все лучше и лучше умеет разбирать <em>JavaScript</em>, до идеала ещё далеко. Кроме того, разбор <em>JavaScript</em> кода, добавляет нагрузку на процессор.</p>
+<p>Эту проблему решают генерируемые из <em>TypeScript</em> кода или создаваемые вручную декларации, которые содержат типизированное описание структуры кода. Декларация содержит только описание программы и размещается в файлах с расширением <em>.d.ts</em></p>
+<pre><code class="hljs language-typescript">Файл Animal.ts
+
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-keyword">class</span> Animal {
+   <span class="hljs-keyword">public</span> name: <span class="hljs-built_in">string</span> = <span class="hljs-string">'animal'</span>;
+
+   <span class="hljs-keyword">public</span> voice(): <span class="hljs-built_in">void</span> {}
+}</code></pre>
+<pre><code class="hljs language-typescript">Файл Animal.d.ts
+
+
+<span class="hljs-keyword">declare</span> <span class="hljs-keyword">module</span> "Animal" {
+   <span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-keyword">class</span> Animal {
+       name: <span class="hljs-built_in">string</span>;
+       voice(): <span class="hljs-built_in">void</span>;
+   }
+}</code></pre>
+<p>Еще не забыты дни, когда для часто используемых библиотек, приходилось писать декларации самим разработчикам на <em>TypeScript</em>, вручную. При этом, очень часто в них присутствовали ошибки. Кроме того, декларации не успевали обновляться под постоянно развивающиеся библиотеки.</p>
+<p>Сейчас такие проблемы кажутся уже нереальными, но несмотря на это, до сих пор приходится прибегать к использованию менеджера деклараций, который был создан в те самые далекие времена.</p>
+</section><section id="Ustanovka-deklaracii-s-pomoshchu-types" name="Установка деклараций с помощью @types" class="subchapter">
+            <h2 class="subchapter-title">
+                <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="Ustanovka-deklaracii-s-pomoshchu-types" type="absolute-url">
+                    <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <use href="#icon_link"/>
+                    </svg>
+                </button>
+                Установка деклараций с помощью @types
+            </h2>
+        
+<hr>
+<p>Тогда, когда декларация распространяется отдельно от библиотеки, она, скорее всего, попадет в огромный репозиторий на <em>github</em> под названием <em>DefinitelyTyped</em>, который содержит очень большое количество деклараций. Чтобы было проще ориентироваться в этом множестве, помимо сайта <a class="book__chapter__chapter-link" href="https://microsoft.github.io/TypeSearch/" title="TypeSearch">TypeSearch</a>, выступающего в роли поисковика, был создан менеджер деклараций под названием <em>Typed</em>. Но о нем мы говорить не будет, так как он применяется при работе с <em>TypeScript</em> версии меньше чем <em>v2.0</em>, поэтому речь пойдет о его развитии в образе команды пакетного менеджера <em>npm</em>, а именно <em>@types</em>.</p>
+<p>Для того чтобы установить декларацию, нужно выполнить в консоли команду, в которой после директивы <code class="inline-code">@types</code> через косую черту <code class="inline-code">/</code> указывается имя библиотеки, чью декларацию нужно подключить.</p>
+<pre><code class="hljs language-typescript">npm i -D <span class="hljs-meta">@types</span>/name</code></pre>
+<p>Чтобы сразу перейти к рассмотрению, воспользуемся проектом, который был создан в теме посвященной настройки рабочего окружения и для демонстрации работы установим библиотеку <em>React</em>.</p>
+<p>Первым делом установим саму библиотеку <em>React</em> выполнив в консоли, запущенной из под директории проекта, следующую команду.</p>
+<pre><code class="hljs language-typescript">npm i -D react</code></pre>
+<p>Как можно убедится, открыв директорию <em>/node_modules/</em> библиотека <em>React</em> успешно установилась, поэтому сразу же попытаемся импортировать её в файл <em>index.ts</em>, предварительно изменив его расширение на <em>.tsx</em> требуемое для работы с <em>react</em>, расположенный в директории <em>src</em>.</p>
+<pre><code class="hljs language-typescript">Файл src/index.tsx
+
+
+<span class="hljs-keyword">import</span> React, {Component} <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>; <span class="hljs-comment">// Error</span></code></pre>
+<p>Несмотря на установленную на предыдущем шаге библиотеку <em>React</em>, при попытке импортировать её модули, возникла ошибка. Возникла она потому, что компилятору <em>TypeScript</em> ничего не известно о библиотеки <em>React</em>, так как декларация не поставляется вместе с ней. Поэтому чтобы <em>tsc</em> понял что от него хотят, нужно дополнительно установить декларацию при помощи команды <code class="inline-code">@types</code>, пакетного менеджера <code class="inline-code">npm</code>.</p>
+<pre><code class="hljs language-typescript">npm i -D <span class="hljs-meta">@types</span>/react</code></pre>
+<p>Ошибка, возникающая при импорте модулей <em>React</em>, исчезла, а если заглянуть в директорию <em>/node_modules/</em>, то можно увидеть новую примечательную поддиректорию <code class="inline-code">@types</code>,  в которую будут складываться все устанавливаемые с помощью опции <code class="inline-code">@types</code>, декларации.</p>
+<p>Но для полноты картины и этого недостаточно. Для того чтобы добавить наш компонент в dom-дерево, нужно установить <code class="inline-code">ReactDOM</code>, который уже давно развивается отдельной библиотекой. </p>
+<pre><code class="hljs language-typescript">npm i -D react-dom</code></pre>
+<p>Кроме того, нужно установить декларацию.</p>
+<pre><code class="hljs language-typescript">npm i -D <span class="hljs-meta">@types</span>/react-dom</code></pre>
+<p>Осталось только активировать опцию <code class="inline-code">--jsx</code> в <em>tsconfig.json</em> и скомпилировать проект, как это было показано ранее.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">import</span> React, {Component} <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>; <span class="hljs-comment">// Ok</span>
+<span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> ReactDOM <span class="hljs-keyword">from</span> <span class="hljs-string">'react-dom'</span>; <span class="hljs-comment">// Ok</span>
+
+
+<span class="hljs-keyword">const</span> HelloReact = <span class="hljs-function"><span class="hljs-params">()</span> =></span> &#x3C;h1>Hello react!&#x3C;<span class="hljs-regexp">/h1>;
+
+ReactDOM.render(
+  &#x3C;HelloReact /</span>>,
+  <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">'#root'</span>)
+);</code></pre>
+</section><section id="Podgotovka-k-sozdaniu-deklaracii" name="Подготовка к созданию декларации" class="subchapter">
+            <h2 class="subchapter-title">
+                <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="Podgotovka-k-sozdaniu-deklaracii" type="absolute-url">
+                    <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <use href="#icon_link"/>
+                    </svg>
+                </button>
+                Подготовка к созданию декларации
+            </h2>
+        
+<hr>
+<p>Помимо того, что декларацию можно написать руками, её также можно сгенерировать автоматически, при условии что код написан на <em>TypeScript</em>. Для того, чтобы <em>tsc</em> при компиляции генерировал декларации, нужно активировать опцию компилятора <code class="inline-code">--declaration</code>. </p>
+<p>Буде не лишнем напомнить, что декларацию нужно генерировать только тогда, когда библиотека полностью готова. Другими словами, активировать опцию <code class="inline-code">--declaration</code> нужно в конфигурационном файле <em>prod</em> сборки.</p>
+<p>Кроме того, в декларации нуждается только код, который будет собран в подключаемую библиотеку. Поэтому точкой входа в библиотеку, должен быть файл, который содержит только импорты нужных модулей. Но разработка библиотеки невозможна без её запуска, а значит и точки входа, в которой будет создан и инициализирован её экземпляр. Поэтому чтобы избежать чувства “что-то пошло не так”, Вы должны помнить, что при создании библиотеки требующей декларацию, в проекте может быть несколько точек входа.</p>
+<p>Кроме того, точкой входа самого компилятора служит конфигурационный файл который ему был установлен при запуске. Это означает, что если проект находится в директории <em>src</em>, то в декларации путь будет указан, как <em>“scr/libname”</em>, вместо требуемого <em>“lib”</em>. </p>
+<pre><code class="hljs language-typescript"><span class="hljs-comment">// Ожидается</span>
+
+<span class="hljs-keyword">declare</span> <span class="hljs-keyword">module</span> "libname" {
+  <span class="hljs-comment">//...</span>
+}</code></pre>
+<pre><code class="hljs language-typescript"><span class="hljs-comment">// Есть</span>
+
+<span class="hljs-keyword">declare</span> <span class="hljs-keyword">module</span> "src/libname" {
+  <span class="hljs-comment">//...</span>
+}</code></pre>
+<p>Это в свою очередь означает, что при импорте модулей придется учитывать лишнюю директорию.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-comment">// Ожидается</span>
+
+impot {libname} <span class="hljs-keyword">from</span> <span class="hljs-string">'libname'</span>;</code></pre>
+<pre><code class="hljs language-typescript"><span class="hljs-comment">// Есть</span>
+
+<span class="hljs-keyword">import</span> {libname} <span class="hljs-keyword">from</span> <span class="hljs-string">'src/libname'</span>;</code></pre>
+<p>Это проблему можно решить, разместив конфигурационный файл в директории исходного кода, в нашем случае, это директория <em>src</em>. Кто-то не придаст этому значение, кому-то, как например автору, это может показаться не эстетичным. Поэтому при рассмотрении генерации деклараций с помощью <em>tsc</em>, конфигурационный файл будет лежать непосредственно в директории <em>src</em>. Но при рассмотрении генерации деклараций с помощью сторонних библиотек, будет освещен альтернативный вариант.</p>
+<p>Но и это ещё не все. Представьте что Вы создаете библиотеку React, которая в коде представляется одноименным классом, расположенном в файле <em>React.ts</em>. При этом модуль, который будет представлять вашу библиотеку должен называться react, что в свою очередь означает, что файл точка входа библиотеки должна находится в файле с названием <em>react.js</em>. Ну и что, спросите Вы? Если вы ещё не знаете ответ на этот вопрос, то будите удивлены, узнав что существуют операционные системы, как например <em>Windows</em>, которые расценивают пути до файлов <em>React.ts</em> и <em>react.ts</em> идентичными. Простыми словами если в директории присутствует файл с идентификатором <em>Identifier</em> , то ОС просто не  позволит создать одноименный файл, даже если его символы будут отличаться регистром. Именно об этом и будет сказано в ошибке, возникающей тогда, когда <em>TypeScript</em> обнаружит одноименные файлы в одной директории. Кроме того, если Ваша операционная система позволяет создавать файлы, чьи идентификаторы отличаются только регистром, помните, что разработчик работающий с Вами в одной команде не сможет даже установить проект себе на машину, если его операционная система работает по другим правилам.</p>
+<p>Поэтому решений у этой проблемы, на самом деле, всего два. Задавать идентификаторы, которые будут отличаться не только регистром. Или же размещать файлы таким образом, чтобы их идентификаторы не пересекались в одной директории. Но при этом нужно помнить, что структура модулей также изменится.</p>
+<p>Также стоит обратить внимание, на то, что в качестве примера, послужит пример созданный в теме посвященной настройке рабочего окружения, но с одной модификацией. Директории, в которую будут компилироваться файлы, нужно изменить название. Дело в том, что в случае, когда разрабатывается приложение, директорию, в которую складываются завершенные файлы принято называть <em>dest</em> сокращение от слова <em>destination</em>. В случае разработки внешней библиотеки или фраймворка, директорию для собранных файлов принято называть <em>dist</em> сокращение от слова <em>distributive</em>.</p>
+</section><section id="Raznovidnosti-deklaracii" name="Разновидности деклараций" class="subchapter">
+            <h2 class="subchapter-title">
+                <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="Raznovidnosti-deklaracii" type="absolute-url">
+                    <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <use href="#icon_link"/>
+                    </svg>
+                </button>
+                Разновидности деклараций
+            </h2>
+        
+<hr>
+<p>На самом деле это глава должна называться “разновидности библиотек”, так как именно о них и пойдет речь. Дело в том, что совсем недавно, вершиной хорошего тона считалось объединение всего кода в один файл. Это же правило соблюдалось и при создании библиотек. Но сейчас все кардинально поменялось и дело вот в чем.</p>
+<p>В мире <em>JavaScript</em> существует большое количество библиотек, чей размер, по меркам  клиентских приложений, превышает разумное. При этом, отказ от них будет означать что Вам придется тратить драгоценное время на реализацию части их функционала. Это побудило создателей сборщиков наделять свои творения, механизмом, который получил имя <em>Tree Shaking</em>. </p>
+<p><em>Tree Shaking</em>, это такой механизм, который позволяет включать в сборку только тот код, который используется. В перспективе, это должно быть спасением, но на деле не все так, как хотелось.</p>
+<p>Дело в том, что на данный момент, <em>Tree Shaking</em> работает только, если библиотеки разбиты на множество модулей. К примеру такие именитые библиотеки, как lodash или <em>rxjs</em>, собирают все функции, как отдельную библиотеку, поэтому,  если Вам понадобится только малая часть их функционала, можно не переживать из-за большого размера, ведь в их случае Tree Shaking сможет отсеять неиспользуемое. Обозначим подобные библиотеки, как библиотеки с множеством точек входа.</p>
+<p>Помимо библиотек подобных тем, что по своей идеологии, могут представляться в программе частями, также существуют те, которые могут работать только в полной комплектации. Обозначим такие библиотеки, как библиотеки с единственной точкой входа.</p>
+</section><section id="Deklaracii-i-oblast-vidimosti" name="Декларации и область видимости" class="subchapter">
+            <h2 class="subchapter-title">
+                <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="Deklaracii-i-oblast-vidimosti" type="absolute-url">
+                    <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <use href="#icon_link"/>
+                    </svg>
+                </button>
+                Декларации и область видимости
+            </h2>
+        
+<hr>
+<p>Важным моментом при создании деклараций, для библиотек, является понимание того, как их трактует компилятор. Дело в том, что все доступные компилятору декларации, находятся в общей для всех области видимости. Это означает, что как и в случае с такими конструкциями, как переменные, функции, классы, декларации способны затенять или другими словами, перекрывать друг друга. Кроме того, идентификатор файла не играет никакой роли, так как компилятор рассматривает только определение деклараций с помощью ключевого слова <code class="inline-code">declare</code>. Проще говоря, два файла имеющие отличные идентификаторы, но идентичные определения, будут затенять друг друга.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-comment">// Файл ./types/petanimal.d.ts</span>
+
+
+<span class="hljs-keyword">declare</span> <span class="hljs-keyword">module</span> "Pig" { <span class="hljs-comment">// Error</span>
+  <span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-keyword">class</span> Pig {}
+}
+<span class="hljs-keyword">declare</span> <span class="hljs-keyword">module</span> "Goat" { <span class="hljs-comment">// Error</span>
+  <span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-keyword">class</span> Goat {}
+}
+<span class="hljs-keyword">declare</span> <span class="hljs-keyword">module</span> "petanimal" { <span class="hljs-comment">// Ok</span>
+  <span class="hljs-keyword">export</span> { <span class="hljs-keyword">default</span> <span class="hljs-keyword">as</span> Pig } <span class="hljs-keyword">from</span> <span class="hljs-string">"Pig"</span>;
+  <span class="hljs-keyword">export</span> { <span class="hljs-keyword">default</span> <span class="hljs-keyword">as</span> Goat } <span class="hljs-keyword">from</span> <span class="hljs-string">"Goat"</span>;
+}</code></pre>
+<pre><code class="hljs language-typescript"><span class="hljs-comment">// Файл ./types/wildanimal.d.ts</span>
+
+
+<span class="hljs-keyword">declare</span> <span class="hljs-keyword">module</span> "Pig" { <span class="hljs-comment">// Error</span>
+  <span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-keyword">class</span> Pig {}
+}
+<span class="hljs-keyword">declare</span> <span class="hljs-keyword">module</span> "Goat" { <span class="hljs-comment">// Error</span>
+  <span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-keyword">class</span> Goat {}
+}
+<span class="hljs-keyword">declare</span> <span class="hljs-keyword">module</span> "wildanimal" { <span class="hljs-comment">// Ok</span>
+  <span class="hljs-keyword">export</span> { <span class="hljs-keyword">default</span> <span class="hljs-keyword">as</span> Pig } <span class="hljs-keyword">from</span> <span class="hljs-string">"Pig"</span>;
+  <span class="hljs-keyword">export</span> { <span class="hljs-keyword">default</span> <span class="hljs-keyword">as</span> Goat } <span class="hljs-keyword">from</span> <span class="hljs-string">"Goat"</span>;
+}</code></pre>
+<pre><code class="hljs language-typescript"><span class="hljs-comment">// Файл index.ts</span>
+
+
+<span class="hljs-keyword">import</span> Pig <span class="hljs-keyword">from</span> ‘Pig’; <span class="hljs-comment">// From which library should import module?</span></code></pre>
+<p>Начать понимание области видимости декларации стоит с понимание того, как именно компилятор понимает что есть декларация, в случаях, в которых декларация распространяется через npm. Прежде всего он ищет в файле <em>package.json</em> свойство <code class="inline-code">types</code> и если оно не определено, либо имеет значение <code class="inline-code">“”</code>, то он ищет в корне директории файл с именем <em>index.d.ts</em>, который расценивается в качестве точки входа. В случае, если свойство <code class="inline-code">types</code> ссылается на конкретную декларацию, то точкой входа считается он. Разработчик сможет взаимодействовать только с теми модулями, до которых можно можно проложить путь от точки входа.</p>
+<p>Кроме того, ограничить область видимости можно при помощи <code class="inline-code">module</code> или <code class="inline-code">namespace</code>. Единственное о чем сейчас стоит упомянуть, что как <code class="inline-code">module</code>, так и <code class="inline-code">namespace</code>, нужно расценивать, как обычную область видимости, так как в их описании не может присутствовать больше одного объявления экспорта по умолчанию (<code class="inline-code">export default</code>). </p>
+<p>Если не уделить должного внимания области видимости при создании деклараций для подключаемых библиотек, у разработчиков, которые будут использовать подобные декларации с другими декларациями, которые имеют идентичное определение, могут возникнуть ошибки на этапе компиляции.</p>
+<p>Решений у этой проблемы всего два - сокрытие определений и уточнение определений. Способ к которому стоит прибегнуть зависит от того, какого рода библиотеку Вы разрабатываете.</p>
+</section><section id="Deklaracii-dlya-bibliotek-s-odnoi-tochkoi-vhoda" name="Декларации для библиотек с одной точкой входа" class="subchapter">
+            <h2 class="subchapter-title">
+                <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="Deklaracii-dlya-bibliotek-s-odnoi-tochkoi-vhoda" type="absolute-url">
+                    <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <use href="#icon_link"/>
+                    </svg>
+                </button>
+                Декларации для библиотек с одной точкой входа
+            </h2>
+        
+<hr>
+<p>В проекте созданном в теме посвященной настройке рабочего пространства, в директории <em>src</em>, создайте две точки, одну для разработки <em>index.ts</em>, а другую для prod версии, имя которой должно соответствовать имени библиотеки, в нашем случае это будет <em>index.lib.ts</em>. </p>
+<p>По умолчанию, точкой входа, как <em>npm</em> пакета, так и декларации, является файл с именем <em>index</em>. Поэтому, если в проект библиотеки имеет несколько точек входа, то важно не забыть указать имя файла в <em>package.json</em> в свойстве <code class="inline-code">types</code>. В случае, если для сборки используется <em>webpack</em>, то будет значительно проще изменить  имя на <em>index</em> во время компиляции.</p>
+<p>Кроме того создайте два файла  <em>IAnimal.ts</em> и <em>Zoo.ts</em>. Также, в директории <em>src</em>,  создайте директорию <em>animal</em>, в которой будут размещены два файла <em>Bird.ts</em> и <em>Fish.ts</em>. В итоге должна получится следующая структура </p>
+<pre><code class="hljs language-typescript">* <span class="hljs-regexp">/
+   * src
+      * utils
+         * string-util.ts
+      * animal
+         * Bird.ts
+         * Fish.ts
+      * IAnimal.ts
+      * Zoo.ts
+      * index.ts
+      * index.lib.ts
+      * tsconfig.prod.ts</span></code></pre>
+<pre><code class="hljs language-typescript"><span class="hljs-comment">// Файл IAnimal.ts</span>
+
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">interface</span> IAnimal {
+ name: <span class="hljs-built_in">string</span>;
+}</code></pre>
+<pre><code class="hljs language-typescript"><span class="hljs-comment">// Файл utils/string-util.ts</span>
+
+
+<span class="hljs-keyword">export</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">toString</span>(<span class="hljs-params"> text: <span class="hljs-built_in">string</span> </span>): <span class="hljs-title">string</span> </span>{
+  <span class="hljs-keyword">return</span> <span class="hljs-string">`[object <span class="hljs-subst">${ text }</span>]`</span>;
+}</code></pre>
+<pre><code class="hljs language-typescript"><span class="hljs-comment">// Файл animals/Bird.ts</span>
+
+
+<span class="hljs-keyword">import</span> { IAnimal } <span class="hljs-keyword">from</span> <span class="hljs-string">"../IAnimal"</span>;
+<span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> StringUtil <span class="hljs-keyword">from</span> <span class="hljs-string">"../utils/string-util"</span>
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-keyword">class</span> Bird <span class="hljs-keyword">implements</span> IAnimal {
+  <span class="hljs-keyword">constructor</span>(<span class="hljs-params">readonly name: <span class="hljs-built_in">string</span></span>) {};
+
+  <span class="hljs-keyword">public</span> toString(): <span class="hljs-built_in">string</span> {
+      <span class="hljs-keyword">return</span> StringUtil.toString(<span class="hljs-keyword">this</span>.constructor.name);
+  }
+}</code></pre>
+<pre><code class="hljs language-typescript"><span class="hljs-comment">// Файл animals/Fish.ts</span>
+
+
+<span class="hljs-keyword">import</span> { IAnimal } <span class="hljs-keyword">from</span> <span class="hljs-string">"../IAnimal"</span>;
+<span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> StringUtil <span class="hljs-keyword">from</span> <span class="hljs-string">"../utils/string-util"</span>
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-keyword">class</span> Fish <span class="hljs-keyword">implements</span> IAnimal {
+  <span class="hljs-keyword">constructor</span>(<span class="hljs-params">readonly name: <span class="hljs-built_in">string</span></span>) {};
+
+  <span class="hljs-keyword">public</span> toString(): <span class="hljs-built_in">string</span> {
+      <span class="hljs-keyword">return</span> StringUtil.toString(<span class="hljs-keyword">this</span>.constructor.name);
+  }
+}</code></pre>
+<pre><code class="hljs language-typescript"><span class="hljs-comment">// Файл Zoo.ts</span>
+
+
+<span class="hljs-keyword">import</span> { IAnimal } <span class="hljs-keyword">from</span> <span class="hljs-string">"./IAnimal"</span>;
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-keyword">class</span> Zoo {
+ <span class="hljs-keyword">private</span> animalAll: IAnimal[ ] = [ ];
+
+ <span class="hljs-keyword">public</span> <span class="hljs-keyword">get</span> length(): <span class="hljs-built_in">number</span> {
+     <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.animalAll.length;
+ }
+
+ <span class="hljs-keyword">public</span> add(animal: IAnimal): <span class="hljs-built_in">void</span> {
+     <span class="hljs-keyword">this</span>.animalAll.push(animal);
+ }
+ <span class="hljs-keyword">public</span> getAnimalByIndex(index: <span class="hljs-built_in">number</span>): IAnimal {
+     <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.animalAll[index];
+ }
+}</code></pre>
+<pre><code class="hljs language-typescript"><span class="hljs-comment">// Файл index.ts</span>
+
+
+<span class="hljs-keyword">import</span> Bird <span class="hljs-keyword">from</span> <span class="hljs-string">"./animals/Bird"</span>;
+<span class="hljs-keyword">import</span> Fish <span class="hljs-keyword">from</span> <span class="hljs-string">"./animals/Fish"</span>;
+
+<span class="hljs-keyword">import</span> Zoo <span class="hljs-keyword">from</span> <span class="hljs-string">'./Zoo'</span>;
+
+
+<span class="hljs-keyword">const</span> zoo: Zoo = <span class="hljs-keyword">new</span> Zoo();
+
+zoo.add( <span class="hljs-keyword">new</span> Bird(<span class="hljs-string">'raven'</span>) );
+zoo.add( <span class="hljs-keyword">new</span> Fish(<span class="hljs-string">'shark'</span>) );
+
+<span class="hljs-keyword">for</span>( <span class="hljs-keyword">let</span> i = <span class="hljs-number">0</span>; i &#x3C; zoo.length; i++ ){
+ <span class="hljs-built_in">console</span>.log( <span class="hljs-string">`Animal name: <span class="hljs-subst">${ zoo.getAnimalByIndex(i).name }</span>.`</span> );
+}</code></pre>
+<pre><code class="hljs language-typescript"><span class="hljs-comment">// Файл index.lib.ts</span>
+
+
+<span class="hljs-comment">/** imports */</span>
+
+<span class="hljs-keyword">import</span> { IAnimal } <span class="hljs-keyword">from</span> <span class="hljs-string">"./IAnimal"</span>;
+<span class="hljs-keyword">import</span> ZooCollection <span class="hljs-keyword">from</span> <span class="hljs-string">'./Zoo;
+
+/** re-exports */
+
+export {IAnimal} from '</span>./IAnimal<span class="hljs-string">'; // type
+
+export {default as Bird} from '</span>./animals/Bird<span class="hljs-string">'; // type
+export {default as Fish} from '</span>./animals/Fish<span class="hljs-string">'; // type
+
+export {default as Zoo} from '</span>./Zoo<span class="hljs-string">'; // type
+
+export const zoo: Zoo = new Zoo(); // instance</span></code></pre>
+<p>В коде нет ничего необычного, поэтому комментариев не будет. Если же кому-то,содержимое файла <em>index.lib.ts</em> показалось необычном, то стоит отметить, что это обычный реэкспорт модулей <em>JavaScript</em>, который никакого отношения к <em>TypeScript</em> не имеет. Повторю, файл <em>index.lib.ts</em> является точкой входа создаваемой библиотеки, поэтому он должен экспортировать все то, что может потребовать при работе с ней. Конкретном этом случае, экспортировать <em>utils</em> наружу не предполагается, поэтому они не были ре-экспортированы.</p>
+<p>Также стоит обратить внимание на конфигурационные файлы <em>TypeScript</em>, которые взаимно добавляют точки входа друг друга в исключение. Кроме того, конфигурационный файл dev сборки исключает также конфигурационный файл <em>prod</em> сборки.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-comment">// Файл /src/tsconfig.prod.json</span>
+
+
+{
+   <span class="hljs-string">"compilerOptions"</span>: {
+     <span class="hljs-string">"target"</span>: <span class="hljs-string">"es6"</span>,
+     <span class="hljs-string">"module"</span>: <span class="hljs-string">"umd"</span>,
+     <span class="hljs-string">"rootDir"</span>: <span class="hljs-string">"./"</span>,
+     <span class="hljs-string">"declaration"</span>: <span class="hljs-literal">true</span>
+   },
+   <span class="hljs-string">"exclude"</span>: [
+     <span class="hljs-string">"/node_modules"</span>,
+     <span class="hljs-string">"./index.ts"</span>
+   ]
+ }</code></pre>
+<pre><code class="hljs language-typescript"><span class="hljs-comment">//  Файл /tsconfig.json</span>
+
+
+{
+<span class="hljs-string">"compilerOptions"</span>: {
+  <span class="hljs-string">"target"</span>: <span class="hljs-string">"es6"</span>,
+  <span class="hljs-string">"module"</span>: <span class="hljs-string">"umd"</span>,
+  <span class="hljs-string">"rootDir"</span>: <span class="hljs-string">"./src"</span>
+},
+<span class="hljs-string">"exclude"</span>: [
+  <span class="hljs-string">"/node_modules"</span>,
+  <span class="hljs-string">"./src/index.lib.ts"</span>,
+  <span class="hljs-string">"./src/tsconfig.prod.json"</span>
+]
+}</code></pre>
+<pre><code class="hljs language-typescript"><span class="hljs-comment">// Файл package.json</span>
+
+
+{
+<span class="hljs-string">"name"</span>: <span class="hljs-string">"zoo"</span>,
+<span class="hljs-string">"version"</span>: <span class="hljs-string">"1.0.0"</span>,
+<span class="hljs-string">"description"</span>: <span class="hljs-string">""</span>,
+<span class="hljs-string">"main"</span>: <span class="hljs-string">"index.js"</span>,
+<span class="hljs-string">"scripts"</span>: {
+  <span class="hljs-string">"build"</span>: <span class="hljs-string">"./node_modules/.bin/tsc --project ./tsconfig.json --watch"</span>,
+  <span class="hljs-string">"build:prod"</span>: <span class="hljs-string">"./node_modules/.bin/tsc --project ./src/tsconfig.prod.json"</span>
+},
+<span class="hljs-string">"author"</span>: <span class="hljs-string">""</span>,
+<span class="hljs-string">"license"</span>: <span class="hljs-string">"ISC"</span>,
+<span class="hljs-string">"devDependencies"</span>: {
+  <span class="hljs-string">"typescript"</span>: <span class="hljs-string">"^2.5.2"</span>
+}
+}</code></pre>
+<p>Осталось только запустить <em>prod</em> сборку и если все было правильно сделано, в директории <em>dist</em> появятся скомпилированные файлы, одним с расширением <em>.js</em>, другие с <em>.d.ts</em>.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-comment">// Файл IAnimal.d.ts</span>
+
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">interface</span> IAnimal {
+  name: <span class="hljs-built_in">string</span>;
+}</code></pre>
+<pre><code class="hljs language-typescript"><span class="hljs-comment">// Файл utils/string-util.d.ts</span>
+
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">declare</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">toString</span>(<span class="hljs-params">text: <span class="hljs-built_in">string</span></span>): <span class="hljs-title">string</span></span>;</code></pre>
+<pre><code class="hljs language-typescript"><span class="hljs-comment">// Файл animals/Bird.d.ts</span>
+
+
+<span class="hljs-keyword">import</span> { IAnimal } <span class="hljs-keyword">from</span> <span class="hljs-string">"../IAnimal"</span>;
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-keyword">class</span> Bird <span class="hljs-keyword">implements</span> IAnimal {
+  readonly name: <span class="hljs-built_in">string</span>;
+  <span class="hljs-keyword">constructor</span>(<span class="hljs-params">name: <span class="hljs-built_in">string</span></span>);
+  toString(<span class="hljs-params"></span>): string;
+}</code></pre>
+<pre><code class="hljs language-typescript"><span class="hljs-comment">// Файл animals/Fish.d.ts</span>
+
+
+<span class="hljs-keyword">import</span> { IAnimal } <span class="hljs-keyword">from</span> <span class="hljs-string">"../IAnimal"</span>;
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-keyword">class</span> Fish <span class="hljs-keyword">implements</span> IAnimal {
+  readonly name: <span class="hljs-built_in">string</span>;
+  <span class="hljs-keyword">constructor</span>(<span class="hljs-params">name: <span class="hljs-built_in">string</span></span>);
+  toString(<span class="hljs-params"></span>): string;
+}</code></pre>
+<pre><code class="hljs language-typescript"><span class="hljs-comment">// Файл Zoo.d.ts</span>
+
+
+<span class="hljs-keyword">import</span> { IAnimal } <span class="hljs-keyword">from</span> <span class="hljs-string">"./IAnimal"</span>;
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-keyword">class</span> Zoo {
+  <span class="hljs-keyword">private</span> animalAll;
+  readonly length: <span class="hljs-built_in">number</span>;
+  add(animal: IAnimal): <span class="hljs-built_in">void</span>;
+  getAnimalByIndex(index: <span class="hljs-built_in">number</span>): IAnimal;
+}</code></pre>
+<pre><code class="hljs language-typescript"><span class="hljs-comment">// Файл index.d.ts</span>
+
+
+<span class="hljs-keyword">import</span> Zoo <span class="hljs-keyword">from</span> <span class="hljs-string">'./Zoo'</span>;
+<span class="hljs-comment">/** re-exports */</span>
+<span class="hljs-keyword">export</span> { IAnimal } <span class="hljs-keyword">from</span> <span class="hljs-string">'./IAnimal'</span>;
+<span class="hljs-keyword">export</span> { <span class="hljs-keyword">default</span> <span class="hljs-keyword">as</span> Bird } <span class="hljs-keyword">from</span> <span class="hljs-string">'./animals/Bird'</span>;
+<span class="hljs-keyword">export</span> { <span class="hljs-keyword">default</span> <span class="hljs-keyword">as</span> Fish } <span class="hljs-keyword">from</span> <span class="hljs-string">'./animals/Fish'</span>;
+<span class="hljs-keyword">export</span> { <span class="hljs-keyword">default</span> <span class="hljs-keyword">as</span> Zoo } <span class="hljs-keyword">from</span> <span class="hljs-string">'./Zoo'</span>;
+<span class="hljs-comment">/** exports */</span>
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">declare</span> <span class="hljs-keyword">const</span> zoo: Zoo;</code></pre>
+<p>Также нельзя не сказать, что сгенерированная декларация не может рассматриваться, как единоверная. Очень часто можно увидеть декларации собранные в одном файле и сгруппированные по логическим признакам в с помощью <code class="inline-code">namespace</code> или так называемых <code class="inline-code">ghost module</code>.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-comment">/**ghost module */</span>
+
+<span class="hljs-keyword">declare</span> <span class="hljs-keyword">module</span> Zoo {
+  <span class="hljs-keyword">interface</span> IAnimal {
+      name: <span class="hljs-built_in">string</span>;
+  }
+
+  <span class="hljs-keyword">class</span> Bird <span class="hljs-keyword">implements</span> IAnimal {
+      readonly name: <span class="hljs-built_in">string</span>;
+      <span class="hljs-keyword">constructor</span>(<span class="hljs-params">name: <span class="hljs-built_in">string</span></span>);
+      toString(<span class="hljs-params"></span>): string;
+  }
+  class Fish implements IAnimal {
+      readonly name: <span class="hljs-built_in">string</span>;
+      <span class="hljs-keyword">constructor</span>(<span class="hljs-params">name: <span class="hljs-built_in">string</span></span>);
+      toString(<span class="hljs-params"></span>): string;
+  }
+
+  class Zoo {
+      <span class="hljs-keyword">private</span> animalAll;
+      readonly length: <span class="hljs-built_in">number</span>;
+      add(animal: IAnimal): <span class="hljs-built_in">void</span>;
+      getAnimalByIndex(index: <span class="hljs-built_in">number</span>): IAnimal;
+  }
+
+  <span class="hljs-keyword">const</span> zoo: Zoo;
+}</code></pre>
+<pre><code class="hljs language-typescript"><span class="hljs-comment">/** module */</span>
+
+<span class="hljs-keyword">declare</span> <span class="hljs-keyword">module</span> "zoo" {
+  <span class="hljs-keyword">export</span> = Zoo;
+}</code></pre>
+<p>Судить, какой из этих вариантов лучше, я не возьмусь, так как на мой взгляд, на данный момент, оба они не являются завершенными. Возможно в будущем, появятся новые правила для создания деклараций или редакторы будут по другому обрабатывать эти. Но а пока, остается отталкиваться от того, что есть. Кроме того, мне не известны генераторы деклараций, которые бы смогли собрать декларацию подобным образом. Наверняка, создатели подобных деклараций, самостоятельно пишут сборщики или же по старинке, редактируют их руками. Множество генераторов деклараций, которые мне доводилось использовать, в некоторых случаях, могут быть менее предпочтительны. чем встроенный в <em>tsc</em> генератор. В случае организации кода в стиле <em>es2015</em> модулей, который на мой взгляд предпочтительней, они могут сделать доступными глобально, большее число модулей, что, как было рассмотрено в главе посвященной области видимости деклараций, нежелательно.</p>
+<p>Стоит обратить внимание, в случае компиляции при помощи <em>tsc</em>, если в конечной директории присутствуют файлы, чьи имена совпадают с именами генерируемых при компиляции файлов, несмотря на их замену, ошибка все равно возникнет. Другими  словами, если процесс сборки запускается не в первый раз, то нужно удалить файлы оставшиеся от предыдущей компиляции.</p>
+</section><section id="Deklaracii-dlya-bibliotek-s-mnojestvom-tochek-vhoda" name="Декларации для библиотек с множеством точек входа" class="subchapter">
+            <h2 class="subchapter-title">
+                <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="Deklaracii-dlya-bibliotek-s-mnojestvom-tochek-vhoda" type="absolute-url">
+                    <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <use href="#icon_link"/>
+                    </svg>
+                </button>
+                Декларации для библиотек с множеством точек входа
+            </h2>
+        
+<hr>
+<p>Если разрабатывается библиотека состоящая из множество самостоятельных частей, то было бы более разумно создать каждую часть, как отдельную точку входа. Это позволило бы приложениям использующим её, минимизировать вес конечной сборки, включая в сборку только используемые части, за счет механизма <em>Tree Shaking</em>.</p>
+<p>Для этого рассмотрим проект состоящий из самодостаточного модуля <em>bird.ts</em>, который делает реэкспорт модуля <em>Raven.ts</em>, а также самодостаточного модуля <em>fish.ts</em>, который реэкспортирует модуль <em>Shark.ts</em>. И кроме этого оба самодостаточных модуля доступны в точке входа <em>index.lib.ts</em>.</p>
+<pre><code class="hljs language-typescript">* <span class="hljs-regexp">/
+   * src/</span>
+      * to-<span class="hljs-built_in">string</span>-decorate.ts
+      * to-error-decarate.ts
+      * index.lib.ts</code></pre>
+<p>Стоит сказать, что конфигурационные файлы ничем не отличаются от рассмотренных в теме создания деклараций для библиотек с одной точкой входа, поэтому их описание будет опущено.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-comment">// Файл to-string-decorate.ts</span>
+
+
+<span class="hljs-keyword">export</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">toStringDecorate</span>(<span class="hljs-params"> <span class="hljs-keyword">type</span>: <span class="hljs-built_in">string</span> </span>): <span class="hljs-title">string</span> </span>{
+  <span class="hljs-keyword">return</span> <span class="hljs-string">`[object <span class="hljs-subst">${ type }</span>]`</span>;
+}</code></pre>
+<pre><code class="hljs language-typescript"><span class="hljs-comment">//Файл to-error-decorate.ts</span>
+
+
+<span class="hljs-keyword">export</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">toErrorDecarate</span>(<span class="hljs-params"> message: <span class="hljs-built_in">string</span>, id: <span class="hljs-built_in">number</span> = 0 </span>): <span class="hljs-title">string</span> </span>{
+  <span class="hljs-keyword">return</span> <span class="hljs-string">`error:<span class="hljs-subst">${ id === 0 ? '' : id }</span>, <span class="hljs-subst">${ message }</span>.`</span>;
+}</code></pre>
+<pre><code class="hljs language-typescript"><span class="hljs-comment">// Файл index.lib.ts</span>
+
+
+<span class="hljs-comment">/** re-export */</span>
+
+<span class="hljs-keyword">export</span> {toStringDecorate} <span class="hljs-keyword">from</span> <span class="hljs-string">'./to-string-decorate'</span>;
+<span class="hljs-keyword">export</span> {toErrorDecorate} <span class="hljs-keyword">from</span> <span class="hljs-string">'./to-error-decorate'</span>;</code></pre>
+<p>После компиляции проекта, в директорию <em>dist</em>, сгенерируются следующие файлы</p>
+<pre><code class="hljs language-typescript"><span class="hljs-comment">// Файл to-string-decorate.d.ts</span>
+
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">declare</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">toStringDecorate</span>(<span class="hljs-params"><span class="hljs-keyword">type</span>: <span class="hljs-built_in">string</span></span>): <span class="hljs-title">string</span></span>;</code></pre>
+<pre><code class="hljs language-typescript"><span class="hljs-comment">// Файл to-error-decorate.d.ts</span>
+
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">declare</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">toErrorDecorate</span>(<span class="hljs-params">message: <span class="hljs-built_in">string</span>, id?: <span class="hljs-built_in">number</span></span>): <span class="hljs-title">string</span></span>;</code></pre>
+<pre><code class="hljs language-typescript"><span class="hljs-comment">// Файл index.d.ts</span>
+
+
+<span class="hljs-comment">/** re-export */</span>
+
+<span class="hljs-keyword">export</span> {toStringDecorate} <span class="hljs-keyword">from</span> <span class="hljs-string">'./to-string-decorate'</span>;
+<span class="hljs-keyword">export</span> {toErrorDecorate} <span class="hljs-keyword">from</span> <span class="hljs-string">'./to-error-decorate'</span>;</code></pre>
+<p>Сразу следует сказать, что с подобным описанием, декларация не будет правильно функционировать, поэтому её придется подправить руками до следующего вида.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-comment">// Файл to-string-decorate.d.ts</span>
+
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">declare</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">toStringDecorate</span>(<span class="hljs-params"><span class="hljs-keyword">type</span>: <span class="hljs-built_in">string</span></span>): <span class="hljs-title">string</span></span>;
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">as</span> <span class="hljs-keyword">namespace</span> stringDecorate;</code></pre>
+<pre><code class="hljs language-typescript"><span class="hljs-comment">// Файл to-error-decorate.d.ts</span>
+
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">declare</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">toErrorDecorate</span>(<span class="hljs-params">message: <span class="hljs-built_in">string</span>, id?: <span class="hljs-built_in">number</span></span>): <span class="hljs-title">string</span></span>;
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">as</span> <span class="hljs-keyword">namespace</span> errorDecorate;</code></pre>
+<pre><code class="hljs language-typescript"><span class="hljs-comment">// Файл index.d.ts</span>
+
+
+<span class="hljs-comment">/// &#x3C;reference path="./to-string-decorate.d.ts" /></span>
+<span class="hljs-comment">/// &#x3C;reference path="./to-error-decorate.d.ts" /></span>
+
+<span class="hljs-keyword">declare</span> <span class="hljs-keyword">module</span> "zoo" {
+  <span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> {stringDecorate, errorDecorate};
+}</code></pre>
+<p>Обычно, как отдельную часть, принято экспортировать только самодостаточные модули, как функции или классы. Но кроме того, могут потребоваться объекты содержащие константы или что-то незначительное, без чего отдельный модуль не сможет функционировать. Если такие объекты используются всеми самостоятельными модулями, то их можно также вынести в отдельный, самостоятельный модуль. В случае, когда самодостаточному модулю, для полноценной работы, требуются зависимости, которые больше никем не используются, то такой модуль нужно оформлять также как обычную точку входа. Другими словами, он должен содержать реэкспорт всего необходимого. А кроме того экспортировать все как глобальный <code class="inline-code">namespace</code> с помощью синтаксиса </p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">export</span> <span class="hljs-keyword">as</span> <span class="hljs-keyword">namespace</span> identifier</code></pre>
+<p>Данный синтаксис объединяет все объявленные экспорты в глобальное пространство имен с указанным идентификатором. Затем, объявленные пространства имен нужно импортировать в точку входа с помощью директивы с тройным слешем <code class="inline-code">/// &#x3C;reference path=””/></code>, после чего экспортировать из объявленного модуля.</p>
+</section><section id="Sozdanie-deklaracii-vruchnuu" name="Создание деклараций вручную" class="subchapter">
+            <h2 class="subchapter-title">
+                <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="Sozdanie-deklaracii-vruchnuu" type="absolute-url">
+                    <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <use href="#icon_link"/>
+                    </svg>
+                </button>
+                Создание деклараций вручную
+            </h2>
+        
+<hr>
+<p>Описывать декларации подобные тем что генерируются с помощью <em>tsc</em>, вручную, если и приходится, то очень-очень редко. Чаще всего ручное создание деклараций приходится на описание расширений файлов.</p>
+<p>Компилятор <em>TypeScript</em> понимает только импорт расширения <em>.ts</em>*.tsx<em>*.d.ts</em>, а с активной опцией <code class="inline-code">--allowJS</code>, еще и <em>.js</em>*.jsx<em>. Но работая с таким сборщиком, как в </em>webpack<em> или используя </em>css-in-js<em>, придется импортировать в код файлы с таким расширением, как </em>.html<em>, </em>.css<em>, </em>.json* и т.д. В таких случаях приходится создавать декларации файлов вручную.</p>
+<p>Прежде всего создают директорию, в которой будут находится декларации, в нашем случае это будет директория types в корне проекта. Декларации можно складывать прямо в неё, но мне более привычно создавать под каждую декларацию отдельную поддиректорию. Поэтому создадим поддиректорию с именем <em>css</em>, а уже в ней создадим файл <em>index.d.ts</em>. Откроем этот файл и напишем в нем декларацию определяющую расширение <em>.css</em>.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-comment">// Файл ./types/css/index.d.ts</span>
+
+
+<span class="hljs-keyword">declare</span> <span class="hljs-keyword">module</span> "*.css" {
+  <span class="hljs-keyword">const</span> content: <span class="hljs-built_in">any</span>;
+  <span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> content;
+}</code></pre>
+<p>В тех случаях, когда модуль определяет тип <code class="inline-code">Any</code>, более уместно использовать при объявлении сокращенный вариант, который определяет тип <code class="inline-code">Any</code>.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">declare</span> <span class="hljs-keyword">module</span> "*.css";</code></pre>
+<p>Осталось только подключить декларацию в конфигурационном файле, и ошибок при импорте расширения <code class="inline-code">.css</code> не возникнет.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-comment">// Файл tsconfig.json</span>
+
+
+{
+  <span class="hljs-string">"compilerOptions"</span>: {
+      <span class="hljs-string">"target"</span>: <span class="hljs-string">"es2015"</span>,
+      <span class="hljs-string">"module"</span>: <span class="hljs-string">"none"</span>,
+      <span class="hljs-string">"rootDir"</span>: <span class="hljs-string">"./src"</span>,
+      <span class="hljs-string">"typeRoots"</span>: [
+          <span class="hljs-string">"./types"</span>
+      ]
+  },
+  <span class="hljs-string">"exclude"</span>: [
+      <span class="hljs-string">"./node_modules"</span>
+  ]
+}</code></pre>
+</section><section id="Direktiva-s-troinym-sleshem-triple-slash-directives" name="Директива с тройным слешем (triple-slash directives)" class="subchapter">
+            <h2 class="subchapter-title">
+                <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="Direktiva-s-troinym-sleshem-triple-slash-directives" type="absolute-url">
+                    <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <use href="#icon_link"/>
+                    </svg>
+                </button>
+                Директива с тройным слешем (triple-slash directives)
+            </h2>
+        
+<hr>
+<p>До этого момента, были рассмотрены создания библиотек, которые могут быть как одним большим модулем, так и множеством маленьких. Но в тех случаях, когда модулей должно быть больше одного и при этом их нельзя назвать очень маленькими, их приходится разбивать на два отдельные проекта. Таким образом две разных библиотеки не смогут работать друг без друга или другими словами, будут зависеть друг от друга.</p>
+<p>Тогда, когда разработчик создает библиотеку зависящую от другой библиотеки, как например <em>react-dom</em> зависит от <em>react</em>, не будет лишнем указать зависимость при помощи директивы <code class="inline-code">/// &#x3C;reference types=””/></code>. Данная директива, в кавычках которой указывается имя библиотеки, располагается в начале файла, который представляет точкой входа.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-comment">/// &#x3C;reference types="react" /></span></code></pre>
+<p>Кроме того с помощью данной директивы можно указать версию используемой библиотеки.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-comment">/// &#x3C;reference lib="es2015" /></span></code></pre>
+<p>Подобный функционал может быть полезен разработчикам деклараций <em>.d.ts</em>, которые зависят от конкретной версии <em>ECMAScript</em>.</p>
+</section><section id="Importirovanie-deklaracii-import" name="Импортирование декларации (import)" class="subchapter">
+            <h2 class="subchapter-title">
+                <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="Importirovanie-deklaracii-import" type="absolute-url">
+                    <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <use href="#icon_link"/>
+                    </svg>
+                </button>
+                Импортирование декларации (import)
+            </h2>
+        
+<hr>
+<p>Помимо типов, описанных в глобальных декларациях, в аннотациях типов, также можно использовать типы из деклараций импортированных с помощью директивы <code class="inline-code">import</code>. </p>
+<pre><code class="hljs language-typescript"><span class="hljs-comment">// file declaration-excluded-from-global-scope/animal.d.ts</span>
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">declare</span> <span class="hljs-keyword">interface</span> IAnimal {
+  <span class="hljs-keyword">type</span>: <span class="hljs-built_in">string</span>;
+}</code></pre>
+<pre><code class="hljs language-typescript"><span class="hljs-comment">// file src/index.ts</span>
+
+<span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> DTS <span class="hljs-keyword">from</span> <span class="hljs-string">"declaration-excluded-from-global-scope/animal"</span>;
+
+<span class="hljs-comment">// импорт декларации на уровне модуля</span>
+
+<span class="hljs-keyword">let</span> v0: DTS.IAnimal = { <span class="hljs-keyword">type</span>: <span class="hljs-string">''</span> }; <span class="hljs-comment">// Ok</span>
+<span class="hljs-keyword">let</span> v1: DTS.IAnimal = { <span class="hljs-keyword">type</span>: <span class="hljs-number">5</span> }; <span class="hljs-comment">// Error</span>
+
+
+<span class="hljs-comment">// инлайн импорт</span>
+
+<span class="hljs-keyword">let</span> v2: <span class="hljs-keyword">import</span>(<span class="hljs-string">'declaration-excluded-from-global-scope/animal'</span>).IAnimal = { <span class="hljs-keyword">type</span>: <span class="hljs-string">''</span> }; <span class="hljs-comment">// Ok</span>
+<span class="hljs-keyword">let</span> v3: <span class="hljs-keyword">import</span>(<span class="hljs-string">'declaration-excluded-from-global-scope/animal'</span>).IAnimal = { <span class="hljs-keyword">type</span>: <span class="hljs-number">5</span> }; <span class="hljs-comment">// Error</span></code></pre>
+<p>Этот механизм также позволяет указывать аннотацию типов непосредственно в файлах с расширением <em>.js</em>.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-comment">// file declaration-excluded-from-global-scope/animal.d.ts</span>
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">declare</span> <span class="hljs-keyword">interface</span> IAnimal {
+  <span class="hljs-keyword">type</span>: <span class="hljs-built_in">string</span>;
+}</code></pre>
+<pre><code class="hljs language-typescript"><span class="hljs-comment">// file lib/index.js</span>
+
+<span class="hljs-comment">/**
+*
+* @param {import("./declaration-excluded-from-global-scope/animal").IAnimal} animal
+*/</span>
+<span class="hljs-keyword">export</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">printAnimalInfo</span>(<span class="hljs-params">animal</span>)</span>{ animal.type; <span class="hljs-comment">// autocomplete }</span></code></pre>
+<pre><code class="hljs language-typescript"><span class="hljs-comment">// file src/index.ts</span>
+
+<span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> AnimalUtils <span class="hljs-keyword">from</span> <span class="hljs-string">"lib/index.js"</span>;
+
+
+AnimalUtils.printAnimalInfo( { <span class="hljs-keyword">type</span>: <span class="hljs-string">''</span> } ); <span class="hljs-comment">// Ok</span>
+AnimalUtils.printAnimalInfo( { <span class="hljs-keyword">type</span>: <span class="hljs-number">5</span> } ); <span class="hljs-comment">// Error</span></code></pre>
+</section>

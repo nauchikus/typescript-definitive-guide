@@ -1,0 +1,253 @@
+<section id="Razmechennye-Obedineniya-Tagged-Union" name="Размеченные Объединения (Tagged Union)" class="subchapter">
+            <h2 class="subchapter-title">
+                <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="Razmechennye-Obedineniya-Tagged-Union" type="absolute-url">
+                    <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <use href="#icon_link"/>
+                    </svg>
+                </button>
+                Размеченные Объединения (Tagged Union)
+            </h2>
+        
+<hr>
+<p>Тип <code class="inline-code">Tagged Union</code> (Размеченное Объединение), ещё известный как <code class="inline-code">Discriminated Unions</code>, также как и тип <code class="inline-code">Union</code> (Объединение), представляет из себя множество типов данных,  значение которого может принадлежать к одному конкретному типу. Размеченные Объединения указывается с помощью оператора прямой черты <code class="inline-code">|</code>, по обе стороны которой, располагаются типы данных.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">let</span> v1: T1 | T2 | T3;</code></pre>
+<p>Из-за того, что все описанное ранее, для типа <code class="inline-code">Union</code> (глава <a class="book__chapter__chapter-link" href="/book/contents/Tipy-Union-Intersection" title="Типы - Union, Intersection">Типы - Union, Intersection</a>), идентично и для <code class="inline-code">Tagged Union</code>, будет более разумно, не повторяться, а сделать упор на различия. Но так как полное погружение, которое сможет приоткрыть завесу тайны <code class="inline-code">Tagged Union</code>, выходит за рамки темы, или более точнее, будет преждевременным, остается лишь описать детали, к которым рекомендуется вернуться, как только наступит время. И так…</p>
+<p>Несмотря на то, что <code class="inline-code">Tagged Union</code> в большей степени идентичен типу Union, все же существует два отличия. Первое отличие заключается в том, что к типу <code class="inline-code">Tagged Union</code> могут принадлежать только ссылочные типы данных. Второе отличие в том, что каждому объектному типу, которые ещё называют варианты, составляющему <code class="inline-code">Tagged Union</code>, указывается идентификатор варианта.</p>
+<p>Помните что компилятор, без помощи разработчика, способен работать лишь с общими для всех типов признаками? </p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">class</span> Bird {
+ fly(): <span class="hljs-built_in">void</span> {}
+
+ toString(): <span class="hljs-built_in">string</span> {
+     <span class="hljs-keyword">return</span> <span class="hljs-string">'bird'</span>;
+ }
+}
+<span class="hljs-keyword">class</span> Fish {
+ swim(): <span class="hljs-built_in">void</span> {}
+
+ toString(): <span class="hljs-built_in">string</span> {
+     <span class="hljs-keyword">return</span> <span class="hljs-string">'fish'</span>;
+ }
+}
+<span class="hljs-keyword">class</span> Insect {
+ crawl(): <span class="hljs-built_in">void</span> {}
+
+ toString(): <span class="hljs-built_in">string</span> {
+     <span class="hljs-keyword">return</span> <span class="hljs-string">'insect'</span>;
+ }
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">move</span>(<span class="hljs-params"> animal: Bird | Fish | Insect </span>): <span class="hljs-title">void</span> </span>{
+  animal.fly(); <span class="hljs-comment">// Error</span>
+  animal.swim(); <span class="hljs-comment">// Error</span>
+  animal.crawl(); <span class="hljs-comment">// Error</span>
+
+  animal.toString(); <span class="hljs-comment">// Ok</span>
+}</code></pre>
+<p>Так вот, чтобы компилятор смог работать с членами характерных для конкретных типов, одним из способов является, указание ему конкретного диапазона типов, с помощью идентификатора варианта.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">class</span> Bird {
+  <span class="hljs-keyword">type</span>: <span class="hljs-string">'bird'</span> = <span class="hljs-string">'bird'</span>;
+
+  fly(): <span class="hljs-built_in">void</span> {}
+
+  toString(): <span class="hljs-built_in">string</span> {
+      <span class="hljs-keyword">return</span> <span class="hljs-string">'bird'</span>;
+  }
+}
+<span class="hljs-keyword">class</span> Fish {
+  <span class="hljs-keyword">type</span>: <span class="hljs-string">'fish'</span> = <span class="hljs-string">'fish'</span>;
+
+  swim(): <span class="hljs-built_in">void</span> {}
+
+  toString(): <span class="hljs-built_in">string</span> {
+      <span class="hljs-keyword">return</span> <span class="hljs-string">'fish'</span>;
+  }
+}
+<span class="hljs-keyword">class</span> Insect {
+  <span class="hljs-keyword">type</span>: <span class="hljs-string">'insect'</span> = <span class="hljs-string">'insect'</span>;
+
+  crawl(): <span class="hljs-built_in">void</span> {}
+
+  toString(): <span class="hljs-built_in">string</span> {
+      <span class="hljs-keyword">return</span> <span class="hljs-string">'insect'</span>;
+  }
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">move</span>(<span class="hljs-params">animal: Bird | Fish | Insect</span>): <span class="hljs-title">void</span> </span>{
+  <span class="hljs-keyword">if</span> (animal.type === <span class="hljs-string">'bird'</span>) {
+      animal.fly(); <span class="hljs-comment">// Ok</span>
+  } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (animal.type === <span class="hljs-string">'fish'</span>) {
+      animal.swim(); <span class="hljs-comment">// Ok</span>
+  } <span class="hljs-keyword">else</span> {
+      animal.crawl(); <span class="hljs-comment">// Ok</span>
+  }
+
+  animal.toString(); <span class="hljs-comment">// Ok</span>
+}</code></pre>
+<p>Механизм, с помощью которого разработчик помогает выводу типов, называется <em>“защитники типа”</em>, и  будет рассмотрен позднее в одноименной главе  (глава <a class="book__chapter__chapter-link" href="/book/contents/Tipizaciya-Zashchitniki-tipa" title="Типизация - Защитники типа">Типизация - Защитники типа</a>). А пока стоит сосредоточится на самих идентификаторах вариантов.</p>
+<p>Прежде всего стоит пояснить, что идентификаторы вариантов, это обычные поля объекта, которые имеют одинаковые имена и которые обязательно должны присутствовать в каждом типе множества составляющего <code class="inline-code">Tagged Union</code>. Помимо этого, поля обязательно должны принадлежать только к литеральным типам, таким как <code class="inline-code">Literal Number</code>, <code class="inline-code">Literal String</code>, <code class="inline-code">Literal Boolean</code>, <code class="inline-code">Literal Enum</code>. Кроме того, поля обязательно должны быть инициализированы при объявлении, либо конструкторе. Но если быть до конца откровенным, то нет разницы, в каком месте и в какое время, полю будет присвоено значение. Главное чтобы оно было присвоено раньше, чем наступит момент использовать его в условии, на основе которого, будет определяться его принадлежность к конкретному типу данных.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">class</span> Bird {
+  <span class="hljs-keyword">type</span>: <span class="hljs-string">'bird'</span> = <span class="hljs-string">'bird'</span>;
+
+  fly(): <span class="hljs-built_in">void</span> {}
+}
+<span class="hljs-keyword">class</span> Fish {
+  <span class="hljs-keyword">type</span>: <span class="hljs-string">'fish'</span> = <span class="hljs-string">'fish'</span>;
+
+  swim(): <span class="hljs-built_in">void</span> {}
+}
+<span class="hljs-keyword">class</span> Insect {
+  <span class="hljs-keyword">type</span>: <span class="hljs-string">'insect'</span>;
+
+  <span class="hljs-keyword">constructor</span>(<span class="hljs-params"></span>){
+      <span class="hljs-keyword">this</span>.type = <span class="hljs-string">'insect'</span>;
+  }
+
+  crawl(): <span class="hljs-built_in">void</span> {}
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">move</span>(<span class="hljs-params"> animal: Bird | Fish | Insect </span>): <span class="hljs-title">void</span> </span>{
+
+}</code></pre>
+<p>В случае, когда типы полей являются уникальными для всего множества, они идентифицируют только свой тип.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">class</span> Bird {
+  groupID: <span class="hljs-number">0</span> = <span class="hljs-number">0</span>;
+
+  fly(): <span class="hljs-built_in">void</span> {}
+}
+<span class="hljs-keyword">class</span> Fish {
+  groupID: <span class="hljs-number">1</span> = <span class="hljs-number">1</span>;
+
+  swim(): <span class="hljs-built_in">void</span> {}
+}
+<span class="hljs-keyword">class</span> Insect {
+  groupID: <span class="hljs-number">2</span> = <span class="hljs-number">2</span>;
+
+  crawl(): <span class="hljs-built_in">void</span> {}
+}
+
+<span class="hljs-comment">// groupID 0 === Bird</span>
+<span class="hljs-comment">// groupID 1 === Fish</span>
+<span class="hljs-comment">// groupID 2 === Insect</span></code></pre>
+<p>Тогда, когда тип поля не является уникальном, то он идентифицирует множество типов, у которых совпадают типы, одноименных идентификаторов вариантов.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">class</span> Bird {
+  groupID: <span class="hljs-number">0</span> = <span class="hljs-number">0</span>;
+
+  fly(): <span class="hljs-built_in">void</span> {}
+}
+<span class="hljs-keyword">class</span> Fish {
+  groupID: <span class="hljs-number">0</span> = <span class="hljs-number">0</span>;
+
+  swim(): <span class="hljs-built_in">void</span> {}
+}
+<span class="hljs-keyword">class</span> Insect {
+  groupID: <span class="hljs-number">1</span> = <span class="hljs-number">1</span>;
+
+  crawl(): <span class="hljs-built_in">void</span> {}
+}
+
+<span class="hljs-comment">// groupID 0 === Bird | Fish</span>
+<span class="hljs-comment">// groupID 1 === Insect</span></code></pre>
+<p>Количество полей, которые служат идентификаторами вариантов, может быть сколько угодно.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">enum</span> AnimalTypes {
+Bird = <span class="hljs-string">'bird'</span>,
+Fish = <span class="hljs-string">'fish'</span>,
+Insect = <span class="hljs-string">'insect'</span>
+}
+
+
+<span class="hljs-keyword">class</span> Bird {
+<span class="hljs-keyword">type</span>: AnimalTypes.Bird = AnimalTypes.Bird;
+uid: <span class="hljs-number">0</span> = <span class="hljs-number">0</span>;
+name: <span class="hljs-string">'bird'</span> = <span class="hljs-string">'bird'</span>;
+
+fly(): <span class="hljs-built_in">void</span> {}
+}
+<span class="hljs-keyword">class</span> Fish {
+<span class="hljs-keyword">type</span>: AnimalTypes.Fish = AnimalTypes.Fish;
+uid: <span class="hljs-number">1</span> = <span class="hljs-number">1</span>;
+name: <span class="hljs-string">'fish'</span> = <span class="hljs-string">'fish'</span>;
+
+swim(): <span class="hljs-built_in">void</span> {}
+}
+<span class="hljs-keyword">class</span> Insect {
+<span class="hljs-keyword">type</span>: AnimalTypes.Insect = AnimalTypes.Insect;
+uid: <span class="hljs-number">2</span> = <span class="hljs-number">2</span>;
+name: <span class="hljs-string">'insect'</span> = <span class="hljs-string">'insect'</span>;
+
+
+crawl(): <span class="hljs-built_in">void</span> {}
+}
+
+<span class="hljs-comment">// type AnimalTypes.Bird === Bird</span>
+<span class="hljs-comment">// type AnimalTypes.Fish === Fish</span>
+<span class="hljs-comment">// type AnimalTypes.Insect === Insect</span>
+
+<span class="hljs-comment">// uid 0 === Bird</span>
+<span class="hljs-comment">// uid 1 === Fish</span>
+<span class="hljs-comment">// uid 2 === Insect</span>
+
+<span class="hljs-comment">// name 'bird' === Bird</span>
+<span class="hljs-comment">// name 'fish' === Fish</span>
+<span class="hljs-comment">// name 'insect' === Insect</span></code></pre>
+<p>Если по какой-либо причине, разработчик забудет присвоить идентификатору вариантов значение, то для того, чтобы компиляция завершилась успехом, выводу типов достаточно литерального типа данных, указанного в качестве типа поля.</p>
+<p><em>Пример с неправильным исходным кодом</em></p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">class</span> Bird {
+  <span class="hljs-keyword">type</span>: <span class="hljs-string">'bird'</span>;
+}
+<span class="hljs-keyword">class</span> Fish {
+  <span class="hljs-keyword">type</span>: <span class="hljs-string">'fish'</span>;
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">move</span>(<span class="hljs-params">animal: Bird | Fish</span>): <span class="hljs-title">void</span> </span>{
+  <span class="hljs-keyword">if</span>( animal.type === <span class="hljs-string">'bird'</span> ){ <span class="hljs-comment">// is equal undefined === 'bird'</span>
+      <span class="hljs-comment">// ...</span>
+  }<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>( animal.type === <span class="hljs-string">'fish'</span> ){ <span class="hljs-comment">// is equal undefined === 'fish'</span>
+      <span class="hljs-comment">// ...</span>
+  }
+}</code></pre>
+<p>Однако в скомпилированном коде от типов не останется и следа. Таким образом, в условие вместо значения будет находится значение <code class="inline-code">undefined</code>, что сделает условия неверными.</p>
+<p><em>Пример с неправильным скомпилированным кодом</em></p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">class</span> Bird { <span class="hljs-comment">// missing field type</span>
+}
+<span class="hljs-keyword">class</span> Fish { <span class="hljs-comment">// missing field type</span>
+}
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">move</span>(<span class="hljs-params">animal</span>) </span>{
+  <span class="hljs-keyword">if</span> (animal.type === <span class="hljs-string">'bird'</span>) {
+      <span class="hljs-comment">// ...</span>
+  }
+  <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (animal.type === <span class="hljs-string">'fish'</span>) {
+      <span class="hljs-comment">// ...</span>
+  }
+}</code></pre>
+<p>Поэтому очень важно не забыть присвоить значение идентификаторам вариантов, иначе может возникнуть трудно выявляемая ошибка.</p>
+<p><em>Пример с правильным исходным кодом</em></p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">class</span> Bird {
+  <span class="hljs-keyword">type</span>: <span class="hljs-string">'bird'</span> = <span class="hljs-string">'bird'</span>;
+}
+<span class="hljs-keyword">class</span> Fish {
+  <span class="hljs-keyword">type</span>: <span class="hljs-string">'fish'</span> = <span class="hljs-string">'fish'</span>;
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">move</span>(<span class="hljs-params">animal: Bird | Fish</span>): <span class="hljs-title">void</span> </span>{
+  <span class="hljs-keyword">if</span>( animal.type === <span class="hljs-string">'bird'</span> ){ <span class="hljs-comment">// is equal 'bird' === 'bird'</span>
+      <span class="hljs-comment">// ...</span>
+  }<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>( animal.type === <span class="hljs-string">'fish'</span> ){ <span class="hljs-comment">// is equal 'fish' === 'fish'</span>
+      <span class="hljs-comment">// ...</span>
+  }
+}</code></pre>
+<p><em>Пример с правильным скомпилированным кодом</em></p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">class</span> Bird {
+  <span class="hljs-keyword">type</span>: <span class="hljs-string">'bird'</span> = <span class="hljs-string">'bird'</span>;
+}
+<span class="hljs-keyword">class</span> Fish {
+  <span class="hljs-keyword">type</span>: <span class="hljs-string">'fish'</span> = <span class="hljs-string">'fish'</span>;
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">move</span>(<span class="hljs-params">animal: Bird | Fish</span>): <span class="hljs-title">void</span> </span>{
+  <span class="hljs-keyword">if</span>( animal.type === <span class="hljs-string">'bird'</span> ){ <span class="hljs-comment">// is equal 'bird' === 'bird'</span>
+      <span class="hljs-comment">// ...</span>
+  }<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>( animal.type === <span class="hljs-string">'fish'</span> ){ <span class="hljs-comment">// is equal 'fish' === 'fish'</span>
+      <span class="hljs-comment">// ...</span>
+  }
+}</code></pre>
+</section>
