@@ -16,16 +16,14 @@ type Exclude<T, U> = T extends U ? never : T;
 В случае, если оба аргумента типа принадлежат к одному и тому же типу данных, `Exclude<T, U>` будет представлять тип `never`.
 
 ~~~~~typescript
-let v: ParamType<{ a: number, b:string }>; // let v: string | number
-
-let v0 :Extract< number|string, boolean|object >; // let v0: never
-let v1 :Extract< number|string, number|string >; // let v1: number
-let v2 :Extract< number|string, number|boolean >; // let v2: string|number
+let v0 :Exclude< number|string, boolean|object >; // let v0: string|number
+let v1 :Exclude< number|string, number|string >; // let v1: never
+let v2 :Exclude< number|string, number|boolean >; // let v2: string
 
 interface IT0 { a: number; b: string; }
 interface IT1 { a: number; c: boolean; }
 
-let v3 :Extract< keyof IT0, keyof IT1 >; // let v3: "a"
+let v3 :Exclude< keyof IT0, keyof IT1 >; // let v3: "b"
 ~~~~~
 
 Его реальную пользу лучше всего продемонстрировать на реализации функции, которая на входе получает два разных объекта, а на выходе возвращает новый объект, состоящий из членов, присутствующих в первом объекте, но отсутствующих во втором. Аналог функции `difference` из всеми известной в мире *frontend* библиотеки *lodash*.
@@ -63,14 +61,14 @@ type Extract<T, U> = T extends U ? T : never;
 Простыми словами, после разрешения `Extract<T, U>` будет принадлежать к типу, признаки которого присущи обоим аргументам типа. То есть, тип `Extract<T, U>` является противоположностью типа `Exclude<T, U>`. В случае, когда общие признаки отсутствуют, тип `Extract<T, U>` будет представлять тип `never`.
 
 ~~~~~typescript
-let v0 :Exclude< number|string, boolean|object >; // let v0: string|number
-let v1 :Exclude< number|string, number|string >; // let v1: never
-let v2 :Exclude< number|string, number|boolean >; // let v2: string
+let v0 :Extract< number|string, boolean|object >; // let v0: never
+let v1 :Extract< number|string, number|string >; // let v1: string | number
+let v2 :Extract< number|string, number|boolean >; // let v2: number
 
 interface IT0 { a: number; b: string; }
 interface IT1 { a: number; c: boolean; }
 
-let v3 :Exclude< keyof IT0, keyof IT1 >; // let v3: "a"
+let v3 :Extract< keyof IT0, keyof IT1 >; // let v3: "a"
 ~~~~~
 
 Условный тип `Extract<T, U>` стоит рассмотреть на примере реализации функции, на входе которая принимает два разных объекта, а на выходе возвращает новый объект, состоящий из членов первого объекта, которые также присутствуют и во втором объекте.
