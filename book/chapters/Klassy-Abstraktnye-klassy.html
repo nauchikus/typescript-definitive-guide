@@ -39,70 +39,66 @@
 <span class="hljs-keyword">let</span> v2: SubStandartClass = <span class="hljs-keyword">new</span> SubStandartClass(); <span class="hljs-comment">// Ok</span></code></pre>
 <p>Абстрактные классы могут содержать абстрактные члены, принадлежность к которым, также, указывается с помощью ключевого слова <code class="inline-code">abstract</code>. С помощью ключевого слова <code class="inline-code">abstract</code> можно помечать поля, свойства (аксессоры), а также методы объекта. При этом свойства и методы не должны иметь реализацию. В отличие от них, полям, помеченным как абстрактные, может быть присвоено значение по умолчанию.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">abstract</span> <span class="hljs-keyword">class</span> Identifier {
- <span class="hljs-keyword">public</span> <span class="hljs-keyword">abstract</span> field: <span class="hljs-built_in">string</span> = <span class="hljs-string">'default value'</span>; <span class="hljs-comment">// реализация допустима</span>
- <span class="hljs-keyword">public</span> <span class="hljs-keyword">abstract</span> <span class="hljs-keyword">get</span> prop(): <span class="hljs-built_in">string</span>; <span class="hljs-comment">// реализация не допустима</span>
- <span class="hljs-keyword">public</span> <span class="hljs-keyword">abstract</span> <span class="hljs-keyword">set</span> prop(value:<span class="hljs-built_in">string</span>); <span class="hljs-comment">// реализация не допустима</span>
+  <span class="hljs-keyword">public</span> <span class="hljs-keyword">abstract</span> field: <span class="hljs-built_in">string</span> = <span class="hljs-string">'default value'</span>; <span class="hljs-comment">// реализация допустима</span>
+  <span class="hljs-keyword">public</span> <span class="hljs-keyword">abstract</span> <span class="hljs-keyword">get</span> prop(): <span class="hljs-built_in">string</span>; <span class="hljs-comment">// реализация не допустима</span>
+  <span class="hljs-keyword">public</span> <span class="hljs-keyword">abstract</span> <span class="hljs-keyword">set</span> prop(value:<span class="hljs-built_in">string</span>); <span class="hljs-comment">// реализация не допустима</span>
 
- <span class="hljs-keyword">public</span> <span class="hljs-keyword">abstract</span> method(): <span class="hljs-built_in">void</span>; <span class="hljs-comment">// реализация не допустима</span>
-}
-~~~~~typescript
-
-Абстрактный класс, который расширяет другой абстрактный класс, не обязан переопределять все абстрактные члены своего суперкласса. В отличии от абстрактных классов, обычные классы, которые расширяют абстрактные классы, обязанные переопределить все поля, свойства и методы, находящиеся в иерархической цепочке и помеченные ключевым словом <span class="hljs-string">`abstract`</span>, если они не были реализованы предками ранее.
-
-~~~~~typescript
-<span class="hljs-keyword">abstract</span> <span class="hljs-keyword">class</span> SuperAbstractClass {
-<span class="hljs-keyword">public</span> <span class="hljs-keyword">abstract</span> field: <span class="hljs-built_in">string</span>; <span class="hljs-comment">// объявление абстрактного поля</span>
+  <span class="hljs-keyword">public</span> <span class="hljs-keyword">abstract</span> method(): <span class="hljs-built_in">void</span>; <span class="hljs-comment">// реализация не допустима</span>
+}</code></pre>
+<p>Абстрактный класс, который расширяет другой абстрактный класс, не обязан переопределять все абстрактные члены своего суперкласса. В отличии от абстрактных классов, обычные классы, которые расширяют абстрактные классы, обязанные переопределить все поля, свойства и методы, находящиеся в иерархической цепочке и помеченные ключевым словом <code class="inline-code">abstract</code>, если они не были реализованы предками ранее.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">abstract</span> <span class="hljs-keyword">class</span> SuperAbstractClass {
+  <span class="hljs-keyword">public</span> <span class="hljs-keyword">abstract</span> field: <span class="hljs-built_in">string</span>; <span class="hljs-comment">// объявление абстрактного поля</span>
 }
 
 <span class="hljs-keyword">abstract</span> <span class="hljs-keyword">class</span> SubAbstractClass <span class="hljs-keyword">extends</span> SuperAbstractClass {} <span class="hljs-comment">// в абстрактных потомках допускается не переопределять абстрактные члены предков </span>
 
 <span class="hljs-keyword">class</span> SubConcreteClass <span class="hljs-keyword">extends</span> SubAbstractClass { <span class="hljs-comment">// конкретный подкласс обязан переопределять абстрактные члены, если они...</span>
-<span class="hljs-keyword">public</span> field: <span class="hljs-built_in">string</span>;
+  <span class="hljs-keyword">public</span> field: <span class="hljs-built_in">string</span>;
 }
 <span class="hljs-keyword">class</span> SubSubConcreteClass <span class="hljs-keyword">extends</span> SubConcreteClass {} <span class="hljs-comment">// ююю если они не были переопределены в классах-предках</span></code></pre>
 <p>Как было сказано ранее, абстрактным полям может быть задано значение по умолчанию, но в этом случае, обратится к нему могут только абстрактные классы в иерархии наследования. </p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">abstract</span> <span class="hljs-keyword">class</span> SuperAbstractClass {
-<span class="hljs-keyword">public</span> <span class="hljs-keyword">abstract</span> field0: <span class="hljs-built_in">string</span> = <span class="hljs-string">'default value'</span>; <span class="hljs-comment">// объявление абстрактного поля с значением по умолчанию</span>
-<span class="hljs-keyword">public</span> <span class="hljs-keyword">abstract</span> field1: <span class="hljs-built_in">string</span>;
-<span class="hljs-keyword">public</span> <span class="hljs-keyword">abstract</span> field2: <span class="hljs-built_in">string</span>;
+  <span class="hljs-keyword">public</span> <span class="hljs-keyword">abstract</span> field0: <span class="hljs-built_in">string</span> = <span class="hljs-string">'default value'</span>; <span class="hljs-comment">// объявление абстрактного поля с значением по умолчанию</span>
+  <span class="hljs-keyword">public</span> <span class="hljs-keyword">abstract</span> field1: <span class="hljs-built_in">string</span>;
+  <span class="hljs-keyword">public</span> <span class="hljs-keyword">abstract</span> field2: <span class="hljs-built_in">string</span>;
 }
 
 <span class="hljs-keyword">abstract</span> <span class="hljs-keyword">class</span> SubAbstractClass <span class="hljs-keyword">extends</span> SuperAbstractClass {
-<span class="hljs-keyword">public</span> field1:  <span class="hljs-built_in">string</span> = <span class="hljs-keyword">this</span>.field0; <span class="hljs-comment">// переопределение абстрактного поля и инициализация его значением абстрактного поля, которому было присвоено значение по умолчанию в абстрактном предке</span>
+  <span class="hljs-keyword">public</span> field1:  <span class="hljs-built_in">string</span> = <span class="hljs-keyword">this</span>.field0; <span class="hljs-comment">// переопределение абстрактного поля и инициализация его значением абстрактного поля, которому было присвоено значение по умолчанию в абстрактном предке</span>
 } 
 
 <span class="hljs-keyword">class</span> SuboncreteClass <span class="hljs-keyword">extends</span> SubAbstractClass {
-<span class="hljs-keyword">public</span> field0: <span class="hljs-built_in">string</span>; <span class="hljs-comment">// конкретному классу необходимо переопределить два абстрактных поля, так как в предках было переопределено только один член</span>
-<span class="hljs-keyword">public</span> field2: <span class="hljs-built_in">string</span>;
+  <span class="hljs-keyword">public</span> field0: <span class="hljs-built_in">string</span>; <span class="hljs-comment">// конкретному классу необходимо переопределить два абстрактных поля, так как в предках было переопределено только один член</span>
+  <span class="hljs-keyword">public</span> field2: <span class="hljs-built_in">string</span>;
 }</code></pre>
 <p>Абстрактные члены в полной мере удовлетворяют все условия реализации интерфейса. Другими словами, абстрактный класс, который декларирует реализацию интерфейса, может не реализовывать его члены, а лишь пометить их как абстрактные и тем самым переложить реализацию на своих потомков.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">interface</span> IInterface {
-field: <span class="hljs-built_in">string</span>;
-method(): <span class="hljs-built_in">void</span>;
+  field: <span class="hljs-built_in">string</span>;
+  method(): <span class="hljs-built_in">void</span>;
 }
 
 
 <span class="hljs-keyword">abstract</span> <span class="hljs-keyword">class</span> AbstractSuperClass <span class="hljs-keyword">implements</span> IInterface { <span class="hljs-comment">// абстрактный класс декларирует реализацию интерфейса</span>
-<span class="hljs-keyword">public</span>  <span class="hljs-keyword">abstract</span> field: <span class="hljs-built_in">string</span>; <span class="hljs-comment">// поле без реализации...</span>
-<span class="hljs-keyword">public</span> <span class="hljs-keyword">abstract</span> method(): <span class="hljs-built_in">void</span>; <span class="hljs-comment">// ...метод без реализации. тем не менее ошибки не возникает</span>
+  <span class="hljs-keyword">public</span>  <span class="hljs-keyword">abstract</span> field: <span class="hljs-built_in">string</span>; <span class="hljs-comment">// поле без реализации...</span>
+  <span class="hljs-keyword">public</span> <span class="hljs-keyword">abstract</span> method(): <span class="hljs-built_in">void</span>; <span class="hljs-comment">// ...метод без реализации. тем не менее ошибки не возникает</span>
 }</code></pre>
 <p>Кроме абстрактных членов, абстрактные классы могут содержать обычные члены, обращение к которым ничем не отличается от членов объявленных в обычных классах.</p>
 <p>Как правило, абстрактные классы реализуют только ту логику, которая не будет ни при каких обстоятельствах противоречить логики своих подклассов.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">abstract</span> <span class="hljs-keyword">class</span> AbstractSuperClass {
-<span class="hljs-keyword">abstract</span> name: <span class="hljs-built_in">string</span> = <span class="hljs-string">"AbstractSuperClass"</span>;
+  <span class="hljs-keyword">abstract</span> name: <span class="hljs-built_in">string</span> = <span class="hljs-string">"AbstractSuperClass"</span>;
 
-<span class="hljs-keyword">public</span> toString(): <span class="hljs-built_in">string</span> {
-  <span class="hljs-comment">// реализация общего не абстрактного метода</span>
-  <span class="hljs-keyword">return</span> <span class="hljs-string">`[object <span class="hljs-subst">${this.name}</span>]`</span>;
-}
+  <span class="hljs-keyword">public</span> toString(): <span class="hljs-built_in">string</span> {
+    <span class="hljs-comment">// реализация общего не абстрактного метода</span>
+    <span class="hljs-keyword">return</span> <span class="hljs-string">`[object <span class="hljs-subst">${this.name}</span>]`</span>;
+  }
 }
 
 <span class="hljs-keyword">class</span> FirstConcreteSubClass <span class="hljs-keyword">extends</span> AbstractSuperClass {
-<span class="hljs-keyword">public</span> name: <span class="hljs-built_in">string</span> = <span class="hljs-string">"T2"</span>; <span class="hljs-comment">// реализуем абстрактное поле</span>
+  <span class="hljs-keyword">public</span> name: <span class="hljs-built_in">string</span> = <span class="hljs-string">"T2"</span>; <span class="hljs-comment">// реализуем абстрактное поле</span>
 }
 
 <span class="hljs-keyword">class</span> SecondConcreteSubClass <span class="hljs-keyword">extends</span> AbstractSuperClass {
-<span class="hljs-keyword">public</span> name: <span class="hljs-built_in">string</span> = <span class="hljs-string">"T2"</span>; <span class="hljs-comment">// реализуем абстрактное поле</span>
+  <span class="hljs-keyword">public</span> name: <span class="hljs-built_in">string</span> = <span class="hljs-string">"T2"</span>; <span class="hljs-comment">// реализуем абстрактное поле</span>
 }
 
 <span class="hljs-keyword">let</span> first: FirstConcreteSubClass = <span class="hljs-keyword">new</span> FirstConcreteSubClass();
