@@ -48,11 +48,11 @@ let animal: Readonly<IAnimal> = // { readonly name?: string }
 ~~~~~
 
 
-## Partia
+## Partial
 ________________
 
 
-Тип сопоставления `Partial<T>` помечает все члены, как необязательные ( `:?` ).
+Тип сопоставления `Partial<T>` помечает все члены, как необязательные (`:?`).
 
 ~~~~~typescript
 // lib.es6.d.ts
