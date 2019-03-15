@@ -173,7 +173,7 @@
 <span class="hljs-keyword">type</span> AliasType&#x3C;T, K <span class="hljs-keyword">extends</span> keyof T> = {
   [P <span class="hljs-keyword">in</span> K]: T[ P ];
 }</code></pre>
-<p>Левая часть выражения, в которой описана итерация ( <code class="inline-code">[P in keyof T]</code> ) , будет заменена на идентификатор поля, а правая ( <code class="inline-code">T[ P ]</code> ), при условие что в ней будет необходимость, на тип данных. Поэтому сопоставление типов можно представить, как полную копию типа T, плюс модификаторы. В качестве модификаторов могут выступать любые модификаторы доступные для описания типов (<code class="inline-code">readonly</code>, <code class="inline-code">?:</code>)</p>
+<p>Левая часть выражения, в которой описана итерация (<code class="inline-code">[P in keyof T]</code>) , будет заменена на идентификатор поля, а правая (<code class="inline-code">T[ P ]</code>), при условие что в ней будет необходимость, на тип данных. Поэтому сопоставление типов можно представить, как полную копию типа T, плюс модификаторы. В качестве модификаторов могут выступать любые модификаторы доступные для описания типов (<code class="inline-code">readonly</code>, <code class="inline-code">?:</code>)</p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">type</span> ReadonlyMember&#x3C;T> = {
   readonly [P <span class="hljs-keyword">in</span> keyof T]: T[ P ];
 }
