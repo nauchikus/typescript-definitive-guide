@@ -1,11 +1,11 @@
 self.__precacheManifest = [
   {
-    "revision": "e81b5142b980ffe23851",
+    "revision": "671836664e48863f8072",
     "url": "/typescript-definitive-guide/css/app.370fd3ba.css"
   },
   {
-    "revision": "e81b5142b980ffe23851",
-    "url": "/typescript-definitive-guide/js/app.4773ab65.js"
+    "revision": "671836664e48863f8072",
+    "url": "/typescript-definitive-guide/js/app.dd89684c.js"
   },
   {
     "revision": "fe648b98c9051009eb32",
@@ -32,12 +32,12 @@ self.__precacheManifest = [
     "url": "/typescript-definitive-guide/js/contents.9fe876b8.js"
   },
   {
-    "revision": "aa9917e328369ed48f74",
+    "revision": "bd055739a9a803a72c29",
     "url": "/typescript-definitive-guide/css/home.15b474e8.css"
   },
   {
-    "revision": "aa9917e328369ed48f74",
-    "url": "/typescript-definitive-guide/js/home.dfbb3fcb.js"
+    "revision": "bd055739a9a803a72c29",
+    "url": "/typescript-definitive-guide/js/home.3a4b9f9f.js"
   },
   {
     "revision": "bf4d4ec8bb72d97fcf79",
@@ -59,7 +59,7 @@ self.__precacheManifest = [
     "url": "/typescript-definitive-guide/img/icons.84286bb2.svg"
   },
   {
-    "revision": "760be16d11f1376421364214ce00455e",
+    "revision": "a9e88f1459986ff23adacf862b6a6dd6",
     "url": "/typescript-definitive-guide/index.html"
   },
   {
@@ -117,5 +117,9 @@ self.__precacheManifest = [
   {
     "revision": "49fca63ccf239c3e5961992d6aa812e6",
     "url": "/typescript-definitive-guide/assets/images/book-cover-with-ufo-v3-3.png"
+  },
+  {
+    "revision": "78cddb99816f959a3718ee5133d51706",
+    "url": "/typescript-definitive-guide/assets/images/book-cover-with-ufo-v3-4.png"
   }
 ];
