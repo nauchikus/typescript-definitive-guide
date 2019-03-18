@@ -2210,4 +2210,50 @@ f.bind(<span class="hljs-literal">null</span>, <span class="hljs-number">0</span
         
 <hr>
 <p><code class="inline-code">--force</code> - принудительно выполняет не инкрементальную сборку. Используется только совместно с флагом <code class="inline-code">--build</code>.</p>
+</section><section id="incremental" name="incremental" class="subchapter">
+            <h2 class="subchapter-title">
+                <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="incremental" type="absolute-url">
+                    <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <use href="#icon_link"/>
+                    </svg>
+                </button>
+                incremental
+            </h2>
+        
+<hr>
+<p><code class="inline-code">--incremental</code> - флаг, при активации которого, после первой компиляции проекта, в директории заданной атирибутом <code class="inline-code">outDir</code>, создается файл <code class="inline-code">.tsbuildinf</code>, который хранит метаинформацию об изменении файлов, что позволяет производить ускоренные инкрементальные сборки при всех послудующих запусках компилятора.</p>
+<pre><code class="hljs language-typescript">{
+    <span class="hljs-string">"compilerOptions"</span>: {
+        <span class="hljs-string">"incremental"</span>: <span class="hljs-literal">true</span>,
+        <span class="hljs-string">"outDir"</span>: <span class="hljs-string">"./dest"</span>
+    }
+}</code></pre>
+<p>В случае, когда имя выходного задается с помощью флага <code class="inline-code">--outFile</code>, имя генерируемого файла <code class="inline-code">.tsbuildinf</code> будет включать в себя название выходного файла (<code class="inline-code">.client.tsbuildinf</code> для файла <code class="inline-code">client.js</code> и <code class="inline-code">.server.tsbuildinf</code> для <code class="inline-code">server.js</code> соответственно).</p>
+<p><code class="inline-code">**Примечание:**</code> создатели <em>TypeScript</em> предупреждают зарание, что генерируемые файлы <code class="inline-code">.tsbuildinf</code> не предназначены для использования сторонними библиотеками, так как их определение, от версии к версии, не будет обладать совместимость.</p>
+<p>Кроме того, с помощью флага <code class="inline-code">--tsBuildInfoFile</code> можно задать место сохранения файла <code class="inline-code">.tsbuildinf</code>.</p>
+<pre><code class="hljs language-typescript">{
+    <span class="hljs-string">"compilerOptions"</span>: {
+        <span class="hljs-string">"incremental"</span>: <span class="hljs-literal">true</span>,
+        <span class="hljs-string">"tsBuildInfoFile"</span>: <span class="hljs-string">"./buildinfo"</span>,
+        <span class="hljs-string">"outDir"</span>: <span class="hljs-string">"./dest"</span>
+    }
+}</code></pre>
+</section><section id="tsBuildInfoFile" name="tsBuildInfoFile" class="subchapter">
+            <h2 class="subchapter-title">
+                <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="tsBuildInfoFile" type="absolute-url">
+                    <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <use href="#icon_link"/>
+                    </svg>
+                </button>
+                tsBuildInfoFile
+            </h2>
+        
+<hr>
+<p><code class="inline-code">--tsBuildInfoFile</code> - флаг с помощью которого указывается местосохранения файла <code class="inline-code">.tsbuildinf</code> генерирующегося при активной опции <code class="inline-code">--incremental</code> и служущий для хранения метаинформации призванной ускорить последуюзщие сборки.</p>
+<pre><code class="hljs language-typescript">{
+    <span class="hljs-string">"compilerOptions"</span>: {
+        <span class="hljs-string">"incremental"</span>: <span class="hljs-literal">true</span>,
+        <span class="hljs-string">"tsBuildInfoFile"</span>: <span class="hljs-string">"./buildinfo"</span>,
+    }
+}</code></pre>
 </section>
