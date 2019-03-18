@@ -1,0 +1,246 @@
+<section id="Opcii-kompilyatora-incremental" name="Опции компилятора --incremental" class="subchapter">
+        <h2 class="subchapter-title">
+            <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="Opcii-kompilyatora-incremental" type="absolute-url">
+                <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <use href="#icon_link"/>
+                </svg>
+            </button>
+            Опции компилятора --incremental
+        </h2>
+        <hr>
+        <p>В <em>TypeScript</em>, начиная с версии <code class="inline-code">v3.3</code>, при совместном использовании флагов <code class="inline-code">--build</code> и <code class="inline-code">--watch</code>, появилась возможность ускоренной сборки проекта на 50%-75%. Такое ускорение достигается за счет создания при первой сборки метаинформации об изменении файлов хранящейся в памяти. Как можно догадаться, при перезапуске компилятора, метаинформация теряется, а это в свою очередь означает, что процесс ускорения сборки действует только в режиме <code class="inline-code">--watch</code> и не может быть полезно при <em>production</em> сборках.</p>
+<p>Для того чтобы достичь ускорения ислючительно всех последующих сборок, компилятору <em>TypeScript</em> был добален функционал активируемый новым флагом <code class="inline-code">--incremental</code>.</p>
+<p><code class="inline-code">--incremental</code> - флаг, при активации которого, после первой компиляции проекта, в директории заданной атирибутом <code class="inline-code">outDir</code>, создается файл <code class="inline-code">.tsbuildinf</code>, который хранит метаинформацию об изменении файлов, что позволяет производить ускоренные инкрементальные сборки при всех послудующих запусках компилятора.</p>
+<pre><code class="hljs language-typescript">{
+    <span class="hljs-string">"compilerOptions"</span>: {
+        <span class="hljs-string">"incremental"</span>: <span class="hljs-literal">true</span>,
+        <span class="hljs-string">"outDir"</span>: <span class="hljs-string">"./dest"</span>
+    }
+}</code></pre>
+<p>В случае, когда имя выходного задается с помощью флага <code class="inline-code">--outFile</code>, имя генерируемого файла <code class="inline-code">.tsbuildinf</code> будет включать в себя название выходного файла (<code class="inline-code">.client.tsbuildinf</code> для файла <code class="inline-code">client.js</code> и <code class="inline-code">.server.tsbuildinf</code> для <code class="inline-code">server.js</code> соответственно).</p>
+<p><code class="inline-code">**Примечание:**</code> создатели <em>TypeScript</em> предупреждают зарание, что генерируемые файлы <code class="inline-code">.tsbuildinf</code> не предназначены для использования сторонними библиотеками, так как их определение, от версии к версии, не будет обладать совместимость.</p>
+<p>Кроме того, с помощью флага <code class="inline-code">--tsBuildInfoFile</code> можно задать место сохранения файла <code class="inline-code">.tsbuildinf</code>.</p>
+<pre><code class="hljs language-typescript">{
+    <span class="hljs-string">"compilerOptions"</span>: {
+        <span class="hljs-string">"incremental"</span>: <span class="hljs-literal">true</span>,
+        <span class="hljs-string">"tsBuildInfoFile"</span>: <span class="hljs-string">"./buildinfo"</span>,
+        <span class="hljs-string">"outDir"</span>: <span class="hljs-string">"./dest"</span>
+    }
+}</code></pre>
+
+    </section>
+<section id="Opcii-kompilyatora-tsBuildInfoFile" name="Опции компилятора --tsBuildInfoFile" class="subchapter">
+        <h2 class="subchapter-title">
+            <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="Opcii-kompilyatora-tsBuildInfoFile" type="absolute-url">
+                <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <use href="#icon_link"/>
+                </svg>
+            </button>
+            Опции компилятора --tsBuildInfoFile
+        </h2>
+        <hr>
+        <p>Для того чтобы задать место сохранения файла <code class="inline-code">.tsbuildinf</code>, в компилятор <em>TypeScript</em>  был добавлен флаг <code class="inline-code">--tsBuildInfoFile</code>.</p>
+<p><code class="inline-code">--tsBuildInfoFile</code> - флаг с помощью которого указывается местосохранения файла <code class="inline-code">.tsbuildinf</code> генерирующегося при активной опции <code class="inline-code">--incremental</code> и служущий для хранения метаинформации призванной ускорить последуюзщие сборки.</p>
+<pre><code class="hljs language-typescript">{
+    <span class="hljs-string">"compilerOptions"</span>: {
+        <span class="hljs-string">"incremental"</span>: <span class="hljs-literal">true</span>,
+        <span class="hljs-string">"tsBuildInfoFile"</span>: <span class="hljs-string">"./buildinfo"</span>,
+    }
+}</code></pre>
+
+    </section>
+<section id="Massivopodobnye-readonly-tipy" name="Массивоподобные readonly типы" class="subchapter">
+        <h2 class="subchapter-title">
+            <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="Massivopodobnye-readonly-tipy" type="absolute-url">
+                <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <use href="#icon_link"/>
+                </svg>
+            </button>
+            Массивоподобные readonly типы
+        </h2>
+        <hr>
+        <p>Начиная с версии <code class="inline-code">v3.4</code>, в <em>TypeScript</em> появилась возможность объявлять <code class="inline-code">Массивоподобные readonly структуры</code> типы, к которым относятся массивы (<code class="inline-code">Array</code>) и кортежи (<code class="inline-code">Tuples</code>). Данный механизм призван защитить элементы массиовоподобных структур от изменения и тем самым повысить типобезопасность программ разрабатываемых на <em>TypeScript</em>. Элементы массивоподобных структур объявленных как <code class="inline-code">readonly</code> невозможно заменить или удалить. Кроме того, в подобные структуры невозможно добавить новые элементы.</p>
+<p>Для того чтобы объявить <code class="inline-code">readonly</code> массив или кортеж достаточно указать в сигнатуре типа модификатор <code class="inline-code">readonly</code>.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">let</span> array: readonly <span class="hljs-built_in">string</span>[ ] = [<span class="hljs-string">'Kent'</span>, <span class="hljs-string">'Clark'</span>]; <span class="hljs-comment">// Массив</span>
+<span class="hljs-keyword">let</span> tuple: readonly [<span class="hljs-built_in">string</span>, <span class="hljs-built_in">string</span>] = [<span class="hljs-string">'Kent'</span>, <span class="hljs-string">'Clark'</span>]; <span class="hljs-comment">// Кортеж</span></code></pre>
+<p>В случаи, объявления <code class="inline-code">readonly</code> массива, становится невозможно изменить его элементы с помощью индексной сигнатуры (<code class="inline-code">array[...]</code>) </p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">let</span> array: readonly <span class="hljs-built_in">string</span>[] = [<span class="hljs-string">'Kent'</span>, <span class="hljs-string">'Clark'</span>];
+array[<span class="hljs-number">0</span>] = <span class="hljs-string">'Wayne'</span>; <span class="hljs-comment">// Error, Index signature in type 'readonly number[]' only permits reading.ts(2542)</span>
+array[array.length] = <span class="hljs-string">'Batman'</span>; <span class="hljs-comment">// Error, Index signature in type 'readonly number[]' only permits reading.ts(2542)</span></code></pre>
+<p>Помимо этого, у <code class="inline-code">readonly</code> массива отсутствуют методы с помощью которым можно изменить элементы массива.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">let</span> array: readonly <span class="hljs-built_in">string</span>[] = [<span class="hljs-string">'Kent'</span>, <span class="hljs-string">'Clark'</span>];
+array.push(<span class="hljs-string">'Batman'</span>); <span class="hljs-comment">// Error, Property 'push' does not exist on type 'readonly number[]'.ts(2339)</span>
+array.shift(); <span class="hljs-comment">// Error, Property 'shift' does not exist on type 'readonly number[]'.ts(2339)</span>
+
+array.indexOf(<span class="hljs-string">'Kent'</span>); <span class="hljs-comment">// Ok</span>
+array.map( <span class="hljs-function"><span class="hljs-params">item</span> =></span> item ); <span class="hljs-comment">// Ok</span></code></pre>
+<p>С учетом погрешности на известные различия между массивом и кортежем, справедливо утверждать, что правила для <code class="inline-code">readonly</code> массива, справедливы и для <code class="inline-code">readonly</code> кортежа.</p>
+<p>Помимо того, что невозможно изменить или удалить слоты кортежа, он также теряет признаки массива, которые способны привести кего изменению.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">let</span> tuple: readonly [<span class="hljs-built_in">string</span>, <span class="hljs-built_in">string</span>] = [<span class="hljs-string">'Kent'</span>, <span class="hljs-string">'Clark'</span>];
+tuple[<span class="hljs-number">0</span>] = <span class="hljs-string">'Wayne'</span>; <span class="hljs-comment">// Error, Cannot assign to '0' because it is a read-only property.ts(2540)</span>
+
+tuple.push(<span class="hljs-string">'Batman'</span>); <span class="hljs-comment">// Error, Property 'push' does not exist on type 'readonly [string, string]'.ts(2339)</span>
+tuple.shift(); <span class="hljs-comment">// Error, Property 'shift' does not exist on type 'readonly [string, string]'.ts(2339)</span>
+
+tuple.indexOf(<span class="hljs-string">'Kent'</span>); <span class="hljs-comment">// Ok</span>
+tuple.map( <span class="hljs-function"><span class="hljs-params">item</span> =></span> item ); <span class="hljs-comment">// Ok</span></code></pre>
+<p>Кроме того механизм массивоподобных <code class="inline-code">readonly</code> структур, начиная с версии <em>TypeScript</em> <code class="inline-code">v3.4</code>, повлиял на поведение такого расширенного типа, как <code class="inline-code">Readonly&#x3C;T></code>. </p>
+<p>До версии <code class="inline-code">v3.4</code> поведение типа <code class="inline-code">Readonly&#x3C;T></code> полноценно распростронялось только на объекты.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-comment">// Ok, { readonly a: string, readonly b: number }</span>
+<span class="hljs-keyword">type</span> A = Readonly&#x3C;{ a: <span class="hljs-built_in">string</span>, b: <span class="hljs-built_in">number</span> }>;
+
+<span class="hljs-comment">// Bad, number[]</span>
+<span class="hljs-keyword">type</span> B = Readonly&#x3C;<span class="hljs-built_in">number</span>[]>;
+
+<span class="hljs-comment">// Bad, [string, boolean]</span>
+<span class="hljs-keyword">type</span> C = Readonly&#x3C;[<span class="hljs-built_in">string</span>, <span class="hljs-built_in">boolean</span>]>;</code></pre>
+<p>,fdktyyj
+Но начиная с версии <code class="inline-code">v3.4</code> поведение для типа <code class="inline-code">Readonly&#x3C;T></code> дополняется поведением массивоподобных <code class="inline-code">readonly</code> структур.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-comment">// Ok, { readonly a: string, readonly b: number }</span>
+<span class="hljs-keyword">type</span> A = Readonly&#x3C;{ a: <span class="hljs-built_in">string</span>, b: <span class="hljs-built_in">number</span> }>;
+
+<span class="hljs-comment">// Ok, readonly number[]</span>
+<span class="hljs-keyword">type</span> B = Readonly&#x3C;<span class="hljs-built_in">number</span>[]>;
+
+<span class="hljs-comment">// Ok, readonly [string, boolean]</span>
+<span class="hljs-keyword">type</span> C = Readonly&#x3C;[<span class="hljs-built_in">string</span>, <span class="hljs-built_in">boolean</span>]>;</code></pre>
+<p>На последок стоит упомянуть, что используя механизм массивоподобных <code class="inline-code">readonly</code> структур, по своей сути, компилятор расценивает эти структуры, как принадлежащие к интерфейсу добавленному вверсии <code class="inline-code">v3.4</code> <code class="inline-code">ReadonlyArray&#x3C;T></code>,речь о котором пойдет далее.</p>
+
+    </section>
+<section id="Rasshirennyi-tip-ReadonlyArray" name="Расширенный тип ReadonlyArray" class="subchapter">
+        <h2 class="subchapter-title">
+            <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="Rasshirennyi-tip-ReadonlyArray" type="absolute-url">
+                <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <use href="#icon_link"/>
+                </svg>
+            </button>
+            Расширенный тип ReadonlyArray
+        </h2>
+        <hr>
+        <p>Расширенный тип <code class="inline-code">ReadonlyArray&#x3C;T></code> предназначен для создания неизменяемых массивов. <code class="inline-code">ReadonlyArray&#x3C;T></code> запрещает изменять значения массива использую индексную сигнатуру <code class="inline-code">array[...]</code>.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">let</span> array: ReadonlyArray&#x3C;<span class="hljs-built_in">number</span>> = [<span class="hljs-number">0</span>,<span class="hljs-number">1</span>,<span class="hljs-number">2</span>];
+
+array[<span class="hljs-number">0</span>] = <span class="hljs-number">1</span>; <span class="hljs-comment">// Error, Index signature in type 'readonly number[]' only permits reading.ts(2542)</span>
+array[array.length] = <span class="hljs-number">3</span>; <span class="hljs-comment">// Error, Index signature in type 'readonly number[]' only permits reading.ts(2542)</span></code></pre>
+<p>Кроме того, тип <code class="inline-code">ReadonlyArray&#x3C;T></code> не сождержит методы, способные изменить, удалить существующие или добавить новые элементы.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">let</span> array: ReadonlyArray&#x3C;<span class="hljs-built_in">number</span>> = [<span class="hljs-number">0</span>,<span class="hljs-number">1</span>,<span class="hljs-number">2</span>];
+
+array.push(<span class="hljs-number">3</span>); <span class="hljs-comment">// Error, Property 'push' does not exist on type 'readonly number[]'.ts(2339)</span>
+array.shift(); <span class="hljs-comment">// Error, Property 'shift' does not exist on type 'readonly number[]'.ts(2339)</span>
+
+array.indexOf(<span class="hljs-number">0</span>); <span class="hljs-comment">// Ok </span></code></pre>
+
+    </section>
+<section id="Prividenie-k-konstante-const-assertion" name="Привидение к константе (const assertion)" class="subchapter">
+        <h2 class="subchapter-title">
+            <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="Prividenie-k-konstante-const-assertion" type="absolute-url">
+                <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <use href="#icon_link"/>
+                </svg>
+            </button>
+            Привидение к константе (const assertion)
+        </h2>
+        <hr>
+        <p>Ни для кого не секрет, что с точки зрения <em>JavaScript</em>, а следовательно и <em>TypeScript</em>, все примитивные литеральные значения являются константными значениями. С точки зрения среды исполнения два эквивалентных литерала любого литерального типа являются единым значением. То есть, среда исполнения расцениывает два строковых литерала <code class="inline-code">'text'</code> и <code class="inline-code">'text'</code>, как один литерал. Тоже самое справедливо и для остальных литералов к которым помимо типа <code class="inline-code">string</code> также относятся такие типы, как<code class="inline-code">number</code>, <code class="inline-code">boolean</code> и <code class="inline-code">symbol</code>. </p>
+<p>Тем не менее, сложно найти разработчика <em>TypeScript</em>, который при объявлении каких-либо конструкций, которым предстоит проверка на принадлжность к литеральному типу, не испытывал дискомфорта из-за вывода типов.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">type</span> Status = <span class="hljs-number">200</span> | <span class="hljs-number">404</span>;
+<span class="hljs-keyword">type</span> Request = {status: Status}
+
+<span class="hljs-keyword">let</span> status = <span class="hljs-number">200</span>;
+
+<span class="hljs-keyword">let</span> reuest: Request = {status}; <span class="hljs-comment">// Error, Type 'number' is not assignable to type 'Status'.ts(2322)</span></code></pre>
+<p>В коде выше ошибка возникает по причине того, что вывод типов определяет принадлежность значения переменной <code class="inline-code">status</code> к типу <code class="inline-code">number</code>, а не литеральному числовому типу <code class="inline-code">200</code>.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-comment">// вывод типов видит как</span>
+<span class="hljs-keyword">let</span> status: <span class="hljs-built_in">number</span> = <span class="hljs-number">200</span>
+
+<span class="hljs-comment">// в то время как требуется так</span>
+<span class="hljs-keyword">let</span> port: <span class="hljs-number">200</span> = <span class="hljs-number">200</span>;</code></pre>
+<p>До версии <em>TypeScript</em> <code class="inline-code">v3.4</code> без явного указания типа или явного приведения к нему, существовал только один выход из сложившейся, в коде выше, ситуации. Он заключался в утверждении типа, спомощью оператора <code class="inline-code">as</code> либо угловых скобок <code class="inline-code">&#x3C;></code>, непосредственно самого значения нуждающегося в этом.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">type</span> Status = <span class="hljs-number">200</span> | <span class="hljs-number">404</span>;
+<span class="hljs-keyword">type</span> Request = {status: Status}
+
+<span class="hljs-keyword">let</span> status = <span class="hljs-number">200</span>;
+
+<span class="hljs-comment">// утверждаем компилятору..</span>
+<span class="hljs-keyword">let</span> reuest: Request = {status: status <span class="hljs-keyword">as</span> <span class="hljs-number">200</span>}; <span class="hljs-comment">// ..с помощью as оператора</span>
+<span class="hljs-keyword">let</span> reuest: Request = {status: &#x3C;<span class="hljs-number">200</span>>status}; <span class="hljs-comment">// ..с помощью угловых скобок</span>
+<span class="hljs-comment">// ..что должен рассматривать значение асоциированное с a, как значение принадлежащие к литеральному типу 'value'</span></code></pre>
+<p><em>TypeScript</em>, начиная с версии <code class="inline-code">v3.4</code>, вводит такое понятие, как <code class="inline-code">const assertion</code> (утверждение к константе или константное утверждение).</p>
+<p>Константное утверждение, утверждение которого также производится с помощью опертора <code class="inline-code">as</code> либо угловых скобок <code class="inline-code">&#x3C;></code>, говорит компилятору, что значение является константным.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">type</span> Status = <span class="hljs-number">200</span> | <span class="hljs-number">404</span>;
+<span class="hljs-keyword">type</span> Request = {status: Status}
+
+<span class="hljs-keyword">let</span> status = <span class="hljs-number">200</span>;
+
+<span class="hljs-keyword">let</span> reuest: Request = {status: status <span class="hljs-keyword">as</span> <span class="hljs-keyword">const</span>}; <span class="hljs-comment">// Ok</span>
+<span class="hljs-keyword">let</span> reuest: Request = {status: &#x3C;<span class="hljs-keyword">const</span>>status}; <span class="hljs-comment">// Ok</span></code></pre>
+<p>По причине того, что компилятор получает инструкции заставляющие его расценивать значение как константное, вывод типов определяет его принадлежность к литеральному типу.</p>
+<p>Утверждение к константе заставляет вывод типов определять принадлежность массива к типу <code class="inline-code">readonly tuple</code>.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">let</span> a = [<span class="hljs-number">200</span>, <span class="hljs-number">404</span>]; <span class="hljs-comment">// let a: number[]</span>
+
+<span class="hljs-keyword">let</span> b = [<span class="hljs-number">200</span>, <span class="hljs-number">404</span>] <span class="hljs-keyword">as</span> <span class="hljs-keyword">const</span>; <span class="hljs-comment">// let b: readonly [200, 404]</span>
+<span class="hljs-keyword">let</span> c = &#x3C;<span class="hljs-keyword">const</span>>[<span class="hljs-number">200</span>, <span class="hljs-number">404</span>]; <span class="hljs-comment">// let c: readonly [200, 404]</span></code></pre>
+<p>В случае с объектным типом, утверждение к константе рекурсивно помечает все его поля как <code class="inline-code">readonly</code>. Кроме того, все его поля принадлежащие к примитивным типам расцениваются как литеральные типы.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">type</span> NotConstResponseType = {
+    status: <span class="hljs-built_in">number</span>;
+    data: {
+        role: <span class="hljs-built_in">string</span>;
+    };
+}
+
+<span class="hljs-keyword">type</span> ConstResponseType = {
+    status: <span class="hljs-number">200</span> | <span class="hljs-number">404</span>;
+    data: {
+        role: <span class="hljs-string">'user'</span> | <span class="hljs-string">'admin'</span>;
+    };
+}
+
+<span class="hljs-keyword">let</span> a = {status: <span class="hljs-number">200</span>, data: {role: <span class="hljs-string">'user'</span>}}; <span class="hljs-comment">// NotConstResponseType</span>
+
+<span class="hljs-keyword">let</span> b = {status: <span class="hljs-number">200</span>, data: {role: <span class="hljs-string">'user'</span>}} <span class="hljs-keyword">as</span> <span class="hljs-keyword">const</span>; <span class="hljs-comment">// ConstResponseType</span>
+<span class="hljs-keyword">let</span> c = &#x3C;<span class="hljs-keyword">const</span>>{status: <span class="hljs-number">200</span>, data: {role: <span class="hljs-string">'user'</span>}}; <span class="hljs-comment">// ConstResponseType</span></code></pre>
+<p>Но стоит помнить, что утверждение к констранте, применимо исключительно к <code class="inline-code">number</code>, <code class="inline-code">string</code>, <code class="inline-code">boolean</code>, <code class="inline-code">array</code> и <code class="inline-code">object</code> литералам.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">let</span> a = <span class="hljs-string">'value'</span> <span class="hljs-keyword">as</span> <span class="hljs-keyword">const</span>; <span class="hljs-comment">// Ok - 'value' является литералом, let a: "value"</span>
+<span class="hljs-keyword">let</span> b = <span class="hljs-number">100</span> <span class="hljs-keyword">as</span> <span class="hljs-keyword">const</span>; <span class="hljs-comment">// Ok - 100 является литералом, let b: 100</span>
+<span class="hljs-keyword">let</span> c = <span class="hljs-literal">true</span> <span class="hljs-keyword">as</span> <span class="hljs-keyword">const</span>; <span class="hljs-comment">// Ok - true является литералом, let c: true</span>
+
+<span class="hljs-keyword">let</span> d = [] <span class="hljs-keyword">as</span> <span class="hljs-keyword">const</span>; <span class="hljs-comment">// Ok - [] является литералом, let d: readonly []</span>
+<span class="hljs-keyword">let</span> e = {f: <span class="hljs-number">100</span>} <span class="hljs-keyword">as</span> <span class="hljs-keyword">const</span>; <span class="hljs-comment">// Ok - {} является литералом, let e: {readonly f: 100;}</span>
+
+<span class="hljs-keyword">let</span> value = <span class="hljs-string">'value'</span>;
+<span class="hljs-keyword">let</span> array = [<span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">2</span>]; <span class="hljs-comment">// let array: number[]</span>
+<span class="hljs-keyword">let</span> object = {f: <span class="hljs-number">100</span>}; <span class="hljs-comment">// let object: {f: number;}</span>
+
+<span class="hljs-keyword">let</span> f = value <span class="hljs-keyword">as</span> <span class="hljs-keyword">const</span>; <span class="hljs-comment">// Error - value это ссылка идентификатор хранящий литерал</span>
+<span class="hljs-keyword">let</span> g = array <span class="hljs-keyword">as</span> <span class="hljs-keyword">const</span>; <span class="hljs-comment">// Error - array это ссылка на идентификатор хранящий ссылку на объект массива</span>
+<span class="hljs-keyword">let</span> h = object <span class="hljs-keyword">as</span> <span class="hljs-keyword">const</span>; <span class="hljs-comment">// Error - object это ссылка иденитификатор хранящий ссылку на объект объекта</span></code></pre>
+<p>Но кроме того, все три рассмотренных случая утверждения к константе (примитивных, массивов и объектных типов) может создать впечатление, что в <em>TypeScript</em>, наконец, появились структуры, которые справедливо называть те самые, неизменяемые ни при каких условиях, константы. И это действительно так, но лишь от части. Дело в том, что на момент версии <em>TypeScript</em> <code class="inline-code">v3.4</code> принадлежность объектных и массивоподобных типов к константе зависит от значения с которыми они ассоциированы.</p>
+<p>В случаи, когда литералы ссылочных типов (массивы и объекты) ассоциированны при помощи агрегационных отношений со значением также принадлежащим к ссылочному типу, то они представляются такими, какими были на момент ассоциации. кроме того поведение механизма приведения к константе зависит оо другого, такого механизма, как деструктуризация.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">let</span> defaultObject = {f: <span class="hljs-number">100</span>}; <span class="hljs-comment">// let defaultObject: {f: number;}</span>
+<span class="hljs-keyword">let</span> constObject = {f: <span class="hljs-number">100</span>} <span class="hljs-keyword">as</span> <span class="hljs-keyword">const</span>; <span class="hljs-comment">// let constObject: {readonly f: 100;}</span>
+
+<span class="hljs-keyword">let</span> defaultArray = [<span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">2</span>]; <span class="hljs-comment">// let defaultArray: number[]</span>
+<span class="hljs-keyword">let</span> constArray = [<span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">2</span>] <span class="hljs-keyword">as</span> <span class="hljs-keyword">const</span>; <span class="hljs-comment">// let constArray: readonly [0, 1, 2]</span>
+
+
+<span class="hljs-comment">// неожиданно - o0.f не имеет модификатора readonly! ожиданно - o0.f.f иммутабельный (неизменяемый) объект</span>
+<span class="hljs-keyword">let</span> o0 = {f: {f: <span class="hljs-number">100</span>}} <span class="hljs-keyword">as</span> <span class="hljs-keyword">const</span>; <span class="hljs-comment">// {f: {readonly f: 100;};}</span>
+<span class="hljs-comment">// ожиданно - o1.f имеет модификатор readonly. возможно ожиданно - o1.f.f мутабельный (изменяемый) объект</span>
+<span class="hljs-keyword">let</span> o1 = {f: defaultObject} <span class="hljs-keyword">as</span> <span class="hljs-keyword">const</span>; <span class="hljs-comment">// {readonly f: {f: number;};}</span>
+<span class="hljs-comment">// ожиданно - o2 иммутабельный (неизменяемый) объект </span>
+<span class="hljs-keyword">let</span> o2 = {...defaultObject} <span class="hljs-keyword">as</span> <span class="hljs-keyword">const</span>; <span class="hljs-comment">// {readonly f: number;}</span>
+<span class="hljs-comment">// неожиданно - o3.f не имеет модификатора readonly. ожиданно- o3.f.f иммутабельный (неизменяемый) объект</span>
+<span class="hljs-keyword">let</span> o3 = {f: {...defaultObject}} <span class="hljs-keyword">as</span> <span class="hljs-keyword">const</span>; <span class="hljs-comment">// {f: {readonly f: number;};}</span>
+
+<span class="hljs-comment">// ожиданно - o4.f и o4.f.f иммутабельные (неизменяемые) объекты</span>
+<span class="hljs-keyword">let</span> o4 = {f: constObject} <span class="hljs-keyword">as</span> <span class="hljs-keyword">const</span>; <span class="hljs-comment">// let o4: {readonly f: {readonly f: 100;};}</span>
+<span class="hljs-comment">// ожиданно - o5 иммутабельный (неизменяемый)  объект</span>
+<span class="hljs-keyword">let</span> o5 = {...constObject} <span class="hljs-keyword">as</span> <span class="hljs-keyword">const</span>; <span class="hljs-comment">// let o5: {readonly f: 100;}</span>
+<span class="hljs-comment">// неожиданно - o6.f не имеет модификатора readonly. ожиданно- o6.f.f иммутабельный (неизменяемый) объект</span>
+<span class="hljs-keyword">let</span> o6 = {f: {...constObject}} <span class="hljs-keyword">as</span> <span class="hljs-keyword">const</span>; <span class="hljs-comment">// {f: {readonly f: 100;};}</span></code></pre>
+<p>По причине того, что непримитивные (объектные) типы данных, хранящиеся в массиве, подчиняются правилам описанным выше, подробное рассмотрение процесса утверждения массива к константе будет опущено.</p>
+<p>И последнее о чем стоитупомянуть, утверждение к константе применимо только к простым выражениям.</p>
+<p>let a = (Math.round(Math.random() <em> 1) ? 'yes' : 'no') as const; // Error
+let b = Math.round(Math.random() </em> 1) ? 'yes' as const : 'no' as const; // Ok, let b: "yes" | "no"</p>
+
+    </section>
