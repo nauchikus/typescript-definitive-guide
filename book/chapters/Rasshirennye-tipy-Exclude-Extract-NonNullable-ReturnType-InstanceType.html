@@ -151,4 +151,40 @@
 <span class="hljs-keyword">let</span> v3: InstanceType&#x3C; never >; <span class="hljs-comment">// let v3: never</span>
 <span class="hljs-keyword">let</span> v4: InstanceType&#x3C; <span class="hljs-built_in">number</span> >; <span class="hljs-comment">// Error</span>
 <span class="hljs-keyword">let</span> v5: InstanceType&#x3C; <span class="hljs-built_in">Function</span> >; <span class="hljs-comment">// Error</span></code></pre>
+</section><section id="Parameters" name="Parameters" class="subchapter">
+            <h2 class="subchapter-title">
+                <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="Parameters" type="absolute-url">
+                    <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <use href="#icon_link"/>
+                    </svg>
+                </button>
+                Parameters
+            </h2>
+        
+<hr>
+<p>Расширенный тип <code class="inline-code">Parameters&#x3C;T></code> предназначен для получения типов указанных в аннотации параметров функции.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">type</span> Parameters&#x3C;T <span class="hljs-keyword">extends</span> (...args: <span class="hljs-built_in">any</span>[]) => <span class="hljs-built_in">any</span>> = T <span class="hljs-keyword">extends</span> (...args: infer P) => <span class="hljs-built_in">any</span> ? P : never;</code></pre>
+<p><code class="inline-code">Parameters&#x3C;T></code> возвращает типы параметров в виде кортежа.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">const</span> f = &#x3C;T><span class="hljs-function">(<span class="hljs-params">p0:T, p1: <span class="hljs-built_in">number</span>, p2: <span class="hljs-built_in">string</span>, p3?: <span class="hljs-built_in">boolean</span>, p4: object = {}</span>) =></span> ({}); 
+
+<span class="hljs-keyword">type</span> FunctionParams = Parameters&#x3C;<span class="hljs-keyword">typeof</span> f>; <span class="hljs-comment">// type FunctionParams = [{}, number, string, boolean?, object?]</span></code></pre>
+</section><section id="ConstructorParameters" name="ConstructorParameters" class="subchapter">
+            <h2 class="subchapter-title">
+                <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="ConstructorParameters" type="absolute-url">
+                    <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <use href="#icon_link"/>
+                    </svg>
+                </button>
+                ConstructorParameters
+            </h2>
+        
+<hr>
+<p>Расширенный тип <code class="inline-code">ConstructorParameters&#x3C;T></code> предназначен для получения типов указанных в аннотации параметров конструктора.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">type</span> ConstructorParameters&#x3C;T <span class="hljs-keyword">extends</span> <span class="hljs-keyword">new</span> (...args: <span class="hljs-built_in">any</span>[]) => <span class="hljs-built_in">any</span>> = T <span class="hljs-keyword">extends</span> <span class="hljs-keyword">new</span> (...args: infer P) => <span class="hljs-built_in">any</span> ? P : never;</code></pre>
+<p><code class="inline-code">ConstructorParameters&#x3C;T></code> возвращает типы параметров в виде кортежа.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">class</span> Class&#x3C;T> {
+    <span class="hljs-keyword">constructor</span>(<span class="hljs-params">p0:T, p1: <span class="hljs-built_in">number</span>, p2: <span class="hljs-built_in">string</span>, p3?: <span class="hljs-built_in">boolean</span>, p4: object = {}</span>){}
+}
+
+<span class="hljs-keyword">type</span> ClassParams = ConstructorParameters&#x3C;<span class="hljs-keyword">typeof</span> Class>; <span class="hljs-comment">// type ClassParams = [{}, number, string, boolean?, object?]</span></code></pre>
 </section>
