@@ -148,3 +148,41 @@ let v3: InstanceType< never >; // let v3: never
 let v4: InstanceType< number >; // Error
 let v5: InstanceType< Function >; // Error
 ~~~~~
+
+## Parameters
+________________
+
+Расширенный тип `Parameters<T>` предназначен для получения типов указанных в аннотации параметров функции.
+
+`````typescript
+type Parameters<T extends (...args: any[]) => any> = T extends (...args: infer P) => any ? P : never;
+`````
+
+`Parameters<T>` возвращает типы параметров в виде кортежа.
+
+`````typescript
+const f = <T>(p0:T, p1: number, p2: string, p3?: boolean, p4: object = {}) => ({}); 
+
+type FunctionParams = Parameters<typeof f>; // type FunctionParams = [{}, number, string, boolean?, object?]
+`````
+
+
+## ConstructorParameters
+________________
+
+
+Расширенный тип `ConstructorParameters<T>` предназначен для получения типов указанных в аннотации параметров конструктора.
+
+`````typescript
+type ConstructorParameters<T extends new (...args: any[]) => any> = T extends new (...args: infer P) => any ? P : never;
+`````
+
+`ConstructorParameters<T>` возвращает типы параметров в виде кортежа.
+
+`````typescript
+class Class<T> {
+    constructor(p0:T, p1: number, p2: string, p3?: boolean, p4: object = {}){}
+}
+
+type ClassParams = ConstructorParameters<typeof Class>; // type ClassParams = [{}, number, string, boolean?, object?]
+`````
