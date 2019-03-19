@@ -141,7 +141,7 @@ array.indexOf(<span class="hljs-number">0</span>); <span class="hljs-comment">//
             Привидение к константе (const assertion)
         </h2>
         <hr>
-        <p>Ни для кого не секрет, что с точки зрения <em>JavaScript</em>, а следовательно и <em>TypeScript</em>, все примитивные литеральные значения являются константными значениями. С точки зрения среды исполнения два эквивалентных литерала любого литерального типа являются единым значением. То есть, среда исполнения расцениывает два строковых литерала <code class="inline-code">'text'</code> и <code class="inline-code">'text'</code>, как один литерал. Тоже самое справедливо и для остальных литералов к которым помимо типа <code class="inline-code">string</code> также относятся такие типы, как<code class="inline-code">number</code>, <code class="inline-code">boolean</code> и <code class="inline-code">symbol</code>. </p>
+        <p>Ни для кого не секрет, что с точки зрения <em>JavaScript</em>, а следовательно и <em>TypeScript</em>, все примитивные литеральные значения являются константными значениями. С точки зрения среды исполнения два эквивалентных литерала любого литерального типа являются единым значением. То есть, среда исполнения расценивает два строковых литерала <code class="inline-code">'text'</code> и <code class="inline-code">'text'</code>, как один литерал. Тоже самое справедливо и для остальных литералов к которым помимо типа <code class="inline-code">string</code> также относятся такие типы, как <code class="inline-code">number</code>, <code class="inline-code">boolean</code> и <code class="inline-code">symbol</code>. </p>
 <p>Тем не менее, сложно найти разработчика <em>TypeScript</em>, который при объявлении каких-либо конструкций, которым предстоит проверка на принадлжность к литеральному типу, не испытывал дискомфорта из-за вывода типов.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">type</span> Status = <span class="hljs-number">200</span> | <span class="hljs-number">404</span>;
 <span class="hljs-keyword">type</span> Request = {status: Status}
@@ -154,7 +154,7 @@ array.indexOf(<span class="hljs-number">0</span>); <span class="hljs-comment">//
 <span class="hljs-keyword">let</span> status: <span class="hljs-built_in">number</span> = <span class="hljs-number">200</span>
 
 <span class="hljs-comment">// в то время как требуется так</span>
-<span class="hljs-keyword">let</span> port: <span class="hljs-number">200</span> = <span class="hljs-number">200</span>;</code></pre>
+<span class="hljs-keyword">let</span> status: <span class="hljs-number">200</span> = <span class="hljs-number">200</span>;</code></pre>
 <p>До версии <em>TypeScript</em> <code class="inline-code">v3.4</code> без явного указания типа или явного приведения к нему, существовал только один выход из сложившейся, в коде выше, ситуации. Он заключался в утверждении типа, спомощью оператора <code class="inline-code">as</code> либо угловых скобок <code class="inline-code">&#x3C;></code>, непосредственно самого значения нуждающегося в этом.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">type</span> Status = <span class="hljs-number">200</span> | <span class="hljs-number">404</span>;
 <span class="hljs-keyword">type</span> Request = {status: Status}
@@ -162,11 +162,11 @@ array.indexOf(<span class="hljs-number">0</span>); <span class="hljs-comment">//
 <span class="hljs-keyword">let</span> status = <span class="hljs-number">200</span>;
 
 <span class="hljs-comment">// утверждаем компилятору..</span>
-<span class="hljs-keyword">let</span> reuest: Request = {status: status <span class="hljs-keyword">as</span> <span class="hljs-number">200</span>}; <span class="hljs-comment">// ..с помощью as оператора</span>
-<span class="hljs-keyword">let</span> reuest: Request = {status: &#x3C;<span class="hljs-number">200</span>>status}; <span class="hljs-comment">// ..с помощью угловых скобок</span>
-<span class="hljs-comment">// ..что должен рассматривать значение асоциированное с a, как значение принадлежащие к литеральному типу 'value'</span></code></pre>
+<span class="hljs-keyword">let</span> reuest: Request = {status: status <span class="hljs-keyword">as</span> <span class="hljs-number">200</span>}; <span class="hljs-comment">// …с помощью as оператора</span>
+<span class="hljs-keyword">let</span> reuest: Request = {status: &#x3C;<span class="hljs-number">200</span>>status}; <span class="hljs-comment">// …с помощью угловых скобок</span>
+<span class="hljs-comment">// …что должен рассматривать значение асоциированное со 'status', как значение принадлежащие к литеральному типу 'Status'</span></code></pre>
 <p><em>TypeScript</em>, начиная с версии <code class="inline-code">v3.4</code>, вводит такое понятие, как <code class="inline-code">const assertion</code> (утверждение к константе или константное утверждение).</p>
-<p>Константное утверждение, утверждение которого также производится с помощью опертора <code class="inline-code">as</code> либо угловых скобок <code class="inline-code">&#x3C;></code>, говорит компилятору, что значение является константным.</p>
+<p>Константное утверждение это такое утверждение объявление которого производится с помощью опертора <code class="inline-code">as</code> либо угловых скобок <code class="inline-code">&#x3C;></code>.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">type</span> Status = <span class="hljs-number">200</span> | <span class="hljs-number">404</span>;
 <span class="hljs-keyword">type</span> Request = {status: Status}
 
@@ -199,7 +199,7 @@ array.indexOf(<span class="hljs-number">0</span>); <span class="hljs-comment">//
 
 <span class="hljs-keyword">let</span> b = {status: <span class="hljs-number">200</span>, data: {role: <span class="hljs-string">'user'</span>}} <span class="hljs-keyword">as</span> <span class="hljs-keyword">const</span>; <span class="hljs-comment">// ConstResponseType</span>
 <span class="hljs-keyword">let</span> c = &#x3C;<span class="hljs-keyword">const</span>>{status: <span class="hljs-number">200</span>, data: {role: <span class="hljs-string">'user'</span>}}; <span class="hljs-comment">// ConstResponseType</span></code></pre>
-<p>Но стоит помнить, что утверждение к констранте, применимо исключительно к <code class="inline-code">number</code>, <code class="inline-code">string</code>, <code class="inline-code">boolean</code>, <code class="inline-code">array</code> и <code class="inline-code">object</code> литералам.</p>
+<p>Но стоит помнить, что утверждение к констранте, применимо исключительно к литералам <code class="inline-code">number</code>, <code class="inline-code">string</code>, <code class="inline-code">boolean</code>, <code class="inline-code">array</code> и <code class="inline-code">object</code>.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">let</span> a = <span class="hljs-string">'value'</span> <span class="hljs-keyword">as</span> <span class="hljs-keyword">const</span>; <span class="hljs-comment">// Ok - 'value' является литералом, let a: "value"</span>
 <span class="hljs-keyword">let</span> b = <span class="hljs-number">100</span> <span class="hljs-keyword">as</span> <span class="hljs-keyword">const</span>; <span class="hljs-comment">// Ok - 100 является литералом, let b: 100</span>
 <span class="hljs-keyword">let</span> c = <span class="hljs-literal">true</span> <span class="hljs-keyword">as</span> <span class="hljs-keyword">const</span>; <span class="hljs-comment">// Ok - true является литералом, let c: true</span>
@@ -214,8 +214,8 @@ array.indexOf(<span class="hljs-number">0</span>); <span class="hljs-comment">//
 <span class="hljs-keyword">let</span> f = value <span class="hljs-keyword">as</span> <span class="hljs-keyword">const</span>; <span class="hljs-comment">// Error - value это ссылка идентификатор хранящий литерал</span>
 <span class="hljs-keyword">let</span> g = array <span class="hljs-keyword">as</span> <span class="hljs-keyword">const</span>; <span class="hljs-comment">// Error - array это ссылка на идентификатор хранящий ссылку на объект массива</span>
 <span class="hljs-keyword">let</span> h = object <span class="hljs-keyword">as</span> <span class="hljs-keyword">const</span>; <span class="hljs-comment">// Error - object это ссылка иденитификатор хранящий ссылку на объект объекта</span></code></pre>
-<p>Но кроме того, все три рассмотренных случая утверждения к константе (примитивных, массивов и объектных типов) может создать впечатление, что в <em>TypeScript</em>, наконец, появились структуры, которые справедливо называть те самые, неизменяемые ни при каких условиях, константы. И это действительно так, но лишь от части. Дело в том, что на момент версии <em>TypeScript</em> <code class="inline-code">v3.4</code> принадлежность объектных и массивоподобных типов к константе зависит от значения с которыми они ассоциированы.</p>
-<p>В случаи, когда литералы ссылочных типов (массивы и объекты) ассоциированны при помощи агрегационных отношений со значением также принадлежащим к ссылочному типу, то они представляются такими, какими были на момент ассоциации. кроме того поведение механизма приведения к константе зависит оо другого, такого механизма, как деструктуризация.</p>
+<p>Но кроме того, все три рассмотренных случая утверждения к константе (примитивных, массивов и объектных типов) может создать впечатление, что в <em>TypeScript</em>, наконец, появились структуры, которые справедливо назвать теми самыми, неизменяемыми ни при каких условиях, константами. И это действительно так, но лишь от части. Дело в том, что на момент версии <em>TypeScript</em> <code class="inline-code">v3.4</code> принадлежность объектных и массивоподобных типов к константе зависит от значения с которыми они ассоциированы.</p>
+<p>В случае, когда литералы ссылочных типов (массивы и объекты) ассоциированны при помощи агрегационных отношений со значением также принадлежащим к ссылочному типу, то они представляются такими, какими были на момент ассоциации. Кроме того поведение механизма приведения к константе зависит от другого механизма – деструктуризации.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">let</span> defaultObject = {f: <span class="hljs-number">100</span>}; <span class="hljs-comment">// let defaultObject: {f: number;}</span>
 <span class="hljs-keyword">let</span> constObject = {f: <span class="hljs-number">100</span>} <span class="hljs-keyword">as</span> <span class="hljs-keyword">const</span>; <span class="hljs-comment">// let constObject: {readonly f: 100;}</span>
 
@@ -223,11 +223,11 @@ array.indexOf(<span class="hljs-number">0</span>); <span class="hljs-comment">//
 <span class="hljs-keyword">let</span> constArray = [<span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">2</span>] <span class="hljs-keyword">as</span> <span class="hljs-keyword">const</span>; <span class="hljs-comment">// let constArray: readonly [0, 1, 2]</span>
 
 
-<span class="hljs-comment">// неожиданно - o0.f не имеет модификатора readonly! ожиданно - o0.f.f иммутабельный (неизменяемый) объект</span>
+<span class="hljs-comment">// неожиданно - o0.f не имеет модификатора readonly! Однако ожидаемо, что o0.f.f иммутабельный (неизменяемый) объект</span>
 <span class="hljs-keyword">let</span> o0 = {f: {f: <span class="hljs-number">100</span>}} <span class="hljs-keyword">as</span> <span class="hljs-keyword">const</span>; <span class="hljs-comment">// {f: {readonly f: 100;};}</span>
-<span class="hljs-comment">// ожиданно - o1.f имеет модификатор readonly. возможно ожиданно - o1.f.f мутабельный (изменяемый) объект</span>
+<span class="hljs-comment">// ожидаемо - o1.f имеет модификатор readonly. Вполне ожидаемо: o1.f.f мутабельный (изменяемый) объект</span>
 <span class="hljs-keyword">let</span> o1 = {f: defaultObject} <span class="hljs-keyword">as</span> <span class="hljs-keyword">const</span>; <span class="hljs-comment">// {readonly f: {f: number;};}</span>
-<span class="hljs-comment">// ожиданно - o2 иммутабельный (неизменяемый) объект </span>
+<span class="hljs-comment">// ожидаемо - o2 иммутабельный (неизменяемый) объект </span>
 <span class="hljs-keyword">let</span> o2 = {...defaultObject} <span class="hljs-keyword">as</span> <span class="hljs-keyword">const</span>; <span class="hljs-comment">// {readonly f: number;}</span>
 <span class="hljs-comment">// неожиданно - o3.f не имеет модификатора readonly. ожиданно- o3.f.f иммутабельный (неизменяемый) объект</span>
 <span class="hljs-keyword">let</span> o3 = {f: {...defaultObject}} <span class="hljs-keyword">as</span> <span class="hljs-keyword">const</span>; <span class="hljs-comment">// {f: {readonly f: number;};}</span>
@@ -239,7 +239,7 @@ array.indexOf(<span class="hljs-number">0</span>); <span class="hljs-comment">//
 <span class="hljs-comment">// неожиданно - o6.f не имеет модификатора readonly. ожиданно- o6.f.f иммутабельный (неизменяемый) объект</span>
 <span class="hljs-keyword">let</span> o6 = {f: {...constObject}} <span class="hljs-keyword">as</span> <span class="hljs-keyword">const</span>; <span class="hljs-comment">// {f: {readonly f: 100;};}</span></code></pre>
 <p>По причине того, что непримитивные (объектные) типы данных, хранящиеся в массиве, подчиняются правилам описанным выше, подробное рассмотрение процесса утверждения массива к константе будет опущено.</p>
-<p>И последнее о чем стоитупомянуть, утверждение к константе применимо только к простым выражениям.</p>
+<p>И последнее о чем стоит упомянуть, утверждение к константе применимо только к простым выражениям.</p>
 <p>let a = (Math.round(Math.random() <em> 1) ? 'yes' : 'no') as const; // Error
 let b = Math.round(Math.random() </em> 1) ? 'yes' as const : 'no' as const; // Ok, let b: "yes" | "no"</p>
 
