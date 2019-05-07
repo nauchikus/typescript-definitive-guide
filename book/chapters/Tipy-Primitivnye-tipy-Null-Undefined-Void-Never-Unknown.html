@@ -341,8 +341,9 @@ v1(); <span class="hljs-comment">// Error</span></code></pre>
 
 
 <span class="hljs-keyword">let</span> v14 = <span class="hljs-number">5</span> &#x26;&#x26; v0; <span class="hljs-comment">// Ok, let v14: unknown</span>
-<span class="hljs-keyword">let</span> v15 = <span class="hljs-number">5</span> || v0; <span class="hljs-comment">// Ok, let v15: boolean</span>
-<span class="hljs-keyword">let</span> v16 = !v0; <span class="hljs-comment">// Ok, let v16: boolean</span></code></pre>
+<span class="hljs-keyword">let</span> v15 = <span class="hljs-number">5</span> || v0; <span class="hljs-comment">// Ok, let v15: unknown</span>
+<span class="hljs-keyword">let</span> v16 = v0 || <span class="hljs-number">5</span>; <span class="hljs-comment">// Ok, let v16: unknown</span>
+<span class="hljs-keyword">let</span> v17 = !v0; <span class="hljs-comment">// Ok, let v17: boolean</span></code></pre>
 <p>Тип <code class="inline-code">unknown</code> при операциях с сопоставленных типах представляется объектным типом <code class="inline-code">{}</code></p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">type</span> MappedType&#x3C;T> = {
   [K <span class="hljs-keyword">in</span> keyof T]: T;
