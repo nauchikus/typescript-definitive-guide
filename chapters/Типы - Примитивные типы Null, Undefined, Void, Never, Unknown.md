@@ -417,8 +417,9 @@ let v13 = v0--; // Error
 
 
 let v14 = 5 && v0; // Ok, let v14: unknown
-let v15 = 5 || v0; // Ok, let v15: boolean
-let v16 = !v0; // Ok, let v16: boolean
+let v15 = 5 || v0; // Ok, let v15: unknown
+let v16 = v0 || 5; // Ok, let v16: unknown
+let v17 = !v0; // Ok, let v17: boolean
 ~~~~~
 
 Тип `unknown` при операциях с сопоставленных типах представляется объектным типом `{}`
