@@ -218,8 +218,8 @@ f( array[0], array[1], array[2] ); // Error, все элементы масси�
 ~~~~~typescript
 function f( ...rest: [ number, string?, boolean? ] ): void {}
 
-
-f( 5 ); // Error
+f( ); // Error
+f( 5 ); // Ok
 f( 5, '' ); // Ok
 f( 5, '', true ); // Ok
 ~~~~~
