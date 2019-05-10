@@ -178,8 +178,8 @@ f( array[<span class="hljs-number">0</span>], array[<span class="hljs-number">1<
 <p>Помимо этого, типы указанные в кортеже могут быть помечены как необязательные с помощью необязательного модификатора  <code class="inline-code">?</code>.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">f</span>(<span class="hljs-params"> ...rest: [ <span class="hljs-built_in">number</span>, <span class="hljs-built_in">string</span>?, <span class="hljs-built_in">boolean</span>? ] </span>): <span class="hljs-title">void</span> </span>{}
 
-
-f( <span class="hljs-number">5</span> ); <span class="hljs-comment">// Error</span>
+f( ); <span class="hljs-comment">// Error</span>
+f( <span class="hljs-number">5</span> ); <span class="hljs-comment">// Ok</span>
 f( <span class="hljs-number">5</span>, <span class="hljs-string">''</span> ); <span class="hljs-comment">// Ok</span>
 f( <span class="hljs-number">5</span>, <span class="hljs-string">''</span>, <span class="hljs-literal">true</span> ); <span class="hljs-comment">// Ok</span></code></pre>
 <p>У кортежа, который включает типы помеченные как не обязательные, свойство длины принадлежит к  типу объединению состоящего из литеральных числовых типов.</p>
