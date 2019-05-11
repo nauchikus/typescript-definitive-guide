@@ -191,7 +191,7 @@ age?: <span class="hljs-built_in">number</span>;
 <span class="hljs-keyword">let</span> v4: IAnimal = insect; <span class="hljs-comment">// Ok</span>
 <span class="hljs-keyword">let</span> v5: IAnimal = reptile; <span class="hljs-comment">// Ok</span>
 <span class="hljs-keyword">let</span> v6: IAnimal = worm; <span class="hljs-comment">// Error</span></code></pre>
-<p>Обобщенные типы данных, чьи параметры типа указаны в аннотации типа, и при этом были установлены аргументами типа, участвуют в проверки на совместимость, по характерным, для <em>TypeScript</em>, правилам.</p>
+<p>Обобщенные типы данных, чьи параметры типа указаны в аннотации типа, и при этом были установлены аргументами типа, участвуют в проверке на совместимость, по характерным, для <em>TypeScript</em>, правилам.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">class</span> Bird &#x3C; T > {
   <span class="hljs-keyword">public</span> name: T;
 }
