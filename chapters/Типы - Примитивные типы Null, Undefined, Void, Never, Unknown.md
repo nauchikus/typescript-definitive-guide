@@ -391,9 +391,9 @@ type T9 = unknown | unknown; // type T9 = unknown
 Помимо этого, запрос ключей (`keyof`) для тип `unknown` возвращает тип `never`.
 
 ~~~~~typescript
-type T0 = keyof number; // "toString" | "toFixed" | "toExponential" | "toPrecision" | "valueOf" | "toLocaleString"
-type T1 = keyof any; // type T0 = string | number | symbol
-type T2 = keyof unknown; // type T1 = never
+type T0 = keyof number; // type T0 = "toString" | "toFixed" | "toExponential" | "toPrecision" | "valueOf" | "toLocaleString"
+type T1 = keyof any; // type T1 = string | number | symbol
+type T2 = keyof unknown; // type T2 = never
 ~~~~~
 
 Также для тип  `unknown` позволяется использовать только в операциях равенства `===`, `==`, `!==`, `!=` и в операциях с логическими операторами `&&`, `||` и `!`.
@@ -417,7 +417,7 @@ let v13 = v0--; // Error
 
 
 let v14 = 5 && v0; // Ok, let v14: unknown
-let v15 = 5 || v0; // Ok, let v15: unknown
+let v15 = 5 || v0; // Ok, let v15: number
 let v16 = v0 || 5; // Ok, let v16: unknown
 let v17 = !v0; // Ok, let v17: boolean
 ~~~~~
@@ -438,8 +438,8 @@ type T2 =  MappedType<unknown>; // type T2 = {}
 Также стоит упомянуть, что функция, у которой возвращаемый тип принадлежит к типу `unknown`, может не возвращать значение явно.
 
 ~~~~~typescript
-function f0(): unknown {} // Ok
-function f1(): number {} // Error
+function f0(): unknown {return;} // Ok
+function f1(): number {return;} // Error
 
 let v = f0(); // Ok, let v: unknown
 ~~~~~
