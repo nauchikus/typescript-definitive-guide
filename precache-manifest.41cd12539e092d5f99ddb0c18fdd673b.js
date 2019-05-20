@@ -1,19 +1,19 @@
 self.__precacheManifest = [
   {
-    "revision": "c1a865150a8908ff06f2",
+    "revision": "17218270c67a2d6a9e96",
     "url": "/typescript-definitive-guide/css/app.0a0d14a2.css"
   },
   {
-    "revision": "c1a865150a8908ff06f2",
-    "url": "/typescript-definitive-guide/js/app.77e5b1b4.js"
+    "revision": "17218270c67a2d6a9e96",
+    "url": "/typescript-definitive-guide/js/app.62418140.js"
   },
   {
-    "revision": "2fad1e1969317a4d2ea0",
+    "revision": "846fb81ec7da7e3c5420",
     "url": "/typescript-definitive-guide/css/chapter.3de80fdc.css"
   },
   {
-    "revision": "2fad1e1969317a4d2ea0",
-    "url": "/typescript-definitive-guide/js/chapter.5aa6a584.js"
+    "revision": "846fb81ec7da7e3c5420",
+    "url": "/typescript-definitive-guide/js/chapter.51054c8e.js"
   },
   {
     "revision": "779cf936ead095f8d24f",
@@ -24,42 +24,42 @@ self.__precacheManifest = [
     "url": "/typescript-definitive-guide/js/chunk-vendors.c627af50.js"
   },
   {
-    "revision": "85a5b09cc7bb842af485",
+    "revision": "b89f0fd0ac24e8c4c0c0",
     "url": "/typescript-definitive-guide/css/contents.6759cf80.css"
   },
   {
-    "revision": "85a5b09cc7bb842af485",
-    "url": "/typescript-definitive-guide/js/contents.92387a73.js"
+    "revision": "b89f0fd0ac24e8c4c0c0",
+    "url": "/typescript-definitive-guide/js/contents.942b6e3f.js"
   },
   {
-    "revision": "2b435b8fb2ce4b11880e",
+    "revision": "78d4727d12415fc5b25c",
     "url": "/typescript-definitive-guide/css/home.5410d6a8.css"
   },
   {
-    "revision": "2b435b8fb2ce4b11880e",
-    "url": "/typescript-definitive-guide/js/home.0a23b8db.js"
+    "revision": "78d4727d12415fc5b25c",
+    "url": "/typescript-definitive-guide/js/home.8bf69623.js"
   },
   {
-    "revision": "06594d048c0f5d6a1a17",
+    "revision": "2ff18f8294e0ac4e44ec",
     "url": "/typescript-definitive-guide/css/not-found.d439c7d3.css"
   },
   {
-    "revision": "06594d048c0f5d6a1a17",
-    "url": "/typescript-definitive-guide/js/not-found.19af4e65.js"
+    "revision": "2ff18f8294e0ac4e44ec",
+    "url": "/typescript-definitive-guide/js/not-found.1df45bfa.js"
   },
   {
-    "revision": "479b9840dcb906c59e43",
+    "revision": "80d9d6933e8274d36500",
     "url": "/typescript-definitive-guide/css/what-is-new.318d87da.css"
   },
   {
-    "revision": "479b9840dcb906c59e43",
-    "url": "/typescript-definitive-guide/js/what-is-new.737f7cbf.js"
+    "revision": "80d9d6933e8274d36500",
+    "url": "/typescript-definitive-guide/js/what-is-new.eaf9fa12.js"
   },
   {
     "url": "/typescript-definitive-guide/img/icons.84286bb2.svg"
   },
   {
-    "revision": "8eb812ec5688e4e704fab1fc4e2d2ef4",
+    "revision": "63889b2be677e9e4175e3eb2076bc545",
     "url": "/typescript-definitive-guide/index.html"
   },
   {
