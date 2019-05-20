@@ -319,9 +319,9 @@ v1(); <span class="hljs-comment">// Error</span></code></pre>
 <span class="hljs-keyword">type</span> T8&#x3C;T> = T | unknown; <span class="hljs-comment">// type T8 = unknown</span>
 <span class="hljs-keyword">type</span> T9 = unknown | unknown; <span class="hljs-comment">// type T9 = unknown</span></code></pre>
 <p>Помимо этого, запрос ключей (<code class="inline-code">keyof</code>) для тип <code class="inline-code">unknown</code> возвращает тип <code class="inline-code">never</code>.</p>
-<pre><code class="hljs language-typescript"><span class="hljs-keyword">type</span> T0 = keyof <span class="hljs-built_in">number</span>; <span class="hljs-comment">// "toString" | "toFixed" | "toExponential" | "toPrecision" | "valueOf" | "toLocaleString"</span>
-<span class="hljs-keyword">type</span> T1 = keyof <span class="hljs-built_in">any</span>; <span class="hljs-comment">// type T0 = string | number | symbol</span>
-<span class="hljs-keyword">type</span> T2 = keyof unknown; <span class="hljs-comment">// type T1 = never</span></code></pre>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">type</span> T0 = keyof <span class="hljs-built_in">number</span>; <span class="hljs-comment">// type T0 = "toString" | "toFixed" | "toExponential" | "toPrecision" | "valueOf" | "toLocaleString"</span>
+<span class="hljs-keyword">type</span> T1 = keyof <span class="hljs-built_in">any</span>; <span class="hljs-comment">// type T1 = string | number | symbol</span>
+<span class="hljs-keyword">type</span> T2 = keyof unknown; <span class="hljs-comment">// type T2 = never</span></code></pre>
 <p>Также для тип  <code class="inline-code">unknown</code> позволяется использовать только в операциях равенства <code class="inline-code">===</code>, <code class="inline-code">==</code>, <code class="inline-code">!==</code>, <code class="inline-code">!=</code> и в операциях с логическими операторами <code class="inline-code">&#x26;&#x26;</code>, <code class="inline-code">||</code> и <code class="inline-code">!</code>.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">let</span> v0: unknown = <span class="hljs-number">5</span>;
 
@@ -341,7 +341,7 @@ v1(); <span class="hljs-comment">// Error</span></code></pre>
 
 
 <span class="hljs-keyword">let</span> v14 = <span class="hljs-number">5</span> &#x26;&#x26; v0; <span class="hljs-comment">// Ok, let v14: unknown</span>
-<span class="hljs-keyword">let</span> v15 = <span class="hljs-number">5</span> || v0; <span class="hljs-comment">// Ok, let v15: unknown</span>
+<span class="hljs-keyword">let</span> v15 = <span class="hljs-number">5</span> || v0; <span class="hljs-comment">// Ok, let v15: number</span>
 <span class="hljs-keyword">let</span> v16 = v0 || <span class="hljs-number">5</span>; <span class="hljs-comment">// Ok, let v16: unknown</span>
 <span class="hljs-keyword">let</span> v17 = !v0; <span class="hljs-comment">// Ok, let v17: boolean</span></code></pre>
 <p>Тип <code class="inline-code">unknown</code> при операциях с сопоставленных типах представляется объектным типом <code class="inline-code">{}</code></p>
@@ -354,8 +354,8 @@ v1(); <span class="hljs-comment">// Error</span></code></pre>
 <span class="hljs-keyword">type</span> T1 =  MappedType&#x3C;<span class="hljs-built_in">any</span>>; <span class="hljs-comment">// type T1 = { [x: string]: any; }</span>
 <span class="hljs-keyword">type</span> T2 =  MappedType&#x3C;unknown>; <span class="hljs-comment">// type T2 = {}</span></code></pre>
 <p>Также стоит упомянуть, что функция, у которой возвращаемый тип принадлежит к типу <code class="inline-code">unknown</code>, может не возвращать значение явно.</p>
-<pre><code class="hljs language-typescript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">f0</span>(<span class="hljs-params"></span>): <span class="hljs-title">unknown</span> </span>{} <span class="hljs-comment">// Ok</span>
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">f1</span>(<span class="hljs-params"></span>): <span class="hljs-title">number</span> </span>{} <span class="hljs-comment">// Error</span>
+<pre><code class="hljs language-typescript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">f0</span>(<span class="hljs-params"></span>): <span class="hljs-title">unknown</span> </span>{<span class="hljs-keyword">return</span>;} <span class="hljs-comment">// Ok</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">f1</span>(<span class="hljs-params"></span>): <span class="hljs-title">number</span> </span>{<span class="hljs-keyword">return</span>;} <span class="hljs-comment">// Error</span>
 
 <span class="hljs-keyword">let</span> v = f0(); <span class="hljs-comment">// Ok, let v: unknown</span></code></pre>
 <p>Кроме того, при активной опции <code class="inline-code">--strictPropertyInitialization</code>, поля принадлежащие к типу <code class="inline-code">unknown</code> не нуждаются в инициализации.</p>

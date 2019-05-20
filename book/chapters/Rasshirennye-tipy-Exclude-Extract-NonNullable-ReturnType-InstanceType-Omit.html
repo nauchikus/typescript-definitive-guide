@@ -1,11 +1,11 @@
-<section id="Rasshirennye-tipy-Exclude-Extract-NonNullable-ReturnType-InstanceType" name="Расширенные типы - Exclude, Extract, NonNullable, ReturnType, InstanceType" class="subchapter">
+<section id="Rasshirennye-tipy-Exclude-Extract-NonNullable-ReturnType-InstanceType-Omit" name="Расширенные типы - Exclude, Extract, NonNullable, ReturnType, InstanceType, Omit" class="subchapter">
             <h2 class="subchapter-title">
-                <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="Rasshirennye-tipy-Exclude-Extract-NonNullable-ReturnType-InstanceType" type="absolute-url">
+                <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="Rasshirennye-tipy-Exclude-Extract-NonNullable-ReturnType-InstanceType-Omit" type="absolute-url">
                     <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                         <use href="#icon_link"/>
                     </svg>
                 </button>
-                Расширенные типы - Exclude, Extract, NonNullable, ReturnType, InstanceType
+                Расширенные типы - Exclude, Extract, NonNullable, ReturnType, InstanceType, Omit
             </h2>
         
 <hr>
@@ -187,4 +187,39 @@
 }
 
 <span class="hljs-keyword">type</span> ClassParams = ConstructorParameters&#x3C;<span class="hljs-keyword">typeof</span> Class>; <span class="hljs-comment">// type ClassParams = [{}, number, string, boolean?, object?]</span></code></pre>
+</section><section id="Tip-Omit" name="Тип Omit" class="subchapter">
+            <h2 class="subchapter-title">
+                <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="Tip-Omit" type="absolute-url">
+                    <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <use href="#icon_link"/>
+                    </svg>
+                </button>
+                Тип Omit
+            </h2>
+        
+<hr>
+<p>Расширенный тип <code class="inline-code">Omit&#x3C;T, K></code>предназначен для определения на основе существующего нового суженного типа.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-comment">// lib.d.ts</span>
+
+<span class="hljs-keyword">type</span> Omit&#x3C;T, K <span class="hljs-keyword">extends</span> <span class="hljs-built_in">string</span> | <span class="hljs-built_in">number</span> | symbol> = { 
+    [P <span class="hljs-keyword">in</span> Exclude&#x3C;keyof T, K>]: T[P];
+}</code></pre>
+<p>В качестве первого аргумента типа, тип <code class="inline-code">Omit&#x3C;T, K></code> ожидает тип данных, из которого будут исключены признаки связанные с ключами переданных в качестве втрого аргумента типа.</p>
+<p>Простыми словами, к помощи <code class="inline-code">Omit&#x3C;T, K></code> следует прибегать в тех случаях, когда появляется потребность в определении типа представляющего некоторую часть уже определенного в системе типов типа.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">type</span> Person = {
+    firstName: <span class="hljs-built_in">string</span>;
+    lastName: <span class="hljs-built_in">string</span>;
+
+    age: <span class="hljs-built_in">number</span>;
+};
+
+<span class="hljs-comment">/**
+ * Тип PersonName представляет только часть типа Person
+ * 
+ * type PersonName = {
+ *  firstName: string;
+ *  lastName: string;
+ * }
+ */</span>
+<span class="hljs-keyword">type</span> PersonName = Omit&#x3C;Person, <span class="hljs-string">'age'</span>>; <span class="hljs-comment">// исключение признаков связанных с полем age из типа Person</span></code></pre>
 </section>

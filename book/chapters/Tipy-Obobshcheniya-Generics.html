@@ -154,14 +154,14 @@ collection.add( <span class="hljs-keyword">new</span> Shark( AnimalIDs.Shark ) )
 
 <span class="hljs-keyword">var</span> bird: Animal = <span class="hljs-keyword">new</span> Animal&#x3C;<span class="hljs-built_in">string</span>>( <span class="hljs-string">'bird'</span> ); <span class="hljs-comment">// Error</span>
 <span class="hljs-keyword">var</span> bird: Animal&#x3C;<span class="hljs-built_in">string</span>> = <span class="hljs-keyword">new</span> Animal&#x3C;<span class="hljs-built_in">string</span>>( <span class="hljs-string">'bird'</span> ); <span class="hljs-comment">// Ok</span></code></pre>
-<p>Когда все обязательные параметры типа, используются в параметрах конструктора, то при создания экземпляра класса, аннотацию обобщения можно опускать. В таком случае, вывод типов определить принадлежность к типам, к которым принадлежат значения. Если же параметры являются необязательными, и значение не будет передано, то вывод типов определит принадлежность параметров типа к объектному типу данных ( <code class="inline-code">{ }</code> ).</p>
+<p>Когда все обязательные параметры типа, используются в параметрах конструктора, то при создания экземпляра класса, аннотацию обобщения можно опускать. В таком случае, вывод типов определить принадлежность к типам, к которым принадлежат значения. Если же параметры являются необязательными, и значение не будет передано, то вывод типов определит принадлежность параметров типа к типу данных <code class="inline-code">unknown</code>.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">class</span> Animal&#x3C;T> {
-  <span class="hljs-keyword">constructor</span>(<span class="hljs-params"> readonly id?: T </span>) {}
+    <span class="hljs-keyword">constructor</span>(<span class="hljs-params"> readonly id?: T </span>) {}
 }
-
+  
 <span class="hljs-keyword">let</span> bird: Animal&#x3C;<span class="hljs-built_in">string</span>> = <span class="hljs-keyword">new</span> Animal( <span class="hljs-string">'bird'</span> ); <span class="hljs-comment">// Ok -> bird: Animal&#x3C;string></span>
 <span class="hljs-keyword">let</span> fish = <span class="hljs-keyword">new</span> Animal( <span class="hljs-string">'fish'</span> ); <span class="hljs-comment">// Ok -> fish: Animal&#x3C;string></span>
-<span class="hljs-keyword">let</span> insect = <span class="hljs-keyword">new</span> Animal(  ); <span class="hljs-comment">// Ok -> insect: Animal&#x3C;{}></span></code></pre>
+<span class="hljs-keyword">let</span> insect = <span class="hljs-keyword">new</span> Animal(  ); <span class="hljs-comment">// Ok -> insect: Animal&#x3C;unknown></span></code></pre>
 <p>Относительно обобщенных типов существуют такие понятия, как <em>открытый</em> (open) и <em>закрытый</em> (closed) тип. Обобщенный тип данных, в момент определения, называется <em>открытым</em>. Кроме того, типы, которые указаны в аннотации и у которых хотя бы один из аргументов типа является параметром типа, также являются открытыми типами. И наоборот, если все аргументы типа принадлежат к конкретным типам, то такой обобщенный тип является <em>закрытым</em> типом.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">class</span> T0&#x3C;T, U> {} <span class="hljs-comment">//  T0 - открытый тип</span>
 
@@ -170,54 +170,47 @@ collection.add( <span class="hljs-keyword">new</span> Shark( AnimalIDs.Shark ) )
   <span class="hljs-keyword">public</span> f1: T0&#x3C;<span class="hljs-built_in">number</span>, <span class="hljs-built_in">string</span>>; <span class="hljs-comment">// T0 - закрытый тип</span>
 }</code></pre>
 <p>Те же самые правила применимы и к функциям, за одним исключением. Вывод типов, для примитивных типов, определяет принадлежность параметров типа к литеральным типам данных.</p>
-<pre><code class="hljs language-typescript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">action</span>&#x3C;<span class="hljs-title">T</span>>(<span class="hljs-params"> value?: T </span>): <span class="hljs-title">T</span> </span>{
-  <span class="hljs-keyword">return</span> value;
-}
-
-action&#x3C;<span class="hljs-built_in">number</span>>( <span class="hljs-number">0</span> ); <span class="hljs-comment">// function action&#x3C;number>(value: number): number</span>
-action( <span class="hljs-number">0</span> ); <span class="hljs-comment">// function action&#x3C;0>(value?: 0): 0</span>
-
-action&#x3C;<span class="hljs-built_in">string</span>>( <span class="hljs-string">'0'</span> ); <span class="hljs-comment">// function action&#x3C;string>(value: string): string</span>
-action( <span class="hljs-string">'0'</span> ); <span class="hljs-comment">// function action&#x3C;"0">(value?: "0"): "0"</span>
-
-action(  ); <span class="hljs-comment">// function action&#x3C;{}>(value?: {}): {}</span></code></pre>
+<pre><code class="hljs language-typescript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">action</span>&#x3C;<span class="hljs-title">T</span>>(<span class="hljs-params"> value?: T </span>): <span class="hljs-title">T</span> | <span class="hljs-title">undefined</span> </span>{
+    <span class="hljs-keyword">return</span> value;
+  }
+  
+  action&#x3C;<span class="hljs-built_in">number</span>>( <span class="hljs-number">0</span> ); <span class="hljs-comment">// function action&#x3C;number>(value?: number | undefined): number | undefined</span>
+  action( <span class="hljs-number">0</span> ); <span class="hljs-comment">// function action&#x3C;0>(value?: 0 | undefined): 0 | undefined</span>
+  
+  action&#x3C;<span class="hljs-built_in">string</span>>( <span class="hljs-string">'0'</span> ); <span class="hljs-comment">// function action&#x3C;string>(value?: string | undefined): string | undefined</span>
+  action( <span class="hljs-string">'0'</span> ); <span class="hljs-comment">// function action&#x3C;"0">(value?: "0" | undefined): "0" | undefined</span>
+  
+  action(  ); <span class="hljs-comment">// function action&#x3C;unknown>(value?: unknown): unknown</span></code></pre>
 <p>Тогда, когда параметры типа не участвуют в операциях при создание экземпляра класса, при этом аннотация обобщения не была указана явно, вывод типа теряет возможность установить принадлежность к типу по значениям и поэтому устанавливает объектный тип.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">class</span> Animal&#x3C;T> {
- <span class="hljs-keyword">public</span> name: T;
-
- <span class="hljs-keyword">constructor</span>(<span class="hljs-params"> readonly id: <span class="hljs-built_in">string</span> </span>) {}
+    <span class="hljs-keyword">public</span> name: T;
+   
+    <span class="hljs-keyword">constructor</span>(<span class="hljs-params"> readonly id: <span class="hljs-built_in">string</span> </span>) {}
 }
-
+   
 <span class="hljs-keyword">let</span> bird: Animal&#x3C;<span class="hljs-built_in">string</span>> = <span class="hljs-keyword">new</span> Animal( <span class="hljs-string">'bird#1'</span> );
 bird.name = <span class="hljs-string">'bird'</span>;
-
-<span class="hljs-keyword">let</span> fish = <span class="hljs-keyword">new</span> Animal&#x3C;<span class="hljs-built_in">string</span>>( <span class="hljs-string">'fish#1'</span> );
-fish.name = <span class="hljs-string">'fish'</span>;
-
-<span class="hljs-keyword">let</span> insect = <span class="hljs-keyword">new</span> Animal( <span class="hljs-string">'insect#1'</span> );
-insect.name = <span class="hljs-string">'insect'</span>;
-
 <span class="hljs-comment">// Ok -> bird: Animal&#x3C;string></span>
 <span class="hljs-comment">// Ok -> (property) Animal&#x3C;string>.name: string</span>
 
+<span class="hljs-keyword">let</span> fish = <span class="hljs-keyword">new</span> Animal&#x3C;<span class="hljs-built_in">string</span>>( <span class="hljs-string">'fish#1'</span> );
+fish.name = <span class="hljs-string">'fish'</span>;
 <span class="hljs-comment">// Ok -> fish: Animal&#x3C;string></span>
 <span class="hljs-comment">// Ok -> (property) Animal&#x3C;string>.name: string</span>
 
-<span class="hljs-comment">// Ok -> insect: Animal&#x3C;{}></span>
-<span class="hljs-comment">// Ok -> (property) Animal&#x3C;{}>.name: {}</span></code></pre>
+<span class="hljs-keyword">let</span> insect = <span class="hljs-keyword">new</span> Animal( <span class="hljs-string">'insect#1'</span> );
+insect.name = <span class="hljs-string">'insect'</span>;
+<span class="hljs-comment">// Ok -> insect: Animal&#x3C;unknown></span>
+<span class="hljs-comment">// Ok -> (property) Animal&#x3C;unknown>.name: unknown</span></code></pre>
 <p>И опять, эти же правила верны и для функций.</p>
-<pre><code class="hljs language-typescript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">action</span>&#x3C;<span class="hljs-title">T</span>>(<span class="hljs-params"> value?: <span class="hljs-built_in">string</span> </span>): <span class="hljs-title">T</span> </span>{
- <span class="hljs-keyword">return</span>;
+<pre><code class="hljs language-typescript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">action</span>&#x3C;<span class="hljs-title">T</span>>(<span class="hljs-params"> value?: T </span>): <span class="hljs-title">T</span> | <span class="hljs-title">undefined</span> </span>{
+    <span class="hljs-keyword">return</span> value;
 }
-
-
-action&#x3C;<span class="hljs-built_in">string</span>>( <span class="hljs-string">'0'</span> );
-action( <span class="hljs-string">'0'</span> );
-action(  );
-
-<span class="hljs-comment">// Ok -> function action&#x3C;string>(value?: string): string</span>
-<span class="hljs-comment">// Ok -> function action&#x3C;{}>(value?: string): {}</span>
-<span class="hljs-comment">// Ok -> function action&#x3C;{}>(value?: string): {}</span></code></pre>
+   
+   
+action&#x3C;<span class="hljs-built_in">string</span>>( <span class="hljs-string">'0'</span> ); <span class="hljs-comment">// function action&#x3C;string>(value?: string | undefined): string | undefined</span>
+action( <span class="hljs-string">'0'</span> ); <span class="hljs-comment">// function action&#x3C;"0">(value?: "0" | undefined): "0" | undefined</span>
+action(  ); <span class="hljs-comment">// function action&#x3C;unknown>(value?: unknown): unknown</span></code></pre>
 <p>В случаях, когда обобщенный класс содержит обобщенный метод, параметры типа метода, будут затенять параметры типа класса.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">type</span> ReturnParam&#x3C;T, U> = {a: T, b: U};
 
@@ -393,15 +386,15 @@ fishCollection.add( <span class="hljs-keyword">new</span> Fish( <span class="hlj
 <span class="hljs-keyword">class</span> T2 &#x3C;T <span class="hljs-keyword">extends</span> Bird = Animal > {} <span class="hljs-comment">// Error</span>
 <span class="hljs-comment">// -------(    Bird    ) = Animal</span></code></pre>
 <p>Важным моментом является понимание того, как вывод типов обрабатывает значение по умолчанию. Но чтобы не запутаться, нужно разграничить поведение типа <code class="inline-code">T</code> на внешнее, обозначим его как outside behavior, и внутреннее, обозначим его как inside behavior. Внешнее поведение обуславливается операциями которые можно производить над значениями снаружи обобщенного типа. Соответственно, внутренним поведением, обуславливаются операции, которые можно производить внутри обобщенного типа, то есть в области видимости параметров типа. В данном контексте, слово поведение, нужно понимать как - к какому типу данных, вывод типов, установит принадлежность для значения, чей тип, указан с помощью параметра типа <code class="inline-code">T</code>. Но обо всем по порядку.</p>
-<p>Как известно на данный момент, с точки зрения внешнего поведения, обобщенный класс <code class="inline-code">GenericType&#x3C;T></code>, экземпляр который был ассоциирован с конструкцией без явного анотирования типа, будет расцениваться выводом типа, как <code class="inline-code">GenericType&#x3C;{}></code>. </p>
+<p>Как известно на данный момент, с точки зрения внешнего поведения, обобщенный класс <code class="inline-code">GenericType&#x3C;T></code>, экземпляр который был ассоциирован с конструкцией без явного анотирования типа, будет расцениваться выводом типа, как <code class="inline-code">GenericType&#x3C;unknown></code>. </p>
 <pre><code class="hljs language-typescript"><span class="hljs-comment">// outside behavior</span>
 <span class="hljs-keyword">class</span> Animal { name: <span class="hljs-built_in">string</span> = <span class="hljs-string">'animal'</span>; }
 
 <span class="hljs-keyword">class</span> CustomArray&#x3C;T> <span class="hljs-keyword">extends</span> <span class="hljs-built_in">Array</span>&#x3C;T> {}
 
-<span class="hljs-keyword">let</span> animalArray = <span class="hljs-keyword">new</span> CustomArray(); <span class="hljs-comment">// let CustomArray: CustomArray&#x3C;{}></span>
-<span class="hljs-keyword">let</span> animal = animalArray[<span class="hljs-number">0</span>]; <span class="hljs-comment">// let anima: {}</span>
-animal.name <span class="hljs-comment">// Error</span></code></pre>
+<span class="hljs-keyword">let</span> animalArray = <span class="hljs-keyword">new</span> CustomArray(); <span class="hljs-comment">// let CustomArray: CustomArray&#x3C;unknown></span>
+<span class="hljs-keyword">let</span> animal = animalArray[<span class="hljs-number">0</span>]; <span class="hljs-comment">// let anima: unknown</span>
+animal.name <span class="hljs-comment">// Error, Object is of type 'unknown'</span></code></pre>
 <p>Установив для типа <code class="inline-code">T</code> значение по умолчанию, с точки зрения внешнего поведения, вывод типов будет расценивать тип <code class="inline-code">T</code>, как тип наделенный некоторыми характеристиками. Другими словами, вывод типов будет считать тип <code class="inline-code">T</code> принадлежащим к типу указанному по умолчанию.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-comment">// outside behavior</span>
 

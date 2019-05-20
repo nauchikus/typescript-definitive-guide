@@ -2256,4 +2256,34 @@ f.bind(<span class="hljs-literal">null</span>, <span class="hljs-number">0</span
         <span class="hljs-string">"tsBuildInfoFile"</span>: <span class="hljs-string">"./buildinfo"</span>,
     }
 }</code></pre>
+</section><section id="allowUmdGlobalAccess" name="allowUmdGlobalAccess" class="subchapter">
+            <h2 class="subchapter-title">
+                <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="allowUmdGlobalAccess" type="absolute-url">
+                    <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <use href="#icon_link"/>
+                    </svg>
+                </button>
+                allowUmdGlobalAccess
+            </h2>
+        
+<hr>
+<p><code class="inline-code">--allowUmdGlobalAccess</code> - при активном текущем флаге становится возможным обращение к глобальным определениям из модулей.</p>
+<pre><code class="hljs language-typescript">{
+    <span class="hljs-string">"compilerOptions"</span>: {
+        <span class="hljs-string">"allowUmdGlobalAccess"</span>: <span class="hljs-literal">false</span>,
+    }
+}</code></pre>
+<p><strong>type</strong>: <code class="inline-code">boolean</code>
+<strong>default</strong>: <code class="inline-code">false</code>
+<strong>values</strong>: <code class="inline-code">true</code>, <code class="inline-code">false</code></p>
+<pre><code class="hljs language-typescript"><span class="hljs-comment">// allowUmdGlobalAccess === false</span>
+
+<span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> Rx <span class="hljs-keyword">from</span> <span class="hljs-string">'rxjs'</span>;
+
+<span class="hljs-keyword">const</span> ref = React.createRef(); <span class="hljs-comment">// Error, обращение к глобальным переменным в модулях недопустимо</span></code></pre>
+<pre><code class="hljs language-typescript"><span class="hljs-comment">// allowUmdGlobalAccess === true</span>
+
+<span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> Rx <span class="hljs-keyword">from</span> <span class="hljs-string">'rxjs'</span>;
+
+<span class="hljs-keyword">const</span> ref = React.createRef(); <span class="hljs-comment">// Ok, доступ к глобальному определению из модуля</span></code></pre>
 </section>
