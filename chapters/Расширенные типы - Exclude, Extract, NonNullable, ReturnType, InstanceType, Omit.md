@@ -1,4 +1,4 @@
-## Расширенные типы - Exclude, Extract, NonNullable, ReturnType, InstanceType
+## Расширенные типы - Exclude, Extract, NonNullable, ReturnType, InstanceType, Omit
 ________________
 
 Чтобы сэкономить время разработчиков, в систему типов *TypeScript* были включены несколько часто требующихся условных типов, которые подробно будут рассмотрены в этой главе.
@@ -185,4 +185,41 @@ class Class<T> {
 }
 
 type ClassParams = ConstructorParameters<typeof Class>; // type ClassParams = [{}, number, string, boolean?, object?]
+`````
+
+## Тип Omit
+________________
+
+Расширенный тип `Omit<T, K>`предназначен для определения на основе существующего нового суженного типа.
+
+`````typescript
+// lib.d.ts
+
+type Omit<T, K extends string | number | symbol> = { 
+    [P in Exclude<keyof T, K>]: T[P];
+}
+`````
+
+В качестве первого аргумента типа, тип `Omit<T, K>` ожидает тип данных, из которого будут исключены признаки связанные с ключами переданных в качестве втрого аргумента типа.
+
+Простыми словами, к помощи `Omit<T, K>` следует прибегать в тех случаях, когда появляется потребность в определении типа представляющего некоторую часть уже определенного в системе типов типа.
+
+`````typescript
+type Person = {
+    firstName: string;
+    lastName: string;
+
+    age: number;
+};
+
+/**
+ * Тип PersonName представляет только часть типа Person
+ * 
+ * type PersonName = {
+ *  firstName: string;
+ *  lastName: string;
+ * }
+ */
+type PersonName = Omit<Person, 'age'>; // исключение признаков связанных с полем age из типа Person
+
 `````

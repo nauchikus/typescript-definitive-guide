@@ -195,16 +195,16 @@ var bird: Animal = new Animal<string>( 'bird' ); // Error
 var bird: Animal<string> = new Animal<string>( 'bird' ); // Ok
 ~~~~~
 
-Когда все обязательные параметры типа, используются в параметрах конструктора, то при создания экземпляра класса, аннотацию обобщения можно опускать. В таком случае, вывод типов определить принадлежность к типам, к которым принадлежат значения. Если же параметры являются необязательными, и значение не будет передано, то вывод типов определит принадлежность параметров типа к объектному типу данных ( `{ }` ).
+Когда все обязательные параметры типа, используются в параметрах конструктора, то при создания экземпляра класса, аннотацию обобщения можно опускать. В таком случае, вывод типов определить принадлежность к типам, к которым принадлежат значения. Если же параметры являются необязательными, и значение не будет передано, то вывод типов определит принадлежность параметров типа к типу данных `unknown`.
 
 ~~~~~typescript
 class Animal<T> {
-  constructor( readonly id?: T ) {}
+    constructor( readonly id?: T ) {}
 }
-
+  
 let bird: Animal<string> = new Animal( 'bird' ); // Ok -> bird: Animal<string>
 let fish = new Animal( 'fish' ); // Ok -> fish: Animal<string>
-let insect = new Animal(  ); // Ok -> insect: Animal<{}>
+let insect = new Animal(  ); // Ok -> insect: Animal<unknown>
 ~~~~~
 
 Относительно обобщенных типов существуют такие понятия, как *открытый* (open) и *закрытый* (closed) тип. Обобщенный тип данных, в момент определения, называется *открытым*. Кроме того, типы, которые указаны в аннотации и у которых хотя бы один из аргументов типа является параметром типа, также являются открытыми типами. И наоборот, если все аргументы типа принадлежат к конкретным типам, то такой обобщенный тип является *закрытым* типом.
@@ -221,62 +221,55 @@ class T1<T> {
 Те же самые правила применимы и к функциям, за одним исключением. Вывод типов, для примитивных типов, определяет принадлежность параметров типа к литеральным типам данных.
 
 ~~~~~typescript
-function action<T>( value?: T ): T {
-  return value;
-}
-
-action<number>( 0 ); // function action<number>(value: number): number
-action( 0 ); // function action<0>(value?: 0): 0
-
-action<string>( '0' ); // function action<string>(value: string): string
-action( '0' ); // function action<"0">(value?: "0"): "0"
-
-action(  ); // function action<{}>(value?: {}): {}
+function action<T>( value?: T ): T | undefined {
+    return value;
+  }
+  
+  action<number>( 0 ); // function action<number>(value?: number | undefined): number | undefined
+  action( 0 ); // function action<0>(value?: 0 | undefined): 0 | undefined
+  
+  action<string>( '0' ); // function action<string>(value?: string | undefined): string | undefined
+  action( '0' ); // function action<"0">(value?: "0" | undefined): "0" | undefined
+  
+  action(  ); // function action<unknown>(value?: unknown): unknown
 ~~~~~
 
 Тогда, когда параметры типа не участвуют в операциях при создание экземпляра класса, при этом аннотация обобщения не была указана явно, вывод типа теряет возможность установить принадлежность к типу по значениям и поэтому устанавливает объектный тип.
 
 ~~~~~typescript
 class Animal<T> {
- public name: T;
-
- constructor( readonly id: string ) {}
+    public name: T;
+   
+    constructor( readonly id: string ) {}
 }
-
+   
 let bird: Animal<string> = new Animal( 'bird#1' );
 bird.name = 'bird';
-
-let fish = new Animal<string>( 'fish#1' );
-fish.name = 'fish';
-
-let insect = new Animal( 'insect#1' );
-insect.name = 'insect';
-
 // Ok -> bird: Animal<string>
 // Ok -> (property) Animal<string>.name: string
 
+let fish = new Animal<string>( 'fish#1' );
+fish.name = 'fish';
 // Ok -> fish: Animal<string>
 // Ok -> (property) Animal<string>.name: string
 
-// Ok -> insect: Animal<{}>
-// Ok -> (property) Animal<{}>.name: {}
+let insect = new Animal( 'insect#1' );
+insect.name = 'insect';
+// Ok -> insect: Animal<unknown>
+// Ok -> (property) Animal<unknown>.name: unknown
 ~~~~~
 
 И опять, эти же правила верны и для функций.
 
 ~~~~~typescript
-function action<T>( value?: string ): T {
- return;
+function action<T>( value?: T ): T | undefined {
+    return value;
 }
-
-
-action<string>( '0' );
-action( '0' );
-action(  );
-
-// Ok -> function action<string>(value?: string): string
-// Ok -> function action<{}>(value?: string): {}
-// Ok -> function action<{}>(value?: string): {}
+   
+   
+action<string>( '0' ); // function action<string>(value?: string | undefined): string | undefined
+action( '0' ); // function action<"0">(value?: "0" | undefined): "0" | undefined
+action(  ); // function action<unknown>(value?: unknown): unknown
 ~~~~~
 
 В случаях, когда обобщенный класс содержит обобщенный метод, параметры типа метода, будут затенять параметры типа класса.
@@ -495,7 +488,7 @@ class T2 <T extends Bird = Animal > {} // Error
 Важным моментом является понимание того, как вывод типов обрабатывает значение по умолчанию. Но чтобы не запутаться, нужно разграничить поведение типа `T` на внешнее, обозначим его как outside behavior, и внутреннее, обозначим его как inside behavior. Внешнее поведение обуславливается операциями которые можно производить над значениями снаружи обобщенного типа. Соответственно, внутренним поведением, обуславливаются операции, которые можно производить внутри обобщенного типа, то есть в области видимости параметров типа. В данном контексте, слово поведение, нужно понимать как - к какому типу данных, вывод типов, установит принадлежность для значения, чей тип, указан с помощью параметра типа `T`. Но обо всем по порядку.
 
 
-Как известно на данный момент, с точки зрения внешнего поведения, обобщенный класс `GenericType<T>`, экземпляр который был ассоциирован с конструкцией без явного анотирования типа, будет расцениваться выводом типа, как `GenericType<{}>`. 
+Как известно на данный момент, с точки зрения внешнего поведения, обобщенный класс `GenericType<T>`, экземпляр который был ассоциирован с конструкцией без явного анотирования типа, будет расцениваться выводом типа, как `GenericType<unknown>`. 
 
 ~~~~~typescript
 // outside behavior
@@ -503,10 +496,9 @@ class Animal { name: string = 'animal'; }
 
 class CustomArray<T> extends Array<T> {}
 
-let animalArray = new CustomArray(); // let CustomArray: CustomArray<{}>
-let animal = animalArray[0]; // let anima: {}
-animal.name // Error
-
+let animalArray = new CustomArray(); // let CustomArray: CustomArray<unknown>
+let animal = animalArray[0]; // let anima: unknown
+animal.name // Error, Object is of type 'unknown'
 ~~~~~
 
 Установив для типа `T` значение по умолчанию, с точки зрения внешнего поведения, вывод типов будет расценивать тип `T`, как тип наделенный некоторыми характеристиками. Другими словами, вывод типов будет считать тип `T` принадлежащим к типу указанному по умолчанию.
