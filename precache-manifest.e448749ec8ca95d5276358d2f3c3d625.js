@@ -79,7 +79,7 @@ self.__precacheManifest = [
     "url": "/typescript-definitive-guide/index.html"
   },
   {
-    "revision": "dea1420dae991d5d2157d52c0fc15b6b",
+    "revision": "9d63b0e33b5f8482505f6b76bbb3c98f",
     "url": "/typescript-definitive-guide/404.html"
   },
   {
