@@ -110,8 +110,8 @@ const coordsSecond: CoordXY | CoordZ = {
 
 
 const coords: CoordXY | CoordZ = {
-    x: 0',
-    y: 0',
+    x: 0,
+    y: 0,
     z: 0,
 }; // Ok
 `````
