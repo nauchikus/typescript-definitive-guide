@@ -227,7 +227,7 @@ target = source; <span class="hljs-comment">// Error, до v3.5 и Ok после
             Улучшение механизма вывода типа высшего порядка для обобщенных конструкторов
         </h2>
         <hr>
-        <p>В <em>TypeScript</em> версии <code class="inline-code">v3.4</code> был усовершенствован механизм вывода типов для обобщенных функций реализующих функциональную композицию. Это в свою очередь повысило эффективность использования   <em>функциональных-hoc</em> при разработке <em>React-приложений</em>. С выходом версии <code class="inline-code">v3.5</code> подобный механизм был перенесен на конструкторы слассов, что также повысило эффективность вывода типов при использования их в качестве <em>классовых-hoc</em>.</p>
+        <p>В <em>TypeScript</em> версии <code class="inline-code">v3.4</code> был усовершенствован механизм вывода типов для обобщенных функций реализующих функциональную композицию. Это в свою очередь повысило эффективность использования   <em>функциональных-hoc</em> при разработке <em>React-приложений</em>. С выходом версии <code class="inline-code">v3.5</code> подобный механизм был перенесен на конструкторы классов, что также повысило эффективность вывода типов при использования их в качестве <em>классовых-hoc</em>.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">type</span> ComponentClass&#x3C;P> = <span class="hljs-keyword">new</span> (props: P) => Component&#x3C;P>;
 <span class="hljs-keyword">declare</span> <span class="hljs-keyword">class</span> Component&#x3C;P> {
     props: P;
