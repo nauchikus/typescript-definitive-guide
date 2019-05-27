@@ -82,7 +82,7 @@
 <p>Помимо того, что в <em>TypeScript</em> существует объектный тип <code class="inline-code">Symbol</code>, описывающий одноименный тип из <em>JavaScript</em>, также существует тип данных, который представляет примитивные значения числовых литералов, и который указывается с помощью ключевого слова <code class="inline-code">symbol</code>. Кроме того, тип <code class="inline-code">symbol</code> неявно преобразуется в тип описанный с помощью глобального интерфейса <code class="inline-code">Symbol</code>, что делает его совместимым с ним, но не наоборот.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">let</span> v1: symbol; <span class="hljs-comment">// v1: symbol explicit</span>
 <span class="hljs-keyword">let</span> v2 = Symbol( <span class="hljs-string">'animal'</span> ); <span class="hljs-comment">// v2: symbol implicit</span></code></pre>
-<p>Если указав <code class="inline-code">Symbol</code> в качестве ключа для члена класса, то в дальнейшем к нему можно будет обратиться только при наличии того же ключа. Но не будет лишнем напомнить, что при желании можно достать символ из самого объекта.</p>
+<p>Если указать <code class="inline-code">Symbol</code> в качестве ключа для члена класса, то в дальнейшем к нему можно будет обратиться только при наличии того же ключа. Но не будет лишнем напомнить, что при желании можно достать символ из самого объекта.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">class</span> ZooTool {
   <span class="hljs-keyword">public</span> readonly <span class="hljs-keyword">static</span> CAGE_KEY: <span class="hljs-built_in">string</span> = <span class="hljs-string">'technical key'</span>;
 }
