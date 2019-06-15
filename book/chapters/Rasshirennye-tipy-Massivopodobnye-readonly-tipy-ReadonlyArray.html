@@ -44,8 +44,7 @@ tuple.map( <span class="hljs-function"><span class="hljs-params">item</span> =><
 
 <span class="hljs-comment">// Bad, [string, boolean]</span>
 <span class="hljs-keyword">type</span> C = Readonly&#x3C;[<span class="hljs-built_in">string</span>, <span class="hljs-built_in">boolean</span>]>;</code></pre>
-<p>,fdktyyj
-Но начиная с версии <code class="inline-code">v3.4</code> поведение для типа <code class="inline-code">Readonly&#x3C;T></code> дополняется поведением массивоподобных <code class="inline-code">readonly</code> структур.</p>
+<p>Но начиная с версии <code class="inline-code">v3.4</code> поведение для типа <code class="inline-code">Readonly&#x3C;T></code> дополняется поведением массивоподобных <code class="inline-code">readonly</code> структур.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-comment">// Ok, { readonly a: string, readonly b: number }</span>
 <span class="hljs-keyword">type</span> A = Readonly&#x3C;{ a: <span class="hljs-built_in">string</span>, b: <span class="hljs-built_in">number</span> }>;
 
