@@ -57,7 +57,7 @@ type B = Readonly<number[]>;
 // Bad, [string, boolean]
 type C = Readonly<[string, boolean]>;
 `````
-,fdktyyj
+
 Но начиная с версии `v3.4` поведение для типа `Readonly<T>` дополняется поведением массивоподобных `readonly` структур.
 
 `````typescript
