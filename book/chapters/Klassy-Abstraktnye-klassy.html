@@ -55,7 +55,7 @@
 <span class="hljs-keyword">class</span> SubConcreteClass <span class="hljs-keyword">extends</span> SubAbstractClass { <span class="hljs-comment">// конкретный подкласс обязан переопределять абстрактные члены, если они...</span>
   <span class="hljs-keyword">public</span> field: <span class="hljs-built_in">string</span>;
 }
-<span class="hljs-keyword">class</span> SubSubConcreteClass <span class="hljs-keyword">extends</span> SubConcreteClass {} <span class="hljs-comment">// ююю если они не были переопределены в классах-предках</span></code></pre>
+<span class="hljs-keyword">class</span> SubSubConcreteClass <span class="hljs-keyword">extends</span> SubConcreteClass {} <span class="hljs-comment">// ... если они не были переопределены в классах-предках</span></code></pre>
 <p>Как было сказано ранее, абстрактным полям может быть задано значение по умолчанию, но в этом случае, обратится к нему могут только абстрактные классы в иерархии наследования. </p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">abstract</span> <span class="hljs-keyword">class</span> SuperAbstractClass {
   <span class="hljs-keyword">public</span> <span class="hljs-keyword">abstract</span> field0: <span class="hljs-built_in">string</span> = <span class="hljs-string">'default value'</span>; <span class="hljs-comment">// объявление абстрактного поля с значением по умолчанию</span>
