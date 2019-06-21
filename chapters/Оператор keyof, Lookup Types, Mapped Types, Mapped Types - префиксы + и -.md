@@ -251,20 +251,33 @@ ________________
 Для разрешения этого, к модификаторам, в типах сопоставления, были добавлены префиксы `+` и `-`, с помощью которых указывается поведение модификатора - добавить или удалить.
 
 ~~~~~typescript
-type T1<T> = { +readonly [P in keyof T]+?: T[P] }; // добавит указанные модификаторы
-type T0<T> = { -readonly [P in keyof T]-?: T[P] }; // удалит указанные модификаторы
+type AddModifier<T> = { +readonly [P in keyof T]+?: T[P] }; // добавит модификаторы readonly и ? (optional)
+type RemoveModoifier<T> = { -readonly [P in keyof T]-?: T[P] }; // удалит модификаторы readonly и ? (optional)
 
 
-interface IT0 { readonly a?: number; readonly b?: string; }
-interface IT1 { a: number; b: string; }
+interface IWithoutModifier { field: string; }
+interface IWithModifier { readonly field?: string; }
 
 
-let v0: T0<IT0>; // { a: number; b: string; }
-let v1: T1<IT1>; // { readonly a?: number; readonly b?: string; }
+/**
+ * Добавление модификаторов
+ * было { field: string; }
+ * стало { readonly field?: string; }
+ */
+let addingModifier: AddModifier<IWithoutModifier> = {field: ''};
+let withoutModifier: IWithoutModifier = {field: ''};
 
-v0.a = 1; // Ok
-v0.b = 'test'; // Ok
+addingModifier.field = ''; // Error
+withoutModifier.field = ''; // Ok
 
-v1.a = 1; // Error. Cannot assign to 'a' because it is a read-only property.
-v1.b = 1; // Error. Cannot assign to 'b' because it is a read-only property.
+/**
+ * Удаление модификаторов
+ * было { readonly field?: string; }
+ * стало { field: string; }
+ */
+let removingModifier: RemoveModoifier<IWithModifier> = {field: ''};
+let withModifier: IWithModifier = {field: ''};
+
+removingModifier.field = ''; // Ok
+withModifier.field = ''; // Error
 ~~~~~
