@@ -255,9 +255,16 @@ type T1<T> = { +readonly [P in keyof T]+?: T[P] }; // добавит указа�
 type T0<T> = { -readonly [P in keyof T]-?: T[P] }; // удалит указанные модификаторы
 
 
-interface IT { a: number; b: string; }
+interface IT0 { readonly a?: number; readonly b?: string; }
+interface IT1 { a: number; b: string; }
 
 
-let v0: T0<IT>; // { readonly a?: number; readonly b?: string; }
-let v1: T1<IT>; // { a: number; b: string; }
+let v0: T0<IT0>; // { a: number; b: string; }
+let v1: T1<IT1>; // { readonly a?: number; readonly b?: string; }
+
+v0.a = 1; // Ok
+v0.b = 'test'; // Ok
+
+v1.a = 1; // Error. Cannot assign to 'a' because it is a read-only property.
+v1.b = 1; // Error. Cannot assign to 'b' because it is a read-only property.
 ~~~~~
