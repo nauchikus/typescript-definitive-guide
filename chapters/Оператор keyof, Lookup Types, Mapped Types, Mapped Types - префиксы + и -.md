@@ -251,13 +251,33 @@ ________________
 Для разрешения этого, к модификаторам, в типах сопоставления, были добавлены префиксы `+` и `-`, с помощью которых указывается поведение модификатора - добавить или удалить.
 
 ~~~~~typescript
-type T1<T> = { +readonly [P in keyof T]+?: T[P] }; // добавит указанные модификаторы
-type T0<T> = { -readonly [P in keyof T]-?: T[P] }; // удалит указанные модификаторы
+type AddModifier<T> = { +readonly [P in keyof T]+?: T[P] }; // добавит модификаторы readonly и ? (optional)
+type RemoveModoifier<T> = { -readonly [P in keyof T]-?: T[P] }; // удалит модификаторы readonly и ? (optional)
 
 
-interface IT { a: number; b: string; }
+interface IWithoutModifier { field: string; }
+interface IWithModifier { readonly field?: string; }
 
 
-let v0: T0<IT>; // { readonly a?: number; readonly b?: string; }
-let v1: T1<IT>; // { a: number; b: string; }
+/**
+ * Добавление модификаторов
+ * было { field: string; }
+ * стало { readonly field?: string; }
+ */
+let addingModifier: AddModifier<IWithoutModifier> = {field: ''};
+let withoutModifier: IWithoutModifier = {field: ''};
+
+addingModifier.field = ''; // Error
+withoutModifier.field = ''; // Ok
+
+/**
+ * Удаление модификаторов
+ * было { readonly field?: string; }
+ * стало { field: string; }
+ */
+let removingModifier: RemoveModoifier<IWithModifier> = {field: ''};
+let withModifier: IWithModifier = {field: ''};
+
+removingModifier.field = ''; // Ok
+withModifier.field = ''; // Error
 ~~~~~
