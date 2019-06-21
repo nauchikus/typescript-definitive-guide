@@ -225,13 +225,33 @@
 <hr>
 <p>Сопоставленные типы позволяют добавлять модификаторы, но не позволяют их удалять, что в свою очередь имеет большое значение в случае с гомоморфными типами, которые по умолчанию сохраняют модификаторы своего базового типа (гомоморфные типы будут рассмотрены в главе <a class="book__chapter__chapter-link" href="/book/contents/Rasshirennye-tipy-Readonly-Partial-Required-Pick-Record" title="Расширенные типы - Readonly, Partial, Required, Pick, Record" target="_blank">Расширенные типы - Readonly, Partial, Required, Pick, Record</a>). </p>
 <p>Для разрешения этого, к модификаторам, в типах сопоставления, были добавлены префиксы <code class="inline-code">+</code> и <code class="inline-code">-</code>, с помощью которых указывается поведение модификатора - добавить или удалить.</p>
-<pre><code class="hljs language-typescript"><span class="hljs-keyword">type</span> T1&#x3C;T> = { +readonly [P <span class="hljs-keyword">in</span> keyof T]+?: T[P] }; <span class="hljs-comment">// добавит указанные модификаторы</span>
-<span class="hljs-keyword">type</span> T0&#x3C;T> = { -readonly [P <span class="hljs-keyword">in</span> keyof T]-?: T[P] }; <span class="hljs-comment">// удалит указанные модификаторы</span>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">type</span> AddModifier&#x3C;T> = { +readonly [P <span class="hljs-keyword">in</span> keyof T]+?: T[P] }; <span class="hljs-comment">// добавит модификаторы readonly и ? (optional)</span>
+<span class="hljs-keyword">type</span> RemoveModoifier&#x3C;T> = { -readonly [P <span class="hljs-keyword">in</span> keyof T]-?: T[P] }; <span class="hljs-comment">// удалит модификаторы readonly и ? (optional)</span>
 
 
-<span class="hljs-keyword">interface</span> IT { a: <span class="hljs-built_in">number</span>; b: <span class="hljs-built_in">string</span>; }
+<span class="hljs-keyword">interface</span> IWithoutModifier { field: <span class="hljs-built_in">string</span>; }
+<span class="hljs-keyword">interface</span> IWithModifier { readonly field?: <span class="hljs-built_in">string</span>; }
 
 
-<span class="hljs-keyword">let</span> v0: T0&#x3C;IT>; <span class="hljs-comment">// { readonly a?: number; readonly b?: string; }</span>
-<span class="hljs-keyword">let</span> v1: T1&#x3C;IT>; <span class="hljs-comment">// { a: number; b: string; }</span></code></pre>
+<span class="hljs-comment">/**
+ * Добавление модификаторов
+ * было { field: string; }
+ * стало { readonly field?: string; }
+ */</span>
+<span class="hljs-keyword">let</span> addingModifier: AddModifier&#x3C;IWithoutModifier> = {field: <span class="hljs-string">''</span>};
+<span class="hljs-keyword">let</span> withoutModifier: IWithoutModifier = {field: <span class="hljs-string">''</span>};
+
+addingModifier.field = <span class="hljs-string">''</span>; <span class="hljs-comment">// Error</span>
+withoutModifier.field = <span class="hljs-string">''</span>; <span class="hljs-comment">// Ok</span>
+
+<span class="hljs-comment">/**
+ * Удаление модификаторов
+ * было { readonly field?: string; }
+ * стало { field: string; }
+ */</span>
+<span class="hljs-keyword">let</span> removingModifier: RemoveModoifier&#x3C;IWithModifier> = {field: <span class="hljs-string">''</span>};
+<span class="hljs-keyword">let</span> withModifier: IWithModifier = {field: <span class="hljs-string">''</span>};
+
+removingModifier.field = <span class="hljs-string">''</span>; <span class="hljs-comment">// Ok</span>
+withModifier.field = <span class="hljs-string">''</span>; <span class="hljs-comment">// Error</span></code></pre>
 </section>
