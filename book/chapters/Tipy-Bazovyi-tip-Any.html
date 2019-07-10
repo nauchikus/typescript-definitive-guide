@@ -32,7 +32,7 @@ apple = <span class="hljs-literal">true</span>;</code></pre>
 После того, как данные будут получены и сериализованы, но прежде чем они будут преобразованы к какому-то конкретному типу данных, сервис может хранить их, как тип <code class="inline-code">Any</code>.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">let</span> data: <span class="hljs-built_in">any</span> = <span class="hljs-built_in">JSON</span>.parse( <span class="hljs-string">'{"id": "abc"}'</span> );
 <span class="hljs-keyword">let</span> id = data.id; <span class="hljs-comment">// Ok</span></code></pre>
-<p>В случае, если при объявлении переменных <code class="inline-code">var</code> и <code class="inline-code">let</code>, а также полей объекта созданного с помощью литерала объекта <code class="inline-code">{ }</code> и полей объявленных в теле класса, не было присвоено значение, то компилятором будет выведен тип данных <code class="inline-code">Any</code>.</p>
+<p>В случае, если при объявлении переменных <code class="inline-code">var</code> и <code class="inline-code">let</code>, а также полей объявленных в теле класса, не было присвоено значение, то компилятором будет выведен тип данных <code class="inline-code">Any</code>.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">var</span> apple; <span class="hljs-comment">// apple: any</span>
 <span class="hljs-keyword">let</span> lemon; <span class="hljs-comment">// lemon: any</span>
 
