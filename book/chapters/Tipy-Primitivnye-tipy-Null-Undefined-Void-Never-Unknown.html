@@ -344,15 +344,6 @@ v1(); <span class="hljs-comment">// Error</span></code></pre>
 <span class="hljs-keyword">let</span> v15 = <span class="hljs-number">5</span> || v0; <span class="hljs-comment">// Ok, let v15: number</span>
 <span class="hljs-keyword">let</span> v16 = v0 || <span class="hljs-number">5</span>; <span class="hljs-comment">// Ok, let v16: unknown</span>
 <span class="hljs-keyword">let</span> v17 = !v0; <span class="hljs-comment">// Ok, let v17: boolean</span></code></pre>
-<p>Тип <code class="inline-code">unknown</code> при операциях с сопоставленных типах представляется объектным типом <code class="inline-code">{}</code></p>
-<pre><code class="hljs language-typescript"><span class="hljs-keyword">type</span> MappedType&#x3C;T> = {
-  [K <span class="hljs-keyword">in</span> keyof T]: T;
-}
-
-
-<span class="hljs-keyword">type</span> T0 =  MappedType&#x3C;<span class="hljs-built_in">number</span>>; <span class="hljs-comment">// type T0 = number</span>
-<span class="hljs-keyword">type</span> T1 =  MappedType&#x3C;<span class="hljs-built_in">any</span>>; <span class="hljs-comment">// type T1 = { [x: string]: any; }</span>
-<span class="hljs-keyword">type</span> T2 =  MappedType&#x3C;unknown>; <span class="hljs-comment">// type T2 = {}</span></code></pre>
 <p>Также стоит упомянуть, что функция, у которой возвращаемый тип принадлежит к типу <code class="inline-code">unknown</code>, может не возвращать значение явно.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">f0</span>(<span class="hljs-params"></span>): <span class="hljs-title">unknown</span> </span>{<span class="hljs-keyword">return</span>;} <span class="hljs-comment">// Ok</span>
 <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">f1</span>(<span class="hljs-params"></span>): <span class="hljs-title">number</span> </span>{<span class="hljs-keyword">return</span>;} <span class="hljs-comment">// Error</span>
@@ -364,4 +355,13 @@ v1(); <span class="hljs-comment">// Error</span></code></pre>
   f1: <span class="hljs-built_in">number</span>; <span class="hljs-comment">// Error</span>
   f2: <span class="hljs-built_in">number</span> = <span class="hljs-number">5</span>; <span class="hljs-comment">// Ok</span>
 }</code></pre>
+<p>Если в определении типа данных участвует сопоставленный тип (<code class="inline-code">Mapped Type</code>) которому в качестве аргумента типа передается тип <code class="inline-code">unknown</code>, то такой сопаставленный тип будет выведен как объектный тип <code class="inline-code">{}</code>. Поскольку сопоставленные типы (<code class="inline-code">Mapped Types</code>), псевдонимы типов (<code class="inline-code">types</code>), а также обобщения (<code class="inline-code">Generics&#x3C;></code>) будут рассмотрены позднее, то стоит просто помнить об этом факте и повторно прочесть написанное при необходимости. </p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">type</span> MappedType&#x3C;T> = {
+  [K <span class="hljs-keyword">in</span> keyof T]: T;
+}
+
+
+<span class="hljs-keyword">type</span> T0 =  MappedType&#x3C;<span class="hljs-built_in">number</span>>; <span class="hljs-comment">// type T0 = number</span>
+<span class="hljs-keyword">type</span> T1 =  MappedType&#x3C;<span class="hljs-built_in">any</span>>; <span class="hljs-comment">// type T1 = { [x: string]: any; }</span>
+<span class="hljs-keyword">type</span> T2 =  MappedType&#x3C;unknown>; <span class="hljs-comment">// type T2 = {}</span></code></pre>
 </section>
