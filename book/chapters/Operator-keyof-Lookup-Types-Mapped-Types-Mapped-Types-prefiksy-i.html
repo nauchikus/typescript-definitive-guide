@@ -163,17 +163,92 @@
         
 <hr>
 <p>Сопоставленные типы, это типы данных, которые при помощи механизма итерирования, модифицируют лежащие в основе конкретные типы данных.</p>
-<p>Сопоставленные типы могут быть созданы только из псевдонимов типов объявленных с помощью ключевого слова type. Итерация может производится только для объединенных строковых литеральных типов. Выражение итерации состоит из идентификатора, которому последовательно присваиваются значения литеральных строковых типов. После идентификатора следует оператор in, после которого, с помощью ключевого слова <code class="inline-code">keyof</code>, определяется объединенный строковой литеральный тип. К тому же, все выражение заключается в квадратные скобки <code class="inline-code">[ ]</code>.</p>
-<pre><code class="hljs language-typescript"><span class="hljs-keyword">type</span> AliasType&#x3C;T> = {
-  [P <span class="hljs-keyword">in</span> keyof T]: T[ P ];
+<p>В <code class="inline-code">TypeScript</code> существует возможность определения типа данных в качестве ключей которого выступает множество элементами которого являются литеральные строковые типы данных. в том числе и составляющие тип объединение (<code class="inline-code">Union</code>). Подобные типы обозначаются как <em>сопоставленные типы</em> данных (<code class="inline-code">Mapped Types</code>) и определяются исключительно на основе предоставляемой псевдонимами типов (<code class="inline-code">Type Alias</code>), объявление которых осуществляется при помощи ключевого слова <code class="inline-code">type</code>. Тело сопоставимого типа, заключенное в фигурные скобки <code class="inline-code">{}</code>, включает в себя одно единственное выражение состоящие из двух частей разделенное двоеточием. </p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">type</span> СопоставимыйТип = {
+  ЛеваяЧастьВыражения : ПраваяЧастьВырыжения;
+}</code></pre>
+<p>В левой части выражения распологается другое, обрамленное в квадратные скобки <code class="inline-code">[]</code>, выражение предназначенное для работы с множеством, а в правой части определяется произвольный тип данных.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">type</span> СопоставимыйТип = {
+  [ВыражениеДляРаботыСМножеством] : ПроизвольныйТипДанных;
+}</code></pre>
+<p>Выражение для работы с множеством определяет механизм предназначенный для итерирования элементами этого множества и также состоит из двух частей разделенных опратором <code class="inline-code">in</code> (<code class="inline-code">[ЛевыйОперанд in ПравыйОпернад]</code>). В качестве левого операнда указывается произвольный идентификатор, которому в процессе итерирования элементами множества, указанного в качестве правого операнда, последовательно будет присвоено их строковое представление (<code class="inline-code">[ПроизвольныйИдентификатор in Множество]</code>). </p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">type</span> СопоставимыйТип = {
+  [ПроизвольныйИдентификатор <span class="hljs-keyword">in</span> Множество] : ПроизвольныйТипДанных;
+}</code></pre>
+<p>Как уже было сказанно в роли идентификатора может выступать любой идентификатор.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">type</span> СопоставимыйТип = {
+  [Key <span class="hljs-keyword">in</span> Множество] : ПроизвольныйТипДанных;
 }
 
 <span class="hljs-comment">// or</span>
 
-<span class="hljs-keyword">type</span> AliasType&#x3C;T, K <span class="hljs-keyword">extends</span> keyof T> = {
-  [P <span class="hljs-keyword">in</span> K]: T[ P ];
+<span class="hljs-keyword">type</span> СопоставимыйТип = {
+  [K <span class="hljs-keyword">in</span> Множество] : ПроизвольныйТипДанных;
 }</code></pre>
-<p>Левая часть выражения, в которой описана итерация (<code class="inline-code">[P in keyof T]</code>) , будет заменена на идентификатор поля, а правая (<code class="inline-code">T[ P ]</code>), при условие что в ней будет необходимость, на тип данных. Поэтому сопоставление типов можно представить, как полную копию типа T, плюс модификаторы. В качестве модификаторов могут выступать любые модификаторы доступные для описания типов (<code class="inline-code">readonly</code>, <code class="inline-code">?:</code>)</p>
+<p>Множеств может быть определенно как единственнным литеральным строковым типом (<code class="inline-code">"ElementLeteralStringType"</code>), так и его множеством составляющим тип объединение (<code class="inline-code">Union Type</code>) (<code class="inline-code">"FirstElementLeteralStringType" | "SecondElementLeteralStringType"</code>).</p>
+<pre><code class="hljs language-typescript"><span class="hljs-comment">// множество с одним элементом</span>
+<span class="hljs-keyword">type</span> СопоставимыйТип = {
+  [K <span class="hljs-keyword">in</span> <span class="hljs-string">"FirstLiteralStringType"</span>] : ПроизвольныйТипДанных;
+}
+
+<span class="hljs-comment">// or </span>
+
+<span class="hljs-comment">// множество с несколькими элементами</span>
+<span class="hljs-keyword">type</span> СопоставимыйТип = {
+  [K <span class="hljs-keyword">in</span> <span class="hljs-string">"FirstLiteralStringType"</span> | <span class="hljs-string">"SecondLiteralStringType"</span>] : ПроизвольныйТипДанных;
+}
+
+<span class="hljs-comment">// or </span>
+
+
+<span class="hljs-keyword">type</span> LiteralStringType = <span class="hljs-string">"FirstLiteralStringType"</span> | <span class="hljs-string">"SecondLiteralStringType"</span>;
+
+<span class="hljs-comment">// множество с несколькими элементами вынесенных в тип Union</span>
+<span class="hljs-keyword">type</span> СопоставимыйТип = {
+  [K <span class="hljs-keyword">in</span> LiteralStringType] : ПроизвольныйТипДанных;
+}</code></pre>
+<p>Результатом определения сопоставленного типа является объектный тип состоящий из ключей (строковых представлением элементов множества) ассоциированных с произвольным типом.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">type</span> ABC = <span class="hljs-string">"a"</span> | <span class="hljs-string">"b"</span> | <span class="hljs-string">"c"</span>;
+
+<span class="hljs-keyword">type</span> ABCWithString = {
+  [K <span class="hljs-keyword">in</span> ABC]: <span class="hljs-built_in">string</span>;
+}
+
+<span class="hljs-comment">// or</span>
+
+<span class="hljs-keyword">type</span> ABCWithNumber = {
+  [K <span class="hljs-keyword">in</span> ABC]: <span class="hljs-built_in">number</span>;
+}
+
+<span class="hljs-keyword">declare</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">abcWithString</span>(<span class="hljs-params">params: ABCWithString</span>): <span class="hljs-title">void</span></span>;
+
+
+abcWithString({a: <span class="hljs-string">''</span>, b: <span class="hljs-string">''</span>, c: <span class="hljs-string">''</span>}); <span class="hljs-comment">// Ok</span>
+abcWithString({}); <span class="hljs-comment">// Error, missing properties 'a', 'b', 'c'</span>
+abcWithString({a: <span class="hljs-string">''</span>, b: <span class="hljs-string">''</span>}); <span class="hljs-comment">// Error, missing property 'c'</span>
+abcWithString({a: <span class="hljs-string">''</span>, b: <span class="hljs-string">''</span>, c: <span class="hljs-number">5</span>}); <span class="hljs-comment">// Error, type number is not type string</span>
+
+
+<span class="hljs-keyword">declare</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">abcWithNumber</span>(<span class="hljs-params">params: ABCWithNumber</span>): <span class="hljs-title">void</span></span>;
+
+abcWithNumber({a: <span class="hljs-number">0</span>, b: <span class="hljs-number">0</span>, c: <span class="hljs-number">0</span>}); <span class="hljs-comment">// Ok</span>
+abcWithNumber({}); <span class="hljs-comment">// Error, missing properties 'a', 'b', 'c'</span>
+abcWithNumber({a: <span class="hljs-number">0</span>, b: <span class="hljs-number">0</span>}); <span class="hljs-comment">// Error, missing property 'c'</span>
+abcWithNumber({a: <span class="hljs-number">0</span>, b: <span class="hljs-number">0</span>, c: <span class="hljs-string">''</span>}); <span class="hljs-comment">// Error, type string is not type number</span></code></pre>
+<p>От статического указания итерируемого типа мало пользы, поэтому <code class="inline-code">Mapped Types</code> лучше всего расскрывают свой потенциал при совместной работе с известными к этому моменту такими механизмами, как запрос ключей (<code class="inline-code">keyof</code>) и поиск типов (<code class="inline-code">Lookup Types</code>) опирирующих параметрами типа (<code class="inline-code">Generics</code>) </p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">type</span> MappedType&#x3C;T> = {
+  [K <span class="hljs-keyword">in</span> keyof T]: T[ K ];
+}
+
+<span class="hljs-comment">// or</span>
+
+<span class="hljs-keyword">type</span> MappedType&#x3C;T, U <span class="hljs-keyword">extends</span> keyof T> = {
+  [K <span class="hljs-keyword">in</span> U]: T[ K ];
+}</code></pre>
+<p>В первом случае в выражении <code class="inline-code">[P in keyof T]: T[ P ];</code> первым действием выполняется вычисления оператора <code class="inline-code">keyof</code> над параметром типа <code class="inline-code">T</code>. В его результате ключи произвольного типа преобразуются во множество, то есть в тип <code class="inline-code">Union</code>, элементы которого принадлежать к литеральному строковому типу данных. Простыми словами операция <code class="inline-code">keyof T</code> заменяется на только что полученный тип <code class="inline-code">Union</code> <code class="inline-code">[P in Union]: T[ P ];</code>, над которым на следующим действии выполняется итерация.</p>
+<p>Во втором случае <code class="inline-code">MappedType&#x3C;T, U extends keyof T></code> оператор <code class="inline-code">keyof</code> также приобразует параметр типа <code class="inline-code">T</code> в тип <code class="inline-code">Union</code>, который затем расширяет параметр типа <code class="inline-code">U</code>, тем самым получая все его признаки необходиме для итерации в выражении <code class="inline-code">[K in U]</code>.</p>
+<p>С полученным в итерации <code class="inline-code">[K in U]</code> ключом <code class="inline-code">K</code> ассоциируется тип данных, который был ассоциирован с ним в исходным типе и который вычисляется с помощью механизма поиска типов <code class="inline-code">T[ K ]</code>. </p>
+<p>Совокупность описанных механизмов позволяет создавать новый тип идентичный исходному, что при включении в условие определения <code class="inline-code">Mapped Type</code> модификаторв, как например <code class="inline-code">readonly</code> или <code class="inline-code">?:</code>, позволяет определять новые модифицирующие типы данных.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">type</span> ReadonlyMember&#x3C;T> = {
   readonly [P <span class="hljs-keyword">in</span> keyof T]: T[ P ];
 }
@@ -201,10 +276,6 @@
 
 <span class="hljs-keyword">let</span> nullable: Nullable&#x3C;IAnimal>; <span class="hljs-comment">// { name: string | null; age: number | null; }</span>
 <span class="hljs-keyword">let</span> stringify: Stringify&#x3C;IAnimal>; <span class="hljs-comment">// { name: string; age: string; }</span></code></pre>
-<p>Кроме того в левой части выражения, в качестве типа, можно использовать любой тип данных.</p>
-<pre><code class="hljs language-typescript"><span class="hljs-keyword">type</span> ElementKey = {
-  [P <span class="hljs-keyword">in</span> keyof Element]: <span class="hljs-built_in">string</span>;
-}</code></pre>
 <p>Сопоставленные типы не могут содержать более одной итерации в типе, и кроме того не могу содержать объявление других членов.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">type</span> AliasType&#x3C;T, U> = {
   [P <span class="hljs-keyword">in</span> keyof T]: T[ P ]; <span class="hljs-comment">// Ok</span>
