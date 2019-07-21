@@ -1,0 +1,423 @@
+<section id="Povyshenie-tipobezopasnosti-generotorov" name="Повышение типобезопасности генероторов" class="subchapter">
+        <h2 class="subchapter-title">
+            <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="Povyshenie-tipobezopasnosti-generotorov" type="absolute-url">
+                <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <use href="#icon_link"/>
+                </svg>
+            </button>
+            Повышение типобезопасности генероторов
+        </h2>
+        <hr>
+        <section id="Povyshenie-tipobezopasnosti-generotorov" name="Повышение типобезопасности генероторов" class="subchapter">
+            <h2 class="subchapter-title">
+                <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="Povyshenie-tipobezopasnosti-generotorov" type="absolute-url">
+                    <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <use href="#icon_link"/>
+                    </svg>
+                </button>
+                Повышение типобезопасности генероторов
+            </h2>
+        
+<p>До текущей версии такие конструкции как генераторы (<code class="inline-code">generators</code>) имели недоработки косающиеся определения типа данных возвращаемых, как из, так и во внутрь генератора, значений.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-comment">// пример со значением возвращающимся из генератора </span>
+
+<span class="hljs-comment">// function generator(): IterableIterator&#x3C;"Done" | 100></span>
+<span class="hljs-function"><span class="hljs-keyword">function</span>* <span class="hljs-title">generator</span>(<span class="hljs-params"></span>) </span>{ 
+    <span class="hljs-keyword">yield</span> <span class="hljs-number">100</span>;
+
+    <span class="hljs-keyword">return</span> <span class="hljs-string">`Done`</span>;
+}
+
+<span class="hljs-keyword">let</span> iterator = generator(); <span class="hljs-comment">// let iterator: IterableIterator&#x3C;"Done" | 100></span>
+<span class="hljs-keyword">let</span> result = iterator.next(); <span class="hljs-comment">// let result: IteratorResult&#x3C;"Done" | 100></span>
+
+<span class="hljs-comment">/**
+ * Поскольку генератор перешел взавершенное состояние
+ * значение result.value может принадлежать исключительно
+ * к типу string ...
+ */</span>
+<span class="hljs-keyword">if</span> ( result.done ) {
+    <span class="hljs-comment">/**
+     * ... тем не менее, вывод типов определеяет его
+     * как тип объединение (Union) string | number
+     */</span>
+    <span class="hljs-keyword">let</span> value = result.value; <span class="hljs-comment">// let value: string | number</span>
+}</code></pre>
+<pre><code class="hljs language-typescript"><span class="hljs-comment">// пример со значением возвращаемым в генератор</span>
+
+<span class="hljs-keyword">type</span> Greeter = {
+    greet():<span class="hljs-built_in">void</span>;
+}
+
+<span class="hljs-comment">// function generator(): IterableIterator&#x3C;undefined></span>
+<span class="hljs-function"><span class="hljs-keyword">function</span>* <span class="hljs-title">generator</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-comment">/**
+     * В строке - let greeter: Greeter = yield;
+     * предполагается, что возвращенное извнешнего кода
+     * значение будетпринадлежать к типу Greeter...
+     * 
+     */</span>
+    <span class="hljs-keyword">let</span> greeter: Greeter = <span class="hljs-keyword">yield</span>;
+    greeter.greet();
+}
+
+<span class="hljs-keyword">let</span> iterator = generator(); <span class="hljs-comment">// let iterator: IterableIterator&#x3C;undefined></span>
+iterator.next();
+<span class="hljs-comment">/**
+ * Строка ниже приведт кошибке во время выполнения
+ * внутри  генератора при вызове метода greeter.greet();
+ * поскольку возращенное значение принадлежит к типу number,
+ * в то время как ожидается тип Greeter.
+ */</span>
+iterator.next(<span class="hljs-number">123</span>); <span class="hljs-comment">// Error, runtime error</span></code></pre>
+<p>Начиная с версии <em>TypeScript</em> <code class="inline-code">3.6</code> описанные выше недостатки были устранены.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-comment">// пример со значением возвращающимся из генератора </span>
+
+<span class="hljs-comment">/**
+ *  &#x3C;v3.6: function generator(): IterableIterator&#x3C;"Done" | 100>
+ * >=v3.6: function generator(): Generator&#x3C;number, string, unknown>
+ */</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span>* <span class="hljs-title">generator</span>(<span class="hljs-params"></span>) </span>{ 
+    <span class="hljs-keyword">yield</span> <span class="hljs-number">100</span>;
+
+    <span class="hljs-keyword">return</span> <span class="hljs-string">`Done`</span>;
+}
+
+<span class="hljs-comment">/**
+ *  &#x3C;v3.6: let iterator: IterableIterator&#x3C;"Done" | 100>
+ * >=v3.6: let iterator: Generator&#x3C;number, string, unknown>
+ */</span>
+<span class="hljs-keyword">let</span> iterator = generator();
+
+<span class="hljs-comment">/**
+ *  &#x3C;v3.6: let result: IteratorResult&#x3C;"Done" | 100>
+ * >=v3.6: let result: IteratorResult&#x3C;number, string>
+ */</span>
+<span class="hljs-keyword">let</span> result = iterator.next();
+
+<span class="hljs-keyword">if</span> ( result.done ) {
+    <span class="hljs-comment">/**
+     *  &#x3C;v3.6: let value: string | number
+     * >=v3.6: let value: string
+     */</span>
+    <span class="hljs-keyword">let</span> value = result.value;
+}</code></pre>
+<pre><code class="hljs language-typescript"><span class="hljs-comment">// пример со значением возвращаемым в генератор</span>
+
+<span class="hljs-keyword">type</span> Greeter = {
+    greet():<span class="hljs-built_in">void</span>;
+}
+
+<span class="hljs-comment">/**
+ *  &#x3C;v3.6: function generator(): IterableIterator&#x3C;undefined>
+ * >=v3.6: function generator(): Generator&#x3C;undefined, void, Greeter>
+ */</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span>* <span class="hljs-title">generator</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">let</span> greeter: Greeter = <span class="hljs-keyword">yield</span>;
+    greeter.greet();
+}
+
+<span class="hljs-comment">/**
+ *  &#x3C;v3.6: let iterator: IterableIterator&#x3C;undefined>
+ * >=v3.6: let iterator: Generator&#x3C;undefined, void, Greeter>
+ */</span>
+<span class="hljs-keyword">let</span> iterator = generator();
+iterator.next();
+iterator.next(<span class="hljs-number">123</span>); <span class="hljs-comment">// Error! Argument of type '[123]' is not assignable to parameter of type '[] | [Greeter]'.</span></code></pre>
+<p>Подобноестало возможно благодаря добавлению шести новых типов перечисленных ниже, которые вы также можете использовать при работе с генераторами. </p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">interface</span> Iterator&#x3C;T, TReturn = any, TNext = undefined> {<span class="hljs-comment">/** ... */</span>}
+<span class="hljs-keyword">type</span> IteratorResult&#x3C;T, TReturn = <span class="hljs-built_in">any</span>> = IteratorYieldResult&#x3C;T> | IteratorReturnResult&#x3C;TReturn>;
+<span class="hljs-keyword">interface</span> IteratorReturnResult&#x3C;TReturn> {<span class="hljs-comment">/** ... */</span>}
+<span class="hljs-keyword">interface</span> IteratorYieldResult&#x3C;TYield> {<span class="hljs-comment">/** ... */</span>}
+
+<span class="hljs-keyword">interface</span> Generator&#x3C;T = unknown, TReturn = any, TNext = unknown> <span class="hljs-keyword">extends</span> Iterator&#x3C;T, TReturn, TNext> {<span class="hljs-comment">/** ... */</span>}
+<span class="hljs-keyword">interface</span> GeneratorFunction {<span class="hljs-comment">/** ... */</span>}
+<span class="hljs-keyword">interface</span> GeneratorFunctionConstructor {<span class="hljs-comment">/** ... */</span>}</code></pre>
+<p>И напоследок будет не лишним ещё раз взглянуть на очень простой и информативный пример более эффективной работы с генераторами.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-comment">/**
+ * Generator&#x3C;number, string, boolean> 
+ * или по другому
+ * Generator&#x3C;
+ *  возвращаемое с помощью оператора yield  значение,
+ *  возвращаемое с помощью оператора return значение,
+ *  передаваемое в метод next, то есть возвращаемое в генератор, значение
+ * > 
+ */</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span>* <span class="hljs-title">counter</span>(<span class="hljs-params"></span>): <span class="hljs-title">Generator</span>&#x3C;<span class="hljs-title">number</span>, <span class="hljs-title">string</span>, <span class="hljs-title">boolean</span>> </span>{
+    <span class="hljs-keyword">let</span> i = <span class="hljs-number">0</span>;
+    
+    <span class="hljs-keyword">while</span> (<span class="hljs-literal">true</span>) {
+        <span class="hljs-keyword">if</span> (<span class="hljs-keyword">yield</span> i++) {
+            <span class="hljs-built_in">console</span>.log(
+                <span class="hljs-string">`[if]  Block if in counter generator.
+                       Variable value "i": <span class="hljs-subst">${i}</span>`</span>
+            );
+            
+            <span class="hljs-keyword">break</span>;
+        }
+    }
+
+    <span class="hljs-keyword">return</span> <span class="hljs-string">"Done"</span>;
+}
+
+
+
+<span class="hljs-keyword">let</span> iterator = counter();
+<span class="hljs-keyword">let</span> result = iterator.next();
+
+
+<span class="hljs-keyword">while</span> ( !result.done ) {
+    <span class="hljs-keyword">let</span> returnedFromGeneratorValue = result.value;
+    <span class="hljs-keyword">let</span> passedToGeneratorValue = returnedFromGeneratorValue === <span class="hljs-number">3</span>;
+    
+    <span class="hljs-built_in">console</span>.log( <span class="hljs-string">`[out] Returned from generator value: <span class="hljs-subst">${ returnedFromGeneratorValue }</span>`</span> );
+    <span class="hljs-built_in">console</span>.log( <span class="hljs-string">`[in]  Passed to generator  value: <span class="hljs-subst">${ passedToGeneratorValue }</span>`</span> );
+    
+    result = iterator.next(passedToGeneratorValue);
+}
+
+<span class="hljs-built_in">console</span>.log(<span class="hljs-string">`[end] Return from generator resultant value: <span class="hljs-subst">${result.value.toUpperCase()}</span>`</span> );
+
+<span class="hljs-comment">/**
+ * "[out] Returned from generator value: 0"
+ * "[in]  Passed to generator  value: false"
+ * "[out] Returned from generator value: 1"
+ * "[in]  Passed to generator  value: false"
+ * "[out] Returned from generator value: 2"
+ * "[in]  Passed to generator  value: true"
+ * "[if]  Block if in counter generator.
+          Variable value "i": 3"
+ * "[end] Return from generator resultant value: DONE"
+ */</span></code></pre>
+</section>
+    </section>
+<section id="Dobavlenie-helpera-imetiruushchego-mehanizm-spread-array-pri-kompilyacii-v-ecmascript-nije-versii-6-pri-neaktivnom-flage-downlevelIteration" name="Добавление хелпера иметирующего механизм spread array при компиляции в ecmascript ниже версии 6 при неактивном флаге --downlevelIteration" class="subchapter">
+        <h2 class="subchapter-title">
+            <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="Dobavlenie-helpera-imetiruushchego-mehanizm-spread-array-pri-kompilyacii-v-ecmascript-nije-versii-6-pri-neaktivnom-flage-downlevelIteration" type="absolute-url">
+                <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <use href="#icon_link"/>
+                </svg>
+            </button>
+            Добавление хелпера иметирующего механизм spread array при компиляции в ecmascript ниже версии 6 при неактивном флаге --downlevelIteration
+        </h2>
+        <hr>
+        <section id="Dobavlenie-helpera-imetiruushchego-mehanizm-spread-array-pri-kompilyacii-v-ecmascript-nije-versii-6-pri-neaktivnom-flage-downlevelIteration" name="Добавление хелпера иметирующего механизм spread array при компиляции в ecmascript ниже версии 6 при неактивном флаге --downlevelIteration" class="subchapter">
+            <h2 class="subchapter-title">
+                <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="Dobavlenie-helpera-imetiruushchego-mehanizm-spread-array-pri-kompilyacii-v-ecmascript-nije-versii-6-pri-neaktivnom-flage-downlevelIteration" type="absolute-url">
+                    <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <use href="#icon_link"/>
+                    </svg>
+                </button>
+                Добавление хелпера иметирующего механизм spread array при компиляции в ecmascript ниже версии 6 при неактивном флаге --downlevelIteration
+            </h2>
+        
+<p>Начиная с версии <code class="inline-code">v3.6</code>, хелпер, генерирующийся при компиляции такой конструкции, как <code class="inline-code">array spread ([...Array(5)])</code>, в ECMAScript ниже 6 версии, при неактивном флаге <code class="inline-code">--downlevelIteration</code>, притерпел кардинальные изменения. Но обо всем по порядку.</p>
+<p>До <code class="inline-code">TypeScript</code> версии <code class="inline-code">v3.6</code>, при компиляции кода в версию ниже <code class="inline-code">es6</code>, для эмитации механизма <code class="inline-code">spread</code> примененого к массиву генерировался код объединяющий массивы с помощью его метода <code class="inline-code">.concat()</code> - </p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">let</span> array = [<span class="hljs-number">0</span>, <span class="hljs-number">1</span>, ...[<span class="hljs-number">2</span>, <span class="hljs-number">3</span>]]; <span class="hljs-comment">// этот код es6+ компилировался в..</span>
+<span class="hljs-keyword">var</span> array = [<span class="hljs-number">0</span>, <span class="hljs-number">1</span>].concat([<span class="hljs-number">2</span>, <span class="hljs-number">3</span>]); <span class="hljs-comment">// ..этот es5 код</span></code></pre>
+<p>Но эмитация подобным образом не соответствует поведению предполагаемого спецификацией <code class="inline-code">es6</code> при использовании массива созданного с помощью конструктора, которому при вызове передали в качестве единственного аргумента числовое значение.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">let</span> array = [<span class="hljs-number">0</span>, <span class="hljs-number">1</span>, ...Array(<span class="hljs-number">3</span>), <span class="hljs-number">2</span>, <span class="hljs-number">3</span>]; <span class="hljs-comment">// этот код es6+ компилировался в..</span>
+<span class="hljs-keyword">var</span> array = [<span class="hljs-number">0</span>, <span class="hljs-number">1</span>].concat(<span class="hljs-built_in">Array</span>(<span class="hljs-number">2</span>), [<span class="hljs-number">2</span>, <span class="hljs-number">3</span>]); <span class="hljs-comment">// ..этот es5 код</span></code></pre>
+<p>Получение экземпляра массива подобным образом приводит к созданию объекта массива с заданной длиной, равной значению переданного вкачестве аргумента, а также полным отсутствием элементов и следовательно ассоциированных с ними ключей (индексов массива).</p>
+<pre><code class="hljs language-typescript"><span class="hljs-built_in">Array</span>(<span class="hljs-number">3</span>); <span class="hljs-comment">// [empty × 3]</span>
+
+[<span class="hljs-string">'a'</span>, <span class="hljs-string">'b'</span>, <span class="hljs-string">'c'</span>]; <span class="hljs-comment">// ['a', 'b', 'c']</span>
+
+
+<span class="hljs-comment">/**
+ * У объекта массива созданного с помощью конструктора
+ * длина равна переданному аргументу, то есть 3, но
+ * ключи представляющие индекс массива, также как и
+ * элементы - отсутствуют.
+ */</span>
+<span class="hljs-built_in">Array</span>(<span class="hljs-number">3</span>); <span class="hljs-comment">// псевдо объект массива {length: 3}</span>
+
+<span class="hljs-comment">/**
+ * У объекта массива созданного с помощью литерала массива
+ * длина равняется количеству его элементов, то есть 3, а также
+ * существуют ключи (0, 1, 2) ассоциированные с элементами ('a','b','c').
+ */</span>
+[<span class="hljs-string">'a'</span>, <span class="hljs-string">'b'</span>, <span class="hljs-string">'c'</span>] <span class="hljs-comment">// псевдо объект массива {length: 3, 0: 'a', 1: 'b', 2: 'c'}</span></code></pre>
+<p>Не будет лишним напомнить, что элементы у массива созданного с помощью конструктора буквально полностью отсутствуют, а не имеют значение <code class="inline-code">undefined</code>, как может показаться. При обращении к элементам по индексу входящего в диапазон установленного его длиной, <code class="inline-code">undefined</code> возвращается не потому что хранится в качестве элемента, а потому что <code class="inline-code">undefined</code> возвращается всегда при обращении к несуществующему ключу объекта.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-comment">// случай с объектом созданного при помощи литерала</span>
+
+({prop: <span class="hljs-string">'value'</span>})[<span class="hljs-string">'prop'</span>]; <span class="hljs-comment">// value - обращение к существующему ключу prop  </span>
+({})[<span class="hljs-string">'prop'</span>]; <span class="hljs-comment">// undefined - обращение к не существующему ключу prop</span>
+
+<span class="hljs-comment">// случай с массивом созданного при помощи литерала</span>
+
+[<span class="hljs-string">'a'</span>, <span class="hljs-string">'b'</span>, <span class="hljs-string">'c'</span>][<span class="hljs-number">0</span>]; <span class="hljs-comment">// a - обращение к существующему ключу 0</span>
+[<span class="hljs-string">'a'</span>, <span class="hljs-string">'b'</span>, <span class="hljs-string">'c'</span>][<span class="hljs-number">10</span>]; <span class="hljs-comment">// undefined - обращение к не существующему ключу 10</span>
+
+<span class="hljs-comment">// случай с массивом созданного при помощи конструктора</span>
+
+<span class="hljs-built_in">Array</span>(<span class="hljs-number">3</span>)[<span class="hljs-number">0</span>]; <span class="hljs-comment">// undefined - обращение к не существующему ключу 0</span></code></pre>
+<p>Отсутствие ключей является причиной несоответствия количества реальных итераций и длины массива при работе с ними. Методы массива (<code class="inline-code">.forEach()</code>, <code class="inline-code">.map()</code> и др.) и итерирующие конструкции (<code class="inline-code">forin\forof</code>)проверяют ключи с помощью метода <code class="inline-code">.hasOwnProperty(key)</code> доставшегося по наследству от базового типа <code class="inline-code">Object</code>.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-comment">/**
+ * псевдо объект массива {length: 3}
+ * Нет ключей - нет итераций!
+ * Вывод в консоль: (пусто)
+ */</span>
+<span class="hljs-built_in">Array</span>(<span class="hljs-number">3</span>).forEach(<span class="hljs-function"><span class="hljs-params">()</span>=></span><span class="hljs-built_in">console</span>.log(<span class="hljs-string">`iteration`</span>));
+
+
+<span class="hljs-comment">/**
+ * псевдо объект массива {length: 3}
+ * Нет ключей - нет итераций!
+ * Вывод в консоль: (пусто)
+ */</span>
+<span class="hljs-keyword">for</span>(<span class="hljs-keyword">let</span> item of <span class="hljs-built_in">Array</span>(<span class="hljs-number">3</span>)){<span class="hljs-built_in">console</span>.log(<span class="hljs-string">`iteration`</span>);}</code></pre>
+<p>Тем не менее при применении механиза <code class="inline-code">spread</code> к массиву в <code class="inline-code">es6+</code> создает несуществующие элементы и заполняет их значениями <code class="inline-code">undefined</code>.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-comment">/**
+ * Длина === 7, количество итераций === 7
+ */</span>
+[<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, ...Array(<span class="hljs-number">3</span>), <span class="hljs-number">3</span>, <span class="hljs-number">4</span>]; <span class="hljs-comment">// es6 - [1, 2, undefined, undefined, undefined, 3, 4]</span></code></pre>
+<p>Но скомпилированный <code class="inline-code">TypeScript</code> в <code class="inline-code">es &#x3C; v6</code> код при неактивном флаге <code class="inline-code">--downlevelIteration</code>, до версии <code class="inline-code">v3.6</code> не соответствовал этому поведению, поскольку не преобразовывал отсутствующие элементы в элементы ассоциированные со значением <code class="inline-code">undefined</code>.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-comment">/**
+ * Длина === 7, количество итераций === 4!
+ */</span>
+[<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, ...Array(<span class="hljs-number">3</span>), <span class="hljs-number">3</span>, <span class="hljs-number">4</span>]; <span class="hljs-comment">// es6 синтаксис компилировался в..</span>
+[<span class="hljs-number">1</span>, <span class="hljs-number">2</span>].concat(<span class="hljs-built_in">Array</span>(<span class="hljs-number">3</span>), [<span class="hljs-number">2</span>, <span class="hljs-number">3</span>]); <span class="hljs-comment">// в es5 подобный код - [1, 2, empty × 3, 2, 3]</span></code></pre>
+<p>После того, как коммунити обратило внимание на несоответствие в поведении, подход с нативным методом <code class="inline-code">.concat()</code> заменили на генерацию хелпера <code class="inline-code">__spreadArrays(array)</code> и тем самым исправили поведение на предполагаемое спецификацией. Отказ от нативного <code class="inline-code">.concat()</code> замедлил сказался на производительности, снизив её ровно в два раза.</p>
+</section>
+    </section>
+<section id="Rasshirenie-sistemy-tipov-tipami-predstavlyaushchimi-struktury-dannyh-tolko-dlya-chteniya" name="Расширение системы типов типами представляющими структуры данных только для чтения" class="subchapter">
+        <h2 class="subchapter-title">
+            <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="Rasshirenie-sistemy-tipov-tipami-predstavlyaushchimi-struktury-dannyh-tolko-dlya-chteniya" type="absolute-url">
+                <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <use href="#icon_link"/>
+                </svg>
+            </button>
+            Расширение системы типов типами представляющими структуры данных только для чтения
+        </h2>
+        <hr>
+        <section id="Rasshirenie-sistemy-tipov-tipami-predstavlyaushchimi-struktury-dannyh-tolko-dlya-chteniya" name="Расширение системы типов типами представляющими структуры данных только для чтения" class="subchapter">
+            <h2 class="subchapter-title">
+                <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="Rasshirenie-sistemy-tipov-tipami-predstavlyaushchimi-struktury-dannyh-tolko-dlya-chteniya" type="absolute-url">
+                    <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <use href="#icon_link"/>
+                    </svg>
+                </button>
+                Расширение системы типов типами представляющими структуры данных только для чтения
+            </h2>
+        
+<p>Начиная с версии <code class="inline-code">v3.6</code>, система типов <code class="inline-code">Typescript</code> пополнилась новыми вспомогательными типами представляющими структуры данных <em>только для чтения</em> (<code class="inline-code">readonly</code>). Такими типами стали <code class="inline-code">ReadonlyMap&#x3C;K, V></code> и <code class="inline-code">ReadonlySet&#x3C;T></code> и в отличии от своих прототипов они не имеют методов способных их изменить.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">let</span> map: ReadonlyMap&#x3C;<span class="hljs-built_in">string</span>, <span class="hljs-built_in">number</span>> = <span class="hljs-keyword">new</span> Map([[<span class="hljs-string">"key"</span>, <span class="hljs-number">0</span>]]);
+<span class="hljs-keyword">let</span> <span class="hljs-keyword">set</span>: ReadonlySet&#x3C;<span class="hljs-built_in">number</span>> = <span class="hljs-keyword">new</span> Set([<span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">2</span>]);</code></pre>
+</section>
+    </section>
+<section id="Strokovoi-identifikator-funkcii-konstruktora" name="Строковой идентификатор функции-конструктора" class="subchapter">
+        <h2 class="subchapter-title">
+            <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="Strokovoi-identifikator-funkcii-konstruktora" type="absolute-url">
+                <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <use href="#icon_link"/>
+                </svg>
+            </button>
+            Строковой идентификатор функции-конструктора
+        </h2>
+        <hr>
+        <section id="Strokovoi-identifikator-funkcii-konstruktora" name="Строковой идентификатор функции-конструктора" class="subchapter">
+            <h2 class="subchapter-title">
+                <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="Strokovoi-identifikator-funkcii-konstruktora" type="absolute-url">
+                    <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <use href="#icon_link"/>
+                    </svg>
+                </button>
+                Строковой идентификатор функции-конструктора
+            </h2>
+        
+<p><code class="inline-code">TypeScript</code>, начиная сверсии <code class="inline-code">v3.6</code> реализовывает механизм ecmascript спецификации предусматривающей строковое именование функции-конструктора. Другими словами, определение метода идентификатор которого представлен в виде строки экфивалентной <code class="inline-code">"constructor"</code> расценивается как определение функции-конструктора. Если идентификатор помеается как вычисляемый <code class="inline-code">["constructor"]</code>, то такое объявление расценивается обычным методом класса. </p>
+<pre><code class="hljs language-typescript"><span class="hljs-comment">// этот ts код...</span>
+
+<span class="hljs-keyword">class</span> T {
+    <span class="hljs-string">"constructor"</span>(){
+        <span class="hljs-built_in">console</span>.log(<span class="hljs-string">`Constructor!`</span>);
+    }
+
+    [<span class="hljs-string">"constructor"</span>](){
+        <span class="hljs-built_in">console</span>.log(<span class="hljs-string">`Method with name "constructor"!`</span>);
+    }
+}
+
+<span class="hljs-keyword">let</span> t = <span class="hljs-keyword">new</span> T(); <span class="hljs-comment">// output: Constructor!</span>
+t.constructor(); <span class="hljs-comment">// output: Method with name "constructor"!</span>
+
+
+<span class="hljs-comment">// ...будетскомпилирован в этот js код</span>
+
+<span class="hljs-keyword">class</span> T {
+    <span class="hljs-keyword">constructor</span>(<span class="hljs-params"></span>) {
+        <span class="hljs-built_in">console</span>.log(<span class="hljs-string">`Constructor!`</span>);
+    }
+    [<span class="hljs-string">"constructor"</span>]() {
+        <span class="hljs-built_in">console</span>.log(<span class="hljs-string">`Method with name "constructor"!`</span>);
+    }
+}
+<span class="hljs-keyword">let</span> t = <span class="hljs-keyword">new</span> T(); <span class="hljs-comment">// output: Constructor!</span>
+t.constructor(); <span class="hljs-comment">// output: Method with name "constructor"!</span></code></pre>
+</section>
+    </section>
+<section id="Rasshirenie-vyvoda-ob-oshibkah-pri-rabote-s-Promise" name="Расширение вывода об ошибках при работе с Promise" class="subchapter">
+        <h2 class="subchapter-title">
+            <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="Rasshirenie-vyvoda-ob-oshibkah-pri-rabote-s-Promise" type="absolute-url">
+                <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <use href="#icon_link"/>
+                </svg>
+            </button>
+            Расширение вывода об ошибках при работе с Promise
+        </h2>
+        <hr>
+        <section id="Rasshirenie-vyvoda-ob-oshibkah-pri-rabote-s-Promise" name="Расширение вывода об ошибках при работе с Promise" class="subchapter">
+            <h2 class="subchapter-title">
+                <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="Rasshirenie-vyvoda-ob-oshibkah-pri-rabote-s-Promise" type="absolute-url">
+                    <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <use href="#icon_link"/>
+                    </svg>
+                </button>
+                Расширение вывода об ошибках при работе с Promise
+            </h2>
+        
+<p>Поскольку работа с <code class="inline-code">Promise</code> является очень важной частью повседневной разработки, <code class="inline-code">TypeScript</code>, начиная с версии <code class="inline-code">v3.6</code>, расширила информирование при возникновении ошибок связанными с ними, а также били добавлены механизмы их быстрогоустранения.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">interface</span> Person {
+    name:<span class="hljs-built_in">string</span>;
+    age: <span class="hljs-built_in">number</span>;
+}
+
+<span class="hljs-keyword">declare</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getPersonData</span>(<span class="hljs-params"></span>): <span class="hljs-title">Promise</span>&#x3C;<span class="hljs-title">Person</span>></span>;
+<span class="hljs-keyword">declare</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">printPersonInfo</span>(<span class="hljs-params">personData: Person</span>): <span class="hljs-title">void</span></span>;
+
+<span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">main</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-comment">/**
+     * До v3.6 возникала ошибка говорящая что
+     * тип Promise&#x3C;Person> не соответствует типу Person
+     * 
+     * Argument of type 'Promise&#x3C;Person>' is not assignable
+     * to parameter of type 'Person'.
+     * Type 'Promise&#x3C;Person>' is missing the following properties
+     * from type 'Person': name, agets(2345)
+     * 
+     * 
+     * После v3.6 вывод расширили предложением пофиксить
+     * ошибку добавлением ключевого слова await
+     * 
+     * Did you forget to use 'await'?
+     * 
+     */</span>
+    printPersonInfo(getPersonData()); <span class="hljs-comment">// Error</span>
+    printPersonInfo(<span class="hljs-keyword">await</span> getPersonData()); <span class="hljs-comment">// Ok</span>
+}
+
+
+<span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getPersonData</span>(<span class="hljs-params"></span>): <span class="hljs-title">Promise</span>&#x3C;<span class="hljs-title">Person</span>> </span>{
+    <span class="hljs-comment">/**
+     * Также предлагается пофиксить ошибку путем
+     * добавления ключевого слова await 
+     * 
+     * Property 'json' does not exist on type 'Promise&#x3C;Response>'.ts(2339)
+     * Did you forget to use 'await'?
+     */</span>
+    <span class="hljs-keyword">return</span> fetch(<span class="hljs-string">``</span>).json(); <span class="hljs-comment">// Error</span>
+    <span class="hljs-keyword">return</span> (<span class="hljs-keyword">await</span> fetch(<span class="hljs-string">``</span>)).json(); <span class="hljs-comment">// Ok</span>
+}</code></pre>
+</section>
+    </section>
