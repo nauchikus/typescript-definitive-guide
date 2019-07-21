@@ -8,17 +8,7 @@
             Повышение типобезопасности генероторов
         </h2>
         <hr>
-        <section id="Povyshenie-tipobezopasnosti-generotorov" name="Повышение типобезопасности генероторов" class="subchapter">
-            <h2 class="subchapter-title">
-                <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="Povyshenie-tipobezopasnosti-generotorov" type="absolute-url">
-                    <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <use href="#icon_link"/>
-                    </svg>
-                </button>
-                Повышение типобезопасности генероторов
-            </h2>
-        
-<p>До текущей версии такие конструкции как генераторы (<code class="inline-code">generators</code>) имели недоработки косающиеся определения типа данных возвращаемых, как из, так и во внутрь генератора, значений.</p>
+        <p>До текущей версии такие конструкции как генераторы (<code class="inline-code">generators</code>) имели недоработки косающиеся определения типа данных возвращаемых, как из, так и во внутрь генератора, значений.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-comment">// пример со значением возвращающимся из генератора </span>
 
 <span class="hljs-comment">// function generator(): IterableIterator&#x3C;"Done" | 100></span>
@@ -189,7 +179,7 @@ iterator.next(<span class="hljs-number">123</span>); <span class="hljs-comment">
           Variable value "i": 3"
  * "[end] Return from generator resultant value: DONE"
  */</span></code></pre>
-</section>
+
     </section>
 <section id="Dobavlenie-helpera-imetiruushchego-mehanizm-spread-array-pri-kompilyacii-v-ecmascript-nije-versii-6-pri-neaktivnom-flage-downlevelIteration" name="Добавление хелпера иметирующего механизм spread array при компиляции в ecmascript ниже версии 6 при неактивном флаге --downlevelIteration" class="subchapter">
         <h2 class="subchapter-title">
@@ -201,17 +191,7 @@ iterator.next(<span class="hljs-number">123</span>); <span class="hljs-comment">
             Добавление хелпера иметирующего механизм spread array при компиляции в ecmascript ниже версии 6 при неактивном флаге --downlevelIteration
         </h2>
         <hr>
-        <section id="Dobavlenie-helpera-imetiruushchego-mehanizm-spread-array-pri-kompilyacii-v-ecmascript-nije-versii-6-pri-neaktivnom-flage-downlevelIteration" name="Добавление хелпера иметирующего механизм spread array при компиляции в ecmascript ниже версии 6 при неактивном флаге --downlevelIteration" class="subchapter">
-            <h2 class="subchapter-title">
-                <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="Dobavlenie-helpera-imetiruushchego-mehanizm-spread-array-pri-kompilyacii-v-ecmascript-nije-versii-6-pri-neaktivnom-flage-downlevelIteration" type="absolute-url">
-                    <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <use href="#icon_link"/>
-                    </svg>
-                </button>
-                Добавление хелпера иметирующего механизм spread array при компиляции в ecmascript ниже версии 6 при неактивном флаге --downlevelIteration
-            </h2>
-        
-<p>Начиная с версии <code class="inline-code">v3.6</code>, хелпер, генерирующийся при компиляции такой конструкции, как <code class="inline-code">array spread ([...Array(5)])</code>, в ECMAScript ниже 6 версии, при неактивном флаге <code class="inline-code">--downlevelIteration</code>, притерпел кардинальные изменения. Но обо всем по порядку.</p>
+        <p>Начиная с версии <code class="inline-code">v3.6</code>, хелпер, генерирующийся при компиляции такой конструкции, как <code class="inline-code">array spread ([...Array(5)])</code>, в ECMAScript ниже 6 версии, при неактивном флаге <code class="inline-code">--downlevelIteration</code>, притерпел кардинальные изменения. Но обо всем по порядку.</p>
 <p>До <code class="inline-code">TypeScript</code> версии <code class="inline-code">v3.6</code>, при компиляции кода в версию ниже <code class="inline-code">es6</code>, для эмитации механизма <code class="inline-code">spread</code> примененого к массиву генерировался код объединяющий массивы с помощью его метода <code class="inline-code">.concat()</code> - </p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">let</span> array = [<span class="hljs-number">0</span>, <span class="hljs-number">1</span>, ...[<span class="hljs-number">2</span>, <span class="hljs-number">3</span>]]; <span class="hljs-comment">// этот код es6+ компилировался в..</span>
 <span class="hljs-keyword">var</span> array = [<span class="hljs-number">0</span>, <span class="hljs-number">1</span>].concat([<span class="hljs-number">2</span>, <span class="hljs-number">3</span>]); <span class="hljs-comment">// ..этот es5 код</span></code></pre>
@@ -279,7 +259,7 @@ iterator.next(<span class="hljs-number">123</span>); <span class="hljs-comment">
 [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, ...Array(<span class="hljs-number">3</span>), <span class="hljs-number">3</span>, <span class="hljs-number">4</span>]; <span class="hljs-comment">// es6 синтаксис компилировался в..</span>
 [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>].concat(<span class="hljs-built_in">Array</span>(<span class="hljs-number">3</span>), [<span class="hljs-number">2</span>, <span class="hljs-number">3</span>]); <span class="hljs-comment">// в es5 подобный код - [1, 2, empty × 3, 2, 3]</span></code></pre>
 <p>После того, как коммунити обратило внимание на несоответствие в поведении, подход с нативным методом <code class="inline-code">.concat()</code> заменили на генерацию хелпера <code class="inline-code">__spreadArrays(array)</code> и тем самым исправили поведение на предполагаемое спецификацией. Отказ от нативного <code class="inline-code">.concat()</code> замедлил сказался на производительности, снизив её ровно в два раза.</p>
-</section>
+
     </section>
 <section id="Rasshirenie-sistemy-tipov-tipami-predstavlyaushchimi-struktury-dannyh-tolko-dlya-chteniya" name="Расширение системы типов типами представляющими структуры данных только для чтения" class="subchapter">
         <h2 class="subchapter-title">
@@ -291,20 +271,10 @@ iterator.next(<span class="hljs-number">123</span>); <span class="hljs-comment">
             Расширение системы типов типами представляющими структуры данных только для чтения
         </h2>
         <hr>
-        <section id="Rasshirenie-sistemy-tipov-tipami-predstavlyaushchimi-struktury-dannyh-tolko-dlya-chteniya" name="Расширение системы типов типами представляющими структуры данных только для чтения" class="subchapter">
-            <h2 class="subchapter-title">
-                <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="Rasshirenie-sistemy-tipov-tipami-predstavlyaushchimi-struktury-dannyh-tolko-dlya-chteniya" type="absolute-url">
-                    <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <use href="#icon_link"/>
-                    </svg>
-                </button>
-                Расширение системы типов типами представляющими структуры данных только для чтения
-            </h2>
-        
-<p>Начиная с версии <code class="inline-code">v3.6</code>, система типов <code class="inline-code">Typescript</code> пополнилась новыми вспомогательными типами представляющими структуры данных <em>только для чтения</em> (<code class="inline-code">readonly</code>). Такими типами стали <code class="inline-code">ReadonlyMap&#x3C;K, V></code> и <code class="inline-code">ReadonlySet&#x3C;T></code> и в отличии от своих прототипов они не имеют методов способных их изменить.</p>
+        <p>Начиная с версии <code class="inline-code">v3.6</code>, система типов <code class="inline-code">Typescript</code> пополнилась новыми вспомогательными типами представляющими структуры данных <em>только для чтения</em> (<code class="inline-code">readonly</code>). Такими типами стали <code class="inline-code">ReadonlyMap&#x3C;K, V></code> и <code class="inline-code">ReadonlySet&#x3C;T></code> и в отличии от своих прототипов они не имеют методов способных их изменить.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">let</span> map: ReadonlyMap&#x3C;<span class="hljs-built_in">string</span>, <span class="hljs-built_in">number</span>> = <span class="hljs-keyword">new</span> Map([[<span class="hljs-string">"key"</span>, <span class="hljs-number">0</span>]]);
 <span class="hljs-keyword">let</span> <span class="hljs-keyword">set</span>: ReadonlySet&#x3C;<span class="hljs-built_in">number</span>> = <span class="hljs-keyword">new</span> Set([<span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">2</span>]);</code></pre>
-</section>
+
     </section>
 <section id="Strokovoi-identifikator-funkcii-konstruktora" name="Строковой идентификатор функции-конструктора" class="subchapter">
         <h2 class="subchapter-title">
@@ -316,17 +286,7 @@ iterator.next(<span class="hljs-number">123</span>); <span class="hljs-comment">
             Строковой идентификатор функции-конструктора
         </h2>
         <hr>
-        <section id="Strokovoi-identifikator-funkcii-konstruktora" name="Строковой идентификатор функции-конструктора" class="subchapter">
-            <h2 class="subchapter-title">
-                <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="Strokovoi-identifikator-funkcii-konstruktora" type="absolute-url">
-                    <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <use href="#icon_link"/>
-                    </svg>
-                </button>
-                Строковой идентификатор функции-конструктора
-            </h2>
-        
-<p><code class="inline-code">TypeScript</code>, начиная сверсии <code class="inline-code">v3.6</code> реализовывает механизм ecmascript спецификации предусматривающей строковое именование функции-конструктора. Другими словами, определение метода идентификатор которого представлен в виде строки экфивалентной <code class="inline-code">"constructor"</code> расценивается как определение функции-конструктора. Если идентификатор помеается как вычисляемый <code class="inline-code">["constructor"]</code>, то такое объявление расценивается обычным методом класса. </p>
+        <p><code class="inline-code">TypeScript</code>, начиная сверсии <code class="inline-code">v3.6</code> реализовывает механизм ecmascript спецификации предусматривающей строковое именование функции-конструктора. Другими словами, определение метода идентификатор которого представлен в виде строки экфивалентной <code class="inline-code">"constructor"</code> расценивается как определение функции-конструктора. Если идентификатор помеается как вычисляемый <code class="inline-code">["constructor"]</code>, то такое объявление расценивается обычным методом класса. </p>
 <pre><code class="hljs language-typescript"><span class="hljs-comment">// этот ts код...</span>
 
 <span class="hljs-keyword">class</span> T {
@@ -355,7 +315,7 @@ t.constructor(); <span class="hljs-comment">// output: Method with name "constru
 }
 <span class="hljs-keyword">let</span> t = <span class="hljs-keyword">new</span> T(); <span class="hljs-comment">// output: Constructor!</span>
 t.constructor(); <span class="hljs-comment">// output: Method with name "constructor"!</span></code></pre>
-</section>
+
     </section>
 <section id="Rasshirenie-vyvoda-ob-oshibkah-pri-rabote-s-Promise" name="Расширение вывода об ошибках при работе с Promise" class="subchapter">
         <h2 class="subchapter-title">
@@ -367,17 +327,7 @@ t.constructor(); <span class="hljs-comment">// output: Method with name "constru
             Расширение вывода об ошибках при работе с Promise
         </h2>
         <hr>
-        <section id="Rasshirenie-vyvoda-ob-oshibkah-pri-rabote-s-Promise" name="Расширение вывода об ошибках при работе с Promise" class="subchapter">
-            <h2 class="subchapter-title">
-                <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="Rasshirenie-vyvoda-ob-oshibkah-pri-rabote-s-Promise" type="absolute-url">
-                    <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <use href="#icon_link"/>
-                    </svg>
-                </button>
-                Расширение вывода об ошибках при работе с Promise
-            </h2>
-        
-<p>Поскольку работа с <code class="inline-code">Promise</code> является очень важной частью повседневной разработки, <code class="inline-code">TypeScript</code>, начиная с версии <code class="inline-code">v3.6</code>, расширила информирование при возникновении ошибок связанными с ними, а также били добавлены механизмы их быстрогоустранения.</p>
+        <p>Поскольку работа с <code class="inline-code">Promise</code> является очень важной частью повседневной разработки, <code class="inline-code">TypeScript</code>, начиная с версии <code class="inline-code">v3.6</code>, расширила информирование при возникновении ошибок связанными с ними, а также били добавлены механизмы их быстрогоустранения.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">interface</span> Person {
     name:<span class="hljs-built_in">string</span>;
     age: <span class="hljs-built_in">number</span>;
@@ -419,5 +369,5 @@ t.constructor(); <span class="hljs-comment">// output: Method with name "constru
     <span class="hljs-keyword">return</span> fetch(<span class="hljs-string">``</span>).json(); <span class="hljs-comment">// Error</span>
     <span class="hljs-keyword">return</span> (<span class="hljs-keyword">await</span> fetch(<span class="hljs-string">``</span>)).json(); <span class="hljs-comment">// Ok</span>
 }</code></pre>
-</section>
+
     </section>
