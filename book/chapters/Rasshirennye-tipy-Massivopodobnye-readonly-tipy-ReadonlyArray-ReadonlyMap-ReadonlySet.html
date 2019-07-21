@@ -77,4 +77,30 @@ array.push(<span class="hljs-number">3</span>); <span class="hljs-comment">// Er
 array.shift(); <span class="hljs-comment">// Error, Property 'shift' does not exist on type 'readonly number[]'.ts(2339)</span>
 
 array.indexOf(<span class="hljs-number">0</span>); <span class="hljs-comment">// Ok </span></code></pre>
+</section><section id="ReadonlyMap" name="ReadonlyMap" class="subchapter">
+            <h2 class="subchapter-title">
+                <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="ReadonlyMap" type="absolute-url">
+                    <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <use href="#icon_link"/>
+                    </svg>
+                </button>
+                ReadonlyMap
+            </h2>
+        
+<hr>
+<p>Расширенный тип <code class="inline-code">ReadonlyMap&#x3C;K, V></code>, в отличии от своего полноценного протатипа неимеет методов способных его изменить.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">let</span> map: ReadonlyMap&#x3C;<span class="hljs-built_in">string</span>, <span class="hljs-built_in">number</span>> = <span class="hljs-keyword">new</span> Map([[<span class="hljs-string">"key"</span>, <span class="hljs-number">0</span>]]);</code></pre>
+</section><section id="ReadonlySet" name="ReadonlySet" class="subchapter">
+            <h2 class="subchapter-title">
+                <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="ReadonlySet" type="absolute-url">
+                    <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <use href="#icon_link"/>
+                    </svg>
+                </button>
+                ReadonlySet
+            </h2>
+        
+<hr>
+<p>Данный расширенный тип <code class="inline-code">ReadonlySet&#x3C;T></code>, также в отличии от своего полноценного протатипа не имеет методов способных его изменить.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">let</span> <span class="hljs-keyword">set</span>: ReadonlySet&#x3C;<span class="hljs-built_in">number</span>> = <span class="hljs-keyword">new</span> Set([<span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">2</span>]);</code></pre>
 </section>
