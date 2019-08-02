@@ -99,17 +99,17 @@ stage.addEventListener( <span class="hljs-string">'click'</span>, stage_clickHan
 
 
 <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">f</span>(<span class="hljs-params"> param: Animal | Bird | Fish | Insect </span>): <span class="hljs-title">void</span> </span>{
-param; <span class="hljs-comment">// param: Animal | Bird | Fish | Insect</span>
+  param; <span class="hljs-comment">// param: Animal | Bird | Fish | Insect</span>
 
-<span class="hljs-keyword">if</span>( param <span class="hljs-keyword">instanceof</span> Bird ){
-   param; <span class="hljs-comment">// param: Bird</span>
-}<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>( param <span class="hljs-keyword">instanceof</span> Fish ){
-   param; <span class="hljs-comment">// param: Fish</span>
-}<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>( param <span class="hljs-keyword">instanceof</span> Insect ){
-   param; <span class="hljs-comment">// param: Insect</span>
-}
+  <span class="hljs-keyword">if</span>( param <span class="hljs-keyword">instanceof</span> Bird ){
+    param; <span class="hljs-comment">// param: Bird</span>
+  }<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>( param <span class="hljs-keyword">instanceof</span> Fish ){
+    param; <span class="hljs-comment">// param: Fish</span>
+  }<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>( param <span class="hljs-keyword">instanceof</span> Insect ){
+    param; <span class="hljs-comment">// param: Insect</span>
+  }
 
-param; <span class="hljs-comment">// param: Animal | Bird | Fish | Insect</span>
+  param; <span class="hljs-comment">// param: Animal | Bird | Fish | Insect</span>
 }</code></pre>
 <p>В случае, когда значение принадлежит к типу <code class="inline-code">Union</code>, а выражение состоит из двух операторов, <code class="inline-code">if</code> и <code class="inline-code">else</code>, значение находящиеся в операторе <code class="inline-code">else</code> будет принадлежать к диапазону типов не участвующих в условии <code class="inline-code">if</code>.</p>
 <p><em>Пример для оператора typeof</em></p>
@@ -144,30 +144,30 @@ param; <span class="hljs-comment">// param: Animal | Bird | Fish | Insect</span>
 <span class="hljs-keyword">class</span> Bug <span class="hljs-keyword">extends</span> Insect {}
 
 <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">f0</span>(<span class="hljs-params">param: Bird | Fish | Insect</span>): <span class="hljs-title">void</span> </span>{
-param; <span class="hljs-comment">// param: Bird | Fish | Insect</span>
+  param; <span class="hljs-comment">// param: Bird | Fish | Insect</span>
 
-<span class="hljs-keyword">if</span> (param <span class="hljs-keyword">instanceof</span> Bird) {
-  param; <span class="hljs-comment">// param: Bird</span>
-} <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (param <span class="hljs-keyword">instanceof</span> Fish) {
-  param; <span class="hljs-comment">// param: Fish</span>
-} <span class="hljs-keyword">else</span> {
-  param; <span class="hljs-comment">// param: Insect</span>
-}
+  <span class="hljs-keyword">if</span> (param <span class="hljs-keyword">instanceof</span> Bird) {
+    param; <span class="hljs-comment">// param: Bird</span>
+  } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (param <span class="hljs-keyword">instanceof</span> Fish) {
+    param; <span class="hljs-comment">// param: Fish</span>
+  } <span class="hljs-keyword">else</span> {
+    param; <span class="hljs-comment">// param: Insect</span>
+  }
 
-param; <span class="hljs-comment">// param: Bird | Fish | Insect</span>
+  param; <span class="hljs-comment">// param: Bird | Fish | Insect</span>
 }
 
 <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">f1</span>(<span class="hljs-params">param: Animal | Bird | Fish | Insect | Bug</span>): <span class="hljs-title">void</span> </span>{
-param; <span class="hljs-comment">// param: Animal | Bird | Fish | Insect | Bug</span>
- <span class="hljs-keyword">if</span> (param <span class="hljs-keyword">instanceof</span> Bird) {
-  param; <span class="hljs-comment">// param: Bird</span>
-} <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (param <span class="hljs-keyword">instanceof</span> Fish) {
-  param; <span class="hljs-comment">// param: Fish</span>
-} <span class="hljs-keyword">else</span> {
-  param; <span class="hljs-comment">// param: Animal | Insect | Bug</span>
-}
+  param; <span class="hljs-comment">// param: Animal | Bird | Fish | Insect | Bug</span>
+  <span class="hljs-keyword">if</span> (param <span class="hljs-keyword">instanceof</span> Bird) {
+    param; <span class="hljs-comment">// param: Bird</span>
+  } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (param <span class="hljs-keyword">instanceof</span> Fish) {
+    param; <span class="hljs-comment">// param: Fish</span>
+  } <span class="hljs-keyword">else</span> {
+    param; <span class="hljs-comment">// param: Animal | Insect | Bug</span>
+  }
 
-param; <span class="hljs-comment">// param: Animal | Bird | Fish | Insect | Bug</span>
+  param; <span class="hljs-comment">// param: Animal | Bird | Fish | Insect | Bug</span>
 }</code></pre>
 <p>Кроме того, условия можно поместить в тернарный оператор. В этом случае, область на которую распространяется сужение диапазона типов, ограничивается областью, в которой выполняется, соответствующие условию, выражение.</p>
 <p>В качестве примера, можно представить функцию, которой, в качестве единственного  аргумента, можно передать, как значение принадлежащего к типу <code class="inline-code">T</code>, так и функциональное выражение возвращающее значение принадлежащие к типу <code class="inline-code">T</code>. Для того, чтобы было проще работать со значением параметра, его нужно сохранить в локальную переменную, которой указан тип <code class="inline-code">T</code>. Но прежде, компилятору нужно помочь конкретизировать тип данных, к которому принадлежит значение. </p>
@@ -185,11 +185,11 @@ param; <span class="hljs-comment">// param: Animal | Bird | Fish | Insect | Bug<
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">class</span> Animal { <span class="hljs-keyword">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">public</span> <span class="hljs-keyword">type</span>: <span class="hljs-built_in">string</span> = '<span class="hljs-keyword">type</span>'</span>) {} }
 
 <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">identifier</span>(<span class="hljs-params">param: Animal | (() => Animal)</span>): <span class="hljs-title">void</span> </span>{
- param; <span class="hljs-comment">// param: Animal | (() => Animal)</span>
+  param; <span class="hljs-comment">// param: Animal | (() => Animal)</span>
 
- <span class="hljs-keyword">let</span> value: Animal = !(param <span class="hljs-keyword">instanceof</span> Animal) ? param() : param;
+  <span class="hljs-keyword">let</span> value: Animal = !(param <span class="hljs-keyword">instanceof</span> Animal) ? param() : param;
 
- param; <span class="hljs-comment">// param: Animal | (() => Animal)</span>
+  param; <span class="hljs-comment">// param: Animal | (() => Animal)</span>
 }</code></pre>
 <p>Так как оператор <code class="inline-code">switch</code> логически похож на оператор <code class="inline-code">if</code> \ <code class="inline-code">else</code>, то может показаться, что механизм применимый к рассмотренным в этого главе логическим операторам, будет применим и к оператору <code class="inline-code">switch</code>. Но на самом деле это не так. Вывод типов, не умеет различать условия, составленные при помощи операторов <code class="inline-code">typeof</code> и <code class="inline-code">instanceof</code>, в конструкции <code class="inline-code">switch</code>.</p>
 </section><section id="Sujenie-diapazona-mnojestva-tipov-na-osnove-priznakov-prisushchih-tipu-Tagged-Union" name="Сужение диапазона множества типов на основе признаков присущих типу Tagged Union" class="subchapter">
@@ -207,35 +207,35 @@ param; <span class="hljs-comment">// param: Animal | Bird | Fish | Insect | Bug<
 <p>Условия, составленные на основе идентификаторов варианта, можно использовать во всех условных операторах, включая <code class="inline-code">switch</code>.</p>
 <p><em>Пример для оператора if\esle</em></p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">enum</span> AnimalTypes {
-Animal = <span class="hljs-string">"animal"</span>,
-Bird = <span class="hljs-string">"bird"</span>,
-Fish = <span class="hljs-string">"fish"</span>
+  Animal = <span class="hljs-string">"animal"</span>,
+  Bird = <span class="hljs-string">"bird"</span>,
+  Fish = <span class="hljs-string">"fish"</span>
 }
 
 <span class="hljs-keyword">class</span> Animal {
-readonly <span class="hljs-keyword">type</span>: AnimalTypes = AnimalTypes.Animal;
+  readonly <span class="hljs-keyword">type</span>: AnimalTypes = AnimalTypes.Animal;
 }
 <span class="hljs-keyword">class</span> Bird <span class="hljs-keyword">extends</span> Animal {
-readonly <span class="hljs-keyword">type</span>: AnimalTypes.Bird = AnimalTypes.Bird;
+  readonly <span class="hljs-keyword">type</span>: AnimalTypes.Bird = AnimalTypes.Bird;
 
-<span class="hljs-keyword">public</span> fly(): <span class="hljs-built_in">void</span> {}
+  <span class="hljs-keyword">public</span> fly(): <span class="hljs-built_in">void</span> {}
 }
 <span class="hljs-keyword">class</span> Fish <span class="hljs-keyword">extends</span> Animal {
-readonly <span class="hljs-keyword">type</span>: AnimalTypes.Fish = AnimalTypes.Fish;
+  readonly <span class="hljs-keyword">type</span>: AnimalTypes.Fish = AnimalTypes.Fish;
 
-<span class="hljs-keyword">public</span> swim(): <span class="hljs-built_in">void</span> {}
+  <span class="hljs-keyword">public</span> swim(): <span class="hljs-built_in">void</span> {}
 }
 
 <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">move</span>(<span class="hljs-params">param: Bird | Fish</span>): <span class="hljs-title">void</span> </span>{
-param; <span class="hljs-comment">// param: Bird | Fish</span>
+  param; <span class="hljs-comment">// param: Bird | Fish</span>
 
-<span class="hljs-keyword">if</span> (param.type === AnimalTypes.Bird) {
-  param.fly();
-} <span class="hljs-keyword">else</span> {
-  param.swim();
-}
+  <span class="hljs-keyword">if</span> (param.type === AnimalTypes.Bird) {
+    param.fly();
+  } <span class="hljs-keyword">else</span> {
+    param.swim();
+  }
 
-param; <span class="hljs-comment">// param: Bird | Fish</span>
+  param; <span class="hljs-comment">// param: Bird | Fish</span>
 }</code></pre>
 <p><em>Пример для тернарного оператора ( ?: )</em></p>
 <pre><code class="hljs language-typescript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">move</span>(<span class="hljs-params">param: Bird | Fish</span>): <span class="hljs-title">void</span> </span>{
@@ -247,40 +247,39 @@ param; <span class="hljs-comment">// param: Bird | Fish</span>
 }</code></pre>
 <p><em>Пример для оператора switch</em></p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">enum</span> AnimalTypes {
-Animal = <span class="hljs-string">"animal"</span>,
-Bird = <span class="hljs-string">"bird"</span>,
-Fish = <span class="hljs-string">"fish"</span>
+  Animal = <span class="hljs-string">"animal"</span>,
+  Bird = <span class="hljs-string">"bird"</span>,
+  Fish = <span class="hljs-string">"fish"</span>
 }
 
 <span class="hljs-keyword">class</span> Animal {
-readonly <span class="hljs-keyword">type</span>: AnimalTypes = AnimalTypes.Animal;
+  readonly <span class="hljs-keyword">type</span>: AnimalTypes = AnimalTypes.Animal;
 }
 <span class="hljs-keyword">class</span> Bird <span class="hljs-keyword">extends</span> Animal {
-readonly <span class="hljs-keyword">type</span>: AnimalTypes.Bird = AnimalTypes.Bird;
+  readonly <span class="hljs-keyword">type</span>: AnimalTypes.Bird = AnimalTypes.Bird;
 
-<span class="hljs-keyword">public</span> fly(): <span class="hljs-built_in">void</span> {}
+  <span class="hljs-keyword">public</span> fly(): <span class="hljs-built_in">void</span> {}
 }
 <span class="hljs-keyword">class</span> Fish <span class="hljs-keyword">extends</span> Animal {
-readonly <span class="hljs-keyword">type</span>: AnimalTypes.Fish = AnimalTypes.Fish;
+  readonly <span class="hljs-keyword">type</span>: AnimalTypes.Fish = AnimalTypes.Fish;
 
-<span class="hljs-keyword">public</span> swim(): <span class="hljs-built_in">void</span> {}
+  <span class="hljs-keyword">public</span> swim(): <span class="hljs-built_in">void</span> {}
 }
 
 <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">move</span>(<span class="hljs-params">param: Bird | Fish</span>): <span class="hljs-title">void</span> </span>{
-param; <span class="hljs-comment">// param: Bird | Fish</span>
+  param; <span class="hljs-comment">// param: Bird | Fish</span>
 
-<span class="hljs-keyword">switch</span> (param.type) {
-  <span class="hljs-keyword">case</span> AnimalTypes.Bird:
-    param.fly(); <span class="hljs-comment">// Ok</span>
+  <span class="hljs-keyword">switch</span> (param.type) {
+    <span class="hljs-keyword">case</span> AnimalTypes.Bird:
+      param.fly(); <span class="hljs-comment">// Ok</span>
+      <span class="hljs-keyword">break</span>;
 
-    <span class="hljs-keyword">break</span>;
-  <span class="hljs-keyword">case</span> AnimalTypes.Fish:
-    param.swim(); <span class="hljs-comment">// Ok</span>
+    <span class="hljs-keyword">case</span> AnimalTypes.Fish:
+      param.swim(); <span class="hljs-comment">// Ok</span>
+      <span class="hljs-keyword">break</span>;
+  }
 
-    <span class="hljs-keyword">break</span>;
-}
-
-param; <span class="hljs-comment">// param: Bird | Fish</span>
+  param; <span class="hljs-comment">// param: Bird | Fish</span>
 }</code></pre>
 <p>В случаях, когда множество типа <code class="inline-code">Union</code> составляют тип <code class="inline-code">null</code> и/или <code class="inline-code">undefined</code>, а также только один конкретный тип, для вывода типа, будет достаточно условия, подтверждающего существование значения, отличного от <code class="inline-code">null</code> и/или <code class="inline-code">undefined</code>.</p>
 <p>Это очень распространенный случай при активной опции <code class="inline-code">--strictNullChecks</code>. Условие, с помощью которого вывод типов сможет установить принадлежность значения к типам, отличными от <code class="inline-code">null</code> и/или <code class="inline-code">undefined</code>, может использоваться совместно с любыми условными операторами.</p>
@@ -289,13 +288,13 @@ param; <span class="hljs-comment">// param: Bird | Fish</span>
   param; <span class="hljs-comment">// param: number | null | undefined</span>
  
   <span class="hljs-keyword">if</span>( param !== <span class="hljs-literal">null</span> &#x26;&#x26; param !== <span class="hljs-literal">undefined</span> ){
-      param; <span class="hljs-comment">// param: number</span>
+    param; <span class="hljs-comment">// param: number</span>
   }
 
   <span class="hljs-comment">// or</span>
  
   <span class="hljs-keyword">if</span>( param ){
-      param; <span class="hljs-comment">// Param: number</span>
+    param; <span class="hljs-comment">// Param: number</span>
   }
 
   param; <span class="hljs-comment">// param: number | null | undefined</span>
@@ -316,11 +315,10 @@ param; <span class="hljs-comment">// param: Bird | Fish</span>
   <span class="hljs-keyword">switch</span>(param){
       <span class="hljs-keyword">case</span> <span class="hljs-literal">null</span>:
           param; <span class="hljs-comment">// param: null</span>
-
           <span class="hljs-keyword">break</span>;
+
       <span class="hljs-keyword">case</span> <span class="hljs-literal">undefined</span>:
           param; <span class="hljs-comment">// param: undefined</span>
-
           <span class="hljs-keyword">break</span>;
 
       <span class="hljs-keyword">default</span>: {
@@ -359,7 +357,7 @@ param; <span class="hljs-comment">// param: Bird | Fish</span>
 
 <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">move</span>(<span class="hljs-params">animal: Bird | <span class="hljs-literal">null</span> | <span class="hljs-literal">undefined</span> </span>): <span class="hljs-title">void</span> </span>{
   <span class="hljs-keyword">if</span>( animal &#x26;&#x26; animal.ability ){
-      animal.ability.fly(); <span class="hljs-comment">// Ok</span>
+    animal.ability.fly(); <span class="hljs-comment">// Ok</span>
   }
 }</code></pre>
 </section><section id="Sujenie-diapazona-mnojestva-tipov-na-osnove-dostupnyh-chlenov-obekta" name="Сужение диапазона множества типов на основе доступных членов объекта" class="subchapter">
@@ -429,7 +427,7 @@ Constructor.prototype.validator = <span class="hljs-function"><span class="hljs-
 
 <span class="hljs-keyword">var</span> object: {validator(): <span class="hljs-keyword">this</span> is <span class="hljs-built_in">Object</span>} = { <span class="hljs-comment">// Error</span>
   validator(): <span class="hljs-keyword">this</span> is <span class="hljs-built_in">Object</span> { <span class="hljs-comment">// Error</span>
-      <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>;
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>;
   }
 };</code></pre>
 <p>Ко второму члену выражения относится ключевое слово <code class="inline-code">is</code> которое служит в качестве утверждения.</p>
@@ -441,7 +439,7 @@ Constructor.prototype.validator = <span class="hljs-function"><span class="hljs-
 
 <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">identifier</span>(<span class="hljs-params">p1: T1 | T2 | T3 </span>): <span class="hljs-title">void</span> </span>{
   <span class="hljs-keyword">if</span>( isT1( p1 ) ){
-      p1; <span class="hljs-comment">// p1: T1</span>
+    p1; <span class="hljs-comment">// p1: T1</span>
   }
 }</code></pre>
 <p><em>Пример предиката функционального выражения (functional expression)</em></p>
@@ -455,13 +453,13 @@ Constructor.prototype.validator = <span class="hljs-function"><span class="hljs-
 <p><em>Пример предиката метода класса (static method)</em></p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">class</span> Validator {
   <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> isT3( p1: T1 | T2 | T3 ): p1 is T3 {
-      <span class="hljs-keyword">return</span> p1 <span class="hljs-keyword">instanceof</span> T3;
+    <span class="hljs-keyword">return</span> p1 <span class="hljs-keyword">instanceof</span> T3;
   }
 }
 
 <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">identifier</span>(<span class="hljs-params">p1: T1 | T2 | T3 </span>): <span class="hljs-title">void</span> </span>{
   <span class="hljs-keyword">if</span>( Validator.isT3( p1 ) ){
-      p1; <span class="hljs-comment">// p1: T3</span>
+    p1; <span class="hljs-comment">// p1: T3</span>
   }
 }</code></pre>
 <p>Условие, на основании которого, разработчик определяет принадлежность одного из параметров к конкретному типу данных, не ограничено никакими конкретными правилами. Исходя из результата выполнения условия, истина (<code class="inline-code">true</code>) или ложь (<code class="inline-code">false</code>), вывод типов сможет установить принадлежность указанного параметра к указанному типу данных.</p>
@@ -476,32 +474,31 @@ Constructor.prototype.validator = <span class="hljs-function"><span class="hljs-
   <span class="hljs-keyword">public</span> crawl(): <span class="hljs-built_in">void</span> {}
 }
 
-
 <span class="hljs-keyword">class</span> AnimalValidator {
   <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> isBird( animal: Animal ): animal is Bird {
-      <span class="hljs-keyword">return</span> animal <span class="hljs-keyword">instanceof</span> Bird;
+    <span class="hljs-keyword">return</span> animal <span class="hljs-keyword">instanceof</span> Bird;
   }
 
   <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> isFish( animal: Animal ): animal is Fish {
-      <span class="hljs-keyword">return</span> (animal <span class="hljs-keyword">as</span> Fish).swim !== <span class="hljs-literal">undefined</span>;
+    <span class="hljs-keyword">return</span> (animal <span class="hljs-keyword">as</span> Fish).swim !== <span class="hljs-literal">undefined</span>;
   }
 
   <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> isInsect( animal: Animal ): animal is Insect {
-      <span class="hljs-keyword">let</span> isAnimalIsNotUndefinedValid: <span class="hljs-built_in">boolean</span> = animal !== <span class="hljs-literal">undefined</span>;
-      <span class="hljs-keyword">let</span> isInsectValid: <span class="hljs-built_in">boolean</span> = animal <span class="hljs-keyword">instanceof</span> Insect;
+    <span class="hljs-keyword">let</span> isAnimalIsNotUndefinedValid: <span class="hljs-built_in">boolean</span> = animal !== <span class="hljs-literal">undefined</span>;
+    <span class="hljs-keyword">let</span> isInsectValid: <span class="hljs-built_in">boolean</span> = animal <span class="hljs-keyword">instanceof</span> Insect;
 
-      <span class="hljs-keyword">return</span> isAnimalIsNotUndefinedValid &#x26;&#x26; isInsectValid;
+    <span class="hljs-keyword">return</span> isAnimalIsNotUndefinedValid &#x26;&#x26; isInsectValid;
   }
 }
 
 
 <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">move</span>(<span class="hljs-params"> animal: Animal </span>): <span class="hljs-title">void</span> </span>{
   <span class="hljs-keyword">if</span>( AnimalValidator.isBird( animal ) ){
-      animal.fly();
+    animal.fly();
   }<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>( AnimalValidator.isFish( animal ) ){
-      animal.swim();
+    animal.swim();
   }<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>( AnimalValidator.isInsect( animal ) ){
-      animal.crawl();
+    animal.crawl();
   }
 }</code></pre>
 <p>Последнее о чем осталось упомянуть, что в случае, если по условию значение не подойдет не по одному из признаков, то вывод типов установит ему принадлежность к типу данных <code class="inline-code">never</code>.</p>
@@ -511,12 +508,12 @@ Constructor.prototype.validator = <span class="hljs-function"><span class="hljs-
 
 
 <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">move</span>(<span class="hljs-params">animal: Bird | Fish</span>): <span class="hljs-title">void</span> </span>{
- <span class="hljs-keyword">if</span>( animal <span class="hljs-keyword">instanceof</span> Bird ){
-     animal; <span class="hljs-comment">// animal: Bird</span>
- }<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>( animal <span class="hljs-keyword">instanceof</span> Fish ){
-     animal; <span class="hljs-comment">// animal: Fish</span>
- }<span class="hljs-keyword">else</span>{
-     animal; <span class="hljs-comment">// animal: never</span>
- }
+  <span class="hljs-keyword">if</span>( animal <span class="hljs-keyword">instanceof</span> Bird ){
+    animal; <span class="hljs-comment">// animal: Bird</span>
+  }<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>( animal <span class="hljs-keyword">instanceof</span> Fish ){
+    animal; <span class="hljs-comment">// animal: Fish</span>
+  }<span class="hljs-keyword">else</span>{
+    animal; <span class="hljs-comment">// animal: never</span>
+  }
 }</code></pre>
 </section>
