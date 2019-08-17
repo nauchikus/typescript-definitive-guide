@@ -1,5 +1,3 @@
-## Поддержка import.meta для SystemJS
-
 В *TypeScript* `v3.6` была добавлена возможность трансформации `import.meta` в `context.meta` что является  необходимым функционалом при работе с такой модульной системой, как *SystemJS* (`--module system`).
 
 ~~~~~typescript
