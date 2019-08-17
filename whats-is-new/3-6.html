@@ -381,17 +381,7 @@ t.constructor(); <span class="hljs-comment">// output: Method with name "constru
             Слияние одноименных классов и функций из окружающего контекста
         </h2>
         <hr>
-        <section id="Sliyanie-odnoimennyh-klassov-i-funkcii-iz-okrujaushchego-konteksta" name="Слияние одноименных классов и функций из окружающего контекста" class="subchapter">
-            <h2 class="subchapter-title">
-                <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="Sliyanie-odnoimennyh-klassov-i-funkcii-iz-okrujaushchego-konteksta" type="absolute-url">
-                    <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <use href="#icon_link"/>
-                    </svg>
-                </button>
-                Слияние одноименных классов и функций из окружающего контекста
-            </h2>
-        
-<p>Начиная с <code class="inline-code">v3.6</code> был реализован механизм позволяющий сливать воедино одноименные классы и функции находящиеся в одном окружающем контексте.</p>
+        <p>Начиная с <code class="inline-code">v3.6</code> был реализован механизм позволяющий сливать воедино одноименные классы и функции находящиеся в одном окружающем контексте.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">declare</span> <span class="hljs-keyword">class</span> Point {
     x: <span class="hljs-built_in">number</span>;
     y: <span class="hljs-built_in">number</span>;
@@ -401,7 +391,7 @@ t.constructor(); <span class="hljs-comment">// output: Method with name "constru
 
 declare function Point(<span class="hljs-params">x: <span class="hljs-built_in">number</span>, y: <span class="hljs-built_in">number</span></span>): Point;</code></pre>
 <p>Начиная с <code class="inline-code">v3.7</code> компилятор будет прибегать к данной возможности при генерации <code class="inline-code">.d.ts</code> файлов из <code class="inline-code">JavaScript</code> кода.</p>
-</section>
+
     </section>
 <section id="Dobavlena-podderjka-Unicode-dlya-identifikatorov" name="Добавлена поддержка Unicode для идентификаторов" class="subchapter">
         <h2 class="subchapter-title">
@@ -413,17 +403,7 @@ declare function Point(<span class="hljs-params">x: <span class="hljs-built_in">
             Добавлена поддержка Unicode для идентификаторов
         </h2>
         <hr>
-        <section id="Dobavlena-podderjka-Unicode-dlya-identifikatorov" name="Добавлена поддержка Unicode для идентификаторов" class="subchapter">
-            <h2 class="subchapter-title">
-                <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="Dobavlena-podderjka-Unicode-dlya-identifikatorov" type="absolute-url">
-                    <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <use href="#icon_link"/>
-                    </svg>
-                </button>
-                Добавлена поддержка Unicode для идентификаторов
-            </h2>
-        
-<p>Начиная с версии <code class="inline-code">v3.6</code> в <em>TypeScript</em>, для кода компилируемого в <code class="inline-code">--target es2015</code> и выше, была добавлена поддержка символов <em>unicode</em> испольуемых в качестве идентификаторов синтаксических конструкций.</p>
+        <p>Начиная с версии <code class="inline-code">v3.6</code> в <em>TypeScript</em>, для кода компилируемого в <code class="inline-code">--target es2015</code> и выше, была добавлена поддержка символов <em>unicode</em> испольуемых в качестве идентификаторов синтаксических конструкций.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-comment">/**
  * До v3.6:
  *      Error, Variable declaration expected.
@@ -432,7 +412,7 @@ declare function Point(<span class="hljs-params">x: <span class="hljs-built_in">
  *      Ok
  */</span>
 <span class="hljs-keyword">const</span> 𝓱𝓮𝓵𝓵𝓸 = <span class="hljs-string">"world"</span>;</code></pre>
-</section>
+
     </section>
 <section id="Podderjka-import-meta-dlya-SystemJS" name="Поддержка import.meta для SystemJS" class="subchapter">
         <h2 class="subchapter-title">
@@ -444,17 +424,7 @@ declare function Point(<span class="hljs-params">x: <span class="hljs-built_in">
             Поддержка import.meta для SystemJS
         </h2>
         <hr>
-        <section id="Podderjka-import-meta-dlya-SystemJS" name="Поддержка import.meta для SystemJS" class="subchapter">
-            <h2 class="subchapter-title">
-                <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="Podderjka-import-meta-dlya-SystemJS" type="absolute-url">
-                    <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <use href="#icon_link"/>
-                    </svg>
-                </button>
-                Поддержка import.meta для SystemJS
-            </h2>
-        
-<p>В <em>TypeScript</em> <code class="inline-code">v3.6</code> была добавлена возможность трансформации <code class="inline-code">import.meta</code> в <code class="inline-code">context.meta</code> что является  необходимым функционалом при работе с такой модульной системой, как <em>SystemJS</em> (<code class="inline-code">--module system</code>).</p>
+        <p>В <em>TypeScript</em> <code class="inline-code">v3.6</code> была добавлена возможность трансформации <code class="inline-code">import.meta</code> в <code class="inline-code">context.meta</code> что является  необходимым функционалом при работе с такой модульной системой, как <em>SystemJS</em> (<code class="inline-code">--module system</code>).</p>
 <pre><code class="hljs language-typescript"><span class="hljs-comment">// этот код .ts ...</span>
 <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">import</span>.meta);
 
@@ -469,7 +439,7 @@ System.register([], <span class="hljs-function"><span class="hljs-keyword">funct
         }
     };
 });</code></pre>
-</section>
+
     </section>
 <section id="get-i-set-v-okrujaushchem-kontekste" name="get и set в окружающем контексте" class="subchapter">
         <h2 class="subchapter-title">
@@ -481,24 +451,14 @@ System.register([], <span class="hljs-function"><span class="hljs-keyword">funct
             get и set в окружающем контексте
         </h2>
         <hr>
-        <section id="get-i-set-v-okrujaushchem-kontekste" name="get и set в окружающем контексте" class="subchapter">
-            <h2 class="subchapter-title">
-                <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="get-i-set-v-okrujaushchem-kontekste" type="absolute-url">
-                    <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <use href="#icon_link"/>
-                    </svg>
-                </button>
-                get и set в окружающем контексте
-            </h2>
-        
-<p>Начаиная с версии <code class="inline-code">v3.6</code>, <code class="inline-code">TypeScript</code> получил возможность объявлять <code class="inline-code">get/set</code> в окружающем контексте (<code class="inline-code">declare class ID {}</code> или в файлах декларациях <code class="inline-code">.d.ts</code>).</p>
+        <p>Начаиная с версии <code class="inline-code">v3.6</code>, <code class="inline-code">TypeScript</code> получил возможность объявлять <code class="inline-code">get/set</code> в окружающем контексте (<code class="inline-code">declare class ID {}</code> или в файлах декларациях <code class="inline-code">.d.ts</code>).</p>
 <pre><code class="hljs language-typescript"><span class="hljs-comment">// Начиная с v3.6 - Ok</span>
 <span class="hljs-keyword">declare</span> <span class="hljs-keyword">class</span> T {
     <span class="hljs-keyword">get</span> field():<span class="hljs-built_in">string</span>;
     <span class="hljs-keyword">set</span> field(value: <span class="hljs-built_in">string</span>): <span class="hljs-built_in">void</span>;
 }</code></pre>
 <p>Кроме того, начиная с версии <code class="inline-code">v3.7</code>  компилятор начнет использовать данный функционал при генерации <code class="inline-code">.d.ts</code> файлов.</p>
-</section>
+
     </section>
 <section id="Api-dlya-podderjki-build-i-incremental" name="Api для поддержки --build и --incremental" class="subchapter">
         <h2 class="subchapter-title">
@@ -510,18 +470,8 @@ System.register([], <span class="hljs-function"><span class="hljs-keyword">funct
             Api для поддержки --build и --incremental
         </h2>
         <hr>
-        <section id="Api-dlya-podderjki-build-i-incremental" name="Api для поддержки --build и --incremental" class="subchapter">
-            <h2 class="subchapter-title">
-                <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="Api-dlya-podderjki-build-i-incremental" type="absolute-url">
-                    <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <use href="#icon_link"/>
-                    </svg>
-                </button>
-                Api для поддержки --build и --incremental
-            </h2>
-        
-<p>С недавних пор в <em>TypeScript</em>, благодаря добавлению функционала скрывающегося за флагами <code class="inline-code">--build</code> и <code class="inline-code">--incremental</code>, появилась возможность создавать ссылки на другие проекты  и генерировать метаинофрмацию о предыдущих компиляциях, позволяющую включать в последующие компиляции толькоте файлы, которые подверглись изменениям. Данный функционал позволил значительно увеличить скорость разработки, но до этого момента не был доступен для совместного использования с такими сборщиками, как например <code class="inline-code">Gulp</code> или  <code class="inline-code">Webpack</code>. Начиная с версии <code class="inline-code">v3.6</code>, разработчики компилятора <em>TypeScript</em> добавили новое <em>api</em> позволяющее создателям плагинов для сторонних сборщиков использовать данный, увеличивающий скорость компиляции, механизм.</p>
-</section>
+        <p>С недавних пор в <em>TypeScript</em>, благодаря добавлению функционала скрывающегося за флагами <code class="inline-code">--build</code> и <code class="inline-code">--incremental</code>, появилась возможность создавать ссылки на другие проекты  и генерировать метаинофрмацию о предыдущих компиляциях, позволяющую включать в последующие компиляции толькоте файлы, которые подверглись изменениям. Данный функционал позволил значительно увеличить скорость разработки, но до этого момента не был доступен для совместного использования с такими сборщиками, как например <code class="inline-code">Gulp</code> или  <code class="inline-code">Webpack</code>. Начиная с версии <code class="inline-code">v3.6</code>, разработчики компилятора <em>TypeScript</em> добавили новое <em>api</em> позволяющее создателям плагинов для сторонних сборщиков использовать данный, увеличивающий скорость компиляции, механизм.</p>
+
     </section>
 <section id="Intellektualnoe-opredelenie-sintaksisa-avto-importa" name="Интеллектуальное определение синтаксиса авто-импорта" class="subchapter">
         <h2 class="subchapter-title">
@@ -533,16 +483,6 @@ System.register([], <span class="hljs-function"><span class="hljs-keyword">funct
             Интеллектуальное определение синтаксиса авто-импорта
         </h2>
         <hr>
-        <section id="Intellektualnoe-opredelenie-sintaksisa-avto-importa" name="Интеллектуальное определение синтаксиса авто-импорта" class="subchapter">
-            <h2 class="subchapter-title">
-                <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="Intellektualnoe-opredelenie-sintaksisa-avto-importa" type="absolute-url">
-                    <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <use href="#icon_link"/>
-                    </svg>
-                </button>
-                Интеллектуальное определение синтаксиса авто-импорта
-            </h2>
-        
-<p>Поскольку <em>TypeScript</em> позволяет напрямую работать с <em>JavaScript</em> кодом, который может содержать множество вариантов экспорта конструкций (стандарты <em>ECScript</em>, <em>CommonJS</em>, <em>AMD</em>, <em>SysytemJS</em>), возникают разногласия по поводу определения синтаксиса экспорта в коде <code class="inline-code">.ts</code> при авто-импорте. Начиная с версии <code class="inline-code">v3.6</code>, компилятору была добавлена возможность автоматического определения синтаксиса используемого при авто-импорте для каждого отдельного случая.</p>
-</section>
+        <p>Поскольку <em>TypeScript</em> позволяет напрямую работать с <em>JavaScript</em> кодом, который может содержать множество вариантов экспорта конструкций (стандарты <em>ECScript</em>, <em>CommonJS</em>, <em>AMD</em>, <em>SysytemJS</em>), возникают разногласия по поводу определения синтаксиса экспорта в коде <code class="inline-code">.ts</code> при авто-импорте. Начиная с версии <code class="inline-code">v3.6</code>, компилятору была добавлена возможность автоматического определения синтаксиса используемого при авто-импорте для каждого отдельного случая.</p>
+
     </section>
