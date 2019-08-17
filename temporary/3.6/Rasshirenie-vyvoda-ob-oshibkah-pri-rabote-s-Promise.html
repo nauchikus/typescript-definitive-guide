@@ -1,0 +1,42 @@
+<p>Поскольку работа с <code class="inline-code">Promise</code> является очень важной частью повседневной разработки, <code class="inline-code">TypeScript</code>, начиная с версии <code class="inline-code">v3.6</code>, расширила информирование при возникновении ошибок связанными с ними, а также били добавлены механизмы их быстрогоустранения.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">interface</span> Person {
+    name:<span class="hljs-built_in">string</span>;
+    age: <span class="hljs-built_in">number</span>;
+}
+
+<span class="hljs-keyword">declare</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getPersonData</span>(<span class="hljs-params"></span>): <span class="hljs-title">Promise</span>&#x3C;<span class="hljs-title">Person</span>></span>;
+<span class="hljs-keyword">declare</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">printPersonInfo</span>(<span class="hljs-params">personData: Person</span>): <span class="hljs-title">void</span></span>;
+
+<span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">main</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-comment">/**
+     * До v3.6 возникала ошибка говорящая что
+     * тип Promise&#x3C;Person> не соответствует типу Person
+     * 
+     * Argument of type 'Promise&#x3C;Person>' is not assignable
+     * to parameter of type 'Person'.
+     * Type 'Promise&#x3C;Person>' is missing the following properties
+     * from type 'Person': name, agets(2345)
+     * 
+     * 
+     * После v3.6 вывод расширили предложением пофиксить
+     * ошибку добавлением ключевого слова await
+     * 
+     * Did you forget to use 'await'?
+     * 
+     */</span>
+    printPersonInfo(getPersonData()); <span class="hljs-comment">// Error</span>
+    printPersonInfo(<span class="hljs-keyword">await</span> getPersonData()); <span class="hljs-comment">// Ok</span>
+}
+
+
+<span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getPersonData</span>(<span class="hljs-params"></span>): <span class="hljs-title">Promise</span>&#x3C;<span class="hljs-title">Person</span>> </span>{
+    <span class="hljs-comment">/**
+     * Также предлагается пофиксить ошибку путем
+     * добавления ключевого слова await 
+     * 
+     * Property 'json' does not exist on type 'Promise&#x3C;Response>'.ts(2339)
+     * Did you forget to use 'await'?
+     */</span>
+    <span class="hljs-keyword">return</span> fetch(<span class="hljs-string">``</span>).json(); <span class="hljs-comment">// Error</span>
+    <span class="hljs-keyword">return</span> (<span class="hljs-keyword">await</span> fetch(<span class="hljs-string">``</span>)).json(); <span class="hljs-comment">// Ok</span>
+}</code></pre>

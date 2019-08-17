@@ -1,0 +1,12 @@
+<p>Расширенный тип <code class="inline-code">ReadonlyArray&#x3C;T></code> предназначен для создания неизменяемых массивов. <code class="inline-code">ReadonlyArray&#x3C;T></code> запрещает изменять значения массива использую индексную сигнатуру <code class="inline-code">array[...]</code>.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">let</span> array: ReadonlyArray&#x3C;<span class="hljs-built_in">number</span>> = [<span class="hljs-number">0</span>,<span class="hljs-number">1</span>,<span class="hljs-number">2</span>];
+
+array[<span class="hljs-number">0</span>] = <span class="hljs-number">1</span>; <span class="hljs-comment">// Error, Index signature in type 'readonly number[]' only permits reading.ts(2542)</span>
+array[array.length] = <span class="hljs-number">3</span>; <span class="hljs-comment">// Error, Index signature in type 'readonly number[]' only permits reading.ts(2542)</span></code></pre>
+<p>Кроме того, тип <code class="inline-code">ReadonlyArray&#x3C;T></code> не сождержит методы, способные изменить, удалить существующие или добавить новые элементы.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">let</span> array: ReadonlyArray&#x3C;<span class="hljs-built_in">number</span>> = [<span class="hljs-number">0</span>,<span class="hljs-number">1</span>,<span class="hljs-number">2</span>];
+
+array.push(<span class="hljs-number">3</span>); <span class="hljs-comment">// Error, Property 'push' does not exist on type 'readonly number[]'.ts(2339)</span>
+array.shift(); <span class="hljs-comment">// Error, Property 'shift' does not exist on type 'readonly number[]'.ts(2339)</span>
+
+array.indexOf(<span class="hljs-number">0</span>); <span class="hljs-comment">// Ok </span></code></pre>

@@ -1,0 +1,21 @@
+<section id="Sliyanie-odnoimennyh-klassov-i-funkcii-iz-okrujaushchego-konteksta" name="Слияние одноименных классов и функций из окружающего контекста" class="subchapter">
+            <h2 class="subchapter-title">
+                <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="Sliyanie-odnoimennyh-klassov-i-funkcii-iz-okrujaushchego-konteksta" type="absolute-url">
+                    <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <use href="#icon_link"/>
+                    </svg>
+                </button>
+                Слияние одноименных классов и функций из окружающего контекста
+            </h2>
+        
+<p>Начиная с <code class="inline-code">v3.6</code> был реализован механизм позволяющий сливать воедино одноименные классы и функции находящиеся в одном окружающем контексте.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">declare</span> <span class="hljs-keyword">class</span> Point {
+    x: <span class="hljs-built_in">number</span>;
+    y: <span class="hljs-built_in">number</span>;
+
+    <span class="hljs-keyword">constructor</span>(<span class="hljs-params">x: <span class="hljs-built_in">number</span>, y: <span class="hljs-built_in">number</span></span>);
+}
+
+declare function Point(<span class="hljs-params">x: <span class="hljs-built_in">number</span>, y: <span class="hljs-built_in">number</span></span>): Point;</code></pre>
+<p>Начиная с <code class="inline-code">v3.7</code> компилятор будет прибегать к данной возможности при генерации <code class="inline-code">.d.ts</code> файлов из <code class="inline-code">JavaScript</code> кода.</p>
+</section>
