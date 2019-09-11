@@ -444,13 +444,13 @@ export const zoo: Zoo = new Zoo(); // instance</span></code></pre>
 
 
 <span class="hljs-keyword">export</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">toStringDecorate</span>(<span class="hljs-params"> <span class="hljs-keyword">type</span>: <span class="hljs-built_in">string</span> </span>): <span class="hljs-title">string</span> </span>{
-  <span class="hljs-keyword">return</span> <span class="hljs-string">`[object <span class="hljs-subst">${ type }</span>]`</span>;
+  <span class="hljs-keyword">return</span> <span class="hljs-string">`[object <span class="hljs-subst">${ <span class="hljs-keyword">type</span> }</span>]`</span>;
 }</code></pre>
 <pre><code class="hljs language-typescript"><span class="hljs-comment">//Файл to-error-decorate.ts</span>
 
 
 <span class="hljs-keyword">export</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">toErrorDecarate</span>(<span class="hljs-params"> message: <span class="hljs-built_in">string</span>, id: <span class="hljs-built_in">number</span> = 0 </span>): <span class="hljs-title">string</span> </span>{
-  <span class="hljs-keyword">return</span> <span class="hljs-string">`error:<span class="hljs-subst">${ id === 0 ? '' : id }</span>, <span class="hljs-subst">${ message }</span>.`</span>;
+  <span class="hljs-keyword">return</span> <span class="hljs-string">`error:<span class="hljs-subst">${ id === <span class="hljs-number">0</span> ? <span class="hljs-string">''</span> : id }</span>, <span class="hljs-subst">${ message }</span>.`</span>;
 }</code></pre>
 <pre><code class="hljs language-typescript"><span class="hljs-comment">// Файл index.lib.ts</span>
 

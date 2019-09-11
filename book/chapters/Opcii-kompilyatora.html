@@ -782,7 +782,7 @@ tsc index.ts T1 --noResolve</code></pre>
 <span class="hljs-keyword">let</span> greeting: <span class="hljs-built_in">string</span> = <span class="hljs-string">`Hello <span class="hljs-subst">${ Animal.Bird }</span>!`</span>;</code></pre>
 <pre><code class="hljs language-typescript"><span class="hljs-comment">// .js</span>
 
-<span class="hljs-keyword">let</span> greeting = <span class="hljs-string">`Hello <span class="hljs-subst">${"bird" /* Bird */}</span>!`</span>;</code></pre>
+<span class="hljs-keyword">let</span> greeting = <span class="hljs-string">`Hello <span class="hljs-subst">${<span class="hljs-string">"bird"</span> <span class="hljs-regexp">/* Bird */</span>}</span>!`</span>;</code></pre>
 <p><em>Пример с активной опцией</em></p>
 <pre><code class="hljs language-typescript"><span class="hljs-comment">// .ts</span>
 
@@ -799,7 +799,7 @@ tsc index.ts T1 --noResolve</code></pre>
   Animal[<span class="hljs-string">"Bird"</span>] = <span class="hljs-string">"bird"</span>;
   Animal[<span class="hljs-string">"Fish"</span>] = <span class="hljs-string">"fish"</span>;
 })(Animal || (Animal = {}));
-<span class="hljs-keyword">let</span> greeting = <span class="hljs-string">`Hello <span class="hljs-subst">${"bird" /* Bird */}</span>!`</span>;</code></pre>
+<span class="hljs-keyword">let</span> greeting = <span class="hljs-string">`Hello <span class="hljs-subst">${<span class="hljs-string">"bird"</span> <span class="hljs-regexp">/* Bird */</span>}</span>!`</span>;</code></pre>
 </section><section id="removeComments" name="removeComments" class="subchapter">
             <h2 class="subchapter-title">
                 <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="removeComments" type="absolute-url">
