@@ -421,18 +421,6 @@ let v16 = v0 || 5; // Ok, let v16: unknown
 let v17 = !v0; // Ok, let v17: boolean
 ~~~~~
 
-Тип `unknown` при операциях с сопоставленных типах представляется объектным типом `{}`
-
-~~~~~typescript
-type MappedType<T> = {
-  [K in keyof T]: T;
-}
-
-
-type T0 =  MappedType<number>; // type T0 = number
-type T1 =  MappedType<any>; // type T1 = { [x: string]: any; }
-type T2 =  MappedType<unknown>; // type T2 = {}
-~~~~~
 
 Также стоит упомянуть, что функция, у которой возвращаемый тип принадлежит к типу `unknown`, может не возвращать значение явно.
 
@@ -451,4 +439,18 @@ class T {
   f1: number; // Error
   f2: number = 5; // Ok
 }
+~~~~~
+
+Если в определении типа данных участвует сопоставленный тип (`Mapped Type`) которому в качестве аргумента типа передается тип `unknown`, то такой сопаставленный тип будет выведен как объектный тип `{}`. Поскольку сопоставленные типы (`Mapped Types`), псевдонимы типов (`types`), а также обобщения (`Generics<>`) будут рассмотрены позднее, то стоит просто помнить об этом факте и повторно прочесть написанное при необходимости. 
+
+
+~~~~~typescript
+type MappedType<T> = {
+  [K in keyof T]: T;
+}
+
+
+type T0 =  MappedType<number>; // type T0 = number
+type T1 =  MappedType<any>; // type T1 = { [x: string]: any; }
+type T2 =  MappedType<unknown>; // type T2 = {}
 ~~~~~

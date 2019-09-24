@@ -147,7 +147,7 @@ type Pick<T, K extends keyof T> = {
 
 ~~~~~typescript
 type T1 = {f1: string, f2: number, f3: boolean};
-type T2 = Pick<T1, 'f1' 'f2'>;
+type T2 = Pick<T1, 'f1' | 'f2'>;
 
 let v1: T1 = {f1: '', f2: 0, f3: true}; // Ok
 let v2: T2 = {f1: '', f2: 0, f3: true}; // Error
@@ -175,8 +175,8 @@ interface IAnimapPartial {
 }
 
 let animal = {type: 'animal', arial: 'default', age: 0};
-var partial = pick<IAnimal, IAnimapPartial>(animal, 'arial', 'notexistfield'); // Ok -> { arial: string, notexistfield: undefined }
-var partial = pick<IAnimal, IAnimapPartial>( animal, 'arial', 'age' ); // Ok -> { arial: string, age: number }
+let partial = pick<IAnimal, IAnimapPartial>(animal, 'arial', 'notexistfield'); // Ok -> { arial: string, notexistfield: undefined }
+let partial = pick<IAnimal, IAnimapPartial>( animal, 'arial', 'age' ); // Ok -> { arial: string, age: number }
 ~~~~~
 
 В случаях, когда разрабатываемая библиотека, рассчитана на широкий круг  разработчиков, рекомендуется сделать выбор пользу динамического вывода типов.
@@ -189,8 +189,8 @@ function pick<T, K extends keyof T>(object: T, ...keys: (K & string)[]): Pick<T,
 }
 
 let animal = {type: 'animal', arial: 'default', age: 0};
-var partial = pick(animal, 'type', 'notexistfield'); // Error
-var partial = pick(animal, 'arial', 'age');  // Ok -> { arial: string, age: number }
+let partial = pick(animal, 'type', 'notexistfield'); // Error
+let partial = pick(animal, 'arial', 'age');  // Ok -> { arial: string, age: number }
 ~~~~~
 
 Тип сопоставления `Pick<T, K>` является гомоморфным и не влияет на существующие модификаторы, а лишь расширяет модификаторы конкретного типа.
@@ -239,8 +239,8 @@ type T1 = Record<'f1' | 'f2', number>;
 type T2 = Record<'f1' | 'f2', string>;
 type T3 = Record<'f1' | 'f2', boolean | Object>;
 
-var v1: T1 = {f1: 0, f2: 0}; // Ok
-var v2: T2 = {f1: '0', f2: 0}; // Error
+let v1: T1 = {f1: 0, f2: 0}; // Ok
+let v2: T2 = {f1: '0', f2: 0}; // Error
 let v3: T3 = {f1: true, f2: {}}; // Ok
 ~~~~~
 

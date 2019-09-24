@@ -97,3 +97,22 @@ array.shift(); // Error, Property 'shift' does not exist on type 'readonly numbe
 
 array.indexOf(0); // Ok 
 `````
+
+## ReadonlyMap
+________________
+
+Расширенный тип `ReadonlyMap<K, V>`, в отличии от своего полноценного протатипа неимеет методов способных его изменить.
+
+~~~~~typescript
+let map: ReadonlyMap<string, number> = new Map([["key", 0]]);
+~~~~~
+
+## ReadonlySet
+________________
+
+Данный расширенный тип `ReadonlySet<T>`, также в отличии от своего полноценного протатипа не имеет методов способных его изменить.
+
+~~~~~typescript
+let set: ReadonlySet<number> = new Set([0, 1, 2]);
+~~~~~
+
