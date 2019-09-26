@@ -181,7 +181,7 @@ collection.add( <span class="hljs-keyword">new</span> Shark( AnimalIDs.Shark ) )
   action( <span class="hljs-string">'0'</span> ); <span class="hljs-comment">// function action&#x3C;"0">(value?: "0" | undefined): "0" | undefined</span>
   
   action(  ); <span class="hljs-comment">// function action&#x3C;unknown>(value?: unknown): unknown</span></code></pre>
-<p>Тогда, когда параметры типа не участвуют в операциях при создание экземпляра класса, при этом аннотация обобщения не была указана явно, вывод типа теряет возможность установить принадлежность к типу по значениям и поэтому устанавливает объектный тип.</p>
+<p>Тогда, когда параметры типа не участвуют в операциях при создании экземпляра класса, при этом аннотация обобщения не была указана явно, вывод типа теряет возможность установить принадлежность к типу по значениям и поэтому устанавливает объектный тип.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">class</span> Animal&#x3C;T> {
     <span class="hljs-keyword">public</span> name: T;
    
@@ -385,7 +385,7 @@ fishCollection.add( <span class="hljs-keyword">new</span> Fish( <span class="hlj
 
 <span class="hljs-keyword">class</span> T2 &#x3C;T <span class="hljs-keyword">extends</span> Bird = Animal > {} <span class="hljs-comment">// Error</span>
 <span class="hljs-comment">// -------(    Bird    ) = Animal</span></code></pre>
-<p>Важным моментом является понимание того, как вывод типов обрабатывает значение по умолчанию. Но чтобы не запутаться, нужно разграничить поведение типа <code class="inline-code">T</code> на внешнее, обозначим его как outside behavior, и внутреннее, обозначим его как inside behavior. Внешнее поведение обуславливается операциями которые можно производить над значениями снаружи обобщенного типа. Соответственно, внутренним поведением, обуславливаются операции, которые можно производить внутри обобщенного типа, то есть в области видимости параметров типа. В данном контексте, слово поведение, нужно понимать как - к какому типу данных, вывод типов, установит принадлежность для значения, чей тип, указан с помощью параметра типа <code class="inline-code">T</code>. Но обо всем по порядку.</p>
+<p>Важным моментом является понимание того, как вывод типов обрабатывает значение по умолчанию. Но чтобы не запутаться, нужно разграничить поведение типа <code class="inline-code">T</code> на внешнее, обозначим его как outside behavior, и внутреннее, обозначим его как inside behavior. Внешнее поведение обуславливается операциями, которые можно производить над значениями снаружи обобщенного типа. Соответственно, внутренним поведением, обуславливаются операции, которые можно производить внутри обобщенного типа, то есть в области видимости параметров типа. В данном контексте слово "поведение" нужно понимать как - к какому типу данных вывод типов установит принадлежность для значения, чей тип указан с помощью параметра типа <code class="inline-code">T</code>. Но обо всем по порядку.</p>
 <p>Как известно на данный момент, с точки зрения внешнего поведения, обобщенный класс <code class="inline-code">GenericType&#x3C;T></code>, экземпляр который был ассоциирован с конструкцией без явного анотирования типа, будет расцениваться выводом типа, как <code class="inline-code">GenericType&#x3C;unknown></code>. </p>
 <pre><code class="hljs language-typescript"><span class="hljs-comment">// outside behavior</span>
 <span class="hljs-keyword">class</span> Animal { name: <span class="hljs-built_in">string</span> = <span class="hljs-string">'animal'</span>; }
@@ -393,7 +393,7 @@ fishCollection.add( <span class="hljs-keyword">new</span> Fish( <span class="hlj
 <span class="hljs-keyword">class</span> CustomArray&#x3C;T> <span class="hljs-keyword">extends</span> <span class="hljs-built_in">Array</span>&#x3C;T> {}
 
 <span class="hljs-keyword">let</span> animalArray = <span class="hljs-keyword">new</span> CustomArray(); <span class="hljs-comment">// let CustomArray: CustomArray&#x3C;unknown></span>
-<span class="hljs-keyword">let</span> animal = animalArray[<span class="hljs-number">0</span>]; <span class="hljs-comment">// let anima: unknown</span>
+<span class="hljs-keyword">let</span> animal = animalArray[<span class="hljs-number">0</span>]; <span class="hljs-comment">// let animal: unknown</span>
 animal.name <span class="hljs-comment">// Error, Object is of type 'unknown'</span></code></pre>
 <p>Установив для типа <code class="inline-code">T</code> значение по умолчанию, с точки зрения внешнего поведения, вывод типов будет расценивать тип <code class="inline-code">T</code>, как тип наделенный некоторыми характеристиками. Другими словами, вывод типов будет считать тип <code class="inline-code">T</code> принадлежащим к типу указанному по умолчанию.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-comment">// outside behavior</span>
@@ -403,7 +403,7 @@ animal.name <span class="hljs-comment">// Error, Object is of type 'unknown'</sp
 <span class="hljs-keyword">class</span> CustomArray&#x3C;T = Animal> <span class="hljs-keyword">extends</span> <span class="hljs-built_in">Array</span>&#x3C;T> {}
 
 <span class="hljs-keyword">let</span> animalArray = <span class="hljs-keyword">new</span> CustomArray(); <span class="hljs-comment">// let animalArray: CustomArray&#x3C;Animal></span>
-<span class="hljs-keyword">let</span> animal = animalArray[<span class="hljs-number">0</span>]; <span class="hljs-comment">// let anima: Animal</span>
+<span class="hljs-keyword">let</span> animal = animalArray[<span class="hljs-number">0</span>]; <span class="hljs-comment">// let animal: Animal</span>
 animal.name <span class="hljs-comment">// Ok</span></code></pre>
 <p>При этом значение по умолчанию можно переопределить.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-comment">// outside behavior</span>
