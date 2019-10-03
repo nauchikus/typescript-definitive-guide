@@ -42,7 +42,7 @@ lion = <span class="hljs-literal">null</span>; <span class="hljs-comment">// Ok,
 
 elephant = <span class="hljs-literal">undefined</span>; <span class="hljs-comment">// Ok, strictNullChecks = false</span>
 lion = <span class="hljs-literal">undefined</span>; <span class="hljs-comment">// Ok, strictNullChecks = false</span></code></pre>
-<p>Ограничение объектов типом указанным с помощью ключевого слова <code class="inline-code">object</code>, будет ограничивать их функционалом интерфейса <code class="inline-code">Object</code>. При попытке обратится к членам объекта не задекларированных в интерфейсе <code class="inline-code">Object</code>, возникнет ошибка. Напомним, что в случаях, когда тип нужно сократить до базового, при этом сохранить возможность обращения к специфичным (определенных пользователем) членам объекта, нужно использовать тип <code class="inline-code">any</code>.</p>
+<p>Ограничение объектов типом, указанным с помощью ключевого слова <code class="inline-code">object</code>, будет ограничивать их функционалом интерфейса <code class="inline-code">Object</code>. При попытке обратиться к членам объекта, не задекларированным в интерфейсе <code class="inline-code">Object</code>, возникнет ошибка. Напомним, что в случаях, когда тип нужно сократить до базового, сохранив при этом возможность обращения к специфичным (определенным пользователем) членам объекта, нужно использовать тип <code class="inline-code">any</code>.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">class</span> SeaLion {
   rotate():<span class="hljs-built_in">void</span> {}
   voice(): <span class="hljs-built_in">void</span> {}
@@ -53,7 +53,7 @@ seaLionAsObject.voice(); <span class="hljs-comment">// Error</span>
 
 <span class="hljs-keyword">let</span> seaLionAsAny: <span class="hljs-built_in">any</span> = <span class="hljs-keyword">new</span> SeaLion(); <span class="hljs-comment">// Ok</span>
 seaLionAsAny.voice(); <span class="hljs-comment">// Ok</span></code></pre>
-<p>Тип интерфейс <code class="inline-code">Object</code> идентичен по своей работе с одноименным типом из <em>JavaScript</em>. Несмотря на то, что тип указанный с помощью ключевого слова <code class="inline-code">object</code> имеет схожее название, его поведение отличается от типа интерфейса.</p>
+<p>Тип интерфейс <code class="inline-code">Object</code> идентичен по своей работе с одноименным типом из <em>JavaScript</em>. Несмотря на то, что тип ,указанный с помощью ключевого слова <code class="inline-code">object</code>, имеет схожее название, его поведение отличается от типа интерфейса.</p>
 </section><section id="Array-type-ssylochnyi-massivopodobnyi-tip" name="Array (type[]) ссылочный массивоподобный тип" class="subchapter">
             <h2 class="subchapter-title">
                 <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="Array-type-ssylochnyi-massivopodobnyi-tip" type="absolute-url">
@@ -65,9 +65,9 @@ seaLionAsAny.voice(); <span class="hljs-comment">// Ok</span></code></pre>
             </h2>
         
 <hr>
-<p>Ссылочный тип данных <code class="inline-code">Array</code> является типизированным спископодобным объектом содержащим логику для работы с элементами.</p>
-<p>Тип данных <code class="inline-code">Array</code> указывается с помощью литерала массива перед которым указывается тип данных <code class="inline-code">type[ ]</code>.</p>
-<p>Если  при объявлении массива указать тип <code class="inline-code">string[ ]</code>, то хранится в нем могут только элементы принадлежащие или совместимые с типом <code class="inline-code">String</code> (например <code class="inline-code">Null</code>, <code class="inline-code">Undefined</code>, <code class="inline-code">Literal Type String</code>)</p>
+<p>Ссылочный тип данных <code class="inline-code">Array</code> является типизированным спископодобным объектом, содержащим логику для работы с элементами.</p>
+<p>Тип данных <code class="inline-code">Array</code> указывается с помощью литерала массива, перед которым указывается тип данных <code class="inline-code">type[ ]</code>.</p>
+<p>Если  при объявлении массива указать тип <code class="inline-code">string[ ]</code>, то храниться в нем могут только элементы, принадлежащие или совместимые с типом <code class="inline-code">String</code> (например <code class="inline-code">Null</code>, <code class="inline-code">Undefined</code>, <code class="inline-code">Literal Type String</code>)</p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">var</span> animalAll: <span class="hljs-built_in">string</span>[] = [
  <span class="hljs-string">"Elephant"</span>,
  <span class="hljs-string">"Rhino"</span>,
@@ -78,7 +78,7 @@ animalAll.push( <span class="hljs-number">5</span> ); <span class="hljs-comment"
 animalAll.push( <span class="hljs-built_in">boolean</span> ); <span class="hljs-comment">// Error</span>
 animalAll.push( <span class="hljs-literal">null</span> ); <span class="hljs-comment">// Ok</span>
 animalAll.push( <span class="hljs-literal">undefined</span> ); <span class="hljs-comment">// Ok</span></code></pre>
-<p>В случае не явного указания типа, вывод типов самостоятельно укажет тип как <code class="inline-code">string[ ]</code>.</p>
+<p>В случае неявного указания типа, вывод типов самостоятельно укажет тип как <code class="inline-code">string[ ]</code>.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">var</span> animalAll = [
  <span class="hljs-string">"Elephant"</span>,
  <span class="hljs-string">"Rhino"</span>,
