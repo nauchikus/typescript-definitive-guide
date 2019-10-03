@@ -1,0 +1,585 @@
+<section id="Operator-opcionalnoi-posledovatelnosti" name="Оператор опциональной последовательности (?.)" class="subchapter">
+        <h2 class="subchapter-title">
+            <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="Operator-opcionalnoi-posledovatelnosti" type="absolute-url">
+                <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <use href="#icon_link"/>
+                </svg>
+            </button>
+            Оператор опциональной последовательности (?.)
+        </h2>
+        <hr>
+        <p>Начиная с текущей (<code class="inline-code">v3.7</code>) версии, <em>TypeScript</em> реализовал функционал обозначаемый как опертор опциональной последовательности (<em>optional chaining operator</em>) внесенный в спецификацию <em>ECMScript</em> комитетом <em>TC39</em>. Оператор опциональной последовательности обозначается вопросительным знаком после которого следует точка <code class="inline-code">?.</code> и предназначен для безопасного обращения к членам объекта через ссылку которая может иметь значение <code class="inline-code">null</code> или <code class="inline-code">undefined</code>. Этого функционала очень давно все ждали, поэтому не будем медлить и немедля приступим к его рассмотрению на простом пример.</p>
+<pre><code class="hljs language-ts"><span class="hljs-comment">/**
+ * Вложенные друг в друга типы
+ * (как матрешки) объявленные
+ * семантически в обратном порядке.
+ */</span>
+<span class="hljs-keyword">interface</span> D {n:<span class="hljs-built_in">number</span>}
+<span class="hljs-keyword">interface</span> C {d:D;}
+<span class="hljs-keyword">interface</span> B {c:C;}
+<span class="hljs-keyword">interface</span> A {b:B;}
+
+<span class="hljs-comment">/**
+ * Представьте сценарий по которому
+ * ответ от сервера может представлять
+ * из себя json соответствующий как типу
+ * A так и объекту у которого отсутствуют
+ * какие-либо принаки {}.
+ */</span>
+
+
+<span class="hljs-keyword">let</span> json = <span class="hljs-string">"{}"</span>;
+<span class="hljs-keyword">let</span> a: A = <span class="hljs-built_in">JSON</span>.parse(json);
+
+<span class="hljs-comment">/**
+ * При поппытке обращения к несуществующим
+ * полям объекта возникнет соответствующее
+ * исключение.
+ */</span>
+<span class="hljs-keyword">let</span> b = a.b; <span class="hljs-comment">// Ok! поскольку отсутствуют операции над значением undefined</span>
+<span class="hljs-keyword">let</span> c = a.b.c; <span class="hljs-comment">// Runtime Error! </span>
+<span class="hljs-keyword">let</span> d = a.b.c.d; <span class="hljs-comment">// Runtime Error!</span>
+<span class="hljs-keyword">let</span> n = a.b.c.d.n; <span class="hljs-comment">// Runtime Error!</span>
+
+<span class="hljs-comment">/**
+ * Подобное можно избежать произведя
+ * проверку на существование ссылок.
+ */</span>
+
+<span class="hljs-keyword">if</span> (a.b &#x26;&#x26; a.b.c &#x26;&#x26; a.b.c.d) {
+    <span class="hljs-comment">/**
+     * Здесь можно обратится к полю n,
+     * которое также может быть не определенно
+     * что при попытке вызвать методы реализованные
+     * в типе Number также приведет к исключению.
+     * Чтобы этого избежать потребуется дополнительная
+     * проверка. Но стоит сразу заметить, что обычной
+     * проверки на существование поля a.b.c.d.n может
+     * быть недостаточно, поскольку значение поля n може
+     * быть 0, что при преобразовании типов преобразуется
+     * в false. Поэтому помимо наличие самого поля необходимо
+     * также проверить его значение. 
+     */</span>
+
+    <span class="hljs-keyword">if</span> (a.b.c.d.n &#x26;&#x26; !<span class="hljs-built_in">Number</span>.isNaN(a.b.c.d.n)) {
+        <span class="hljs-keyword">let</span> r = a.b.c.d.n.toFixed(<span class="hljs-number">2</span>);
+    }
+}</code></pre>
+<p>Сложно представить разработчика, который на практике не сталкивался с чем-то подобным и не испытывал желания избавится от написания утомительных проверок. И наконец свершилось! Разработчики <em>TypeScript</em> реализовали оператор опциональной последовательности известный также как <em>элвис-оператор</em>.</p>
+<p>Элвис-оператор позволяет избавится от написания утомительных условных инструкций требуя от разработчика своего указания лишь в потенциально опасных местах. Оценить его мощь будет проще переписав предыдущий пример.</p>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">interface</span> D {n:<span class="hljs-built_in">number</span>}
+<span class="hljs-keyword">interface</span> C {d:D;}
+<span class="hljs-keyword">interface</span> B {c:C;}
+<span class="hljs-keyword">interface</span> A {b:B;}
+
+
+<span class="hljs-keyword">let</span> json = <span class="hljs-string">"{}"</span>;
+<span class="hljs-keyword">let</span> a: A = <span class="hljs-built_in">JSON</span>.parse(json);
+
+<span class="hljs-comment">/**
+ * Ещё раз стоит обратить внимание на то,
+ * что указание элвис-оператора требуется
+ * во всех потенциально опасных местах, поскольку
+ * наличие одной ссылки не гарантирует наличие остальных
+ * во всей цепочки выовов.
+ * 
+ * 0) поскольку отсутствуют операции над значением undefined
+ * 1) если ссылка на "b" существует вернуть значение ассоциированное с полем "c"
+ * 2) если ссылки на "b" и "c" существуют вернуть значение ассоциированное с полем "d"
+ * 3) если ссылки на "b" и "c" и "d" существуют вернуть значение ассоциированное с полем "n"
+ * 4) если ссылки на "b" и "c" и "d" и "n" существуют вернуть значение возвращенное методом "toFixed"
+ */</span>
+<span class="hljs-keyword">let</span> b = a.b; <span class="hljs-comment">// Ok! (0)</span>
+<span class="hljs-keyword">let</span> c = a.b?.c; <span class="hljs-comment">// Ok! (1)</span>
+<span class="hljs-keyword">let</span> d = a.b?.c?.d; <span class="hljs-comment">// Ok! (2)</span>
+<span class="hljs-keyword">let</span> n = a.b?.c?.d?.n; <span class="hljs-comment">// Ok! (3)</span>
+<span class="hljs-keyword">let</span> r = a.b?.c?.d?.n?.toFixed(<span class="hljs-number">2</span>); <span class="hljs-comment">// Ok! (4)</span></code></pre>
+<p>В случаях, когда элвис-оператор обнаруживает ссылку со значением <code class="inline-code">null</code> или <code class="inline-code">undefined</code>, результатом возвращенным из выражения становится <code class="inline-code">undefined</code>. </p>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">interface</span> IT {
+    a: {
+        n: <span class="hljs-built_in">number</span>;
+    }
+}
+
+
+<span class="hljs-keyword">let</span> o0: IT = <span class="hljs-built_in">JSON</span>.parse(<span class="hljs-string">"{}"</span>);
+<span class="hljs-keyword">let</span> o1: IT = <span class="hljs-built_in">JSON</span>.parse(<span class="hljs-string">"{a: null}"</span>);
+
+
+<span class="hljs-comment">/**
+ * Несмотря на то, что во втором случае
+ * значение поля "a" равно null, n1,
+ * также как и n0 будет иметь значение
+ * и следовательно тип undefined.
+ */</span>
+<span class="hljs-keyword">let</span> n0 = o0?.a.n; <span class="hljs-comment">// n0 имеет значение undefined;</span>
+<span class="hljs-keyword">let</span> n1 = o0?.a.n; <span class="hljs-comment">// n1 имеет значение;</span></code></pre>
+<p>кроме того важной особенностью при использовании элвис-оператора является тот факт, что вывод типов не определяет тип как объединение включающий тип <code class="inline-code">undefined</code>, что в свою очередь избавляет от дополнительных проверок.</p>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">interface</span> IT {
+    a: {
+        n: <span class="hljs-built_in">number</span>;
+    }
+}
+
+
+<span class="hljs-keyword">let</span> o0: IT = <span class="hljs-built_in">JSON</span>.parse(<span class="hljs-string">"{}"</span>);
+<span class="hljs-keyword">let</span> o1: IT = <span class="hljs-built_in">JSON</span>.parse(<span class="hljs-string">"{a: null}"</span>);
+
+<span class="hljs-keyword">let</span> n0 = o0?.a.n; <span class="hljs-comment">// let n0: number; а не number | undefined</span>
+<span class="hljs-keyword">let</span> n1 = o0?.a.n; <span class="hljs-comment">// let n1: number; а не number | undefined</span></code></pre>
+<p>Кроме того элвис-опрератор также может быть применен при вызове методов, а в случае отстутствия ссылок на них результатом вызова также будет <code class="inline-code">undefined</code>.</p>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">interface</span> IT {
+    f: <span class="hljs-function">(<span class="hljs-params">(<span class="hljs-params"></span>) => <span class="hljs-built_in">number</span></span>) | <span class="hljs-params">null</span>;
+}
+<span class="hljs-params">class</span> <span class="hljs-params">T</span> <span class="hljs-params">implements</span> <span class="hljs-params">IT</span> {
+    /**
+     * Вводим вывод типов в амешательство путем
+     * присваивания функции в положительном случае
+     * и <span class="hljs-params">null</span> в отрицательном. 
+     */
+    <span class="hljs-params">f</span> = <span class="hljs-params">Math</span>.<span class="hljs-params">round</span>(<span class="hljs-params"><span class="hljs-built_in">Math</span>.random(<span class="hljs-params"></span>) * 1</span>) === 1 ? <span class="hljs-params">()</span> =></span> <span class="hljs-number">10</span> : <span class="hljs-literal">null</span>;
+}
+
+<span class="hljs-keyword">let</span> t = <span class="hljs-keyword">new</span> T();
+<span class="hljs-keyword">let</span> n = t.f?.();<span class="hljs-comment">// результатом выражения вызова метода является undefined</span></code></pre>
+<p>Таким образом выход версии <code class="inline-code">v3.7</code> дал разработчикам на языке <em>TypeScript</em> инструмент предотвращающий исключения связанные с обращением к отсутствующим ссылкам или ссылкам имеющим значение <code class="inline-code">null</code>, который кроме всего не чувствителен к значениям преобразование которых к типу Boolean принимает ложную форму (<code class="inline-code">0</code>, <code class="inline-code">NaN</code>, <code class="inline-code">false</code>), что в свою очередь ознаминовало начало эпохи в которой нет места конструкциям выполняющих утомительные и проверки наличия ссылок. </p>
+
+    </section>
+<section id="Operator-obedineniya-so-znacheniem-null" name="Оператор объединения со значением null (??)" class="subchapter">
+        <h2 class="subchapter-title">
+            <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="Operator-obedineniya-so-znacheniem-null" type="absolute-url">
+                <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <use href="#icon_link"/>
+                </svg>
+            </button>
+            Оператор объединения со значением null (??)
+        </h2>
+        <hr>
+        <p>Ко всему прочему начиная с версии <code class="inline-code">v3.7</code> в <em>TypeScript</em> был реализован механизм обозначеный в спецификации <em>ECMScript</em> как <em>объединение со значение null</em> (<em>nullish coalescing</em>) для чего в синтаксис был введен новый оператор представленный двумя знаками вопроса <code class="inline-code">??</code> по обе стороны которого распологаются опернады <code class="inline-code">left-operand ?? right-operand</code>. В случае когда операнд расположенный левее оператора имеет значение <code class="inline-code">null</code> или <code class="inline-code">undefined</code> то результатом выражения является операнд находящийся правее оператора. Это очень похоже на работу логического оператора <em>или</em> (<code class="inline-code">||</code>) за исключением того, что последний взаимодействует с любыми значениями, в то время как новый оператор исключительно с <code class="inline-code">null</code> и <code class="inline-code">undefined</code>, что в некоторых случаях избавляет от дополнительных условий.</p>
+<pre><code class="hljs language-ts"><span class="hljs-literal">null</span> || <span class="hljs-string">'default'</span><span class="hljs-comment">// default</span>
+<span class="hljs-literal">undefined</span> || <span class="hljs-string">'default'</span><span class="hljs-comment">// default</span>
+<span class="hljs-literal">false</span> || <span class="hljs-string">'default'</span><span class="hljs-comment">// default</span>
+<span class="hljs-number">0</span> || <span class="hljs-string">'default'</span><span class="hljs-comment">// default</span>
+<span class="hljs-literal">NaN</span> || <span class="hljs-string">'default'</span><span class="hljs-comment">// default</span>
+<span class="hljs-string">''</span> || <span class="hljs-string">'default'</span><span class="hljs-comment">// default</span>
+
+
+<span class="hljs-literal">null</span> ?? <span class="hljs-string">'default'</span><span class="hljs-comment">// default</span>
+<span class="hljs-literal">undefined</span> ?? <span class="hljs-string">'default'</span><span class="hljs-comment">// default</span>
+<span class="hljs-literal">false</span> ?? <span class="hljs-string">'default'</span><span class="hljs-comment">// false </span>
+<span class="hljs-number">0</span> ?? <span class="hljs-string">'default'</span><span class="hljs-comment">// 0</span>
+<span class="hljs-literal">NaN</span> ?? <span class="hljs-string">'default'</span><span class="hljs-comment">// NaN</span>
+<span class="hljs-string">''</span> ?? <span class="hljs-string">'default'</span><span class="hljs-comment">// ''</span></code></pre>
+<p>Механизм <em>объединение со значением null</em> является прекрасным дополнением другого такого механизма, как <em>опциональная последовательность</em>. В то время как второй механизм предотвращает исключения при операциях над ссылками имеющими значение <code class="inline-code">null</code> или отсутствующими вовсе <code class="inline-code">undefined</code>, первый предоставляет возможность задасть значение по умолчанию только при реальном его отсутствии.</p>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">interface</span> A {
+    b: {
+        c: {
+            n: <span class="hljs-built_in">number</span>;
+        }
+    }
+}
+
+<span class="hljs-keyword">let</span> a: A = <span class="hljs-built_in">JSON</span>.parse(<span class="hljs-string">"{}"</span>);
+<span class="hljs-keyword">let</span> n = a?.b?.c?.n ?? <span class="hljs-number">0</span>; <span class="hljs-comment">// let n: number = 0;</span></code></pre>
+<p>И на последок не будет лишнем напомнить, что прибегать к обоим механизмам стоит только вмсамых крайних случаях. В других же стоит позаботится о значениях по умолчанию.</p>
+
+    </section>
+<section id="Utverjdenie-v-signature-Signature-Assertion" name="Утверждение в сигнатуре (Signature Assertion)" class="subchapter">
+        <h2 class="subchapter-title">
+            <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="Utverjdenie-v-signature-Signature-Assertion" type="absolute-url">
+                <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <use href="#icon_link"/>
+                </svg>
+            </button>
+            Утверждение в сигнатуре (Signature Assertion)
+        </h2>
+        <hr>
+        <p>Во многих языках, в том числе и <em>Node.js</em>, реализован функционал обозначаемый как <code class="inline-code">assert</code> и представленный функциями принимающими условие, в случае ложности которого выбрасывается исключение.</p>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> assert, { AssertionError } <span class="hljs-keyword">from</span> <span class="hljs-string">"assert"</span>;
+
+<span class="hljs-keyword">try</span> {
+    assert(<span class="hljs-number">5</span> === <span class="hljs-built_in">Math</span>.round(<span class="hljs-built_in">Math</span>.random() * <span class="hljs-number">5</span>));
+} <span class="hljs-keyword">catch</span> (error) {
+    <span class="hljs-built_in">console</span>.log(error <span class="hljs-keyword">instanceof</span> AssertionError);<span class="hljs-comment">// true</span>
+}</code></pre>
+<p>До версии ёё <code class="inline-code">v3.7</code> полноценно реализовать подобный механизм было невозможно. Поэтому начиная с текущей версии, язык <em>TypeScript</em> пополнился новой концепцией обозначаемой как <em>утверждение в сигнатуре</em> (<em>assertion signatures</em>) с помощью которых стало возможным моделирование рассмотренного выше приведения поведения.</p>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> {AssertionError} <span class="hljs-keyword">from</span> <span class="hljs-string">"assert"</span>;
+
+
+<span class="hljs-comment">/**custom assert */</span>
+<span class="hljs-keyword">const</span> DEFAULT_ASSERTION_MESSAGE=<span class="hljs-string">'this condition is false'</span>;
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">stringAssert</span>(<span class="hljs-params">condition: <span class="hljs-built_in">any</span>, message?: <span class="hljs-built_in">string</span></span>): <span class="hljs-title">asserts</span> <span class="hljs-title">condition</span> </span>{
+    <span class="hljs-keyword">if</span> (!condition) {
+        <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> AssertionError({
+            message:message??DEFAULT_ASSERTION_MESSAGE
+        });
+    }
+}
+
+<span class="hljs-keyword">const</span> toUpperCase=<span class="hljs-function">(<span class="hljs-params">text:<span class="hljs-built_in">any</span></span>)=></span>{
+    text.touppercase(); <span class="hljs-comment">// not error</span>
+
+    stringAssert(<span class="hljs-keyword">typeof</span> text === <span class="hljs-string">"string"</span>);
+
+    <span class="hljs-comment">// text.touppercase(); // error</span>
+
+    <span class="hljs-keyword">return</span> text.toUpperCase();
+}</code></pre>
+<p>При использовании механизма <em>утверждения в сигнатуре</em> с имеющимся механизмом <em>утверждения типа</em> условие из вызова утверждающей функции можно перенести в её тело.</p>
+<pre><code class="hljs language-ts"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">isStringAssert</span>(<span class="hljs-params">value: <span class="hljs-built_in">any</span></span>): <span class="hljs-title">asserts</span> <span class="hljs-title">value</span> <span class="hljs-title">is</span> <span class="hljs-title">string</span> </span>{
+    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> value !== <span class="hljs-string">"string"</span>) {
+        <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">`value is not type string`</span>);
+    }
+}
+<span class="hljs-keyword">const</span> toUpperCase = <span class="hljs-function">(<span class="hljs-params">text: <span class="hljs-built_in">any</span></span>) =></span> {
+    text.touppercase(); <span class="hljs-comment">// not error</span>
+
+    isStringAssert(text);
+
+    <span class="hljs-comment">// text.touppercase(); // error</span>
+
+    <span class="hljs-keyword">return</span> text.toUpperCase();
+}</code></pre>
+<p>Стоит заметить, что в случае переноса условного выражения в тело утверждающей функции сигнатура которой лишина <em>утверждения типов</em>, то есть содержащей исключительно <em>утверждения в сигнатуре</em>, подобный механизм функционировать не будет.</p>
+<pre><code class="hljs language-ts"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">isStringAssert</span>(<span class="hljs-params">value: <span class="hljs-built_in">any</span></span>): <span class="hljs-title">asserts</span> <span class="hljs-title">value</span> </span>{
+    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> value !== <span class="hljs-string">"string"</span>) {
+        <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">`value is not type string`</span>);
+    }
+}
+<span class="hljs-keyword">const</span> toUpperCase = <span class="hljs-function">(<span class="hljs-params">text: <span class="hljs-built_in">any</span></span>) =></span> {
+    text.touppercase(); <span class="hljs-comment">// not error</span>
+
+    isStringAssert(text);
+
+    text.touppercase(); <span class="hljs-comment">// not error</span>
+
+    <span class="hljs-keyword">return</span> text.toUpperCase();
+}</code></pre>
+
+    </section>
+<section id="Uluchshena-podderjka-dlya-tipa-never-vozvrashchaemogo-iz-funkcii" name="Улучшена поддержка для типа never возвращаемого из функций" class="subchapter">
+        <h2 class="subchapter-title">
+            <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="Uluchshena-podderjka-dlya-tipa-never-vozvrashchaemogo-iz-funkcii" type="absolute-url">
+                <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <use href="#icon_link"/>
+                </svg>
+            </button>
+            Улучшена поддержка для типа never возвращаемого из функций
+        </h2>
+        <hr>
+        <p>Основное предназначение типа <code class="inline-code">never</code> явным образом указывать что из вызываемой функции возврата никогда не произойдет. Как известно подобный сценарий может призойти по причине бесконечного цекла или выброса исключения.</p>
+<p>До <em>TypeScript</em> <code class="inline-code">v3.7</code>, в случаях когда одна функция имеющая декларацию возвращаемого типа отличного от <code class="inline-code">void</code> прерывала нормальное выполнение программы за счет вызова функции с возвращающим типом <code class="inline-code">never</code>, выводу типов требовалось либо явного указания возврата с помощью оператора <code class="inline-code">return</code>, либо применения инструкции <code class="inline-code">throw</code>.</p>
+<pre><code class="hljs language-ts"><span class="hljs-comment">// [TypeScript &#x3C; v3.7]</span>
+
+<span class="hljs-keyword">interface</span> User {
+    name: <span class="hljs-built_in">string</span>;
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">critical</span>(<span class="hljs-params">message: <span class="hljs-built_in">string</span></span>): <span class="hljs-title">never</span> </span>{
+    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(message);
+}
+
+<span class="hljs-comment">/**
+ * Несмотря что в случае вызова функции critical
+ * возврата из функции validate не произойдет,
+ * из-за непонимания этого вывод типов считает
+ * что для функции validate забыли указать
+ * возвращаемое значение.
+ * 
+ * (!) [ошибка в аннотации возвращаемого типа]
+ * Function lacks ending return statement and
+ * return type does not include 'undefined'.
+ */</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">validate</span>(<span class="hljs-params">data: <span class="hljs-built_in">any</span></span>): <span class="hljs-title">User</span> /**<span class="hljs-title">Error</span> (<span class="hljs-params">!</span>) */ </span>{
+    <span class="hljs-keyword">if</span> (data &#x26;&#x26; data.user) {
+        <span class="hljs-keyword">return</span> data.user;
+    }
+
+    critical(<span class="hljs-string">`Field "user" not found in object "data."`</span>);
+}
+
+<span class="hljs-comment">/**
+ * Для устронения ошибки требуется явно
+ * указать возвращаемое значение...
+ */</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">validate_a</span>(<span class="hljs-params">data: <span class="hljs-built_in">any</span></span>): <span class="hljs-title">User</span> /**<span class="hljs-title">Error</span> (<span class="hljs-params">!</span>) */ </span>{
+    <span class="hljs-keyword">if</span> (data &#x26;&#x26; data.user) {
+        <span class="hljs-keyword">return</span> data.user;
+    }
+
+    <span class="hljs-keyword">return</span> critical(<span class="hljs-string">`Field "user" not found in object "data."`</span>);
+}
+<span class="hljs-comment">/**
+ * ...либо выбросить исключение.
+ */</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">validate_b</span>(<span class="hljs-params">data: <span class="hljs-built_in">any</span></span>): <span class="hljs-title">User</span> /**<span class="hljs-title">Error</span> (<span class="hljs-params">!</span>) */ </span>{
+    <span class="hljs-keyword">if</span> (data &#x26;&#x26; data.user) {
+        <span class="hljs-keyword">return</span> data.user;
+    }
+
+    <span class="hljs-keyword">throw</span> critical(<span class="hljs-string">`Field "user" not found in object "data."`</span>);
+}</code></pre>
+<p>Начиная с версии <code class="inline-code">v3.7</code> вывод типов научился распознавать прерывание нормального хода программы без явного указания <code class="inline-code">return</code> или <code class="inline-code">throw</code>.</p>
+<pre><code class="hljs language-ts"><span class="hljs-comment">// [TypeScript >= v3.7]</span>
+
+<span class="hljs-keyword">interface</span> User {
+    name: <span class="hljs-built_in">string</span>;
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">critical</span>(<span class="hljs-params">message: <span class="hljs-built_in">string</span></span>): <span class="hljs-title">never</span> </span>{
+    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(message);
+}
+
+<span class="hljs-comment">/**
+ * Явного указания return или throw
+ * больше не требуется.
+ */</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">validate</span>(<span class="hljs-params">data: <span class="hljs-built_in">any</span></span>): <span class="hljs-title">User</span> </span>{
+    <span class="hljs-keyword">if</span> (data &#x26;&#x26; data.user) {
+        <span class="hljs-keyword">return</span> data.user;
+    }
+
+    critical(<span class="hljs-string">`Field "user" not found in object "data."`</span>);
+}</code></pre>
+
+    </section>
+<section id="Proverka-nevyzvannyh-funkcii" name="Проверка невызванных функций" class="subchapter">
+        <h2 class="subchapter-title">
+            <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="Proverka-nevyzvannyh-funkcii" type="absolute-url">
+                <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <use href="#icon_link"/>
+                </svg>
+            </button>
+            Проверка невызванных функций
+        </h2>
+        <hr>
+        <p>Случаются случаи, когда разработчики по невнимательности или из-за невнятно выбранных названий забывают вызывать функции, что может привести к трудновыявляемому багу. </p>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">interface</span> IUser {
+    isAuthorized():<span class="hljs-built_in">boolean</span>;
+}
+
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">someAction</span> (<span class="hljs-params">user:IUser</span>) </span>{
+    <span class="hljs-comment">/**
+     * Разработчик подумал что isAuthorized
+     * это поле или свойство объекта, но не метод.
+     * 
+     * Учитывая многообразие языков программирования
+     * с различными конвенциями именования, такая ошибка
+     * не является надуманной для недавно пришедших в
+     * ECMScript коммунити.
+     */</span>
+    <span class="hljs-keyword">if</span>(user.isAuthorized){
+        <span class="hljs-comment">/**
+         * гость смог выполнить действия требующие
+         * привелегии авторизованного пользователя.
+         */</span>
+    }
+}</code></pre>
+<p>Поэтому начиная с <em>TypeScript</em> <code class="inline-code">v3.7</code> компилятор расценивает подобные ситуации как ошибку.</p>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">interface</span> IUser {
+    isAuthorized():<span class="hljs-built_in">boolean</span>;
+}
+
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">someAction</span> (<span class="hljs-params">user:IUser</span>) </span>{
+    <span class="hljs-comment">/**
+     * [TypeScript &#x3C; v3.7]
+     * > Ok! Трудно выявляемая ошибка,
+     * 
+     * [TypeScript >= v3.7]
+     * > Error! 
+     * This condition will always return true since the
+     * function is always defined. Did you mean to call
+     * it instead?
+     */</span>
+    <span class="hljs-keyword">if</span>(user.isAuthorized){
+    }
+}</code></pre>
+<p>Но поскольку подобное изменение является значимым, новое поведение нацелено исключительно на выражения расположенные в условном операторе <code class="inline-code">if</code>.</p>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">interface</span> IUser {
+    name: <span class="hljs-built_in">string</span>;
+
+    isAuthorized():<span class="hljs-built_in">boolean</span>;
+}
+
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">someAction</span> (<span class="hljs-params">user:IUser</span>) </span>{
+    <span class="hljs-comment">/**
+     * [TypeScript >= v3.7]
+     * > Error
+     */</span>
+    <span class="hljs-keyword">if</span>(user.isAuthorized){
+    }
+
+    <span class="hljs-comment">/**
+     * name эквивалентно undefined
+     * хотя в реальности должно
+     * иметь значение 'guest'.
+     */</span>
+    <span class="hljs-keyword">let</span> name = user.isAuthorized ? user.name : <span class="hljs-string">'guest'</span>;
+}</code></pre>
+<p>Кроме того, оно не работает с необязательными членами и при установленным в <code class="inline-code">false</code> опции компилятора <code class="inline-code">--strictNullChecks</code>.</p>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">interface</span> IUser {
+    isAuthorized ? ():<span class="hljs-built_in">boolean</span>; <span class="hljs-comment">// необязательный член</span>
+}
+
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">someAction</span> (<span class="hljs-params">user:IUser</span>) </span>{
+    <span class="hljs-comment">/**
+     * [TypeScript &#x3C; v3.7]
+     * > Ok! Трудно выявляемая ошибка,
+     * 
+     * [TypeScript >= v3.7]
+     * > Ok! Трудно выявляемая ошибка,
+     */</span>
+    <span class="hljs-keyword">if</span>(user.isAuthorized){
+    }
+}</code></pre>
+<p>Также же ошибки не возникает если невызванная функция вызывается далее в условном блоке.</p>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">interface</span> IUser {
+    isAuthorized():<span class="hljs-built_in">boolean</span>;
+}
+
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">someAction</span> (<span class="hljs-params">user:IUser</span>) </span>{
+    <span class="hljs-comment">// Error</span>
+    <span class="hljs-keyword">if</span>(user.isAuthorized){
+    }
+
+    <span class="hljs-comment">// Ok</span>
+    <span class="hljs-keyword">if</span>(user.isAuthorized){
+        user.isAuthorized();
+    }
+
+    <span class="hljs-comment">// Ok!, ???</span>
+    <span class="hljs-keyword">if</span>(user.isAuthorized){
+        user.isAuthorized;
+    }
+
+    <span class="hljs-comment">// Error</span>
+    <span class="hljs-keyword">if</span>(user.isAuthorized){
+    }<span class="hljs-keyword">else</span>{
+        user.isAuthorized();
+    }
+
+    <span class="hljs-comment">// Error</span>
+    <span class="hljs-keyword">if</span>(user.isAuthorized){
+    }
+
+    user.isAuthorized();
+}</code></pre>
+<p>В случаях когда подобный сценарий является преднамеренным, как например при тестировании, то невызванную функцию можно проверять на <code class="inline-code">null</code> или <code class="inline-code">undefined</code>, а также прибегнуть к двойному отрицанию и тем самым дать понять что действия являются обдуманными.</p>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">interface</span> IUser {
+    isAuthorized():<span class="hljs-built_in">boolean</span>;
+}
+
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">someAction</span> (<span class="hljs-params">user:IUser</span>) </span>{
+    <span class="hljs-comment">// Ok</span>
+    <span class="hljs-keyword">if</span>(user.isAuthorized !== <span class="hljs-literal">null</span>){
+    }
+
+    <span class="hljs-comment">// Ok</span>
+    <span class="hljs-keyword">if</span>(user.isAuthorized !== <span class="hljs-literal">undefined</span>){
+    }
+
+    <span class="hljs-comment">// Ok</span>
+    <span class="hljs-keyword">if</span>(!!user.isAuthorized){
+    }
+}</code></pre>
+
+    </section>
+<section id="Rekursivnost-dlya-psevdononimov-tipov" name="Рекурсивность для псевдононимов типов" class="subchapter">
+        <h2 class="subchapter-title">
+            <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="Rekursivnost-dlya-psevdononimov-tipov" type="absolute-url">
+                <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <use href="#icon_link"/>
+                </svg>
+            </button>
+            Рекурсивность для псевдононимов типов
+        </h2>
+        <hr>
+        <p>Псевдонимы типов (<em>type aliases</em>) всегда имели строгие правила относительно рекурсии поскольку больше остальных могли привести к бесконечному обращению.</p>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">type</span> T = T; <span class="hljs-comment">// Бесконечная рекурсия</span></code></pre>
+<p>Тем не менее относительно рекурсивности существовали правила, которые можно было обойти введя дополнительные интерфейсные типы (<code class="inline-code">interface</code>).</p>
+<pre><code class="hljs language-ts"><span class="hljs-comment">// TypeScript &#x3C; v3.7</span>
+
+<span class="hljs-keyword">type</span> Json =
+    | <span class="hljs-built_in">string</span>
+    | <span class="hljs-built_in">number</span>
+    | <span class="hljs-built_in">boolean</span>
+    | <span class="hljs-literal">null</span>
+    | JsonObject
+    | JsonArray;
+
+<span class="hljs-keyword">interface</span> JsonObject {
+    [property: <span class="hljs-built_in">string</span>]: Json;
+}
+
+<span class="hljs-keyword">interface</span> JsonArray <span class="hljs-keyword">extends</span> Array&#x3C;Json> {}</code></pre>
+<p>Поэтому начиная с текущей версии <em>TypeScript</em> вычисление правил относящихся к рекурсивности для псевдонимов типов были изменены, что позволило избавится от определения дополнительных типов.</p>
+<pre><code class="hljs language-ts"><span class="hljs-comment">// TypeScript >= v3.7</span>
+
+<span class="hljs-keyword">type</span> Json =
+    | <span class="hljs-built_in">string</span>
+    | <span class="hljs-built_in">number</span>
+    | <span class="hljs-built_in">boolean</span>
+    | <span class="hljs-literal">null</span>
+    | { [property: <span class="hljs-built_in">string</span>]: Json }
+    | Json[];</code></pre>
+
+    </section>
+<section id="Sovmestnoe-ispolzovanie-flagov-declaration-i-allowJs" name="Совместное использование флагов --declaration и --allowJs" class="subchapter">
+        <h2 class="subchapter-title">
+            <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="Sovmestnoe-ispolzovanie-flagov-declaration-i-allowJs" type="absolute-url">
+                <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <use href="#icon_link"/>
+                </svg>
+            </button>
+            Совместное использование флагов --declaration и --allowJs
+        </h2>
+        <hr>
+        <p>До текущей версии <em>TypeScript</em> акивный флаг компилятора <code class="inline-code">--declaration</code> позволял генерировать файлы декларации <code class="inline-code">.d.ts</code> только из файлов имеющих расширение <code class="inline-code">.ts</code> и <code class="inline-code">.tsx</code>. Файлы декларации существуенно снижают нагрузку возложенную на компилятор, что является важным критерием для такого механизма как ссылки на проект, который существенно ускоряет процесс сборки больших приложений.</p>
+<p>Но к сожалению флаг <code class="inline-code">--declaration</code> не совместим с другим таким важным флагом как <code class="inline-code">--allowJs</code>, который позволяет использовать в впроекте модули с расширением <code class="inline-code">.js</code> код в которых не поддается декларированию даже если объявления аннотированны с помощью <em>JSDoc</em>.</p>
+<p>Начиная с <em>TypeScript</em> <code class="inline-code">v3.7</code> это проблема устранена и теперь компилятор из-за всех сил будет пытаться описать структуру <code class="inline-code">JavaScript</code> кода с помощью типов, к тому же прибегая к помощи оставленной разработчиками при помощи <em>JSDoc</em>.</p>
+<pre><code class="hljs language-js"><span class="hljs-comment">// [File: module.js]</span>
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> VALUE = <span class="hljs-number">5</span>;
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> SUM = <span class="hljs-number">5</span> + <span class="hljs-number">5</span>;
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> toString = <span class="hljs-function"><span class="hljs-params">value</span> =></span> value.toString();</code></pre>
+<pre><code class="hljs language-ts"><span class="hljs-comment">// [File: module.d.ts]</span>
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> VALUE: <span class="hljs-number">5</span>;
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> SUM: <span class="hljs-built_in">number</span>;
+<span class="hljs-keyword">export</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">toString</span>(<span class="hljs-params">value: <span class="hljs-built_in">any</span></span>): <span class="hljs-title">any</span></span>;</code></pre>
+<pre><code class="hljs language-js"><span class="hljs-comment">// [File: module.js]</span>
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> VALUE = <span class="hljs-number">5</span>;
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> SUM = <span class="hljs-number">5</span> + <span class="hljs-number">5</span>;
+<span class="hljs-comment">/**
+ * 
+ * @param {string} value 
+ * @returns {string}
+ */</span>
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> toString = <span class="hljs-function"><span class="hljs-params">value</span> =></span> value.toString();</code></pre>
+<pre><code class="hljs language-ts"><span class="hljs-comment">// [File: module.d.ts]</span>
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> VALUE: <span class="hljs-number">5</span>;
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> SUM: <span class="hljs-built_in">number</span>;
+<span class="hljs-keyword">export</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">toString</span>(<span class="hljs-params">value: <span class="hljs-built_in">any</span></span>): <span class="hljs-title">string</span></span>;</code></pre>
+
+    </section>
+<section id="ts-nocheck-v-TypeScript-failah" name="@ts-nocheck в TypeScript файлах" class="subchapter">
+        <h2 class="subchapter-title">
+            <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="ts-nocheck-v-TypeScript-failah" type="absolute-url">
+                <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <use href="#icon_link"/>
+                </svg>
+            </button>
+            @ts-nocheck в TypeScript файлах
+        </h2>
+        <hr>
+        <p>Комментируемая директива <code class="inline-code">@ts-nocheck</code>, которая указанная в начале файла с расширением <code class="inline-code">.js</code> при активной опции <code class="inline-code">--allowJs</code> указывала компилятру что данный файл необходимо исключить из семантической проверке, ранее поддерживалась исключительно в <code class="inline-code">JavaScript</code> файлах. Начиная с <em>TypeScript</em> <code class="inline-code">v3.7</code> данная директива также может указываться в файлах с расширением <code class="inline-code">.ts</code> и <code class="inline-code">.tsx</code>.</p>
+
+    </section>
