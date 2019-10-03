@@ -25,6 +25,65 @@
 <p>Утверждая тип, разработчик говорит компилятору - <em>“поверь мне, я знаю, что делаю”</em> (<em>Trust me, I know what I'm doing</em>).</p>
 <p>Нельзя не уточнить, что хотя в <em>TypeScript</em> и существует термин утверждение типа, по ходу изложения, в качестве синонимов будут употребляться слова преобразование, реже приведение. И не будет лишним напомнить, что приведение, это процесс, в котором объект одного типа преобразуется в объект другого типа. </p>
 <p>Утверждение типа имеют две формы. Первый способ заключается в указании принадлежности к типу с помощью угловых скобок <code class="inline-code">&#x3C;Type></code>. Второй, с помощью оператора as.</p>
+</section><section id="Utverjdenie-v-signature-Signature-Assertion" name="Утверждение в сигнатуре (Signature Assertion)" class="subchapter">
+            <h2 class="subchapter-title">
+                <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="Utverjdenie-v-signature-Signature-Assertion" type="absolute-url">
+                    <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <use href="#icon_link"/>
+                    </svg>
+                </button>
+                Утверждение в сигнатуре (Signature Assertion)
+            </h2>
+        
+<hr>
+<p>Помимо функций реализущих мехаизм <em>утверждения типа</em> в <em>TypeScript</em> существует механизм <em>утверждения в сигнатуре</em>, что позволяет определять утверждающие функции, которые на вход принимают логическое условие и при его ложном значении выбрасывает исключение. Чтобы объявить утверждающую функцию необходимо в её сигнатуре, точнее части в которой располагается возвращаемое значение, указать ключевое слово <code class="inline-code">assert</code> после которого указать параметр принимаемого на вход условия.</p>
+<pre><code class="hljs language-ts"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">identifier</span>(<span class="hljs-params">condition: <span class="hljs-built_in">any</span></span>): <span class="hljs-title">assert</span> <span class="hljs-title">condition</span> </span>{
+    <span class="hljs-keyword">if</span>( !condition ){
+        <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">``</span>);
+    }
+}</code></pre>
+<p>При условии что при вызове утверждающей функции в качестве аргумента будет передано условие в котором принимает переменная более общего типа, вывод типов будет, в случае продолжения программы, будет рассценивать её как принадлежащую к типу участвующему в условии.</p>
+<pre><code class="hljs language-ts"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">isStringAssert</span>(<span class="hljs-params">condition: <span class="hljs-built_in">any</span></span>): <span class="hljs-title">asserts</span> <span class="hljs-title">condition</span></span>{
+    <span class="hljs-keyword">if</span> (!condition) {
+        <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">``</span>);
+    }
+}
+
+<span class="hljs-keyword">const</span> testScope=<span class="hljs-function">(<span class="hljs-params">text:<span class="hljs-built_in">any</span></span>)=></span>{
+    text.touppercase(); <span class="hljs-comment">// not error because type any</span>
+
+    isStringAssert(<span class="hljs-keyword">typeof</span> text === <span class="hljs-string">"string"</span>);
+
+    text.touppercase(); <span class="hljs-comment">// error because type string</span>
+}</code></pre>
+<p>При использовании механизма <em>утверждения в сигнатуре</em> с механизмом <em>утверждения типа</em> условие из вызова утверждающей функции можно перенести в её тело.</p>
+<pre><code class="hljs language-ts"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">isStringAssert</span>(<span class="hljs-params">value: <span class="hljs-built_in">any</span></span>): <span class="hljs-title">asserts</span> <span class="hljs-title">value</span> <span class="hljs-title">is</span> <span class="hljs-title">string</span> </span>{
+    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> value !== <span class="hljs-string">"string"</span>) {
+        <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">``</span>);
+    }
+}
+
+<span class="hljs-keyword">const</span> testScope=<span class="hljs-function">(<span class="hljs-params">text:<span class="hljs-built_in">any</span></span>)=></span>{
+    text.touppercase(); <span class="hljs-comment">// not error because type any</span>
+
+    isStringAssert(text); <span class="hljs-comment">// условие определено в утверждающей функции</span>
+
+    text.touppercase(); <span class="hljs-comment">// error because type string</span>
+}</code></pre>
+<p>Стоит обратить внимания что в случае переноса условного выражения в тело утверждающей функции сигнатура которой лишина <em>утверждения типов</em>, то есть содержащей исключительно <em>утверждения в сигнатуре</em>, подобный механизм функционировать не будет.</p>
+<pre><code class="hljs language-ts"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">isStringAssert</span>(<span class="hljs-params">value: <span class="hljs-built_in">any</span></span>): <span class="hljs-title">asserts</span> <span class="hljs-title">value</span> /** <span class="hljs-title">is</span> <span class="hljs-title">string</span> */ </span>{
+    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> value !== <span class="hljs-string">"string"</span>) {
+        <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">``</span>);
+    }
+}
+
+<span class="hljs-keyword">const</span> testScope=<span class="hljs-function">(<span class="hljs-params">text:<span class="hljs-built_in">any</span></span>)=></span>{
+    text.touppercase(); <span class="hljs-comment">// not error because type any</span>
+
+    isStringAssert(text); <span class="hljs-comment">// условие определено в утверждающей функции</span>
+
+    text.touppercase(); <span class="hljs-comment">// not error becouse signature assertion not working</span>
+}</code></pre>
 </section><section id="Utverjdenie-Tipa-Type-sintaksis" name="Утверждение Типа <Type> синтаксис" class="subchapter">
             <h2 class="subchapter-title">
                 <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="Utverjdenie-Tipa-Type-sintaksis" type="absolute-url">
