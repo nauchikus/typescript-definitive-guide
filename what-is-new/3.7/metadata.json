@@ -1,0 +1,122 @@
+{
+    "version": "3.7",
+    "innovations": [
+        {
+            "type": "title",
+            "section": "classes",
+            "name": "",
+            "dirname": "title",
+            "dataPublication": "",
+            "statuses": [
+                {
+                    "type": "release",
+                    "date": "October 1, 2019"
+                }
+            ]
+        },
+        {
+            "type": "innovation",
+            "section": "classes",
+            "name": "Second innovation",
+            "dirname": "Оператор опциональной последовательности (?.)",
+            "dataPublication": "",
+            "statuses": [
+                {
+                    "type": "release",
+                    "date": "October 1, 2019"
+                }
+            ]
+        },
+        {
+            "type": "innovation",
+            "section": "classes",
+            "name": "First innovation",
+            "dirname": "Оператор объединения со значением null (??)",
+            "dataPublication": "",
+            "statuses": [
+                {
+                    "type": "release",
+                    "date": "October 1, 2019"
+                }
+            ]
+        },
+        {
+            "type": "innovation",
+            "section": "classes",
+            "name": "First innovation",
+            "dirname": "Утверждение в сигнатуре (Signature Assertion)",
+            "dataPublication": "",
+            "statuses": [
+                {
+                    "type": "release",
+                    "date": "October 1, 2019"
+                }
+            ]
+        },
+        {
+            "type": "innovation",
+            "section": "classes",
+            "name": "First innovation",
+            "dirname": "Улучшена поддержка для типа never возвращаемого из функций",
+            "dataPublication": "",
+            "statuses": [
+                {
+                    "type": "release",
+                    "date": "October 1, 2019"
+                }
+            ]
+        },
+        {
+            "type": "innovation",
+            "section": "classes",
+            "name": "First innovation",
+            "dirname": "Проверка невызванных функций",
+            "dataPublication": "",
+            "statuses": [
+                {
+                    "type": "release",
+                    "date": "October 1, 2019"
+                }
+            ]
+        },
+        {
+            "type": "innovation",
+            "section": "classes",
+            "name": "First innovation",
+            "dirname": "Рекурсивность для псевдононимов типов",
+            "dataPublication": "",
+            "statuses": [
+                {
+                    "type": "release",
+                    "date": "October 1, 2019"
+                }
+            ]
+        },
+        {
+            "type": "innovation",
+            "section": "classes",
+            "name": "First innovation",
+            "dirname": "Совместное использование флагов --declaration и --allowJs",
+            "dataPublication": "",
+            "statuses": [
+                {
+                    "type": "release",
+                    "date": "October 1, 2019"
+                }
+            ]
+        },
+        {
+            "type": "innovation",
+            "section": "classes",
+            "name": "First innovation",
+            "dirname": "@ts-nocheck в TypeScript файлах",
+            "dataPublication": "",
+            "statuses": [
+                {
+                    "type": "release",
+                    "date": "October 1, 2019"
+                }
+            ]
+        }
+    ]
+}

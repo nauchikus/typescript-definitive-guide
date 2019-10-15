@@ -1,0 +1,161 @@
+{
+    "version": "3.6",
+    "innovations": [
+        {
+            "type": "title",
+            "section": "classes",
+            "name": "",
+            "dirname": "title",
+            "dataPublication": "",
+            "statuses": [
+                {
+                    "type": "release",
+                    "date": "August 28, 2019"
+                }
+            ]
+        },
+        {
+            "type": "innovation",
+            "section": "classes",
+            "name": "Second innovation",
+            "dirname": "Повышение типобезопасности генероторов",
+            "dataPublication": "",
+            "statuses": [
+                {
+                    "type": "release",
+                    "date": "August 28, 2019"
+                }
+            ]
+        },
+        {
+            "type": "innovation",
+            "section": "classes",
+            "name": "First innovation",
+            "dirname": "Добавление хелпера иметирующего механизм spread array при компиляции в ecmascript ниже версии 6 при неактивном флаге --downlevelIteration",
+            "dataPublication": "",
+            "statuses": [
+                {
+                    "type": "release",
+                    "date": "August 28, 2019"
+                }
+            ]
+        },
+        {
+            "type": "innovation",
+            "section": "classes",
+            "name": "First innovation",
+            "dirname": "Расширение системы типов типами представляющими структуры данных только для чтения",
+            "dataPublication": "",
+            "statuses": [
+                {
+                    "type": "release",
+                    "date": "August 28, 2019"
+                }
+            ]
+        },
+        {
+            "type": "innovation",
+            "section": "classes",
+            "name": "First innovation",
+            "dirname": "Строковой идентификатор функции-конструктора",
+            "dataPublication": "",
+            "statuses": [
+                {
+                    "type": "release",
+                    "date": "August 28, 2019"
+                }
+            ]
+        },
+        {
+            "type": "innovation",
+            "section": "classes",
+            "name": "First innovation",
+            "dirname": "Расширение вывода об ошибках при работе с Promise",
+            "dataPublication": "",
+            "statuses": [
+                {
+                    "type": "release",
+                    "date": "August 28, 2019"
+                }
+            ]
+        },
+        {
+            "type": "innovation",
+            "section": "classes",
+            "name": "First innovation",
+            "dirname": "Слияние одноименных классов и функций из окружающего контекста",
+            "dataPublication": "",
+            "statuses": [
+                {
+                    "type": "release",
+                    "date": "August 28, 2019"
+                }
+            ]
+        },
+        {
+            "type": "innovation",
+            "section": "classes",
+            "name": "First innovation",
+            "dirname": "Добавлена поддержка Unicode для идентификаторов",
+            "dataPublication": "",
+            "statuses": [
+                {
+                    "type": "release",
+                    "date": "August 28, 2019"
+                }
+            ]
+        },
+        {
+            "type": "innovation",
+            "section": "classes",
+            "name": "First innovation",
+            "dirname": "Поддержка import.meta для SystemJS",
+            "dataPublication": "",
+            "statuses": [
+                {
+                    "type": "release",
+                    "date": "August 28, 2019"
+                }
+            ]
+        },
+        {
+            "type": "innovation",
+            "section": "classes",
+            "name": "First innovation",
+            "dirname": "get и set в окружающем контексте",
+            "dataPublication": "",
+            "statuses": [
+                {
+                    "type": "release",
+                    "date": "August 28, 2019"
+                }
+            ]
+        },
+        {
+            "type": "innovation",
+            "section": "classes",
+            "name": "First innovation",
+            "dirname": "Api для поддержки --build и --incremental",
+            "dataPublication": "",
+            "statuses": [
+                {
+                    "type": "release",
+                    "date": "August 28, 2019"
+                }
+            ]
+        },
+        {
+            "type": "innovation",
+            "section": "classes",
+            "name": "First innovation",
+            "dirname": "Интеллектуальное определение синтаксиса авто-импорта",
+            "dataPublication": "",
+            "statuses": [
+                {
+                    "type": "release",
+                    "date": "August 28, 2019"
+                }
+            ]
+        }
+    ]
+}

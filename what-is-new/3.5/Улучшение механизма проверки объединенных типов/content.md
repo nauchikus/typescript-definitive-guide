@@ -1,3 +1,5 @@
+##Улучшение механизма проверки объединенных типов
+
 `````typescript
 type Source = { done: boolean, value: number }
 type Target =

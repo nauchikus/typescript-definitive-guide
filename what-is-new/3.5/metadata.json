@@ -1,0 +1,125 @@
+{
+    "version": "3.5",
+    "innovations": [
+        {
+            "type": "title",
+            "section": "classes",
+            "name": "",
+            "dirname": "title",
+            "dataPublication": "",
+            "statuses": [
+                {
+                    "type": "release",
+                    "date": "May 29, 2019"
+                }
+            ]
+        },
+        {
+            "type": "innovation",
+            "section": "classes",
+            "name": "Second innovation",
+            "dirname": "Вспомогательный тип Omit",
+            "dataPublication": "",
+            "statuses": [
+                {
+                    "type": "release",
+                    "date": "May 29, 2019"
+                }
+            ]
+        },
+        {
+            "type": "innovation",
+            "section": "classes",
+            "name": "First innovation",
+            "dirname": "Улучшение механизма проверки избыточных полей в объедененных типах (Union types)",
+            "dataPublication": "",
+            "statuses": [
+                {
+                    "type": "release",
+                    "date": "May 29, 2019"
+                }
+            ]
+        },
+        {
+            "type": "innovation",
+            "section": "classes",
+            "name": "First innovation",
+            "dirname": "Введение нового флага --allowUmdGlobalAccess",
+            "dataPublication": "",
+            "statuses": [
+                {
+                    "type": "release",
+                    "date": "May 29, 2019"
+                }
+            ]
+        },
+        {
+            "type": "innovation",
+            "section": "classes",
+            "name": "First innovation",
+            "dirname": "Улучшение механизма проверки объединенных типов",
+            "dataPublication": "",
+            "statuses": [
+                {
+                    "type": "release",
+                    "date": "May 29, 2019"
+                }
+            ]
+        },
+        {
+            "type": "innovation",
+            "section": "classes",
+            "name": "First innovation",
+            "dirname": "Улучшение механизма вывода типа высшего порядка для обобщенных конструкторов",
+            "dataPublication": "",
+            "statuses": [
+                {
+                    "type": "release",
+                    "date": "May 29, 2019"
+                }
+            ]
+        },
+        {
+            "type": "innovation",
+            "section": "classes",
+            "critical": true,
+            "name": "First innovation",
+            "dirname": "Неявное ограничение обобщенных параметров типом unknown",
+            "dataPublication": "",
+            "statuses": [
+                {
+                    "type": "release",
+                    "date": "May 29, 2019"
+                }
+            ]
+        },
+        {
+            "type": "innovation",
+            "section": "classes",
+            "critical": true,
+            "name": "First innovation",
+            "dirname": "Изменения правил для типа unknown и индексной сигнатуре",
+            "dataPublication": "",
+            "statuses": [
+                {
+                    "type": "release",
+                    "date": "May 29, 2019"
+                }
+            ]
+        },
+        {
+            "type": "innovation",
+            "section": "classes",
+            "critical": true,
+            "name": "First innovation",
+            "dirname": "Изменение логики для Object.keys для версии es5",
+            "dataPublication": "",
+            "statuses": [
+                {
+                    "type": "release",
+                    "date": "May 29, 2019"
+                }
+            ]
+        }
+    ]
+}
