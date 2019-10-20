@@ -4,19 +4,23 @@ const path = require( 'path' );
 const shell = require( 'shelljs' );
 
 const toIndex = ( index, length = 3 ) => '0'.repeat( length - index.toString().length ) + index;
+const ecp = path => path.replace( /(\s+)/g, '\\$1' ).replace(/([()])/g,'\\$1');
 
 const run = async () => {
     let json = await fs.promises.readFile( './book/ru/metadata/toc.json', 'utf-8' );
     let toc = JSON.parse( json );
 
-    toc.map(async (info,index)=>{
-        const OLD_PATH = `./book/ru/chapters/${ info.oldname }.md`;
-        const NEW_PATH = `./book/ru/chapters/${ toIndex( index ) }.(${ info.section }) ${ info.name }/content.md`;
-        const DIR_NAME = `./book/ru/chapters/${ toIndex( index ) }.(${ info.section }) ${ info.name }`;
 
-        await fs.promises.mkdir( DIR_NAME );
-        shell.exec( `git mv ${ OLD_PATH } ${ NEW_PATH }` );
+    toc.map(async (info,index)=>{
+        const CHAPTER_CONTENT_PATH = `./book/ru/chapters/${ toIndex( index ) }.(${ info.section }) ${ info.name }/content.md`;
+
+        let oldContent = await fs.promises.readFile( CHAPTER_CONTENT_PATH, 'utf-8' );
+        let newContent = `# ${ info.name }\n${ oldContent }`;
+
+        await fs.promises.writeFile( CHAPTER_CONTENT_PATH, newContent );
     })
 };
 
-// run()
+run()
+
+// console.log(/^\s*#(?!#)\s*.*$/gm.test(md))
