@@ -1,3 +1,5 @@
+# Вывод типов
+![Chapter Cover](./images/chapter-cover.png)
 ## Типизация - Вывод типов
 ________________
 

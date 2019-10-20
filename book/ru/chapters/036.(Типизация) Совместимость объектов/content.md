@@ -1,3 +1,5 @@
+# Совместимость объектов
+![Chapter Cover](./images/chapter-cover.png)
 ## Типизация (Object Types) - важно
 ________________
 

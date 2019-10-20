@@ -1,3 +1,5 @@
+# Примитивные литеральные типы Number, String, Boolean, Unique Symbol, Enum
+![Chapter Cover](./images/chapter-cover.png)
 ## Примитивные Типы - Литеральные Типы Number, String, Boolean, Unique Symbol, Enum
 ________________
 

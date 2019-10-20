@@ -1,3 +1,5 @@
+# Базовый тип Any
+![Chapter Cover](./images/chapter-cover.png)
 ## Базовый Тип Any
 ________________
 

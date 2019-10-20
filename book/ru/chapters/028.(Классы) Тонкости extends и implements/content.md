@@ -1,3 +1,5 @@
+# Тонкости extends и implements
+![Chapter Cover](./images/chapter-cover.png)
 ## Классы - Тонкости
 ________________
 

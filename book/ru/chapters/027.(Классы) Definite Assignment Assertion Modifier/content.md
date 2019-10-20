@@ -1,3 +1,5 @@
+# Definite Assignment Assertion Modifier
+![Chapter Cover](./images/chapter-cover.png)
 ## Классы - Definite Assignment Assertion Modifier
 ________________
 

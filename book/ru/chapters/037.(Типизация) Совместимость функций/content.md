@@ -1,3 +1,5 @@
+# Совместимость функций
+![Chapter Cover](./images/chapter-cover.png)
 ## Типизация (Function Types) - важно
 ________________
 

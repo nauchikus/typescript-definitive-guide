@@ -1,3 +1,5 @@
+# Tagged Union
+![Chapter Cover](./images/chapter-cover.png)
 ## Размеченные Объединения (Tagged Union)
 ________________
 

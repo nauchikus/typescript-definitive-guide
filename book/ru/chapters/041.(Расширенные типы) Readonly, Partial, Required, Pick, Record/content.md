@@ -1,3 +1,5 @@
+# Readonly, Partial, Required, Pick, Record
+![Chapter Cover](./images/chapter-cover.png)
 ## Расширенные типы - Readonly, Partial, Required, Pick, Record
 ________________
 

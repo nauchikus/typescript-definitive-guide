@@ -8,3 +8,4 @@ public/
 temporary/
 package-lock.json
 package.json
+migration.js

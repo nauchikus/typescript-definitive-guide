@@ -1,3 +1,5 @@
+# Примитивные типы Null, Undefined, Void, Never, Unknown
+![Chapter Cover](./images/chapter-cover.png)
 ## Важно
 ________________
 

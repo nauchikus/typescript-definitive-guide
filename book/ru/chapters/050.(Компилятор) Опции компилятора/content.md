@@ -1,3 +1,5 @@
+# Опции компилятора
+![Chapter Cover](./images/chapter-cover.png)
 ## strict
 ________________
 

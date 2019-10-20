@@ -1,3 +1,5 @@
+# Модификаторы доступа
+![Chapter Cover](./images/chapter-cover.png)
 ## Модификаторы доступа (Access Modifiers)
 ________________
 

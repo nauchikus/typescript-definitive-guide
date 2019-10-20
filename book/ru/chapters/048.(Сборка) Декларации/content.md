@@ -1,3 +1,5 @@
+# Декларации
+![Chapter Cover](./images/chapter-cover.png)
 ## Что такое декларация (Declaration)
 ________________
 

@@ -1,3 +1,5 @@
+# Совместимость типов на основе вида типизации
+![Chapter Cover](./images/chapter-cover.png)
 ## Совместимость Типов (Types Compatibility)
 ________________
 

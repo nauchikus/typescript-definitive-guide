@@ -1,3 +1,5 @@
+# Различия var, let, const и модификатора readonly при неявном указании примитивных типов
+![Chapter Cover](./images/chapter-cover.png)
 ## Различия var, let, const и модификатора readonly при не Явном Указании Примитивных Типов
 ________________
 

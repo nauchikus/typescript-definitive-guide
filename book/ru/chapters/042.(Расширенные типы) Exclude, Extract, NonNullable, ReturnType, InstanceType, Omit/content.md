@@ -1,3 +1,5 @@
+# Exclude, Extract, NonNullable, ReturnType, InstanceType, Omit
+![Chapter Cover](./images/chapter-cover.png)
 ## Расширенные типы - Exclude, Extract, NonNullable, ReturnType, InstanceType, Omit
 ________________
 

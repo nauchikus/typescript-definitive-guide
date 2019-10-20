@@ -1,3 +1,5 @@
+# Публикация
+![Chapter Cover](./images/chapter-cover.png)
 ## Публикация
 ________________
 

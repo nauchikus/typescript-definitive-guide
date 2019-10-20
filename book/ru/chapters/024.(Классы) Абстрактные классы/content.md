@@ -1,3 +1,5 @@
+# Абстрактные классы
+![Chapter Cover](./images/chapter-cover.png)
 ## Абстрактные классы (abstract classes)
 ________________
 

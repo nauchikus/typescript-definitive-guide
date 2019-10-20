@@ -1,3 +1,5 @@
+# Утверждение типов
+![Chapter Cover](./images/chapter-cover.png)
 ## Утверждение Типов (Type Assertion)
 ________________
 

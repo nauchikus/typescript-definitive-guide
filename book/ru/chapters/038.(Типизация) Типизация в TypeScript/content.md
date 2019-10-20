@@ -1,3 +1,5 @@
+# Типизация в TypeScript
+![Chapter Cover](./images/chapter-cover.png)
 ## Типизация в TypeScript
 ________________
 

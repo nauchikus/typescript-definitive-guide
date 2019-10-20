@@ -15,7 +15,7 @@ const run = async () => {
         const CHAPTER_CONTENT_PATH = `./book/ru/chapters/${ toIndex( index ) }.(${ info.section }) ${ info.name }/content.md`;
 
         let oldContent = await fs.promises.readFile( CHAPTER_CONTENT_PATH, 'utf-8' );
-        let newContent = `# ${ info.name }\n${ oldContent }`;
+        let newContent = `# ${ info.name }\n![Chapter Cover](./images/chapter-cover.png)\n${ oldContent }`;
 
         await fs.promises.writeFile( CHAPTER_CONTENT_PATH, newContent );
     })

@@ -1,3 +1,5 @@
+# Примитивный тип Enum
+![Chapter Cover](./images/chapter-cover.png)
 ## Примитивные Типы Enum
 ________________
 

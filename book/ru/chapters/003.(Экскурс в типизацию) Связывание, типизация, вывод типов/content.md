@@ -1,3 +1,5 @@
+# Связывание, типизация, вывод типов
+![Chapter Cover](./images/chapter-cover.png)
 ## Связывание (Binding)
 ________________
 

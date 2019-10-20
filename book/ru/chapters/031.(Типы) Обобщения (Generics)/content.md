@@ -1,3 +1,5 @@
+# Обобщения (Generics)
+![Chapter Cover](./images/chapter-cover.png)
 ## Типы - Обобщения (Generics)
 ________________
 

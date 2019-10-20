@@ -1,3 +1,5 @@
+# Оператор keyof, Lookup Types, Mapped Types, Mapped Types - префиксы + и -
+![Chapter Cover](./images/chapter-cover.png)
 ## Оператор keyof, Lookup Types, Mapped Types, Mapped Types - префиксы + и -
 ________________
 

@@ -1,3 +1,5 @@
+# Object, Array, Tuple
+![Chapter Cover](./images/chapter-cover.png)
 ## Типы - Object, Array, Tuple
 ________________
 

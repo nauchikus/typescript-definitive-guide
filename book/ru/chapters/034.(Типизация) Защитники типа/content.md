@@ -1,3 +1,5 @@
+# Защитники типа
+![Chapter Cover](./images/chapter-cover.png)
 ## Защитники Типа
 ________________
 

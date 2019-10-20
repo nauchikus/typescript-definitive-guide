@@ -1,3 +1,5 @@
+# Что такое и для чего нужен TypeScript
+![Chapter Cover](./images/chapter-cover.png)
 ## Что такое TypeScript
 ________________
 

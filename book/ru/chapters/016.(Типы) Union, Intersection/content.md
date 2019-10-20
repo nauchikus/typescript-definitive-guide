@@ -1,3 +1,5 @@
+# Union, Intersection
+![Chapter Cover](./images/chapter-cover.png)
 ## Тип Объединение (Union Types)
 ________________
 

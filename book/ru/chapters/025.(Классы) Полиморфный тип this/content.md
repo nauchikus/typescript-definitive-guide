@@ -1,3 +1,5 @@
+# Полиморфный тип this
+![Chapter Cover](./images/chapter-cover.png)
 ## Полиморфный тип this
 ________________
 

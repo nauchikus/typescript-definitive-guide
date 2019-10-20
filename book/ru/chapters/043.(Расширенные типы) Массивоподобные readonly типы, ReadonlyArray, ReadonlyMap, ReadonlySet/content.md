@@ -1,3 +1,5 @@
+# Массивоподобные readonly типы, ReadonlyArray, ReadonlyMap, ReadonlySet
+![Chapter Cover](./images/chapter-cover.png)
 ## Массивоподобные readonly типы
 ________________
 

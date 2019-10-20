@@ -1,3 +1,5 @@
+# Модификатор readonly
+![Chapter Cover](./images/chapter-cover.png)
 ## Модификатор readonly (только для чтения)
 ________________
 

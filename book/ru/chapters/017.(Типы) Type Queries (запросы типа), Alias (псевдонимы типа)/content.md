@@ -1,3 +1,5 @@
+# Type Queries (запросы типа), Alias (псевдонимы типа)
+![Chapter Cover](./images/chapter-cover.png)
 ##  Запросы Типа (Type Queries)
 ________________
 

@@ -1,3 +1,5 @@
+# Function, Functional Types
+![Chapter Cover](./images/chapter-cover.png)
 ## Function, Functional Types
 ________________
 

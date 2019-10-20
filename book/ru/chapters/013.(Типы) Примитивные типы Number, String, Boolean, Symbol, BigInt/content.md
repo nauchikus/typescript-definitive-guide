@@ -1,3 +1,5 @@
+# Примитивные типы Number, String, Boolean, Symbol, BigInt
+![Chapter Cover](./images/chapter-cover.png)
 ## Важно
 ________________
 

@@ -1,3 +1,5 @@
+# Пространства имен (namespace) и модули (module)
+![Chapter Cover](./images/chapter-cover.png)
 ## namespace и module - предназначение
 ________________
 

@@ -1,3 +1,5 @@
+# Условные типы (Conditional Types)
+![Chapter Cover](./images/chapter-cover.png)
 ## Условные Типы (Conditional Types)
 ________________
 

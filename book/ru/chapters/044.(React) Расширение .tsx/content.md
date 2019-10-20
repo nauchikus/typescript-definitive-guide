@@ -1,3 +1,5 @@
+# Расширение .tsx
+![Chapter Cover](./images/chapter-cover.png)
 ##  React - расширение .tsx
 ________________
 

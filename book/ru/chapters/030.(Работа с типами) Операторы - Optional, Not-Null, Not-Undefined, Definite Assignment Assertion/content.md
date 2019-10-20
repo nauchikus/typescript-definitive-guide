@@ -1,3 +1,5 @@
+# Операторы - Optional, Not-Null, Not-Undefined, Definite Assignment Assertion
+![Chapter Cover](./images/chapter-cover.png)
 ## Операторы - Optional, Not-Null, Not-Undefined, Definite Assignment Assertion
 ________________
 
