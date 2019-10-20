@@ -1,0 +1,257 @@
+[
+    {
+        "name": "Что такое и для чего нужен TypeScript",
+        "section": "Общее",
+        "oldname": "Общее - Что такое и для чего нужен TypeScript"
+    },
+    {
+        "name": "Вступление",
+        "section": "Экскурс в типизацию",
+        "oldname": "Экскурс в типизацию - Вступление"
+    },
+    {
+        "name": "Система типов, тип данных, значимые и ссылочные типы",
+        "section": "Экскурс в типизацию",
+        "oldname": "Экскурс в типизацию - Система типов, тип данных, значимые и ссылочные типы"
+    },
+    {
+        "name": "Связывание, типизация, вывод типов",
+        "section": "Экскурс в типизацию",
+        "oldname": "Экскурс в типизацию - Связывание, типизация, вывод типов"
+    },
+    {
+        "name": "Преобразование типов",
+        "section": "Экскурс в типизацию",
+        "oldname": "Экскурс в типизацию - Преобразование типов"
+    },
+    {
+        "name": "Типизированные и нетипизированные языки программирования",
+        "section": "Экскурс в типизацию",
+        "oldname": "Экскурс в типизацию - Типизированные и нетипизированные языки программирования"
+    },
+    {
+        "name": "Статическая и динамическая типизация",
+        "section": "Экскурс в типизацию",
+        "oldname": "Экскурс в типизацию - Статическая и динамическая типизация"
+    },
+    {
+        "name": "Сильная и слабая типизация",
+        "section": "Экскурс в типизацию",
+        "oldname": "Экскурс в типизацию - Сильная и слабая типизация"
+    },
+    {
+        "name": "Явная и неявная типизация",
+        "section": "Экскурс в типизацию",
+        "oldname": "Экскурс в типизацию - Явная и неявная типизация"
+    },
+    {
+        "name": "Совместимость типов на основе вида типизации",
+        "section": "Экскурс в типизацию",
+        "oldname": "Экскурс в типизацию - Совместимость типов на основе вида типизации"
+    },
+    {
+        "name": "Совместимость типов на основе вариантности",
+        "section": "Экскурс в типизацию",
+        "oldname": "Экскурс в типизацию - Совместимость типов на основе вариантности"
+    },
+    {
+        "name": "Аннотация типов",
+        "section": "Синтаксичесике конструкции",
+        "oldname": "Аннотация типов"
+    },
+    {
+        "name": "Базовый тип Any",
+        "section": "Типы",
+        "oldname": "Типы - Базовый тип Any"
+    },
+    {
+        "name": "Примитивные типы Number, String, Boolean, Symbol, BigInt",
+        "section": "Типы",
+        "oldname": "Типы - Примитивные типы Number, String, Boolean, Symbol, BigInt"
+    },
+    {
+        "name": "Примитивные типы Null, Undefined, Void, Never, Unknown",
+        "section": "Типы",
+        "oldname": "Типы - Примитивные типы Null, Undefined, Void, Never, Unknown"
+    },
+    {
+        "name": "Примитивный тип Enum",
+        "section": "Типы",
+        "oldname": "Типы - Примитивный тип Enum"
+    },
+    {
+        "name": "Union, Intersection",
+        "section": "Типы",
+        "oldname": "Типы - Union, Intersection"
+    },
+    {
+        "name": "Type Queries (запросы типа), Alias (псевдонимы типа)",
+        "section": "Типы",
+        "oldname": "Типы - Type Queries (запросы типа), Alias (псевдонимы типа)"
+    },
+    {
+        "name": "Примитивные литеральные типы Number, String, Boolean, Unique Symbol, Enum",
+        "section": "Типы",
+        "oldname": "Типы - Примитивные литеральные типы Number, String, Boolean, Unique Symbol, Enum"
+    },
+    {
+        "name": "Object, Array, Tuple",
+        "section": "Типы",
+        "oldname": "Типы - Object, Array, Tuple"
+    },
+    {
+        "name": "Function, Functional Types",
+        "section": "Типы",
+        "oldname": "Типы - Function, Functional Types"
+    },
+    {
+        "name": "Interface",
+        "section": "Типы",
+        "oldname": "Типы - Interface"
+    },
+    {
+        "name": "Объектные типы с индексными членами (объектный тип с динамическими ключами)",
+        "section": "Типы",
+        "oldname": "Типы - Объектные типы с индексными членами (объектный тип с динамическими ключами)"
+    },
+    {
+        "name": "Модификаторы доступа",
+        "section": "Классы",
+        "oldname": "Классы - Модификаторы доступа"
+    },
+    {
+        "name": "Абстрактные классы",
+        "section": "Классы",
+        "oldname": "Классы - Абстрактные классы"
+    },
+    {
+        "name": "Полиморфный тип this",
+        "section": "Классы",
+        "oldname": "Классы - Полиморфный тип this"
+    },
+    {
+        "name": "Модификатор readonly",
+        "section": "Классы",
+        "oldname": "Классы - Модификатор readonly"
+    },
+    {
+        "name": "Definite Assignment Assertion Modifier",
+        "section": "Классы",
+        "oldname": "Классы - Definite Assignment Assertion Modifier"
+    },
+    {
+        "name": "Тонкости extends и implements",
+        "section": "Классы",
+        "oldname": "Классы - Тонкости extends и implements"
+    },
+    {
+        "name": "Различия var, let, const и модификатора readonly при неявном указании примитивных типов",
+        "section": "Тонкости TypeScript",
+        "oldname": "Различия var, let, const и модификатора readonly при неявном указании примитивных типов"
+    },
+    {
+        "name": "Операторы - Optional, Not-Null, Not-Undefined, Definite Assignment Assertion",
+        "section": "Работа с типами",
+        "oldname": "Операторы - Optional, Not-Null, Not-Undefined, Definite Assignment Assertion"
+    },
+    {
+        "name": "Обобщения (Generics)",
+        "section": "Типы",
+        "oldname": "Типы - Обобщения (Generics)"
+    },
+    {
+        "name": "Tagged Union",
+        "section": "Типы",
+        "oldname": "Типы - Tagged Union"
+    },
+    {
+        "name": "Утверждение типов",
+        "section": "Типизация",
+        "oldname": "Типизация - Утверждение типов"
+    },
+    {
+        "name": "Защитники типа",
+        "section": "Типизация",
+        "oldname": "Типизация - Защитники типа"
+    },
+    {
+        "name": "Вывод типов",
+        "section": "Типизация",
+        "oldname": "Типизация - Вывод типов"
+    },
+    {
+        "name": "Совместимость объектов",
+        "section": "Типизация",
+        "oldname": "Типизация - Совместимость объектов"
+    },
+    {
+        "name": "Совместимость функций",
+        "section": "Типизация",
+        "oldname": "Типизация - Совместимость функций"
+    },
+    {
+        "name": "Типизация в TypeScript",
+        "section": "Типизация",
+        "oldname": "Типизация в TypeScript"
+    },
+    {
+        "name": "Оператор keyof, Lookup Types, Mapped Types, Mapped Types - префиксы + и -",
+        "section": "Работа с типами",
+        "oldname": "Оператор keyof, Lookup Types, Mapped Types, Mapped Types - префиксы + и -"
+    },
+    {
+        "name": "Условные типы (Conditional Types)",
+        "section": "Работа с типами",
+        "oldname": "Условные типы (Conditional Types)"
+    },
+    {
+        "name": "Readonly, Partial, Required, Pick, Record",
+        "section": "Расширенные типы",
+        "oldname": "Расширенные типы - Readonly, Partial, Required, Pick, Record"
+    },
+    {
+        "name": "Exclude, Extract, NonNullable, ReturnType, InstanceType, Omit",
+        "section": "Расширенные типы",
+        "oldname": "Расширенные типы - Exclude, Extract, NonNullable, ReturnType, InstanceType, Omit"
+    },
+    {
+        "name": "Массивоподобные readonly типы, ReadonlyArray, ReadonlyMap, ReadonlySet",
+        "section": "Расширенные типы",
+        "oldname": "Расширенные типы - Массивоподобные readonly типы, ReadonlyArray, ReadonlyMap, ReadonlySet"
+    },
+    {
+        "name": "Расширение .tsx",
+        "section": "React",
+        "oldname": "React - расширение .tsx"
+    },
+    {
+        "name": "Пространства имен (namespace) и модули (module)",
+        "section": "Синтаксические констркуции",
+        "oldname": "Пространства имен (namespace) и модули (module)"
+    },
+    {
+        "name": "Настройка рабочего окружения",
+        "section": "Сборка",
+        "oldname": "Настройка рабочего окружения"
+    },
+    {
+        "name": "Сборка с использованием ссылок на проекты",
+        "section": "Сборка",
+        "oldname": "Сборка с использованием ссылок на проекты"
+    },
+    {
+        "name": "Декларации",
+        "section": "Сборка",
+        "oldname": "Декларации"
+    },
+    {
+        "name": "Публикация",
+        "section": "Сборка",
+        "oldname": "Публикация"
+    },
+    {
+        "name": "Опции компилятора",
+        "section": "Компилятор",
+        "oldname": "Опции компилятора"
+    }
+]
