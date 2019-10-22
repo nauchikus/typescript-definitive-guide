@@ -1,9 +1,15 @@
 # Created by .ignore support plugin (hsz.mobi)
 .idea/
 .vscode/
+www/.cache/
 node_modules/
 dest/
 examples/
 public/
 temporary/
 package-lock.json
+<<<<<<< HEAD
+=======
+package.json
+migration.js
+>>>>>>> new-app
