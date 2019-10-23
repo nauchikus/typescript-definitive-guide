@@ -1,3 +1,21 @@
+const path = require( 'path' );
+
+const getPlugins = locale => ( [
+  {
+    resolve: `gatsby-transformer-app-localization`,
+    options: {
+      name: `localization_${ locale }`,
+      locale
+    }
+  },
+  {
+    resolve:`gatsby-pages`,
+    options: {
+      locale
+    }
+  }
+] );
+
 module.exports = {
   siteMetadata: {
     title: `Gatsby Default Starter`,
@@ -5,12 +23,21 @@ module.exports = {
     author: `@gatsbyjs`,
   },
   plugins: [
+    `gatsby-plugin-sass`,
+    `gatsby-plugin-typescript`,
     `gatsby-plugin-react-helmet`,
     {
       resolve: `gatsby-source-filesystem`,
       options: {
         name: `images`,
-        path: `${__dirname}/src/images`,
+        path: `${ __dirname }/src/images`,
+      },
+    },
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        name: `localization_ru`,
+        path: path.resolve( '../book/ru/metadata/localization.json' ),
       },
     },
     `gatsby-transformer-sharp`,
@@ -30,5 +57,6 @@ module.exports = {
     // this (optional) plugin enables Progressive Web App + Offline functionality
     // To learn more, visit: https://gatsby.dev/offline
     // `gatsby-plugin-offline`,
+    ...getPlugins( `ru` )
   ],
-}
+};

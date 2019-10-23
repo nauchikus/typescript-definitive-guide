@@ -1,0 +1,21 @@
+@import url(https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css);
+
+.app-grid{
+  display:grid;
+
+  grid-template-columns: 1fr;
+  grid-template-rows: 72px 1fr 56px;
+  grid-template-areas:
+          "header"
+          "main"
+          "footer";
+}
+.app-grid__header{
+  grid-area: header;
+}
+.app-grid__main{
+  grid-area: main;
+}
+.app-grid__footer{
+  grid-area: footer;
+}

@@ -8,8 +8,3 @@ examples/
 public/
 temporary/
 package-lock.json
-<<<<<<< HEAD
-=======
-package.json
-migration.js
->>>>>>> new-app
