@@ -1,0 +1,39 @@
+.css-icon-viewbox {
+    width: 24px;
+    height: 24px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+    
+.main-nav-animated-css-icon {
+    width: 18px;
+    height: 18px;
+
+    padding-bottom: 3px;
+}
+
+.main-nav-animated-css-icon__line {
+    width: 18px;
+    height: 2px;
+
+    background-color: black;
+
+    margin-top: 3px;
+
+    transition: .3s;
+}
+
+.main-nav-animated-css-icon_on>.main-nav-animated-css-icon__line:nth-child(1) {
+    transform: translateY(5px) translateZ(0) rotate(45deg);
+}
+
+
+.main-nav-animated-css-icon_on>.main-nav-animated-css-icon__line:nth-child(2){
+    opacity: 0
+}
+.main-nav-animated-css-icon_on>.main-nav-animated-css-icon__line:nth-child(3){
+    transform: translateY(-5px)rotate(-45deg)
+}

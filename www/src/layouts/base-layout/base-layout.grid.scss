@@ -1,0 +1,33 @@
+// cdn dependencies
+@import url(https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css);
+@import url(https://fonts.googleapis.com/css?family=Roboto&display=swap&subset=cyrillic);
+
+// shared dependencies
+@import "../../styles/app-vars";
+@import "../../styles/main-scrollbar";
+
+.app-grid{
+  display:grid;
+
+  grid-template-columns: 1fr;
+  grid-template-rows: var(--app-header_height) 1fr;
+  grid-template-areas:
+          "header"
+          "content";
+}
+.app-grid-item__header {
+  max-width: 100vw;
+
+  grid-area: header;
+
+  position: sticky;
+  top: 0;
+
+  z-index: 100;
+
+}
+.app-grid-item__content {
+  min-height: calc(100vh - var(--app-header_height));
+
+  grid-area: content;
+}

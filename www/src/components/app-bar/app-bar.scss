@@ -1,0 +1,11 @@
+:root {
+  --app-bar_bg-color: white;
+}
+
+.app-bar{
+  background-color: var(--app-bar_bg-color);
+
+  border-bottom: 1px solid grey;
+  padding: 16px;
+}
+

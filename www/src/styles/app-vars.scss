@@ -1,0 +1,65 @@
+$app-header_height:72px;
+$app-footer_height:56px;
+$app-menu_height:300px;
+
+
+:root {
+  --app-header_height: 72px;
+  --app-footer_height: 56px;
+  --app-content_width: 608px;
+
+  --content-left-layout_width: 280px;
+  --content-left-layout_width_negative-number: -280px;
+  --content-center-layout_width: 800px;
+
+
+  /*app-scrollbar*/
+  --scrollbar_width: 16px;
+  --scrollbar__thumb_color: #b7b7b7;
+  --scrollbar__track_color: #e5e5e5;
+  --scrollbar__button_color: #b7b7b7;
+
+  --scrollbar_border-color: #e5e5e5;
+  --scrollbar_border-size: 2px;
+  --scrollbar_border-radius: 3px;
+
+
+  /*app-search*/
+  --app-search_background_color: rgba(0, 0, 0, .1);
+  --app-search_background_border-color: rgba(0, 0, 0, .4);
+  --app-search_border-radius: 5px;
+
+  --app-search__query-input_color: rgba(0, 0, 0, .8);
+
+  --app-search_width: 320px;
+
+  /*svg-icons*/
+  --svg-icon_color-default: rgba(0, 0, 0, .6);
+  --svg-icon_color-default_hover: rgba(0, 0, 0, .7);
+
+  /*buttons*/
+  --button_bg_color-default: rgba(0, 0, 0, .05);
+  --button_color-default_hover: rgba(0, 0, 0, .1);
+  --button_border-radius: 5px;
+
+  /*common vars*/
+  --app_border_color-default: rgba(0, 0, 0, .2);
+  --app_border-radius-default: 5px;
+  --app_base-color: white;
+  --app_base_darklite-color: rgba(0, 0, 0, .1);
+  --app_base_darkmiddle-color: rgba(0, 0, 0, .7);
+
+
+  --telegram_default-color: rgba(49, 168, 222, .3);
+  --telegram_default-color_hover: rgba(49, 168, 222, .2);
+  --github_default-color: rgba(0, 0, 0, .15);
+  --github_default-color_hover: rgba(0, 0, 0, .1);
+
+
+  /*box-shadow*/
+  --shadow_first:
+          0 5px 5px -3px rgba(0, 0, 0, .2),
+          0 8px 10px 1px rgba(0, 0, 0, .14),
+          0 3px 14px 2px rgba(0, 0, 0, .12);
+
+}

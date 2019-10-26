@@ -1,0 +1,86 @@
+$app-menu_full-size:500px;
+
+
+.adaptive-button {
+  //height: fit-content;
+
+  border-radius: var(--button_border-radius);
+
+  padding: 16px 16px;
+
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+
+  cursor: pointer;
+
+  position: relative;
+
+  @media all and (min-width: $app-menu_full-size) {
+    padding: 12px;
+
+    justify-content: center;
+    align-items: center;
+
+    & svg {
+      width: 16px;
+      height: 16px;
+    }
+
+  }
+
+  &:hover {
+    //background-color: var(--button_color-default_hover);
+    & svg {
+      fill-opacity: .65;
+    }
+
+    .adaptive-button__label {
+      //width: auto;
+      //
+      //font-size: .8rem;
+      //white-space: nowrap;
+      //
+      //visibility: visible;
+      //
+      //padding: 8px;
+      //
+      //border: 1px solid var(--app_border_color-default);
+      //border-radius: var(--app_border-radius-default);
+      //
+      //
+      //pointer-events: none;
+      //
+      //position: absolute;
+      //left: -50%;
+      //top: 0;
+
+    }
+  }
+
+  & svg {
+    fill-opacity: .6;
+    margin: 0 8px 0 0;
+
+    pointer-events: none;
+
+    @media all and (min-width: $app-menu_full-size) {
+      margin: 0;
+    }
+  }
+
+
+}
+
+.adaptive-button__label{
+  width: 100%;
+
+  font-size: 14px;
+
+  display:flex;
+  flex-direction: column;
+
+  @media all and (min-width: 500px) {
+    display: none;
+  }
+}

@@ -1,11 +1,11 @@
 import React from "react"
 import {FC} from "react"
 import { Locales } from "../../../plugins/types/locales";
-import { AppLocalization } from "../../types/app-localizations";
 import BookPage from "./BookPage";
 import SEO from "../../components/seo";
 import { Localization } from "../../react-hooks/translator.hook";
 import BaseLayout from "../../layouts/base-layout/BaseLayout";
+import { AppLocalization } from "../../localization";
 
 
 interface IBookPageProviderProps {

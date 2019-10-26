@@ -1,0 +1,37 @@
+$dropdown_transition-time:.4s;
+
+.dropdown {
+  outline: 1px solid blue;
+  position: relative;
+}
+.dropdown__menu_open{
+  opacity: 1;
+  visibility: visible;
+
+  //position: absolute;
+  transform: translateY(0);
+}
+.dropdown__menu_close{
+  opacity: 0;
+  visibility: collapse;
+
+  //position: absolute;
+  transform: translateY(30px);
+}
+
+
+.dropdown__menu {
+  //cursor: pointer;
+
+
+  position: absolute;
+
+
+  transition: visibility $dropdown_transition-time,
+  opacity $dropdown_transition-time,
+  transform $dropdown_transition-time;
+}
+
+.dropdown__menu_horizontal-align_end{
+  right: 0;
+}

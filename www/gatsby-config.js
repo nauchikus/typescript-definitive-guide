@@ -9,6 +9,13 @@ const getPlugins = locale => ( [
     }
   },
   {
+    resolve: `gatsby-transformer-app-navigation`,
+    options: {
+      name: `navigation_${ locale }`,
+      locale
+    }
+  },
+  {
     resolve:`gatsby-pages`,
     options: {
       locale
@@ -18,12 +25,20 @@ const getPlugins = locale => ( [
 
 module.exports = {
   siteMetadata: {
-    title: `Gatsby Default Starter`,
-    description: `Kick off your next, great Gatsby project with this default starter. This barebones starter ships with the main Gatsby configuration files you might need.`,
-    author: `@gatsbyjs`,
+    title: ``,
+    description: ``,
+    author: `nauchikus`,
+    nav:[
+      {path:'/ru',name:''},
+      {path:'/ru/book/chapters'},
+      {path:'/ru/what-is-new'},
+      {path:'/ru/tests'},
+      {path:'/ru/fast'},
+    ]
   },
   plugins: [
     `gatsby-plugin-sass`,
+    `gatsby-plugin-svg-sprite`,
     `gatsby-plugin-typescript`,
     `gatsby-plugin-react-helmet`,
     {
@@ -36,8 +51,22 @@ module.exports = {
     {
       resolve: `gatsby-source-filesystem`,
       options: {
+        name: `icon__image`,
+        path: `${ __dirname }/assets`,
+      },
+    },
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
         name: `localization_ru`,
         path: path.resolve( '../book/ru/metadata/localization.json' ),
+      },
+    },
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        name: `navigation_ru`,
+        path: path.resolve( '../book/ru/metadata/navigation.json' ),
       },
     },
     `gatsby-transformer-sharp`,

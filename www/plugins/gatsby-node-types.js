@@ -1,5 +1,6 @@
 class CustomGatsbyNodeType{
     static AppLocalization = 'AppLocalization';
+    static AppNavigation = 'AppNavigation';
 }
 
 

@@ -1,0 +1,21 @@
+@mixin drawTail($bgColor){
+  &:after{
+    content: "";
+
+    width: 16px;
+    height: 16px;
+
+    background-color: $bgColor;
+
+    display: block;
+
+    //z-index: -1;
+
+
+    position: absolute;
+    top: -8px;
+    right: 11px;
+
+    transform: rotate(45deg);
+  }
+}

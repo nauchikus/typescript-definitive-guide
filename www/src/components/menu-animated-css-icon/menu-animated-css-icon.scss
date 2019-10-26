@@ -1,0 +1,63 @@
+.css-icon-viewbox {
+    width: 24px;
+    height: 24px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+    
+.menu-animated-css-icon {
+    width: 18px;
+    height: 18px;
+
+    padding-bottom: 3px;
+}
+
+.menu-animated-css-icon__line {
+    height: 2px;
+
+    background-color: black;
+
+    margin-top: 3px;
+
+    position: relative;
+    left: 0;
+}
+
+
+@mixin generateLine(){
+    @for $i from 1 through 3{
+        &:nth-child(#{$i}){
+            width: #{18px - 4px * $i};
+
+            transition:left .1s ease #{.1s * ($i - 1)};
+
+        }
+    }
+}
+@mixin generateLineAnimate(){
+    @for $i from 1 through 3{
+        &:nth-child(#{$i}){
+            left:#{4px * $i};
+
+            //transition:left .1s ease #{.1s * ($i - 1)};
+        }
+    }
+}
+@mixin generateLineOff(){
+    @for $i from 1 through 3{
+        &:nth-child(#{3 - $i}){
+            //transition:left .1s ease #{.1s * ($i - 1)};
+        }
+    }
+}
+
+.menu-animated-css-icon__line {
+    @include generateLine();
+
+}
+.menu-animated-css-icon__line_animate {
+    @include generateLineAnimate();
+}

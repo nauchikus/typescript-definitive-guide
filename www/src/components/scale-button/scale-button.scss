@@ -1,0 +1,10 @@
+.scale-button{
+  max-height: 24px;
+
+  transition:transform .3s;
+
+  transform:scale(1);
+}
+.scale-button_scale-active{
+  transform: scale(.8);
+}

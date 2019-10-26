@@ -2,6 +2,7 @@ import "./what-is-new.page.scss";
 
 import React from "react"
 import {FC} from "react"
+import SliderSecondSpaceLayout from "../../layouts/slider-second-space-layout/SliderSecondSpaceLayout";
 
 
 interface IWhatIsNewPageProps {
@@ -12,8 +13,10 @@ const WhatIsNewPage: FC<IWhatIsNewPageProps> = ( {  } ) => {
     // let {gui}=translation;
 
     return (
-        <h1>IndexPage</h1>
-    )
+        <SliderSecondSpaceLayout
+            driver={ <div className="fill tomato"></div> }
+            content={ <div className="fill pink h-x3 lines-x"></div> }/>
+    );
 
 };
 
