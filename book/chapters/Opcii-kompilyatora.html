@@ -2286,4 +2286,44 @@ f.bind(<span class="hljs-literal">null</span>, <span class="hljs-number">0</span
 <span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> Rx <span class="hljs-keyword">from</span> <span class="hljs-string">'rxjs'</span>;
 
 <span class="hljs-keyword">const</span> ref = React.createRef(); <span class="hljs-comment">// Ok, доступ к глобальному определению из модуля</span></code></pre>
+</section><section id="disableSourceOfProjectReferenceRedirect" name="disableSourceOfProjectReferenceRedirect" class="subchapter">
+            <h2 class="subchapter-title">
+                <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="disableSourceOfProjectReferenceRedirect" type="absolute-url">
+                    <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <use href="#icon_link"/>
+                    </svg>
+                </button>
+                disableSourceOfProjectReferenceRedirect
+            </h2>
+        
+<hr>
+<p><code class="inline-code">--disableSourceOfProjectReferenceRedirect</code> - при использовании механизма ссылок на проекты активация данного флага говорит компилятору что в качестве информации о типах следует использовать файлы декларации <code class="inline-code">.d.ts</code>, а не исходные файлы проекта. Активация данного флага способна повысить производительность сборки, но вносит некоторую специфику, поэтому уместна лишь на больших проектах. Более подробно читайте об этом в грлаве посвященной использованию ссылок на проекты.</p>
+<pre><code class="hljs language-typescript">{
+    <span class="hljs-string">"compilerOptions"</span>: {
+        <span class="hljs-string">"disableSourceOfProjectReferenceRedirect"</span>: <span class="hljs-literal">false</span>,
+    }
+}</code></pre>
+<p><strong>type</strong>: <code class="inline-code">boolean</code>
+<strong>default</strong>: <code class="inline-code">false</code>
+<strong>values</strong>: <code class="inline-code">true</code>, <code class="inline-code">false</code></p>
+</section><section id="useDefineForClassFields" name="useDefineForClassFields" class="subchapter">
+            <h2 class="subchapter-title">
+                <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="useDefineForClassFields" type="absolute-url">
+                    <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <use href="#icon_link"/>
+                    </svg>
+                </button>
+                useDefineForClassFields
+            </h2>
+        
+<hr>
+<p><code class="inline-code">--useDefineForClassFields</code> - данный флаг активирует новое поведение генерации конечного кода доступного с версии <code class="inline-code">v3.7</code> и предназначено для предотвращения переопределения свойств при механизме наследования.</p>
+<pre><code class="hljs language-typescript">{
+    <span class="hljs-string">"compilerOptions"</span>: {
+        <span class="hljs-string">"useDefineForClassFields"</span>: <span class="hljs-literal">false</span>,
+    }
+}</code></pre>
+<p><strong>type</strong>: <code class="inline-code">boolean</code>
+<strong>default</strong>: <code class="inline-code">false</code>
+<strong>values</strong>: <code class="inline-code">true</code>, <code class="inline-code">false</code></p>
 </section>
