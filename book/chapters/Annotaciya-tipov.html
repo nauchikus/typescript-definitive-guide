@@ -40,8 +40,8 @@
 <hr>
 <p>При объявлении функции, между её параметрами и телом, указывается тип возвращаемого ею значения. При наличии параметров, тип данных указывается и для них.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">identifier</span>(<span class="hljs-params">param1: Type, param2: Type</span>): <span class="hljs-title">ReturnedType</span> </span>{}</code></pre>
-<p>Не будет лишнем напомнить, что в отличии от <em>JavaScript</em>, в <em>TypeScript</em>, в сигнатуру функции помимо её имени и параметров, также входит и возвращаемое значение.</p>
-<p>Помимо этого, в <em>TypeScript</em> можно объявлять параметризированные функции. Функции имеющие параметры типа называются обобщенными (подробнее о них речь пойдет в главе <a class="book__chapter__chapter-link" href="https://nauchikus.github.io/typescript-definitive-guide/book/contents/Tipy-Obobshcheniya-Generics" title="Типы - Обобщения (Generics)" target="_blank">Типы - Обобщения (Generics)</a>. Параметры типа заключаются в угловые скобки <code class="inline-code">&#x3C;></code> и располагаются перед круглыми скобками <code class="inline-code">()</code>, в которые заключены параметры функции.</p>
+<p>Не будет лишним напомнить, что в отличие от <em>JavaScript</em>, в <em>TypeScript</em>, в сигнатуру функции помимо её имени и параметров, также входит и возвращаемое значение.</p>
+<p>Помимо этого, в <em>TypeScript</em> можно объявлять параметризированные функции. Функции, имеющие параметры типа, называются обобщенными (подробнее о них речь пойдет в главе <a class="book__chapter__chapter-link" href="https://nauchikus.github.io/typescript-definitive-guide/book/contents/Tipy-Obobshcheniya-Generics" title="Типы - Обобщения (Generics)" target="_blank">Типы - Обобщения (Generics)</a>. Параметры типа заключаются в угловые скобки <code class="inline-code">&#x3C;></code> и располагаются перед круглыми скобками <code class="inline-code">()</code>, в которые заключены параметры функции.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">identifier</span> &#x3C;<span class="hljs-title">T</span>, <span class="hljs-title">U</span>>(<span class="hljs-params"></span>): <span class="hljs-title">ReturnedType</span> </span>{}</code></pre>
 <p><em>TypeScript</em> расширяет границы типизации функций и методов таким новым для <em>JavaScript</em> понятием, как перегрузка функций. С помощью перегрузки функций, можно аннотировать функции с одинаковыми идентификаторами, но с различными сигнатурами.</p>
 <p>Для этого в первую очередь аннотируют сигнатуры функций, методов или конструкторов, которые не содержат тела. В последнюю очередь объявляют функцию, сигнатура которой совместима со всеми ранее аннотированными версиями. Более подробно эта тема будет освещена позднее.</p>
@@ -88,7 +88,7 @@
 <hr>
 <p>Прежде чем продолжить рассмотрение изменений, которые привнес <em>TypeScript</em> в нетипизированный мир <em>JavaScript</em>, хочу предупредить о том, что относительно классов будет использоваться терминология заимствованная из таких языков, как <em>Java</em> или <em>C#</em>, так как она добавляет большей ясности (тем более, что в спецификации <em>TypeScript</em> встречается подобная терминология). Так, <em>переменные экземпляра</em> и <em>переменные класса</em> (статические переменные) в этой книге обозначаются как <em>поля</em> (field). <em>Аксессоры</em> (get, set), обозначаются как <em>свойства</em> (property). А кроме того, поля, свойства, методы, <em>вычисляемые свойства</em> (computed property) и <em>индексируемые сигнатуры</em> (index signature) обозначаются как <em>члены</em> класса (member). </p>
 <p>При объявлении поля класса, как и в случае с переменными, тип данных указывается сразу после идентификатора (имени класса). Для методов класса действуют те же правила указания типов данных, что и для обычных функций.</p>
-<p>Для свойств, в частности для <code class="inline-code">get</code> указывается тип данных возвращаемого значения. Для <code class="inline-code">set</code> указывается лишь тип единственного  параметра, а возвращаемый им тип и вовсе запрещается указывать явно.</p>
+<p>Для свойств, в частности для <code class="inline-code">get</code>, указывается тип данных возвращаемого значения. Для <code class="inline-code">set</code> указывается лишь тип единственного параметра, а возвращаемый им тип и вовсе запрещается указывать явно.</p>
 <p>Кроме того, классы в <em>TypeScript</em> также могут быть обобщенными. В случае объявления обобщенного класса, параметры типа, заключенные в треугольные скобки, указываются сразу после идентификатора класса.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">class</span> Identifier&#x3C;T> {
   <span class="hljs-keyword">static</span> staticField: Type = value; <span class="hljs-comment">// member</span>
@@ -172,7 +172,7 @@
      
   }
 
-  <span class="hljs-keyword">constructor</span>(<span class="hljs-params">param0: Type, param1: Type</span>){}
+  <span class="hljs-keyword">constructor</span>(<span class="hljs-params">param0: Type, param1: Type</span>) {}
 
   method &#x3C;T, U>(param: Type, param: Type): Type { }
 }
@@ -201,9 +201,9 @@
      
   }
 
-  <span class="hljs-keyword">constructor</span>(<span class="hljs-params">param0, param1</span>){}
+  <span class="hljs-keyword">constructor</span>(<span class="hljs-params">param0, param1</span>) {}
 
-  method (param, param){ }
+  method (param, param) { }
 }</code></pre>
 </section><section id="Itog" name="Итог" class="subchapter">
             <h2 class="subchapter-title">
