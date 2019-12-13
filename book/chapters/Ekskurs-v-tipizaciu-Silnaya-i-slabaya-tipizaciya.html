@@ -1,15 +1,15 @@
-<section id="Ekskurs-v-tipizaciu-Silnaya-Slabaya-Tipizaciya" name="Экскурс в типизацию - Сильная\Слабая Типизация" class="subchapter">
+<section id="Ekskurs-v-tipizaciu-Silnaya-i-slabaya-tipizaciya" name="Экскурс в типизацию - Сильная и слабая типизация" class="subchapter">
             <h2 class="subchapter-title">
-                <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="Ekskurs-v-tipizaciu-Silnaya-Slabaya-Tipizaciya" type="absolute-url">
+                <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="Ekskurs-v-tipizaciu-Silnaya-i-slabaya-tipizaciya" type="absolute-url">
                     <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                         <use href="#icon_link"/>
                     </svg>
                 </button>
-                Экскурс в типизацию - Сильная\Слабая Типизация
+                Экскурс в типизацию - Сильная и слабая типизация
             </h2>
         
 <hr>
-<p>Языки программирования также разделяются на <em>сильно типизированные</em> и <em>слабо типизированные</em>. Очень часто можно услышать их неверные синонимы <em>строгая типизация</em> и <em>нестрогая типизация</em>. Эти синонимы считаются неверными по той причине, что в англоязычной литературе эти термины звучат как - <em>strongly typed</em> и <em>weakly typed</em>, что дословно переводится как сильно типизированные и слабо типизированные. </p>
+<p>Языки программирования также разделяются на <em>сильно типизированные</em> и <em>слабо типизированные</em>. Очень часто можно услышать их неверные синонимы - <em>строгая типизация</em> и <em>нестрогая типизация</em>. Эти синонимы считаются неверными по той причине, что в англоязычной литературе эти термины звучат как - <em>strongly typed</em> и <em>weakly typed</em>, что дословно переводится как сильно типизированные и слабо типизированные. </p>
 </section><section id="Silnaya-tipizaciya-strongly-typed" name="Сильная типизация (strongly typed)" class="subchapter">
             <h2 class="subchapter-title">
                 <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="Silnaya-tipizaciya-strongly-typed" type="absolute-url">
@@ -21,24 +21,24 @@
             </h2>
         
 <hr>
-<p>Языки с <em>сильной типизацией</em> не позволяют выражения с несовместимыми типами и не выполняют неявное преобразование типов в ситуациях, когда нужно выполнять преобразование явно.</p>
-<p>Другими словами, сильно типизированный язык не позволит такие операции, как умножение  числа на массив и не выполнит неявного преобразования объекта к строке.</p>
-<pre><code class="hljs language-typescript"><span class="hljs-keyword">const</span> multy = <span class="hljs-function">(<span class="hljs-params"> a, b </span>) =></span> a * b;
+<p>Языки с <em>сильной типизацией</em> не разрешают выполнение выражений с несовместимыми типами и не выполняют неявное преобразование типов в ситуациях, когда нужно выполнять преобразование явно.</p>
+<p>Сильно типизированный язык не позволит такие операции, как умножение числа на массив и не выполнит неявного преобразования объекта к строке.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">var</span> multy = <span class="hljs-function">(<span class="hljs-params"> a, b </span>) =></span> a * b;
 
-<span class="hljs-keyword">const</span> <span class="hljs-built_in">number</span> = <span class="hljs-number">5</span>;
-<span class="hljs-keyword">const</span> array = [ <span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">2</span> ];
+<span class="hljs-keyword">var</span> <span class="hljs-built_in">number</span> = <span class="hljs-number">5</span>;
+<span class="hljs-keyword">var</span> array = [ <span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">2</span> ];
 
-<span class="hljs-keyword">var</span> result = multy( <span class="hljs-built_in">number</span>, array[ <span class="hljs-number">2</span> ] ); <span class="hljs-comment">// Ok -  5 * 2 === 10</span>
-<span class="hljs-keyword">var</span> result = multy( <span class="hljs-built_in">number</span>, array ); <span class="hljs-comment">// Error</span>
+<span class="hljs-keyword">var</span> result = multy( <span class="hljs-built_in">number</span>, array[ <span class="hljs-number">2</span> ] ); <span class="hljs-comment">// Ок, вернёт 10</span>
+<span class="hljs-keyword">var</span> result = multy( <span class="hljs-built_in">number</span>, array ); <span class="hljs-comment">// Ошибка</span>
 
-<span class="hljs-keyword">const</span> welcome = <span class="hljs-function"><span class="hljs-params">name</span> =></span> ‘Hy’ + ‘ ’ + name;
+<span class="hljs-keyword">var</span> welcome = <span class="hljs-function"><span class="hljs-params">name</span> =></span> <span class="hljs-string">'Hello'</span> + <span class="hljs-string">' '</span> + name;
 
-<span class="hljs-keyword">const</span> user = { name: <span class="hljs-string">'User '</span> };
+<span class="hljs-keyword">var</span> user = { name: <span class="hljs-string">'Bob'</span> };
 
-<span class="hljs-keyword">var</span> result = welcome( user.name ); <span class="hljs-comment">// Ok - 'Hy' + ' ' + 'User' === some text'</span>
-<span class="hljs-keyword">var</span> result = welcome( user ); <span class="hljs-comment">// Error</span></code></pre>
-<p>В языках с сильной типизацией, при операциях, способных привести к потере значения или получению неадекватного значения, возникает ошибка. Благодаря этому качеству, сильно типизированные языки в меньшей степени подвержены багам.</p>
-<p>К языкам с сильной типизацией можно отнести такие языки, как - <em>Java</em>, <em>C#</em> и другие.</p>
+<span class="hljs-keyword">var</span> result = welcome( user.name ); <span class="hljs-comment">// Ок, вернёт 'Hello Bob'</span>
+<span class="hljs-keyword">var</span> result = welcome( user ); <span class="hljs-comment">// Ошибка</span></code></pre>
+<p>В языках с сильной типизацией при операциях способных привести к потере значения или получению неадекватного значения, возникает ошибка. Благодаря этому качеству сильно типизированные языки в меньшей степени подвержены багам.</p>
+<p>К языкам с сильной типизацией можно отнести такие языки как <em>Java</em> или <em>C#</em>.</p>
 </section><section id="Slabaya-tipizaciya-weakly-typed" name="Слабая типизация (weakly typed)" class="subchapter">
             <h2 class="subchapter-title">
                 <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="Slabaya-tipizaciya-weakly-typed" type="absolute-url">
@@ -50,26 +50,23 @@
             </h2>
         
 <hr>
-<p>Языки со <em>слабой типизацией</em> позволяют выражения с любыми типами и самостоятельно выполняют неявное преобразование типов.</p>
-<p>В языках со слабой типизацией, в операции умножения числа на массив, может неявным образом быть приведен к <code class="inline-code">0</code>, объект к описанию возвращаемого методом <code class="inline-code">toString</code>.</p>
-<pre><code class="hljs language-typescript"><span class="hljs-keyword">const</span> multy = <span class="hljs-function">(<span class="hljs-params"> a, b </span>) =></span> a * b;
+<p>Языки со <em>слабой типизацией</em> разрешают выполнение выражений с любыми типами и самостоятельно выполняют неявное преобразование.</p>
+<p>Например в <em>JavaScript</em> при операции сложения строки и числа, второй операнд может быть неявно приведён к строке, а при сложении строки и объекта, объект будет неявно приведён к значению возвращамому объектом из метода <code class="inline-code">toString()</code>.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">var</span> add = <span class="hljs-function">(<span class="hljs-params"> a, b </span>) =></span> a + b;
 
-<span class="hljs-keyword">const</span> <span class="hljs-built_in">number</span> = <span class="hljs-number">5</span>;
-<span class="hljs-keyword">const</span> array = [ <span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">2</span> ];
+<span class="hljs-keyword">var</span> results = add( <span class="hljs-number">5</span>, <span class="hljs-number">5</span> ); <span class="hljs-comment">// Ок, вернёт 10</span>
+<span class="hljs-keyword">var</span> result = add( <span class="hljs-string">'Hello'</span>, <span class="hljs-number">5</span> ); <span class="hljs-comment">// Ошибки не будет, но результат будет Hello5</span>
 
-<span class="hljs-keyword">var</span> result = multy( <span class="hljs-built_in">number</span>, array[ <span class="hljs-number">2</span> ] ); <span class="hljs-comment">// Ok -  5 * 2 === 10</span>
-<span class="hljs-keyword">var</span> result = multy( <span class="hljs-built_in">number</span>, array ); <span class="hljs-comment">// Not Error but Bad - 5 * [ ] === 0</span>
+<span class="hljs-keyword">var</span> welcome = <span class="hljs-function"><span class="hljs-params">name</span> =></span> <span class="hljs-string">'Hello'</span> + <span class="hljs-string">' '</span> + name;
 
-<span class="hljs-keyword">const</span> welcome = <span class="hljs-function"><span class="hljs-params">name</span> =></span> <span class="hljs-string">'Hy'</span> + <span class="hljs-string">' '</span> + name;
+<span class="hljs-keyword">var</span> user = { name: <span class="hljs-string">'Bob'</span> };
 
-<span class="hljs-keyword">const</span> user = { name: <span class="hljs-string">'User '</span> };
-
-<span class="hljs-keyword">var</span> result = welcome( user.name ); <span class="hljs-comment">// Ok - 'Hy' + ' ' + 'User' === some text'</span>
-<span class="hljs-keyword">var</span> result = welcome( user ); <span class="hljs-comment">// Not Error but Bad - 'Hy' + ' ' + '[object Object]' === 'Hy [object Object]'</span></code></pre>
-<p>По причине того, что в языках  со слабой типизацией допускаются неявные преобразования типов, существует высокая вероятность возникновения трудно выявляемых багов. Сложно выявляемые баги появляются по причине того, что неявное преобразование типов не всегда приводит к ошибке. В некоторых случаях программа получает данные ожидаемого типа, но непредсказуемого значения.</p>
-<pre><code class="hljs language-typescript"><span class="hljs-keyword">var</span> a = <span class="hljs-number">5</span> + ‘<span class="hljs-number">5</span>’; <span class="hljs-comment">// result is 55 (string) instead 10 (number)</span>
-<span class="hljs-keyword">var</span> b = a * <span class="hljs-number">2</span>; <span class="hljs-comment">// result is 110 (number) instead 20 (number)</span></code></pre>
-<p>К языкам со слабой типизацией относятся такие языки, как <em>JavaScript</em>, <em>PHP</em> и другие.</p>
+<span class="hljs-keyword">var</span> result = welcome( user.name ); <span class="hljs-comment">// Ок, вернёт 'Hello Bob'</span>
+<span class="hljs-keyword">var</span> result = welcome( user ); <span class="hljs-comment">// Ошибки не будет, но в результате вернёт 'Hello [object Object]'</span></code></pre>
+<p>Из-за того что в языках со слабой типизацией допускаются неявные преобразования, существует высокая вероятность возникновения трудно выявляемых багов. Неявное преобразование не всегда приводит к ошибкам, поэтому это может служить причиной для возниковнеия сложно выявляемых багов. В некоторых случаях программа получает данные ожидаемого типа, но непредсказуемого значения.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">var</span> valueA = <span class="hljs-number">5</span> + <span class="hljs-string">'5'</span>; <span class="hljs-comment">// Вернёт 55 (string) вместо 10 (number)</span>
+<span class="hljs-keyword">var</span> valueB = valueA * <span class="hljs-number">2</span>; <span class="hljs-comment">// Вернет 110 (number) вместо 20 (number)</span></code></pre>
+<p>К языкам со слабой типизацией относятся <em>JavaScript</em>, <em>PHP</em> или <em>Python</em>.</p>
 </section><section id="Itog" name="Итог" class="subchapter">
             <h2 class="subchapter-title">
                 <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="Itog" type="absolute-url">
@@ -80,9 +77,8 @@
                 Итог
             </h2>
         
-<p>Подведем итоги - </p>
 <ul class="book__list">
-<li class="book__list__item">Сильная  типизация не позволяет выполнять выражения с различными типами и не преобразует неявно типы данных, которые нуждаются в явном преобразовании.</li>
-<li class="book__list__item">Слабая типизация, напротив позволяет выражения с различными типами данных и выполняет неявные преобразования.</li>
+<li class="book__list__item">Сильная типизация не позволяет выполнять выражения с различными типами и не преобразует неявно типы данных, которые нуждаются в явном преобразовании.</li>
+<li class="book__list__item">Слабая типизация напротив, допускает выражения с операциями над различными типами данных и выполняет неявные преобразования.</li>
 </ul>
 </section>
