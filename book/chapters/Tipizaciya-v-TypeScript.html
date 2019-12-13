@@ -147,7 +147,7 @@
 
 <span class="hljs-keyword">let</span> v0: T0 = f1; <span class="hljs-comment">// Error</span>
 <span class="hljs-keyword">let</span> v1: T1 = f0; <span class="hljs-comment">// Ok</span></code></pre>
-<p>Бивариантность позволяет быть совместимыми как большему типу с меньшим ,так и меньшему с большим типом.</p>
+<p>Бивариантность, доступная исключительно для параметров функций при условии что флаг <code class="inline-code">--strictFunctionTypes</code> установлен в значение <code class="inline-code">false</code>,  делает возможной совместимость как большего типа с меньшим, так и наооборот, меньшего с большим.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">interface</span> IAnimal { <span class="hljs-keyword">type</span>: <span class="hljs-built_in">string</span>; }
 <span class="hljs-keyword">interface</span> IBird <span class="hljs-keyword">extends</span> IAnimal { fly(): <span class="hljs-built_in">void</span>; }
 
@@ -159,8 +159,9 @@
 <span class="hljs-keyword">type</span> T1 = <span class="hljs-keyword">typeof</span> f1;
 
 
-<span class="hljs-keyword">let</span> v0: T0 = f1; <span class="hljs-comment">// Ok</span>
+<span class="hljs-keyword">let</span> v0: T0 = f1; <span class="hljs-comment">// Ok, (--strictFunctionTypes === false)</span>
 <span class="hljs-keyword">let</span> v1: T1 = f0; <span class="hljs-comment">// Ok</span></code></pre>
+<p>Не будет лишним упомянуть, что бивариантность снижает уровень типобезопасности программы и поэтому рекомендуется вести разработку с флагом <code class="inline-code">--strictFunctionTypes</code> устанавленным в значение <code class="inline-code">true</code>.</p>
 </section><section id="Nailuchshii-Obshchii-Tip-Best-common-type" name="Наилучший Общий Тип (Best common type)" class="subchapter">
             <h2 class="subchapter-title">
                 <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="Nailuchshii-Obshchii-Tip-Best-common-type" type="absolute-url">
