@@ -53,7 +53,7 @@ let bird: Bird = new Bird();
 bird.name = 'newbird'; // Error
 ~~~~~
 
-Модификатор `readonly` можно применять ик свойствам, объявленным как параметры.
+Модификатор `readonly` можно применять и к свойствам, объявленным как параметры.
 
 ~~~~~typescript
 interface IAnimal {
