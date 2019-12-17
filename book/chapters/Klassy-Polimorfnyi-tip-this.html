@@ -9,10 +9,10 @@
             </h2>
         
 <hr>
-<p>В <em>TypeScript</em>, существует возможность указывать в качестве типа данных, <em>полиморфный тип</em> <code class="inline-code">this</code>. </p>
-<p>Полиморфный тип данных, это тип, который представляет множество типов, как единое целое.</p>
-<p>Полиморфный тип <code class="inline-code">this</code> является совокупностью типов, определяющих тип экземпляра.Кроме того, полиморфный тип <code class="inline-code">this</code> доступен для указания только в классах и интерфейсах.</p>
-<p>Чтобы понять о чем идет речь, нужно представить два класса, связанных с помощью механизма наследования, в каждом из которых объявлен метод, с типом возвращаемого значения, принадлежащему к типу класса, в котором он объявлен. </p>
+<p>В <em>TypeScript</em> существует возможность указывать в качестве типа данных <em>полиморфный тип</em> <code class="inline-code">this</code>. </p>
+<p>Полиморфный тип данных — это тип, который представляет множество типов, как единое целое.</p>
+<p>Полиморфный тип <code class="inline-code">this</code> является совокупностью типов, определяющих тип экземпляра. Кроме того, полиморфный тип <code class="inline-code">this</code> доступен для указания только в классах и интерфейсах.</p>
+<p>Чтобы понять о чем идет речь, нужно представить два класса, связанных с помощью механизма наследования, в каждом из которых объявлен метод с типом возвращаемого значения, принадлежащему к типу класса, в котором он объявлен. </p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">class</span> Animal {
 <span class="hljs-keyword">public</span> sit(): Animal { <span class="hljs-comment">// реализация метода</span>
   <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>;
@@ -24,15 +24,15 @@
   <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>;
 }
 }</code></pre>
-<p>Если создать экземпляр подкласса и вызвать по цепочке, метод подкласса, а затем  суперкласса, то операция завершится успехом.</p>
+<p>Если создать экземпляр подкласса и вызвать по цепочке метод подкласса, а затем — суперкласса, то операция завершится успехом.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">let</span> bird: Bird = <span class="hljs-keyword">new</span> Bird()
 .fly() <span class="hljs-comment">// Ok, возвращает тип Bird</span>
 .sit(); <span class="hljs-comment">// Ok, возвращает тип Animal</span></code></pre>
-<p>Если попробовать изменить порядок вызова методов, то возникнет ошибка. Произойдет это по той причине, что метод объявленный в суперклассе, возвращает значение принадлежащие к типу самого суперкласса, который ничего не знает о методах, объявленных в его подтипах.</p>
+<p>Если попробовать изменить порядок вызова методов, то возникнет ошибка. Произойдет это по той причине, что метод, объявленный в суперклассе, возвращает значение, принадлежащие к типу самого суперкласса, который ничего не знает о методах, объявленных в его подтипах.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">let</span> bird: Bird = <span class="hljs-keyword">new</span> Bird()
 .sit() <span class="hljs-comment">// Ok, возвращает тип Animal</span>
 .fly(); <span class="hljs-comment">// Error, в типе Animal, возвращенного на предыдущем шаге, метод нет объявления метода fly</span></code></pre>
-<p>Можно конечно в качестве возвращаемого значения указать тип <code class="inline-code">Any</code>, но помимо того, что пропадет автокомплит, ещё пострадает семантическая привлекательность кода.</p>
+<p>Можно, конечно, в качестве возвращаемого значения указать тип <code class="inline-code">Any</code>, но помимо того, что пропадет автокомплит, ещё пострадает семантическая привлекательность кода.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">class</span> Animal {
 <span class="hljs-keyword">public</span> sit(): <span class="hljs-built_in">any</span> {
   <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>;
@@ -52,7 +52,7 @@
 <span class="hljs-keyword">new</span> Bird()
 .sit() <span class="hljs-comment">// Ok</span>
 .fly(); <span class="hljs-comment">// Ok, работает, но так лучше не делать</span></code></pre>
-<p><em>TypeScript</em> предлагает решить эту проблему с помощью полиморфного типа <code class="inline-code">this</code>. Ожидаемое поведение достигается за счет того, что полиморфный тип <code class="inline-code">this</code> является  множеством типов, определяемого цепочкой наследования. Другими словами, тип <code class="inline-code">this</code> будет принадлежать к тому же типу, что и экземпляр подкласса, который принадлежит к типу подкласса и типу суперкласса, одновременно.</p>
+<p><em>TypeScript</em> предлагает решить эту проблему с помощью полиморфного типа <code class="inline-code">this</code>. Ожидаемое поведение достигается за счет того, что полиморфный тип <code class="inline-code">this</code> является множеством типов, определяемого цепочкой наследования. Другими словами, тип <code class="inline-code">this</code> будет принадлежать к тому же типу, что и экземпляр подкласса, который принадлежит к типу подкласса и типу суперкласса одновременно.</p>
 <p>Такое поведение называется <em>F-ограниченный полиморфизм</em> (F-bounded polymorphism).</p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">class</span> Animal {
 <span class="hljs-keyword">public</span> sit(): <span class="hljs-keyword">this</span> {
@@ -73,12 +73,12 @@
 <span class="hljs-keyword">new</span> Bird()
 .sit() <span class="hljs-comment">// Ok, возвращает тип Bird</span>
 .fly(); <span class="hljs-comment">// Ok</span></code></pre>
-<p>Стоит отдельно подчеркнуть, что полиморфный тип <code class="inline-code">this</code> не принадлежит к типу класса или интерфейса, в котором указан. Полиморфный тип <code class="inline-code">this</code> может быть определен только на основе экземпляра класса. Проще говоря, полиморфный тип <code class="inline-code">this</code> принадлежит к типу своего экземпляра и может быть определен только в момент создания экземпляра. Так же тип <code class="inline-code">this</code> совместим с типом <code class="inline-code">Any</code>, а при условии что флаг <code class="inline-code">--strictNullChecks</code> установлен в <code class="inline-code">false</code> ещё и к типами <code class="inline-code">Null</code> и <code class="inline-code">Undefined</code>. К тому же тип <code class="inline-code">this</code> совместим с типом экземпляра, ссылку на который можно получить с помощью ключевого слова <code class="inline-code">this</code>.</p>
+<p>Стоит отдельно подчеркнуть, что полиморфный тип <code class="inline-code">this</code> не принадлежит к типу класса или интерфейса, в котором указан. Полиморфный тип <code class="inline-code">this</code> может быть определен только на основе экземпляра класса. Проще говоря, полиморфный тип <code class="inline-code">this</code> принадлежит к типу своего экземпляра и может быть определен только в момент создания экземпляра. Так же тип <code class="inline-code">this</code> совместим с типом <code class="inline-code">Any</code>, а при условии что флаг <code class="inline-code">--strictNullChecks</code> установлен в <code class="inline-code">false</code>, ещё и к типами <code class="inline-code">Null</code> и <code class="inline-code">Undefined</code>. К тому же тип <code class="inline-code">this</code> совместим с типом экземпляра, ссылку на который можно получить с помощью ключевого слова <code class="inline-code">this</code>.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">class</span> Animal {
 <span class="hljs-keyword">public</span> animalAll: <span class="hljs-keyword">this</span>[] = []; <span class="hljs-comment">// массив с полиморфным типом this</span>
 
 <span class="hljs-keyword">constructor</span>(<span class="hljs-params"></span>) {
-  <span class="hljs-keyword">this</span>.add(<span class="hljs-keyword">new</span> Animal()); <span class="hljs-comment">// Error, так как на данном этапе не известно к какому типу будет принадлежать полиморфный тип this</span>
+  <span class="hljs-keyword">this</span>.add(<span class="hljs-keyword">new</span> Animal()); <span class="hljs-comment">// Error, так как на данном этапе не известно, к какому типу будет принадлежать полиморфный тип this</span>
   <span class="hljs-keyword">this</span>.add(<span class="hljs-keyword">this</span>); <span class="hljs-comment">// Ok</span>
 }
 

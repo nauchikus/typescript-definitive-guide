@@ -9,7 +9,7 @@
             </h2>
         
 <hr>
-<p>Для того, чтобы повысить типобезопасность программы, рекомендуют вести разработку с активной опцией <code class="inline-code">--strict</code> (глава <a class="book__chapter__chapter-link" href="/book/contents/Opcii-kompilyatora" title="Опции компилятора" target="_blank">Опции компилятора</a>), которая активирует множество других опций, изменяющих поведение компилятора, заставляя разработчиков писать код сводящий к минимуму ошибки на этапе выполнения. Это привело к созданию такой опции, как <code class="inline-code">--strictPropertyInitialization</code>, которая при активной опции <code class="inline-code">--strictNullChecks</code>, запрещает классу иметь поля, типам которых явно не указана принадлежность к типу Undefined и которые не были  инициализированы в момент его создания. Таким образом предотвращается обращение к полям, которые могут иметь значение <code class="inline-code">undefined</code>.</p>
+<p>Для того, чтобы повысить типобезопасность программы, рекомендуют вести разработку с активной опцией <code class="inline-code">--strict</code> (глава <a class="book__chapter__chapter-link" href="/book/contents/Opcii-kompilyatora" title="Опции компилятора" target="_blank">Опции компилятора</a>), которая активирует множество других опций, изменяющих поведение компилятора, заставляя разработчиков писать код, сводящий к минимуму ошибки на этапе выполнения. Это привело к созданию такой опции, как <code class="inline-code">--strictPropertyInitialization</code>, которая при активной опции <code class="inline-code">--strictNullChecks</code>, запрещает классу иметь поля, типам которых явно не указана принадлежность к типу <code class="inline-code">Undefined</code> и которые не были инициализированы в момент его создания. Таким образом предотвращается обращение к полям, которые могут иметь значение <code class="inline-code">undefined</code>.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">class</span> Identifier {
   <span class="hljs-keyword">public</span> a: <span class="hljs-built_in">number</span> = <span class="hljs-number">0</span>; <span class="hljs-comment">// Ok, инициализация при объявлении</span>
   <span class="hljs-keyword">public</span> b: <span class="hljs-built_in">number</span>; <span class="hljs-comment">// Ok, инициализация в конструкторе</span>
@@ -20,7 +20,7 @@
       <span class="hljs-keyword">this</span>.b = <span class="hljs-number">0</span>;
   }
 }</code></pre>
-<p>Но бывают случаи, при которых условия, устанавливаемые опцией <code class="inline-code">--strictPropertyInitialization</code>, не могут быть удовлетворены в полной мере. К самым распространенным случаям, можно отнести установку значений полей с помощью <em>DI</em> (dependency injection), инициализация вынесенная в методы, так называемого, жизненного цикла, а также методы инициализации, выполняемые из конструктора класса. </p>
+<p>Но бывают случаи, при которых условия, устанавливаемые опцией <code class="inline-code">--strictPropertyInitialization</code>, не могут быть удовлетворены в полной мере. К самым распространенным случаям можно отнести установку значений полей с помощью <em>DI</em> (dependency injection), инициализация, вынесенная в методы так называемого жизненного цикла, а также методы инициализации, выполняемые из конструктора класса. </p>
 <pre><code class="hljs language-typescript"><span class="hljs-comment">// инициализация с помощью DI</span>
 <span class="hljs-keyword">class</span> A {
   <span class="hljs-meta">@Inject</span>( Symbol.for( <span class="hljs-string">'key'</span> ) )
@@ -47,7 +47,7 @@
       <span class="hljs-keyword">this</span>.field = <span class="hljs-number">0</span>;
   }
 }</code></pre>
-<p>Для таких случаев синтаксис <em>TypeScript</em> был введен модификатор <em>definite assignment assertion modifier</em>, который указывается с помощью символа восклицательного знака (<code class="inline-code">!</code>), располагаемого после идентификатора поля или переменной.</p>
+<p>Для таких случаев синтаксис <em>TypeScript</em> содержит модификатор <em>definite assignment assertion modifier</em>, который указывается с помощью символа восклицательного знака (<code class="inline-code">!</code>), располагаемого после идентификатора поля или переменной.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">class</span> Identifier {
   <span class="hljs-keyword">public</span> identifier!: Type;
 }
@@ -55,7 +55,7 @@
 <span class="hljs-comment">//or</span>
 
 <span class="hljs-keyword">let</span> identifier!: Type;</code></pre>
-<p>Применяя модификатор <em>definite assignment assertion modifier</em>, разработчик сообщает компилятору, что берет ответственность за инициализацию поля на себя.</p>
+<p>Применяя модификатор <em>definite assignment assertion modifier</em> разработчик сообщает компилятору, что берет ответственность за инициализацию поля на себя.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-comment">// инициализация с помощью DI</span>
 <span class="hljs-keyword">class</span> A {
   <span class="hljs-meta">@Inject</span>( Symbol.for( <span class="hljs-string">'key'</span> ) )

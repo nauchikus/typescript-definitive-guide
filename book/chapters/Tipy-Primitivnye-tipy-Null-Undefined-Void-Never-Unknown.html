@@ -9,7 +9,7 @@
             </h2>
         
 <hr>
-<p>Прежде чем приступить к знакомству с такими типами, как <code class="inline-code">Null</code>, <code class="inline-code">Undefined</code>, <code class="inline-code">Void</code>, <code class="inline-code">Never</code> и <code class="inline-code">Unknown</code> стоит обговорить одну очень важную деталь. Дело в том, что все перечисленные типы, можно указывать в качестве типа, всем конструкциям, которые это позволяют. То есть, типом данных <code class="inline-code">null</code> можно аннотировать даже переменную (<code class="inline-code">let identifier: null</code>). Данная книга будет изобиловать подобными примерами, так как эта возможность облегчает демонстрацию совместимости типов. Но при этом стоит понимать, что проделывать подобное в реальном коде, противопоказано.</p>
+<p>Прежде чем приступить к знакомству с такими типами, как <code class="inline-code">Null</code>, <code class="inline-code">Undefined</code>, <code class="inline-code">Void</code>, <code class="inline-code">Never</code> и <code class="inline-code">Unknown</code>, стоит обговорить одну очень важную деталь. Дело в том, что все перечисленные типы можно указывать в качестве типа всем конструкциям, которые это позволяют. То есть, типом данных <code class="inline-code">null</code> можно аннотировать даже переменную (<code class="inline-code">let identifier: null</code>). Данная книга будет изобиловать подобными примерами, так как эта возможность облегчает демонстрацию совместимости типов. Но при этом стоит понимать, что проделывать подобное в реальном коде противопоказано.</p>
 </section><section id="Null-null-primitivnyi-null-tip" name="Null (null) примитивный null тип" class="subchapter">
             <h2 class="subchapter-title">
                 <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="Null-null-primitivnyi-null-tip" type="absolute-url">
@@ -22,8 +22,8 @@
         
 <hr>
 <p>Примитивный тип <code class="inline-code">Null</code> служит обозначением <em>“ничего”</em>. </p>
-<p>Тип <code class="inline-code">Null</code> указывается с помощью ключевого слова <code class="inline-code">null</code>, не путать с единственным литеральным значением типа <code class="inline-code">Null</code> <code class="inline-code">null</code>, которое присваивается в качестве значения.</p>
-<pre><code class="hljs language-typescript"><span class="hljs-keyword">let</span> identifier: <span class="hljs-literal">null</span> = <span class="hljs-literal">null</span>; <span class="hljs-comment">// null указанный после оператора двоеточия, это имеющийся только в TypeScript, псевдоним (alias) для глобального типа Null. В то время, как null указанный после оператора присваивания, это единственное значение типа Null.</span></code></pre>
+<p>Тип <code class="inline-code">Null</code> указывается с помощью ключевого слова <code class="inline-code">null</code> (не путать с единственным литеральным значением типа <code class="inline-code">Null</code> <code class="inline-code">null</code>, которое присваивается в качестве значения).</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">let</span> identifier: <span class="hljs-literal">null</span> = <span class="hljs-literal">null</span>; <span class="hljs-comment">// null, указанный после оператора двоеточия, это имеющийся только в TypeScript псевдоним (alias) для глобального типа Null. В то время как null, указанный после оператора присваивания, это единственное значение типа Null.</span></code></pre>
 <p>Тип <code class="inline-code">Null</code> является подтипом всех типов, за  исключением типа <code class="inline-code">Undefined</code>, поэтому его единственное значение <code class="inline-code">null</code> совместимо со всеми остальными типами данных.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">class</span> TypeSystem {
   <span class="hljs-keyword">static</span> <span class="hljs-built_in">any</span>: <span class="hljs-built_in">any</span> = <span class="hljs-literal">null</span>; <span class="hljs-comment">// Ok</span>
@@ -32,7 +32,7 @@
   <span class="hljs-keyword">static</span> <span class="hljs-built_in">boolean</span>: <span class="hljs-built_in">boolean</span> = <span class="hljs-literal">null</span>; <span class="hljs-comment">// Ok</span>
   <span class="hljs-keyword">static</span> <span class="hljs-literal">null</span>: <span class="hljs-literal">null</span> = <span class="hljs-literal">null</span>; <span class="hljs-comment">// Ok</span>
 }</code></pre>
-<p>В то время, как тип <code class="inline-code">Null</code> совместим со всеми типами, помимо него самого, с ним самим совместим лишь тип <code class="inline-code">Undefined</code> и <code class="inline-code">Any</code>.</p>
+<p>В то время как тип <code class="inline-code">Null</code> совместим со всеми типами, помимо него самого, с ним самим совместим лишь тип <code class="inline-code">Undefined</code> и <code class="inline-code">Any</code>.</p>
 <pre><code class="hljs language-typescript">TypeSystem.null = TypeSystem.any; <span class="hljs-comment">// Ok</span>
 TypeSystem.null = TypeSystem.number; <span class="hljs-comment">// Error</span>
 TypeSystem.null = TypeSystem.string; <span class="hljs-comment">// Error</span>
@@ -40,7 +40,7 @@ TypeSystem.null = TypeSystem.boolean; <span class="hljs-comment">// Error</span>
 TypeSystem.null = TypeSystem.null; <span class="hljs-comment">// Ok</span></code></pre>
 <p>Тогда, когда тип данных указывается не явно, а в качестве значения используется значение <code class="inline-code">null</code>, вывод типов определяет принадлежность к типу <code class="inline-code">Any</code>.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">let</span> identifier = <span class="hljs-literal">null</span>; <span class="hljs-comment">// identifier: any</span></code></pre>
-<p>Создатели <em>TypeScript</em>, во избежание ошибок возникающих при операциях, в которых вместо ожидаемого значения фигурирует значение <code class="inline-code">null</code>, рекомендуют вести разработку с активным флагом <code class="inline-code">--strictNullChecks</code>. При активном флаге <code class="inline-code">--strictNullChecks</code> тип <code class="inline-code">Null</code> является подтипом только одного типа <code class="inline-code">Any</code>. Это в свою очередь означает, что значение <code class="inline-code">null</code> может быть совместимо только с типами <code class="inline-code">Any</code> и <code class="inline-code">Null</code>. Простыми словами, значение <code class="inline-code">null</code> не получится присвоить типам отличным от <code class="inline-code">Any</code> и <code class="inline-code">Null</code>.</p>
+<p>Создатели <em>TypeScript</em> во избежание ошибок, возникающих при операциях, в которых вместо ожидаемого значения фигурирует значение <code class="inline-code">null</code>, рекомендуют вести разработку с активным флагом <code class="inline-code">--strictNullChecks</code>. При активном флаге <code class="inline-code">--strictNullChecks</code> тип <code class="inline-code">Null</code> является подтипом только одного типа <code class="inline-code">Any</code>. Это в свою очередь означает, что значение <code class="inline-code">null</code> может быть совместимо только с типами <code class="inline-code">Any</code> и <code class="inline-code">Null</code>. Простыми словами, значение <code class="inline-code">null</code> не получится присвоить типам отличным от <code class="inline-code">Any</code> и <code class="inline-code">Null</code>.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">class</span> TypeSystem {
   <span class="hljs-keyword">static</span> <span class="hljs-built_in">any</span>: <span class="hljs-built_in">any</span> = <span class="hljs-literal">null</span>; <span class="hljs-comment">// Ok</span>
   <span class="hljs-keyword">static</span> <span class="hljs-built_in">number</span>: <span class="hljs-built_in">number</span> = <span class="hljs-literal">null</span>; <span class="hljs-comment">// Error</span>
@@ -56,7 +56,7 @@ TypeSystem.null = TypeSystem.boolean; <span class="hljs-comment">// Error</span>
 TypeSystem.null = TypeSystem.undefined; <span class="hljs-comment">// Ok</span></code></pre>
 <p>При активном флаге <code class="inline-code">--strictNullChecks</code>, при условии что в качестве значения выступает значение <code class="inline-code">null</code>, вывод типов определяет принадлежность к типу <code class="inline-code">Null</code>.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">let</span> identifier = <span class="hljs-literal">null</span>; <span class="hljs-comment">// identifier: null</span></code></pre>
-<p>Тип <code class="inline-code">Null</code> идентичен по своей работе с одноименным типом из <em>JavaScript</em>.</p>
+<p>Тип <code class="inline-code">Null</code> идентичен по своей работе с одноимённым типом из <em>JavaScript</em>.</p>
 </section><section id="Undefined-undefined-primitivnyi-neopredelennyi-tip" name="Undefined (undefined) примитивный неопределенный тип" class="subchapter">
             <h2 class="subchapter-title">
                 <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="Undefined-undefined-primitivnyi-neopredelennyi-tip" type="absolute-url">
@@ -68,9 +68,9 @@ TypeSystem.null = TypeSystem.undefined; <span class="hljs-comment">// Ok</span><
             </h2>
         
 <hr>
-<p>Примитивный тип <code class="inline-code">Undefined</code> указывает на то, что значение не определено. Тип данных <code class="inline-code">Undefined</code> указывается с помощью ключевого  слова <code class="inline-code">undefined</code>, не путать со свойством глобального объекта, которое представляет единственное значение типа <code class="inline-code">Undefined</code> <code class="inline-code">undefined</code>. </p>
-<pre><code class="hljs language-typescript"><span class="hljs-keyword">let</span> identifier: <span class="hljs-literal">undefined</span> = <span class="hljs-literal">undefined</span>; <span class="hljs-comment">// undefined указанный после оператора двоеточия, это имеющийся только в TypeScript, псевдоним (alias) для глобального типа Undefined. В то время, как undefined указанный после оператора присваивания, это единственное значение типа Undefined.</span></code></pre>
-<p>Во время выполнения, объявленные но не инициализированные переменные, поля и свойства класса, а также параметры имеют значение <code class="inline-code">undefined</code>. Значение <code class="inline-code">undefined</code> является результатом вызова методов или функций, которые не возвращают значения.</p>
+<p>Примитивный тип <code class="inline-code">Undefined</code> указывает на то, что значение не определено. Тип данных <code class="inline-code">Undefined</code> указывается с помощью ключевого слова <code class="inline-code">undefined</code> (не путать со свойством глобального объекта, которое представляет единственное значение типа <code class="inline-code">Undefined</code> <code class="inline-code">undefined</code>). </p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">let</span> identifier: <span class="hljs-literal">undefined</span> = <span class="hljs-literal">undefined</span>; <span class="hljs-comment">// undefined, указанный после оператора двоеточия, это имеющийся только в TypeScript псевдоним (alias) для глобального типа Undefined. В то время как undefined, указанный после оператора присваивания, это единственное значение типа Undefined.</span></code></pre>
+<p>Во время выполнения объявленные, но не инициализированные переменные, поля и свойства класса, а также параметры имеют значение <code class="inline-code">undefined</code>. Также значение <code class="inline-code">undefined</code> является результатом вызова методов или функций, которые не возвращают значения.</p>
 <p>Тип <code class="inline-code">Undefined</code> является подтипом всех типов, что делает его совместимым со всеми остальными типами.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">class</span> TypeSystem {
   <span class="hljs-keyword">static</span> <span class="hljs-built_in">any</span>: <span class="hljs-built_in">any</span> = <span class="hljs-literal">undefined</span>; <span class="hljs-comment">// Ok</span>
@@ -106,7 +106,7 @@ TypeSystem.undefined = TypeSystem.boolean; <span class="hljs-comment">// Error</
 TypeSystem.undefined = TypeSystem.null; <span class="hljs-comment">// Error</span></code></pre>
 <p>При активном флаге <code class="inline-code">--strictNullChecks</code>, при условии что в качестве значения выступает значение <code class="inline-code">undefined</code>, вывод типов определяет принадлежность к типу <code class="inline-code">Undefined</code>.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">let</span> identifier = <span class="hljs-literal">undefined</span>; <span class="hljs-comment">// identifier: undefined</span></code></pre>
-<p>Тип <code class="inline-code">Undefined</code> идентичен по своей работе с одноименным типом из <em>JavaScript</em>.</p>
+<p>Тип <code class="inline-code">Undefined</code> идентичен по своей работе с одноимённым типом из <em>JavaScript</em>.</p>
 </section><section id="Void-void-otsutstvie-konkretnogo-tipa" name="Void (void) отсутствие конкретного типа" class="subchapter">
             <h2 class="subchapter-title">
                 <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="Void-void-otsutstvie-konkretnogo-tipa" type="absolute-url">
@@ -118,8 +118,8 @@ TypeSystem.undefined = TypeSystem.null; <span class="hljs-comment">// Error</spa
             </h2>
         
 <hr>
-<p>Тип данных <code class="inline-code">Void</code> можно назвать полной противоположностью типа <code class="inline-code">Any</code>, так как этот тип означает отсутствие конкретного типа. Основное предназначение типа <code class="inline-code">Void</code>, явно указывать на то, что у функции или метода отсутствует возвращаемое значение.</p>
-<p>Тип данных <code class="inline-code">Void</code> указывается с помощью ключевого слова <code class="inline-code">void</code> (не путать с одноименным оператором из <em>JavaScript</em>) и в отличии от таких типов, как <code class="inline-code">Null</code> и <code class="inline-code">Undefined</code> не имеет никаких значений.</p>
+<p>Тип данных <code class="inline-code">Void</code> можно назвать полной противоположностью типа <code class="inline-code">Any</code>, так как этот тип означает отсутствие конкретного типа. Основное предназначение типа <code class="inline-code">Void</code> — явно указывать на то, что у функции или метода отсутствует возвращаемое значение.</p>
+<p>Тип данных <code class="inline-code">Void</code> указывается с помощью ключевого слова <code class="inline-code">void</code> (не путать с одноимённым оператором из <em>JavaScript</em>) и, в отличие от таких типов, как <code class="inline-code">Null</code> и <code class="inline-code">Undefined</code>, не имеет никаких значений.</p>
 <p>Тип <code class="inline-code">Void</code> является подтипом <code class="inline-code">Any</code> и супертипом для <code class="inline-code">Null</code> и <code class="inline-code">Undefined</code>.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">action</span>(<span class="hljs-params"></span>): <span class="hljs-title">void</span> </span>{}
 
@@ -160,8 +160,8 @@ TypeSystem.void = TypeSystem.boolean; <span class="hljs-comment">// Error</span>
 TypeSystem.void = TypeSystem.null; <span class="hljs-comment">// Error</span>
 TypeSystem.void = TypeSystem.undefined; <span class="hljs-comment">// Ok</span>
 TypeSystem.void = TypeSystem.void; <span class="hljs-comment">// Ok</span></code></pre>
-<p>Кому-то может показаться, что примеры чересчур излишни. Что примеры, в которых результат вызова функции не имеющей возвращаемого значения, присваивается полям с различными типами, не имеет никакого отношения к реальности. Да это так. Но целью является научить думать как компилятор <em>TypeScript</em>.
-Когда функции в качестве возвращаемого типа указан тип <code class="inline-code">Void</code>, может показаться, что возвращая различные значения с помощью оператора return, компилятор выбрасывает  ошибки лишь потому, что он понимает что функция помечена как ничего не возвращающая. Но это не так. Ошибка возникает по причине несовместимости типов.</p>
+<p>Кому-то может показаться, что примеры чересчур излишни, или что примеры, в которых результат вызова функции не имеющей возвращаемого значения, присваивается полям с различными типами, не имеет никакого отношения к реальности. Да, это так. Но целью данных примеров является научить думать как компилятор <em>TypeScript</em>.
+Когда функции в качестве возвращаемого типа указан тип <code class="inline-code">Void</code>, может показаться, что, возвращая различные значения с помощью оператора return, компилятор выбрасывает ошибки лишь потому что он понимает, что функция помечена как ничего не возвращающая. Но это не так. Ошибка возникает по причине несовместимости типов.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">a</span>(<span class="hljs-params">  </span>): <span class="hljs-title">void</span> </span>{
   <span class="hljs-keyword">let</span> result: <span class="hljs-built_in">number</span> = <span class="hljs-number">5</span>;
 
@@ -221,8 +221,7 @@ TypeSystem.never = TypeSystem.null; <span class="hljs-comment">// Error</span>
 TypeSystem.never = TypeSystem.undefined; <span class="hljs-comment">// Error</span>
 TypeSystem.never = TypeSystem.void; <span class="hljs-comment">// Error</span>
 TypeSystem.never = TypeSystem.never; <span class="hljs-comment">// Ok</span></code></pre>
-<p>Так как типу Never нельзя присвоить значение, отличное от самого типа <code class="inline-code">Never</code>,
-единственным местом в котором его может использовать разработчик, является аннотация возвращаемого, из функции или метода, значения. С одной оговоркой. Тип <code class="inline-code">Never</code> можно указать только той функции, по сценарию из которой, программа, реально никогда не сможет выйти. </p>
+<p>Так как типу Never нельзя присвоить значение, отличное от самого типа <code class="inline-code">Never</code>, единственным местом, в котором его может использовать разработчик, является аннотация возвращаемого из функции или метода значения, с одной оговоркой. Тип <code class="inline-code">Never</code> можно указать только той функции, из которой программа действительно никогда не сможет выйти. </p>
 <p>Такой сценарий может выражаться в виде функции, вызов которой приведет к однозначному исключению или в которой будет находится бесконечный цикл.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">error</span>(<span class="hljs-params"> message: <span class="hljs-built_in">string</span> </span>):  <span class="hljs-title">never</span> </span>{
   <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>( message );
@@ -243,7 +242,7 @@ TypeSystem.never = TypeSystem.never; <span class="hljs-comment">// Ok</span></co
 
 <span class="hljs-keyword">let</span> identifier = error(); <span class="hljs-comment">// let identifier: never</span>
 <span class="hljs-keyword">let</span> identifier = action(); <span class="hljs-comment">// let identifier: never</span></code></pre>
-<p>Стоит заметить, что без явного указания типа <code class="inline-code">Never</code>, вывод типов определить принадлежность возвращаемого значения к типу <code class="inline-code">Void</code>.</p>
+<p>Стоит заметить, что без явного указания типа <code class="inline-code">Never</code> вывод типов определит принадлежность возвращаемого значения к типу <code class="inline-code">Void</code>.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">error</span>(<span class="hljs-params"> message: <span class="hljs-built_in">string</span> </span>) </span>{ <span class="hljs-comment">// function  error(): void {}</span>
   <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>( message );
 }
@@ -263,7 +262,7 @@ TypeSystem.never = TypeSystem.never; <span class="hljs-comment">// Ok</span></co
             </h2>
         
 <hr>
-<p>Тип <code class="inline-code">Unknown</code> является типобезопасным аналогом типа <code class="inline-code">any</code> и представлен в виде литерала <code class="inline-code">unknown</code>. Все типы совместимы с типом <code class="inline-code">unknown</code>, в то время, как сам тип <code class="inline-code">unknown</code> совместим только с самим собой и типом <code class="inline-code">any</code>.</p>
+<p>Тип <code class="inline-code">Unknown</code> является типобезопасным аналогом типа <code class="inline-code">any</code> и представлен в виде литерала <code class="inline-code">unknown</code>. Все типы совместимы с типом <code class="inline-code">unknown</code>, в то время как сам тип <code class="inline-code">unknown</code> совместим только с самим собой и типом <code class="inline-code">any</code>.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">class</span> TypeSystem {
 <span class="hljs-keyword">static</span> unknown: unknown;
 
@@ -296,7 +295,7 @@ v0(); <span class="hljs-comment">// Ok</span>
 v1.a = <span class="hljs-number">5</span>; <span class="hljs-comment">// Error</span>
 v1.a = <span class="hljs-string">''</span>; <span class="hljs-comment">// Error</span>
 v1(); <span class="hljs-comment">// Error</span></code></pre>
-<p>Если тип <code class="inline-code">unknown</code> составляет тип пересечение (<code class="inline-code">intersection</code>), то  он будет перекрыт всеми типами.</p>
+<p>Если тип <code class="inline-code">unknown</code> составляет тип пересечение (<code class="inline-code">intersection</code>), то он будет перекрыт всеми типами.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">type</span> T0 = <span class="hljs-built_in">any</span> &#x26; unknown; <span class="hljs-comment">// type T0 = any</span>
 <span class="hljs-keyword">type</span> T1 = <span class="hljs-built_in">number</span> &#x26; unknown; <span class="hljs-comment">// type T1 = number</span>
 <span class="hljs-keyword">type</span> T2 = <span class="hljs-built_in">string</span> &#x26; unknown; <span class="hljs-comment">// type T2 = string</span>
@@ -322,7 +321,7 @@ v1(); <span class="hljs-comment">// Error</span></code></pre>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">type</span> T0 = keyof <span class="hljs-built_in">number</span>; <span class="hljs-comment">// type T0 = "toString" | "toFixed" | "toExponential" | "toPrecision" | "valueOf" | "toLocaleString"</span>
 <span class="hljs-keyword">type</span> T1 = keyof <span class="hljs-built_in">any</span>; <span class="hljs-comment">// type T1 = string | number | symbol</span>
 <span class="hljs-keyword">type</span> T2 = keyof unknown; <span class="hljs-comment">// type T2 = never</span></code></pre>
-<p>Также для тип  <code class="inline-code">unknown</code> позволяется использовать только в операциях равенства <code class="inline-code">===</code>, <code class="inline-code">==</code>, <code class="inline-code">!==</code>, <code class="inline-code">!=</code> и в операциях с логическими операторами <code class="inline-code">&#x26;&#x26;</code>, <code class="inline-code">||</code> и <code class="inline-code">!</code>.</p>
+<p>Тип <code class="inline-code">unknown</code> позволяется использовать только в операциях равенства <code class="inline-code">===</code>, <code class="inline-code">==</code>, <code class="inline-code">!==</code> и <code class="inline-code">!=</code> и в операциях с логическими операторами <code class="inline-code">&#x26;&#x26;</code>, <code class="inline-code">||</code> и <code class="inline-code">!</code>.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">let</span> v0: unknown = <span class="hljs-number">5</span>;
 
 <span class="hljs-keyword">let</span> v1 = <span class="hljs-number">5</span> === v0; <span class="hljs-comment">// Ok</span>
@@ -349,7 +348,7 @@ v1(); <span class="hljs-comment">// Error</span></code></pre>
 <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">f1</span>(<span class="hljs-params"></span>): <span class="hljs-title">number</span> </span>{<span class="hljs-keyword">return</span>;} <span class="hljs-comment">// Error</span>
 
 <span class="hljs-keyword">let</span> v = f0(); <span class="hljs-comment">// Ok, let v: unknown</span></code></pre>
-<p>Кроме того, при активной опции <code class="inline-code">--strictPropertyInitialization</code>, поля принадлежащие к типу <code class="inline-code">unknown</code> не нуждаются в инициализации.</p>
+<p>Кроме того, при активной опции <code class="inline-code">--strictPropertyInitialization</code> принадлежащие к типу <code class="inline-code">unknown</code> поля не нуждаются в инициализации.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">class</span> T {
   f0: unknown; <span class="hljs-comment">// Ok</span>
   f1: <span class="hljs-built_in">number</span>; <span class="hljs-comment">// Error</span>

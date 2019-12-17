@@ -9,11 +9,11 @@
             </h2>
         
 <hr>
-<p>Тип <code class="inline-code">Tagged Union</code> (Размеченное Объединение), ещё известный как <code class="inline-code">Discriminated Unions</code>, также как и тип <code class="inline-code">Union</code> (Объединение), представляет из себя множество типов данных,  значение которого может принадлежать к одному конкретному типу. Размеченные Объединения указывается с помощью оператора прямой черты <code class="inline-code">|</code>, по обе стороны которой, располагаются типы данных.</p>
+<p>Тип <code class="inline-code">Tagged Union</code> (размеченное объединение), ещё известный как <code class="inline-code">Discriminated Unions</code>, также как и тип <code class="inline-code">Union</code> (объединение), представляет из себя множество типов данных,  значение которого может принадлежать к одному конкретному типу. Размеченные объединения указывается с помощью оператора прямой черты <code class="inline-code">|</code>, по обе стороны которой располагаются типы данных.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">let</span> v1: T1 | T2 | T3;</code></pre>
-<p>Из-за того, что все описанное ранее, для типа <code class="inline-code">Union</code> (глава <a class="book__chapter__chapter-link" href="/book/contents/Tipy-Union-Intersection" title="Типы - Union, Intersection" target="_blank">Типы - Union, Intersection</a>), идентично и для <code class="inline-code">Tagged Union</code>, будет более разумно, не повторяться, а сделать упор на различия. Но так как полное погружение, которое сможет приоткрыть завесу тайны <code class="inline-code">Tagged Union</code>, выходит за рамки темы, или более точнее, будет преждевременным, остается лишь описать детали, к которым рекомендуется вернуться, как только наступит время. И так…</p>
-<p>Несмотря на то, что <code class="inline-code">Tagged Union</code> в большей степени идентичен типу Union, все же существует два отличия. Первое отличие заключается в том, что к типу <code class="inline-code">Tagged Union</code> могут принадлежать только ссылочные типы данных. Второе отличие в том, что каждому объектному типу, которые ещё называют варианты, составляющему <code class="inline-code">Tagged Union</code>, указывается идентификатор варианта.</p>
-<p>Помните что компилятор, без помощи разработчика, способен работать лишь с общими для всех типов признаками? </p>
+<p>Из-за того, что все описанное ранее для типа <code class="inline-code">Union</code> (глава <a class="book__chapter__chapter-link" href="/book/contents/Tipy-Union-Intersection" title="Типы - Union, Intersection" target="_blank">Типы - Union, Intersection</a>) идентично и для <code class="inline-code">Tagged Union</code>, будет более разумно не повторяться, а сделать упор на различия. Но так как полное погружение, которое сможет приоткрыть завесу тайны <code class="inline-code">Tagged Union</code>, выходит за рамки темы, или, точнее, будет преждевременным, остается лишь описать детали, к которым рекомендуется вернуться, как только наступит время. Итак…</p>
+<p>Несмотря на то, что <code class="inline-code">Tagged Union</code> в большей степени идентичен типу <code class="inline-code">Union</code>, все же существует два отличия. Первое отличие заключается в том, что к типу <code class="inline-code">Tagged Union</code> могут принадлежать только ссылочные типы данных. Второе отличие в том, что каждому объектному типу, которые ещё называют варианты, составляющему <code class="inline-code">Tagged Union</code>, указывается идентификатор варианта.</p>
+<p>Помните, что компилятор, без помощи разработчика, способен работать лишь с общими для всех типов признаками? </p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">class</span> Bird {
  fly(): <span class="hljs-built_in">void</span> {}
 
@@ -43,7 +43,7 @@
 
   animal.toString(); <span class="hljs-comment">// Ok</span>
 }</code></pre>
-<p>Так вот, чтобы компилятор смог работать с членами характерных для конкретных типов, одним из способов является, указание ему конкретного диапазона типов, с помощью идентификатора варианта.</p>
+<p>Так вот, чтобы компилятор смог работать с членами, характерными для конкретных типов, одним из способов является указание ему конкретного диапазона типов с помощью идентификатора варианта.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">class</span> Bird {
   <span class="hljs-keyword">type</span>: <span class="hljs-string">'bird'</span> = <span class="hljs-string">'bird'</span>;
 
@@ -83,8 +83,8 @@
 
   animal.toString(); <span class="hljs-comment">// Ok</span>
 }</code></pre>
-<p>Механизм, с помощью которого разработчик помогает выводу типов, называется <em>“защитники типа”</em>, и  будет рассмотрен позднее в одноименной главе  (глава <a class="book__chapter__chapter-link" href="/book/contents/Tipizaciya-Zashchitniki-tipa" title="Типизация - Защитники типа" target="_blank">Типизация - Защитники типа</a>). А пока стоит сосредоточится на самих идентификаторах вариантов.</p>
-<p>Прежде всего стоит пояснить, что идентификаторы вариантов, это обычные поля объекта, которые имеют одинаковые имена и которые обязательно должны присутствовать в каждом типе множества составляющего <code class="inline-code">Tagged Union</code>. Помимо этого, поля обязательно должны принадлежать только к литеральным типам, таким как <code class="inline-code">Literal Number</code>, <code class="inline-code">Literal String</code>, <code class="inline-code">Literal Boolean</code>, <code class="inline-code">Literal Enum</code>. Кроме того, поля обязательно должны быть инициализированы при объявлении, либо конструкторе. Но если быть до конца откровенным, то нет разницы, в каком месте и в какое время, полю будет присвоено значение. Главное чтобы оно было присвоено раньше, чем наступит момент использовать его в условии, на основе которого, будет определяться его принадлежность к конкретному типу данных.</p>
+<p>Механизм, с помощью которого разработчик помогает выводу типов, называется <em>“защитники типа”</em>, и  будет рассмотрен позднее в одноимённой главе  (глава <a class="book__chapter__chapter-link" href="/book/contents/Tipizaciya-Zashchitniki-tipa" title="Типизация - Защитники типа" target="_blank">Типизация - Защитники типа</a>). А пока стоит сосредоточится на самих идентификаторах вариантов.</p>
+<p>Прежде всего стоит пояснить, что идентификаторы вариантов это обычные поля объекта, которые имеют одинаковые имена и которые обязательно должны присутствовать в каждом типе множества, составляющего <code class="inline-code">Tagged Union</code>. Помимо этого, поля обязательно должны принадлежать только к литеральным типам, таким как <code class="inline-code">Literal Number</code>, <code class="inline-code">Literal String</code>, <code class="inline-code">Literal Boolean</code>, <code class="inline-code">Literal Enum</code>. Кроме того, поля обязательно должны быть инициализированы при объявлении или в конструкторе. Но если быть до конца откровенным, то нет разницы, в каком месте и в какое время полю будет присвоено значение. Главное, чтобы оно было присвоено раньше, чем наступит момент использовать его в условии, на основе которого будет определяться его принадлежность к конкретному типу данных.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">class</span> Bird {
   <span class="hljs-keyword">type</span>: <span class="hljs-string">'bird'</span> = <span class="hljs-string">'bird'</span>;
 
@@ -128,7 +128,7 @@
 <span class="hljs-comment">// groupID 0 === Bird</span>
 <span class="hljs-comment">// groupID 1 === Fish</span>
 <span class="hljs-comment">// groupID 2 === Insect</span></code></pre>
-<p>Тогда, когда тип поля не является уникальном, то он идентифицирует множество типов, у которых совпадают типы, одноименных идентификаторов вариантов.</p>
+<p>Тогда, когда тип поля не является уникальным, он идентифицирует множество типов, у которых совпадают типы одноимённых идентификаторов вариантов.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">class</span> Bird {
   groupID: <span class="hljs-number">0</span> = <span class="hljs-number">0</span>;
 
@@ -149,33 +149,32 @@
 <span class="hljs-comment">// groupID 1 === Insect</span></code></pre>
 <p>Количество полей, которые служат идентификаторами вариантов, может быть сколько угодно.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">enum</span> AnimalTypes {
-Bird = <span class="hljs-string">'bird'</span>,
-Fish = <span class="hljs-string">'fish'</span>,
-Insect = <span class="hljs-string">'insect'</span>
+  Bird = <span class="hljs-string">'bird'</span>,
+  Fish = <span class="hljs-string">'fish'</span>,
+  Insect = <span class="hljs-string">'insect'</span>
 }
 
 
 <span class="hljs-keyword">class</span> Bird {
-<span class="hljs-keyword">type</span>: AnimalTypes.Bird = AnimalTypes.Bird;
-uid: <span class="hljs-number">0</span> = <span class="hljs-number">0</span>;
-name: <span class="hljs-string">'bird'</span> = <span class="hljs-string">'bird'</span>;
+  <span class="hljs-keyword">type</span>: AnimalTypes.Bird = AnimalTypes.Bird;
+  uid: <span class="hljs-number">0</span> = <span class="hljs-number">0</span>;
+  name: <span class="hljs-string">'bird'</span> = <span class="hljs-string">'bird'</span>;
 
-fly(): <span class="hljs-built_in">void</span> {}
+  fly(): <span class="hljs-built_in">void</span> {}
 }
-<span class="hljs-keyword">class</span> Fish {
-<span class="hljs-keyword">type</span>: AnimalTypes.Fish = AnimalTypes.Fish;
-uid: <span class="hljs-number">1</span> = <span class="hljs-number">1</span>;
-name: <span class="hljs-string">'fish'</span> = <span class="hljs-string">'fish'</span>;
+  <span class="hljs-keyword">class</span> Fish {
+  <span class="hljs-keyword">type</span>: AnimalTypes.Fish = AnimalTypes.Fish;
+  uid: <span class="hljs-number">1</span> = <span class="hljs-number">1</span>;
+  name: <span class="hljs-string">'fish'</span> = <span class="hljs-string">'fish'</span>;
 
-swim(): <span class="hljs-built_in">void</span> {}
+  swim(): <span class="hljs-built_in">void</span> {}
 }
-<span class="hljs-keyword">class</span> Insect {
-<span class="hljs-keyword">type</span>: AnimalTypes.Insect = AnimalTypes.Insect;
-uid: <span class="hljs-number">2</span> = <span class="hljs-number">2</span>;
-name: <span class="hljs-string">'insect'</span> = <span class="hljs-string">'insect'</span>;
+  <span class="hljs-keyword">class</span> Insect {
+  <span class="hljs-keyword">type</span>: AnimalTypes.Insect = AnimalTypes.Insect;
+  uid: <span class="hljs-number">2</span> = <span class="hljs-number">2</span>;
+  name: <span class="hljs-string">'insect'</span> = <span class="hljs-string">'insect'</span>;
 
-
-crawl(): <span class="hljs-built_in">void</span> {}
+  crawl(): <span class="hljs-built_in">void</span> {}
 }
 
 <span class="hljs-comment">// type AnimalTypes.Bird === Bird</span>
@@ -189,7 +188,7 @@ crawl(): <span class="hljs-built_in">void</span> {}
 <span class="hljs-comment">// name 'bird' === Bird</span>
 <span class="hljs-comment">// name 'fish' === Fish</span>
 <span class="hljs-comment">// name 'insect' === Insect</span></code></pre>
-<p>Если по какой-либо причине, разработчик забудет присвоить идентификатору вариантов значение, то для того, чтобы компиляция завершилась успехом, выводу типов достаточно литерального типа данных, указанного в качестве типа поля.</p>
+<p>Если по какой-либо причине разработчик забудет присвоить идентификатору вариантов значение, то для того, чтобы компиляция завершилась успехом, выводу типов достаточно литерального типа данных, указанного в качестве типа поля.</p>
 <p><em>Пример с неправильным исходным кодом</em></p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">class</span> Bird {
   <span class="hljs-keyword">type</span>: <span class="hljs-string">'bird'</span>;

@@ -9,7 +9,7 @@
             </h2>
         
 <hr>
-<p>Оператор, помечающий члены и параметры как необязательные, довольно часто используется при разработке приложений. И если понимание процесса связанного с необязательным оператором, довольно просто, то со вторым оператором, который зачастую идеологически связан с первым, не все так очевидно.</p>
+<p>Оператор, помечающий члены и параметры как необязательные, довольно часто используется при разработке приложений. И если понимание процесса, связанного с необязательным оператором, довольно просто, то со вторым оператором, который зачастую идеологически связан с первым, не все так очевидно.</p>
 </section><section id="Neobyazatelnye-polya-parametry-i-metody-Optional-Fields-Parameters-and-Methods" name="Необязательные поля, параметры и методы (Optional Fields, Parameters and Methods)" class="subchapter">
             <h2 class="subchapter-title">
                 <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="Neobyazatelnye-polya-parametry-i-metody-Optional-Fields-Parameters-and-Methods" type="absolute-url">
@@ -32,8 +32,8 @@
 
    voice?( ): <span class="hljs-built_in">void</span> { } <span class="hljs-comment">// ? optional method</span>
 }</code></pre>
-<p>Сказать честно, титулы <em>поля</em>, <em>параметры</em>, <em>методы</em>, делают данный оператор чересчур именитым. Поэтому с Вашего разрешения, в дальнейшем он будет упрощен до <em>“необязательно оператора”</em>.</p>
-<p>Как стало известно из разделов посвященных типу <code class="inline-code">undefined</code>, этот тип является подтипом всех типов. А это в свою очередь означает что его единственное значение undefined можно присвоить в качестве значения любому типу.</p>
+<p>Сказать честно, титулы <em>поля</em>, <em>параметры</em>, <em>методы</em> делают данный оператор чересчур именитым. Поэтому, с вашего разрешения, в дальнейшем он будет упрощен до <em>“необязательного оператора”</em>.</p>
+<p>Как стало известно из разделов, посвященных типу <code class="inline-code">undefined</code>, этот тип является подтипом всех типов. А это в свою очередь означает что его единственное значение undefined можно присвоить в качестве значения любому типу.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">let</span> a: <span class="hljs-built_in">number</span> = <span class="hljs-literal">undefined</span>; <span class="hljs-comment">// Ok strictNullChecks = false</span>
 <span class="hljs-keyword">let</span> b: <span class="hljs-built_in">string</span> = <span class="hljs-literal">undefined</span>; <span class="hljs-comment">// Ok strictNullChecks = false</span>
 <span class="hljs-keyword">let</span> c: <span class="hljs-built_in">boolean</span> = <span class="hljs-literal">undefined</span>; <span class="hljs-comment">// Ok strictNullChecks = false</span>
@@ -45,8 +45,8 @@
 <span class="hljs-keyword">let</span> c: <span class="hljs-built_in">boolean</span> = <span class="hljs-literal">undefined</span>; <span class="hljs-comment">// Error strictNullChecks = true</span>
 <span class="hljs-keyword">let</span> d: object = <span class="hljs-literal">undefined</span>; <span class="hljs-comment">// Error strictNullChecks = true</span>
 <span class="hljs-keyword">let</span> e: <span class="hljs-built_in">any</span> = <span class="hljs-literal">undefined</span>; <span class="hljs-comment">// Ok strictNullChecks = true</span></code></pre>
-<p>Как уже было сказано, помечая что-либо как необязательное, подразумевается что параметру не будет присвоено значение, а  поле или метод и вовсе может не существовать в объекте. А как известно, не инициализированные члены объектов всегда принадлежать к типу <code class="inline-code">undefined</code>.</p>
-<p>Поэтому каждый раз,когда компилятор видит поля или параметры, помеченные как необязательные, он расценивает это как явное указание того, что по сценарию, в этом месте, допускается значение <code class="inline-code">undefined</code>. Несмотря на то, что при активном флаге <code class="inline-code">--strictNullChecks</code>, <code class="inline-code">undefined</code>, в качестве значения, запрещен, при условии что тип не указан как <code class="inline-code">undefined</code> или <code class="inline-code">any</code>, компилятор самостоятельно добавляет к уже указанным типам, тип <code class="inline-code">undefined</code>.</p>
+<p>Как уже было сказано, помечая что-либо как необязательное, подразумевается, что параметру не будет присвоено значение, а поле или метод и вовсе может не существовать в объекте. А, как известно, не инициализированные члены объектов всегда принадлежат к типу <code class="inline-code">undefined</code>.</p>
+<p>Поэтому каждый раз, когда компилятор видит поля или параметры, помеченные как необязательные, он расценивает это как явное указание того, что по сценарию в этом месте допускается значение <code class="inline-code">undefined</code>. Несмотря на то, что при активном флаге <code class="inline-code">--strictNullChecks</code>, <code class="inline-code">undefined</code> в качестве значения запрещен, при условии что тип не указан как <code class="inline-code">undefined</code> или <code class="inline-code">any</code>, компилятор самостоятельно добавляет к уже указанным типам тип <code class="inline-code">undefined</code>.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-comment">/** strictNullChecks = true */</span>
 
 <span class="hljs-keyword">let</span> a: { field?: <span class="hljs-built_in">number</span> }; <span class="hljs-comment">// field: number | undefined</span>
@@ -55,7 +55,7 @@
 <span class="hljs-keyword">let</span> d: <span class="hljs-function">(<span class="hljs-params"> prop?: object </span>) =></span> <span class="hljs-built_in">void</span>; <span class="hljs-comment">// prop: object | undefined</span>
 <span class="hljs-keyword">let</span> e: <span class="hljs-function">(<span class="hljs-params"> prop?: <span class="hljs-built_in">any</span> </span>) =></span> <span class="hljs-built_in">void</span>; <span class="hljs-comment">// prop: any</span>
 <span class="hljs-keyword">let</span> f: <span class="hljs-function">(<span class="hljs-params"> prop?: <span class="hljs-built_in">number</span> | <span class="hljs-literal">undefined</span> </span>) =></span> <span class="hljs-built_in">void</span>; <span class="hljs-comment">// prop: number | undefined</span></code></pre>
-<p>Когда компилятору флаг <code class="inline-code">--strictNullChecks</code> установлен в <code class="inline-code">false</code> и он видит поля или  параметры, помеченные как необязательные, он точно также понимает, что по сценарию допускается значение <code class="inline-code">undefined</code>. При этом он не добавляет к уже указанному типу тип <code class="inline-code">undefined</code> и даже не берет его в расчет при явном указании. Такое поведение связано с тем, что при неактивном флаге <code class="inline-code">--strictNullChecks</code>, тип данных <code class="inline-code">undefined</code> совместим со всеми остальными типами. А это в свою очередь означает, что поля и параметры не нуждаются в его явном указании.</p>
+<p>Когда флаг <code class="inline-code">--strictNullChecks</code> установлен в <code class="inline-code">false</code> и он видит поля или параметры, помеченные как необязательные, он точно также понимает, что по сценарию допускается значение <code class="inline-code">undefined</code>. При этом он не добавляет к уже указанному типу тип <code class="inline-code">undefined</code> и даже не берет его в расчет при явном указании. Такое поведение связано с тем, что при неактивном флаге <code class="inline-code">--strictNullChecks</code>, тип данных <code class="inline-code">undefined</code> совместим со всеми остальными типами. А это в свою очередь означает, что поля и параметры не нуждаются в его явном указании.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-comment">/** strictNullChecks = false */</span>
 
 <span class="hljs-keyword">let</span> a: { field?: <span class="hljs-built_in">number</span> }; <span class="hljs-comment">// field: number</span>
@@ -84,9 +84,9 @@
             </h2>
         
 <hr>
-<p>Оператор <code class="inline-code">Not-Null Not-Undefined</code>, в случаях, в которых возможны исключения связанные с обращением к членам несуществующего объекта или вызовом несуществующего метода, при включенной опции компилятора <code class="inline-code">--strictNullChecks</code>, позволяет приглушать сообщения об ошибках.</p>
-<p>Простыми словами, когда объект или метод объекта, по сценарию, может иметь значение <code class="inline-code">null</code> или <code class="inline-code">undefined</code>, в режиме <code class="inline-code">--strictNullChecks</code>, компилятор, с целью предотвращения возможной ошибки, накладывает запрет на операции обращения и вызова. Разрешить подобные операции возможно с помощью оператора <code class="inline-code">Not-Null Not-Undefined</code>, который обозначается восклицательным знаком <code class="inline-code">!</code>.</p>
-<p>Чтобы понять принцип оператора <code class="inline-code">Non-Null Non-Undefined</code>, достаточно представить функцию-слушатель события, у которой единственный параметр <code class="inline-code">event</code> с типом <code class="inline-code">UserEvent</code> помечен как необязательный. Так как параметр необязательный, то он, помимо типа <code class="inline-code">UserEvent</code>, может принадлежать ещё и к типу <code class="inline-code">undefined</code>. А это означает, что при попытке обратится в теле слушателя к любому члену параметра <code class="inline-code">event</code>, может возникнуть исключение, вызванное обращением к членам несуществующего объекта. С целью предотвращения исключения во время выполнения, компилятор, во время компиляции, выведет сообщение об ошибке, вызванной обнаружением потенциально опасного кода.</p>
+<p>Оператор <code class="inline-code">Not-Null Not-Undefined</code> в случаях, в которых возможны исключения, связанные с обращением к членам несуществующего объекта или вызовом несуществующего метода, при включенной опции компилятора <code class="inline-code">--strictNullChecks</code>, позволяет приглушать сообщения об ошибках.</p>
+<p>Простыми словами, когда объект или метод объекта по сценарию может иметь значение <code class="inline-code">null</code> или <code class="inline-code">undefined</code>, в режиме <code class="inline-code">--strictNullChecks</code> компилятор с целью предотвращения возможной ошибки накладывает запрет на операции обращения и вызова. Разрешить подобные операции возможно с помощью оператора <code class="inline-code">Not-Null Not-Undefined</code>, который обозначается восклицательным знаком <code class="inline-code">!</code>.</p>
+<p>Чтобы понять принцип оператора <code class="inline-code">Non-Null Non-Undefined</code>, достаточно представить функцию-слушатель события, у которой единственный параметр <code class="inline-code">event</code> с типом <code class="inline-code">UserEvent</code> помечен как необязательный. Так как параметр необязательный, то он, помимо типа <code class="inline-code">UserEvent</code>, может принадлежать ещё и к типу <code class="inline-code">undefined</code>. А это означает, что при попытке обратится в теле слушателя к любому члену параметра <code class="inline-code">event</code>, может возникнуть исключение, вызванное обращением к членам несуществующего объекта. С целью предотвращения исключения во время выполнения компилятор, во время компиляции, выведет сообщение об ошибке, вызванной обнаружением потенциально опасного кода.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-comment">/** strictNullChecks = true */</span>
 
 <span class="hljs-keyword">type</span> UserEvent = {<span class="hljs-keyword">type</span>: <span class="hljs-built_in">string</span>};
@@ -97,8 +97,8 @@
   <span class="hljs-comment">// потенциальная ошибка,  возможно обращение к полю несуществующего объекта</span>
  <span class="hljs-keyword">let</span> <span class="hljs-keyword">type</span> = event.type; <span class="hljs-comment">// Error -> possible runtime error</span>
 }</code></pre>
-<p>Обычно в таких случаях стоит изменить архитектуру, но  если разработчик знает что делает, то компилятор можно настоятельно попросить закрыть глаза при помощи оператора <code class="inline-code">Not-Null Not-Undefined</code>.</p>
-<p>При  обращении к полям и свойствам объекта, оператор <code class="inline-code">Not-Null Not-Undefined</code> указывается перед оператором точка <code class="inline-code">object!.field</code>.</p>
+<p>Обычно в таких случаях стоит изменить архитектуру, но, если разработчик знает, что делает, компилятор можно настоятельно попросить закрыть глаза при помощи оператора <code class="inline-code">Not-Null Not-Undefined</code>.</p>
+<p>При обращении к полям и свойствам объекта, оператор <code class="inline-code">Not-Null Not-Undefined</code> указывается перед оператором точка <code class="inline-code">object!.field</code>.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-comment">/** strictNullChecks = true  */</span>
 
 <span class="hljs-keyword">type</span> UserEvent = {<span class="hljs-keyword">type</span>: <span class="hljs-built_in">string</span>};
@@ -125,7 +125,7 @@
  <span class="hljs-keyword">let</span> target = event!.target!.name; <span class="hljs-comment">// 2 !</span>
  <span class="hljs-keyword">let</span> currenttarget = event!.currentTarget.name; <span class="hljs-comment">// 1 !</span>
 }</code></pre>
-<p>При  обращении к методам объекта, помеченным как необязательные, оператор <code class="inline-code">Not-Null Not-Undefined</code> указывается между идентификатором-именем и круглыми скобками. Стоит обратить внимание, что когда происходит обращение к полю или свойству объекта, помеченного как необязательный, то оператор <code class="inline-code">Not-Null Not-Undefined</code> указывается лишь раз. При обращении к необязательному методу того же объекта, оператор <code class="inline-code">Not-Null Not-Undefined</code> указывается дважды.</p>
+<p>При обращении к методам объекта, помеченным как необязательные, оператор <code class="inline-code">Not-Null Not-Undefined</code> указывается между идентификатором-именем и круглыми скобками. Стоит обратить внимание, что когда происходит обращение к полю или свойству объекта, помеченного как необязательный, то оператор <code class="inline-code">Not-Null Not-Undefined</code> указывается лишь раз. При обращении к необязательному методу того же объекта, оператор <code class="inline-code">Not-Null Not-Undefined</code> указывается дважды.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-comment">/** strictNullChecks = true  */</span>
 
 <span class="hljs-keyword">type</span> Target = {name:<span class="hljs-built_in">string</span>};
@@ -143,7 +143,7 @@
  <span class="hljs-keyword">let</span> currenttarget = event!.currentTarget.name; <span class="hljs-comment">// 1 !</span>
  <span class="hljs-keyword">let</span> meta = event!.toString!(); <span class="hljs-comment">// 2 !</span>
 }</code></pre>
-<p>Нужно повторить ещё раз, что оператор <code class="inline-code">Not-Null Not-Undefined</code>, при активном флаге <code class="inline-code">--strictNullChecks</code>, обязателен только в тех случаях, когда объект не принадлежит к типу отличного от <code class="inline-code">any</code>.</p>
+<p>Нужно повторить ещё раз, что оператор <code class="inline-code">Not-Null Not-Undefined</code>, при активном флаге <code class="inline-code">--strictNullChecks</code>, обязателен только в тех случаях, когда объект не принадлежит к отличному от <code class="inline-code">any</code> типу.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-comment">/** strictNullChecks = true  */</span>
 
 <span class="hljs-keyword">type</span> Target = { name: <span class="hljs-built_in">string</span> };
@@ -163,7 +163,7 @@
   <span class="hljs-keyword">let</span> meta = event.toString(); <span class="hljs-comment">// 0 !</span>
   <span class="hljs-keyword">let</span> value = event.valueOf(); <span class="hljs-comment">// 0 !</span>
 }</code></pre>
-<p>И как было сказано в самом начале, правило оператора <code class="inline-code">Not-Null Not-Undefined</code> применимое к необязательному оператору, идентично для всех полей и параметров принадлежащих к типам <code class="inline-code">Null</code> или <code class="inline-code">Undefined</code>. </p>
+<p>И, как было сказано в самом начале, правило оператора <code class="inline-code">Not-Null Not-Undefined</code>, применённое к необязательному оператору, идентично для всех полей и параметров, принадлежащих к типам <code class="inline-code">Null</code> или <code class="inline-code">Undefined</code>...</p>
 <pre><code class="hljs language-typescript"><span class="hljs-comment">/** strictNullChecks = true  */</span>
 
 <span class="hljs-keyword">type</span> Target = { name: <span class="hljs-built_in">string</span> };
@@ -183,7 +183,7 @@
   <span class="hljs-keyword">let</span> meta = event.toString(); <span class="hljs-comment">// Error</span>
   <span class="hljs-keyword">let</span> value = event.valueOf(); <span class="hljs-comment">// Error</span>
 }</code></pre>
-<p>При условии что они не будут принадлежать к типу <code class="inline-code">any</code>.</p>
+<p>...при условии, что они не будут принадлежать к типу <code class="inline-code">any</code>.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-comment">/** strictNullChecks = true  */</span>
 
 <span class="hljs-keyword">type</span> Target = { name: <span class="hljs-built_in">string</span> };
@@ -214,7 +214,7 @@
             </h2>
         
 <hr>
-<p>Для повышения типобезопасности программы, правила накладываемые опцией <code class="inline-code">--strictNullChecks</code> (глава <a class="book__chapter__chapter-link" href="/book/contents/Opcii-kompilyatora" title="Опции компилятора" target="_blank">Опции компилятора</a>), действуют также на переменные, которые инициализируются в чужом контексте.</p>
+<p>Для повышения типобезопасности программы, правила, накладываемые опцией <code class="inline-code">--strictNullChecks</code> (глава <a class="book__chapter__chapter-link" href="/book/contents/Opcii-kompilyatora" title="Опции компилятора" target="_blank">Опции компилятора</a>), действуют также на переменные, которые инициализируются в чужом контексте.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">let</span> value: <span class="hljs-built_in">number</span>;
 
 initialize();
@@ -224,7 +224,7 @@ initialize();
 <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">initialize</span>(<span class="hljs-params"></span>)</span>{
   value = <span class="hljs-number">0</span>;
 }</code></pre>
-<p>Чтобы избежать ошибки при обращении к переменным, которые инициализированны в чужом контексте, нужно использовать <em>definite assignment assertions</em>. <em>definite assignment assertions</em> указывается с помощью символа восклицательного знака (<code class="inline-code">!</code>) и располагается после идентификатора переменной. Указывая каждый раз при обращении к переменной <em>definite assignment assertion</em>, разработчик сообщает компилятору, что берет на себя все проблемы, которые могут быть вызваны отсутствием значения у переменной.</p>
+<p>Чтобы избежать ошибки при обращении к переменным, которые инициализированны в чужом контексте, нужно использовать <em>definite assignment assertions</em>. <em>definite assignment assertions</em> также указывается с помощью символа восклицательного знака (<code class="inline-code">!</code>) и располагается после идентификатора переменной. Указывая каждый раз при обращении к переменной <em>definite assignment assertion</em>, разработчик сообщает компилятору, что берет на себя все проблемы, которые могут быть вызваны отсутствием значения у переменной.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">let</span> value: <span class="hljs-built_in">number</span>;
 
 initialize();
@@ -248,11 +248,11 @@ initialize();
 <li class="book__list__item">Помечая поля и параметры, как необязательные, необязательный оператор располагается между идентификатором и двоеточием, обозначающим начало указания типа данных.</li>
 <li class="book__list__item">Помечая методы, как необязательные, необязательный оператор располагается между идентификатором и круглыми скобками.</li>
 <li class="book__list__item">Помеченные как необязательные поля, параметры и методы не учитываются при проверке типов на совместимость.</li>
-<li class="book__list__item">Оператор <code class="inline-code">Not-Null Not-Undefined</code> в режиме <code class="inline-code">--strictNullChecks</code>, помогает выявлять ошибки, которые могут произойти во время выполнения, из-за обращения к членам несуществующего объекта или вызовом несуществующих методов.</li>
+<li class="book__list__item">Оператор <code class="inline-code">Not-Null Not-Undefined</code> в режиме <code class="inline-code">--strictNullChecks</code> помогает выявлять ошибки, которые могут произойти во время выполнения из-за обращения к членам несуществующего объекта или вызовом несуществующих методов.</li>
 <li class="book__list__item">Оператор <code class="inline-code">Not-Null Not-Undefined</code> обозначается при помощи восклицательного знака (<code class="inline-code">!</code>).</li>
 <li class="book__list__item">При обращения к полям и свойствам, оператор <code class="inline-code">Not-Null Not-Undefined</code> указывается между ссылкой на потенциально опасный объект и оператором точка (<code class="inline-code">.</code>) .</li>
-<li class="book__list__item">При вызове потенциально несуществующего метода, оператор <code class="inline-code">Not-Null Not-Undefined</code> указывается между ссылкой и круглыми скобками.</li>
+<li class="book__list__item">При вызове потенциально несуществующего метода оператор <code class="inline-code">Not-Null Not-Undefined</code> указывается между ссылкой и круглыми скобками.</li>
 <li class="book__list__item">Оператор <code class="inline-code">Not-Null Not-Undefined</code> указывается столько раз, сколько потенциально опасных обращений будет выполнено при выполнении операции.</li>
-<li class="book__list__item">С момента, когда в цепочке обращения, встречается ссылка, ведущая на объект принадлежащий к типу <code class="inline-code">any</code>, оператор <code class="inline-code">Not-Null Not-Undefined</code> указывать не обязательно.</li>
+<li class="book__list__item">С момента, когда в цепочке обращения встречается ссылка, ведущая на объект, принадлежащий к типу <code class="inline-code">any</code>, оператор <code class="inline-code">Not-Null Not-Undefined</code> указывать не обязательно.</li>
 </ul>
 </section>

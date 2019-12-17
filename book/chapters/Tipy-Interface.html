@@ -10,10 +10,10 @@
         
 <hr>
 <p><em>TypeScript</em> предлагает новый тип данных, определяемый с помощью синтаксической конструкции под названием <em>интерфейс</em> (<code class="inline-code">interface</code>). </p>
-<p>Interface - это синтаксическая конструкция, определяющая характеристики объектов. Другими словами, интерфейс, - это тип, который содержит описание состояния и поведения объекта без реализации. Класс, реализующий интерфейс, обязан реализовать все его члены. Поэтому, интерфейс является гарантией наличия у объекта, реализующего его, описанных в нем характеристик. Все члены, описанные в интерфейсе, неявно имеют модификатор доступа <code class="inline-code">public</code>. Интерфейс предназначен для описания открытого api объекта. То есть, с его помощью декларируют те члены, которые объект предоставляет программе.</p>
+<p><code class="inline-code">Interface</code> — это синтаксическая конструкция, определяющая характеристики объектов. Другими словами, интерфейс — это тип, который содержит описание состояния и поведения объекта без реализации. Класс, реализующий интерфейс, обязан реализовать все его члены. Поэтому интерфейс является гарантией наличия у объекта, реализующего его, описанных в нем характеристик. Все члены, описанные в интерфейсе, неявно имеют модификатор доступа <code class="inline-code">public</code>. Интерфейс предназначен для описания открытого api объекта. То есть, с его помощью декларируют те члены, которые объект предоставляет программе.</p>
 <p>Кроме того, интерфейсы являются фундаментальной составляющей идеологии как типизированных языков, так и объектно-ориентированного программирования.</p>
-<p>Такая известная группа программистов, как <em>“Банда четырех”</em> (Gang of Four, сокращённо GoF), в своей книге, положившей начало популяризации шаблонов проектирования, описывали интерфейс, как ключевую концепцию объектно-ориентированного программирования. Понятие интерфейса является настолько важным, что в книге был сформулирован принцип объектно-ориентированного проектирования, который звучит, как - <em>Программируйте в соответствии с интерфейсом, а не с реализацией.</em></p>
-<p>Другими словами, авторы советуют создавать систему, которой вообще ничего не будет известно, о реализации. Проще говоря, создаваемая система должна быть построена на типах, определяемых интерфейсами, а не на типах, определяемых классами.</p>
+<p>Такая известная группа программистов, как <em>“Банда четырех”</em> (Gang of Four, сокращённо GoF), в своей книге, положившей начало популяризации шаблонов проектирования, описывали интерфейс как ключевую концепцию объектно-ориентированного программирования. Понятие интерфейса является настолько важным, что в книге был сформулирован принцип объектно-ориентированного проектирования, который звучит так: <em>Программируйте в соответствии с интерфейсом, а не с реализацией.</em></p>
+<p>Другими словами, авторы советуют создавать систему, которой вообще ничего не будет известно о реализации. Проще говоря, создаваемая система должна быть построена на типах, определяемых интерфейсами, а не на типах, определяемых классами.</p>
 </section><section id="Obyavlenie-declaration" name="Объявление (declaration)" class="subchapter">
             <h2 class="subchapter-title">
                 <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="Obyavlenie-declaration" type="absolute-url">
@@ -25,7 +25,7 @@
             </h2>
         
 <hr>
-<p>В <em>TypeScript</em> интерфейс объявляется с помощью ключевого слова <code class="inline-code">interface</code>, после которого идет идентификатор, после которого начинается тело интерфейса, заключенное в фигурные скобки. </p>
+<p>В <em>TypeScript</em> интерфейс объявляется с помощью ключевого слова <code class="inline-code">interface</code> с последующим идентификатором, после которых начинается тело интерфейса, заключенное в фигурные скобки. </p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">interface</span> Identifier {
     <span class="hljs-comment">// тело интерфейса </span>
 }</code></pre>
@@ -52,10 +52,10 @@
             </h2>
         
 <hr>
-<p>Прежде чем продолжить дальше, нужно обратить внимание на такой аспект, как конвенции именования интерфейсов. Существует два вида именования. </p>
-<p>Первый вид конвенций родом из <em>java</em>, они предлагают именовать интерфейсы, точно так же, как и классы. Допускаются имена прилагательные.</p>
+<p>Прежде чем продолжить, нужно обратить внимание на такой аспект, как конвенции именования интерфейсов. Существует два вида именования. </p>
+<p>Первый вид конвенций родом из <em>java</em>, они предлагают именовать интерфейсы точно так же, как и классы. Допускаются имена прилагательные.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">interface</span> Identifier { }</code></pre>
-<p>Второй вид, предлагает использовать конвенции такого языка, как <em>c#</em>, по которым, интерфейсы именуются так же как классы, но с префиксом <code class="inline-code">I</code>, что в сокращении означает <em>Interface</em>. Такой вид записи получил название “венгерская нотация” в честь программиста венгерского происхождения работавшего в компании <em>MicroSoft</em>. Допускаются имена прилагательные.</p>
+<p>Второй вид предлагает использовать конвенции такого языка, как <em>c#</em>, по которым интерфейсы именуются так же как классы, но с префиксом <code class="inline-code">I</code>, что в сокращении означает <em>Interface</em>. Такой вид записи получил название “венгерская нотация” в честь программиста венгерского происхождения, работавшего в компании <em>MicroSoft</em>. Допускаются имена прилагательные.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">interface</span> IIdentifier { }</code></pre>
 <p>Чтобы сразу расставить все точки над i, стоит заметить, что в дальнейшем идентификаторы интерфейсов будут указываться по конвенциям <code class="inline-code">c#</code>.</p>
 </section><section id="Realizaciya-interfeisa-implements" name="Реализация интерфейса (implements)" class="subchapter">
@@ -97,18 +97,18 @@
 <span class="hljs-keyword">interface</span> IFlyable { }
 
 <span class="hljs-keyword">class</span> Eagle <span class="hljs-keyword">extends</span> Bird <span class="hljs-keyword">implements</span> IFlyable {}</code></pre>
-</section><section id="Deklaraciya-aksessorov-get-set-accessors" name="Декларация аксессоров get\set (accessors)" class="subchapter">
+</section><section id="Deklaraciya-aksessorov-get-set-accessors" name="Декларация аксессоров get/set (accessors)" class="subchapter">
             <h2 class="subchapter-title">
                 <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="Deklaraciya-aksessorov-get-set-accessors" type="absolute-url">
                     <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                         <use href="#icon_link"/>
                     </svg>
                 </button>
-                Декларация аксессоров get\set (accessors)
+                Декларация аксессоров get/set (accessors)
             </h2>
         
 <hr>
-<p>Несмотря на то, что в интерфейсе можно декларировать поля и методы, в нем нельзя декларировать аксессоры (<code class="inline-code">get</code> \ <code class="inline-code">set</code>). Но несмотря на это, поле задекларированное в интерфейсе может быть совместимо не только с полем, но и аксессорами. При этом нет разницы, будет в объекте объявлен <em>getter</em>, <em>setter</em> или оба одновременно.</p>
+<p>Несмотря на то, что в интерфейсе можно декларировать поля и методы, в нем нельзя декларировать аксессоры (<code class="inline-code">get</code> / <code class="inline-code">set</code>). Но, несмотря на это, задекларированное в интерфейсе поле может быть совместимо не только с полем, но и аксессорами. При этом нет разницы, будет в объекте объявлен <em>getter</em>, <em>setter</em> или оба одновременно.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">interface</span> IAnimal {
  id: <span class="hljs-built_in">string</span>;
 }
@@ -153,7 +153,7 @@
 
 <span class="hljs-keyword">let</span> bird: IAnimal = <span class="hljs-keyword">new</span> Bird();
 <span class="hljs-keyword">let</span> raven: IAnimal = <span class="hljs-keyword">new</span> Raven();</code></pre>
-<p>Класс, реализующий множество интерфейсов, принадлежит к типу каждого из них. Когда экземпляру класса (который сам по себе является типом), реализующего интерфейс, присваивают ссылки с типом интерфейса, то говорят, что ссылку ограничивают типом интерфейса. То есть, функционал экземпляра класса урезается до описанного в интерфейсе (подробнее об этом речь пойдет в главе <a class="book__chapter__chapter-link" href="/book/contents/Tipizaciya-Sovmestimost-obektov" title="Типизация - Совместимость объектов" target="_blank">Типизация - Совместимость объектов</a> и <a class="book__chapter__chapter-link" href="/book/contents/Tipizaciya-Sovmestimost-funkcii" title="Типизация - Совместимость функций" target="_blank">Типизация - Совместимость функций</a>). </p>
+<p>Класс, реализующий множество интерфейсов, принадлежит к типу каждого из них. Когда экземпляру класса (который сам по себе является типом), реализующего интерфейс, присваивают ссылки с типом интерфейса, говорят, что ссылку ограничивают типом интерфейса. То есть, функционал экземпляра класса урезается до описанного в интерфейсе (подробнее об этом речь пойдет в главе <a class="book__chapter__chapter-link" href="/book/contents/Tipizaciya-Sovmestimost-obektov" title="Типизация - Совместимость объектов" target="_blank">Типизация - Совместимость объектов</a> и <a class="book__chapter__chapter-link" href="/book/contents/Tipizaciya-Sovmestimost-funkcii" title="Типизация - Совместимость функций" target="_blank">Типизация - Совместимость функций</a>). </p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">interface</span> IAnimal {
    name: <span class="hljs-built_in">string</span>;
 }
@@ -177,7 +177,7 @@
 
 <span class="hljs-keyword">var</span> animal: IAnimal = <span class="hljs-keyword">new</span> Bird( <span class="hljs-string">'bird'</span> ); <span class="hljs-comment">// принадлежит к типу IAnimal</span>
 <span class="hljs-keyword">var</span> fly: IFlyable = <span class="hljs-keyword">new</span> Bird( <span class="hljs-string">'bird'</span> ); <span class="hljs-comment">// принадлежит к типу IFlyable</span></code></pre>
-<p>Несмотря на то, что интерфейс является синтаксической конструкцией и может указываться в качестве типа, после компиляции от него не остается и следа. Это в свою очередь означает, что интерфейс, как тип данных, может использоваться только на этапе компиляции. Другими словами, компилятор сможет предупредить об ошибках несоответствия объекта описанному интерфейсу, но проверить на принадлежность к типу интерфейса, с помощью таких операторов, как <code class="inline-code">typeof</code> или <code class="inline-code">instanceof</code>,  во время выполнения не получится. Но в <em>TypeScript</em> существует механизм (который будет рассмотрен далее в главе <a class="book__chapter__chapter-link" href="/book/contents/Tipizaciya-Zashchitniki-tipa" title="Типизация - Защитники типа" target="_blank">Типизация - Защитники типа</a> ) позволяющий в некоторой мере решить эту проблему.</p>
+<p>Несмотря на то, что интерфейс является синтаксической конструкцией и может указываться в качестве типа, после компиляции от него не остается и следа. Это в свою очередь означает, что интерфейс, как тип данных, может использоваться только на этапе компиляции. Другими словами, компилятор сможет предупредить об ошибках несоответствия объекта описанному интерфейсу, но проверить на принадлежность к типу интерфейса с помощью таких операторов, как <code class="inline-code">typeof</code> или <code class="inline-code">instanceof</code>,  во время выполнения не получится. Но в <em>TypeScript</em> существует механизм (который будет рассмотрен далее в главе <a class="book__chapter__chapter-link" href="/book/contents/Tipizaciya-Zashchitniki-tipa" title="Типизация - Защитники типа" target="_blank">Типизация - Защитники типа</a> ), позволяющий в некоторой мере решить эту проблему.</p>
 </section><section id="Rasshirenie-interfeisov-extends-interface" name="Расширение интерфейсов (extends interface)" class="subchapter">
             <h2 class="subchapter-title">
                 <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="Rasshirenie-interfeisov-extends-interface" type="absolute-url">
@@ -190,7 +190,7 @@
         
 <hr>
 <p>Если множество логически связанных интерфейсов требуется объединить в один тип, то нужно воспользоваться механизмом расширения интерфейсов (<code class="inline-code">extends</code>).
-Наследование интерфейсов осуществляется с помощью ключевого слова <code class="inline-code">extends</code>, после которого идет один или несколько (через запятую) идентификаторов расширяемых интерфейсов.</p>
+Наследование интерфейсов осуществляется с помощью ключевого слова <code class="inline-code">extends</code>, после которого через запятую идет один или несколько идентификаторов расширяемых интерфейсов.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">interface</span> IIdentifiable { }
 <span class="hljs-keyword">interface</span> ILiving { }
 
@@ -198,8 +198,7 @@
 
 
 <span class="hljs-keyword">interface</span> IAnimal <span class="hljs-keyword">extends</span> IIdentifiable, ILiving { }</code></pre>
-<p>Для тех, кто только знакомится с таким понятием, как интерфейсы, будет не лишним узнать о таком принципе, как <em>“Принцип разделения интерфейсов”</em> (Interface Segregation Principle или сокращенно ISP). Этот принцип гласит, что более крупные интерфейсы нужно “дробить” на более мелкие интерфейсы. </p>
-<p>Но нужно понимать, что условия дробления диктуются конкретным приложением. Если во всех случаях руководствоваться только  правилами, то можно раздуть небольшое приложение до масштабов вселенной.</p>
+<p>Для тех, кто только знакомится с таким понятием, как интерфейсы, будет не лишним узнать о таком принципе, как <em>“Принцип разделения интерфейсов”</em> (Interface Segregation Principle, или, сокращенно, ISP). Этот принцип гласит, что более крупные интерфейсы нужно “дробить” на более мелкие интерфейсы. Но нужно понимать, что условия дробления диктуются конкретным приложением. Если во всех случаях руководствоваться только правилами, то можно раздуть небольшое приложение до масштабов вселенной.</p>
 <p>Для примера представьте приложение, которое только выводит в консоль информацию о животных. Так как над объектом <code class="inline-code">Animal</code> будет выполняться только одна операция, то можно не бояться разгневать богов объектно-ориентированного проектирования и включить все нужные характеристики прямо в интерфейс <code class="inline-code">IAnimal</code>.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">interface</span> IAnimal {
  id: <span class="hljs-built_in">string</span>;
@@ -265,7 +264,7 @@ AnimalUtil.printAge(raven);</code></pre>
    <span class="hljs-built_in">console</span>.log( animal.age );
  }
 }</code></pre>
-<p>Поэтому в подобных ситуациях, настоятельно рекомендуется “дробить” типы интерфейсов на меньшие составляющие, а затем с их помощью ограничивать доступ к данным в тех местах, где это требуется правилами.</p>
+<p>Поэтому в подобных ситуациях настоятельно рекомендуется “дробить” типы интерфейсов на меньшие составляющие, а затем с их помощью ограничивать доступ к данным в тех местах, где это требуется правилами.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">interface</span> IIdentifiable { }
 <span class="hljs-keyword">interface</span> ILiving { }
 
@@ -352,7 +351,7 @@ AnimalUtil.printAge(raven);</code></pre>
             </h2>
         
 <hr>
-<p>Известный факт, что в <em>JavaScript</em>, а следовательно и в TypeScript, конструкция <code class="inline-code">class</code> - это всего навсего <em>“синтаксический сахар”</em> над старой доброй функцией-конструктором. Эта особенность позволяет описывать интерфейсы не только для экземпляров класса, но и для самих классов (функций-конструкторов). Другими словами, в интерфейсе можно описать конструктор, а также статические члены класса, с одной оговоркой. Этот интерфейс можно использовать только в качестве типа. То есть класс не может указывать реализацию такого интерфейса с помощью ключевого слова <code class="inline-code">implements</code>.</p>
+<p>Известный факт, что в <em>JavaScript</em>, а, следовательно, и в TypeScript, конструкция <code class="inline-code">class</code> - это лишь <em>“синтаксический сахар”</em> над старой доброй функцией-конструктором. Эта особенность позволяет описывать интерфейсы не только для экземпляров класса, но и для самих классов (функций-конструкторов). Другими словами, в интерфейсе можно описать конструктор, а также статические члены класса, но — с одной оговоркой: этот интерфейс можно использовать только в качестве типа. То есть класс не может указывать реализацию такого интерфейса с помощью ключевого слова <code class="inline-code">implements</code>.</p>
 <p>Описывать интерфейс для функции конструктора может потребоваться тогда, когда в качестве значения выступает сам класс.</p>
 <p>Конструктор указывается с помощью ключевого слова new, после которого указываются фигурные скобки в которых, при наличии, указываются параметры, после которых следует указания возвращаемого типа <code class="inline-code">new(p1: type, p2: type): type;</code>.</p>
 <p>Статические члены описываются также, как и обычные.</p>
@@ -417,7 +416,7 @@ AnimalUtil.printAge(raven);</code></pre>
 <span class="hljs-keyword">let</span> numberAll: <span class="hljs-built_in">number</span>[ ] = [ <span class="hljs-number">5</span>, <span class="hljs-number">5</span>, <span class="hljs-number">10</span>, <span class="hljs-number">30</span> ];
 
 <span class="hljs-keyword">let</span> sum: <span class="hljs-built_in">number</span> = numberAll.reduce( callback ); <span class="hljs-comment">// 50</span></code></pre>
-<p>Но в случае, если функциональное выражение является параметром функции, как например метод массива <code class="inline-code">reduce</code>, то решением может служить только явная декларация типа.</p>
+<p>Но в случае, если функциональное выражение является параметром функции, как, например, метод массива <code class="inline-code">reduce</code>, решением может служить только явная декларация типа.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">class</span> Collection&#x3C;T> {
   reduce(callbackfn: <span class="hljs-function">(<span class="hljs-params">previousValue: T, currentValue: T, currentIndex: <span class="hljs-built_in">number</span>, array: T[]</span>) =></span> T, initialValue?: T): T {
       <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>;
@@ -466,7 +465,7 @@ AnimalUtil.printAge(raven);</code></pre>
 <p>Помимо описания объекта, в конструкции объявляемой с помощью ключевого слова <code class="inline-code">interface</code>, тип объекта можно описать прямо в месте указания типа. Такой способ объявления типа данных, неформально называют <em>инлайн интерфейс</em> (inline interface). Всё ранее описанное для типов определяемых интерфейсами, полностью верно для типов определяемых инлайн интерфейсами.</p>
 <p>Различие между обычным интерфейсом и инлайн интерфейсом в том, что второй имеет только тело и объявляется прямо в аннотации типа.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">let</span> identifier: { p1: <span class="hljs-keyword">type</span>, p2: <span class="hljs-keyword">type</span> };</code></pre>
-<p>Интерфейс, объявленный с помощью  ключевого слова <code class="inline-code">interface</code> считается идентичным инлайн интерфейсу, если их описание совпадает. Но стоит обратить внимание, что это возможно благодаря структурной типизации, которая рассматривается в главе <a class="book__chapter__chapter-link" href="/book/contents/Ekskurs-v-tipizaciu-Sovmestimost-tipov-na-osnove-vida-tipizacii" title="Экскурс в типизацию - Совместимость типов на основе вида типизации" target="_blank">Экскурс в типизацию - Совместимость типов на основе вида типизации</a>.</p>
+<p>Интерфейс, объявленный с помощью  ключевого слова <code class="inline-code">interface</code>, считается идентичным инлайн интерфейсу, если их описание совпадает. Но стоит обратить внимание, что это возможно благодаря структурной типизации, которая рассматривается в главе <a class="book__chapter__chapter-link" href="/book/contents/Ekskurs-v-tipizaciu-Sovmestimost-tipov-na-osnove-vida-tipizacii" title="Экскурс в типизацию - Совместимость типов на основе вида типизации" target="_blank">Экскурс в типизацию - Совместимость типов на основе вида типизации</a>.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">interface</span> IAnimal {
   nickname: <span class="hljs-built_in">string</span>;
 }
@@ -504,7 +503,7 @@ AnimalUtil.printAge(raven);</code></pre>
             </h2>
         
 <hr>
-<p>В случае, если в одной области видимости объявлено несколько одноименных интерфейсов, то они будут объединены в один.</p>
+<p>В случае, если в одной области видимости объявлено несколько одноимённых интерфейсов, то они будут объединены в один.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-comment">// так видят разработчики</span>
 <span class="hljs-keyword">interface</span> IAnimal {
   name: <span class="hljs-built_in">string</span>;
@@ -534,7 +533,7 @@ animal.age = <span class="hljs-number">0</span>; <span class="hljs-comment">// O
   name: <span class="hljs-built_in">string</span>; <span class="hljs-comment">// Ok</span>
   age: <span class="hljs-built_in">string</span>; <span class="hljs-comment">// Error</span>
 }</code></pre>
-<p>Если в нескольких одноименных интерфейсах будут описаны одноименные методы с разными сигнатурами, то они будут расценены, как описание перегрузки. К тому же интерфейсы, которые описывают множество одноименных методов, сохраняют свой внутренний порядок.</p>
+<p>Если в нескольких одноимённых интерфейсах будут описаны одноимённые методы с разными сигнатурами, то они будут расценены, как описание перегрузки. К тому же интерфейсы, которые описывают множество одноимённых методов, сохраняют свой внутренний порядок.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">interface</span> IBird {}
 <span class="hljs-keyword">interface</span> IFish {}
 <span class="hljs-keyword">interface</span> IInsect {}
