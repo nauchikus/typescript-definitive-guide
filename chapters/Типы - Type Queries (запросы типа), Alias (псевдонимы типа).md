@@ -217,8 +217,8 @@ function valid( standart: StandartNormalPoint ){
 
 Есть ещё пара особенностей псевдонимов:
 
-- Вынести объявления кортежа (`Tuple`), речь о которых пойдет далее в главе [“Типы - Object, Array, Tuple”](), можно только в описание псевдонима.
-- Создать тип сопоставления, о них речь пойдет далее в главе [“Расширенные типы - Readonly, Partial, Required, Pick, Record”](), к которым можно отнести такие типы как `Readonly`, `Partial`, `Pick`, `Record` и им подобные можно исключительно на основе псевдонимов типов.
+- Вынести объявления кортежа (`Tuple`), речь о которых пойдет далее в главе [“Типы - Object, Array, Tuple”](https://nauchikus.github.io/typescript-definitive-guide/book/contents/Tipy-Object-Array-Tuple), можно только в описание псевдонима.
+- Создать тип сопоставления, о них речь пойдет далее в главе [“Расширенные типы - Readonly, Partial, Required, Pick, Record”](https://nauchikus.github.io/typescript-definitive-guide/book/contents/Rasshirennye-tipy-Readonly-Partial-Required-Pick-Record), к которым можно отнести такие типы как `Readonly`, `Partial`, `Pick`, `Record` и им подобные можно исключительно на основе псевдонимов типов.
 
 
 ## Итоги
