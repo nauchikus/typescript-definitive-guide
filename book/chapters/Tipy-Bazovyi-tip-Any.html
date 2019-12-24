@@ -9,7 +9,7 @@
             </h2>
         
 <hr>
-<p>То что <em>TypeScript</em> является типизированной надстройкой над <em>JavaScript</em>, от которой после компиляции не остаётся и следа, означает, что первый перенял от второго всю его идеологию. Одним из таких моментов является разделение типов данных на типы значения (примитивные) и ссылочные типы.</p>
+<p>То что <em>TypeScript</em> является типизированной надстройкой над <em>JavaScript</em>, от которой после компиляции не остаётся и следа, означает, что первый перенял от второго всю его идеологию. Одним из таких моментов является разделение типов данных на типы значения, которые принято называть примитивными типами, и ссылочные типы.</p>
 <p>В <em>JavaScript</em> все не объектные типы по своей природе иммутабельные. Иммутабельность означает, что значения нельзя модифицировать, а можно лишь полностью перезаписать новым значением. Из-за этого типы значения были прозваны примитивными типами.</p>
 </section><section id="Any-any-proizvolnyi-tip" name="Any (any) произвольный тип" class="subchapter">
             <h2 class="subchapter-title">
@@ -22,31 +22,27 @@
             </h2>
         
 <hr>
-<p>Все типы в <em>TypeScript</em> являются подтипами <code class="inline-code">any</code>, который указывается с помощью ключевого слова <code class="inline-code">any</code>. Это означает, что он совместим в обе стороны с любым типом данных и с точки зрения системы типов является <em>высшим типом</em> (top type). </p>
+<p>Все типы в <em>TypeScript</em> являются подтипами типа данных <code class="inline-code">Any</code>, который указывается с помощью ключевого слова <code class="inline-code">any</code>. Это означает, что тип <code class="inline-code">Any</code> совместим в обе стороны с любым типом данных. С точки зрения системы типов, тип данных Any является <em>высшим типом</em> (top type). </p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">let</span> apple: <span class="hljs-built_in">any</span> = <span class="hljs-number">0</span>;
 apple = <span class="hljs-string">""</span>;
 apple = <span class="hljs-literal">true</span>;</code></pre>
-<p>Тип <code class="inline-code">any</code> в аннотации рекомендуется применять только в самых крайних случаях. К такому случаю можно отнести объявления переменной, которой не присваивается значение в момент объявления и при этом неизвестно, какой тип данных ей будет присвоен. В остальных случаях настоятельно рекомендуется прежде всего рассматривать кандидатуру обобщенных типов, которые будут рассматриваться позднее.</p>
-<p>Тип <code class="inline-code">any</code> позволяет работать со значением динамически, что не вызывает ошибок при обращении к членам не описанных в типе данных (незадекларированных), о которых анализатор <em>TypeScript</em> ничего не знает.</p>
-<p>Примером этого может служить сервис, который работает с сервером посредством <em>API</em>. Полученные и сериализованные данные могут храниться как тип <code class="inline-code">any</code> прежде чем они будут и преобразованы к конкретному типу.</p>
-<pre><code class="hljs language-typescript"><span class="hljs-keyword">let</span> data: <span class="hljs-built_in">any</span> = <span class="hljs-built_in">JSON</span>.parse(<span class="hljs-string">'{"id": "abc"}'</span>);
-<span class="hljs-keyword">let</span> id = data.id; <span class="hljs-comment">// ок</span></code></pre>
-<p>Если при объявлении переменных <code class="inline-code">var</code> и <code class="inline-code">let</code> и полей, объявленных в теле класса, не было присвоено значение, компилятором будет выведен тип данных <code class="inline-code">any</code>.</p>
+<p>Тип <code class="inline-code">Any</code> в аннотации рекомендуется применять только в самых крайних случаях. К примеру объявление неинициализированной переменной, с заранее неизвестным типом, что является допустимым сценарием на ранних стадиях применения техники <code class="inline-code">TDD</code> при создания программы. В остальных случаях настоятельно рекомендуется прежде всего рассматривать кандидатуру обобщенных типов, которые будут рассматриваться позднее.</p>
+<p>Данный тип позволяет работать со значением динамически, что не вызывает ошибок при обращении к незадекларированным членам (членам, которые не были описаны в типе данных и о которых анализатор <em>TypeScript</em> ничего не знает).</p>
+<p>Примером этого может служить сервис, который работает с сервером посредством <em>api</em>. После того, как данные будут получены и сериализованы, но прежде чем они будут преобразованы к какому-то конкретному типу данных, сервис может хранить их как тип <code class="inline-code">Any</code>.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">let</span> data: <span class="hljs-built_in">any</span> = <span class="hljs-built_in">JSON</span>.parse( <span class="hljs-string">'{"id": "abc"}'</span> );
+<span class="hljs-keyword">let</span> id = data.id; <span class="hljs-comment">// Ok</span></code></pre>
+<p>Если при объявлении переменных <code class="inline-code">var</code> и <code class="inline-code">let</code> и полей, объявленных в теле класса, не было присвоено значение, компилятором будет выведен тип данных <code class="inline-code">Any</code>.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">var</span> apple; <span class="hljs-comment">// apple: any</span>
 <span class="hljs-keyword">let</span> lemon; <span class="hljs-comment">// lemon: any</span>
 
 <span class="hljs-keyword">class</span> Fruit {
-    name; <span class="hljs-comment">// name: any</span>
+  name; <span class="hljs-comment">// name: any</span>
 }</code></pre>
 <p>То же правило касается и параметров функций.</p>
-<pre><code class="hljs language-typescript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">weight</span>(<span class="hljs-params">fruit</span>) </span>{ <span class="hljs-comment">// fruit: any</span>
-
-}</code></pre>
-<p>Кроме того, если функция возвращает значение, принадлежащее к типу, который компилятор не в состоянии вывести, то возвращаемый этой функцией тип данных будет также будет выведен как тип <code class="inline-code">any</code>.</p>
-<pre><code class="hljs language-typescript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">sum</span>(<span class="hljs-params">a, b</span>) </span>{ <span class="hljs-comment">// function sum(a: any, b: any): any</span>
-    <span class="hljs-keyword">return</span> a + b; 
-}</code></pre>
-<p>Тип <code class="inline-code">any</code> является уникальным для <em>TypeScript</em>, в <em>JavaScript</em> подобного типа не существует.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">weight</span>(<span class="hljs-params"> fruit </span>)</span>{} <span class="hljs-comment">/** fruit: any */</span></code></pre>
+<p>Кроме того, если функция возвращает значение, принадлежащеее к типу, который компилятор не в состоянии вывести, то возвращаемый этой функцией тип данных будет также будет выведен как тип <code class="inline-code">Any</code>.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">sum</span>(<span class="hljs-params"> a, b </span>)</span>{ <span class="hljs-keyword">return</span> a + b; } <span class="hljs-comment">// function sum(a: any, b: any): any</span></code></pre>
+<p>Тип <code class="inline-code">Any</code> является уникальным для <em>TypeScript</em>, в <em>JavaScript</em> подобного типа не существует.</p>
 </section><section id="Itog" name="Итог" class="subchapter">
             <h2 class="subchapter-title">
                 <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="Itog" type="absolute-url">
@@ -58,9 +54,9 @@ apple = <span class="hljs-literal">true</span>;</code></pre>
             </h2>
         
 <ul class="book__list">
-<li class="book__list__item">Тип данных <code class="inline-code">any</code> является супертипом для всех типов в <em>TypeScript</em> и указывается с помощью ключевого слова <code class="inline-code">any</code>.</li>
-<li class="book__list__item">Тип данных <code class="inline-code">any</code> указывается тогда, когда тип данных заранее неизвестен.</li>
-<li class="book__list__item">Тип данных <code class="inline-code">any</code> указывается только в самых крайних случаях.</li>
-<li class="book__list__item">Тип данных <code class="inline-code">any</code> позволяет обращаться к незадекларированным членам объектов, имитируя динамическое поведение, тем самым перекладывая ответственность за проверку реализации интерфейса на разработчика.</li>
+<li class="book__list__item">Тип данных <code class="inline-code">Any</code> является супертипом для всех типов в <em>TypeScript</em> и указывается с помощью ключевого слова <code class="inline-code">any</code>.</li>
+<li class="book__list__item">Тип данных <code class="inline-code">Any</code> указывается тогда, когда тип данных заранее неизвестен.</li>
+<li class="book__list__item">Тип данных <code class="inline-code">Any</code> указывается только в самых крайних случаях.</li>
+<li class="book__list__item">Тип данных <code class="inline-code">Any</code> позволяет обращаться к незадекларированным членам объектов, имитируя динамическое поведение, тем самым перекладывая ответственность за проверку реализации интерфейса на разработчика.</li>
 </ul>
 </section>
