@@ -317,7 +317,7 @@ function error(message: string) { // function error(): void
     throw new Error(message);
 }
 
-function loop() { // function  loop(): void
+function loop() { // function loop(): void
     while(true) {
         
     }
