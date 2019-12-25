@@ -39,16 +39,20 @@
         
 <hr>
 <p>При объявлении функции тип возвращаемого ею значения указывается между её параметрами и телом. При наличии параметров, тип данных указывается и для них.</p>
-<pre><code class="hljs language-typescript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">identifier</span>(<span class="hljs-params">param1: Type, param2: Type</span>): <span class="hljs-title">ReturnedType</span> </span>{}</code></pre>
+<pre><code class="hljs language-typescript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">identifier</span>(<span class="hljs-params">param1: Type, param2: Type</span>): <span class="hljs-title">ReturnedType</span> </span>{
+
+}</code></pre>
 <p>Не будет лишним напомнить, что в отличие от <em>JavaScript</em>, в <em>TypeScript</em> в сигнатуру функции помимо её имени и параметров также входит и возвращаемое значение.</p>
 <p>Помимо этого, в <em>TypeScript</em> можно объявлять параметризированные функции. Функции, имеющие параметры типа, называются обобщенными (подробнее о них речь пойдет в главе <a class="book__chapter__chapter-link" href="https://nauchikus.github.io/typescript-definitive-guide/book/contents/Tipy-Obobshcheniya-Generics" title="Типы - Обобщения (Generics)" target="_blank">Типы - Обобщения (Generics)</a>. Параметры типа заключаются в угловые скобки <code class="inline-code">&#x3C;></code> и располагаются перед круглыми скобками <code class="inline-code">()</code>, в которые заключены параметры функции.</p>
-<pre><code class="hljs language-typescript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">identifier</span> &#x3C;<span class="hljs-title">T</span>, <span class="hljs-title">U</span>>(<span class="hljs-params"></span>): <span class="hljs-title">ReturnedType</span> </span>{}</code></pre>
+<pre><code class="hljs language-typescript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">identifier</span> &#x3C;<span class="hljs-title">T</span>, <span class="hljs-title">U</span>>(<span class="hljs-params"></span>): <span class="hljs-title">ReturnedType</span> </span>{
+
+}</code></pre>
 <p><em>TypeScript</em> расширяет границы типизации функций и методов таким новым для <em>JavaScript</em> понятием, как перегрузка функций. С помощью перегрузки функций можно аннотировать функции с одинаковыми идентификаторами, но с различными сигнатурами.</p>
 <p>Для этого в первую очередь аннотируют сигнатуры функций, методов или конструкторов, которые не содержат тела. В последнюю очередь объявляют функцию, сигнатура которой совместима со всеми ранее аннотированными версиями. Более подробно эта тема будет освещена позднее.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">identifier</span>(<span class="hljs-params">p1: T1, p2: T2</span>): <span class="hljs-title">T3</span></span>;
 <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">identifier</span>(<span class="hljs-params">p1: T4, p2: T5</span>): <span class="hljs-title">T6</span></span>;
 <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">identifier</span>(<span class="hljs-params">p1: T, p2: T</span>): <span class="hljs-title">T</span> </span>{
-  <span class="hljs-keyword">return</span> <span class="hljs-string">'value'</span>;
+    <span class="hljs-keyword">return</span> <span class="hljs-string">'value'</span>;
 }
 
 <span class="hljs-keyword">const</span> a: T1 = <span class="hljs-string">'value'</span>;
@@ -60,15 +64,17 @@ identifier(a, b); <span class="hljs-comment">// валидно</span>
 identifier(c, d); <span class="hljs-comment">// валидно</span>
 
 <span class="hljs-keyword">class</span> Identifier {
-  <span class="hljs-keyword">constructor</span>(<span class="hljs-params">p1: T1, p2: T2</span>);
-  <span class="hljs-keyword">constructor</span>(<span class="hljs-params">p1: T3, p2: T4</span>);
-  <span class="hljs-keyword">constructor</span>(<span class="hljs-params">p1: T, p2: T</span>) {}
-
-  identifier(<span class="hljs-params">p1: T1, p2: T2</span>): T3;
-  identifier(<span class="hljs-params">p1: T4, p2: T5</span>): T6;
-  identifier(<span class="hljs-params">p1: T, p2: T</span>): T {
-      return 'value';
-  }
+    <span class="hljs-keyword">constructor</span>(<span class="hljs-params">p1: T1, p2: T2</span>);
+    <span class="hljs-keyword">constructor</span>(<span class="hljs-params">p1: T3, p2: T4</span>);
+    <span class="hljs-keyword">constructor</span>(<span class="hljs-params">p1: T, p2: T</span>) {
+    
+    }
+    
+    identifier(<span class="hljs-params">p1: T1, p2: T2</span>): T3;
+    identifier(<span class="hljs-params">p1: T4, p2: T5</span>): T6;
+    identifier(<span class="hljs-params">p1: T, p2: T</span>): T {
+        return 'value';
+    }
 }</code></pre>
 </section><section id="Strelochnye-Funkcii-arrow-function" name="Стрелочные Функции (arrow function)" class="subchapter">
             <h2 class="subchapter-title">
@@ -82,7 +88,7 @@ identifier(c, d); <span class="hljs-comment">// валидно</span>
         
 <hr>
 <p>К стрелочным функциям применимы те же правила указания типов данных, что и для обычных функций, за исключением того, что возвращаемый ими тип указывается между параметрами и стрелкой.</p>
-<pre><code class="hljs language-typescript">&#x3C;T, U>( param: Type, param2: Type ): <span class="hljs-function"><span class="hljs-params">Type</span> =></span> value</code></pre>
+<pre><code class="hljs language-typescript">&#x3C;T, U>(param: Type, param2: Type): <span class="hljs-function"><span class="hljs-params">Type</span> =></span> value;</code></pre>
 </section><section id="Klassy-class" name="Классы (class)" class="subchapter">
             <h2 class="subchapter-title">
                 <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="Klassy-class" type="absolute-url">
@@ -99,34 +105,41 @@ identifier(c, d); <span class="hljs-comment">// валидно</span>
 <p>Для свойств, в частности для <code class="inline-code">get</code>, указывается тип данных возвращаемого значения. Для <code class="inline-code">set</code> указывается лишь тип единственного параметра, а возвращаемый им тип и вовсе запрещается указывать явно.</p>
 <p>Кроме того, классы в <em>TypeScript</em> также могут быть обобщенными. В случае объявления обобщенного класса, параметры типа заключенные в треугольные скобки, указываются сразу после идентификатора класса.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">class</span> Identifier&#x3C;T> {
-  <span class="hljs-keyword">static</span> staticField: Type = value; <span class="hljs-comment">// член класса</span>
-  
-  <span class="hljs-keyword">static</span> <span class="hljs-keyword">get</span> staticProperty(): Type { <span class="hljs-comment">// член класса</span>
-      <span class="hljs-keyword">return</span> value;
-  }
-
-  <span class="hljs-keyword">static</span> <span class="hljs-keyword">set</span> staticProperty(value: Type) { <span class="hljs-comment">// член класса</span>
+    <span class="hljs-keyword">static</span> staticField: Type = value; <span class="hljs-comment">// член класса</span>
+    
+    <span class="hljs-keyword">static</span> <span class="hljs-keyword">get</span> staticProperty(): Type { <span class="hljs-comment">// член класса</span>
+        <span class="hljs-keyword">return</span> value;
+    }
+    
+    <span class="hljs-keyword">static</span> <span class="hljs-keyword">set</span> staticProperty(value: Type) { <span class="hljs-comment">// член класса</span>
      
-  }
+    }
+    
+    <span class="hljs-keyword">static</span> staticMethod &#x3C;T, U>(param0: Type, param1: Type): Type { <span class="hljs-comment">// член класса</span>
+    
+    }
 
-  <span class="hljs-keyword">static</span> staticMethod &#x3C;T, U>(param0: Type, param1: Type): Type { } <span class="hljs-comment">// член класса</span>
+    [indexSignature: Type]: Type; <span class="hljs-comment">// член класса</span>
+    
+    [computedProp]: Type = value; <span class="hljs-comment">// член класса</span>
+    
+    field: Type = value; <span class="hljs-comment">// член класса</span>
+    
+    <span class="hljs-keyword">get</span> property(): Type { <span class="hljs-comment">// член класса</span>
+        <span class="hljs-keyword">return</span> value;
+    }
 
-  [indexSignature: Type]: Type; <span class="hljs-comment">// член класса</span>
-
-  [computedProp]: Type = value; <span class="hljs-comment">// член класса</span>
-
-  field: Type = value; <span class="hljs-comment">// член класса</span>
-
-  <span class="hljs-keyword">get</span> property(): Type { <span class="hljs-comment">// член класса</span>
-      <span class="hljs-keyword">return</span> value;
-  }
-  <span class="hljs-keyword">set</span> property(value: Type) { <span class="hljs-comment">// член класса</span>
+    <span class="hljs-keyword">set</span> property(value: Type) { <span class="hljs-comment">// член класса</span>
      
-  }
-
-  <span class="hljs-keyword">constructor</span>(<span class="hljs-params">param0: Type, param1: Type</span>){}
-
-  method &#x3C;T, U>(param0: Type, param1: Type): Type { } <span class="hljs-comment">// член класса</span>
+    }
+    
+    <span class="hljs-keyword">constructor</span>(<span class="hljs-params">param0: Type, param1: Type</span>) {
+    
+    }
+    
+    method &#x3C;T, U>(param0: Type, param1: Type): Type { <span class="hljs-comment">// член класса</span>
+    
+    }
 }</code></pre>
 </section><section id="Sravnenie-Sintaksisa-TypeScript-i-JavaScript" name="Сравнение Синтаксиса TypeScript и JavaScript" class="subchapter">
             <h2 class="subchapter-title">
@@ -150,72 +163,89 @@ identifier(c, d); <span class="hljs-comment">// валидно</span>
 <span class="hljs-keyword">const</span> IDENTIFIER = value;
 
 <span class="hljs-comment">// .ts</span>
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">identifier</span>(<span class="hljs-params">param1: Type, param2: Type</span>): <span class="hljs-title">ReturnedType</span> </span>{}
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">identifier</span>(<span class="hljs-params">param1: Type, param2: Type</span>): <span class="hljs-title">ReturnedType</span> </span>{
+
+}
 
 <span class="hljs-comment">// .js</span>
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">identifier</span>(<span class="hljs-params">param1, param2</span>) </span>{}
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">identifier</span>(<span class="hljs-params">param1, param2</span>) </span>{
+
+}
 
 <span class="hljs-comment">// .ts</span>
 <span class="hljs-keyword">class</span> Identifier&#x3C;T> {
-  <span class="hljs-keyword">static</span> staticField: Type = value; 
-  
-  <span class="hljs-keyword">static</span> <span class="hljs-keyword">get</span> staticProperty(): Type {
-      <span class="hljs-keyword">return</span> value;
-  }
-
-  <span class="hljs-keyword">static</span> <span class="hljs-keyword">set</span> staticProperty(value: Type) {
+    <span class="hljs-keyword">static</span> staticField: Type = value; 
+    
+    <span class="hljs-keyword">static</span> <span class="hljs-keyword">get</span> staticProperty(): Type {
+        <span class="hljs-keyword">return</span> value;
+    }
+    
+    <span class="hljs-keyword">static</span> <span class="hljs-keyword">set</span> staticProperty(value: Type) {
      
-  }
+    }
+    
+    <span class="hljs-keyword">static</span> staticMethod &#x3C;T, U>(param0: Type, param1: Type): Type {
+    
+    }
+    
+    [indexSignature: Type]: Type; 
+    
+    [computedProp]: Type = value; 
+    
+    field: Type = value;
+    
+    <span class="hljs-keyword">get</span> property(): Type {
+        <span class="hljs-keyword">return</span> value;
+    }
 
-  <span class="hljs-keyword">static</span> staticMethod &#x3C;T, U>(param0: Type, param1: Type): Type {}
-
-  [indexSignature: Type]: Type; 
-
-  [computedProp]: Type = value; 
-
-  field: Type = value;
-
-  <span class="hljs-keyword">get</span> property(): Type {
-      <span class="hljs-keyword">return</span> value;
-  }
-  <span class="hljs-keyword">set</span> property(value: Type) {
+    <span class="hljs-keyword">set</span> property(value: Type) {
      
-  }
-
-  <span class="hljs-keyword">constructor</span>(<span class="hljs-params">param0: Type, param1: Type</span>) {}
-
-  method &#x3C;T, U>(param0: Type, param1: Type): Type {}
+    }
+    
+    <span class="hljs-keyword">constructor</span>(<span class="hljs-params">param0: Type, param1: Type</span>) {
+    
+    }
+    
+    method &#x3C;T, U>(param0: Type, param1: Type): Type {
+    
+    }
 }
 
 <span class="hljs-comment">// .js</span>
 <span class="hljs-keyword">class</span> Identifier {
-  <span class="hljs-keyword">static</span> staticField = value; 
-  
-  <span class="hljs-keyword">static</span> <span class="hljs-keyword">get</span> staticProperty() {
-      <span class="hljs-keyword">return</span> value;
-  }
-
-  <span class="hljs-keyword">static</span> <span class="hljs-keyword">set</span> staticProperty(value) {
+    <span class="hljs-keyword">static</span> staticField = value; 
+    
+    <span class="hljs-keyword">static</span> <span class="hljs-keyword">get</span> staticProperty() {
+        <span class="hljs-keyword">return</span> value;
+    }
+    
+    <span class="hljs-keyword">static</span> <span class="hljs-keyword">set</span> staticProperty(value) {
      
-  }
-
-  <span class="hljs-keyword">static</span> staticMethod (param, param) {}
-
-  [computedProp] = value; 
-
-  field = value;
-
-  <span class="hljs-keyword">get</span> property() {
-      <span class="hljs-keyword">return</span> value;
-  }
-
-  <span class="hljs-keyword">set</span> property(value) {
+    }
+    
+    <span class="hljs-keyword">static</span> staticMethod (param, param) {
+    
+    }
+    
+    [computedProp] = value; 
+    
+    field = value;
+    
+    <span class="hljs-keyword">get</span> property() {
+        <span class="hljs-keyword">return</span> value;
+    }
+    
+    <span class="hljs-keyword">set</span> property(value) {
      
-  }
-
-  <span class="hljs-keyword">constructor</span>(<span class="hljs-params">param0, param1</span>) {}
-
-  method (param0, param1) {}
+    }
+    
+    <span class="hljs-keyword">constructor</span>(<span class="hljs-params">param0, param1</span>) {
+    
+    }
+    
+    method (param0, param1) {
+    
+    }
 }</code></pre>
 </section><section id="Itog" name="Итог" class="subchapter">
             <h2 class="subchapter-title">

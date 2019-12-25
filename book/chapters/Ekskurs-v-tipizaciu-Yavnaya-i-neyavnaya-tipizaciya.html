@@ -27,11 +27,11 @@
 <p>В львиной доле языков с явной типизацией существует возможность указывать типы неявно.</p>
 <p>Рассмотрим пример кода демонстрирующего явную типизацию.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">class</span> Controller {
-   <span class="hljs-keyword">public</span> check(eggs: IEgg[]): <span class="hljs-built_in">boolean</span> {
-       <span class="hljs-keyword">const</span> isValid: <span class="hljs-built_in">boolean</span> = Validator.valid( eggs );
-
-       <span class="hljs-keyword">return</span> isValid;
-   }
+    <span class="hljs-keyword">public</span> check(eggs: IEgg[]): <span class="hljs-built_in">boolean</span> {
+        <span class="hljs-keyword">const</span> isValid: <span class="hljs-built_in">boolean</span> = Validator.valid(eggs);
+        
+        <span class="hljs-keyword">return</span> isValid;
+    }
 }</code></pre>
 <p>Класс <code class="inline-code">Controller</code> содержит метод <code class="inline-code">check</code>, который имеет один обязательный параметр <code class="inline-code">eggs</code> c типом <code class="inline-code">IEgg[ ]</code> и возвращающий тип <code class="inline-code">boolean</code>. Если бы не явно указанные типы параметров, то разработчикам пришлось бы только гадать с чем  именно им предстоит работать. Это же относится и к возвращаемому типу.</p>
 <p>Результатом выполнения <code class="inline-code">Validator.valid( eggs )</code> внутри метода <code class="inline-code">check</code> является возвращаемое из функции значение типа <code class="inline-code">boolean</code>. Если бы при объявлении переменной <code class="inline-code">isValid</code> тип <code class="inline-code">boolean</code> не был бы указан явно, то было бы сильно сложнее догадаться то же возвращает метод <code class="inline-code">valid</code>.</p>
@@ -51,18 +51,18 @@
 <p>Язык с <em>неявной типизацией</em> при объявлении языковых элементов не требует от разработчика указания принадлежности к конкретному типу данных и возлагает определение типов на компилятор или интерпретатор.</p>
 <p>За основу примера неявной типизации возьмем код из предыдущего примера и лишим его всей атрибутики, связанной с явной типизации.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">class</span> Controller {
-   check( eggs ) {
-       <span class="hljs-keyword">const</span> isValid = Validator.valid( eggs );
-
-       <span class="hljs-keyword">return</span> isValid;
-   }
+    check(eggs) {
+        <span class="hljs-keyword">const</span> isValid = Validator.valid(eggs);
+        
+        <span class="hljs-keyword">return</span> isValid;
+    }
 }</code></pre>
 <p>Этот код стал занимать меньше места, что являтся одним из нескольких доводов, которые можно услышать в пользу языков с неявной типизацией. Но на самом деле это не так.</p>
 <p>На практике считается хорошим тоном при объявлении языковых элементов уделять особое внимание именованию. Ведь именно от выбора названия будет зависеть то время, которое уйдет у программиста на понимание участка кода при отладке, рефакторинге или модернизации.</p>
 <p>Те же рассуждения, в процессе которых происходит рождение более информационного названия, приводят к более детальному осмыслению кода.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">class</span> EggController {
-   checkEgg( eggAll ) {
-       <span class="hljs-keyword">const</span> isEggValid = EggValidator.qualityEggValid( eggAll );
+   checkEgg(eggAll) {
+       <span class="hljs-keyword">const</span> isEggValid = EggValidator.qualityEggValid(eggAll);
 
        <span class="hljs-keyword">return</span> isEggValid;
    }
@@ -71,7 +71,7 @@
 <p>А тот факт, что неявная типизация позволяет реализовывать несложные алгоритмы с меньшими временными затратами, разбивается о возможность всех современных языков с явной типизацией с помощью вывода типов указывать тип неявно.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">class</span> EggController {
    <span class="hljs-keyword">public</span> checkEgg(eggAll: IEgg[]): <span class="hljs-built_in">boolean</span> {
-       <span class="hljs-keyword">const</span> isEggValid: <span class="hljs-built_in">boolean</span> = EggValidator.qualityEggValid( eggAll );
+       <span class="hljs-keyword">const</span> isEggValid: <span class="hljs-built_in">boolean</span> = EggValidator.qualityEggValid(eggAll);
 
        <span class="hljs-keyword">return</span> isEggValid;
    }
