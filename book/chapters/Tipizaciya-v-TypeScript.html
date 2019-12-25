@@ -110,7 +110,7 @@
             </h2>
         
 <hr>
-<p>Простыми словами, вариантность — это механизм, определяющий правила, на основе которых принимается решение о совместимости двух типов. Правила зависят от конкретного вида вариантности — ковариантность, контрвариантность, бивариантность и инвариантность. В случае с <em>TypeScript</em> нас интересуют первые три.</p>
+<p>Простыми словами, вариантность — это механизм, определяющий правила, на основе которых принимается решение о совместимости двух типов. Правила зависят от конкретного вида вариантности — ковариантность, контравариантность, бивариантность и инвариантность. В случае с <em>TypeScript</em> нас интересуют первые три.</p>
 <p>Ковариантность позволяет большему типу быть совместимым с меньшими типом.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">interface</span> IAnimal { <span class="hljs-keyword">type</span>: <span class="hljs-built_in">string</span>; }
 <span class="hljs-keyword">interface</span> IBird <span class="hljs-keyword">extends</span> IAnimal { fly(): <span class="hljs-built_in">void</span>; }
@@ -133,7 +133,7 @@
 
 <span class="hljs-keyword">let</span> v0: T0 = f1; <span class="hljs-comment">// Ok</span>
 <span class="hljs-keyword">let</span> v1: T1 = f0; <span class="hljs-comment">// Error</span></code></pre>
-<p>Контрвариантность позволяет меньшему типу быть совместимым с большим типом.</p>
+<p>Контравариантность позволяет меньшему типу быть совместимым с большим типом.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">interface</span> IAnimal { <span class="hljs-keyword">type</span>: <span class="hljs-built_in">string</span>; }
 <span class="hljs-keyword">interface</span> IBird <span class="hljs-keyword">extends</span> IAnimal { fly(): <span class="hljs-built_in">void</span>; }
 
