@@ -3,6 +3,7 @@ ________________
 
 Прежде чем приступить к знакомству с такими типами, как `Null`, `Undefined`, `Void`, `Never` и `Unknown`, стоит обговорить одну очень важную деталь. Дело в том, что все перечисленные типы можно указывать в качестве типа всем конструкциям, которые это позволяют. То есть, типом данных `null` можно аннотировать даже переменную (`let identifier: null`). Данная книга будет изобиловать подобными примерами, так как эта возможность облегчает демонстрацию совместимости типов. Но при этом стоит понимать, что проделывать подобное в реальном коде противопоказано.
 
+
 ## Null (null) примитивный null тип
 ________________
 
@@ -14,15 +15,15 @@ ________________
 let identifier: null = null; // null, указанный после оператора двоеточия, это имеющийся только в TypeScript псевдоним (alias) для глобального типа Null. В то время как null, указанный после оператора присваивания, это единственное значение типа Null.
 ~~~~~
 
-Тип `Null` является подтипом всех типов, за  исключением типа `Undefined`, поэтому его единственное значение `null` совместимо со всеми остальными типами данных.
+Тип `Null` является подтипом всех типов, за исключением типа `Undefined`, поэтому его единственное значение `null` совместимо со всеми остальными типами данных.
 
 ~~~~~typescript
 class TypeSystem {
-  static any: any = null; // Ok
-  static number: number = null; // Ok
-  static string: string = null; // Ok
-  static boolean: boolean = null; // Ok
-  static null: null = null; // Ok
+    static any: any = null; // Ok
+    static number: number = null; // Ok
+    static string: string = null; // Ok
+    static boolean: boolean = null; // Ok
+    static null: null = null; // Ok
 }
 ~~~~~
 
@@ -46,11 +47,11 @@ let identifier = null; // identifier: any
 
 ~~~~~typescript
 class TypeSystem {
-  static any: any = null; // Ok
-  static number: number = null; // Error
-  static string: string = null; // Error
-  static boolean: boolean = null; // Error
-  static null: null = null; // Ok
+    static any: any = null; // Ok
+    static number: number = null; // Error
+    static string: string = null; // Error
+    static boolean: boolean = null; // Error
+    static null: null = null; // Ok
 }
 
 TypeSystem.null = TypeSystem.any; // Ok
@@ -85,12 +86,12 @@ let identifier: undefined = undefined; // undefined, указанный посл
 
 ~~~~~typescript
 class TypeSystem {
-  static any: any = undefined; // Ok
-  static number: number = undefined; // Ok
-  static string: string = undefined; // Ok
-  static boolean: boolean = undefined; // Ok
-  static null: null = undefined; // Ok
-  static undefined: undefined = undefined; // Ok
+    static any: any = undefined; // Ok
+    static number: number = undefined; // Ok
+    static string: string = undefined; // Ok
+    static boolean: boolean = undefined; // Ok
+    static null: null = undefined; // Ok
+    static undefined: undefined = undefined; // Ok
 }
 ~~~~~
 
@@ -116,12 +117,12 @@ let identifier = undefined; // identifier: any
 
 ~~~~~typescript
 class TypeSystem {
-  static any: any = undefined; // Ok
-  static number: number = undefined; // Error
-  static string: string = undefined; // Error
-  static boolean: boolean = undefined; // Error
-  static null: null = undefined; // Error
-  static undefined: undefined = undefined; // Ok
+    static any: any = undefined; // Ok
+    static number: number = undefined; // Error
+    static string: string = undefined; // Error
+    static boolean: boolean = undefined; // Error
+    static null: null = undefined; // Error
+    static undefined: undefined = undefined; // Ok
 }
 
 TypeSystem.undefined = TypeSystem.any; // Ok
@@ -150,16 +151,18 @@ ________________
 Тип `Void` является подтипом `Any` и супертипом для `Null` и `Undefined`.
 
 ~~~~~typescript
-function action(): void {}
+function action(): void {
+
+}
 
 class TypeSystem {
- static any: any = action(); // Ok
- static number: number = action(); // Error
- static string: string = action(); // Error
- static boolean: boolean = action(); // Error
- static null: null = action(); // Error
- static undefined: undefined = action(); // Error
- static void: void = action(); // Ok
+    static any: any = action(); // Ok
+    static number: number = action(); // Error
+    static string: string = action(); // Error
+    static boolean: boolean = action(); // Error
+    static null: null = action(); // Error
+    static undefined: undefined = action(); // Error
+    static void: void = action(); // Ok
 }
 
 TypeSystem.void = TypeSystem.any; // Ok
@@ -174,16 +177,18 @@ TypeSystem.void = TypeSystem.void; // Ok
 Однако с активным флагом `--strictNullChecks`, тип данных `Void` совместим лишь с `Any` и `Undefined`.
 
 ~~~~~typescript
-function action(): void {}
+function action(): void {
+
+}
 
 class TypeSystem {
- static any: any = action(); // Ok
- static number: number = action(); // Error
- static string: string = action(); // Error
- static boolean: boolean = action(); // Error
- static null: null = action(); // Error
- static undefined: undefined = action(); // Error
- static void: void = action(); // Ok
+    static any: any = action(); // Ok
+    static number: number = action(); // Error
+    static string: string = action(); // Error
+    static boolean: boolean = action(); // Error
+    static null: null = action(); // Error
+    static undefined: undefined = action(); // Error
+    static void: void = action(); // Ok
 }
 
 TypeSystem.void = TypeSystem.any; // Ok
@@ -199,33 +204,39 @@ TypeSystem.void = TypeSystem.void; // Ok
 Когда функции в качестве возвращаемого типа указан тип `Void`, может показаться, что, возвращая различные значения с помощью оператора return, компилятор выбрасывает ошибки лишь потому что он понимает, что функция помечена как ничего не возвращающая. Но это не так. Ошибка возникает по причине несовместимости типов.
 
 ~~~~~typescript
-function a(  ): void {
-  let result: number = 5;
+function a(): void {
+    let result: number = 5;
 
-  return result; // Error
+    return result; // Error
 }
-function b(  ): void {
-  let result: string = '5';
- 
-  return result; // Error
+
+function b(): void {
+    let result: string = '5';
+    
+    return result; // Error
 }
-function c(  ): void {
-  let result: any = 5;
- 
-  return result; // Ok
+
+function c(): void {
+    let result: any = 5;
+    
+    return result; // Ok
 }
 ~~~~~
 
 Нельзя не упомянуть, что для функций и методов, которые ничего не возвращают и у которых отсутствует аннотация типа возвращаемого значения, вывод типов определяет принадлежность к типу `Void`.
 
 ~~~~~typescript
-function action() { } // function action(): void {}
+function action() { // function action(): void
+
+}
 ~~~~~
 
-В отличие от `Null` и `Undefined`, тип данных `Void` не имеет ни одного значения, которое могло бы явно продемонстрировать присвоение. Однако компилятор понимает что имеет дело с типом `Void` при вызове функции или метода, которые не возвращают значение. Этот становится ещё нагляднее, когда вывод типов устанавливает тип полученный при вызове функции или метода, которые ничего  не возвращают.
+В отличие от `Null` и `Undefined`, тип данных `Void` не имеет ни одного значения, которое могло бы явно продемонстрировать присвоение. Однако компилятор понимает что имеет дело с типом `Void` при вызове функции или метода, которые не возвращают значение. Этот становится ещё нагляднее, когда вывод типов устанавливает тип полученный при вызове функции или метода, которые ничего не возвращают.
 
 ~~~~~typescript
-function action(): void { }
+function action(): void {
+
+}
 
 let identifier = action(); // identifier: void
 ~~~~~
@@ -238,24 +249,24 @@ ________________
 
 Примитивный типа данных `Never` служит для указания того, что какие-либо операции никогда не будут выполнены.
 
-`Never` обозначается ключевым словом `never` и также как и `Void` не имеет явных значений.
+`Never` обозначается ключевым словом `never` и так же как и `Void` не имеет явных значений.
 
 Тип данных `Never` является подтипом всех типов, что делает его совместим со всеми остальными типами.
 
 ~~~~~typescript
 function action(): never {
-  throw new Error();
+    throw new Error();
 };
 
 class TypeSystem {
-  static any: any = action(); // Ok
-  static number: number = action(); // Ok
-  static string: string = action(); // Ok
-  static boolean: boolean = action(); // Ok
-  static null: null = action(); // Ok
-  static undefined: undefined = action(); // Ok
-  static void: void = action(); // Ok
-  static never: never = action(); // Ok
+    static any: any = action(); // Ok
+    static number: number = action(); // Ok
+    static string: string = action(); // Ok
+    static boolean: boolean = action(); // Ok
+    static null: null = action(); // Ok
+    static undefined: undefined = action(); // Ok
+    static void: void = action(); // Ok
+    static never: never = action(); // Ok
 }
 
 TypeSystem.never = TypeSystem.any; // Error
@@ -273,26 +284,27 @@ TypeSystem.never = TypeSystem.never; // Ok
 Такой сценарий может выражаться в виде функции, вызов которой приведет к однозначному исключению или в которой будет находится бесконечный цикл.
 
 ~~~~~typescript
-function error( message: string ):  never {
-  throw new Error( message );
+function error(message: string): never {
+    throw new Error(message);
 }
 
-function loop():  never {
-  while( true ) { }
+function loop(): never {
+    while(true) {
+        
+    }
 }
 ~~~~~
 
 Вывод типов укажет принадлежность типа возвращаемого функцией значения только в том случае, если она будет возвращать результат вызова функции у которой тип возвращаемого значения указан как `Never`.
 
 ~~~~~typescript
-function error( message: string ):  never {
- throw new Error( message );
+function error(message: string): never {
+    throw new Error(message);
 }
 
-function action() { // function action(): never {}
-  return error( 'All very, very bad.' );
+function action() { // function action(): never
+    return error('All very, very bad.');
 }
-
 
 let identifier = error(); // let identifier: never
 let identifier = action(); // let identifier: never
@@ -301,12 +313,14 @@ let identifier = action(); // let identifier: never
 Стоит заметить, что без явного указания типа `Never` вывод типов определит принадлежность возвращаемого значения к типу `Void`.
 
 ~~~~~typescript
-function error( message: string ) { // function  error(): void {}
-  throw new Error( message );
+function error(message: string) { // function error(): void 
+    throw new Error(message);
 }
 
-function loop() { // function  loop(): void {}
-  while( true ) { }
+function loop() { // function loop(): void
+    while(true) {
+        
+    }
 }
 ~~~~~
 
@@ -320,16 +334,16 @@ ________________
 
 ~~~~~typescript
 class TypeSystem {
-static unknown: unknown;
-
-static any: any = TypeSystem.unknown; // Ok
-static number: number = TypeSystem.unknown; // Error
-static string: string = TypeSystem.unknown; // Error
-static boolean: boolean = TypeSystem.unknown; // Error
-static null: null = TypeSystem.unknown; // Error
-static undefined: undefined = TypeSystem.unknown; // Error
-static void: void = TypeSystem.unknown; // Error
-static never: never = TypeSystem.unknown; // Error
+    static unknown: unknown;
+    
+    static any: any = TypeSystem.unknown; // Ok
+    static number: number = TypeSystem.unknown; // Error
+    static string: string = TypeSystem.unknown; // Error
+    static boolean: boolean = TypeSystem.unknown; // Error
+    static null: null = TypeSystem.unknown; // Error
+    static undefined: undefined = TypeSystem.unknown; // Error
+    static void: void = TypeSystem.unknown; // Error
+    static never: never = TypeSystem.unknown; // Error
 }
 
 TypeSystem.unknown = TypeSystem.any; // Ok
@@ -355,7 +369,7 @@ let v1: unknown = v0; // Ok
 v1.a = 5; // Error
 v1.a = ''; // Error
 v1(); // Error
-~~~~~	
+~~~~~
 
 Если тип `unknown` составляет тип пересечение (`intersection`), то он будет перекрыт всеми типами.
 
@@ -387,7 +401,7 @@ type T8<T> = T | unknown; // type T8 = unknown
 type T9 = unknown | unknown; // type T9 = unknown
 ~~~~~
 
-Помимо этого, запрос ключей (`keyof`) для тип `unknown` возвращает тип `never`.
+Помимо этого, запрос ключей (`keyof`) для типа `unknown` возвращает тип `never`.
 
 ~~~~~typescript
 type T0 = keyof number; // type T0 = "toString" | "toFixed" | "toExponential" | "toPrecision" | "valueOf" | "toLocaleString"
@@ -414,19 +428,22 @@ let v11 = --v0; // Error
 let v12 = v0++; // Error
 let v13 = v0--; // Error
 
-
 let v14 = 5 && v0; // Ok, let v14: unknown
 let v15 = 5 || v0; // Ok, let v15: number
 let v16 = v0 || 5; // Ok, let v16: unknown
 let v17 = !v0; // Ok, let v17: boolean
 ~~~~~
 
-
 Также стоит упомянуть, что функция, у которой возвращаемый тип принадлежит к типу `unknown`, может не возвращать значение явно.
 
 ~~~~~typescript
-function f0(): unknown {return;} // Ok
-function f1(): number {return;} // Error
+function f0(): unknown {
+    return; // Ok
+}
+
+function f1(): number {
+    return; // Error
+}
 
 let v = f0(); // Ok, let v: unknown
 ~~~~~
@@ -435,20 +452,18 @@ let v = f0(); // Ok, let v: unknown
 
 ~~~~~typescript
 class T {
-  f0: unknown; // Ok
-  f1: number; // Error
-  f2: number = 5; // Ok
+    f0: unknown; // Ok
+    f1: number; // Error
+    f2: number = 5; // Ok
 }
 ~~~~~
 
-Если в определении типа данных участвует сопоставленный тип (`Mapped Type`) которому в качестве аргумента типа передается тип `unknown`, то такой сопаставленный тип будет выведен как объектный тип `{}`. Поскольку сопоставленные типы (`Mapped Types`), псевдонимы типов (`types`), а также обобщения (`Generics<>`) будут рассмотрены позднее, то стоит просто помнить об этом факте и повторно прочесть написанное при необходимости. 
-
+Если в определении типа данных участвует сопоставленный тип (`Mapped Type`) которому в качестве аргумента типа передается тип `unknown`, то такой сопоставленный тип будет выведен как объектный тип `{}`. Поскольку сопоставленные типы (`Mapped Types`), псевдонимы типов (`types`), а также обобщения (`Generics<>`) будут рассмотрены позднее, то стоит просто помнить об этом факте и повторно прочесть написанное при необходимости.
 
 ~~~~~typescript
 type MappedType<T> = {
-  [K in keyof T]: T;
+    [K in keyof T]: T;
 }
-
 
 type T0 =  MappedType<number>; // type T0 = number
 type T1 =  MappedType<any>; // type T1 = { [x: string]: any; }
