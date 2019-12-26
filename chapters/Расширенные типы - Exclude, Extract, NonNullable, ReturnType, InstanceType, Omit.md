@@ -1,4 +1,4 @@
-## Расширенные типы - Exclude, Extract, NonNullable, ReturnType, InstanceType, Omit
+## Расширенные типы — Exclude, Extract, NonNullable, ReturnType, InstanceType, Omit
 ________________
 
 Чтобы сэкономить время разработчиков, в систему типов *TypeScript* были включены несколько часто требующихся условных типов, которые подробно будут рассмотрены в этой главе.
