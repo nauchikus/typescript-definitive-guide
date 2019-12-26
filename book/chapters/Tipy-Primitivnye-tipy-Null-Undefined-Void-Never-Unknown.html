@@ -24,13 +24,13 @@
 <p>Примитивный тип <code class="inline-code">Null</code> служит обозначением <em>“ничего”</em>. </p>
 <p>Тип <code class="inline-code">Null</code> указывается с помощью ключевого слова <code class="inline-code">null</code> (не путать с единственным литеральным значением типа <code class="inline-code">Null</code> <code class="inline-code">null</code>, которое присваивается в качестве значения).</p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">let</span> identifier: <span class="hljs-literal">null</span> = <span class="hljs-literal">null</span>; <span class="hljs-comment">// null, указанный после оператора двоеточия, это имеющийся только в TypeScript псевдоним (alias) для глобального типа Null. В то время как null, указанный после оператора присваивания, это единственное значение типа Null.</span></code></pre>
-<p>Тип <code class="inline-code">Null</code> является подтипом всех типов, за  исключением типа <code class="inline-code">Undefined</code>, поэтому его единственное значение <code class="inline-code">null</code> совместимо со всеми остальными типами данных.</p>
+<p>Тип <code class="inline-code">Null</code> является подтипом всех типов, за исключением типа <code class="inline-code">Undefined</code>, поэтому его единственное значение <code class="inline-code">null</code> совместимо со всеми остальными типами данных.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">class</span> TypeSystem {
-  <span class="hljs-keyword">static</span> <span class="hljs-built_in">any</span>: <span class="hljs-built_in">any</span> = <span class="hljs-literal">null</span>; <span class="hljs-comment">// Ok</span>
-  <span class="hljs-keyword">static</span> <span class="hljs-built_in">number</span>: <span class="hljs-built_in">number</span> = <span class="hljs-literal">null</span>; <span class="hljs-comment">// Ok</span>
-  <span class="hljs-keyword">static</span> <span class="hljs-built_in">string</span>: <span class="hljs-built_in">string</span> = <span class="hljs-literal">null</span>; <span class="hljs-comment">// Ok</span>
-  <span class="hljs-keyword">static</span> <span class="hljs-built_in">boolean</span>: <span class="hljs-built_in">boolean</span> = <span class="hljs-literal">null</span>; <span class="hljs-comment">// Ok</span>
-  <span class="hljs-keyword">static</span> <span class="hljs-literal">null</span>: <span class="hljs-literal">null</span> = <span class="hljs-literal">null</span>; <span class="hljs-comment">// Ok</span>
+    <span class="hljs-keyword">static</span> <span class="hljs-built_in">any</span>: <span class="hljs-built_in">any</span> = <span class="hljs-literal">null</span>; <span class="hljs-comment">// Ok</span>
+    <span class="hljs-keyword">static</span> <span class="hljs-built_in">number</span>: <span class="hljs-built_in">number</span> = <span class="hljs-literal">null</span>; <span class="hljs-comment">// Ok</span>
+    <span class="hljs-keyword">static</span> <span class="hljs-built_in">string</span>: <span class="hljs-built_in">string</span> = <span class="hljs-literal">null</span>; <span class="hljs-comment">// Ok</span>
+    <span class="hljs-keyword">static</span> <span class="hljs-built_in">boolean</span>: <span class="hljs-built_in">boolean</span> = <span class="hljs-literal">null</span>; <span class="hljs-comment">// Ok</span>
+    <span class="hljs-keyword">static</span> <span class="hljs-literal">null</span>: <span class="hljs-literal">null</span> = <span class="hljs-literal">null</span>; <span class="hljs-comment">// Ok</span>
 }</code></pre>
 <p>В то время как тип <code class="inline-code">Null</code> совместим со всеми типами, помимо него самого, с ним самим совместим лишь тип <code class="inline-code">Undefined</code> и <code class="inline-code">Any</code>.</p>
 <pre><code class="hljs language-typescript">TypeSystem.null = TypeSystem.any; <span class="hljs-comment">// Ok</span>
@@ -42,11 +42,11 @@ TypeSystem.null = TypeSystem.null; <span class="hljs-comment">// Ok</span></code
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">let</span> identifier = <span class="hljs-literal">null</span>; <span class="hljs-comment">// identifier: any</span></code></pre>
 <p>Создатели <em>TypeScript</em> во избежание ошибок, возникающих при операциях, в которых вместо ожидаемого значения фигурирует значение <code class="inline-code">null</code>, рекомендуют вести разработку с активным флагом <code class="inline-code">--strictNullChecks</code>. При активном флаге <code class="inline-code">--strictNullChecks</code> тип <code class="inline-code">Null</code> является подтипом только одного типа <code class="inline-code">Any</code>. Это в свою очередь означает, что значение <code class="inline-code">null</code> может быть совместимо только с типами <code class="inline-code">Any</code> и <code class="inline-code">Null</code>. Простыми словами, значение <code class="inline-code">null</code> не получится присвоить типам отличным от <code class="inline-code">Any</code> и <code class="inline-code">Null</code>.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">class</span> TypeSystem {
-  <span class="hljs-keyword">static</span> <span class="hljs-built_in">any</span>: <span class="hljs-built_in">any</span> = <span class="hljs-literal">null</span>; <span class="hljs-comment">// Ok</span>
-  <span class="hljs-keyword">static</span> <span class="hljs-built_in">number</span>: <span class="hljs-built_in">number</span> = <span class="hljs-literal">null</span>; <span class="hljs-comment">// Error</span>
-  <span class="hljs-keyword">static</span> <span class="hljs-built_in">string</span>: <span class="hljs-built_in">string</span> = <span class="hljs-literal">null</span>; <span class="hljs-comment">// Error</span>
-  <span class="hljs-keyword">static</span> <span class="hljs-built_in">boolean</span>: <span class="hljs-built_in">boolean</span> = <span class="hljs-literal">null</span>; <span class="hljs-comment">// Error</span>
-  <span class="hljs-keyword">static</span> <span class="hljs-literal">null</span>: <span class="hljs-literal">null</span> = <span class="hljs-literal">null</span>; <span class="hljs-comment">// Ok</span>
+    <span class="hljs-keyword">static</span> <span class="hljs-built_in">any</span>: <span class="hljs-built_in">any</span> = <span class="hljs-literal">null</span>; <span class="hljs-comment">// Ok</span>
+    <span class="hljs-keyword">static</span> <span class="hljs-built_in">number</span>: <span class="hljs-built_in">number</span> = <span class="hljs-literal">null</span>; <span class="hljs-comment">// Error</span>
+    <span class="hljs-keyword">static</span> <span class="hljs-built_in">string</span>: <span class="hljs-built_in">string</span> = <span class="hljs-literal">null</span>; <span class="hljs-comment">// Error</span>
+    <span class="hljs-keyword">static</span> <span class="hljs-built_in">boolean</span>: <span class="hljs-built_in">boolean</span> = <span class="hljs-literal">null</span>; <span class="hljs-comment">// Error</span>
+    <span class="hljs-keyword">static</span> <span class="hljs-literal">null</span>: <span class="hljs-literal">null</span> = <span class="hljs-literal">null</span>; <span class="hljs-comment">// Ok</span>
 }
 
 TypeSystem.null = TypeSystem.any; <span class="hljs-comment">// Ok</span>
@@ -73,12 +73,12 @@ TypeSystem.null = TypeSystem.undefined; <span class="hljs-comment">// Ok</span><
 <p>Во время выполнения объявленные, но не инициализированные переменные, поля и свойства класса, а также параметры имеют значение <code class="inline-code">undefined</code>. Также значение <code class="inline-code">undefined</code> является результатом вызова методов или функций, которые не возвращают значения.</p>
 <p>Тип <code class="inline-code">Undefined</code> является подтипом всех типов, что делает его совместимым со всеми остальными типами.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">class</span> TypeSystem {
-  <span class="hljs-keyword">static</span> <span class="hljs-built_in">any</span>: <span class="hljs-built_in">any</span> = <span class="hljs-literal">undefined</span>; <span class="hljs-comment">// Ok</span>
-  <span class="hljs-keyword">static</span> <span class="hljs-built_in">number</span>: <span class="hljs-built_in">number</span> = <span class="hljs-literal">undefined</span>; <span class="hljs-comment">// Ok</span>
-  <span class="hljs-keyword">static</span> <span class="hljs-built_in">string</span>: <span class="hljs-built_in">string</span> = <span class="hljs-literal">undefined</span>; <span class="hljs-comment">// Ok</span>
-  <span class="hljs-keyword">static</span> <span class="hljs-built_in">boolean</span>: <span class="hljs-built_in">boolean</span> = <span class="hljs-literal">undefined</span>; <span class="hljs-comment">// Ok</span>
-  <span class="hljs-keyword">static</span> <span class="hljs-literal">null</span>: <span class="hljs-literal">null</span> = <span class="hljs-literal">undefined</span>; <span class="hljs-comment">// Ok</span>
-  <span class="hljs-keyword">static</span> <span class="hljs-literal">undefined</span>: <span class="hljs-literal">undefined</span> = <span class="hljs-literal">undefined</span>; <span class="hljs-comment">// Ok</span>
+    <span class="hljs-keyword">static</span> <span class="hljs-built_in">any</span>: <span class="hljs-built_in">any</span> = <span class="hljs-literal">undefined</span>; <span class="hljs-comment">// Ok</span>
+    <span class="hljs-keyword">static</span> <span class="hljs-built_in">number</span>: <span class="hljs-built_in">number</span> = <span class="hljs-literal">undefined</span>; <span class="hljs-comment">// Ok</span>
+    <span class="hljs-keyword">static</span> <span class="hljs-built_in">string</span>: <span class="hljs-built_in">string</span> = <span class="hljs-literal">undefined</span>; <span class="hljs-comment">// Ok</span>
+    <span class="hljs-keyword">static</span> <span class="hljs-built_in">boolean</span>: <span class="hljs-built_in">boolean</span> = <span class="hljs-literal">undefined</span>; <span class="hljs-comment">// Ok</span>
+    <span class="hljs-keyword">static</span> <span class="hljs-literal">null</span>: <span class="hljs-literal">null</span> = <span class="hljs-literal">undefined</span>; <span class="hljs-comment">// Ok</span>
+    <span class="hljs-keyword">static</span> <span class="hljs-literal">undefined</span>: <span class="hljs-literal">undefined</span> = <span class="hljs-literal">undefined</span>; <span class="hljs-comment">// Ok</span>
 }</code></pre>
 <p>Может возникнуть вопрос, почему тип <code class="inline-code">Null</code>, который не имеет непосредственного отношения к типу <code class="inline-code">Undefined</code>, совместим с ним? На данный момент, этот вопрос остается единственным, на который автор не смог найти однозначного ответа.</p>
 <p>В то время как тип данных <code class="inline-code">Undefined</code> совместим со всеми типами, помимо него самого, с ним совместимы лишь <code class="inline-code">Null</code> и <code class="inline-code">Any</code>.</p>
@@ -91,12 +91,12 @@ TypeSystem.undefined = TypeSystem.null; <span class="hljs-comment">// Ok</span><
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">let</span> identifier = <span class="hljs-literal">undefined</span>; <span class="hljs-comment">// identifier: any</span></code></pre>
 <p>При активном флаге <code class="inline-code">--strictNullChecks</code>, тип <code class="inline-code">Undefined</code> является подтипом только одного типа <code class="inline-code">Any</code>. Поэтому его и ему в качестве значения, помимо самого себя, можно присвоить только тип <code class="inline-code">Any</code>.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">class</span> TypeSystem {
-  <span class="hljs-keyword">static</span> <span class="hljs-built_in">any</span>: <span class="hljs-built_in">any</span> = <span class="hljs-literal">undefined</span>; <span class="hljs-comment">// Ok</span>
-  <span class="hljs-keyword">static</span> <span class="hljs-built_in">number</span>: <span class="hljs-built_in">number</span> = <span class="hljs-literal">undefined</span>; <span class="hljs-comment">// Error</span>
-  <span class="hljs-keyword">static</span> <span class="hljs-built_in">string</span>: <span class="hljs-built_in">string</span> = <span class="hljs-literal">undefined</span>; <span class="hljs-comment">// Error</span>
-  <span class="hljs-keyword">static</span> <span class="hljs-built_in">boolean</span>: <span class="hljs-built_in">boolean</span> = <span class="hljs-literal">undefined</span>; <span class="hljs-comment">// Error</span>
-  <span class="hljs-keyword">static</span> <span class="hljs-literal">null</span>: <span class="hljs-literal">null</span> = <span class="hljs-literal">undefined</span>; <span class="hljs-comment">// Error</span>
-  <span class="hljs-keyword">static</span> <span class="hljs-literal">undefined</span>: <span class="hljs-literal">undefined</span> = <span class="hljs-literal">undefined</span>; <span class="hljs-comment">// Ok</span>
+    <span class="hljs-keyword">static</span> <span class="hljs-built_in">any</span>: <span class="hljs-built_in">any</span> = <span class="hljs-literal">undefined</span>; <span class="hljs-comment">// Ok</span>
+    <span class="hljs-keyword">static</span> <span class="hljs-built_in">number</span>: <span class="hljs-built_in">number</span> = <span class="hljs-literal">undefined</span>; <span class="hljs-comment">// Error</span>
+    <span class="hljs-keyword">static</span> <span class="hljs-built_in">string</span>: <span class="hljs-built_in">string</span> = <span class="hljs-literal">undefined</span>; <span class="hljs-comment">// Error</span>
+    <span class="hljs-keyword">static</span> <span class="hljs-built_in">boolean</span>: <span class="hljs-built_in">boolean</span> = <span class="hljs-literal">undefined</span>; <span class="hljs-comment">// Error</span>
+    <span class="hljs-keyword">static</span> <span class="hljs-literal">null</span>: <span class="hljs-literal">null</span> = <span class="hljs-literal">undefined</span>; <span class="hljs-comment">// Error</span>
+    <span class="hljs-keyword">static</span> <span class="hljs-literal">undefined</span>: <span class="hljs-literal">undefined</span> = <span class="hljs-literal">undefined</span>; <span class="hljs-comment">// Ok</span>
 }
 
 TypeSystem.undefined = TypeSystem.any; <span class="hljs-comment">// Ok</span>
@@ -121,16 +121,18 @@ TypeSystem.undefined = TypeSystem.null; <span class="hljs-comment">// Error</spa
 <p>Тип данных <code class="inline-code">Void</code> можно назвать полной противоположностью типа <code class="inline-code">Any</code>, так как этот тип означает отсутствие конкретного типа. Основное предназначение типа <code class="inline-code">Void</code> — явно указывать на то, что у функции или метода отсутствует возвращаемое значение.</p>
 <p>Тип данных <code class="inline-code">Void</code> указывается с помощью ключевого слова <code class="inline-code">void</code> (не путать с одноимённым оператором из <em>JavaScript</em>) и, в отличие от таких типов, как <code class="inline-code">Null</code> и <code class="inline-code">Undefined</code>, не имеет никаких значений.</p>
 <p>Тип <code class="inline-code">Void</code> является подтипом <code class="inline-code">Any</code> и супертипом для <code class="inline-code">Null</code> и <code class="inline-code">Undefined</code>.</p>
-<pre><code class="hljs language-typescript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">action</span>(<span class="hljs-params"></span>): <span class="hljs-title">void</span> </span>{}
+<pre><code class="hljs language-typescript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">action</span>(<span class="hljs-params"></span>): <span class="hljs-title">void</span> </span>{
+
+}
 
 <span class="hljs-keyword">class</span> TypeSystem {
- <span class="hljs-keyword">static</span> <span class="hljs-built_in">any</span>: <span class="hljs-built_in">any</span> = action(); <span class="hljs-comment">// Ok</span>
- <span class="hljs-keyword">static</span> <span class="hljs-built_in">number</span>: <span class="hljs-built_in">number</span> = action(); <span class="hljs-comment">// Error</span>
- <span class="hljs-keyword">static</span> <span class="hljs-built_in">string</span>: <span class="hljs-built_in">string</span> = action(); <span class="hljs-comment">// Error</span>
- <span class="hljs-keyword">static</span> <span class="hljs-built_in">boolean</span>: <span class="hljs-built_in">boolean</span> = action(); <span class="hljs-comment">// Error</span>
- <span class="hljs-keyword">static</span> <span class="hljs-literal">null</span>: <span class="hljs-literal">null</span> = action(); <span class="hljs-comment">// Error</span>
- <span class="hljs-keyword">static</span> <span class="hljs-literal">undefined</span>: <span class="hljs-literal">undefined</span> = action(); <span class="hljs-comment">// Error</span>
- <span class="hljs-keyword">static</span> <span class="hljs-built_in">void</span>: <span class="hljs-built_in">void</span> = action(); <span class="hljs-comment">// Ok</span>
+    <span class="hljs-keyword">static</span> <span class="hljs-built_in">any</span>: <span class="hljs-built_in">any</span> = action(); <span class="hljs-comment">// Ok</span>
+    <span class="hljs-keyword">static</span> <span class="hljs-built_in">number</span>: <span class="hljs-built_in">number</span> = action(); <span class="hljs-comment">// Error</span>
+    <span class="hljs-keyword">static</span> <span class="hljs-built_in">string</span>: <span class="hljs-built_in">string</span> = action(); <span class="hljs-comment">// Error</span>
+    <span class="hljs-keyword">static</span> <span class="hljs-built_in">boolean</span>: <span class="hljs-built_in">boolean</span> = action(); <span class="hljs-comment">// Error</span>
+    <span class="hljs-keyword">static</span> <span class="hljs-literal">null</span>: <span class="hljs-literal">null</span> = action(); <span class="hljs-comment">// Error</span>
+    <span class="hljs-keyword">static</span> <span class="hljs-literal">undefined</span>: <span class="hljs-literal">undefined</span> = action(); <span class="hljs-comment">// Error</span>
+    <span class="hljs-keyword">static</span> <span class="hljs-built_in">void</span>: <span class="hljs-built_in">void</span> = action(); <span class="hljs-comment">// Ok</span>
 }
 
 TypeSystem.void = TypeSystem.any; <span class="hljs-comment">// Ok</span>
@@ -141,16 +143,18 @@ TypeSystem.void = TypeSystem.null; <span class="hljs-comment">// Ok</span>
 TypeSystem.void = TypeSystem.undefined; <span class="hljs-comment">// Ok</span>
 TypeSystem.void = TypeSystem.void; <span class="hljs-comment">// Ok</span></code></pre>
 <p>Однако с активным флагом <code class="inline-code">--strictNullChecks</code>, тип данных <code class="inline-code">Void</code> совместим лишь с <code class="inline-code">Any</code> и <code class="inline-code">Undefined</code>.</p>
-<pre><code class="hljs language-typescript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">action</span>(<span class="hljs-params"></span>): <span class="hljs-title">void</span> </span>{}
+<pre><code class="hljs language-typescript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">action</span>(<span class="hljs-params"></span>): <span class="hljs-title">void</span> </span>{
+
+}
 
 <span class="hljs-keyword">class</span> TypeSystem {
- <span class="hljs-keyword">static</span> <span class="hljs-built_in">any</span>: <span class="hljs-built_in">any</span> = action(); <span class="hljs-comment">// Ok</span>
- <span class="hljs-keyword">static</span> <span class="hljs-built_in">number</span>: <span class="hljs-built_in">number</span> = action(); <span class="hljs-comment">// Error</span>
- <span class="hljs-keyword">static</span> <span class="hljs-built_in">string</span>: <span class="hljs-built_in">string</span> = action(); <span class="hljs-comment">// Error</span>
- <span class="hljs-keyword">static</span> <span class="hljs-built_in">boolean</span>: <span class="hljs-built_in">boolean</span> = action(); <span class="hljs-comment">// Error</span>
- <span class="hljs-keyword">static</span> <span class="hljs-literal">null</span>: <span class="hljs-literal">null</span> = action(); <span class="hljs-comment">// Error</span>
- <span class="hljs-keyword">static</span> <span class="hljs-literal">undefined</span>: <span class="hljs-literal">undefined</span> = action(); <span class="hljs-comment">// Error</span>
- <span class="hljs-keyword">static</span> <span class="hljs-built_in">void</span>: <span class="hljs-built_in">void</span> = action(); <span class="hljs-comment">// Ok</span>
+    <span class="hljs-keyword">static</span> <span class="hljs-built_in">any</span>: <span class="hljs-built_in">any</span> = action(); <span class="hljs-comment">// Ok</span>
+    <span class="hljs-keyword">static</span> <span class="hljs-built_in">number</span>: <span class="hljs-built_in">number</span> = action(); <span class="hljs-comment">// Error</span>
+    <span class="hljs-keyword">static</span> <span class="hljs-built_in">string</span>: <span class="hljs-built_in">string</span> = action(); <span class="hljs-comment">// Error</span>
+    <span class="hljs-keyword">static</span> <span class="hljs-built_in">boolean</span>: <span class="hljs-built_in">boolean</span> = action(); <span class="hljs-comment">// Error</span>
+    <span class="hljs-keyword">static</span> <span class="hljs-literal">null</span>: <span class="hljs-literal">null</span> = action(); <span class="hljs-comment">// Error</span>
+    <span class="hljs-keyword">static</span> <span class="hljs-literal">undefined</span>: <span class="hljs-literal">undefined</span> = action(); <span class="hljs-comment">// Error</span>
+    <span class="hljs-keyword">static</span> <span class="hljs-built_in">void</span>: <span class="hljs-built_in">void</span> = action(); <span class="hljs-comment">// Ok</span>
 }
 
 TypeSystem.void = TypeSystem.any; <span class="hljs-comment">// Ok</span>
@@ -162,25 +166,31 @@ TypeSystem.void = TypeSystem.undefined; <span class="hljs-comment">// Ok</span>
 TypeSystem.void = TypeSystem.void; <span class="hljs-comment">// Ok</span></code></pre>
 <p>Кому-то может показаться, что примеры чересчур излишни, или что примеры, в которых результат вызова функции не имеющей возвращаемого значения, присваивается полям с различными типами, не имеет никакого отношения к реальности. Да, это так. Но целью данных примеров является научить думать как компилятор <em>TypeScript</em>.
 Когда функции в качестве возвращаемого типа указан тип <code class="inline-code">Void</code>, может показаться, что, возвращая различные значения с помощью оператора return, компилятор выбрасывает ошибки лишь потому что он понимает, что функция помечена как ничего не возвращающая. Но это не так. Ошибка возникает по причине несовместимости типов.</p>
-<pre><code class="hljs language-typescript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">a</span>(<span class="hljs-params">  </span>): <span class="hljs-title">void</span> </span>{
-  <span class="hljs-keyword">let</span> result: <span class="hljs-built_in">number</span> = <span class="hljs-number">5</span>;
+<pre><code class="hljs language-typescript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">a</span>(<span class="hljs-params"></span>): <span class="hljs-title">void</span> </span>{
+    <span class="hljs-keyword">let</span> result: <span class="hljs-built_in">number</span> = <span class="hljs-number">5</span>;
 
-  <span class="hljs-keyword">return</span> result; <span class="hljs-comment">// Error</span>
+    <span class="hljs-keyword">return</span> result; <span class="hljs-comment">// Error</span>
 }
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">b</span>(<span class="hljs-params">  </span>): <span class="hljs-title">void</span> </span>{
-  <span class="hljs-keyword">let</span> result: <span class="hljs-built_in">string</span> = <span class="hljs-string">'5'</span>;
- 
-  <span class="hljs-keyword">return</span> result; <span class="hljs-comment">// Error</span>
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">b</span>(<span class="hljs-params"></span>): <span class="hljs-title">void</span> </span>{
+    <span class="hljs-keyword">let</span> result: <span class="hljs-built_in">string</span> = <span class="hljs-string">'5'</span>;
+    
+    <span class="hljs-keyword">return</span> result; <span class="hljs-comment">// Error</span>
 }
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">c</span>(<span class="hljs-params">  </span>): <span class="hljs-title">void</span> </span>{
-  <span class="hljs-keyword">let</span> result: <span class="hljs-built_in">any</span> = <span class="hljs-number">5</span>;
- 
-  <span class="hljs-keyword">return</span> result; <span class="hljs-comment">// Ok</span>
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">c</span>(<span class="hljs-params"></span>): <span class="hljs-title">void</span> </span>{
+    <span class="hljs-keyword">let</span> result: <span class="hljs-built_in">any</span> = <span class="hljs-number">5</span>;
+    
+    <span class="hljs-keyword">return</span> result; <span class="hljs-comment">// Ok</span>
 }</code></pre>
 <p>Нельзя не упомянуть, что для функций и методов, которые ничего не возвращают и у которых отсутствует аннотация типа возвращаемого значения, вывод типов определяет принадлежность к типу <code class="inline-code">Void</code>.</p>
-<pre><code class="hljs language-typescript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">action</span>(<span class="hljs-params"></span>) </span>{ } <span class="hljs-comment">// function action(): void {}</span></code></pre>
-<p>В отличие от <code class="inline-code">Null</code> и <code class="inline-code">Undefined</code>, тип данных <code class="inline-code">Void</code> не имеет ни одного значения, которое могло бы явно продемонстрировать присвоение. Однако компилятор понимает что имеет дело с типом <code class="inline-code">Void</code> при вызове функции или метода, которые не возвращают значение. Этот становится ещё нагляднее, когда вывод типов устанавливает тип полученный при вызове функции или метода, которые ничего  не возвращают.</p>
-<pre><code class="hljs language-typescript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">action</span>(<span class="hljs-params"></span>): <span class="hljs-title">void</span> </span>{ }
+<pre><code class="hljs language-typescript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">action</span>(<span class="hljs-params"></span>) </span>{ <span class="hljs-comment">// function action(): void</span>
+
+}</code></pre>
+<p>В отличие от <code class="inline-code">Null</code> и <code class="inline-code">Undefined</code>, тип данных <code class="inline-code">Void</code> не имеет ни одного значения, которое могло бы явно продемонстрировать присвоение. Однако компилятор понимает что имеет дело с типом <code class="inline-code">Void</code> при вызове функции или метода, которые не возвращают значение. Этот становится ещё нагляднее, когда вывод типов устанавливает тип полученный при вызове функции или метода, которые ничего не возвращают.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">action</span>(<span class="hljs-params"></span>): <span class="hljs-title">void</span> </span>{
+
+}
 
 <span class="hljs-keyword">let</span> identifier = action(); <span class="hljs-comment">// identifier: void</span></code></pre>
 <p>Тип <code class="inline-code">Void</code> является уникальным для <em>TypeScript</em>. В <em>JavaScript</em> подобного типа не существует.</p>
@@ -196,21 +206,21 @@ TypeSystem.void = TypeSystem.void; <span class="hljs-comment">// Ok</span></code
         
 <hr>
 <p>Примитивный типа данных <code class="inline-code">Never</code> служит для указания того, что какие-либо операции никогда не будут выполнены.</p>
-<p><code class="inline-code">Never</code> обозначается ключевым словом <code class="inline-code">never</code> и также как и <code class="inline-code">Void</code> не имеет явных значений.</p>
+<p><code class="inline-code">Never</code> обозначается ключевым словом <code class="inline-code">never</code> и так же как и <code class="inline-code">Void</code> не имеет явных значений.</p>
 <p>Тип данных <code class="inline-code">Never</code> является подтипом всех типов, что делает его совместим со всеми остальными типами.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">action</span>(<span class="hljs-params"></span>): <span class="hljs-title">never</span> </span>{
-  <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>();
+    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>();
 };
 
 <span class="hljs-keyword">class</span> TypeSystem {
-  <span class="hljs-keyword">static</span> <span class="hljs-built_in">any</span>: <span class="hljs-built_in">any</span> = action(); <span class="hljs-comment">// Ok</span>
-  <span class="hljs-keyword">static</span> <span class="hljs-built_in">number</span>: <span class="hljs-built_in">number</span> = action(); <span class="hljs-comment">// Ok</span>
-  <span class="hljs-keyword">static</span> <span class="hljs-built_in">string</span>: <span class="hljs-built_in">string</span> = action(); <span class="hljs-comment">// Ok</span>
-  <span class="hljs-keyword">static</span> <span class="hljs-built_in">boolean</span>: <span class="hljs-built_in">boolean</span> = action(); <span class="hljs-comment">// Ok</span>
-  <span class="hljs-keyword">static</span> <span class="hljs-literal">null</span>: <span class="hljs-literal">null</span> = action(); <span class="hljs-comment">// Ok</span>
-  <span class="hljs-keyword">static</span> <span class="hljs-literal">undefined</span>: <span class="hljs-literal">undefined</span> = action(); <span class="hljs-comment">// Ok</span>
-  <span class="hljs-keyword">static</span> <span class="hljs-built_in">void</span>: <span class="hljs-built_in">void</span> = action(); <span class="hljs-comment">// Ok</span>
-  <span class="hljs-keyword">static</span> never: never = action(); <span class="hljs-comment">// Ok</span>
+    <span class="hljs-keyword">static</span> <span class="hljs-built_in">any</span>: <span class="hljs-built_in">any</span> = action(); <span class="hljs-comment">// Ok</span>
+    <span class="hljs-keyword">static</span> <span class="hljs-built_in">number</span>: <span class="hljs-built_in">number</span> = action(); <span class="hljs-comment">// Ok</span>
+    <span class="hljs-keyword">static</span> <span class="hljs-built_in">string</span>: <span class="hljs-built_in">string</span> = action(); <span class="hljs-comment">// Ok</span>
+    <span class="hljs-keyword">static</span> <span class="hljs-built_in">boolean</span>: <span class="hljs-built_in">boolean</span> = action(); <span class="hljs-comment">// Ok</span>
+    <span class="hljs-keyword">static</span> <span class="hljs-literal">null</span>: <span class="hljs-literal">null</span> = action(); <span class="hljs-comment">// Ok</span>
+    <span class="hljs-keyword">static</span> <span class="hljs-literal">undefined</span>: <span class="hljs-literal">undefined</span> = action(); <span class="hljs-comment">// Ok</span>
+    <span class="hljs-keyword">static</span> <span class="hljs-built_in">void</span>: <span class="hljs-built_in">void</span> = action(); <span class="hljs-comment">// Ok</span>
+    <span class="hljs-keyword">static</span> never: never = action(); <span class="hljs-comment">// Ok</span>
 }
 
 TypeSystem.never = TypeSystem.any; <span class="hljs-comment">// Error</span>
@@ -223,32 +233,35 @@ TypeSystem.never = TypeSystem.void; <span class="hljs-comment">// Error</span>
 TypeSystem.never = TypeSystem.never; <span class="hljs-comment">// Ok</span></code></pre>
 <p>Так как типу Never нельзя присвоить значение, отличное от самого типа <code class="inline-code">Never</code>, единственным местом, в котором его может использовать разработчик, является аннотация возвращаемого из функции или метода значения, с одной оговоркой. Тип <code class="inline-code">Never</code> можно указать только той функции, из которой программа действительно никогда не сможет выйти. </p>
 <p>Такой сценарий может выражаться в виде функции, вызов которой приведет к однозначному исключению или в которой будет находится бесконечный цикл.</p>
-<pre><code class="hljs language-typescript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">error</span>(<span class="hljs-params"> message: <span class="hljs-built_in">string</span> </span>):  <span class="hljs-title">never</span> </span>{
-  <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>( message );
+<pre><code class="hljs language-typescript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">error</span>(<span class="hljs-params">message: <span class="hljs-built_in">string</span></span>): <span class="hljs-title">never</span> </span>{
+    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(message);
 }
 
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">loop</span>(<span class="hljs-params"></span>):  <span class="hljs-title">never</span> </span>{
-  <span class="hljs-keyword">while</span>( <span class="hljs-literal">true</span> ) { }
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">loop</span>(<span class="hljs-params"></span>): <span class="hljs-title">never</span> </span>{
+    <span class="hljs-keyword">while</span>(<span class="hljs-literal">true</span>) {
+        
+    }
 }</code></pre>
 <p>Вывод типов укажет принадлежность типа возвращаемого функцией значения только в том случае, если она будет возвращать результат вызова функции у которой тип возвращаемого значения указан как <code class="inline-code">Never</code>.</p>
-<pre><code class="hljs language-typescript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">error</span>(<span class="hljs-params"> message: <span class="hljs-built_in">string</span> </span>):  <span class="hljs-title">never</span> </span>{
- <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>( message );
+<pre><code class="hljs language-typescript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">error</span>(<span class="hljs-params">message: <span class="hljs-built_in">string</span></span>): <span class="hljs-title">never</span> </span>{
+    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(message);
 }
 
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">action</span>(<span class="hljs-params"></span>) </span>{ <span class="hljs-comment">// function action(): never {}</span>
-  <span class="hljs-keyword">return</span> error( <span class="hljs-string">'All very, very bad.'</span> );
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">action</span>(<span class="hljs-params"></span>) </span>{ <span class="hljs-comment">// function action(): never</span>
+    <span class="hljs-keyword">return</span> error(<span class="hljs-string">'All very, very bad.'</span>);
 }
-
 
 <span class="hljs-keyword">let</span> identifier = error(); <span class="hljs-comment">// let identifier: never</span>
 <span class="hljs-keyword">let</span> identifier = action(); <span class="hljs-comment">// let identifier: never</span></code></pre>
 <p>Стоит заметить, что без явного указания типа <code class="inline-code">Never</code> вывод типов определит принадлежность возвращаемого значения к типу <code class="inline-code">Void</code>.</p>
-<pre><code class="hljs language-typescript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">error</span>(<span class="hljs-params"> message: <span class="hljs-built_in">string</span> </span>) </span>{ <span class="hljs-comment">// function  error(): void {}</span>
-  <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>( message );
+<pre><code class="hljs language-typescript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">error</span>(<span class="hljs-params">message: <span class="hljs-built_in">string</span></span>) </span>{ <span class="hljs-comment">// function error(): void </span>
+    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(message);
 }
 
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">loop</span>(<span class="hljs-params"></span>) </span>{ <span class="hljs-comment">// function  loop(): void {}</span>
-  <span class="hljs-keyword">while</span>( <span class="hljs-literal">true</span> ) { }
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">loop</span>(<span class="hljs-params"></span>) </span>{ <span class="hljs-comment">// function loop(): void</span>
+    <span class="hljs-keyword">while</span>(<span class="hljs-literal">true</span>) {
+        
+    }
 }</code></pre>
 <p>Тип <code class="inline-code">Never</code> является уникальным для <code class="inline-code">TypeScript</code>, в <code class="inline-code">JavaScript</code> подобного типа не существует.</p>
 </section><section id="Unknown-unknown" name="Unknown (unknown)" class="subchapter">
@@ -264,16 +277,16 @@ TypeSystem.never = TypeSystem.never; <span class="hljs-comment">// Ok</span></co
 <hr>
 <p>Тип <code class="inline-code">Unknown</code> является типобезопасным аналогом типа <code class="inline-code">any</code> и представлен в виде литерала <code class="inline-code">unknown</code>. Все типы совместимы с типом <code class="inline-code">unknown</code>, в то время как сам тип <code class="inline-code">unknown</code> совместим только с самим собой и типом <code class="inline-code">any</code>.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">class</span> TypeSystem {
-<span class="hljs-keyword">static</span> unknown: unknown;
-
-<span class="hljs-keyword">static</span> <span class="hljs-built_in">any</span>: <span class="hljs-built_in">any</span> = TypeSystem.unknown; <span class="hljs-comment">// Ok</span>
-<span class="hljs-keyword">static</span> <span class="hljs-built_in">number</span>: <span class="hljs-built_in">number</span> = TypeSystem.unknown; <span class="hljs-comment">// Error</span>
-<span class="hljs-keyword">static</span> <span class="hljs-built_in">string</span>: <span class="hljs-built_in">string</span> = TypeSystem.unknown; <span class="hljs-comment">// Error</span>
-<span class="hljs-keyword">static</span> <span class="hljs-built_in">boolean</span>: <span class="hljs-built_in">boolean</span> = TypeSystem.unknown; <span class="hljs-comment">// Error</span>
-<span class="hljs-keyword">static</span> <span class="hljs-literal">null</span>: <span class="hljs-literal">null</span> = TypeSystem.unknown; <span class="hljs-comment">// Error</span>
-<span class="hljs-keyword">static</span> <span class="hljs-literal">undefined</span>: <span class="hljs-literal">undefined</span> = TypeSystem.unknown; <span class="hljs-comment">// Error</span>
-<span class="hljs-keyword">static</span> <span class="hljs-built_in">void</span>: <span class="hljs-built_in">void</span> = TypeSystem.unknown; <span class="hljs-comment">// Error</span>
-<span class="hljs-keyword">static</span> never: never = TypeSystem.unknown; <span class="hljs-comment">// Error</span>
+    <span class="hljs-keyword">static</span> unknown: unknown;
+    
+    <span class="hljs-keyword">static</span> <span class="hljs-built_in">any</span>: <span class="hljs-built_in">any</span> = TypeSystem.unknown; <span class="hljs-comment">// Ok</span>
+    <span class="hljs-keyword">static</span> <span class="hljs-built_in">number</span>: <span class="hljs-built_in">number</span> = TypeSystem.unknown; <span class="hljs-comment">// Error</span>
+    <span class="hljs-keyword">static</span> <span class="hljs-built_in">string</span>: <span class="hljs-built_in">string</span> = TypeSystem.unknown; <span class="hljs-comment">// Error</span>
+    <span class="hljs-keyword">static</span> <span class="hljs-built_in">boolean</span>: <span class="hljs-built_in">boolean</span> = TypeSystem.unknown; <span class="hljs-comment">// Error</span>
+    <span class="hljs-keyword">static</span> <span class="hljs-literal">null</span>: <span class="hljs-literal">null</span> = TypeSystem.unknown; <span class="hljs-comment">// Error</span>
+    <span class="hljs-keyword">static</span> <span class="hljs-literal">undefined</span>: <span class="hljs-literal">undefined</span> = TypeSystem.unknown; <span class="hljs-comment">// Error</span>
+    <span class="hljs-keyword">static</span> <span class="hljs-built_in">void</span>: <span class="hljs-built_in">void</span> = TypeSystem.unknown; <span class="hljs-comment">// Error</span>
+    <span class="hljs-keyword">static</span> never: never = TypeSystem.unknown; <span class="hljs-comment">// Error</span>
 }
 
 TypeSystem.unknown = TypeSystem.any; <span class="hljs-comment">// Ok</span>
@@ -317,7 +330,7 @@ v1(); <span class="hljs-comment">// Error</span></code></pre>
 <span class="hljs-keyword">type</span> T7 = never | unknown; <span class="hljs-comment">// type T7 = unknown</span>
 <span class="hljs-keyword">type</span> T8&#x3C;T> = T | unknown; <span class="hljs-comment">// type T8 = unknown</span>
 <span class="hljs-keyword">type</span> T9 = unknown | unknown; <span class="hljs-comment">// type T9 = unknown</span></code></pre>
-<p>Помимо этого, запрос ключей (<code class="inline-code">keyof</code>) для тип <code class="inline-code">unknown</code> возвращает тип <code class="inline-code">never</code>.</p>
+<p>Помимо этого, запрос ключей (<code class="inline-code">keyof</code>) для типа <code class="inline-code">unknown</code> возвращает тип <code class="inline-code">never</code>.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">type</span> T0 = keyof <span class="hljs-built_in">number</span>; <span class="hljs-comment">// type T0 = "toString" | "toFixed" | "toExponential" | "toPrecision" | "valueOf" | "toLocaleString"</span>
 <span class="hljs-keyword">type</span> T1 = keyof <span class="hljs-built_in">any</span>; <span class="hljs-comment">// type T1 = string | number | symbol</span>
 <span class="hljs-keyword">type</span> T2 = keyof unknown; <span class="hljs-comment">// type T2 = never</span></code></pre>
@@ -338,27 +351,30 @@ v1(); <span class="hljs-comment">// Error</span></code></pre>
 <span class="hljs-keyword">let</span> v12 = v0++; <span class="hljs-comment">// Error</span>
 <span class="hljs-keyword">let</span> v13 = v0--; <span class="hljs-comment">// Error</span>
 
-
 <span class="hljs-keyword">let</span> v14 = <span class="hljs-number">5</span> &#x26;&#x26; v0; <span class="hljs-comment">// Ok, let v14: unknown</span>
 <span class="hljs-keyword">let</span> v15 = <span class="hljs-number">5</span> || v0; <span class="hljs-comment">// Ok, let v15: number</span>
 <span class="hljs-keyword">let</span> v16 = v0 || <span class="hljs-number">5</span>; <span class="hljs-comment">// Ok, let v16: unknown</span>
 <span class="hljs-keyword">let</span> v17 = !v0; <span class="hljs-comment">// Ok, let v17: boolean</span></code></pre>
 <p>Также стоит упомянуть, что функция, у которой возвращаемый тип принадлежит к типу <code class="inline-code">unknown</code>, может не возвращать значение явно.</p>
-<pre><code class="hljs language-typescript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">f0</span>(<span class="hljs-params"></span>): <span class="hljs-title">unknown</span> </span>{<span class="hljs-keyword">return</span>;} <span class="hljs-comment">// Ok</span>
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">f1</span>(<span class="hljs-params"></span>): <span class="hljs-title">number</span> </span>{<span class="hljs-keyword">return</span>;} <span class="hljs-comment">// Error</span>
+<pre><code class="hljs language-typescript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">f0</span>(<span class="hljs-params"></span>): <span class="hljs-title">unknown</span> </span>{
+    <span class="hljs-keyword">return</span>; <span class="hljs-comment">// Ok</span>
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">f1</span>(<span class="hljs-params"></span>): <span class="hljs-title">number</span> </span>{
+    <span class="hljs-keyword">return</span>; <span class="hljs-comment">// Error</span>
+}
 
 <span class="hljs-keyword">let</span> v = f0(); <span class="hljs-comment">// Ok, let v: unknown</span></code></pre>
 <p>Кроме того, при активной опции <code class="inline-code">--strictPropertyInitialization</code> принадлежащие к типу <code class="inline-code">unknown</code> поля не нуждаются в инициализации.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">class</span> T {
-  f0: unknown; <span class="hljs-comment">// Ok</span>
-  f1: <span class="hljs-built_in">number</span>; <span class="hljs-comment">// Error</span>
-  f2: <span class="hljs-built_in">number</span> = <span class="hljs-number">5</span>; <span class="hljs-comment">// Ok</span>
+    f0: unknown; <span class="hljs-comment">// Ok</span>
+    f1: <span class="hljs-built_in">number</span>; <span class="hljs-comment">// Error</span>
+    f2: <span class="hljs-built_in">number</span> = <span class="hljs-number">5</span>; <span class="hljs-comment">// Ok</span>
 }</code></pre>
-<p>Если в определении типа данных участвует сопоставленный тип (<code class="inline-code">Mapped Type</code>) которому в качестве аргумента типа передается тип <code class="inline-code">unknown</code>, то такой сопаставленный тип будет выведен как объектный тип <code class="inline-code">{}</code>. Поскольку сопоставленные типы (<code class="inline-code">Mapped Types</code>), псевдонимы типов (<code class="inline-code">types</code>), а также обобщения (<code class="inline-code">Generics&#x3C;></code>) будут рассмотрены позднее, то стоит просто помнить об этом факте и повторно прочесть написанное при необходимости. </p>
+<p>Если в определении типа данных участвует сопоставленный тип (<code class="inline-code">Mapped Type</code>) которому в качестве аргумента типа передается тип <code class="inline-code">unknown</code>, то такой сопоставленный тип будет выведен как объектный тип <code class="inline-code">{}</code>. Поскольку сопоставленные типы (<code class="inline-code">Mapped Types</code>), псевдонимы типов (<code class="inline-code">types</code>), а также обобщения (<code class="inline-code">Generics&#x3C;></code>) будут рассмотрены позднее, то стоит просто помнить об этом факте и повторно прочесть написанное при необходимости.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">type</span> MappedType&#x3C;T> = {
-  [K <span class="hljs-keyword">in</span> keyof T]: T;
+    [K <span class="hljs-keyword">in</span> keyof T]: T;
 }
-
 
 <span class="hljs-keyword">type</span> T0 =  MappedType&#x3C;<span class="hljs-built_in">number</span>>; <span class="hljs-comment">// type T0 = number</span>
 <span class="hljs-keyword">type</span> T1 =  MappedType&#x3C;<span class="hljs-built_in">any</span>>; <span class="hljs-comment">// type T1 = { [x: string]: any; }</span>
