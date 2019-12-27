@@ -12,14 +12,15 @@ module.exports.onCreateNode = async ( helpers, options ) => {
     let { name, locale } = options;
 
 
+
     if ( !isCurrentAppLocalizationFileGatsbyNode( { name, node } ) ) {
         return;
     }
 
 
+
     let content = await loadNodeContent( node );
     let localization = JSON.parse( content );
-
 
 
     const APP_LOCALIZATION_GATSBY_NODE_ID = createNodeId( `localisation_${ locale }` );

@@ -1,7 +1,8 @@
+@import "../../styles/app-vars";
 @import "../../styles/mixins/draw-tail";
 @import "../../styles/mixins/native-scrollbar";
+@import "../../styles/mixins/user-activity";
 
-$app-menu_screen-width-for-full-size: 400px;
 
 :root{
   //--donate-button_default-color: #ffb229;
@@ -11,18 +12,33 @@ $app-menu_screen-width-for-full-size: 400px;
 
 }
 
+
+$dropdown-menu__tail_touch-position_media_xs:
+$app-padding-right_xs +
+$app-header_column-gap * 2 +
+$app-bar__menu_toggle-button_width +
+$app-search__width_close-state +
+$app-bar__donate-button_short-width / 2;
+
+
+
 .donate__dropdown-menu {
   max-height: calc(100vh - var(--app-header_height));
 
   margin: 16px 0 0 0;
 
 
-  overflow-y: auto;
-
   box-shadow: var(--shadow_first);
 
-  @include drawTail(white);
-  @include nativeScrollbarSmall();
+  position: relative;
+
+  @include drawTail(white){
+    @media all and (max-width:$donate-dropdown-menu__media_xs){
+      right: initial;
+      left: calc(calc(100vw - #{$dropdown-menu__tail_touch-position_media_xs}) - calc(calc(100vw - #{$donate-dropdown_max-width}) / 2));
+    }
+  };
+
 
 }
 
@@ -45,18 +61,21 @@ $app-menu_screen-width-for-full-size: 400px;
 
   position: relative;
 
-  @media all and (min-width:$app-menu_screen-width-for-full-size) {
-    padding: 8px 16px;
-  }
+
 
   &:hover {
     background-color: var(--donate-button_default-color_hover);
   }
 
+  @include focus;
+  @media all and (min-width:$app-bar_media_xs) {
+    padding: 8px 16px;
+  }
+
   & > svg {
     pointer-events: none;
 
-    @media all and (min-width:$app-menu_screen-width-for-full-size) {
+    @media all and (min-width:$app-bar_media_xs) {
       margin:0 8px 0 0;
     }
   }
@@ -69,7 +88,7 @@ $app-menu_screen-width-for-full-size: 400px;
 
   display: none;
 
-  @media all and (min-width:$app-menu_screen-width-for-full-size) {
+  @media all and (min-width:$app-bar_media_xs) {
     display: flex;
     flex-direction: column;
   }
@@ -82,12 +101,15 @@ $app-menu_screen-width-for-full-size: 400px;
 
   background: var(--app_base-color);
 
-  padding: 24px 24px 32px 24px;
+  padding: 24px 32px 32px 32px;
 
   display:flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+.donate-dropdown-menu__native-scrollbar{
+  max-height: calc(100vh - var(--app-header_height))
 }
 .donate-dropdown-menu__svg-icon{
   width: 72px;

@@ -8,3 +8,8 @@ examples/
 public/
 temporary/
 package-lock.json
+plugins/utils/
+src/components/button/
+src/pages/
+src/react__hooks/content-section-informer-hook.ts
+src/react__hooks/scroll-page-hook.ts

@@ -1,8 +1,8 @@
-import React, { FC, ReactElement, ReactNode } from "react";
+import React, { FC, ReactNode } from "react";
 
 interface IIFProps {
   condition:boolean;
-  children: ReactElement | ReactElement[];
+  children: ReactNode | ReactNode[];
 }
 
 export const If: FC<IIFProps> = ( { condition, children } ) =>

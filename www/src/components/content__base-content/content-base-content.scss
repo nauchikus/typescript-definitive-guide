@@ -1,0 +1,195 @@
+//@import "../../styles/prism-vs.theme";
+//
+//@import "../../styles/app-vars";
+//@import "../../components/tooltip/tooltip";
+//
+//h2 {
+//  padding: var(--content__h2_padding-top) 0 var(--content__h2_padding-bottom) 0!important;
+//
+//  position: relative;
+//
+//  &:hover:before {
+//    content: "";
+//
+//    width: 32px;
+//    height: 100%;
+//
+//
+//    position: absolute;
+//    left:-32px;
+//    top: 0;
+//
+//    //z-index:99999;
+//
+//    @media all and (min-width: $content-layout__center-layout_width){
+//      width: 40px;
+//      left: -40px;
+//    }
+//  }
+//  @media all and (min-width: $app-bar_media_xs){
+//    &:hover{
+//      &>button.content__button_copy-to-buffer{
+//        visibility: visible;
+//      }
+//    }
+//  }
+//}
+//
+//.gatsby-highlight{
+//  word-break: break-word;
+//}
+//pre,
+//code {
+//  &[class*="language-"]{
+//    word-break: break-word;
+//  }
+//}
+//pre {
+//  //max-width:180px;
+//  white-space: pre-wrap !important;
+//  //word-break:break-word!important;
+//
+//  background-color: var(--content__code_background-color);
+//
+//  padding: var(--content__code_padding_y) var(--content__code_padding_x)!important;
+//  margin: 0 !important;
+//
+//  &[class="launguage-ts"] {
+//
+//  }
+//}
+//pre > code {
+//  white-space: pre-wrap!important;
+//
+//}
+//:not(pre) > code{
+//  color:tomato;
+//
+//  white-space: pre-wrap!important;
+//  word-wrap:break-word!important;
+//  word-break:break-word!important;
+//  //word-break:break-word!important;
+//
+//  border:1px solid var(--color_darklite);
+//  border-radius: 1px;
+//
+//  padding: 0 5px;
+//}
+//
+//section {
+//  line-height: 24px;
+//  padding:var(--content__section_padding-top) 0 var(--content__section_padding-bottom) 0;
+//
+//  &:first-child{
+//    padding:var(--content__section_cover_padding-top) 0 var(--content__section_cover_padding-bottom) 0;
+//    //margin:0 0 var(--content__section_cover_margin-bottom) 0;
+//  }
+//}
+//section.content__section{
+//
+//}
+//
+//ul{
+//  margin: var(--content__ul_margin-top) 0 var(--content__ul_margin-bottom) 0!important;
+//}
+//
+//.content__tooltip_copy-to-buffer {
+//  @include get-tooltip-position($TOOLTIP-POSITION_BOTTOM-LEFT);
+//
+//  @media all and (min-width: $content-layout__center-layout_width) {
+//    @include get-tooltip-position();
+//  }
+//}
+//
+//
+//
+//button.content__button_copy-to-buffer {
+//  margin:0 0 0 -32px;
+//
+//  display: flex;
+//  justify-content: center;
+//
+//  position: absolute;
+//  left: 0;
+//
+//  cursor:pointer;
+//
+//  @media all and (min-width: $content-layout__center-layout_width){
+//    margin: 0 0 0 -40px;
+//  }
+//
+//  &>.svg-icon{
+//    transform: scale(.8);
+//    transition:transform .4s ease;
+//
+//    @media all and (min-width: $content-layout__center-layout_width){
+//      transform: scale(1);
+//    }
+//  }
+//  &:hover>.svg-icon{
+//    fill:var(--svg-icon_color-default_hover);
+//  }
+//  &:active{
+//    &>.svg-icon{
+//      transform:scale(.6);
+//
+//      @media all and (min-width: $content-layout__center-layout_width){
+//        transform: scale(.8);
+//      }
+//    }
+//  }
+//
+//
+//  @media all and (min-width: $app-bar_media_xs){
+//    &{
+//      visibility: collapse;
+//    }
+//  }
+//
+//
+//
+//
+//  @include tooltip-hover-hook-with-media();
+//}
+//
+//
+//@each $lang, $color in $programLanguageNameToColorMap{
+//  .content__code-panel_lang_#{$lang}{
+//    background-color: $color;
+//  }
+//}
+//
+//.content__code {
+//  margin: var(--content__code-block_margin-top) 0 var(--content__code-block_margin-bottom) 0;
+//
+//}
+//.content__code-panel_top{
+//  width: 100%;
+//
+//  //background-color: cadetblue;
+//
+//  border-top-left-radius:var(--app_border-radius-default);
+//  border-top-right-radius:var(--app_border-radius-default);
+//  padding: 12px 16px;
+//
+//  display:flex;
+//  justify-content: space-between;
+//  align-items: center;
+//}
+//.content__code-panel_bottom{
+//  border-bottom-left-radius:var(--app_border-radius-default);
+//  border-bottom-right-radius:var(--app_border-radius-default);
+//  padding: 8px 16px;
+//}
+//
+//.content_code-label_filepath{
+//  color:white;
+//}
+//.content_code-label_lang{
+//  background-color: var(--app_base-color);
+//
+//  border-radius: var(--app_border-radius-default);
+//
+//  padding: 4px 16px;
+//}
+//TODO:[refactor] delete file and dir

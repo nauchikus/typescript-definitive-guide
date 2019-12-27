@@ -1,6 +1,6 @@
 import * as path from 'path';
 
-import {default as RouteUtils} from '../utils/route-utils';
+import {RouteUtils} from '../../src/utils/route-utils';
 
 import { GatsbyCreatePages } from "../types/gatsby-create-pages";
 import { Locales } from "../types/locales";
@@ -24,7 +24,7 @@ export const createPages: GatsbyCreatePages<IIndexCreatePageOptions> = async ( h
     let [{ localization }] = getNodesByType<IAppLocalization>( CustomGatsbyNodeType.AppLocalization )
         .filter( node => node.locale === locale );
 
-    let chapterName = '';
+    let chapterName = 'first';
 
 
     createPage( {

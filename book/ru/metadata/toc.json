@@ -1,8 +1,8 @@
 [
     {
         "section": "Общее",
-        "heading": "Что такое и для чего нужен TypeScript",
-        "subheadings": [
+        "title": "Что такое и для чего нужен TypeScript",
+        "subtitles": [
             "Что такое TypeScript",
             "История TypeScript",
             "Для чего нужен TypeScript",
@@ -11,15 +11,15 @@
     },
     {
         "section": "Экскурс в типизацию",
-        "heading": "Вступление",
-        "subheadings": [
+        "title": "Вступление",
+        "subtitles": [
             "Экскурс в типизацию - Вступление"
         ]
     },
     {
         "section": "Экскурс в типизацию",
-        "heading": "Система типов, тип данных, значимые и ссылочные типы",
-        "subheadings": [
+        "title": "Система типов, тип данных, значимые и ссылочные типы",
+        "subtitles": [
             "Экскурс в типизацию - Система Типов, Тип Данных, Значимые\\Ссылочные Типы",
             "Система Типов",
             "Тип данных (тип)",
@@ -30,8 +30,8 @@
     },
     {
         "section": "Экскурс в типизацию",
-        "heading": "Связывание, типизация, вывод типов",
-        "subheadings": [
+        "title": "Связывание, типизация, вывод типов",
+        "subtitles": [
             "Связывание (Binding)",
             "Лексический анализ (токенизация - tokenizing)",
             "Синтаксический анализ (разбор - parsing)",
@@ -43,8 +43,8 @@
     },
     {
         "section": "Экскурс в типизацию",
-        "heading": "Преобразование типов",
-        "subheadings": [
+        "title": "Преобразование типов",
+        "subtitles": [
             "Экскурс в типизацию - Преобразование Типов",
             "Неявные Преобразования",
             "Явные Преобразования",
@@ -53,8 +53,8 @@
     },
     {
         "section": "Экскурс в типизацию",
-        "heading": "Типизированные и нетипизированные языки программирования",
-        "subheadings": [
+        "title": "Типизированные и нетипизированные языки программирования",
+        "subtitles": [
             "Экскурс в типизацию - Типизированные\\Нетипизированные Языки Программирования",
             "Нетипизированные языки",
             "Типизированные языки"
@@ -62,8 +62,8 @@
     },
     {
         "section": "Экскурс в типизацию",
-        "heading": "Статическая и динамическая типизация",
-        "subheadings": [
+        "title": "Статическая и динамическая типизация",
+        "subtitles": [
             "Экскурс в типизацию - Статическая\\Динамическая Типизация",
             "Статическая Типизация (Static Typing)",
             "Динамическая Типизация (Dynamic Typing)",
@@ -72,8 +72,8 @@
     },
     {
         "section": "Экскурс в типизацию",
-        "heading": "Сильная и слабая типизация",
-        "subheadings": [
+        "title": "Сильная и слабая типизация",
+        "subtitles": [
             "Экскурс в типизацию - Сильная\\Слабая Типизация",
             "Сильная типизация (strongly typed)",
             "Слабая типизация (weakly typed)",
@@ -82,8 +82,8 @@
     },
     {
         "section": "Экскурс в типизацию",
-        "heading": "Явная и неявная типизация",
-        "subheadings": [
+        "title": "Явная и неявная типизация",
+        "subtitles": [
             "Экскурс в типизацию - Явная/Неявная Типизация",
             "Явная типизация (explicit typing)",
             "Неявная типизация (implicit typing)",
@@ -92,8 +92,8 @@
     },
     {
         "section": "Экскурс в типизацию",
-        "heading": "Совместимость типов на основе вида типизации",
-        "subheadings": [
+        "title": "Совместимость типов на основе вида типизации",
+        "subtitles": [
             "Совместимость Типов (Types Compatibility)",
             "Номинативная Типизация (nominative typing)",
             "Структурная Типизация (structural typing)",
@@ -103,8 +103,8 @@
     },
     {
         "section": "Экскурс в типизацию",
-        "heading": "Совместимость типов на основе вариантности",
-        "subheadings": [
+        "title": "Совместимость типов на основе вариантности",
+        "subtitles": [
             "Совместимость типов на основе вариантности",
             "Иерархия наследования",
             "Ковариантность",
@@ -114,9 +114,9 @@
         ]
     },
     {
-        "section": "Синтаксичесике конструкции",
-        "heading": "Аннотация типов",
-        "subheadings": [
+        "section": "Синтаксические констркуции",
+        "title": "Аннотация типов",
+        "subtitles": [
             "Аннотация Типов",
             "Синтаксические конструкции var, let, const",
             "Функции (function)",
@@ -128,8 +128,8 @@
     },
     {
         "section": "Типы",
-        "heading": "Базовый тип Any",
-        "subheadings": [
+        "title": "Базовый тип Any",
+        "subtitles": [
             "Базовый Тип Any",
             "Any (any) произвольный тип",
             "Итог"
@@ -137,8 +137,8 @@
     },
     {
         "section": "Типы",
-        "heading": "Примитивные типы Number, String, Boolean, Symbol, BigInt",
-        "subheadings": [
+        "title": "Примитивные типы Number, String, Boolean, Symbol, BigInt",
+        "subtitles": [
             "Важно",
             "Number (number) примитивный числовой тип",
             "String (string) примитивный строковой тип",
@@ -150,8 +150,8 @@
     },
     {
         "section": "Типы",
-        "heading": "Примитивные типы Null, Undefined, Void, Never, Unknown",
-        "subheadings": [
+        "title": "Примитивные типы Null, Undefined, Void, Never, Unknown",
+        "subtitles": [
             "Важно",
             "Null (null) примитивный null тип",
             "Undefined (undefined) примитивный неопределенный тип",
@@ -162,8 +162,8 @@
     },
     {
         "section": "Типы",
-        "heading": "Примитивный тип Enum",
-        "subheadings": [
+        "title": "Примитивный тип Enum",
+        "subtitles": [
             "Примитивные Типы Enum",
             "Enum (enum) примитивный перечисляемый тип",
             "Перечисления с числовым значением",
@@ -176,8 +176,8 @@
     },
     {
         "section": "Типы",
-        "heading": "Union, Intersection",
-        "subheadings": [
+        "title": "Union, Intersection",
+        "subtitles": [
             "Тип Объединение (Union Types)",
             "Тип Пересечение (Intersection Type)",
             "Итоги"
@@ -185,8 +185,8 @@
     },
     {
         "section": "Типы",
-        "heading": "Type Queries (запросы типа), Alias (псевдонимы типа)",
-        "subheadings": [
+        "title": "Type Queries (запросы типа), Alias (псевдонимы типа)",
+        "subtitles": [
             "Запросы Типа (Type Queries)",
             "Псевдонимы Типов (Type Aliases)",
             "Итоги"
@@ -194,8 +194,8 @@
     },
     {
         "section": "Типы",
-        "heading": "Примитивные литеральные типы Number, String, Boolean, Unique Symbol, Enum",
-        "subheadings": [
+        "title": "Примитивные литеральные типы Number, String, Boolean, Unique Symbol, Enum",
+        "subtitles": [
             "Примитивные Типы - Литеральные Типы Number, String, Boolean, Unique Symbol, Enum",
             "Литеральный Тип Number (Numeric Literal Types)",
             "Литеральный тип String (String Literal Types)",
@@ -207,8 +207,8 @@
     },
     {
         "section": "Типы",
-        "heading": "Object, Array, Tuple",
-        "subheadings": [
+        "title": "Object, Array, Tuple",
+        "subtitles": [
             "Типы - Object, Array, Tuple",
             "Object (object) ссылочный объектный тип",
             "Array (type[]) ссылочный массивоподобный тип",
@@ -218,8 +218,8 @@
     },
     {
         "section": "Типы",
-        "heading": "Function, Functional Types",
-        "subheadings": [
+        "title": "Function, Functional Types",
+        "subtitles": [
             "Function, Functional Types",
             "Function Types - тип функция",
             "Functional Types - функциональный тип",
@@ -229,8 +229,8 @@
     },
     {
         "section": "Типы",
-        "heading": "Interface",
-        "subheadings": [
+        "title": "Interface",
+        "subtitles": [
             "Типы - Interfaces",
             "Объявление (declaration)",
             "Конвенции именования интерфейсов",
@@ -248,15 +248,15 @@
     },
     {
         "section": "Типы",
-        "heading": "Объектные типы с индексными членами (объектный тип с динамическими ключами)",
-        "subheadings": [
+        "title": "Объектные типы с индексными членами (объектный тип с динамическими ключами)",
+        "subtitles": [
             "Типы - Объектные типы с индексными членами (объектный тип с динамическими ключами)"
         ]
     },
     {
         "section": "Классы",
-        "heading": "Модификаторы доступа",
-        "subheadings": [
+        "title": "Модификаторы доступа",
+        "subtitles": [
             "Модификаторы доступа (Access Modifiers)",
             "Модификатор доступа public (публичный)",
             "Модификатор доступа private (закрытый или скрытый)",
@@ -267,8 +267,8 @@
     },
     {
         "section": "Классы",
-        "heading": "Абстрактные классы",
-        "subheadings": [
+        "title": "Абстрактные классы",
+        "subtitles": [
             "Абстрактные классы (abstract classes)",
             "Общие характеристики",
             "Теория"
@@ -276,29 +276,29 @@
     },
     {
         "section": "Классы",
-        "heading": "Полиморфный тип this",
-        "subheadings": [
+        "title": "Полиморфный тип this",
+        "subtitles": [
             "Полиморфный тип this"
         ]
     },
     {
         "section": "Классы",
-        "heading": "Модификатор readonly",
-        "subheadings": [
+        "title": "Модификатор readonly",
+        "subtitles": [
             "Модификатор readonly (только для чтения)"
         ]
     },
     {
         "section": "Классы",
-        "heading": "Definite Assignment Assertion Modifier",
-        "subheadings": [
+        "title": "Definite Assignment Assertion Modifier",
+        "subtitles": [
             "Классы - Definite Assignment Assertion Modifier"
         ]
     },
     {
         "section": "Классы",
-        "heading": "Тонкости extends и implements",
-        "subheadings": [
+        "title": "Тонкости extends и implements",
+        "subtitles": [
             "Классы - Тонкости",
             "Классы - Тонкости implements",
             "Частичное Слияние интерфейса с классом"
@@ -306,16 +306,16 @@
     },
     {
         "section": "Тонкости TypeScript",
-        "heading": "Различия var, let, const и модификатора readonly при неявном указании примитивных типов",
-        "subheadings": [
+        "title": "Различия var, let, const и модификатора readonly при неявном указании примитивных типов",
+        "subtitles": [
             "Различия var, let, const и модификатора readonly при не Явном Указании Примитивных Типов",
             "Итог"
         ]
     },
     {
         "section": "Работа с типами",
-        "heading": "Операторы - Optional, Not-Null, Not-Undefined, Definite Assignment Assertion",
-        "subheadings": [
+        "title": "Операторы - Optional, Not-Null, Not-Undefined, Definite Assignment Assertion",
+        "subtitles": [
             "Операторы - Optional, Not-Null, Not-Undefined, Definite Assignment Assertion",
             "Необязательные поля, параметры и методы (Optional Fields, Parameters and Methods)",
             "Оператор ! (Non-Null and Non-Undefined Operator)",
@@ -325,8 +325,8 @@
     },
     {
         "section": "Типы",
-        "heading": "Обобщения (Generics)",
-        "subheadings": [
+        "title": "Обобщения (Generics)",
+        "subtitles": [
             "Типы - Обобщения (Generics)",
             "Параметры типа - extends (generic constraints)",
             "Параметра типа - значение по умолчанию = (generic parameter defaults)",
@@ -335,15 +335,15 @@
     },
     {
         "section": "Типы",
-        "heading": "Tagged Union",
-        "subheadings": [
+        "title": "Tagged Union",
+        "subtitles": [
             "Размеченные Объединения (Tagged Union)"
         ]
     },
     {
         "section": "Типизация",
-        "heading": "Утверждение типов",
-        "subheadings": [
+        "title": "Утверждение типов",
+        "subtitles": [
             "Утверждение Типов (Type Assertion)",
             "Утверждение в сигнатуре (Signature Assertion)",
             "Утверждение Типа <Type> синтаксис",
@@ -354,8 +354,8 @@
     },
     {
         "section": "Типизация",
-        "heading": "Защитники типа",
-        "subheadings": [
+        "title": "Защитники типа",
+        "subtitles": [
             "Защитники Типа",
             "Сужение диапазона множества типов на основе типа данных",
             "Сужение диапазона множества типов на основе признаков присущих типу Tagged Union",
@@ -365,8 +365,8 @@
     },
     {
         "section": "Типизация",
-        "heading": "Вывод типов",
-        "subheadings": [
+        "title": "Вывод типов",
+        "subtitles": [
             "Типизация - Вывод типов",
             "Вывод примитивных типов",
             "Вывод примитивных типов для констант (const) и полей только для чтения (readonly)",
@@ -377,16 +377,16 @@
     },
     {
         "section": "Типизация",
-        "heading": "Совместимость объектов",
-        "subheadings": [
+        "title": "Совместимость объектов",
+        "subtitles": [
             "Типизация (Object Types) - важно",
             "Типизация (Object Types) - совместимость объектов"
         ]
     },
     {
         "section": "Типизация",
-        "heading": "Совместимость функций",
-        "subheadings": [
+        "title": "Совместимость функций",
+        "subtitles": [
             "Типизация (Function Types) - важно",
             "Типизация (Function Types) - совместимость параметров",
             "Типизация (Function Types) - совместимость возвращаемого значения"
@@ -394,8 +394,8 @@
     },
     {
         "section": "Типизация",
-        "heading": "Типизация в TypeScript",
-        "subheadings": [
+        "title": "Типизация в TypeScript",
+        "subtitles": [
             "Типизация в TypeScript",
             "Статическая Типизация (static typing)",
             "Сильная Типизация (strongly typed)",
@@ -409,8 +409,8 @@
     },
     {
         "section": "Работа с типами",
-        "heading": "Оператор keyof, Lookup Types, Mapped Types, Mapped Types - префиксы + и -",
-        "subheadings": [
+        "title": "Оператор keyof, Lookup Types, Mapped Types, Mapped Types - префиксы + и -",
+        "subtitles": [
             "Оператор keyof, Lookup Types, Mapped Types, Mapped Types - префиксы + и -",
             "Запрос ключей keyof",
             "Поиск типов (Lookup Types)",
@@ -420,8 +420,8 @@
     },
     {
         "section": "Работа с типами",
-        "heading": "Условные типы (Conditional Types)",
-        "subheadings": [
+        "title": "Условные типы (Conditional Types)",
+        "subtitles": [
             "Условные Типы (Conditional Types)",
             "Распределительные Условные Типы (Distributive Conditional Types)",
             "Вывод типов в условном типе"
@@ -429,8 +429,8 @@
     },
     {
         "section": "Расширенные типы",
-        "heading": "Readonly, Partial, Required, Pick, Record",
-        "subheadings": [
+        "title": "Readonly, Partial, Required, Pick, Record",
+        "subtitles": [
             "Расширенные типы - Readonly, Partial, Required, Pick, Record",
             "Readonly",
             "Partial",
@@ -441,8 +441,8 @@
     },
     {
         "section": "Расширенные типы",
-        "heading": "Exclude, Extract, NonNullable, ReturnType, InstanceType, Omit",
-        "subheadings": [
+        "title": "Exclude, Extract, NonNullable, ReturnType, InstanceType, Omit",
+        "subtitles": [
             "Расширенные типы - Exclude, Extract, NonNullable, ReturnType, InstanceType, Omit",
             "Exclude",
             "Extract",
@@ -456,8 +456,8 @@
     },
     {
         "section": "Расширенные типы",
-        "heading": "Массивоподобные readonly типы, ReadonlyArray, ReadonlyMap, ReadonlySet",
-        "subheadings": [
+        "title": "Массивоподобные readonly типы, ReadonlyArray, ReadonlyMap, ReadonlySet",
+        "subtitles": [
             "Массивоподобные readonly типы",
             "ReadonlyArray",
             "ReadonlyMap",
@@ -466,8 +466,8 @@
     },
     {
         "section": "React",
-        "heading": "Расширение .tsx",
-        "subheadings": [
+        "title": "Расширение .tsx",
+        "subtitles": [
             "React - расширение .tsx",
             "React - производные от Component",
             "React - производные от PureComponent",
@@ -478,8 +478,8 @@
     },
     {
         "section": "Синтаксические констркуции",
-        "heading": "Пространства имен (namespace) и модули (module)",
-        "subheadings": [
+        "title": "Пространства имен (namespace) и модули (module)",
+        "subtitles": [
             "namespace и module - предназначение",
             "namespace - определение",
             "модули (export\\import) определение",
@@ -488,23 +488,23 @@
     },
     {
         "section": "Сборка",
-        "heading": "Настройка рабочего окружения",
-        "subheadings": [
+        "title": "Настройка рабочего окружения",
+        "subtitles": [
             "Настройка рабочего окружения",
             "Сборка проекта с помощью tsc (TypeScript compiler)"
         ]
     },
     {
         "section": "Сборка",
-        "heading": "Сборка с использованием ссылок на проекты",
-        "subheadings": [
+        "title": "Сборка с использованием ссылок на проекты",
+        "subtitles": [
             "Ссылки на проекты"
         ]
     },
     {
         "section": "Сборка",
-        "heading": "Декларации",
-        "subheadings": [
+        "title": "Декларации",
+        "subtitles": [
             "Что такое декларация (Declaration)",
             "Установка деклараций с помощью @types",
             "Подготовка к созданию декларации",
@@ -519,15 +519,15 @@
     },
     {
         "section": "Сборка",
-        "heading": "Публикация",
-        "subheadings": [
+        "title": "Публикация",
+        "subtitles": [
             "Публикация"
         ]
     },
     {
         "section": "Компилятор",
-        "heading": "Опции компилятора",
-        "subheadings": [
+        "title": "Опции компилятора",
+        "subtitles": [
             "strict",
             "suppressExcessPropertyErrors",
             "suppressImplicitAnyIndexErrors",

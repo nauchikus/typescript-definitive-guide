@@ -1,0 +1,86 @@
+@import "../../styles/app-vars";
+@import "../../styles/mixins/native-scrollbar";
+
+
+.chapters-content-layout__grid {
+  display: grid;
+  grid-template-columns: 100%;
+  grid-template-rows: 72px auto auto auto;
+  grid-template-areas: "primary-content-bar" "secondary-content-bar" "content";
+
+  @media all and (min-width: $content-layout__right-layout_media_width_xl) {
+    grid-template-columns: var(--content-layout__center-layout_width) var(--content-layout__right-layout_min-width);
+    grid-auto-rows: 72px auto;
+
+    @media all and (min-height: $content-layout__right-layout_media_height_xl){
+      grid-template-areas:
+              "primary-content-bar secondary-content-bar"
+              "content secondary-content-bar";
+    }
+  }
+
+}
+.chapters-content-layout-grid-item__primary-content-bar {
+  max-width: var(--content-layout__center-layout_width);
+  //max-width: calc(var(--app-content_width) + #{$padding_48x2});
+
+  background-color: var(--app_base-color);
+
+  display: flex;
+  justify-content: center;
+
+  grid-area: primary-content-bar;
+
+  position: sticky;
+  top: $app-header_height;
+
+  z-index: 99999;
+}
+.content-layout-grid-item__secondary-content-bar {
+  max-height: calc(100vh - #{$app-header_height + $app-secondary-bar_height});
+
+  background-color: var(--app_base-color);
+
+  grid-area: secondary-content-bar;
+
+  position: sticky;
+  top: $app-header_height + $app-secondary-bar_height;
+
+  z-index: 99998;
+  overflow-y: auto;
+
+  @include nativeScrollbarSmall();
+
+
+  @media all and (min-width: $content-layout__right-layout_media_width_xl) and (min-height: $content-layout__right-layout_media_height_xl){
+    max-height: initial;
+    height: fit-content;
+
+    top:$app-header_height;
+  }
+}
+.content-layout-grid-item__content {
+  max-width: var(--content-layout__center-layout_width);
+
+  display: flex;
+  justify-content: center;
+
+  grid-area: content;
+}
+
+
+.secondary-bar {
+  width: 400px;
+  height: 200px;
+
+  background-color: pink;
+
+  border-radius: 10px;
+
+}
+.content-layout-divider{
+  width: 100%;
+  height: 1px;
+
+  background-color: grey;
+}

@@ -1,0 +1,10 @@
+@import "../../styles/app-vars";
+
+.secondary-content-bar{
+  @media all and (max-width: $content-layout__right-layout_media_width_xl), (max-height: $content-layout__right-layout_media_height_xl){
+    &[toggle-state="close"]{
+      height: 0;
+      visibility: collapse;
+    }
+  }
+}

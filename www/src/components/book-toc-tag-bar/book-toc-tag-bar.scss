@@ -1,0 +1,20 @@
+@import "../../styles/app-vars";
+
+.book-toc__tag-bar {
+  width: 100%;
+
+  padding: 16px;
+  display: inline-flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+
+  @media all and (min-width: $content-layout__right-layout_media_width_xl) {
+    position: sticky;
+    top: var(--app-header_height);
+
+    @media all and (min-height: $content-layout__right-layout_media_height_xl){
+      flex-direction: column;
+    }
+
+  }
+}

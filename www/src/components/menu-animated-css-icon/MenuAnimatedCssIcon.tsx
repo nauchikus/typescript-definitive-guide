@@ -1,6 +1,6 @@
 import React,{FC} from  'react';
 import {default as cn} from 'classnames';
-import { ToggleUiState } from "../../services/AppStateService";
+import { ToggleUiState } from "../../stores/AppStateService";
 
 interface MenuAnimatedCssIconProps {
   className?: string;

@@ -1,0 +1,12 @@
+@import "../app-vars";
+
+@mixin focus{
+  &:focus{
+    outline: 1px solid var(--user-activity_focus-color);
+  }
+}
+@mixin focus-within{
+  &:focus-within{
+    outline: 1px solid var(--user-activity_focus-color);
+  }
+}

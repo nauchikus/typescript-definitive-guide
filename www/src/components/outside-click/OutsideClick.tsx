@@ -1,11 +1,17 @@
-import React, { FC } from "react";
+import React, { FC, ReactElement, useLayoutEffect, useState } from "react";
+import { If } from "../if-operator/If";
 
 interface IOutsideClickProps {
-  onOutsideClick?: () => void
+  isToggle?:boolean;
+  onOutsideClick?: (isToggle?:boolean) => void
 }
 
-export const OutsideClick: FC<IOutsideClickProps> = ( {onOutsideClick} ) => {
+export const OutsideClick: FC<IOutsideClickProps> = ( {isToggle=false,onOutsideClick} ) => {
+  const toggle = () => onOutsideClick && onOutsideClick( !isToggle );
+
   return (
-    <div className="outside-click" onClick={onOutsideClick}></div>
+    <If condition={isToggle}>
+      <div className="outside-click" onClick={toggle}></div>
+    </If>
   );
 };

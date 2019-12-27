@@ -1,11 +1,152 @@
-:root {
-  --app-bar_bg-color: white;
+@import "../../styles/app-vars";
+@import "../../styles/mixins/draw-tail";
+
+$app-bar_min-height:$app-header_height - $app-header_height;
+
+
+
+.app-bar {
+  max-height: 300px;
+
+  width: 320px;
+  //height: auto;
+
+  background-color: var(--app_base-color);
+
+  border-radius: var(--app_border-radius-default);
+
+  padding: 16px 16px 24px 16px;
+  margin: 16px 0 0 0;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+
+
+  position: relative;
+  bottom: 0;
+
+  box-shadow:
+          0 5px 5px -3px rgba(0, 0, 0, .2),
+          0 8px 10px 1px rgba(0, 0, 0, .14),
+          0 3px 14px 2px rgba(0, 0, 0, .12);
+
+
+  @media all and (max-width: $app-bar_media_xs){
+    @include drawTail(white);
+  }
+
+  @media all and (min-height: $app-bar_min-height) {
+    &{
+      max-height: calc(100vh - var(--app-header_height));
+    }
+  }
+
+  @media all and (min-width:$app-bar_media_xs) {
+    width: auto;
+    //height: 40px;
+
+    padding: 0;
+    margin: 0;
+
+    flex-direction: row;
+
+    box-shadow: none;
+
+  }
+
+
 }
 
-.app-bar{
-  background-color: var(--app-bar_bg-color);
 
+.app-bar__section{
+  display: flex;
+  flex-direction: column;
+
+  @media all and (min-width: $app-bar_media_xs) {
+    flex-direction: row;
+  }
+}
+.app-bar__header{
   border-bottom: 1px solid grey;
-  padding: 16px;
+
+  padding: 16px 0;
 }
+.app-bar__body{
+  padding:16px;
+}
+.app-bar__main{
+  width: 100%;
+
+  display: flex;
+
+  //overflow-y: auto;
+
+
+}
+.app-bar-dropdown__toggle {
+  @media all and (min-width: $app-bar_media_xs) {
+    display: none;
+  }
+}
+
+
+
+//@mixin generateAppMenuItemOpenState(){
+//  @for $i from 1 through 3 {
+//    &>.app-bar__item:nth-child(#{$i}) {
+//      opacity: 1;
+//      transition:
+//              transform .1s ease #{$i * .1s},
+//              opacity .1s ease #{$i * .1s};
+//      transform:translateX(0);
+//    }
+//  }
+//}
+//@mixin generateAppMenuItemCloseState(){
+//  @for $i from 1 through 3 {
+//    &>.app-bar__item:nth-child(#{4 - $i}) {
+//      opacity: 0;
+//      transition:
+//              transform .1s ease #{($i - 1) * .1s},
+//              opacity .1s ease #{($i - 1) * .1s};
+//      transform:translateX(24px);
+//    }
+//  }
+//}
+//.app-bar__item{
+//  position: relative;
+//}
+//.app-bar {
+//  padding: 0 16px;
+//
+//  display: flex;
+//  flex-direction: row;
+//  justify-content: flex-end;
+//
+//  overflow: hidden;
+//
+//  transform-origin: top;
+//
+//
+//  &[toggle="open"] {
+//    height: 48px;
+//    margin-top: 24px;
+//    transition:
+//            margin-top 0s,
+//            height .15s ease-out;
+//
+//    @include generateAppMenuItemOpenState();
+//  }
+//  &[toggle="close"] {
+//    height: 0;
+//    margin-top: 0;
+//    transition:
+//            margin-top .15s ease-out .45s,
+//            height .15s ease-out .45s;
+//
+//    @include generateAppMenuItemCloseState();
+//  }
+//}
+
 

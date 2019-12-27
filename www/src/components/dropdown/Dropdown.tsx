@@ -2,28 +2,30 @@ import React, { FC, ReactElement } from "react";
 import { createDropdownContext, DropdownContext } from "./dropdown-hook";
 import { If } from "../if-operator/If";
 import { OutsideClick } from "../outside-click/OutsideClick";
+import { default as cn } from "classnames";
 
 interface IDropdownProps {
+  className?:string;
   children: ReactElement | ReactElement[];
+  onOutsideClick?:()=>void;
 }
 
 
 
-export const Dropdown: FC<IDropdownProps> = ( { children } ) => {
+export const Dropdown: FC<IDropdownProps> = ( { className,children,onOutsideClick } ) => {
   let context = createDropdownContext();
-  let { isToggle, isLeave, leave } = context;
+  let { isToggle, click } = context;
+  let classes = cn( "dropdown", className );
 
-  let handlers = {
-    onMouseLeave: isLeave ? leave : undefined
+  const onOutsideClickHandler = () => {
+    click();
+    onOutsideClick && onOutsideClick();
   };
 
-  /* <If condition={isToggle}>
-            <OutsideClick onOutsideClick={context.click}/>
-          </If>*/
   return (
     <DropdownContext.Provider value={ context }>
-      <div className="dropdown"{ ...handlers }>
-
+      <OutsideClick isToggle={isToggle} onOutsideClick={onOutsideClickHandler}/>
+      <div className={classes}>
         { children }
       </div>
     </DropdownContext.Provider>

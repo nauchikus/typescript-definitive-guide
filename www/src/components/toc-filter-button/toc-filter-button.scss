@@ -1,0 +1,7 @@
+@import "../../styles/app-vars";
+
+.toc-filter-button{
+  @media all and (min-width: $content-layout__right-layout_media_width_xl)and (min-height: $content-layout__right-layout_media_height_xl){
+    display: none;
+  }
+}

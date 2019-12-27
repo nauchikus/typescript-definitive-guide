@@ -1,22 +1,122 @@
-import React, { FC } from "react";
-import { SearchSvgIcon } from "../svg-icon/svg-icons";
+import React, { FC, FormEvent, useRef } from "react";
+import { MagnifierSvgIcon, SearchSvgIcon } from "../svg-icon/svg-icons";
+import { useShareStores } from "../../mobx";
+import { observer } from "mobx-react-lite";
+import { OutsideClick } from "../outside-click/OutsideClick";
+import { ScaleButton } from "../button__scale-button/ScaleButton";
+import { useScale, useScaleControl } from "../transform__scale-container/ScaleContainer";
+import { useTranslator } from "../../react__hooks/translator.hook";
+import { LocalizationPaths, SharedLayoutLocalization } from "../../localization";
+import { If } from "../if-operator/If";
 
 interface ISearchProps {
 }
 
-export const Search: FC<ISearchProps> = ( {} ) => {
+const SCALE_CONTROL_ID = "app-search";
+
+export const Search: FC<ISearchProps> = observer(( {} ) => {
+  let [shared] = useTranslator<[SharedLayoutLocalization]>( LocalizationPaths.SharedLayout );
+  let { appHeader: {appSearch:appSearchTranslation} } = shared;
+  let { appSearch } = useShareStores();
+  let control = useScaleControl(SCALE_CONTROL_ID);
+  let inputRef = useRef<HTMLInputElement>(null);
+
+  const isStringEmpty = ( string: string ) => string.trim() === "";
+  const isInputEmpty = () => {
+    let { current: input } = inputRef;
+    let value = input?.value ?? "";
+
+    return isStringEmpty(value) ? true : false;
+  };
+  const toggle = () => {
+    appSearch.active.toggle();
+
+    if ( appSearch.active.isClose && !isInputEmpty() ) {
+      cleanInput();
+    }
+
+    if ( appSearch.match.isOn ) {
+      appSearch.match.off();
+    }
+  };
+  const cleanInput = () => {
+    let { current: input } = inputRef;
+
+    input && ( input.value = "" );
+  };
+  const onChange = ( event: React.ChangeEvent<HTMLInputElement> ) => {
+    let isInputEmptyValid = isStringEmpty( event.target.value );
+
+    if ( isInputEmptyValid && appSearch.match.isOn ) {
+      appSearch.match.off();
+    } else if ( !isInputEmptyValid && appSearch.match.isOff ) {
+      appSearch.match.on();
+    }
+  };
+  const formSubmit = ( event: React.FormEvent | React.KeyboardEvent ) => {
+    event.preventDefault();
+
+    control?.on();
+
+    setTimeout( () => inputRef.current?.focus(), 10 );
+  };
+
+  const onSubmit = ( event: React.FormEvent ) => {
+    formSubmit( event );
+  };
+  const onKeyDown = ( event: React.KeyboardEvent ) => {
+    if ( event.key === "Enter" ) {
+      formSubmit(event);
+    }
+  };
+
+
+
+
 
   return (
-    <form className="search" autoComplete="off">
-      <label className="search__label" htmlFor="search-input">
-        <svg className="search__search-svg-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-             viewBox="0 0 24 24">
-          <path
-            d="M23.822 20.88l-6.353-6.354c.93-1.465 1.467-3.2 1.467-5.059.001-5.219-4.247-9.467-9.468-9.467s-9.468 4.248-9.468 9.468c0 5.221 4.247 9.469 9.468 9.469 1.768 0 3.421-.487 4.839-1.333l6.396 6.396 3.119-3.12zm-20.294-11.412c0-3.273 2.665-5.938 5.939-5.938 3.275 0 5.94 2.664 5.94 5.938 0 3.275-2.665 5.939-5.94 5.939-3.274 0-5.939-2.664-5.939-5.939z"/>
-        </svg>
-      </label>
-      <button className="search__submit-query-button" type="submit" aria-hidden="true" aria-label="Отправить"></button>
-      <input className="search__query-input" type="search" id="search-input" name="q" required/>
-    </form>
+    <>
+      <OutsideClick isToggle={appSearch.active.isToggle} onOutsideClick={toggle}/>
+      <form className="search"
+            autoComplete="off"
+            action="#"
+            toggle={appSearch.active.state}
+            is-match={appSearch.match.isToggle.toString()}
+            onKeyDown={onKeyDown}
+            onSubmit={onSubmit}>
+        <div className="search__input-section">
+          <input ref={inputRef}
+                 className="search__query-input"
+                 type="search"
+                 id="search-input"
+                 name="app-search-query"
+                 placeholder={appSearchTranslation.inputPlaceholder}
+                 onChange={onChange}
+                 required/>
+
+          <ScaleButton className="search__submit-button-placeholder button-with-svg-icon" onClick={toggle}>
+            <MagnifierSvgIcon className="search__search-svg-icon"/>
+          </ScaleButton>
+
+          <ScaleButton className="search__submit-button button-with-svg-icon"
+                       scaleControlId={SCALE_CONTROL_ID}
+                       type="submit"
+                       aria-hidden="true"
+                       aria-label={appSearchTranslation.submitButton.ariaLabel}>
+            <MagnifierSvgIcon className="search__search-svg-icon"/>
+          </ScaleButton>
+        </div>
+
+
+
+        <If condition={appSearch.match.isToggle && appSearch.active.isOpen}>
+          <div className="divide_x"></div>
+          <div className="search__output-section">
+
+          </div>
+        </If>
+      </form>
+    </>
+
   );
-};
+});

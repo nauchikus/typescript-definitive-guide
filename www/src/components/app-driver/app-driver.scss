@@ -1,0 +1,88 @@
+@import "../../styles/native-scrollbars";
+
+.app-driver{
+  max-height: 100%;
+
+  padding: 0 var(--app-driver_padding);
+
+  display: flex;
+  flex-direction: column;
+  
+
+  @include nativeScrollbarSmall();
+}
+.app-driver__section{}
+.app-driver__section-control{
+  width: 100%;
+
+  background-color: var(--app_base-color);
+
+  padding: 16px 24px 16px 16px;
+
+  position:sticky;
+
+  &:after {
+    content: "";
+
+    width: 100%;
+    height: 1px;
+
+    background-color: var(--color_darkmiddle_rgba);
+
+    position: absolute;
+    left: 0;
+    right: 100%;
+    bottom: 0;
+  }
+
+  &[item-index="0"]{
+    top:0;
+  }
+  &[item-index="1"]{
+    top:56px;
+    bottom:0;
+  }
+}
+
+.app-driver__link{
+  color: var(--color_dark);
+
+  transition:color .2s ease;
+
+
+  &:hover{
+    color:var(--color_dark_hover);
+    text-decoration-line: underline;
+  }
+}
+.app-driver__link_active{
+  color:var(--app-nav_link_active);
+  font-weight: bold;
+}
+.app-driver__link_page-nav-item_active{
+  color:var(--page-nav_link_active)!important;
+
+  position: relative;
+
+  &:before {
+    content: "";
+    width: 8px;
+    height: 8px;
+
+    background-color: var(--page-nav_link_active);
+
+    border-radius: 50%;
+
+    margin: 4px 0 0 -16px;
+
+    position: absolute;
+
+  }
+}
+
+.app-driver__list{
+  padding: 16px;
+}
+.app-driver__list-item{
+  padding: 8px 0;
+}

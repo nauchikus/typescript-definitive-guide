@@ -3,7 +3,7 @@ import {FC} from "react"
 import { Locales } from "../../../plugins/types/locales";
 import IndexPage from "./IndexPage";
 import SEO from "../../components/seo";
-import { Localization } from "../../react-hooks/translator.hook";
+import { Localization } from "../../react__hooks/translator.hook";
 import BaseLayout from "../../layouts/base-layout/BaseLayout";
 import { AppLocalization } from "../../localization";
 

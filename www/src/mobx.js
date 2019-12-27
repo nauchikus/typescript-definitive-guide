@@ -1,17 +1,21 @@
 import React, { createContext, useContext } from "react";
 import { useLocalStore } from "mobx-react-lite";
-import { createAppState, createDefaultAppState } from "./services/AppStateService";
+import { createSharedStore } from "./stores/shared-stores";
 
-const MobxContext = createContext( createDefaultAppState() );
+
+const MobxSharedContext = createContext(  );
+const MobxContext = createContext(  );
+
 
 export const MobxProvider = ( { children } ) => {
-  let store = useLocalStore( createAppState );
+  let store = useLocalStore( createSharedStore );
+
 
   return (
-    <MobxContext.Provider value={ store }>
+    <MobxSharedContext.Provider value={ store }>
       { children }
-    </MobxContext.Provider>
+    </MobxSharedContext.Provider>
   );
 };
 
-export const useStores = () => useContext( MobxContext );
+export const useShareStores = () => useContext( MobxSharedContext );

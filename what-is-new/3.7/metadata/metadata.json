@@ -1,0 +1,69 @@
+{
+    "versionMMP": "3.7",
+    "innovations": [
+        {
+            "id": "",
+            "version": "3.7",
+            "innovationName": "Оператор опциональной последовательности (?.)",
+            "dateRelease": "November 5, 2019",
+            "datePublication": "November 5, 2019",
+            "tags": []
+        },
+        {
+            "id": "",
+            "version": "3.7",
+            "innovationName": "Оператор объединения со значением null (??)",
+            "dateRelease": "November 5, 2019",
+            "datePublication": "November 5, 2019",
+            "tags": []
+        },
+        {
+            "id": "",
+            "version": "3.7",
+            "innovationName": "Утверждение в сигнатуре (Signature Assertion)",
+            "dateRelease": "November 5, 2019",
+            "datePublication": "November 5, 2019",
+            "tags": []
+        },
+        {
+            "id": "",
+            "version": "3.7",
+            "innovationName": "Улучшена поддержка для типа never возвращаемого из функций",
+            "dateRelease": "November 5, 2019",
+            "datePublication": "November 5, 2019",
+            "tags": []
+        },
+        {
+            "id": "",
+            "version": "3.7",
+            "innovationName": "Проверка невызванных функций",
+            "dateRelease": "November 5, 2019",
+            "datePublication": "November 5, 2019",
+            "tags": []
+        },
+        {
+            "id": "",
+            "version": "3.7",
+            "innovationName": "Рекурсивность для псевдононимов типов",
+            "dateRelease": "November 5, 2019",
+            "datePublication": "November 5, 2019",
+            "tags": []
+        },
+        {
+            "id": "",
+            "version": "3.7",
+            "innovationName": "Совместное использование флагов --declaration и --allowJs",
+            "dateRelease": "November 5, 2019",
+            "datePublication": "November 5, 2019",
+            "tags": []
+        },
+        {
+            "id": "",
+            "version": "3.7",
+            "innovationName": "@ts-nocheck в TypeScript файлах",
+            "dateRelease": "November 5, 2019",
+            "datePublication": "November 5, 2019",
+            "tags": []
+        }
+    ]
+}

@@ -5,16 +5,16 @@ import * as IndexPageCreator from './create-index-page';
 import * as BookPageCreator from './create-book-page';
 import * as BookTocPageCreator from './create-book-toc-page';
 import * as WhatIsNewPageCreator from './create-what-is-new-page';
-import * as WhatIsNewTocPageCreator from './create-what-is-new-toc-page';
+import * as WhatIsNewTocPageGuiCreator from './create-what-is-new-toc-page';
 
 interface ICreatePagesOptions {
     locale: Locales;
 }
 
 export const createPages: GatsbyCreatePages<ICreatePagesOptions> = async (...params) => {
-    await IndexPageCreator.createPages( ...params );
-    await BookPageCreator.createPages( ...params );
+    // await IndexPageCreator.createPages( ...params );
+    // await BookPageCreator.createPages( ...params );
     // await BookTocPageCreator.createPages( ...params );
-    // await WhatIsNewPageCreator.createPages( ...params );
-    // await WhatIsNewTocPageCreator.createPages( ...params );
+    await WhatIsNewPageCreator.createPages( ...params );
+    await WhatIsNewTocPageGuiCreator.createPages( ...params );
 };

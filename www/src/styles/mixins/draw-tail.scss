@@ -9,7 +9,7 @@
 
     display: block;
 
-    //z-index: -1;
+    z-index: 99999;
 
 
     position: absolute;
@@ -17,5 +17,7 @@
     right: 11px;
 
     transform: rotate(45deg);
+
+    @content;
   }
 }

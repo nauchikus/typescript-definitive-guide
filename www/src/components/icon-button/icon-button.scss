@@ -1,14 +1,26 @@
-.icon-button{
+@import "../../styles/mixins/user-activity";
+@import "../tooltip/tooltip";
+
+.icon-button_size_sm{
+  width:32px;
+  height: 32px;
+}
+.icon-button_size_md{
   width: 40px;
   height: 40px;
-
+}
+.icon-button{
   border-radius: 5px;
 
   display: inline-flex;
   justify-content: center;
   align-items: center;
 
+  position: relative;
+
   transition: fill .4s ease;
+
+  cursor: pointer;
 
   &:hover{
     background-color: var(--button_color-default_hover);
@@ -20,6 +32,9 @@
   &:hover>.svg-icon {
     fill: var(--svg-icon_color-default_hover);
   }
+
+  @include focus;
+  @include tooltip-hover-hook-with-media();
 }
 .toggle-button_on{
   background-color: var(--button_color-default_hover);

@@ -5,16 +5,18 @@ import { default as cn} from "classnames";
 export type HorizontalAlign = "start" | "end";
 
 interface IDropdownMenuProps {
+  openClassName:string;
+  closeClassName:string;
   className?:string;
   children: ReactElement | ReactElement[];
   horizontalAlign?:HorizontalAlign;
 }
 
-export const DropdownMenu: FC<IDropdownMenuProps> = ( { horizontalAlign="end",className,children } ) => {
+export const DropdownMenu: FC<IDropdownMenuProps> = ( { openClassName,closeClassName,horizontalAlign="end",className,children } ) => {
   let { isOpen,isClose } = useDropdown();
   let classes = cn( "dropdown__menu", className, {
-    [ "dropdown__menu_open" ]: isOpen,
-    [ "dropdown__menu_close" ]: isClose,
+    [ openClassName ]: isOpen,
+    [ closeClassName ]: isClose,
     [ "dropdown__menu_horizontal-align_end" ]: horizontalAlign === "end"
   } );
 

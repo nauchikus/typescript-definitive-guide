@@ -8,16 +8,11 @@ interface IDropdownToggleProps {
 }
 
 export const DropdownToggle: FC<IDropdownToggleProps> = ( { className,children } ) => {
-  let { isEnter, enter, click } = useDropdown();
+  let { click } = useDropdown();
   let classes = cn( "dropdown__toggle", className );
-
-  let handlers = {
-    onClick:click,
-    onMouseEnter: isEnter ? enter : undefined
-  };
 
 
   return (
-    <div className={classes} {...handlers}>{ children }</div>
+    <div className={classes} onClick={click}>{ children }</div>
   );
 };

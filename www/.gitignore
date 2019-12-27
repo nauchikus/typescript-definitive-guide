@@ -58,7 +58,7 @@ typings/
 .cache/
 public
 
-# Mac files
+# Macgfiles
 .DS_Store
 
 # Yarn
@@ -67,3 +67,6 @@ yarn-error.log
 .pnp.js
 # Yarn Integrity file
 .yarn-integrity
+
+www/.env.development
+.env.development

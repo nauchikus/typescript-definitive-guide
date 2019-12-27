@@ -1,6 +1,3 @@
-// cdn dependencies
-@import url(https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css);
-@import url(https://fonts.googleapis.com/css?family=Roboto&display=swap&subset=cyrillic);
 
 // shared dependencies
 @import "../../styles/app-vars";
@@ -27,7 +24,11 @@
 
 }
 .app-grid-item__content {
+  max-width: 100vw;
+
   min-height: calc(100vh - var(--app-header_height));
 
   grid-area: content;
+
+  z-index: 0;
 }

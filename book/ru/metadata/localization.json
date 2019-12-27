@@ -2,6 +2,75 @@
     "lang": "ru",
     "title": "TypeScript - в деталях",
     "description": "Подробное руководство по языку TypeScript, которое шаг за шагом раскрывает весь его потенциал не оставляя без внимания ни одной мелочи.",
+    "appNavigation": [
+        {
+            "path": "/ru",
+            "name": "Главная"
+        },
+        {
+            "path": "/ru/book/chapters",
+            "name": "Оглавление"
+        },
+        {
+            "path": "/ru/what-is-new",
+            "name": "Что нового?"
+        },
+        {
+            "path": "/ru/tests",
+            "name": "Срез знаний"
+        },
+        {
+            "path": "/ru/keywords",
+            "name": "Ключевой указатель"
+        }
+    ],
+    "layouts": {
+        "shared": {
+            "appHeader": {
+                "navToggleButton": {
+                    "tooltips": {
+                        "open": ["Открыть боковое","меню"],
+                        "close": ["Закрыть боковое","меню"]
+                    }
+                },
+                "appMenu": {
+                    "pdfButton": {
+                        "href": "#",
+                        "tooltip": ["Скачать","PDF версию"],
+                        "label": "Скачать PDF версию"
+                    },
+                    "telegramButton": {
+                        "href": "#",
+                        "tooltip": ["Следить за","изменениями в","Telegram"],
+                        "label": ["Следить за изменениями в","Telegram"]
+                    },
+                    "githubButton": {
+                        "href": "#",
+                        "tooltip": ["Посетить проект на","Github"],
+                        "label": ["Посетить проект на","Github"]
+                    }
+                },
+                "donateDropdown": {
+                    "href": "#",
+                    "toggleButton": {
+                        "label": ["Поддержать","финансово"]
+                    },
+                    "content": {
+                        "title": "Сделай контент для будующих поколений ещё качественей и доступней!",
+                        "subtitle": {
+                            "__html": "Контент требует постоянного совершенстования и адаптации под каждую новую версию\nязыка TypeScript.\nЭто отнимает много времени и без Вашей, даже незначительно финансовой, поддержки практически\nневозможно.\nПрийми участие в развитии профессионального уровня своих друзей, коллег, подчиненных. Встань на\nсторону небезразличных!"
+                        }
+                    }
+                },
+                "appSearch": {
+                    "inputPlaceholder": "Я ищу...",
+                    "submitButton": {
+                        "ariaLabel": "Щтправить"
+                    }
+                }
+            }
+        }
+    },
     "pages":{
         "index":{
             "metadata":{
@@ -17,7 +86,35 @@
                 "description": "Подробное руководство по языку TypeScript, которое шаг за шагом раскрывает весь его потенциал не оставляя без внимания ни одной мелочи."
             },
             "gui":{
-                "greeting":"ПриветМир!"
+                "tocItem": {
+                    "copyLinkToBufferButton": {
+                        "tooltip": "Скопировать ссылку в буффер обмена"
+                    },
+                    "collapseTocButton": {
+                        "tooltip": {
+                            "openState": "Открыть",
+                            "closeState": "Закрыть"
+                        }
+                    }
+                },
+                "secondaryContentBar": {
+                    "label": "Оглавление",
+                    "tocFilterButton": {
+                        "tooltip": "Отфильтровать на основе разделов"
+                    },
+                    "tocCollapseAllButton": {
+                        "tooltip": {
+                            "openState": "Расскрыть все",
+                            "closeState": "Закрыть все"
+                        }
+                    }
+                },
+                "asideLayout": {
+                    "tagBarLabel": "Тематические разделы",
+                    "tagBar": {
+                        "cleanFilterButton": "Все разделы"
+                    }
+                }
             }
         },
         "book__chapter":{
@@ -27,6 +124,22 @@
             },
             "gui":{
                 "greeting":"ПриветМир!"
+            }
+        },
+        "what-is-new__toc": {
+            "metadata":{
+                "title": "TypeScript - в деталях",
+                "description": "Подробное руководство по языку TypeScript, которое шаг за шагом раскрывает весь его потенциал не оставляя без внимания ни одной мелочи."
+            },
+            "gui": {
+                "primaryContentBar": {
+                    "label":"История нововведений"
+                },
+                "tocItem": {
+                    "copyLinkToBufferButton": {
+                        "tooltip": "Скопировать ссылку в буффер обмена"
+                    }
+                }
             }
         }
     }

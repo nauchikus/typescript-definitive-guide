@@ -1,6 +1,6 @@
 import React,{FC} from  'react';
 import {default as cn} from 'classnames';
-import { ToggleUiState } from "../../services/AppStateService";
+import { ToggleUiState } from "../../stores/AppStateService";
 
 interface MainNavAnimatedCssIconProps {
   className?: string;
@@ -8,7 +8,6 @@ interface MainNavAnimatedCssIconProps {
 }
 
 export const MainNavAnimatedCssIcon: FC<MainNavAnimatedCssIconProps> = ( { className, state } ) => {
-  console.log(state)
     let viewboxClasses = cn( "css-icon-viewbox", className );
     let iconClasses = cn( {
         [ "main-nav-animated-css-icon" ]: true,

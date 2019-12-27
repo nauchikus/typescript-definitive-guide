@@ -12,8 +12,9 @@
 import "./src/styles/dev-utils.scss";
 
 import React from "react";
-import { MobxProvider, useStores } from "./src/mobx";
-import { RouterContext, RouterService } from "./src/react-hooks/router-hook";
+import { MobxProvider, useShareStores } from "./src/mobx";
+import { RouterContext, RouterService } from "./src/react__hooks/router-hook";
+import { Localization } from "./src/react__hooks/translator.hook";
 
 export const wrapRootElement = ({element}) => {
   return (
@@ -23,13 +24,19 @@ export const wrapRootElement = ({element}) => {
 
 export const wrapPageElement = ( { element, props } ) => {
   return (
-    <RouterContext.Provider value={ new RouterService( props.location ) }>
-      { element }
-    </RouterContext.Provider>
+    <Localization.Provider value={props.pageContext.localization}>
+      <RouterContext.Provider value={ new RouterService( props.location ) }>
+        { element }
+      </RouterContext.Provider>
+    </Localization.Provider>
   );
 };
 
-export const onRouteUpdate=()=>{
-
-  console.log('ROUTER')
-}
+export const onRouteUpdate = ( { location: { hash } } ) => {
+  if ( hash ) {
+    document
+      .querySelector( `main` )
+      .querySelector( `section#${ hash.replace( /^#/, "" ) }` )
+      .scrollIntoView();
+  }
+};

@@ -1,0 +1,31 @@
+.app-driver__section-button{
+  width: 100%;
+
+
+
+  font-weight: bold;
+  color:var(--color_dark);
+
+  display: flex;
+  justify-content:space-between;
+  align-items: center;
+
+  cursor: pointer;
+
+  &:hover{
+    color:var(--color_dark_hover);
+  }
+
+  &>svg {
+    fill: var(--svg-icon_color-default);
+
+    transition:
+            transform .2s ease,
+            fill .2s ease;
+  }
+  &:hover>svg {
+    fill: black;
+
+    transform: translateX(4px);
+  }
+}

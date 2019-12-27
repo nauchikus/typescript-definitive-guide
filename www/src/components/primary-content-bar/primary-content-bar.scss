@@ -1,0 +1,38 @@
+.primary-content-bar{
+  width: 100%;
+  height: 100%;
+
+  background: var(--app_base-color);
+
+  padding:var(--content-bar__primary-bar_padding_x);
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  position: sticky;
+  top: var(--app-header_height);
+
+  z-index: 99999;
+
+  &:after {
+    content: "";
+
+    //width: 100%;
+    height: 1px;
+
+    background-color: var(--color_darkmiddle_rgba);
+
+    position: absolute;
+    left: var(--content-bar__primary-bar_padding_x);
+    right: var(--content-bar__primary-bar_padding_x);
+    bottom: 0;
+  }
+}
+
+.primary-content-bar__label{
+  margin: 0 0 0 8px;
+}
+.primary-content-bar__control{
+
+}

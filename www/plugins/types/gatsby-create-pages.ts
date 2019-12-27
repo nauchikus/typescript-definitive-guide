@@ -41,7 +41,8 @@ type GatsbyNode<T extends object = Dynamic>={
   [K in keyof Intersection<T,GatsbyBaseNode>]:Intersection<T,GatsbyBaseNode>[K];
 }
 
-
+export type GraphQlQuery<TParams = null>=TParams extends null ?  ()=>string : (params:TParams)=>string;
+// type GraphQlResponse<TParams = null>=TParams extends null ?  ()=>string : (params:TParams)=>string;
 // type GetNodesByType=<TReturn>(type:string)=>Promise<TReturn[]>
 export type GraphQlResponse<TData>={errors:unknown;data?:TData}
 type GraphQl=

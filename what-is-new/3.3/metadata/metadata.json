@@ -1,0 +1,21 @@
+{
+    "versionMMP": "3.3",
+    "innovations": [
+        {
+            "id": "",
+            "version": "3.3",
+            "innovationName": "Повышение производительности сборки для команды --build --watch",
+            "dateRelease": "January 31, 2019",
+            "datePublication": "January 31, 2019",
+            "tags": []
+        },
+        {
+            "id": "",
+            "version": "3.3",
+            "innovationName": "Улучшение поведения для типов Union указанных в качестве параметров функции",
+            "dateRelease": "January 31, 2019",
+            "datePublication": "January 31, 2019",
+            "tags": []
+        }
+    ]
+}

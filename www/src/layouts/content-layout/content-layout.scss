@@ -1,0 +1,20 @@
+@import "../../styles/breakpoints";
+@import "../../styles/app-vars";
+
+$native-scrollbar_width:16px;
+
+.content-layout {
+  max-width: var(--content-layout_max-width);
+  //padding: 0 $native-scrollbar_width 0 0;
+
+  display:flex;
+  flex-direction: column;
+
+  position: relative;
+
+  @media all and (min-width: $content__nav_down_media){
+    flex-direction: row;
+
+  }
+
+}

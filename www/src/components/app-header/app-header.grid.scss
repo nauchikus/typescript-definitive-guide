@@ -1,0 +1,97 @@
+@import "../../styles/app-vars";
+
+$icon-button:$app-bar__icon-button_width;
+$logo:$app-bar__logo_width;
+
+.app-header-grid {
+  max-width: 100vw;
+  height: var(--app-header_height);
+
+  display: grid;
+
+  grid-template-columns: $icon-button $logo 1fr $icon-button $icon-button $icon-button;
+  grid-template-rows: 40px 40px;
+  grid-template-areas:
+          "nav-toggle logo informer donate . menu"
+          "nav-toggle search search search search menu";
+  grid-column-gap: 4px;
+
+  position: relative;
+
+  &[app-search-toggle="close"] > .app-header-grid-item__search {
+    left: calc(100% - #{$icon-button});
+
+    transition: all $app-search__grid-item_transition_duration ease $app-search__grid-item_transition_delay;
+  }
+  &[app-search-toggle="open"] > .app-header-grid-item__search {
+    left:0;
+
+    transition: all $app-search__grid-item_transition_duration ease;
+  }
+
+  @media all and (min-width: $app-bar_media_xs) {
+    grid-template-columns: $icon-button $logo 1fr 128px $icon-button auto;
+    grid-template-rows: inherit;
+    grid-template-areas:
+            "nav-toggle logo informer donate . menu"
+            "nav-toggle logo search search search menu";
+  }
+}
+
+.app-header-grid-item__nav-toggle{
+  grid-area: nav-toggle;
+}
+.app-header-grid-item__logo{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  grid-area: logo;
+}
+.app-header-grid-item__informer{
+  grid-area: informer;
+}
+.app-header-grid-item__search{
+  width: auto;
+  height: 71px;
+
+  background: var(--color_default-lite);
+  //background: tomato;
+
+  border-radius: var(--app_border-radius-default);
+
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+
+  grid-area: search;
+
+  z-index:1;
+
+  position: absolute;
+  right: 0;
+  top: -56px;
+
+  z-index: 9999999;
+  //transition: all .4s ease;
+}
+.app-header-grid-item__donate{
+  grid-area: donate;
+}
+.app-header-grid-item__menu-toggle{
+  display: flex;
+  justify-content: flex-end;
+
+  grid-area: menu-toggle;
+}
+.app-header-grid-item__menu {
+  display: flex;
+  justify-content: flex-end;
+
+  grid-area: menu;
+
+  z-index: 99999;
+}
+.app-header-grid-item__nav{
+  grid-area: nav;
+}
