@@ -14,40 +14,42 @@ class A {}
 class B {}
 class C {}
 
-let identifier: A | B | C; // value can only belong to one type ( A or B or C )
+let identifier: A | B | C; // значение может принадлежать только одному типу (A или B или C)
 ~~~~~
 
 Поскольку значение может принадлежать ко множеству порой несовместимых типов, компилятор, без вмешательства разработчика, расценивает принадлежность значения к типу, который наделен общими для всех типов признаками.
 
 ~~~~~typescript
 class Bird {
-  fly(): void {}
-
-  toString(): string {
-      return 'bird';
-  }
+    fly(): void {}
+    
+    toString(): string {
+        return 'bird';
+    }
 }
+
 class Fish {
-  swim(): void {}
+    swim(): void {}
 
-  toString(): string {
-      return 'fish';
-  }
+    toString(): string {
+        return 'fish';
+    }
 }
-class Insect {
-  crawl(): void {}
 
-  toString(): string {
-      return 'insect';
-  }
+class Insect {
+    crawl(): void {}
+    
+    toString(): string {
+        return 'insect';
+    }
 }
 
 function move(animal: Bird | Fish | Insect): void {
-  animal.fly(); // Error
-  animal.swim(); // Error
-  animal.crawl(); // Error
-
-  animal.toString(); // Ok, declared in all types
+    animal.fly(); // Error
+    animal.swim(); // Error
+    animal.crawl(); // Error
+    
+    animal.toString(); // ок, задекларировано во всех типах
 }
 ~~~~~
 
@@ -57,7 +59,7 @@ ________________
 
 *Пересечение* (`Intersection`) — ещё один мощный механизм *TypeScript*, который позволяет рассматривать множество типов данных, как один. Пересечение указывается с помощью оператора амперсанда `&`, по обе стороны от которого указываются типы данных.
 
-Переменной, которой был указан тип пересечение `A` и `B` и `С` может быть присвоено значение, которое принадлежит к типам `A` и `B` и `C` одновременно.
+Переменной, которой был указан тип пересечение `A` и `B` и `С` может быть присвоено значение, принадлежащее к типам `A` и `B` и `C` одновременно.
 
 ~~~~~typescript
 let name: A & B & C; // значение должно принадлежать ко всем типам одновременно
