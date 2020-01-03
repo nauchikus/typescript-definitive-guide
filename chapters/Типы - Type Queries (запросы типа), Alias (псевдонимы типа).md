@@ -1,7 +1,7 @@
 ##  Запросы Типа (Type Queries)
 ________________
 
-Запросы типа позволяют получить тип связанный с каким-либо идентификатором и использовать его при указании типа. Запрос типа определяется оператором `typeof` после которого идет идентификатор ссылающийся на тип. Располагается запрос тип, в местах указания типа данных.
+Запросы типа позволяют получить тип связанный с каким-либо идентификатором и использовать его при указании типа. Запрос типа определяется оператором `typeof` после которого идет идентификатор ссылающийся на тип. Запрос типа располагается в местах указания типа данных.
 
 ~~~~~typescript
 let v1: T1;
@@ -12,15 +12,17 @@ let v2: typeof v1;
 
 ~~~~~typescript
 class T {
- static staticProp: number;
-
- field: string;
-
- get prop(): boolean {
-   return true;
- }
-
- method():void {}
+    static staticProp: number;
+    
+    field: string;
+    
+    get prop(): boolean {
+        return true;
+    }
+    
+    method(): void {
+    
+    }
 }
 
 let t: T = new T();
@@ -32,7 +34,7 @@ let v3: typeof t.prop; // let v3: boolean
 let v4: typeof t.method; // let v4: ()=>void
 
 function f(param: number): void {
- let v: typeof param; // let v: number
+    let v: typeof param; // let v: number
 }
 ~~~~~
 
@@ -41,19 +43,19 @@ function f(param: number): void {
 Представьте значение, присвоенное переменной, тип которой не указан явно. Теперь представьте что это значение нужно передать в функцию, параметр которой также не имеет явного указания типа. В этом случае в функции будет сложно работать с параметрами, так как вывод типов определит его принадлежность к типу `any`. 
 
 ~~~~~typescript
-const STANDART_NORMAL = { x: 0, y: 0 }; // данные которые нужны только для контролирования точности самих тестов, а это в свою очередь означает, что декларация типов для них ещё не определена. хотя вывод типов в состоянии вывести тип {x: number, y: number} для этой константы.
+const STANDART_NORMAL = { x: 0, y: 0 }; // данные которые нужны только для контролирования точности самих тестов, а это в свою очередь означает, что декларация типов для них ещё не определена. Хотя вывод типов в состоянии вывести тип {x: number, y: number} для этой константы.
 
 // здесь вывод типа не в состоянии вывести тип параметров функции
-function valid( standart ){
-  let element = document.querySelector( '#some-id' );
-  let { clientLeft: x, clientTop: y } = element;
-  let position = { x,y };
-  
-   // поэтому о параметрах невозможно получить какую-либо информацию 
-  let isPositionXValid = position.x === standart.; // автодополнение отсутствует
-  let isPositionYValid = position.y === standart.; // автодополнение отсутствует
+function valid(standart) {
+    let element = document.querySelector('#some-id');
+    let { clientLeft: x, clientTop: y } = element;
+    let position = { x, y };
 
-  // ...
+    // поэтому о параметрах невозможно получить какую-либо информацию 
+    let isPositionXValid = position.x === standart. // автодополнение отсутствует
+    let isPositionYValid = position.y === standart. // автодополнение отсутствует
+    
+    // ...
 }
 ~~~~~
 
@@ -62,18 +64,17 @@ function valid( standart ){
 ~~~~~typescript
 const STANDART_NORMAL = { x: 0, y: 0 };
 
-
 // получение типа для аннотирования параметров прямо из константы.
-function valid( standart: typeof STANDART_NORMAL ){
-  let element = document.querySelector( '#some-id' );
-  let { clientLeft: x, clientTop: y } = element;
-  let position = { x,y };
-
-   // расходовать время на декларацию типа так и не пришлось. тем не менее автодополнение работает.
-  let isPositionXValid = position.x === standart.x; // выводит .x
-  let isPositionYValid = position.y === standart.y; // выводит .y
-
-  // ...
+function valid(standart: typeof STANDART_NORMAL) {
+    let element = document.querySelector('#some-id');
+    let { clientLeft: x, clientTop: y } = element;
+    let position = { x, y };
+    
+    // расходовать время на декларацию типа так и не пришлось. Тем не менее автодополнение работает.
+    let isPositionXValid = position.x === standart.x; // выводит .x
+    let isPositionYValid = position.y === standart.y; // выводит .y
+    
+    // ...
 }
 ~~~~~
 
@@ -81,7 +82,7 @@ function valid( standart: typeof STANDART_NORMAL ){
 ## Псевдонимы Типов (Type Aliases)
 ________________
 
-Возможность создавать *псевдонимы типа* (alias) — ещё одна из множества незаменимых возможностей *TypeScript*. Псевдоним типа объявляется с использованием ключевого слова `type`, после которого идет идентификатор-имя псевдонима типа, за которым идет оператор присваивания равно =, справа от которого находится тип для которого будет создан псевдоним.
+Создание *псевдонимов типа* (alias) — ещё одна из множества незаменимых возможностей *TypeScript*. Псевдоним типа объявляется с использованием ключевого слова `type`, после которого идет идентификатор-имя псевдонима типа, за которым идет оператор присваивания `=`, справа от которого находится тип для которого будет создан псевдоним.
 
 ~~~~~typescript
 type Alias = T1;
@@ -91,24 +92,24 @@ type Alias = T1;
 
 ~~~~~typescript
 class Type {
-  method( ): void {
-      type Alias = Type;
-  }
+    method(): void {
+        type Alias = Type;
+    }
 }
 
 type Alias = Type;
 
-function func( ): void {
-  type Alias = Type;
+function func(): void {
+    type Alias = Type;
 }
 ~~~~~
 
-Так как псевдонимы типов являются лишь псевдонимами для реальных типов, они не оставляют следа в коде после компиляции, к тому же их нельзя было расширять (`extends`) и реализовать (`implements`) в ранних версиях языка (до 2.7). Сейчас псевдоним типа можно реализвать или расширить, только если он представляет объектный тип (`object type`) или пересечение объектных типов со статически известными членами. Кроме того, псевдонимы типов нельзя использовать в операциях над типами с применением операторов `typeof` и `instanceof`. Помимо этого, если псевдоним типа будет создан для объекта, то при попытке создать его экземпляр возникнет ошибка.
+Так как псевдонимы типов являются лишь псевдонимами для реальных типов, они не оставляют следа в коде после компиляции, к тому же их нельзя было расширять (`extends`) и реализовать (`implements`) в ранних версиях языка (до 2.7). Сейчас псевдоним типа можно реализовать или расширить, только если он представляет объектный тип (`object type`) или пересечение объектных типов со статически известными членами. Кроме того, псевдонимы типов нельзя использовать в операциях над типами с применением операторов `typeof` и `instanceof`. Помимо этого, если псевдоним типа будет создан для объекта, то при попытке создать его экземпляр возникнет ошибка.
 
 ~~~~~typescript
 class Class {
-  f1: number;
-  f2: string;
+    f1: number;
+    f2: string;
 }
 
 type ClassAlias = Class;
@@ -131,7 +132,9 @@ class BirdSignDataProvider {}
 class FishSignDataProvider {}
 class InsectSignDataProvider {}
 
-function animalSignValidate( signProvider: BirdSignDataProvider | FishSignDataProvider | InsectSignDataProvider ): boolean {
+function animalSignValidate(
+    signProvider: BirdSignDataProvider | FishSignDataProvider | InsectSignDataProvider
+): boolean {
   return true;
 }
 ~~~~~
@@ -139,19 +142,17 @@ function animalSignValidate( signProvider: BirdSignDataProvider | FishSignDataPr
 При работе с типами объединения и пересечения псевдонимы типов позволяют повысить читаемость кода за счет сокрытия множества типов за одним идентификатором.
 
 ~~~~~typescript
-class BirdSignDataProvider {}
-class FishSignDataProvider {}
-class InsectSignDataProvider {}
+class BirdSignDataProvider {};
+class FishSignDataProvider {};
+class InsectSignDataProvider {};
 
 type AnimalSignProvider =
-BirdSignDataProvider |
-FishSignDataProvider |
-InsectSignDataProvider;
+    BirdSignDataProvider |
+    FishSignDataProvider |
+    InsectSignDataProvider;
 
-
-function animalSignValidate( signProvider: AnimalSignProvider ): boolean
-{
- return true;
+function animalSignValidate(signProvider: AnimalSignProvider): boolean {
+    return true;
 }
 ~~~~~
 
@@ -159,29 +160,26 @@ function animalSignValidate( signProvider: AnimalSignProvider ): boolean
 
 ~~~~~typescript
 // aliases.ts
-
-import BirdSignDataProvider from "./BirdSignDataProvider";
-import FishSignDataProvider from "./FishSignDataProvider";
-import InsectSignDataProvider from "./InsectSignDataProvider";
+import BirdSignDataProvider from './BirdSignDataProvider';
+import FishSignDataProvider from './FishSignDataProvider';
+import InsectSignDataProvider from './InsectSignDataProvider';
 
 export type AnimalSignProvider =
-BirdSignDataProvider |
-FishSignDataProvider |
-InsectSignDataProvider;
+    BirdSignDataProvider |
+    FishSignDataProvider |
+    InsectSignDataProvider;
+
 
 // index.ts
+import { AnimalSignProvider } from './aliases';
 
-import {AnimalSignProvider} from './aliases';
+import BirdSignDataProvider from './BirdSignDataProvider';
+import FishSignDataProvider from './FishSignDataProvider';
+import InsectSignDataProvider from './InsectSignDataProvider';
 
-import BirdSignDataProvider from "./BirdSignDataProvider";
-import FishSignDataProvider from "./FishSignDataProvider";
-import InsectSignDataProvider from "./InsectSignDataProvider";
-
-
-function animalSignValidate( signProvider: AnimalSignProvider ): boolean {
-return true;
+function animalSignValidate(signProvider: AnimalSignProvider): boolean {
+    return true;
 }
-
 
 animalSignValidate(new BirdSignDataProvider());
 animalSignValidate(new FishSignDataProvider());
@@ -193,10 +191,12 @@ animalSignValidate(new InsectSignDataProvider());
 ~~~~~typescript
 let data = { x: 0, y: 0 };
 
-function valid( standart: data ){} // data, что это??
+function valid(standart: data) { // data, что это?
+
+} 
 ~~~~~
 
-В таких случаях псевдоним типа может оказать неоценимую помощь. Ведь экономия времени, затраченное на декларирование типов данных, не лишит код его выразительности/семантики.
+В таких случаях псевдоним типа может оказать неоценимую помощь. Ведь экономия времени, затраченное на декларирование типов данных, не лишит код его выразительности и семантики.
 
 ~~~~~typescript
 const STANDART_NORMAL = { x: 0, y: 0 };
@@ -204,14 +204,14 @@ const STANDART_NORMAL = { x: 0, y: 0 };
 type StandartNormalPoint = typeof STANDART_NORMAL; // определение "говорящего типа" без затраты времени на его декларирование.
 
 
-function valid( standart: StandartNormalPoint ){
-// ...
-
- // Расходовать время на декларацию типа не пришлось, при этом работает автодополнение и параметр функции обзавелся типом, в чьем названии заключено его предназначение.
- let isPositionXValid = position.x === standart.x; // выводит .x
- let isPositionYValid = position.y === standart.y; // выводит .y
-
- // ...
+function valid(standart: StandartNormalPoint) {
+    // ...
+    
+    // Расходовать время на декларацию типа не пришлось, при этом работает автодополнение и параметр функции обзавелся типом, в чьем названии заключено его предназначение.
+    let isPositionXValid = position.x === standart.x; // выводит .x
+    let isPositionYValid = position.y === standart.y; // выводит .y
+    
+    // ...
 }
 ~~~~~
 
@@ -222,7 +222,6 @@ function valid( standart: StandartNormalPoint ){
 
 
 ## Итоги
-
 
 - Запросы типа позволяют указать в качестве типа тип, связанный с каким-либо идентификатором.
 - Тип-псевдоним (`Type Aliases`) позволяет создавать псевдонимы типов для существующих типов, делая исходный код более читаемым.
