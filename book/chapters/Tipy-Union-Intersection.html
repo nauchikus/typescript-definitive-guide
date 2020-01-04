@@ -16,36 +16,38 @@
 <span class="hljs-keyword">class</span> B {}
 <span class="hljs-keyword">class</span> C {}
 
-<span class="hljs-keyword">let</span> identifier: A | B | C; <span class="hljs-comment">// value can only belong to one type ( A or B or C )</span></code></pre>
+<span class="hljs-keyword">let</span> identifier: A | B | C; <span class="hljs-comment">// значение может принадлежать только одному типу (A или B или C)</span></code></pre>
 <p>Поскольку значение может принадлежать ко множеству порой несовместимых типов, компилятор, без вмешательства разработчика, расценивает принадлежность значения к типу, который наделен общими для всех типов признаками.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">class</span> Bird {
-  fly(): <span class="hljs-built_in">void</span> {}
-
-  toString(): <span class="hljs-built_in">string</span> {
-      <span class="hljs-keyword">return</span> <span class="hljs-string">'bird'</span>;
-  }
+    fly(): <span class="hljs-built_in">void</span> {}
+    
+    toString(): <span class="hljs-built_in">string</span> {
+        <span class="hljs-keyword">return</span> <span class="hljs-string">'bird'</span>;
+    }
 }
+
 <span class="hljs-keyword">class</span> Fish {
-  swim(): <span class="hljs-built_in">void</span> {}
+    swim(): <span class="hljs-built_in">void</span> {}
 
-  toString(): <span class="hljs-built_in">string</span> {
-      <span class="hljs-keyword">return</span> <span class="hljs-string">'fish'</span>;
-  }
+    toString(): <span class="hljs-built_in">string</span> {
+        <span class="hljs-keyword">return</span> <span class="hljs-string">'fish'</span>;
+    }
 }
-<span class="hljs-keyword">class</span> Insect {
-  crawl(): <span class="hljs-built_in">void</span> {}
 
-  toString(): <span class="hljs-built_in">string</span> {
-      <span class="hljs-keyword">return</span> <span class="hljs-string">'insect'</span>;
-  }
+<span class="hljs-keyword">class</span> Insect {
+    crawl(): <span class="hljs-built_in">void</span> {}
+    
+    toString(): <span class="hljs-built_in">string</span> {
+        <span class="hljs-keyword">return</span> <span class="hljs-string">'insect'</span>;
+    }
 }
 
 <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">move</span>(<span class="hljs-params">animal: Bird | Fish | Insect</span>): <span class="hljs-title">void</span> </span>{
-  animal.fly(); <span class="hljs-comment">// Error</span>
-  animal.swim(); <span class="hljs-comment">// Error</span>
-  animal.crawl(); <span class="hljs-comment">// Error</span>
-
-  animal.toString(); <span class="hljs-comment">// Ok, declared in all types</span>
+    animal.fly(); <span class="hljs-comment">// Error</span>
+    animal.swim(); <span class="hljs-comment">// Error</span>
+    animal.crawl(); <span class="hljs-comment">// Error</span>
+    
+    animal.toString(); <span class="hljs-comment">// ок, задекларировано во всех типах</span>
 }</code></pre>
 </section><section id="Tip-Peresechenie-Intersection-Type" name="Тип Пересечение (Intersection Type)" class="subchapter">
             <h2 class="subchapter-title">
@@ -59,7 +61,7 @@
         
 <hr>
 <p><em>Пересечение</em> (<code class="inline-code">Intersection</code>) — ещё один мощный механизм <em>TypeScript</em>, который позволяет рассматривать множество типов данных, как один. Пересечение указывается с помощью оператора амперсанда <code class="inline-code">&#x26;</code>, по обе стороны от которого указываются типы данных.</p>
-<p>Переменной, которой был указан тип пересечение <code class="inline-code">A</code> и <code class="inline-code">B</code> и <code class="inline-code">С</code> может быть присвоено значение, которое принадлежит к типам <code class="inline-code">A</code> и <code class="inline-code">B</code> и <code class="inline-code">C</code> одновременно.</p>
+<p>Переменной, которой был указан тип пересечение <code class="inline-code">A</code> и <code class="inline-code">B</code> и <code class="inline-code">С</code> может быть присвоено значение, принадлежащее к типам <code class="inline-code">A</code> и <code class="inline-code">B</code> и <code class="inline-code">C</code> одновременно.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">let</span> name: A &#x26; B &#x26; C; <span class="hljs-comment">// значение должно принадлежать ко всем типам одновременно</span></code></pre>
 </section><section id="Itogi" name="Итоги" class="subchapter">
             <h2 class="subchapter-title">

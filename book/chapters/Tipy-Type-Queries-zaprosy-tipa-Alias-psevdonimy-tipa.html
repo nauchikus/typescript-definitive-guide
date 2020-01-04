@@ -9,20 +9,22 @@
             </h2>
         
 <hr>
-<p>Запросы типа позволяют получить тип связанный с каким-либо идентификатором и использовать его при указании типа. Запрос типа определяется оператором <code class="inline-code">typeof</code> после которого идет идентификатор ссылающийся на тип. Располагается запрос тип, в местах указания типа данных.</p>
+<p>Запросы типа позволяют получить тип связанный с каким-либо идентификатором и использовать его при указании типа. Запрос типа определяется оператором <code class="inline-code">typeof</code> после которого идет идентификатор ссылающийся на тип. Запрос типа располагается в местах указания типа данных.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">let</span> v1: T1;
 <span class="hljs-keyword">let</span> v2: <span class="hljs-keyword">typeof</span> v1;</code></pre>
 <p>Простыми словами, при объявлении чего-либо, в качестве типа можно указать тип, полученный из переменной, параметра функции или метода, а также членов объекта и класса.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">class</span> T {
- <span class="hljs-keyword">static</span> staticProp: <span class="hljs-built_in">number</span>;
-
- field: <span class="hljs-built_in">string</span>;
-
- <span class="hljs-keyword">get</span> prop(): <span class="hljs-built_in">boolean</span> {
-   <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
- }
-
- method():<span class="hljs-built_in">void</span> {}
+    <span class="hljs-keyword">static</span> staticProp: <span class="hljs-built_in">number</span>;
+    
+    field: <span class="hljs-built_in">string</span>;
+    
+    <span class="hljs-keyword">get</span> prop(): <span class="hljs-built_in">boolean</span> {
+        <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+    }
+    
+    method(): <span class="hljs-built_in">void</span> {
+    
+    }
 }
 
 <span class="hljs-keyword">let</span> t: T = <span class="hljs-keyword">new</span> T();
@@ -34,39 +36,38 @@
 <span class="hljs-keyword">let</span> v4: <span class="hljs-keyword">typeof</span> t.method; <span class="hljs-comment">// let v4: ()=>void</span>
 
 <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">f</span>(<span class="hljs-params">param: <span class="hljs-built_in">number</span></span>): <span class="hljs-title">void</span> </span>{
- <span class="hljs-keyword">let</span> v: <span class="hljs-keyword">typeof</span> param; <span class="hljs-comment">// let v: number</span>
+    <span class="hljs-keyword">let</span> v: <span class="hljs-keyword">typeof</span> param; <span class="hljs-comment">// let v: number</span>
 }</code></pre>
 <p>Запрос типа может быть очень полезен сторонникам минимализма, который достигается при помощи вывода типов. Тем, кто придерживается консерватизма, возможно, придется по душе идея ускорять написание тестов за счет механизма вывода типов. Ведь в тех ситуациях, когда для тестирования требуются не использующиеся в приложении типы данных (как правило львиная доля которых приходится на данные), часто не хочется тратить время на их декларацию, но при этом хочется использовать автодополнение. В <em>TypeScript</em> такое становится возможным благодаря выводу типов в паре с оператором запроса типа. </p>
 <p>Представьте значение, присвоенное переменной, тип которой не указан явно. Теперь представьте что это значение нужно передать в функцию, параметр которой также не имеет явного указания типа. В этом случае в функции будет сложно работать с параметрами, так как вывод типов определит его принадлежность к типу <code class="inline-code">any</code>. </p>
-<pre><code class="hljs language-typescript"><span class="hljs-keyword">const</span> STANDART_NORMAL = { x: <span class="hljs-number">0</span>, y: <span class="hljs-number">0</span> }; <span class="hljs-comment">// данные которые нужны только для контролирования точности самих тестов, а это в свою очередь означает, что декларация типов для них ещё не определена. хотя вывод типов в состоянии вывести тип {x: number, y: number} для этой константы.</span>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">const</span> STANDART_NORMAL = { x: <span class="hljs-number">0</span>, y: <span class="hljs-number">0</span> }; <span class="hljs-comment">// данные которые нужны только для контролирования точности самих тестов, а это в свою очередь означает, что декларация типов для них ещё не определена. Хотя вывод типов в состоянии вывести тип {x: number, y: number} для этой константы.</span>
 
 <span class="hljs-comment">// здесь вывод типа не в состоянии вывести тип параметров функции</span>
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">valid</span>(<span class="hljs-params"> standart </span>)</span>{
-  <span class="hljs-keyword">let</span> element = <span class="hljs-built_in">document</span>.querySelector( <span class="hljs-string">'#some-id'</span> );
-  <span class="hljs-keyword">let</span> { clientLeft: x, clientTop: y } = element;
-  <span class="hljs-keyword">let</span> position = { x,y };
-  
-   <span class="hljs-comment">// поэтому о параметрах невозможно получить какую-либо информацию </span>
-  <span class="hljs-keyword">let</span> isPositionXValid = position.x === standart.; <span class="hljs-comment">// автодополнение отсутствует</span>
-  <span class="hljs-keyword">let</span> isPositionYValid = position.y === standart.; <span class="hljs-comment">// автодополнение отсутствует</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">valid</span>(<span class="hljs-params">standart</span>) </span>{
+    <span class="hljs-keyword">let</span> element = <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">'#some-id'</span>);
+    <span class="hljs-keyword">let</span> { clientLeft: x, clientTop: y } = element;
+    <span class="hljs-keyword">let</span> position = { x, y };
 
-  <span class="hljs-comment">// ...</span>
+    <span class="hljs-comment">// поэтому о параметрах невозможно получить какую-либо информацию </span>
+    <span class="hljs-keyword">let</span> isPositionXValid = position.x === standart. <span class="hljs-comment">// автодополнение отсутствует</span>
+    <span class="hljs-keyword">let</span> isPositionYValid = position.y === standart. <span class="hljs-comment">// автодополнение отсутствует</span>
+    
+    <span class="hljs-comment">// ...</span>
 }</code></pre>
 <p>Не стоит рассуждать над тем, оставить так или указать типы, которые, возможно, предварительно нужно задекларировать. Вместо этого стоит попробовать такой замечательный механизм, как запрос типа. Запрос типа, в своем лице, позволяет решить, одновременно, две проблемы, одна из которых связана с проблемами, сопутствующими типу <code class="inline-code">any</code>, а другая — минимализму и расходу времени на декларирование типов.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">const</span> STANDART_NORMAL = { x: <span class="hljs-number">0</span>, y: <span class="hljs-number">0</span> };
 
-
 <span class="hljs-comment">// получение типа для аннотирования параметров прямо из константы.</span>
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">valid</span>(<span class="hljs-params"> standart: <span class="hljs-keyword">typeof</span> STANDART_NORMAL </span>)</span>{
-  <span class="hljs-keyword">let</span> element = <span class="hljs-built_in">document</span>.querySelector( <span class="hljs-string">'#some-id'</span> );
-  <span class="hljs-keyword">let</span> { clientLeft: x, clientTop: y } = element;
-  <span class="hljs-keyword">let</span> position = { x,y };
-
-   <span class="hljs-comment">// расходовать время на декларацию типа так и не пришлось. тем не менее автодополнение работает.</span>
-  <span class="hljs-keyword">let</span> isPositionXValid = position.x === standart.x; <span class="hljs-comment">// выводит .x</span>
-  <span class="hljs-keyword">let</span> isPositionYValid = position.y === standart.y; <span class="hljs-comment">// выводит .y</span>
-
-  <span class="hljs-comment">// ...</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">valid</span>(<span class="hljs-params">standart: <span class="hljs-keyword">typeof</span> STANDART_NORMAL</span>) </span>{
+    <span class="hljs-keyword">let</span> element = <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">'#some-id'</span>);
+    <span class="hljs-keyword">let</span> { clientLeft: x, clientTop: y } = element;
+    <span class="hljs-keyword">let</span> position = { x, y };
+    
+    <span class="hljs-comment">// расходовать время на декларацию типа так и не пришлось. Тем не менее автодополнение работает.</span>
+    <span class="hljs-keyword">let</span> isPositionXValid = position.x === standart.x; <span class="hljs-comment">// выводит .x</span>
+    <span class="hljs-keyword">let</span> isPositionYValid = position.y === standart.y; <span class="hljs-comment">// выводит .y</span>
+    
+    <span class="hljs-comment">// ...</span>
 }</code></pre>
 </section><section id="Psevdonimy-Tipov-Type-Aliases" name="Псевдонимы Типов (Type Aliases)" class="subchapter">
             <h2 class="subchapter-title">
@@ -79,24 +80,24 @@
             </h2>
         
 <hr>
-<p>Возможность создавать <em>псевдонимы типа</em> (alias) — ещё одна из множества незаменимых возможностей <em>TypeScript</em>. Псевдоним типа объявляется с использованием ключевого слова <code class="inline-code">type</code>, после которого идет идентификатор-имя псевдонима типа, за которым идет оператор присваивания равно =, справа от которого находится тип для которого будет создан псевдоним.</p>
+<p>Создание <em>псевдонимов типа</em> (alias) — ещё одна из множества незаменимых возможностей <em>TypeScript</em>. Псевдоним типа объявляется с использованием ключевого слова <code class="inline-code">type</code>, после которого идет идентификатор-имя псевдонима типа, за которым идет оператор присваивания <code class="inline-code">=</code>, справа от которого находится тип для которого будет создан псевдоним.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">type</span> Alias = T1;</code></pre>
 <p>Объявляться псевдоним типа может в контексте модулей, функций и методов.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">class</span> Type {
-  method( ): <span class="hljs-built_in">void</span> {
-      <span class="hljs-keyword">type</span> Alias = Type;
-  }
+    method(): <span class="hljs-built_in">void</span> {
+        <span class="hljs-keyword">type</span> Alias = Type;
+    }
 }
 
 <span class="hljs-keyword">type</span> Alias = Type;
 
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">func</span>(<span class="hljs-params"> </span>): <span class="hljs-title">void</span> </span>{
-  <span class="hljs-keyword">type</span> Alias = Type;
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">func</span>(<span class="hljs-params"></span>): <span class="hljs-title">void</span> </span>{
+    <span class="hljs-keyword">type</span> Alias = Type;
 }</code></pre>
-<p>Так как псевдонимы типов являются лишь псевдонимами для реальных типов, они не оставляют следа в коде после компиляции, к тому же их нельзя было расширять (<code class="inline-code">extends</code>) и реализовать (<code class="inline-code">implements</code>) в ранних версиях языка (до 2.7). Сейчас псевдоним типа можно реализвать или расширить, только если он представляет объектный тип (<code class="inline-code">object type</code>) или пересечение объектных типов со статически известными членами. Кроме того, псевдонимы типов нельзя использовать в операциях над типами с применением операторов <code class="inline-code">typeof</code> и <code class="inline-code">instanceof</code>. Помимо этого, если псевдоним типа будет создан для объекта, то при попытке создать его экземпляр возникнет ошибка.</p>
+<p>Так как псевдонимы типов являются лишь псевдонимами для реальных типов, они не оставляют следа в коде после компиляции, к тому же их нельзя было расширять (<code class="inline-code">extends</code>) и реализовать (<code class="inline-code">implements</code>) в ранних версиях языка (до 2.7). Сейчас псевдоним типа можно реализовать или расширить, только если он представляет объектный тип (<code class="inline-code">object type</code>) или пересечение объектных типов со статически известными членами. Кроме того, псевдонимы типов нельзя использовать в операциях над типами с применением операторов <code class="inline-code">typeof</code> и <code class="inline-code">instanceof</code>. Помимо этого, если псевдоним типа будет создан для объекта, то при попытке создать его экземпляр возникнет ошибка.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">class</span> Class {
-  f1: <span class="hljs-built_in">number</span>;
-  f2: <span class="hljs-built_in">string</span>;
+    f1: <span class="hljs-built_in">number</span>;
+    f2: <span class="hljs-built_in">string</span>;
 }
 
 <span class="hljs-keyword">type</span> ClassAlias = Class;
@@ -111,49 +112,46 @@
 <span class="hljs-keyword">class</span> FishSignDataProvider {}
 <span class="hljs-keyword">class</span> InsectSignDataProvider {}
 
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">animalSignValidate</span>(<span class="hljs-params"> signProvider: BirdSignDataProvider | FishSignDataProvider | InsectSignDataProvider </span>): <span class="hljs-title">boolean</span> </span>{
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">animalSignValidate</span>(<span class="hljs-params">
+    signProvider: BirdSignDataProvider | FishSignDataProvider | InsectSignDataProvider
+</span>): <span class="hljs-title">boolean</span> </span>{
   <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
 }</code></pre>
 <p>При работе с типами объединения и пересечения псевдонимы типов позволяют повысить читаемость кода за счет сокрытия множества типов за одним идентификатором.</p>
-<pre><code class="hljs language-typescript"><span class="hljs-keyword">class</span> BirdSignDataProvider {}
-<span class="hljs-keyword">class</span> FishSignDataProvider {}
-<span class="hljs-keyword">class</span> InsectSignDataProvider {}
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">class</span> BirdSignDataProvider {};
+<span class="hljs-keyword">class</span> FishSignDataProvider {};
+<span class="hljs-keyword">class</span> InsectSignDataProvider {};
 
 <span class="hljs-keyword">type</span> AnimalSignProvider =
-BirdSignDataProvider |
-FishSignDataProvider |
-InsectSignDataProvider;
+    BirdSignDataProvider |
+    FishSignDataProvider |
+    InsectSignDataProvider;
 
-
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">animalSignValidate</span>(<span class="hljs-params"> signProvider: AnimalSignProvider </span>): <span class="hljs-title">boolean</span>
-</span>{
- <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">animalSignValidate</span>(<span class="hljs-params">signProvider: AnimalSignProvider</span>): <span class="hljs-title">boolean</span> </span>{
+    <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
 }</code></pre>
 <p>Помимо всего этого, псевдонимы типов можно выносить в отдельные модули, а затем импортировать их в места назначения. В случае, если модуль, содержащий псевдонимы типов, содержит только их, современные сборщики не будут включать такой модуль в сборку. Другими словами, модуль растворится точно также, как и другие, не имеющие место в <em>JavaScript</em>, конструкции <em>TypeScript</em>.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-comment">// aliases.ts</span>
-
-<span class="hljs-keyword">import</span> BirdSignDataProvider <span class="hljs-keyword">from</span> <span class="hljs-string">"./BirdSignDataProvider"</span>;
-<span class="hljs-keyword">import</span> FishSignDataProvider <span class="hljs-keyword">from</span> <span class="hljs-string">"./FishSignDataProvider"</span>;
-<span class="hljs-keyword">import</span> InsectSignDataProvider <span class="hljs-keyword">from</span> <span class="hljs-string">"./InsectSignDataProvider"</span>;
+<span class="hljs-keyword">import</span> BirdSignDataProvider <span class="hljs-keyword">from</span> <span class="hljs-string">'./BirdSignDataProvider'</span>;
+<span class="hljs-keyword">import</span> FishSignDataProvider <span class="hljs-keyword">from</span> <span class="hljs-string">'./FishSignDataProvider'</span>;
+<span class="hljs-keyword">import</span> InsectSignDataProvider <span class="hljs-keyword">from</span> <span class="hljs-string">'./InsectSignDataProvider'</span>;
 
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">type</span> AnimalSignProvider =
-BirdSignDataProvider |
-FishSignDataProvider |
-InsectSignDataProvider;
+    BirdSignDataProvider |
+    FishSignDataProvider |
+    InsectSignDataProvider;
+
 
 <span class="hljs-comment">// index.ts</span>
+<span class="hljs-keyword">import</span> { AnimalSignProvider } <span class="hljs-keyword">from</span> <span class="hljs-string">'./aliases'</span>;
 
-<span class="hljs-keyword">import</span> {AnimalSignProvider} <span class="hljs-keyword">from</span> <span class="hljs-string">'./aliases'</span>;
+<span class="hljs-keyword">import</span> BirdSignDataProvider <span class="hljs-keyword">from</span> <span class="hljs-string">'./BirdSignDataProvider'</span>;
+<span class="hljs-keyword">import</span> FishSignDataProvider <span class="hljs-keyword">from</span> <span class="hljs-string">'./FishSignDataProvider'</span>;
+<span class="hljs-keyword">import</span> InsectSignDataProvider <span class="hljs-keyword">from</span> <span class="hljs-string">'./InsectSignDataProvider'</span>;
 
-<span class="hljs-keyword">import</span> BirdSignDataProvider <span class="hljs-keyword">from</span> <span class="hljs-string">"./BirdSignDataProvider"</span>;
-<span class="hljs-keyword">import</span> FishSignDataProvider <span class="hljs-keyword">from</span> <span class="hljs-string">"./FishSignDataProvider"</span>;
-<span class="hljs-keyword">import</span> InsectSignDataProvider <span class="hljs-keyword">from</span> <span class="hljs-string">"./InsectSignDataProvider"</span>;
-
-
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">animalSignValidate</span>(<span class="hljs-params"> signProvider: AnimalSignProvider </span>): <span class="hljs-title">boolean</span> </span>{
-<span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">animalSignValidate</span>(<span class="hljs-params">signProvider: AnimalSignProvider</span>): <span class="hljs-title">boolean</span> </span>{
+    <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
 }
-
 
 animalSignValidate(<span class="hljs-keyword">new</span> BirdSignDataProvider());
 animalSignValidate(<span class="hljs-keyword">new</span> FishSignDataProvider());
@@ -161,21 +159,23 @@ animalSignValidate(<span class="hljs-keyword">new</span> InsectSignDataProvider(
 <p>Как было сказано ранее в главе “Псевдонимы Типов (Type Aliases)”, в тех редких случаях, когда декларированием типов, требующихся только для тестирования, можно пренебречь, механизм запроса типов помогает получить тип, который можно указать в аннотации типа, выведя его прямо из значения, на которое ссылается идентификатор. Это дает все возможности типизации, за исключением читаемости кода. Хотя в примере, иллюстрирующим работу механизма запроса типа, константа <code class="inline-code">STANDART_NORMAL</code> имеет вполне говорящий идентификатор, допускаются случаи, при которых будет сложно добиться подобного. При худшем сценарии идентификатор может иметь общий смысл.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">let</span> data = { x: <span class="hljs-number">0</span>, y: <span class="hljs-number">0</span> };
 
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">valid</span>(<span class="hljs-params"> standart: data </span>)</span>{} <span class="hljs-comment">// data, что это??</span></code></pre>
-<p>В таких случаях псевдоним типа может оказать неоценимую помощь. Ведь экономия времени, затраченное на декларирование типов данных, не лишит код его выразительности/семантики.</p>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">valid</span>(<span class="hljs-params">standart: data</span>) </span>{ <span class="hljs-comment">// data, что это?</span>
+
+} </code></pre>
+<p>В таких случаях псевдоним типа может оказать неоценимую помощь. Ведь экономия времени, затраченное на декларирование типов данных, не лишит код его выразительности и семантики.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">const</span> STANDART_NORMAL = { x: <span class="hljs-number">0</span>, y: <span class="hljs-number">0</span> };
 
 <span class="hljs-keyword">type</span> StandartNormalPoint = <span class="hljs-keyword">typeof</span> STANDART_NORMAL; <span class="hljs-comment">// определение "говорящего типа" без затраты времени на его декларирование.</span>
 
 
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">valid</span>(<span class="hljs-params"> standart: StandartNormalPoint </span>)</span>{
-<span class="hljs-comment">// ...</span>
-
- <span class="hljs-comment">// Расходовать время на декларацию типа не пришлось, при этом работает автодополнение и параметр функции обзавелся типом, в чьем названии заключено его предназначение.</span>
- <span class="hljs-keyword">let</span> isPositionXValid = position.x === standart.x; <span class="hljs-comment">// выводит .x</span>
- <span class="hljs-keyword">let</span> isPositionYValid = position.y === standart.y; <span class="hljs-comment">// выводит .y</span>
-
- <span class="hljs-comment">// ...</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">valid</span>(<span class="hljs-params">standart: StandartNormalPoint</span>) </span>{
+    <span class="hljs-comment">// ...</span>
+    
+    <span class="hljs-comment">// Расходовать время на декларацию типа не пришлось, при этом работает автодополнение и параметр функции обзавелся типом, в чьем названии заключено его предназначение.</span>
+    <span class="hljs-keyword">let</span> isPositionXValid = position.x === standart.x; <span class="hljs-comment">// выводит .x</span>
+    <span class="hljs-keyword">let</span> isPositionYValid = position.y === standart.y; <span class="hljs-comment">// выводит .y</span>
+    
+    <span class="hljs-comment">// ...</span>
 }</code></pre>
 <p>Есть ещё пара особенностей псевдонимов:</p>
 <ul class="book__list">
