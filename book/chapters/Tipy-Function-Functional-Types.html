@@ -9,7 +9,7 @@
             </h2>
         
 <hr>
-<p><em>Функция</em> — это ключевая концепция <em>JavaScript</em>. Функции присваиваются в качестве значений переменным, передаются, как аргументы при вызове других функций. Поэтому не удивительно, что в <em>TypeScript</em> существует возможность декларировать <em>функциональный тип</em>.</p>
+<p><em>Функция</em> — это ключевая концепция <em>JavaScript</em>. Функции присваиваются в качестве значений переменным и передаются как аргументы при вызове других функций. Поэтому не удивительно, что в <em>TypeScript</em> существует возможность декларировать <em>функциональный тип</em>.</p>
 </section><section id="Function-Types-tip-funkciya" name="Function Types - тип функция" class="subchapter">
             <h2 class="subchapter-title">
                 <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="Function-Types-tip-funkciya" type="absolute-url">
@@ -21,12 +21,13 @@
             </h2>
         
 <hr>
-<p>В <em>TypeScript</em>, также как и в <em>JavaScript</em>, существует объектный тип <code class="inline-code">Function</code>. Поскольку в <em>JavaScript</em> все функции принадлежат к типу <code class="inline-code">Function</code>, в <em>TypeScript</em> тип <code class="inline-code">Function</code> является базовым для всех функций. Тип <code class="inline-code">Function</code> можно указывать в аннотации типа тогда, когда о сигнатуре функции ничего не известно, или в качестве значения могут выступать функции с несовместимыми сигнатурами.</p>
+<p>В <em>TypeScript</em>, так же как и в <em>JavaScript</em>, существует объектный тип <code class="inline-code">Function</code>. Поскольку в <em>JavaScript</em> все функции принадлежат к типу <code class="inline-code">Function</code>, в <em>TypeScript</em> тип <code class="inline-code">Function</code> является базовым для всех функций. Тип <code class="inline-code">Function</code> можно указывать в аннотации типа тогда, когда о сигнатуре функции ничего не известно или в качестве значения могут выступать функции с несовместимыми сигнатурами.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">f1</span>(<span class="hljs-params">p1: <span class="hljs-built_in">number</span></span>): <span class="hljs-title">string</span> </span>{
-  <span class="hljs-keyword">return</span> p1.toString();
+    <span class="hljs-keyword">return</span> p1.toString();
 }
+
 <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">f2</span>(<span class="hljs-params">p1: <span class="hljs-built_in">string</span></span>): <span class="hljs-title">number</span> </span>{
-  <span class="hljs-keyword">return</span> p1.length;
+    <span class="hljs-keyword">return</span> p1.length;
 }
 
 <span class="hljs-keyword">let</span> v1: <span class="hljs-built_in">Function</span> = f1;
@@ -45,12 +46,12 @@
         
 <hr>
 <p>Помимо того, что в <em>TypeScript</em> существует объектный тип <code class="inline-code">Function</code>, также существует функциональный тип, с помощью которого осуществляется описание сигнатур функциональных выражений.</p>
-<p>Функциональный тип обозначается с помощью пары круглых скобок (открывающая и закрывающая), после которых идет стрелка, после которой обязательно указывается тип возвращаемого значения. При наличии у функционально выражения параметров, их декларация заключается между круглых скобках <code class="inline-code">( p1: type, p2: type ) => type</code>.</p>
+<p>Функциональный тип обозначается с помощью пары круглых скобок (открывающая и закрывающая), после которых идет стрелка, после которой обязательно указывается тип возвращаемого значения. При наличии у функционально выражения параметров, их декларация заключается между круглых скобок <code class="inline-code">(p1: type, p2: type) => type</code>.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">type</span> FunctionalType = <span class="hljs-function">(<span class="hljs-params">p1: <span class="hljs-keyword">type</span>, p2: <span class="hljs-keyword">type</span></span>) =></span> <span class="hljs-keyword">type</span>;</code></pre>
 <p>Если декларация сигнатуры функционального выражения известна, то рекомендуется использовать функциональный тип, так как он в большей степени соответствует типизированной атмосфере.</p>
-<pre><code class="hljs language-typescript"><span class="hljs-keyword">type</span> SumFunction = <span class="hljs-function">(<span class="hljs-params"> a: <span class="hljs-built_in">number</span>, b: <span class="hljs-built_in">number</span></span>) =></span> <span class="hljs-built_in">number</span>;
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">type</span> SumFunction = <span class="hljs-function">(<span class="hljs-params">a: <span class="hljs-built_in">number</span>, b: <span class="hljs-built_in">number</span></span>) =></span> <span class="hljs-built_in">number</span>;
 
-<span class="hljs-keyword">const</span> sum: SumFunction = ( a: <span class="hljs-built_in">number</span>, b: <span class="hljs-built_in">number</span> ): <span class="hljs-function"><span class="hljs-params">number</span> =></span> a + b;</code></pre>
+<span class="hljs-keyword">const</span> sum: SumFunction = (a: <span class="hljs-built_in">number</span>, b: <span class="hljs-built_in">number</span>): <span class="hljs-function"><span class="hljs-params">number</span> =></span> a + b;</code></pre>
 <p>Поведение функционального типа указывающегося с помощью функционального литерала идентично поведению типа <code class="inline-code">Function</code>, но при этом более оно более конкретно и поэтому предпочтительнее.</p>
 </section><section id="this-v-signature-funkcii" name="this в сигнатуре функции" class="subchapter">
             <h2 class="subchapter-title">
@@ -64,26 +65,26 @@
         
 <hr>
 <p>Ни для кого не будет секретом, что в <em>JavaScript</em> при вызове функций можно указать их контекст. В львиной доле случаев, возможность изменять контекст вызова функции является нежелаемым поведением <em>JavaScript</em>, но только не в случае реализации такой конструкции, как <em>функциональная примесь</em> (functional mixins).</p>
-<p>Функциональная примесь — это функция, которая в своем теле ссылается на объявленные в объекте, к которому она “примешивается”, члены. Проблем не возникнет, если подобный механизм реализуется в динамически типизированном языке, каким является <em>JavaScript</em>.</p>
+<p>Функциональная примесь — это функция, которая в своем теле ссылается на члены объявленные в объекте, к которому она “примешивается”. Проблем не возникнет, если подобный механизм реализуется в динамически типизированном языке, каким является <em>JavaScript</em>.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-comment">// .js</span>
 
 <span class="hljs-keyword">class</span> Animal {
-  <span class="hljs-keyword">constructor</span>(<span class="hljs-params"></span>){
-      <span class="hljs-keyword">this</span>.type = <span class="hljs-string">'animal'</span>;
-  }
+    <span class="hljs-keyword">constructor</span>(<span class="hljs-params"></span>){
+        <span class="hljs-keyword">this</span>.type = <span class="hljs-string">'animal'</span>;
+    }
 }
 
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getType</span>(<span class="hljs-params"></span>)</span>{
-  <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.type;
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getType</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.type;
 }
 
 <span class="hljs-keyword">let</span> animal = <span class="hljs-keyword">new</span> Animal();
-animal[ getType.name ] = getType;
+animal[getType.name] = getType;
 
-<span class="hljs-built_in">console</span>.log( animal.getType() ); <span class="hljs-comment">// animal</span></code></pre>
+<span class="hljs-built_in">console</span>.log(animal.getType()); <span class="hljs-comment">// animal</span></code></pre>
 <p>Но в статически типизированном языке такое поведение должно быть расценено, как ошибочное, так как у функции нет присущего объектам признака <code class="inline-code">this</code>. Несмотря на это, в <code class="inline-code">JavaScript</code>, а значит и в <code class="inline-code">TypeScript</code>, контекст самой программы (или, по другому, глобальный объект) является объектом. Это в свою очередь означает, что не существует места, в котором бы ключевое слово <code class="inline-code">this</code> привело к возникновению ошибки (чтобы запретить указывать <code class="inline-code">this</code> в нежелательных местах, можно активировать опцию компилятора <code class="inline-code">--noImplicitThis</code>). Но при этом, за невозможностью предугадать поведение разработчика, в <code class="inline-code">TypeScript</code> ссылка <code class="inline-code">this</code> вне конкретного объекта ссылается на тип <code class="inline-code">any</code>, что не дает редактору кода выводит автодополнение кода. Для таких и не только случаев была создана возможность декларировать тип <code class="inline-code">this</code> в функциях.</p>
 <p><code class="inline-code">this</code> указывается в качестве первого параметра любой функции, и также, как и обычный параметр, имеет аннотацию, в которой устанавливают принадлежность к конкретному типу.</p>
-<pre><code class="hljs language-typescript"><span class="hljs-keyword">interface</span> IT1 { p1: <span class="hljs-built_in">string</span>; }
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">interface</span> IT1 {p1: <span class="hljs-built_in">string</span>;}
 
 <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">f1</span>(<span class="hljs-params"><span class="hljs-keyword">this</span>: IT1</span>): <span class="hljs-title">void</span> </span>{}</code></pre>
 <p>Несмотря на то, что <code class="inline-code">this</code> декларируется в параметрах функции, таковыми оно не считается. Поведение функции с декларацией <code class="inline-code">this</code> аналогично поведению функции без декларации <code class="inline-code">this</code>. Единственное, на что стоит обратить внимание, что в случае указания принадлежности к типу, отличного от <code class="inline-code">void</code>, не получится вызвать функцию вне указанного контекста.</p>
@@ -98,79 +99,79 @@ f2(); <span class="hljs-comment">// Error</span>
 f3(); <span class="hljs-comment">// Ok</span>
 
 <span class="hljs-keyword">let</span> v1 = { <span class="hljs-comment">// v1: {f2: (this: IT1) => void;}</span>
-  f2: f2
+    f2: f2
 };
 
 a.f1(); <span class="hljs-comment">// Error</span>
 
 <span class="hljs-keyword">let</span> v2 = { <span class="hljs-comment">// v2: {p1: string; f2: (this: IT1) => void;}</span>
-  p1: <span class="hljs-string">''</span>,
-  f2: f2
+    p1: <span class="hljs-string">''</span>,
+    f2: f2
 };
 
 v2.f2(); <span class="hljs-comment">// Ok</span></code></pre>
-<p>Кроме того, возможность ограничивать поведение ключевого слова <code class="inline-code">this</code> в теле функции призвано частично решить самую часто возникающую проблему, связанную с потерей контекста. Вряд ли найдется разработчик <em>JavaScript</em>, который может похвастаться, что ни разу не сталкивался с потерей контекста при установки метода объекта в качестве слушателя событий. Ошибка возникает тогда, когда в теле слушателя события происходит обращение к членам через ссылку <code class="inline-code">this</code>. Происходит это потому, что у вызывающего контекста отсутствуют признаки контекста, в котором изначально объявлялся слушатель. В редких случаях, когда у контекста вызова слушателя событий будут присутствовать признаки первоначального контекста, возникнет не ожидаемое поведение, причину которого очень трудно выявить.</p>
+<p>Кроме того, возможность ограничивать поведение ключевого слова <code class="inline-code">this</code> в теле функции призвано частично решить самую часто возникающую проблему, связанную с потерей контекста. Вряд ли найдется разработчик <em>JavaScript</em>, который может похвастаться, что ни разу не сталкивался с потерей контекста при установке метода объекта в качестве слушателя событий. Ошибка возникает тогда, когда в теле слушателя события происходит обращение к членам через ссылку <code class="inline-code">this</code>. Происходит это потому, что у вызывающего контекста отсутствуют признаки контекста, в котором изначально объявлялся слушатель. В редких случаях, когда у контекста вызова слушателя событий будут присутствовать признаки первоначального контекста, возникнет не ожидаемое поведение, причину которого очень трудно выявить.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">class</span> Point {
-  <span class="hljs-keyword">constructor</span>(<span class="hljs-params">
-      <span class="hljs-keyword">public</span> x: <span class="hljs-built_in">number</span> = 0,
-      <span class="hljs-keyword">public</span> y: <span class="hljs-built_in">number</span> = 0
-  </span>){}
+    <span class="hljs-keyword">constructor</span>(<span class="hljs-params">
+        <span class="hljs-keyword">public</span> x: <span class="hljs-built_in">number</span> = 0,
+        <span class="hljs-keyword">public</span> y: <span class="hljs-built_in">number</span> = 0
+    </span>){}
 }
 
 <span class="hljs-keyword">class</span> Animal {
-  <span class="hljs-keyword">private</span> readonly position: Point = <span class="hljs-keyword">new</span> Point();
-
-  <span class="hljs-keyword">public</span> move({clientX, clientY}: MouseEvent): <span class="hljs-built_in">void</span> {
-      <span class="hljs-keyword">this</span>.position.x = clientX;
-      <span class="hljs-keyword">this</span>.position.y = clientY;
-  }
+    <span class="hljs-keyword">private</span> readonly position: Point = <span class="hljs-keyword">new</span> Point();
+    
+    <span class="hljs-keyword">public</span> move({clientX, clientY}: MouseEvent): <span class="hljs-built_in">void</span> {
+        <span class="hljs-keyword">this</span>.position.x = clientX;
+        <span class="hljs-keyword">this</span>.position.y = clientY;
+    }
 }
 
 <span class="hljs-keyword">let</span> animal = <span class="hljs-keyword">new</span> Animal();
 
-<span class="hljs-built_in">document</span>.addEventListener(<span class="hljs-string">'mousemove'</span>, animal.move); <span class="hljs-comment">// runtime error</span></code></pre>
+<span class="hljs-built_in">document</span>.addEventListener(<span class="hljs-string">'mousemove'</span>, animal.move); <span class="hljs-comment">// ошибка во время выполнения</span></code></pre>
 <p>В случаях, когда создаются объекты, содержащие объявления методов, которые в качестве аргументов принимают слушателей событий, <em>TypeScript</em> предлагает ограничить ссылку на контекст с помощью декларации <code class="inline-code">this</code>.</p>
 <p>Так как реальный пример иллюстрирующий полную картину получается очень объемным, то ограничимся одним методом, реализующим обсуждаемое поведение.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">type</span> IContextHandler = <span class="hljs-function">(<span class="hljs-params"><span class="hljs-keyword">this</span>: <span class="hljs-built_in">void</span>, event: MouseEvent</span>) =></span> <span class="hljs-built_in">void</span>;
 
 <span class="hljs-keyword">class</span> Controller {
-  <span class="hljs-keyword">public</span> addEventListener(<span class="hljs-keyword">type</span>: <span class="hljs-built_in">string</span>, handler: IContextHandler): <span class="hljs-built_in">void</span> {}
+    <span class="hljs-keyword">public</span> addEventListener(<span class="hljs-keyword">type</span>: <span class="hljs-built_in">string</span>, handler: IContextHandler): <span class="hljs-built_in">void</span> {}
 }
 
 
 <span class="hljs-keyword">let</span> animal = <span class="hljs-keyword">new</span> Animal();
 <span class="hljs-keyword">let</span> controller = <span class="hljs-keyword">new</span> Controller();
 
-controller.addEventListener(<span class="hljs-string">'mousemove'</span>, animal.move); <span class="hljs-comment">// runtime error</span></code></pre>
+controller.addEventListener(<span class="hljs-string">'mousemove'</span>, animal.move); <span class="hljs-comment">// ошибка во время выполнения</span></code></pre>
 <p>Стоит заметить, что одной декларации ссылки <code class="inline-code">this</code> в слушателе событий недостаточно. Для того, чтобы пример заработал так, как было заявлено в начале, нужно задекларировать ссылку <code class="inline-code">this</code> в самом слушателе событий.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">class</span> Point {
-  <span class="hljs-keyword">constructor</span>(<span class="hljs-params">
-      <span class="hljs-keyword">public</span> x: <span class="hljs-built_in">number</span> = 0,
-      <span class="hljs-keyword">public</span> y: <span class="hljs-built_in">number</span> = 0
-  </span>){}
+    <span class="hljs-keyword">constructor</span>(<span class="hljs-params">
+        <span class="hljs-keyword">public</span> x: <span class="hljs-built_in">number</span> = 0,
+        <span class="hljs-keyword">public</span> y: <span class="hljs-built_in">number</span> = 0
+    </span>){}
 }
 
 <span class="hljs-keyword">class</span> Animal {
-  <span class="hljs-keyword">private</span> readonly position: Point = <span class="hljs-keyword">new</span> Point();
-
-  <span class="hljs-keyword">public</span> move(<span class="hljs-keyword">this</span>: Animal, {clientX, clientY}: MouseEvent): <span class="hljs-built_in">void</span> { <span class="hljs-comment">// &#x3C;= changes</span>
-      <span class="hljs-keyword">this</span>.position.x = clientX;
-      <span class="hljs-keyword">this</span>.position.y = clientY;
-  }
+    <span class="hljs-keyword">private</span> readonly position: Point = <span class="hljs-keyword">new</span> Point();
+    
+    <span class="hljs-keyword">public</span> move(<span class="hljs-keyword">this</span>: Animal, {clientX, clientY}: MouseEvent): <span class="hljs-built_in">void</span> { <span class="hljs-comment">// &#x3C;= изменения</span>
+        <span class="hljs-keyword">this</span>.position.x = clientX;
+        <span class="hljs-keyword">this</span>.position.y = clientY;
+    }
 }
 
 
 <span class="hljs-keyword">type</span> IContextHandler = <span class="hljs-function">(<span class="hljs-params"><span class="hljs-keyword">this</span>: <span class="hljs-built_in">void</span>, event: MouseEvent</span>) =></span> <span class="hljs-built_in">void</span>;
 
 <span class="hljs-keyword">class</span> Controller {
-  <span class="hljs-keyword">public</span> addEventListener(<span class="hljs-keyword">type</span>: <span class="hljs-built_in">string</span>, handler: IContextHandler): <span class="hljs-built_in">void</span> {}
+    <span class="hljs-keyword">public</span> addEventListener(<span class="hljs-keyword">type</span>: <span class="hljs-built_in">string</span>, handler: IContextHandler): <span class="hljs-built_in">void</span> {}
 }
 
 
 <span class="hljs-keyword">let</span> animal = <span class="hljs-keyword">new</span> Animal();
 <span class="hljs-keyword">let</span> controller = <span class="hljs-keyword">new</span> Controller();
 
-controller.addEventListener(<span class="hljs-string">'mousemove'</span>, animal.move); <span class="hljs-comment">// compile error</span>
+controller.addEventListener(<span class="hljs-string">'mousemove'</span>, animal.move); <span class="hljs-comment">// ошибка во время компиляции</span>
 controller.addEventListener(<span class="hljs-string">'mousemove'</span>, <span class="hljs-function"><span class="hljs-params">event</span> =></span> animal.move(event)); <span class="hljs-comment">// Ok</span></code></pre>
 <p>Также стоит обратить внимание на одну неочевидную, на первый взгляд, деталь. Когда мы передаем слушатель, обернув его в стрелочную функцию, либо в метод функции <code class="inline-code">.bind</code>, ошибки не возникает только потому, что у передаваемой функции отсутствует декларация <code class="inline-code">this</code>.</p>
 </section><section id="Itog" name="Итог" class="subchapter">
