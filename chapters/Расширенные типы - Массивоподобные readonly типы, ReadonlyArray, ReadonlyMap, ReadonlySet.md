@@ -18,7 +18,7 @@ array[0] = 'Wayne'; // Error, Index signature in type 'readonly number[]' only p
 array[array.length] = 'Batman'; // Error, Index signature in type 'readonly number[]' only permits reading.ts(2542)
 `````
 
-У `readonly` массива также отсутствуют методы, с помощью которым можно изменить элементы массива.
+Помимо этого, у `readonly` массива отсутствуют методы, с помощью которых можно изменить элементы массива.
 
 `````typescript
 let array: readonly string[] = ['Kent', 'Clark'];
@@ -70,7 +70,7 @@ type B = Readonly<number[]>;
 type C = Readonly<[string, boolean]>;
 `````
 
-Напоследок стоит упомянуть, что, используя механизм массивоподобных `readonly` структур, по своей сути компилятор расценивает эти структуры как принадлежащие к  добавленному в версии `3.4` интерфейсу `ReadonlyArray<T>`.
+Напоследок стоит упомянуть, что, используя механизм массивоподобных `readonly` структур, по своей сути компилятор расценивает эти структуры как принадлежащие к  добавленному в версии `3.4` интерфейсу `ReadonlyArray<T>`, речь о котором пойдет далее.
 
 
 ## ReadonlyArray
