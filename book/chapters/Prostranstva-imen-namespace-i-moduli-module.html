@@ -1,32 +1,32 @@
-<section id="namespace-i-module-prednaznachenie" name="namespace и module — предназначение" class="subchapter">
+<section id="Namespace-i-module-prednaznachenie" name="Namespace и module — предназначение" class="subchapter">
             <h2 class="subchapter-title">
-                <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="namespace-i-module-prednaznachenie" type="absolute-url">
+                <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="Namespace-i-module-prednaznachenie" type="absolute-url">
                     <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                         <use href="#icon_link"/>
                     </svg>
                 </button>
-                namespace и module — предназначение
+                Namespace и module — предназначение
             </h2>
         
 <hr>
-<p>Начать рассмотрение такой темы, как пространства имен и модули, стоит с уточнение области применения обсуждаемых механизмов <em>TypeScript</em>. Механизмы, речь о которых пойдет далее, не предназначены для масштабных приложений, которые должны строится при помощи модулей и загружаться с применением модульных загрузчиков. Такие механизмы, как пространство имен и модули, в настоящее время, можно использовать при написании небольших скриптов, внедряемых непосредственно в <em>html</em> страницу при помощи тега <code class="inline-code">&#x3C;script>&#x3C;/script></code>, либо в приложениях, которые по различным причинам, не могут использовать модульную систему.</p>
-</section><section id="namespace-opredelenie" name="namespace - определение" class="subchapter">
+<p>Начать рассмотрение механизмов пространства имен и модулей стоит с уточнения области их применения. Эти механизмы не предназначены для масштабных приложений, которые должны строится при помощи модулей и загружаться с применением модульных загрузчиков. В настоящее время их можно использовать при написании небольших скриптов, внедряемых непосредственно в <em>html</em>-страницу при помощи тега <code class="inline-code">&#x3C;script></code>, либо в приложениях, которые по каким-либо причинам не могут использовать модульную систему.</p>
+</section><section id="Namespace-opredelenie" name="Namespace - определение" class="subchapter">
             <h2 class="subchapter-title">
-                <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="namespace-opredelenie" type="absolute-url">
+                <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="Namespace-opredelenie" type="absolute-url">
                     <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                         <use href="#icon_link"/>
                     </svg>
                 </button>
-                namespace - определение
+                Namespace - определение
             </h2>
         
 <hr>
-<p>Пространство имен это конструкция, которая объявляется при помощи ключевого слова namespace и которая представляется в коде обычным <em>JavaScript</em> объектом. </p>
+<p>Пространство имен — это конструкция, которая объявляется при помощи ключевого слова <code class="inline-code">namespace</code> и представляется в коде обычным <em>JavaScript</em> объектом. </p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">namespace</span> Identifier {
 
 }</code></pre>
-<p>Механизм пространства имен является решением такой проблемы, как коллизии в глобальном пространстве имен, дошедшего до наших дней из тех времён, когда ещё в спецификации <em>JavaScript</em> не было определено такое понятие, как модули. Простыми словами пространства имен, это совокупность обычной глобальной переменной и безымянного функционального выражения.</p>
-<p>Конструкции объявленные внутри пространства имен, инкапсулируются в безымянном функциональном выражении. Те части, которые должны быть видны снаружи, записываются в объект, ссылка на который была сохранена в глобальную переменную, которая при вызове была передана в качестве аргумента. Что записывать в глобальный объект, а что нет, компилятору указывают при помощи ключевого слова <code class="inline-code">export</code>, о котором речь пойдет совсем скоро.</p>
+<p>Механизм пространства имен является решением такой проблемы, как коллизии в глобальном пространстве имен, дошедшего до наших дней из тех времён, когда ещё в спецификации <em>JavaScript</em> не было определено такое понятие, как модули. Простыми словами пространства имен — это совокупность обычной глобальной переменной и безымянного функционального выражения.</p>
+<p>Объявленные внутри пространства имен конструкции инкапсулируются в безымянном функциональном выражении. Те части, которые должны быть видны снаружи, записываются в объект, ссылка на который была сохранена в глобальную переменную, которая при вызове была передана в качестве аргумента. Что записывать в глобальный объект, а что нет, компилятору указывают при помощи ключевого слова <code class="inline-code">export</code>, о котором речь пойдет совсем скоро.</p>
 <p><em>До компиляции</em></p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">namespace</span> NamespaceIdentifier {
   <span class="hljs-keyword">class</span> PrivateClassIdentifier {}
@@ -45,19 +45,19 @@
   NamespaceIdentifier.PublicClassIdentifier = PublicClassIdentifier;
 
 })(NamespaceIdentifier || (NamespaceIdentifier = {}));</code></pre>
-<p>Также стоит добавить, что namespace является глобальным объявлением. Это дословно означает, что пространство имен, объявленное, как глобальное, не нуждается в экспортировании и импортировании, а ссылка на него доступна в любой точке программы.</p>
-</section><section id="moduli-export-import-opredelenie" name="модули (export\import) определение" class="subchapter">
+<p>Также стоит добавить, что <code class="inline-code">namespace</code> является глобальным объявлением. Это дословно означает, что пространство имен, объявленное как глобальное, не нуждается в экспортировании и импортировании, а ссылка на него доступна в любой точке программы.</p>
+</section><section id="Moduli-export-import-opredelenie" name="Модули (export, import) — определение" class="subchapter">
             <h2 class="subchapter-title">
-                <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="moduli-export-import-opredelenie" type="absolute-url">
+                <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="Moduli-export-import-opredelenie" type="absolute-url">
                     <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                         <use href="#icon_link"/>
                     </svg>
                 </button>
-                модули (export\import) определение
+                Модули (export, import) — определение
             </h2>
         
 <hr>
-<p>Модули в <em>TypeScript</em> определяются с помощью ключевых слов <code class="inline-code">export</code> \ <code class="inline-code">import</code> и представляют механизм определения связей между модулями. Данный механизм являются внутренним для <em>TypeScript</em> и не имеет никакого отношения к модулям <code class="inline-code">es2015</code>. В остальном они идентичны <code class="inline-code">es2015</code> модулям, за исключением определения модуля по умолчанию (<em>export default</em>).</p>
+<p>Модули в <em>TypeScript</em> определяются с помощью ключевых слов <code class="inline-code">export</code>/<code class="inline-code">import</code> и представляют механизм определения связей между модулями. Данный механизм является внутренним для <em>TypeScript</em> и не имеет никакого отношения к модулям <code class="inline-code">es2015</code>. В остальном они идентичны <code class="inline-code">es2015</code> модулям, за исключением определения модуля по умолчанию (<em>export default</em>).</p>
 <pre><code class="hljs language-typescript"><span class="hljs-comment">// Файл declaration.ts</span>
 
 
@@ -78,7 +78,7 @@
 
 <span class="hljs-keyword">import</span> {T2} <span class="hljs-keyword">from</span> <span class="hljs-string">'./declaration'</span>;
 <span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> declaratios <span class="hljs-keyword">from</span> <span class="hljs-string">'./declaration'</span>;</code></pre>
-<p>Кроме того, объявить, с использованием ключевого слова export, можно даже namespace, что ограничит его глобальную область видимости и его использование, в других  файлах, становится возможным, только после явного импортирования.</p>
+<p>Кроме того, объявить с использованием ключевого слова <code class="inline-code">export</code> можно даже <code class="inline-code">namespace</code>. Это ограничит его глобальную область видимости и его использование в других файлах станет возможным только после явного импортирования.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-comment">// Файл declaration.ts</span>
 
 
@@ -92,7 +92,7 @@
 <span class="hljs-keyword">import</span> {Bird} <span class="hljs-keyword">from</span> <span class="hljs-string">"./declaration"</span>;
 
 <span class="hljs-keyword">const</span> birdAll = [ Bird.Raven, Bird.Owl ];</code></pre>
-<p>Стоит отметить что экспортировать namespace стоит только тогда, когда он объявлен в теле другого namespace и тем не менее до него  нужно добрать из программы.</p>
+<p>Стоит отметить, что экспортировать <code class="inline-code">namespace</code> стоит только тогда, когда он объявлен в теле другого <code class="inline-code">namespace</code>, но при этом до него нужно добраться из программы.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">namespace</span> NS1 {
   <span class="hljs-keyword">export</span> <span class="hljs-keyword">namespace</span> NS2 {
       <span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> T1 {}
@@ -170,7 +170,7 @@
   <span class="hljs-string">"typescript"</span>: <span class="hljs-string">"^2.5.2"</span>
 }
 }</code></pre>
-<p>Осталось собрать проект выполнив в консоли команду</p>
+<p>Осталось собрать проект, выполнив в консоли следующую команду:</p>
 <pre><code class="hljs language-typescript">npm run build</code></pre>
 <p>Если все было сделано правильно, то в директории <em>dest</em> должен появится файл <em>index.bundle.js</em></p>
 <pre><code class="hljs language-typescript"><span class="hljs-comment">// Файл index.bundle.js</span>
