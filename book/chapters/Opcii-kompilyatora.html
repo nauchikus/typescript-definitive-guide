@@ -9,7 +9,7 @@
             </h2>
         
 <hr>
-<p><code class="inline-code">--strict</code> - активирует все флаги сопутствующие строгости проверки типов. на данный момент флаг <code class="inline-code">strict</code> активирует следующие опции компилятора - <code class="inline-code">--strictNullChecks</code>, <code class="inline-code">--noImplicitAny</code>, <code class="inline-code">--noImplicitThis</code>, <code class="inline-code">--alwaysStrict</code>, <code class="inline-code">--strictFunctionTypes</code>, <code class="inline-code">--strictPropertyInitialization</code>, <code class="inline-code">--strictBindCallApply</code>. Несмотря на то, что флаг <code class="inline-code">strict</code> активирует сразу все указанные флаги, при желании конкретные флаги можно исключать </p>
+<p><code class="inline-code">--strict</code> - активирует все флаги, сопутствующие строгости проверки типов. На данный момент флаг <code class="inline-code">strict</code> активирует следующие опции компилятора: <code class="inline-code">--strictNullChecks</code>, <code class="inline-code">--noImplicitAny</code>, <code class="inline-code">--noImplicitThis</code>, <code class="inline-code">--alwaysStrict</code>, <code class="inline-code">--strictFunctionTypes</code>, <code class="inline-code">--strictPropertyInitialization</code> и <code class="inline-code">--strictBindCallApply</code>. Несмотря на то, что флаг <code class="inline-code">strict</code> активирует сразу все указанные флаги, при желании конкретные флаги можно отключить.</p>
 <pre><code class="hljs language-typescript">{
   <span class="hljs-string">"compilerOptions"</span>: {
       <span class="hljs-string">"strict"</span>: <span class="hljs-literal">false</span>,
@@ -30,7 +30,7 @@
             </h2>
         
 <hr>
-<p><code class="inline-code">--suppressExcessPropertyErrors</code> - если данная опция активна, то компилятор перестает проверять литералы объекта на излишние  члены.</p>
+<p><code class="inline-code">--suppressExcessPropertyErrors</code> - если данная опция активна, то компилятор перестает проверять литералы объекта на излишние члены.</p>
 <pre><code class="hljs language-typescript">{
   <span class="hljs-string">"compilerOptions"</span>: {
       <span class="hljs-string">"suppressExcessPropertyErrors"</span>: <span class="hljs-literal">false</span>
@@ -56,7 +56,7 @@
             </h2>
         
 <hr>
-<p><code class="inline-code">--suppressImplicitAnyIndexErrors</code> - при активной опции <code class="inline-code">--noImplicitAny</code> подавляет ошибки связанные с добавлением динамических свойств в объекты у которых отсутствует индексное определение.</p>
+<p><code class="inline-code">--suppressImplicitAnyIndexErrors</code> - при активной опции <code class="inline-code">--noImplicitAny</code> подавляет ошибки, связанные с добавлением динамических свойств в объекты, у которых отсутствует индексное определение.</p>
 <pre><code class="hljs language-typescript">{
   <span class="hljs-string">"compilerOptions"</span>: {
       <span class="hljs-string">"suppressImplicitAnyIndexErrors"</span>: <span class="hljs-literal">false</span>
@@ -180,7 +180,7 @@ indexMemeberObject[<span class="hljs-string">'name'</span>] = <span class="hljs-
             </h2>
         
 <hr>
-<p><code class="inline-code">--checkJs</code> - данная опция говорит компилятору, что код, который находится в файлах с расширением <em>.js</em>, также нужно проверять на ошибки. К тому же можно исключить определенные файлы из проверки, добавив им строку <code class="inline-code">// @ts-nocheck</code>. Или наоборот, можно попросить компилятор проверять только помеченные как <code class="inline-code">// @ts-check</code> файлы, без активации опции <code class="inline-code">--checkJs</code>. К тому же можно игнорировать ошибки на конкретных строках, указав <code class="inline-code">// @ts-ignore: error message</code> предыдущей строке.</p>
+<p><code class="inline-code">--checkJs</code> - данная опция говорит компилятору, что код, который находится в файлах с расширением <em>.js</em>, также нужно проверять на ошибки. При этом можно исключить определенные файлы из проверки, добавив им строку <code class="inline-code">// @ts-nocheck</code>. Или наоборот, можно попросить компилятор проверять только помеченные как <code class="inline-code">// @ts-check</code> файлы без активации опции <code class="inline-code">--checkJs</code>. К тому же можно игнорировать ошибки на конкретных строках, указав <code class="inline-code">// @ts-ignore: error message</code> предыдущей строке.</p>
 <pre><code class="hljs language-typescript">{
   <span class="hljs-string">"compilerOptions"</span>: {
       <span class="hljs-string">"checkJs"</span>: <span class="hljs-literal">false</span>
@@ -189,8 +189,8 @@ indexMemeberObject[<span class="hljs-string">'name'</span>] = <span class="hljs-
 <p><strong>type</strong>: <code class="inline-code">boolean</code>
 <strong>default</strong>: <code class="inline-code">false</code>
 <strong>values</strong>: <code class="inline-code">true</code>, <code class="inline-code">false</code></p>
-<p>Кроме того, при активной опции <code class="inline-code">--checkJS</code>, компилятору, с помощью аннотации <code class="inline-code">/** @type {...} */</code>, можно указывать типы прямо в файлах с расширением <em>.js</em>. </p>
-<p>При использовании <em>JavaScript</em> в <em>TypeScript</em> коде, нарушается типобезопасность программы. </p>
+<p>Кроме того, при активной опции <code class="inline-code">--checkJS</code> компилятору с помощью аннотации <code class="inline-code">/** @type {...} */</code> можно указывать типы прямо в файлах с расширением <em>.js</em>.</p>
+<p>При использовании <em>JavaScript</em> в <em>TypeScript</em> коде нарушается типобезопасность программы.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-comment">// file sum.js</span>
 
 <span class="hljs-keyword">export</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">sum</span>(<span class="hljs-params">a ,b</span>)</span>{
@@ -225,8 +225,8 @@ indexMemeberObject[<span class="hljs-string">'name'</span>] = <span class="hljs-
             </h2>
         
 <hr>
-<p><code class="inline-code">--jsx</code> - данная опция указывает компилятору, какое расширение указывать <em>.tsx</em> файлам после компиляции. Все дело в том, что у реакта существует два вида приложений, одни создаются для вэб платформы, другие для мобильных платформ. Кроме того, файлы для вэб платформы на входе должны иметь расширение <em>.jsx</em>, в то время как для мобильной платформы, <em>.js</em>. Поэтому компилятору нужно указывать, в какой именно формат преобразовывать файлы с расширением <em>.tsx</em>. </p>
-<p>При указании <code class="inline-code">“react”</code> в качестве значения опции <code class="inline-code">--jsx</code>, компилятор преобразует <em>.tsx</em> в <em>.jsx</em> файлы, которые затем компилируются в <em>.js</em>. Если в качестве значения будет указано <code class="inline-code">“preserve”</code>, то компилятор преобразует <em>.tsx</em> в <em>.jsx</em>, которые сохраняют <em>XML</em> подобный синтаксис. Если указать значение <code class="inline-code">“react-native”</code>, то компилятор преобразует файлы <em>.tsx</em> в требующийся <em>.js</em>.</p>
+<p><code class="inline-code">--jsx</code> - данная опция указывает компилятору, какое расширение указывать <em>.tsx</em> файлам после компиляции. Все дело в том, что у реакта существует два вида приложений, одни создаются для веб-платформы, другие для мобильных платформ. Кроме того, файлы для веб-платформы на входе должны иметь расширение <em>.jsx</em>, в то время как для мобильной платформы — <em>.js</em>. Поэтому компилятору нужно указывать, в какой именно формат преобразовывать файлы с расширением <em>.tsx</em>.</p>
+<p>При указании <code class="inline-code">"react"</code> в качестве значения опции <code class="inline-code">--jsx</code> компилятор преобразует <em>.tsx</em> в <em>.jsx</em> файлы, которые затем компилируются в <em>.js</em>. Если в качестве значения будет указано <code class="inline-code">"preserve"</code>, то компилятор преобразует <em>.tsx</em> в <em>.jsx</em>, которые сохраняют <em>XML</em>-подобный синтаксис. Если указать значение <code class="inline-code">"react-native"</code>, то компилятор преобразует файлы <em>.tsx</em> в требующийся <em>.js</em>.</p>
 <pre><code class="hljs language-typescript">{
   <span class="hljs-string">"compilerOptions"</span>: {
       <span class="hljs-string">"jsx"</span>: <span class="hljs-string">"react"</span> | <span class="hljs-string">"react-native"</span> | <span class="hljs-string">"preserve"</span>
@@ -260,10 +260,10 @@ indexMemeberObject[<span class="hljs-string">'name'</span>] = <span class="hljs-
 exports.__esModule = <span class="hljs-literal">true</span>;
 <span class="hljs-keyword">var</span> React = <span class="hljs-built_in">require</span>(<span class="hljs-string">"react"</span>);
 React.createElement(<span class="hljs-string">"h1"</span>, <span class="hljs-literal">null</span>, <span class="hljs-string">"Ok"</span>);</code></pre>
-<p>Установив желаемое значение текущей опции появляется возможность переопределить функцию рендера <em>React</em> на собственную. </p>
+<p>Установив желаемое значение текущей опции появляется возможность переопределить функцию рендера <em>React</em> на любую другую.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-comment">// set options jsxFactory to dom</span>
 
-<span class="hljs-comment">// from file .tsx  </span>
+<span class="hljs-comment">// from file .tsx</span>
 
 <span class="hljs-keyword">import</span> dom <span class="hljs-keyword">from</span> <span class="hljs-string">"dom"</span>;
 
@@ -277,7 +277,7 @@ React.createElement(<span class="hljs-string">"h1"</span>, <span class="hljs-lit
 exports.__esModule = <span class="hljs-literal">true</span>;
 <span class="hljs-keyword">var</span> dom = <span class="hljs-built_in">require</span>(<span class="hljs-string">"dom"</span>);
 dom[<span class="hljs-string">"default"</span>](<span class="hljs-string">"h1"</span>, <span class="hljs-literal">null</span>, <span class="hljs-string">"Ok"</span>);</code></pre>
-<p>Кроме того, подобное поведение можно добиться при помощи нотации <code class="inline-code">/** @jsx identifier */</code>, которая указывается в начале файла, а вместо <em>identifier</em> вписывается имя функции рендера.</p>
+<p>Кроме того, подобного поведения можно добиться при помощи нотации <code class="inline-code">/** @jsx identifier */</code>, которая указывается в начале файла, а вместо <em>identifier</em> вписывается имя функции рендера.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-comment">// from file .tsx</span>
 
 <span class="hljs-comment">/** @jsx renderer */</span>
@@ -292,7 +292,7 @@ dom[<span class="hljs-string">"default"</span>](<span class="hljs-string">"h1"</
 exports.__esModule = <span class="hljs-literal">true</span>;
 <span class="hljs-keyword">var</span> renderer = <span class="hljs-built_in">require</span>(<span class="hljs-string">"renderer"</span>);
 renderer[<span class="hljs-string">"default"</span>](<span class="hljs-string">"h1"</span>, <span class="hljs-literal">null</span>, <span class="hljs-string">"Ok"</span>);</code></pre>
-<p>Кроме того, аннотация <code class="inline-code">/** jsx identifier */</code> позволяет переопределить функцию рендера переопределенную с помощью опции <code class="inline-code">--jsxFactory</code>.</p>
+<p>Кроме того, аннотация <code class="inline-code">/** jsx identifier */</code> позволяет переопределить функцию рендера, переопределенную с помощью опции <code class="inline-code">--jsxFactory</code>.</p>
 <pre><code class="hljs language-typescript">{
   <span class="hljs-string">"compilerOptions"</span>: {
       <span class="hljs-string">"jsxFactory"</span>: <span class="hljs-string">"React.createElement"</span>
@@ -312,7 +312,7 @@ renderer[<span class="hljs-string">"default"</span>](<span class="hljs-string">"
             </h2>
         
 <hr>
-<p><code class="inline-code">--target</code> или <code class="inline-code">-t</code> - указывает компилятору, с какой версией спецификации должен быть совместим генерируемый <em>JavaScript</em> код. По умолчанию установлена совместимость с <code class="inline-code">ES3</code>. Кроме того можно указывать совместимость с <code class="inline-code">ES5</code>, <code class="inline-code">ES2015</code> (она же <code class="inline-code">ES6</code>), <code class="inline-code">ES2016</code>, <code class="inline-code">ES2017</code>, <code class="inline-code">ESNext</code>. Стоит добавить, что <code class="inline-code">ESNext</code> равноценно <em>latest version</em></p>
+<p><code class="inline-code">--target</code>, или <code class="inline-code">-t</code> - указывает компилятору, с какой версией спецификации должен быть совместим генерируемый <em>JavaScript</em> код. По умолчанию установлена совместимость с <code class="inline-code">ES3</code>. Кроме того можно указывать совместимость с <code class="inline-code">ES5</code>, <code class="inline-code">ES2015</code> (она же <code class="inline-code">ES6</code>), <code class="inline-code">ES2016</code>, <code class="inline-code">ES2017</code>, <code class="inline-code">ESNext</code>. Стоит добавить, что <code class="inline-code">ESNext</code> равноценно <em>latest version</em>.</p>
 <pre><code class="hljs language-typescript">{
   <span class="hljs-string">"compilerOptions"</span>: {
         <span class="hljs-string">"target"</span>: <span class="hljs-string">"es3"</span>
@@ -348,19 +348,19 @@ renderer[<span class="hljs-string">"default"</span>](<span class="hljs-string">"
 <p><strong>type</strong>: <code class="inline-code">string</code>
 <strong>default</strong>: <code class="inline-code">""</code>
 <strong>values</strong>: <code class="inline-code">*</code></p>
-<p>Кроме того, при использовании механизма расширения (<code class="inline-code">extends</code>), поиск файла конфигурации <code class="inline-code">taconfig.json</code> может осуществляться по пакетам (<code class="inline-code">packages</code>) <code class="inline-code">NodeJS</code> модулей, находящихся в директории <code class="inline-code">node_modules</code>. </p>
+<p>Кроме того, при использовании механизма расширения (<code class="inline-code">extends</code>) поиск файла конфигурации <code class="inline-code">taconfig.json</code> может осуществляться по пакетам (<code class="inline-code">packages</code>) <code class="inline-code">NodeJS</code> модулей, находящихся в директории <code class="inline-code">node_modules</code>.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-comment">// tsconfig.json</span>
 
 {
-  <span class="hljs-string">"extends"</span>: <span class="hljs-string">"some-npm-module"</span> 
+  <span class="hljs-string">"extends"</span>: <span class="hljs-string">"some-npm-module"</span>
 }
 
 <span class="hljs-comment">// or</span>
 
 {
-  <span class="hljs-string">"extends"</span>: <span class="hljs-string">"some-npm-module/some-tsconfig.json"</span> 
+  <span class="hljs-string">"extends"</span>: <span class="hljs-string">"some-npm-module/some-tsconfig.json"</span>
 }</code></pre>
-<p>Алгоритм разрешения аналогичен алгоритму поиска модулей самого <code class="inline-code">NodeJS</code>. Проще говоря, если путь, указанный в качестве значения атрибута <code class="inline-code">extends</code> не будет найден в директории <code class="inline-code">node_modules</code>  находящейся в текущей директории, то поиск продолжится в директории <code class="inline-code">node_modules</code> вверх по дереву. Но есть одна особенность,которая заключается в том, что при разрешении пути, компилятор <code class="inline-code">tsc</code>, зайдя в директорию <code class="inline-code">node_modules</code>, сначала  проверяет <code class="inline-code">package.json</code> на наличие атрибута <code class="inline-code">tsconfig</code>, которому в качестве значения указывают путь до конфигурационного файла <code class="inline-code">TypeScript</code>. Если атрибут <code class="inline-code">tsconfig</code> найден, то конфигурация на которую он ссылается будет установлена в качестве расширяемой. Если <code class="inline-code">package.json</code> не содержит атрибут <code class="inline-code">tsconfig</code>, то в качестве расширяемого конфигурационного файла будет выбран файл <code class="inline-code">tsconfig.json</code> находящийся в корне директории. Если в корне директории файла <code class="inline-code">tsconfig.json</code> найдено не будет, то поиск продолжится вверх по дереву.</p>
+<p>Алгоритм разрешения аналогичен алгоритму поиска модулей самого <code class="inline-code">NodeJS</code>. Проще говоря, если путь, указанный в качестве значения атрибута <code class="inline-code">extends</code> не будет найден в директории <code class="inline-code">node_modules</code>, находящейся в текущей директории, то поиск продолжится в директории <code class="inline-code">node_modules</code> вверх по дереву. Но есть одна особенность, которая заключается в том, что при разрешении пути компилятор <code class="inline-code">tsc</code>, зайдя в директорию <code class="inline-code">node_modules</code>, сначала  проверяет <code class="inline-code">package.json</code> на наличие атрибута <code class="inline-code">tsconfig</code>, которому в качестве значения указывают путь до конфигурационного файла <code class="inline-code">TypeScript</code>. Если атрибут <code class="inline-code">tsconfig</code> найден, то конфигурация, на которую он ссылается, будет установлена в качестве расширяемой. Если <code class="inline-code">package.json</code> не содержит атрибут <code class="inline-code">tsconfig</code>, то в качестве расширяемого конфигурационного файла будет выбран файл <code class="inline-code">tsconfig.json</code>, находящийся в корне директории. Если в корне директории файла <code class="inline-code">tsconfig.json</code> найдено не будет, то поиск продолжится вверх по дереву.</p>
 <pre><code class="hljs language-typescript">/project
     /node_modules
         /some-<span class="hljs-keyword">module</span>
@@ -439,7 +439,7 @@ renderer[<span class="hljs-string">"default"</span>](<span class="hljs-string">"
             </h2>
         
 <hr>
-<p><code class="inline-code">--stripInternal</code> - когда данная опция активна, компилятор не создает деклараций <em>.d.ts</em> для файлов, помеченных, как <code class="inline-code">/** @internal */</code></p>
+<p><code class="inline-code">--stripInternal</code> - когда данная опция активна, компилятор не создает деклараций <em>.d.ts</em> для файлов, помеченных как <code class="inline-code">/** @internal */</code></p>
 <pre><code class="hljs language-typescript">{
   <span class="hljs-string">"compilerOptions"</span>: {
       <span class="hljs-string">"stripInternal"</span>: <span class="hljs-literal">false</span>
@@ -459,7 +459,7 @@ renderer[<span class="hljs-string">"default"</span>](<span class="hljs-string">"
             </h2>
         
 <hr>
-<p><code class="inline-code">--noImplicitThis</code> - в активном состоянии запрещает использование <code class="inline-code">this</code> в местах не предусмотренных контекстом.</p>
+<p><code class="inline-code">--noImplicitThis</code> - в активном состоянии запрещает использование <code class="inline-code">this</code> в местах, не предусмотренных контекстом.</p>
 <pre><code class="hljs language-typescript">{
   <span class="hljs-string">"compilerOptions"</span>: {
       <span class="hljs-string">"noImplicitThis"</span>: <span class="hljs-literal">false</span>
@@ -513,7 +513,7 @@ renderer[<span class="hljs-string">"default"</span>](<span class="hljs-string">"
             </h2>
         
 <hr>
-<p><code class="inline-code">--noImplicitUseStrict</code> - при активной опции будут выводится ошибки в случаях, когда в поток компиляции попадут файлы содержащие <code class="inline-code">‘use strict’</code>. Кроме того скомпилированные файлы также не будут содержать указание <code class="inline-code">‘use strict’</code>.</p>
+<p><code class="inline-code">--noImplicitUseStrict</code> - при активной опции будут выводится ошибки в случаях, когда в поток компиляции попадут файлы, содержащие <code class="inline-code">‘use strict’</code>. Кроме того, скомпилированные файлы также не будут содержать указание <code class="inline-code">‘use strict’</code>.</p>
 <pre><code class="hljs language-typescript">{
   <span class="hljs-string">"compilerOptions"</span>: {
       <span class="hljs-string">"noImplicitUseStrict"</span>: <span class="hljs-literal">false</span>
@@ -595,7 +595,7 @@ renderer[<span class="hljs-string">"default"</span>](<span class="hljs-string">"
 
 <span class="hljs-keyword">import</span> jquery <span class="hljs-keyword">from</span> <span class="hljs-string">'jquery'</span>;
 
-<span class="hljs-comment">// or </span>
+<span class="hljs-comment">// or</span>
 
 <span class="hljs-comment">// tsconfig.json</span>
 {
@@ -619,7 +619,7 @@ renderer[<span class="hljs-string">"default"</span>](<span class="hljs-string">"
             </h2>
         
 <hr>
-<p><code class="inline-code">--rootDir</code> - с помощью этой опции можно ограничить область выборки файлов для компиляции. В качестве значения выступает строка-путь до конкретной директории-файла.</p>
+<p><code class="inline-code">--rootDir</code> - с помощью этой опции можно ограничить область выборки файлов для компиляции. В качестве значения выступает строка — путь до конкретной директории или файла.</p>
 <pre><code class="hljs language-typescript">{
   <span class="hljs-string">"compilerOptions"</span>: {
       <span class="hljs-string">"rootDir"</span>: <span class="hljs-string">""</span>
@@ -639,11 +639,11 @@ renderer[<span class="hljs-string">"default"</span>](<span class="hljs-string">"
             </h2>
         
 <hr>
-<p><code class="inline-code">--rootDirs</code> - с помощью этой опции можно ограничить область выборки файлов для компиляции. В качестве значения принимается массив с путями до директории-файлов.</p>
+<p><code class="inline-code">--rootDirs</code> - с помощью этой опции можно ограничить область выборки файлов для компиляции. В качестве значения принимается массив с путями до директорий и файлов.</p>
 <pre><code class="hljs language-typescript">{
   <span class="hljs-string">"compilerOptions"</span>: {
       <span class="hljs-string">"rootDirs"</span>: [
-         
+
       ]
   }
 }</code></pre>
@@ -661,7 +661,7 @@ renderer[<span class="hljs-string">"default"</span>](<span class="hljs-string">"
             </h2>
         
 <hr>
-<p><code class="inline-code">--traceResolution</code> - в случае активной опции, при компиляции будет выводиться информация о собираемых модулях. </p>
+<p><code class="inline-code">--traceResolution</code> - в случае активной опции, при компиляции будет выводиться информация о собираемых модулях.</p>
 <pre><code class="hljs language-typescript">{
   <span class="hljs-string">"compilerOptions"</span>: {
       <span class="hljs-string">"traceResolution"</span>: <span class="hljs-literal">false</span>
@@ -685,7 +685,7 @@ renderer[<span class="hljs-string">"default"</span>](<span class="hljs-string">"
 <pre><code class="hljs language-typescript">{
   <span class="hljs-string">"compilerOptions"</span>: {
       <span class="hljs-string">"lib"</span>: [
-         
+
       ]
   }
 }</code></pre>
@@ -762,7 +762,7 @@ tsc index.ts T1 --noResolve</code></pre>
             </h2>
         
 <hr>
-<p><code class="inline-code">--preserveConstEnums</code> - говорит компилятору не удалять из исходного кода перечисления (<code class="inline-code">enum</code>) объявленные, как <code class="inline-code">const</code>.</p>
+<p><code class="inline-code">--preserveConstEnums</code> - говорит компилятору не удалять из исходного кода перечисления (<code class="inline-code">enum</code>), объявленные как <code class="inline-code">const</code>.</p>
 <pre><code class="hljs language-typescript">{
   <span class="hljs-string">"compilerOptions"</span>: {
       <span class="hljs-string">"preserveConstEnums"</span>: <span class="hljs-literal">false</span>
@@ -811,7 +811,7 @@ tsc index.ts T1 --noResolve</code></pre>
             </h2>
         
 <hr>
-<p><code class="inline-code">--removeComments</code> - удаляет комментария из сгенерированного <em>.js</em>.</p>
+<p><code class="inline-code">--removeComments</code> - удаляет комментарии из сгенерированного <em>.js</em>.</p>
 <pre><code class="hljs language-typescript">{
   <span class="hljs-string">"compilerOptions"</span>: {
       <span class="hljs-string">"removeComments"</span>: <span class="hljs-literal">false</span>
@@ -880,7 +880,7 @@ tsc index.ts T1 --noResolve</code></pre>
             </h2>
         
 <hr>
-<p><code class="inline-code">--noUnusedParameters</code> - данная опция заставляет компилятор выводить ошибки, если в коде будут найдены функции, чьи параметры не используются, за исключением параметров, чей идентификаторы начинаются с нижней черты  (<code class="inline-code">_prop</code>).</p>
+<p><code class="inline-code">--noUnusedParameters</code> - данная опция заставляет компилятор выводить ошибки, если в коде будут найдены функции, чьи параметры не используются (за исключением параметров, чьи идентификаторы начинаются с нижней черты, например, <code class="inline-code">_prop</code>).</p>
 <pre><code class="hljs language-typescript">{
   <span class="hljs-string">"compilerOptions"</span>: {
       <span class="hljs-string">"noUnusedParameters"</span>: <span class="hljs-literal">false</span>
@@ -918,7 +918,7 @@ tsc index.ts T1 --noResolve</code></pre>
             </h2>
         
 <hr>
-<p><code class="inline-code">--skipLibCheck</code> - при активной опции, компилятор перестает проверять типы в файлах библиотеках с расширением <em>.d.ts</em>, что экономит время, но кроме того, может привести к редким ошибкам связанных с типами.</p>
+<p><code class="inline-code">--skipLibCheck</code> - при активной опции, компилятор перестает проверять типы в файлах библиотеках с расширением <em>.d.ts</em>, что экономит время, но может привести к редким ошибкам, связанным с типами.</p>
 <pre><code class="hljs language-typescript">{
   <span class="hljs-string">"compilerOptions"</span>: {
       <span class="hljs-string">"skipLibCheck"</span>: <span class="hljs-literal">false</span>
@@ -938,7 +938,7 @@ tsc index.ts T1 --noResolve</code></pre>
             </h2>
         
 <hr>
-<p><code class="inline-code">--declarationDir</code> - указывает директорию откуда будут подключаться или в которую будут создаваться файлы декларации <code class="inline-code">.d.ts</code>.</p>
+<p><code class="inline-code">--declarationDir</code> - указывает директорию, откуда будут подключаться или в которую будут создаваться файлы декларации <code class="inline-code">.d.ts</code>.</p>
 <pre><code class="hljs language-typescript">{
   <span class="hljs-string">"compilerOptions"</span>: {
       <span class="hljs-string">"declarationDir"</span>: <span class="hljs-string">""</span>
@@ -992,7 +992,7 @@ tsc index.ts T1 --noResolve</code></pre>
 {
   <span class="hljs-string">"compilerOptions"</span>: {
       <span class="hljs-string">"types"</span>: [
-         
+
       ]
   }
 }</code></pre>
@@ -1071,7 +1071,7 @@ tsc index.ts T1 --noResolve</code></pre>
             </h2>
         
 <hr>
-<p><code class="inline-code">--noImplicitReturns</code> - функции объявленные имеющие возвращаемый тип отличный от типа <code class="inline-code">void</code>, фактически могут не возвращать значение явно. Другими словами, чтобы выполнить условие в теле функции должен присутствовать лишь оператор return. Но при активной текущей опции, функции будут обязаны возвращать значение явно.</p>
+<p><code class="inline-code">--noImplicitReturns</code> - функции, имеющие возвращаемый тип, отличный от типа <code class="inline-code">void</code>, фактически могут не возвращать значение явно. Другими словами, чтобы удовлетворять условиям данной опции, в теле функции должен присутствовать лишь оператор <code class="inline-code">return</code>. Но при активной текущей опции, функции будут обязаны возвращать значение явно.</p>
 <pre><code class="hljs language-typescript">{
   <span class="hljs-string">"compilerOptions"</span>: {
       <span class="hljs-string">"noImplicitReturns"</span>: <span class="hljs-literal">false</span>
@@ -1135,7 +1135,7 @@ tsc index.ts T1 --noResolve</code></pre>
             </h2>
         
 <hr>
-<p><code class="inline-code">--noFallthroughCasesInSwitch</code> - при активной опции, в случае, если блок кода case имеет код, при этом не имеет выхода из него (<code class="inline-code">break</code> или <code class="inline-code">return</code>), возникнет ошибка.</p>
+<p><code class="inline-code">--noFallthroughCasesInSwitch</code> - при активной опции в случае, если блок кода <code class="inline-code">case</code> имеет код, при этом не имеет выхода из него (<code class="inline-code">break</code> или <code class="inline-code">return</code>), возникнет ошибка.</p>
 <pre><code class="hljs language-typescript">{
   <span class="hljs-string">"compilerOptions"</span>: {
       <span class="hljs-string">"noFallthroughCasesInSwitch"</span>: <span class="hljs-literal">false</span>
@@ -1180,7 +1180,7 @@ tsc index.ts T1 --noResolve</code></pre>
             </h2>
         
 <hr>
-<p><code class="inline-code">--outFile</code> - компилятор, при условии, что в качестве модулей указанно <code class="inline-code">amd</code> или <code class="inline-code">system</code>, будет сохранять все скомпилированные модули, в один файл, указанный в качестве значения опции.</p>
+<p><code class="inline-code">--outFile</code> - компилятор, при условии, что в качестве модулей указанно <code class="inline-code">amd</code> или <code class="inline-code">system</code>, будет сохранять все скомпилированные модули в один файл, указанный в качестве значения опции.</p>
 <pre><code class="hljs language-typescript">{
   <span class="hljs-string">"compilerOptions"</span>: {
       <span class="hljs-string">"outFile"</span>: <span class="hljs-string">""</span>
@@ -1236,7 +1236,7 @@ define(<span class="hljs-string">"index"</span>, [<span class="hljs-string">"req
             </h2>
         
 <hr>
-<p><code class="inline-code">--allowSyntheticDefaultImports</code> - позволяет предотвращать ошибки, которые возникают во время сборки, по причине несовместимости <em>SystemJS</em> и <em>CommonJS</em>. Дело в том, что в <em>ES6</em> синтаксисе, есть возможность экспорта по умолчанию (<code class="inline-code">export default</code>), после компиляции которого, <em>CommonJS</em> испытывает трудности, так как не знает, что такое <code class="inline-code">default</code>. Чаще всего проблема возникает в тех случая, когда разработка ведется с применением одних модулей, а подключаемые библиотеки используют другие.</p>
+<p><code class="inline-code">--allowSyntheticDefaultImports</code> - позволяет предотвращать ошибки, которые возникают во время сборки по причине несовместимости <em>SystemJS</em> и <em>CommonJS</em>. Дело в том, что в <em>ES6</em> синтаксисе есть возможность экспорта по умолчанию (<code class="inline-code">export default</code>), после компиляции которого <em>CommonJS</em> испытывает трудности, так как не знает, что такое <code class="inline-code">default</code>. Чаще всего проблема возникает в тех случая, когда разработка ведется с применением одних модулей, а подключаемые библиотеки используют другие.</p>
 <pre><code class="hljs language-typescript">{
   <span class="hljs-string">"compilerOptions"</span>: {
       <span class="hljs-string">"allowSyntheticDefaultImports"</span>: <span class="hljs-literal">false</span>
@@ -1353,7 +1353,7 @@ var div = jsxFactory_1.jsxFactory.createElement("div", null, "Hello JSX!");</spa
             </h2>
         
 <hr>
-<p><code class="inline-code">--pretty</code> - раскрашивает в разные цвета сообщения выводимые в консоль, делая их более понятными.</p>
+<p><code class="inline-code">--pretty</code> - раскрашивает в разные цвета выводимые в консоль сообщения, делая их более понятными.</p>
 <pre><code class="hljs language-typescript">{
   <span class="hljs-string">"compilerOptions"</span>: {
       <span class="hljs-string">"pretty"</span>: <span class="hljs-literal">true</span>
@@ -1373,7 +1373,7 @@ var div = jsxFactory_1.jsxFactory.createElement("div", null, "Hello JSX!");</spa
             </h2>
         
 <hr>
-<p><code class="inline-code">--moduleResolution</code> - позволяет конкретизировать поведение модулей. </p>
+<p><code class="inline-code">--moduleResolution</code> - позволяет конкретизировать поведение модулей.</p>
 <pre><code class="hljs language-typescript">{
   <span class="hljs-string">"compilerOptions"</span>: {
       <span class="hljs-string">"moduleResolution"</span>: <span class="hljs-string">"node"</span>
@@ -1393,7 +1393,7 @@ var div = jsxFactory_1.jsxFactory.createElement("div", null, "Hello JSX!");</spa
             </h2>
         
 <hr>
-<p><code class="inline-code">exclude</code> - в обычной ситуации, под компиляцию, рекурсивно, попадают все файлы, которые включает в себя директория, содержащая <em>tsconfig.json</em>. Решением этой проблемы является свойство <code class="inline-code">exclude</code>, определенное в корне конфигурационного  файла. В качестве его значения выступает массив с ссылками на файлы или директории, которые следует исключить из компиляции.</p>
+<p><code class="inline-code">exclude</code> - в обычной ситуации под компиляцию рекурсивно попадают все файлы, которые включает в себя директория, содержащая <em>tsconfig.json</em>. Решением этой проблемы является свойство <code class="inline-code">exclude</code>, определенное в корне конфигурационного  файла. В качестве его значения выступает массив с путями к файлам или директориям, которые следует исключить из компиляции.</p>
 <pre><code class="hljs language-typescript">{
   <span class="hljs-string">"exclude"</span>: [
 
@@ -1413,7 +1413,7 @@ var div = jsxFactory_1.jsxFactory.createElement("div", null, "Hello JSX!");</spa
             </h2>
         
 <hr>
-<p><code class="inline-code">--noEmitHelpers</code> - после компиляции файлов с  расширением <em>.ts</em>, каждый скомпилированный файл <em>.js</em> (модуль), содержит, если в этом есть необходимость, код (проще говоря helpers), который помогает решить проблему совместимости версий *ES**. В большей степени, код (helpers), находящийся в разных файлах(модулях), идентичный. Простыми словами, helpers повторяются от файла к файлу. Компилятор вынужден добавлять повторяющийся код, чтобы гарантировать работу каждого модуля по отдельности. Но если модули собираются в одну общую сборку, активация текущего флага, укажет компилятору, что helpers нужно вынести в отдельный модуль, который будет доступен в тех частях кода, которые от него зависят. Это поможет избавиться от дублирования кода и сократит размер сборки.</p>
+<p><code class="inline-code">--noEmitHelpers</code> - после компиляции файлов с расширением <em>.ts</em> каждый скомпилированный файл <em>.js</em> (модуль) содержит, если в этом есть необходимость, вспомогательный код (проще говоря, helpers), который помогает решить проблему совместимости версий <em>ES</em>. В большей степени этот код, находящийся в разных файлах (модулях), идентичный. Простыми словами, helpers повторяются от файла к файлу. Компилятор вынужден добавлять повторяющийся код, чтобы гарантировать работу каждого модуля по отдельности. Но если модули собираются в одну общую сборку, активация текущего флага укажет компилятору, что helpers нужно вынести в отдельный модуль, который будет доступен в тех частях кода, которые от него зависят. Это поможет избавиться от дублирования кода и сократит размер собранного файла.</p>
 <pre><code class="hljs language-typescript">{
   <span class="hljs-string">"compilerOptions"</span>: {
       <span class="hljs-string">"noEmitHelpers"</span>: <span class="hljs-literal">false</span>
@@ -1453,7 +1453,7 @@ var div = jsxFactory_1.jsxFactory.createElement("div", null, "Hello JSX!");</spa
             </h2>
         
 <hr>
-<p><code class="inline-code">--inlineSourceMap</code> - активная опция приводит к тому, что source map записываются <em>inline</em> в <em>.js</em> файлы, а не выносятся в отдельные файлы <em>.map.js</em>.</p>
+<p><code class="inline-code">--inlineSourceMap</code> - активная опция приводит к тому, что <em>source maps</em> записываются <em>inline</em> в <em>.js</em> файлы, а не выносятся в отдельные файлы <em>.map.js</em>.</p>
 <pre><code class="hljs language-typescript">{
   <span class="hljs-string">"compilerOptions"</span>: {
       <span class="hljs-string">"inlineSourceMap"</span>: <span class="hljs-literal">false</span>
@@ -1593,7 +1593,7 @@ var div = jsxFactory_1.jsxFactory.createElement("div", null, "Hello JSX!");</spa
             </h2>
         
 <hr>
-<p><code class="inline-code">--downlevelIteration</code> - при активной опции, становится возможно использовать итераторы при компиляции в версии ниже  <code class="inline-code">ES6</code>. Помимо самих итераторов, становятся доступны и нововведения (<code class="inline-code">for...of</code>, <code class="inline-code">Array Destructuring</code>, <code class="inline-code">Spread</code> и т.д.), которые построены с их использованием.</p>
+<p><code class="inline-code">--downlevelIteration</code> - при активной опции становится возможно использовать итераторы при компиляции в версии ниже  <code class="inline-code">ES6</code>. Помимо самих итераторов, становятся доступны и нововведения (<code class="inline-code">for...of</code>, <code class="inline-code">Array Destructuring</code>, <code class="inline-code">Spread</code> и т.д.), которые построены с их использованием.</p>
 <pre><code class="hljs language-typescript">{
   <span class="hljs-string">"compilerOptions"</span>: {
       <span class="hljs-string">"downlevelIteration"</span>: <span class="hljs-literal">false</span>
@@ -1613,7 +1613,7 @@ var div = jsxFactory_1.jsxFactory.createElement("div", null, "Hello JSX!");</spa
             </h2>
         
 <hr>
-<p><code class="inline-code">--emitBOM</code> - Извлекает знак байта <em>UTF-8</em> (BOM) в начале выходных файлов.</p>
+<p><code class="inline-code">--emitBOM</code> - Извлекает <em>маркер последовательности байтов</em> <em>UTF-8</em> (BOM) в начале выходных файлов.</p>
 <pre><code class="hljs language-typescript">{
   <span class="hljs-string">"compilerOptions"</span>: {
       <span class="hljs-string">"emitBOM"</span>: <span class="hljs-literal">false</span>
@@ -1747,7 +1747,7 @@ tsc -h</code></pre>
             </h2>
         
 <hr>
-<p><code class="inline-code">--listFiles</code> - выводит список файлов участвующих в компиляции.</p>
+<p><code class="inline-code">--listFiles</code> - выводит список участвующих в компиляции файлов.</p>
 <pre><code class="hljs language-typescript">{
   <span class="hljs-string">"compilerOptions"</span>: {
       <span class="hljs-string">"listFiles"</span>: <span class="hljs-literal">false</span>
@@ -1767,7 +1767,7 @@ tsc -h</code></pre>
             </h2>
         
 <hr>
-<p><code class="inline-code">--sourceRoot</code> - в качестве значения принимает базовый путь до директории, в которой лежат исходники <em>.ts</em>, которые нужны для ассоциации с <em>source map</em>.</p>
+<p><code class="inline-code">--sourceRoot</code> - в качестве значения принимает базовый путь до директории, в которой лежат исходники <em>.ts</em>, необходимые для ассоциации с <em>source map</em>.</p>
 <pre><code class="hljs language-typescript">{
   <span class="hljs-string">"compilerOptions"</span>: {
       <span class="hljs-string">"sourceRoot"</span>: <span class="hljs-string">""</span>
@@ -1776,26 +1776,6 @@ tsc -h</code></pre>
 <p><strong>type</strong>: <code class="inline-code">string</code>
 <strong>default</strong>: <code class="inline-code">""</code>
 <strong>values</strong>: <code class="inline-code">path to source .ts dir</code></p>
-</section><section id="locale" name="locale" class="subchapter">
-            <h2 class="subchapter-title">
-                <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="locale" type="absolute-url">
-                    <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <use href="#icon_link"/>
-                    </svg>
-                </button>
-                locale
-            </h2>
-        
-<hr>
-<p><code class="inline-code">--locale</code> - локаль используемая при выводе сообщений (en-us).</p>
-<pre><code class="hljs language-typescript">{
-  <span class="hljs-string">"compilerOptions"</span>: {
-      <span class="hljs-string">"locale"</span>: <span class="hljs-string">""</span>
-  }
-}</code></pre>
-<p><strong>type</strong>: <code class="inline-code">string</code>
-<strong>default</strong>: <code class="inline-code">platform specific</code>
-<strong>values</strong>: <code class="inline-code"></code></p>
 </section><section id="mapRoot" name="mapRoot" class="subchapter">
             <h2 class="subchapter-title">
                 <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="mapRoot" type="absolute-url">
@@ -1807,7 +1787,7 @@ tsc -h</code></pre>
             </h2>
         
 <hr>
-<p><code class="inline-code">--mapRoot</code> - место откуда будут браться файлы <em>.map.js</em>.</p>
+<p><code class="inline-code">--mapRoot</code> - место, откуда будут браться файлы <em>.map.js</em>.</p>
 <pre><code class="hljs language-typescript">{
   <span class="hljs-string">"compilerOptions"</span>: {
       <span class="hljs-string">"mapRoot"</span>: <span class="hljs-string">""</span>
@@ -1847,7 +1827,7 @@ tsc -h</code></pre>
             </h2>
         
 <hr>
-<p><code class="inline-code">--project</code> или <code class="inline-code">-p</code> - с помощью этого флага можно указать, как путь до директории, которая содержит <code class="inline-code">tsconfig.json</code>, так и на конкретный <code class="inline-code">tsconfig.json</code> файл.</p>
+<p><code class="inline-code">--project</code> или <code class="inline-code">-p</code> - с помощью этого флага можно указать как путь до директории, которая содержит <code class="inline-code">tsconfig.json</code>, так и на конкретный <code class="inline-code">tsconfig.json</code> файл.</p>
 <pre><code class="hljs language-typescript">tsc --project
 tsc -p ./configs/tsconfig.es6.json</code></pre>
 <p><strong>type</strong>: <code class="inline-code">string</code>
@@ -1891,7 +1871,7 @@ tsc -v</code></pre>
             </h2>
         
 <hr>
-<p><code class="inline-code">--watch</code> или <code class="inline-code">-w</code> - запускает компилятор в режиме наблюдения за изменением файлов. При каждом изменении отслеживаемого  файла компиляция будет запущена автоматически.</p>
+<p><code class="inline-code">--watch</code> или <code class="inline-code">-w</code> - запускает компилятор в режиме наблюдения за изменением файлов. При каждом изменении отслеживаемых  файлов компиляция будет запущена автоматически.</p>
 <pre><code class="hljs language-typescript">tsc --watch
 tsc -w</code></pre>
 </section><section id="preserveSymlinks" name="preserveSymlinks" class="subchapter">
@@ -1905,7 +1885,7 @@ tsc -w</code></pre>
             </h2>
         
 <hr>
-<p><code class="inline-code">--preserveSymlinks</code> - текущая опция демонстрирует идентичное поведение  реализуемое в <em>NodeJS</em> с активным флагом <code class="inline-code">--preserve-symlinks</code>. При активной опции, символические ссылки на модели (modules) и пакеты (packages) разрешаются относительно файла символической ссылки, а не относительно пути, к которому разрешается символическая ссылка. Кроме того, поведение при активной текущей опции, противоположно поведению предоставляемому <em>Webpack</em> с помощью флага со со схожим по смыслу названием <code class="inline-code">resolve.symlinks</code>.</p>
+<p><code class="inline-code">--preserveSymlinks</code> - текущая опция демонстрирует поведение, идентичное реализуемому в <em>NodeJS</em> с активным флагом <code class="inline-code">--preserve-symlinks</code>. При активной опции символические ссылки на модели (modules) и пакеты (packages) разрешаются относительно файла символической ссылки, а не относительно пути, к которому разрешается символическая ссылка. Кроме того, поведение при активной текущей опции противоположно поведению, предоставляемому <em>Webpack</em> с помощью флага со схожим по смыслу названием <code class="inline-code">resolve.symlinks</code>.</p>
 <pre><code class="hljs language-typescript">{
   <span class="hljs-string">"compilerOptions"</span>: {
       <span class="hljs-string">"preserveSymlinks"</span>: <span class="hljs-literal">false</span>
@@ -1925,7 +1905,7 @@ tsc -w</code></pre>
             </h2>
         
 <hr>
-<p><code class="inline-code">--strictFunctionTypes</code> - при активной опции, параметры функций начинают сравниваться по контрвариантным правилам, в то время, как при не активной опции, сравнения производятся по бивариантным правилам.</p>
+<p><code class="inline-code">--strictFunctionTypes</code> - при активной опции параметры функций начинают сравниваться по контрвариантным правилам, в то время, как при не активной опции, сравнения производятся по бивариантным правилам.</p>
 <pre><code class="hljs language-typescript">{
   <span class="hljs-string">"compilerOptions"</span>: {
       <span class="hljs-string">"strictFunctionTypes"</span>: <span class="hljs-literal">false</span>
@@ -1948,7 +1928,7 @@ tsc -w</code></pre>
 <p><code class="inline-code">--locale</code> - позволяет указать один из заданных языков для вывода диагностических сообщений.</p>
 <pre><code class="hljs language-typescript">{
   <span class="hljs-string">"compilerOptions"</span>: {
-      <span class="hljs-string">"locale"</span>: en | cs | de | es | fr | it | ja | ko | pl | pt-BR | ru | tr | zh-CN | zh-TW |
+      <span class="hljs-string">"locale"</span>: <span class="hljs-string">"en"</span> | <span class="hljs-string">"cs"</span> | <span class="hljs-string">"de"</span> | <span class="hljs-string">"es"</span> | <span class="hljs-string">"fr"</span> | <span class="hljs-string">"it"</span> | <span class="hljs-string">"ja"</span> | <span class="hljs-string">"ko"</span> | <span class="hljs-string">"pl"</span> | <span class="hljs-string">"pt-BR"</span> | <span class="hljs-string">"ru"</span> | <span class="hljs-string">"tr"</span> | <span class="hljs-string">"zh-CN"</span> | <span class="hljs-string">"zh-TW"</span> |
   }
 }</code></pre>
 <p><strong>type</strong>: <code class="inline-code">string</code>
@@ -1965,10 +1945,10 @@ tsc -w</code></pre>
             </h2>
         
 <hr>
-<p><code class="inline-code">--strictPropertyInitialization</code> - при активной опции, в случае когда в классе присутствуют поля не инициализированные в момент создания или в конструкторе, возникает ошибка. Более подробно данная тема раскрыта в главе <a class="book__chapter__chapter-link" href="/book/contents/Klassy-Definite-Assignment-Assertion-Modifier" title="Классы - Definite Assignment Assertion Modifier" target="_blank">Классы - Definite Assignment Assertion Modifier</a>.</p>
+<p><code class="inline-code">--strictPropertyInitialization</code> - при активной опции в случае, когда в классе присутствуют поля, не инициализированные в момент создания или в конструкторе, возникает ошибка. Более подробно данная тема раскрыта в главе <a class="book__chapter__chapter-link" href="/book/contents/Klassy-Definite-Assignment-Assertion-Modifier" title="Классы - Definite Assignment Assertion Modifier" target="_blank">Классы - Definite Assignment Assertion Modifier</a>.</p>
 <pre><code class="hljs language-typescript">{
   <span class="hljs-string">"compilerOptions"</span>: {
-      <span class="hljs-string">"locale"</span>: <span class="hljs-literal">false</span>
+      <span class="hljs-string">"strictPropertyInitialization"</span>: <span class="hljs-literal">false</span>
   }
 }</code></pre>
 <p><strong>type</strong>: <code class="inline-code">boolean</code>
@@ -1994,7 +1974,7 @@ tsc -w</code></pre>
             </h2>
         
 <hr>
-<p><code class="inline-code">--esModuleInterop</code> - с активной опцией, сгенерированный код, таких модулей, как <em>CommonJS</em>/<em>AMD</em>/<em>UMD</em>, больше походит на код сгенерированный <em>Babel</em>.</p>
+<p><code class="inline-code">--esModuleInterop</code> - с активной опцией сгенерированный код таких модулей формата <em>CommonJS</em>/<em>AMD</em>/<em>UMD</em> больше походит на код, сгенерированный <em>Babel</em>.</p>
 <pre><code class="hljs language-typescript">{
   <span class="hljs-string">"compilerOptions"</span>: {
       <span class="hljs-string">"esModuleInterop"</span>: <span class="hljs-literal">false</span>
@@ -2035,7 +2015,7 @@ tsc -w</code></pre>
         
 <hr>
 <p><code class="inline-code">--resolveJsonModule</code> - данная опция, при активной опции <code class="inline-code">--esModuleInterop</code>
-и опции <code class="inline-code">--module</code> установленной в <code class="inline-code">commonjs</code>, позволяет в среде <em>NodeJS</em> полноценно взаимодействовать с <em>json</em>.</p>
+и опции <code class="inline-code">--module</code>, установленной в <code class="inline-code">commonjs</code>, позволяет в среде <em>NodeJS</em> полноценно взаимодействовать с <em>json</em>.</p>
 <pre><code class="hljs language-typescript">{
   <span class="hljs-string">"compilerOptions"</span>: {
       <span class="hljs-string">"resolveJsonModule"</span>: <span class="hljs-literal">false</span>
@@ -2081,7 +2061,7 @@ config.name = <span class="hljs-number">0</span>; <span class="hljs-comment">// 
             </h2>
         
 <hr>
-<p><code class="inline-code">--declarationMap</code> - при совместном использовании с активной опцией <code class="inline-code">--declaration</code> заставляет компилятор, помимо <em>.d.ts</em>, также генерировать <em>.d.ts.map</em>, которые позволяют при переходе к определению (go to definition) направляют в файл <em>.ts</em>, а не <em>.d.ts</em>.</p>
+<p><code class="inline-code">--declarationMap</code> - при совместном использовании с активной опцией <code class="inline-code">--declaration</code> заставляет компилятор, помимо <em>.d.ts</em>, также генерировать <em>.d.ts.map</em>, которые позволяют при переходе к определению (go to definition) направлять в файл <em>.ts</em>, а не <em>.d.ts</em>.</p>
 <pre><code class="hljs language-typescript">{
   <span class="hljs-string">"compilerOptions"</span>: {
       <span class="hljs-string">"declarationMap"</span>: <span class="hljs-literal">false</span>
@@ -2101,7 +2081,7 @@ config.name = <span class="hljs-number">0</span>; <span class="hljs-comment">// 
             </h2>
         
 <hr>
-<p><code class="inline-code">--strictBindCallApply</code> - текущий флаг, входящий в группировку <code class="inline-code">--strict</code>, активирует проверку вызова таких методов, как <code class="inline-code">apply</code>, <code class="inline-code">call</code> и <code class="inline-code">bind</code>. Это стало возможным благодаря добавлению двух новых типов <code class="inline-code">CallableFunction</code> и <code class="inline-code">NewableFunction</code>, которые содержат обобщенное описание методов <code class="inline-code">apply</code>, <code class="inline-code">call</code> и <code class="inline-code">bind</code>, как для обычных функций, так и для функций конструкторов соответственно.</p>
+<p><code class="inline-code">--strictBindCallApply</code> - текущий флаг, входящий в группировку <code class="inline-code">--strict</code>, активирует проверку вызова таких методов, как <code class="inline-code">apply</code>, <code class="inline-code">call</code> и <code class="inline-code">bind</code>. Это стало возможным благодаря добавлению двух новых типов, <code class="inline-code">CallableFunction</code> и <code class="inline-code">NewableFunction</code>, которые содержат обобщенное описание методов <code class="inline-code">apply</code>, <code class="inline-code">call</code> и <code class="inline-code">bind</code>, как для обычных функций, так и для функций конструкторов соответственно.</p>
 <pre><code class="hljs language-typescript">{
   <span class="hljs-string">"compilerOptions"</span>: {
       <span class="hljs-string">"strictBindCallApply"</span>: <span class="hljs-literal">false</span>
@@ -2138,7 +2118,7 @@ f.bind(<span class="hljs-literal">null</span>, <span class="hljs-number">0</span
             </h2>
         
 <hr>
-<p><code class="inline-code">--showConfig</code> - при активном текущем флаге, компилятор <code class="inline-code">tsc</code> во время компиляции, выведет в консоль содержимое конфигурационного файла <code class="inline-code">tsconfig.json</code> разрешенного с учетом механизма расширения (<code class="inline-code">extends</code>), если таковой механизм имеет место быть. Этот функционал может быть очень полезным при отладке.</p>
+<p><code class="inline-code">--showConfig</code> - при активном текущем флаге компилятор <code class="inline-code">tsc</code> во время компиляции выведет в консоль содержимое конфигурационного файла <code class="inline-code">tsconfig.json</code>, разрешенного с учетом механизма расширения (<code class="inline-code">extends</code>), если таковой механизм имеет место быть. Этот функционал может быть очень полезным при отладке.</p>
 <pre><code class="hljs language-typescript">{
   <span class="hljs-string">"compilerOptions"</span>: {
       <span class="hljs-string">"showConfig"</span>: <span class="hljs-literal">false</span>
@@ -2158,7 +2138,7 @@ f.bind(<span class="hljs-literal">null</span>, <span class="hljs-number">0</span
             </h2>
         
 <hr>
-<p><code class="inline-code">--build</code> - данный флаг указывает компилятору <code class="inline-code">tsc</code> что проект нужно собирать как проект использующий ссылки на другие проекты. Подробнее об этом можно узнать из главы <a class="book__chapter__chapter-link" href="/book/contents/Sborka-s-ispolzovaniem-ssylok-na-proekty" title="Сборка с использованием ссылок на проекты" target="_blank">Сборка с использованием ссылок на проекты</a>. Также, флаг <code class="inline-code">--build</code> может использоваться в сочетании с специфичными только для него такими флагами как <code class="inline-code">--verbose</code>, <code class="inline-code">--dry</code>, <code class="inline-code">--clean</code>, <code class="inline-code">--force</code>, а также с флагом <code class="inline-code">--watch</code>.</p>
+<p><code class="inline-code">--build</code> - данный флаг указывает компилятору <code class="inline-code">tsc</code>, что проект нужно собирать как проект, использующий ссылки на другие проекты. Подробнее об этом можно узнать из главы <a class="book__chapter__chapter-link" href="/book/contents/Sborka-s-ispolzovaniem-ssylok-na-proekty" title="Сборка с использованием ссылок на проекты" target="_blank">Сборка с использованием ссылок на проекты</a>. Также флаг <code class="inline-code">--build</code> может использоваться в сочетании со специфичными только для него флагами <code class="inline-code">--verbose</code>, <code class="inline-code">--dry</code>, <code class="inline-code">--clean</code>, <code class="inline-code">--force</code>, а также с флагом <code class="inline-code">--watch</code>.</p>
 <p><strong>type</strong>: <code class="inline-code">string</code>
 <strong>default</strong>: <code class="inline-code"></code>
 <strong>values</strong>: <code class="inline-code">paths to tsconfig.json or dir with tsconfig.json</code></p>
@@ -2185,7 +2165,7 @@ f.bind(<span class="hljs-literal">null</span>, <span class="hljs-number">0</span
             </h2>
         
 <hr>
-<p><code class="inline-code">--dry</code> - при указании текущего флага сборка будет выполнена без порождения выходных файлов. данный флаг полезно использовать совместно с флагом <code class="inline-code">--verbose</code>. Используется только совместно с флагом <code class="inline-code">--build</code>.</p>
+<p><code class="inline-code">--dry</code> - при указании текущего флага сборка будет выполнена без порождения выходных файлов. Данный флаг полезно использовать совместно с флагом <code class="inline-code">--verbose</code>. Используется только совместно с флагом <code class="inline-code">--build</code>.</p>
 </section><section id="clean" name="clean" class="subchapter">
             <h2 class="subchapter-title">
                 <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="clean" type="absolute-url">
@@ -2197,7 +2177,7 @@ f.bind(<span class="hljs-literal">null</span>, <span class="hljs-number">0</span
             </h2>
         
 <hr>
-<p><code class="inline-code">--clean</code> - удаляет выходные файлы соответствующие заданным входным. Используется только совместно с флагом <code class="inline-code">--build</code>.</p>
+<p><code class="inline-code">--clean</code> - удаляет выходные файлы, соответствующие заданным входным. Используется только совместно с флагом <code class="inline-code">--build</code>.</p>
 </section><section id="force" name="force" class="subchapter">
             <h2 class="subchapter-title">
                 <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="force" type="absolute-url">
@@ -2209,7 +2189,7 @@ f.bind(<span class="hljs-literal">null</span>, <span class="hljs-number">0</span
             </h2>
         
 <hr>
-<p><code class="inline-code">--force</code> - принудительно выполняет не инкрементальную сборку. Используется только совместно с флагом <code class="inline-code">--build</code>.</p>
+<p><code class="inline-code">--force</code> - принудительно выполняет неинкрементальную сборку. Используется только совместно с флагом <code class="inline-code">--build</code>.</p>
 </section><section id="incremental" name="incremental" class="subchapter">
             <h2 class="subchapter-title">
                 <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="incremental" type="absolute-url">
@@ -2221,15 +2201,15 @@ f.bind(<span class="hljs-literal">null</span>, <span class="hljs-number">0</span
             </h2>
         
 <hr>
-<p><code class="inline-code">--incremental</code> - флаг, при активации которого, после первой компиляции проекта, в директории заданной атирибутом <code class="inline-code">outDir</code>, создается файл <code class="inline-code">.tsbuildinf</code>, который хранит метаинформацию об изменении файлов, что позволяет производить ускоренные инкрементальные сборки при всех послудующих запусках компилятора.</p>
+<p><code class="inline-code">--incremental</code> - флаг, при активации которого, после первой компиляции проекта, в заданной атирибутом <code class="inline-code">outDir</code> директории создается файл <code class="inline-code">.tsbuildinf</code>, который хранит метаинформацию об изменении файлов, что позволяет производить ускоренные инкрементальные сборки при всех последующих запусках компилятора.</p>
 <pre><code class="hljs language-typescript">{
     <span class="hljs-string">"compilerOptions"</span>: {
         <span class="hljs-string">"incremental"</span>: <span class="hljs-literal">true</span>,
         <span class="hljs-string">"outDir"</span>: <span class="hljs-string">"./dest"</span>
     }
 }</code></pre>
-<p>В случае, когда имя выходного задается с помощью флага <code class="inline-code">--outFile</code>, имя генерируемого файла <code class="inline-code">.tsbuildinf</code> будет включать в себя название выходного файла (<code class="inline-code">.client.tsbuildinf</code> для файла <code class="inline-code">client.js</code> и <code class="inline-code">.server.tsbuildinf</code> для <code class="inline-code">server.js</code> соответственно).</p>
-<p><code class="inline-code">**Примечание:**</code> создатели <em>TypeScript</em> предупреждают зарание, что генерируемые файлы <code class="inline-code">.tsbuildinf</code> не предназначены для использования сторонними библиотеками, так как их определение, от версии к версии, не будет обладать совместимость.</p>
+<p>В случае, когда имя выходного файла задается с помощью флага <code class="inline-code">--outFile</code>, имя генерируемого файла <code class="inline-code">.tsbuildinf</code> будет включать в себя название выходного файла (<code class="inline-code">.client.tsbuildinf</code> для файла <code class="inline-code">client.js</code> и <code class="inline-code">.server.tsbuildinf</code> для <code class="inline-code">server.js</code> соответственно).</p>
+<p><strong>Примечание:</strong> создатели <em>TypeScript</em> предупреждают зарание, что генерируемые файлы <code class="inline-code">.tsbuildinf</code> не предназначены для использования сторонними библиотеками, так как их определение не будет обладать совместимостью от версии к версии.</p>
 <p>Кроме того, с помощью флага <code class="inline-code">--tsBuildInfoFile</code> можно задать место сохранения файла <code class="inline-code">.tsbuildinf</code>.</p>
 <pre><code class="hljs language-typescript">{
     <span class="hljs-string">"compilerOptions"</span>: {
@@ -2249,7 +2229,7 @@ f.bind(<span class="hljs-literal">null</span>, <span class="hljs-number">0</span
             </h2>
         
 <hr>
-<p><code class="inline-code">--tsBuildInfoFile</code> - флаг с помощью которого указывается местосохранения файла <code class="inline-code">.tsbuildinf</code> генерирующегося при активной опции <code class="inline-code">--incremental</code> и служущий для хранения метаинформации призванной ускорить последуюзщие сборки.</p>
+<p><code class="inline-code">--tsBuildInfoFile</code> - флаг, с помощью которого указывается место сохранения файла <code class="inline-code">.tsbuildinf</code>, генерирующегося при активной опции <code class="inline-code">--incremental</code> и служущего для хранения метаинформации, призванной ускорить последующие сборки.</p>
 <pre><code class="hljs language-typescript">{
     <span class="hljs-string">"compilerOptions"</span>: {
         <span class="hljs-string">"incremental"</span>: <span class="hljs-literal">true</span>,
@@ -2297,7 +2277,7 @@ f.bind(<span class="hljs-literal">null</span>, <span class="hljs-number">0</span
             </h2>
         
 <hr>
-<p><code class="inline-code">--disableSourceOfProjectReferenceRedirect</code> - при использовании механизма ссылок на проекты активация данного флага говорит компилятору что в качестве информации о типах следует использовать файлы декларации <code class="inline-code">.d.ts</code>, а не исходные файлы проекта. Активация данного флага способна повысить производительность сборки, но вносит некоторую специфику, поэтому уместна лишь на больших проектах. Более подробно читайте об этом в грлаве посвященной использованию ссылок на проекты.</p>
+<p><code class="inline-code">--disableSourceOfProjectReferenceRedirect</code> - при использовании механизма ссылок на проекты активация данного флага говорит компилятору, что в качестве информации о типах следует использовать файлы декларации <code class="inline-code">.d.ts</code>, а не исходные файлы проекта. Активация данного флага способна повысить производительность сборки, но вносит некоторую специфику, поэтому уместна лишь на больших проектах. Более подробно читайте об этом в главе, посвященной использованию ссылок на проекты.</p>
 <pre><code class="hljs language-typescript">{
     <span class="hljs-string">"compilerOptions"</span>: {
         <span class="hljs-string">"disableSourceOfProjectReferenceRedirect"</span>: <span class="hljs-literal">false</span>,
@@ -2317,7 +2297,7 @@ f.bind(<span class="hljs-literal">null</span>, <span class="hljs-number">0</span
             </h2>
         
 <hr>
-<p><code class="inline-code">--useDefineForClassFields</code> - данный флаг активирует новое поведение генерации конечного кода доступного с версии <code class="inline-code">v3.7</code> и предназначено для предотвращения переопределения свойств при механизме наследования.</p>
+<p><code class="inline-code">--useDefineForClassFields</code> - данный флаг активирует новое поведение генерации конечного кода, доступное с версии <code class="inline-code">v3.7</code> и предназначенное для предотвращения переопределения свойств при механизме наследования.</p>
 <pre><code class="hljs language-typescript">{
     <span class="hljs-string">"compilerOptions"</span>: {
         <span class="hljs-string">"useDefineForClassFields"</span>: <span class="hljs-literal">false</span>,

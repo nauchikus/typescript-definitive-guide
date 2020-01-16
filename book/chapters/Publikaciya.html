@@ -9,8 +9,8 @@
             </h2>
         
 <hr>
-<p>Для того чтобы подключать создаваемые декларации <em>.d.ts</em> с помощью пакетного менеджера <em>npm</em>, её нужно определить как npm пакет (npm package). В дальнейшем этот пакет можно опубликовать, с помощью того же пакетного менеджера <em>npm</em>, в npm репозиторий, который может быть как публичный, доступный всем разработчикам, так и приватный, доступный только автору\команде. Кроме того можно и вовсе обойтись без публикации в репозиторий, подключая пакет с локального диска. Сама публикация здесь рассматриваться не будет, с этим процессом можно ознакомится в документации к пакетному менеджеру <em>npm</em>, но не будет лишнем упомянуть о тонкостях, которые привнес <em>TypeScript</em>.</p>
-<p>Говоря о создании npm пакета, мы подразумеваем создание описания нашего кода в файле с названием <em>package.json</em>. Для того, чтобы компилятор <em>TypeScript</em> смог использовать декларацию <em>.d.ts</em>, ему нужно помочь, присвоив полю <code class="inline-code">types</code> путь до неё. </p>
+<p>Для того чтобы подключать создаваемые декларации <em>.d.ts</em> с помощью пакетного менеджера <em>npm</em>, их нужно определить как <em>npm-пакет</em> (npm package). В дальнейшем этот пакет можно опубликовать с помощью того же пакетного менеджера <em>npm</em> в npm-репозитории, который может быть как публичным, доступным всем разработчикам, так и приватным, доступным только автору/команде. Кроме того можно и вовсе обойтись без публикации в репозиторий, подключая пакет с локального диска. Сама публикация здесь рассматриваться не будет, с этим процессом можно ознакомится в документации к пакетному менеджеру <em>npm</em>, но не будет лишнем упомянуть о тонкостях, которые привнес <em>TypeScript</em>.</p>
+<p>Говоря о создании npm-пакета, мы подразумеваем создание описания нашего кода в файле с названием <em>package.json</em>. Для того, чтобы компилятор <em>TypeScript</em> смог использовать декларацию <em>.d.ts</em>, ему нужно помочь, присвоив полю <code class="inline-code">types</code> путь до неё.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-comment">// package.json</span>
 
 {
@@ -28,7 +28,7 @@
 <pre><code class="hljs language-typescript"><span class="hljs-comment">// package.json</span>
 
 {
-  
+
    <span class="hljs-string">"typesVersions"</span>: {
        <span class="hljs-string">">=3.1"</span>: { <span class="hljs-string">"*"</span>: [<span class="hljs-string">"ts3.1/index.d.ts"</span>] } <span class="hljs-comment">// если версия TypeScript выше либо равна 3.1</span>
    }
@@ -37,7 +37,7 @@
 
      <span class="hljs-string">"types"</span>: <span class="hljs-string">"./dest/index.d.ts"</span>, <span class="hljs-comment">// если версия TypeScript ниже версии 3.1</span>
 }</code></pre>
-<p>Правила разрешающие использование версий библиотек <em>TypeScript</em> полностью идентичны правилам диапазонов версионирования <em>nodejs</em> <a class="book__chapter__chapter-link" href="https://github.com/npm/node-semver#ranges" title="ranges" target="_blank">ranges</a>.</p>
+<p>Правила, разрешающие использование версий библиотек <em>TypeScript</em>, полностью идентичны правилам диапазонов версионирования <em>nodejs</em> <a class="book__chapter__chapter-link" href="https://github.com/npm/node-semver#ranges" title="ranges" target="_blank">ranges</a>.</p>
 <p>Кроме того, можно указывать несколько диапазонов одновременно. Но нужно помнить, что порядок указания диапазонов важен, так как они могут перекрывать друг друга.</p>
 <pre><code class="hljs language-typescript">{
    <span class="hljs-string">"typesVersions"</span>: {
