@@ -1,0 +1,10 @@
+<p>Начиная с <code class="inline-code">v3.6</code> был реализован механизм позволяющий сливать воедино одноименные классы и функции находящиеся в одном окружающем контексте.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">declare</span> <span class="hljs-keyword">class</span> Point {
+    x: <span class="hljs-built_in">number</span>;
+    y: <span class="hljs-built_in">number</span>;
+
+    <span class="hljs-keyword">constructor</span>(<span class="hljs-params">x: <span class="hljs-built_in">number</span>, y: <span class="hljs-built_in">number</span></span>);
+}
+
+<span class="hljs-keyword">declare</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Point</span>(<span class="hljs-params">x: <span class="hljs-built_in">number</span>, y: <span class="hljs-built_in">number</span></span>): <span class="hljs-title">Point</span></span>;</code></pre>
+<p>Начиная с <code class="inline-code">v3.7</code> компилятор будет прибегать к данной возможности при генерации <code class="inline-code">.d.ts</code> файлов из <code class="inline-code">JavaScript</code> кода.</p>

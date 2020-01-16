@@ -1,0 +1,74 @@
+<p>Основное предназначение типа <code class="inline-code">never</code> явным образом указывать что из вызываемой функции возврата никогда не произойдет. Как известно подобный сценарий может призойти по причине бесконечного цекла или выброса исключения.</p>
+<p>До <em>TypeScript</em> <code class="inline-code">v3.7</code>, в случаях когда одна функция имеющая декларацию возвращаемого типа отличного от <code class="inline-code">void</code> прерывала нормальное выполнение программы за счет вызова функции с возвращающим типом <code class="inline-code">never</code>, выводу типов требовалось либо явного указания возврата с помощью оператора <code class="inline-code">return</code>, либо применения инструкции <code class="inline-code">throw</code>.</p>
+<pre><code class="hljs language-ts"><span class="hljs-comment">// [TypeScript &#x3C; v3.7]</span>
+
+<span class="hljs-keyword">interface</span> User {
+    name: <span class="hljs-built_in">string</span>;
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">critical</span>(<span class="hljs-params">message: <span class="hljs-built_in">string</span></span>): <span class="hljs-title">never</span> </span>{
+    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(message);
+}
+
+<span class="hljs-comment">/**
+ * Несмотря что в случае вызова функции critical
+ * возврата из функции validate не произойдет,
+ * из-за непонимания этого вывод типов считает
+ * что для функции validate забыли указать
+ * возвращаемое значение.
+ * 
+ * (!) [ошибка в аннотации возвращаемого типа]
+ * Function lacks ending return statement and
+ * return type does not include 'undefined'.
+ */</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">validate</span>(<span class="hljs-params">data: <span class="hljs-built_in">any</span></span>): <span class="hljs-title">User</span> /**<span class="hljs-title">Error</span> (<span class="hljs-params">!</span>) */ </span>{
+    <span class="hljs-keyword">if</span> (data &#x26;&#x26; data.user) {
+        <span class="hljs-keyword">return</span> data.user;
+    }
+
+    critical(<span class="hljs-string">`Field "user" not found in object "data."`</span>);
+}
+
+<span class="hljs-comment">/**
+ * Для устронения ошибки требуется явно
+ * указать возвращаемое значение...
+ */</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">validate_a</span>(<span class="hljs-params">data: <span class="hljs-built_in">any</span></span>): <span class="hljs-title">User</span> /**<span class="hljs-title">Error</span> (<span class="hljs-params">!</span>) */ </span>{
+    <span class="hljs-keyword">if</span> (data &#x26;&#x26; data.user) {
+        <span class="hljs-keyword">return</span> data.user;
+    }
+
+    <span class="hljs-keyword">return</span> critical(<span class="hljs-string">`Field "user" not found in object "data."`</span>);
+}
+<span class="hljs-comment">/**
+ * ...либо выбросить исключение.
+ */</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">validate_b</span>(<span class="hljs-params">data: <span class="hljs-built_in">any</span></span>): <span class="hljs-title">User</span> /**<span class="hljs-title">Error</span> (<span class="hljs-params">!</span>) */ </span>{
+    <span class="hljs-keyword">if</span> (data &#x26;&#x26; data.user) {
+        <span class="hljs-keyword">return</span> data.user;
+    }
+
+    <span class="hljs-keyword">throw</span> critical(<span class="hljs-string">`Field "user" not found in object "data."`</span>);
+}</code></pre>
+<p>Начиная с версии <code class="inline-code">v3.7</code> вывод типов научился распознавать прерывание нормального хода программы без явного указания <code class="inline-code">return</code> или <code class="inline-code">throw</code>.</p>
+<pre><code class="hljs language-ts"><span class="hljs-comment">// [TypeScript >= v3.7]</span>
+
+<span class="hljs-keyword">interface</span> User {
+    name: <span class="hljs-built_in">string</span>;
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">critical</span>(<span class="hljs-params">message: <span class="hljs-built_in">string</span></span>): <span class="hljs-title">never</span> </span>{
+    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(message);
+}
+
+<span class="hljs-comment">/**
+ * Явного указания return или throw
+ * больше не требуется.
+ */</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">validate</span>(<span class="hljs-params">data: <span class="hljs-built_in">any</span></span>): <span class="hljs-title">User</span> </span>{
+    <span class="hljs-keyword">if</span> (data &#x26;&#x26; data.user) {
+        <span class="hljs-keyword">return</span> data.user;
+    }
+
+    critical(<span class="hljs-string">`Field "user" not found in object "data."`</span>);
+}</code></pre>
