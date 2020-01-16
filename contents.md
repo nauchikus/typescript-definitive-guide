@@ -32,6 +32,7 @@
 Операторы - Optional, Not-Null, Not-Undefined, Definite Assignment Assertion
 Типы - Обобщения (Generics)
 Типы - Tagged Union
+Типы - Импорт и экспорт только типа
 Типизация - Утверждение типов
 Типизация - Защитники типа
 Типизация - Вывод типов
