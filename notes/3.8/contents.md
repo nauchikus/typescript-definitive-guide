@@ -1,7 +1,7 @@
 Импорт и экспорт только типа и флаг --importsNotUsedAsValues
 Закрытые поля ECMScript
 await высшего уровня
-Реализация новой формы ре-экспорта (export * as)
+Реализация новой формы ре-экспорта
 Новая конфигурационная группа параметров watchOptions
 Новый флаг --assumeChangesOnlyAffectDirectDependencies
 Модификаторы JSDocs
