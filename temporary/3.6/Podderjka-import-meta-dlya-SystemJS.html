@@ -1,0 +1,15 @@
+<p>В <em>TypeScript</em> <code class="inline-code">v3.6</code> была добавлена возможность трансформации <code class="inline-code">import.meta</code> в <code class="inline-code">context.meta</code> что является  необходимым функционалом при работе с такой модульной системой, как <em>SystemJS</em> (<code class="inline-code">--module system</code>).</p>
+<pre><code class="hljs language-typescript"><span class="hljs-comment">// этот код .ts ...</span>
+<span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">import</span>.meta);
+
+<span class="hljs-comment">// ...преобразуется в этот .js код</span>
+System.register([], <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">exports_1, context_1</span>) </span>{
+<span class="hljs-meta">    "use strict"</span>;
+    <span class="hljs-keyword">var</span> __moduleName = context_1 &#x26;&#x26; context_1.id;
+    <span class="hljs-keyword">return</span> {
+        setters: [],
+        execute: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+            <span class="hljs-built_in">console</span>.log(context_1.meta);
+        }
+    };
+});</code></pre>

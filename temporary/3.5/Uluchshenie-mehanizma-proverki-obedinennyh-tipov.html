@@ -1,0 +1,10 @@
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">type</span> Source = { done: <span class="hljs-built_in">boolean</span>, value: <span class="hljs-built_in">number</span> }
+<span class="hljs-keyword">type</span> Target =
+    | { done: <span class="hljs-literal">false</span>, value: <span class="hljs-built_in">number</span> }
+    | { done: <span class="hljs-literal">true</span>, value: <span class="hljs-built_in">number</span> };
+
+<span class="hljs-keyword">declare</span> <span class="hljs-keyword">let</span> source: Source;
+<span class="hljs-keyword">declare</span> <span class="hljs-keyword">let</span> target: Target;
+
+target = source; <span class="hljs-comment">// Error, до v3.5 и Ok после</span></code></pre>
+<p>Поскольку в примере выше тип <code class="inline-code">Source</code>, за исключением поля <code class="inline-code">done</code>, идентичен типу <code class="inline-code">Target</code>, новый механизм проверки объедененных типов допускает присвоение значения первого типа идентификатору принадлежащего ко второму типу.</p>

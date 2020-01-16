@@ -1,0 +1,29 @@
+<p><code class="inline-code">TypeScript</code>, начиная сверсии <code class="inline-code">v3.6</code> реализовывает механизм ecmascript спецификации предусматривающей строковое именование функции-конструктора. Другими словами, определение метода идентификатор которого представлен в виде строки экфивалентной <code class="inline-code">"constructor"</code> расценивается как определение функции-конструктора. Если идентификатор помеается как вычисляемый <code class="inline-code">["constructor"]</code>, то такое объявление расценивается обычным методом класса. </p>
+<pre><code class="hljs language-typescript"><span class="hljs-comment">// этот ts код...</span>
+
+<span class="hljs-keyword">class</span> T {
+    <span class="hljs-string">"constructor"</span>(){
+        <span class="hljs-built_in">console</span>.log(<span class="hljs-string">`Constructor!`</span>);
+    }
+
+    [<span class="hljs-string">"constructor"</span>](){
+        <span class="hljs-built_in">console</span>.log(<span class="hljs-string">`Method with name "constructor"!`</span>);
+    }
+}
+
+<span class="hljs-keyword">let</span> t = <span class="hljs-keyword">new</span> T(); <span class="hljs-comment">// output: Constructor!</span>
+t.<span class="hljs-keyword">constructor</span>(<span class="hljs-params"></span>); <span class="hljs-comment">// output: Method with name "constructor"!</span>
+
+
+<span class="hljs-comment">// ...будетскомпилирован в этот js код</span>
+
+<span class="hljs-keyword">class</span> T {
+    <span class="hljs-keyword">constructor</span>(<span class="hljs-params"></span>) {
+        <span class="hljs-built_in">console</span>.log(<span class="hljs-string">`Constructor!`</span>);
+    }
+    [<span class="hljs-string">"constructor"</span>]() {
+        <span class="hljs-built_in">console</span>.log(<span class="hljs-string">`Method with name "constructor"!`</span>);
+    }
+}
+<span class="hljs-keyword">let</span> t = <span class="hljs-keyword">new</span> T(); <span class="hljs-comment">// output: Constructor!</span>
+t.<span class="hljs-keyword">constructor</span>(<span class="hljs-params"></span>); <span class="hljs-comment">// output: Method with name "constructor"!</span></code></pre>

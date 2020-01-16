@@ -1,0 +1,22 @@
+<p>Посколько, до недавнего времени, спецификация <em>ESMAScript</em> не предлагала модульную систему, разработчикам приходилось прибегать к использованию множества несовместимых между собой реализаций поражденных сообществом, которые затем были унифицированы за счет так называемой <em>универсальной модульной системы</em> (<em>UMD</em>). Кроме того,библиотеки создавались таким образом чтобы быть доступными через глобальную область видимости.</p>
+<p>Со стандартизацией <em>esmodules</em>, в <em>TypeScript</em>, при попытке обратится к библиотеке через объявленный в глобальной области идентификатор, возникает ошибка.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> Rx <span class="hljs-keyword">from</span> <span class="hljs-string">'rxjs'</span>;
+
+<span class="hljs-keyword">const</span> ref = React.createRef(); <span class="hljs-comment">// Error, обращение к глобальным переменным в модулях недопустимо</span></code></pre>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> Rx <span class="hljs-keyword">from</span> <span class="hljs-string">'rxjs'</span>;
+<span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> React <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
+
+<span class="hljs-keyword">const</span> ref = React.createRef(); <span class="hljs-comment">// Ok, так как импортирован модуль</span></code></pre>
+<p>Но посколько со стороны сообщества неоднократно поступали просьбы сделать доступными в модулях глобальные определения, разработчики <em>TypeScript</em> ввели новый флаг <code class="inline-code">--allowUmdGlobalAccess</code> благодаря которому появилась такая возможность.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-comment">// tsconfig.json</span>
+
+{
+  {
+    <span class="hljs-string">"compilerOptions"</span>: {
+      <span class="hljs-string">"allowUmdGlobalAccess"</span>: <span class="hljs-literal">false</span>
+    }
+  }
+}</code></pre>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> Rx <span class="hljs-keyword">from</span> <span class="hljs-string">'rxjs'</span>;
+
+<span class="hljs-keyword">const</span> ref = React.createRef(); <span class="hljs-comment">// Ok, доступ к глобальному определению из модуля</span></code></pre>

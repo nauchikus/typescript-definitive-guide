@@ -1,0 +1,24 @@
+<p>Компиляция <em>.js</em> файлов доступная за флагом <code class="inline-code">allowJs</code> была бы не эффективной если бы отсутствовало аннотирование <em>JavaScript</em> кода при помощи <em>JSDoc комментариев</em> активируемых флагом <code class="inline-code">checkJs</code> или <em>комментарной диррективой</em> <code class="inline-code">// @ts-check</code>. Чтобы повысить эффективность данного механизма были добавлены новые <em>JSDoc</em> директивы. Так компилятор <em>TypeScript</em> получил поддержку модифицирующих директив как <code class="inline-code">@public</code>, <code class="inline-code">@private</code> и <code class="inline-code">@protected</code>, чье поведение полностью соответствует поведению одноименных модификаторов из <em>TypeScript</em>. Кроме того без изменений остался список <em>членов класса</em> к которым эти модификаторы могут быть примененны (<em>поля</em>, <em>свойства</em>, <em>методы</em> как экземпляра так и самого класса).</p>
+<pre><code class="hljs language-javascript"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Base</span> </span>{
+    <span class="hljs-keyword">constructor</span>(){
+        <span class="hljs-comment">/**@public */</span>
+        <span class="hljs-keyword">this</span>.public = <span class="hljs-number">0</span>;
+
+        <span class="hljs-comment">/**@private */</span>
+        <span class="hljs-keyword">this</span>.private = <span class="hljs-number">0</span>;
+
+        <span class="hljs-comment">/**@protected */</span>
+        <span class="hljs-keyword">this</span>.protected = <span class="hljs-number">0</span>;
+    }
+
+    <span class="hljs-comment">/**@private */</span>
+    method(){}
+}</code></pre>
+<p>Помимо этого также был добавлен модификатор <code class="inline-code">/** @readonly */</code> чьё поведение также полностью идентичное одноименному модификатору из <em>TypeScript</em>, который к тому же можно совмещать с другими модификаторами.</p>
+<pre><code class="hljs language-javascript"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Base</span> </span>{
+    <span class="hljs-comment">/**@readonly */</span>
+    <span class="hljs-keyword">static</span> READONLY = <span class="hljs-literal">true</span>;
+
+    <span class="hljs-comment">/**@protected @readonly */</span>
+    <span class="hljs-keyword">static</span> PROTECTED_READONLY = <span class="hljs-literal">true</span>;
+}</code></pre>

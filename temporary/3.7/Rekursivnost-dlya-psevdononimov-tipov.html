@@ -1,0 +1,28 @@
+<p>Псевдонимы типов (<em>type aliases</em>) всегда имели строгие правила относительно рекурсии поскольку больше остальных могли привести к бесконечному обращению.</p>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">type</span> T = T; <span class="hljs-comment">// Бесконечная рекурсия</span></code></pre>
+<p>Тем не менее относительно рекурсивности существовали правила, которые можно было обойти введя дополнительные интерфейсные типы (<code class="inline-code">interface</code>).</p>
+<pre><code class="hljs language-ts"><span class="hljs-comment">// TypeScript &#x3C; v3.7</span>
+
+<span class="hljs-keyword">type</span> Json =
+    | <span class="hljs-built_in">string</span>
+    | <span class="hljs-built_in">number</span>
+    | <span class="hljs-built_in">boolean</span>
+    | <span class="hljs-literal">null</span>
+    | JsonObject
+    | JsonArray;
+
+<span class="hljs-keyword">interface</span> JsonObject {
+    [property: <span class="hljs-built_in">string</span>]: Json;
+}
+
+<span class="hljs-keyword">interface</span> JsonArray <span class="hljs-keyword">extends</span> Array&#x3C;Json> {}</code></pre>
+<p>Поэтому начиная с текущей версии <em>TypeScript</em> вычисление правил относящихся к рекурсивности для псевдонимов типов были изменены, что позволило избавится от определения дополнительных типов.</p>
+<pre><code class="hljs language-ts"><span class="hljs-comment">// TypeScript >= v3.7</span>
+
+<span class="hljs-keyword">type</span> Json =
+    | <span class="hljs-built_in">string</span>
+    | <span class="hljs-built_in">number</span>
+    | <span class="hljs-built_in">boolean</span>
+    | <span class="hljs-literal">null</span>
+    | { [property: <span class="hljs-built_in">string</span>]: Json }
+    | Json[];</code></pre>
