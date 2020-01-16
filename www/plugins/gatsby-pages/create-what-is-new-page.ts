@@ -1,15 +1,21 @@
 import * as path from 'path';
 
+import * as StringUtils from "../../src/utils/string-utils";
+import * as DateUtils from "../../src/utils/date-utils";
 import {RouteUtils} from '../../src/utils/route-utils';
 
 import { GatsbyCreatePages } from "../types/gatsby-create-pages";
 import { Locales } from "../types/locales";
-import * as StringUtils from "../../src/utils/string-utils";
 import { CustomGatsbyNodeType } from '../gatsby-node-types';
 import { AppLocalization } from "../../src/types/app-localizations";
 import { IWhatIsNewTocGatsbyNode } from "./create-what-is-new-toc-page";
 import {
-    getWhatIsNewContentHtmlRequest, IGetWinContentHtmlResponse
+    getWhatIsNewContentHtmlRequest,
+    IGetWinContentHtmlResponse,
+    getFileOnGithubHistoryInfoQuery,
+    IGetFileOnGithubHistoryInfoResponse,
+    IGetGithubCommitHistoryResponse,
+    getGithubCommitHistoryQuery, ICommitHistory, IGetGithubUserResponse, getGithubUserQuery
 } from "./graphql-querys";
 import { TreeNode } from "../../src/stores/WhatIsNewTocTreeStore";
 import { IWhatIsNewToc } from "../../src/types/IWhatIsNewToc";
@@ -23,8 +29,7 @@ interface IAppLocalization {
     localization: AppLocalization;
 }
 
-const hasPrev = ( index: number, length: number ) => index > 0;
-const hasNext = ( index: number, length: number ) => index < length - 1;
+
 
 const winTocToPageNav = ( winToc: IWhatIsNewToc[] ) =>
   winToc.map( winTocItem => ( {
@@ -36,6 +41,19 @@ const winTocToPageNav = ( winToc: IWhatIsNewToc[] ) =>
           path: innovation.path
       } ) )
   } ) );
+
+
+interface ICreateWinFileOnGithubPathParams {
+    versionMMP:string;
+    innovationName: string;
+}
+//Оператор опциональной последовательности (?.)
+const createWinFileOnGithubPath = ( { versionMMP, innovationName }: ICreateWinFileOnGithubPathParams ) => (
+  `what-is-new/${versionMMP}/${innovationName}/content.md`
+);
+const createEditeWinFileOnGithubLink = ( { versionMMP, innovationName }: ICreateWinFileOnGithubPathParams ) => (
+  `https://github.com/nauchikus/typescript-definitive-guide/blob/what-is-new/${versionMMP}/${innovationName}/content.md`
+);
 
 
 export const createPages: GatsbyCreatePages<IIndexCreatePageOptions> = async ( helpers, options ) => {
@@ -64,11 +82,33 @@ export const createPages: GatsbyCreatePages<IIndexCreatePageOptions> = async ( h
 
         let innovationDataPromiseAll = innovations.map( async ( innovation ) => {
             let innovationName = StringUtils.escapeString( innovation.innovationName );
-            let innovationContentHtmlGraphQlResponse = await graphql<IGetWinContentHtmlResponse, { regexp: string; }>(
-              getWhatIsNewContentHtmlRequest(),
-              { regexp: `/.*/what-is-new/${ innovationVersionMMP }/${ innovationName }/content\\.md/` }
-            );
+            // let innovationContentHtmlGraphQlResponse = await graphql<IGetWinContentHtmlResponse, { regexp: string; }>(
+            //   getWhatIsNewContentHtmlRequest(),
+            //   { regexp: `/.*/what-is-new/${ innovationVersionMMP }/${ innovationName }/content\\.md/` }
+            // );
 
+            let graphqlResponseAll = await Promise.all( [
+                graphql<IGetWinContentHtmlResponse, { regexp: string; }>(
+                  getWhatIsNewContentHtmlRequest(),
+                  { regexp: `/.*/what-is-new/${ innovationVersionMMP }/${ innovationName }/content\\.md/` }
+                ),
+                graphql<IGetGithubCommitHistoryResponse, { path: string; }>(
+                  getGithubCommitHistoryQuery(),
+                  { path: createWinFileOnGithubPath({versionMMP, innovationName:innovation.innovationName}) }
+                )
+                // graphql<IGetGithubCommitHistoryResponse, { path: string; }>(
+                //   getGithubCommitHistoryQuery(),
+                //   { path: createWinFileOnGithubPath({versionMMP, innovationName:innovation.innovationName}) }
+                // )
+            ] );
+
+            let [
+                innovationContentHtmlGraphQlResponse,
+                githubCommitHistoryGraphQlResponse
+
+            ] = graphqlResponseAll;
+
+            // console.log(fileOnGithubHistoryInfoGraphQlResponse);
 
             if ( !innovationContentHtmlGraphQlResponse.data?.markdownRemark ) {
                 throw new Error( `Innovation for version "${ versionMMP }" with name "${ innovation.innovationName }" not exists.` );
@@ -77,10 +117,39 @@ export const createPages: GatsbyCreatePages<IIndexCreatePageOptions> = async ( h
 
             let innovationContentHtml = innovationContentHtmlGraphQlResponse.data?.markdownRemark.html;
 
+            let commitHistoryAll = githubCommitHistoryGraphQlResponse?.data?.github.repository.ref.target.history.commits;
+            let uniqueCommitterMap = commitHistoryAll?.reduceRight( ( map, commitInfo ) => {
+                return map.set( commitInfo.committer.name, commitInfo );
+            }, new Map<string, ICommitHistory>() );
+            let commitInfoAll = await Promise.all( Array.from( uniqueCommitterMap?.values() ?? [] ).map( async commitInfo => {
+                let githubUserResponse = await graphql<IGetGithubUserResponse, { userName: string; }>(
+                  getGithubUserQuery(),
+                  { userName: commitInfo.committer.name }
+                );
+
+                let committerData = githubUserResponse?.data?.github.search.edges[ 0 ].node;
+
+                if ( !committerData ) {
+                    throw new Error( `Data about committer with name: "${ commitInfo.committer.name }" not found.` );
+                }
+
+                let { committer, ...commitData } = commitInfo;
+                let result = {
+                    ...commitData,
+                    committer: committerData
+                };
+
+
+                return result;
+            } ) );
+            let fileOnGithubLink = createEditeWinFileOnGithubLink( { versionMMP, innovationName } );
+
 
             let innovationData = {
                 ...innovation,
-                html: innovationContentHtml
+                html: innovationContentHtml,
+                commitInfoAll,
+                fileOnGithubLink,
             };
 
             return innovationData;

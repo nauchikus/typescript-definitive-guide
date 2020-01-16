@@ -5,7 +5,7 @@ import { useWhatIsNewTocStores } from "../../mobx/MobxWhatIsNewTocProvider";
 import { IWhatIsNewTocVersionStatus } from "../../types/IWhatIsNewToc";
 import { Link } from "gatsby";
 import { IconButton, Size } from "../icon-button/IconButton";
-import { ArrowDownSvgIcon, LinkSvgIcon } from "../svg-icon/svg-icons";
+import { ArrowDownSvgIcon, LinkSvgIcon } from "../icon__svg-icon/svg-icons";
 import { Tooltip, TooltipPosition } from "../tooltip/Tooltip";
 import { RotateContainer } from "../transform__rotate-container/RotateContainer";
 import { If } from "../if-operator/If";

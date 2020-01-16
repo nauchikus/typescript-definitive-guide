@@ -1,3 +1,5 @@
+import { ICommitInfo } from "../../plugins/gatsby-pages/graphql-querys";
+
 export interface IWhatIsNewTocVersionStatus {
   version:string;
   date:string;
@@ -24,6 +26,8 @@ export interface IWhatIsNewToc {
 
 interface IWhatIsNewTocInnovationWithContent extends IWhatIsNewTocInnovation{
   html:string;
+  commitInfoAll:ICommitInfo[];
+  fileOnGithubLink:string;
 }
 export interface IWhatIsNewData extends IWhatIsNewToc{
   versionMMP:string;

@@ -9,6 +9,7 @@ import {
 } from "../app-menu-buttons/app-menu-buttons";
 import { DonateDropdown } from "../donate-dropdown/DonateDropdown";
 import { AppBar } from "../app-bar/AppBar";
+import { DonateButton } from "../donate-button/DonateButton";
 
 
 interface IAppHeaderProps {
@@ -32,7 +33,7 @@ export const AppHeader: FC<IAppHeaderProps> = observer(( {...props} ) => {
       <div className="app-header-grid-item__informer">
       </div>
       <div className="app-header-grid-item__donate">
-        <DonateDropdown/>
+        <DonateButton/>
       </div>
       <div className="app-header-grid-item__search">
         <Search/>

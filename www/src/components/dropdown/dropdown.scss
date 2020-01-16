@@ -1,5 +1,19 @@
 @import "../dropdown-base/dropdown-base";
 
+.dropdown{
+  position:relative;
+
+  z-index:99;
+
+  &:hover{
+    &>.dropdown__menu{
+      @include menu-open();
+    }
+  }
+}
+.dropdown__menu{
+  z-index: 999;
+}
 //.dropdown{
 //  @include dropdown-base{
 //    &__menu_open{

@@ -15,12 +15,12 @@ interface IIconButtonProps extends React.DetailedHTMLProps<React.ButtonHTMLAttri
 }
 
 export const IconButton: FC<IIconButtonProps> = ( { isToggle=false,size=Size.MD,className, children, onClick ,...buttonElementProps} ) => {
-  let buttonClasses = cn( className, {
+  let buttonClasses = cn( {
     "icon-button": true,
     "toggle-button_on": isToggle,
-    "icon-button_size_sm":size===Size.SM,
-    "icon-button_size_md":size===Size.MD,
-  } );
+    "icon-button_size_sm": size === Size.SM,
+    "icon-button_size_md": size === Size.MD
+  }, className );
 
   return (
     <button className={buttonClasses}

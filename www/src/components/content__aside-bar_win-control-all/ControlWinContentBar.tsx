@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import { ArrowBeforeSvgIcon, ArrowDownSvgIcon, ArrowNextSvgIcon, ArrowUpSvgIcon } from "../svg-icon/svg-icons";
+import { ArrowBeforeSvgIcon, ArrowDownSvgIcon, ArrowNextSvgIcon, ArrowUpSvgIcon } from "../icon__svg-icon/svg-icons";
 import { IconButton } from "../icon-button/IconButton";
 import { Tooltip, TooltipPosition } from "../tooltip/Tooltip";
 import { useWhatIsNewStores } from "../../mobx/MobxWhatIsNewProvider";

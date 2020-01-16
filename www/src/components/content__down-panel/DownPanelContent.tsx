@@ -4,7 +4,7 @@ import { IconButton } from "../icon-button/IconButton";
 import {
   ThreeDotsAnimatedCssIcon,
   ThreeDotsAnimatedCssIconPosition
-} from "../css-icon__three-dots-animated-css-icon/ThreeDotsAnimatedCssIcon";
+} from "../icon__css-icon__three-dots-animated-css-icon/ThreeDotsAnimatedCssIcon";
 import { observer } from "mobx-react-lite";
 
 interface IDownPanelContentProps {

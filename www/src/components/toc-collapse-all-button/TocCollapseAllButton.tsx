@@ -1,7 +1,7 @@
 import React, { FC } from "react";
 import { default as cn } from "classnames";
 import { RotateContainer } from "../transform__rotate-container/RotateContainer";
-import { ArrowDownSvgIcon } from "../svg-icon/svg-icons";
+import { ArrowDownSvgIcon } from "../icon__svg-icon/svg-icons";
 import { IconButton } from "../icon-button/IconButton";
 import { useBookTocStores } from "../../mobx/MobxBookTocProvider";
 import { observer } from "mobx-react-lite";

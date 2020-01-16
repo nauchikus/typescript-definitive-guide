@@ -51,12 +51,16 @@ const generateIndex = ( index, length = 1, symbol = "0" ) => symbol
 
 const toPath = name => translitRusToEng( name ).toLowerCase();
 
+const generateStringId = ( ( length = 6, count = -1 ) => () =>
+    "0".repeat( length - ( count++ ).toString().length ).concat( count.toString() )
+)();
 module.exports = {
   translitRusToEng,
   chapterHeadingToPath,
   escapeString,
   toPath,
   toFirstCharUpperCase,
-  generateIndex
+  generateIndex,
+  generateStringId,
 };
 

@@ -16,7 +16,7 @@ export const InnovationCoverWinContent: FC<IInnovationCoverWinContentProps> = ( 
   let relativePath = `${ versionMMP }/metadata/cover.png`;
 
   return (
-    <section className="win-content__innovation-cover win-innovation-cover-grid">
+    <section className="content__section win-content__innovation-cover win-innovation-cover-grid">
 
       <div className="win-innovation-cover-grid-item__cover">
         <DynamicGatsbyImage className="win-innovation-cover__cover" relativePath={relativePath} alt="cover"/>

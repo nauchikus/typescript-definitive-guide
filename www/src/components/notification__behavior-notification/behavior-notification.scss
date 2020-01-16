@@ -1,0 +1,17 @@
+.behavior-notification {
+  max-width: 88vw;
+  max-height: 320px;
+
+  width: 320px;
+  height: auto;
+
+  position: fixed;
+  left: 50%;
+  bottom: 16px;
+
+  transform:translateX(-50%);
+
+
+  z-index: 9999999999999;
+
+}

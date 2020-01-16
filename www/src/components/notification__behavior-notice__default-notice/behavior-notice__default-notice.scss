@@ -1,0 +1,31 @@
+.behavior-notice_default-notice {
+  color: var(--color_default-lite);
+
+  background-color: #2e2e2e;
+
+  border-radius: var(--app_border-radius-default);
+  padding: 16px;
+
+  transform: scale(.9);
+
+  transition: all .2s;
+}
+.behavior-notice_default-notice_opacity-container{
+  opacity: 1;
+
+  transition: opacity .2s;
+}
+.behavior-notice_default-notice_opacity-container_hidden{
+  opacity: 0;
+}
+.behavior-notice_default-notice_before-show{
+
+}
+.behavior-notice_default-notice_show{
+  transform: scale(1);
+}
+.behavior-notice_default-notice_hide {
+  transform: translateY(200%);
+
+  transition-delay: 2s;
+}

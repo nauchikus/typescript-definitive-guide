@@ -10,7 +10,7 @@ export const scrollGlobalObserver = fromEvent( window, `scroll` ).pipe( share() 
 
 const getAppContentSections = () => document
   ?.querySelector( `main` )
-  ?.querySelectorAll( `section` );
+  ?.querySelectorAll( `section.content__section` );
 
 export interface IIntersectionObserverEntryInfo {
   sectionId:string;

@@ -3,9 +3,17 @@
 @import "../../layouts/content-layout/content-layout";
 
 
+@import "../../components/content__under-cover-bar/content-under-cover-bar";
+@import "../../components/content__section-informer/conetnt-section-informer";
 @import "../../components/content__aside-bar/conetnt-aside-bar";
 @import "../../components/content__down-panel/conetnt-down-panel";
 @import "../../components/content__base-content/content-base-content";
 @import "../../components/win__content/win-content";
 @import "../../components/content__aside-bar_control/content-bar-control";
 @import "../../components/win__content_innovation-cover/win-content-innovation-cover";
+@import "../../components/dropdown/dropdown";
+@import "../../components/social-network__share/social-network-share";
+@import "../../components/button__link-button/link-button";
+@import "../../components/notification__behavior-notification/behavior-notification";
+@import "../../components/notification__behavior-notice__default-notice/behavior-notice__default-notice";
+@import "../../components/notification__behavior-notice__copy-link-default-notice/behavior-notice__copy-link-default-notice";

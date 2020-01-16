@@ -1,3 +1,4 @@
+import { observable } from "mobx";
 
 export enum ToggleUiState{
   Open = 'open',
@@ -39,12 +40,12 @@ export const getMenuInitialState = () => {
   return ToggleUiState.Open;
 };
 
-export const createToggleState = (initialState:ToggleUiState) => ( {
+export const createToggleState = ( initialState: ToggleUiState ) => observable( {
   state: initialState,
-  isOpen:initialState===ToggleUiState.Open,
-  isClose:initialState===ToggleUiState.Close,
-  isToggle:initialState===ToggleUiState.Open,
-  get invertState(){
+  isOpen: initialState === ToggleUiState.Open,
+  isClose: initialState === ToggleUiState.Close,
+  isToggle: initialState === ToggleUiState.Open,
+  get invertState () {
     return this.state === ToggleUiState.Open ?
       ToggleUiState.Close :
       ToggleUiState.Open;

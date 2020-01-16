@@ -13,6 +13,7 @@
 @import "../../styles/divide";
 
 /*ui*/
+@import "../../components/app__collapse-informer-rotator/app-collapse-informer-rotator";
 @import "../../components/outside-click/outside-click";
 @import "../../components/ripple-layer/ripple-layer";
 @import "../../components/dropdown/dropdown";
@@ -22,8 +23,8 @@
 @import "../../components/app-bar/app-bar-dropdown";
 @import "../../components/transform__scale-container/scale-container";
 @import "../../components/button__scale-button/scale-button";
-@import "../../components/css-icon__search-reset-css-icon/search-reset-css-icon";
-@import "../../components/css-icon__three-dots-animated-css-icon/three-dots-animated-css-icon";
+@import "../../components/icon__css-icon__search-reset-css-icon/search-reset-css-icon";
+@import "../../components/icon__css-icon__three-dots-animated-css-icon/three-dots-animated-css-icon";
 @import "../../components/book-toc-tree-item/book-toc-tree-item";
 
 
@@ -31,10 +32,12 @@
 @import "../../components/app-menu-buttons/app-menu-buttons";
 
 
+@import "../../components/icon__css-icon__informer-content-icon/css-icon__informer-content-icon";
+@import "../../components/icon__css-icon__informer-content-icon/informer-content-icons";
 @import "../../components/app-header/app-header";
 @import "../../components/app-header/app-header.grid";
 @import "../../components/search/search";
-@import "../../components/svg-icon/svg-icon";
+@import "../../components/icon__svg-icon/svg-icon";
 @import "../../components/icon-button/icon-button";
 @import "../../components/main-nav-animated-css-icon/main-nav-animated-css-icon";
 @import "../../components/menu-animated-css-icon/menu-animated-css-icon";
@@ -42,6 +45,9 @@
 @import "../../components/app-bar/app-bar";
 @import "../../components/adaptive-menu-button-link/adaptive-menu-button-link";
 @import "../../components/donate-button/donate-button";
+@import "../../components/informer__danate-informer/donate-informer";
+@import "../../components/informer__win-search-copywriters-informer/win-search-copywriters-informer";
+@import "../../components/button__colapse-informer-close-button/collapse-informer-close-button";
 
 
 h1,h2,h3,h4,h5,h6{

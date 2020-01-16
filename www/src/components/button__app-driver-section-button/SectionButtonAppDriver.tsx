@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import { ForwardArrowSvgIcon } from "../svg-icon/svg-icons";
+import { ForwardArrowSvgIcon } from "../icon__svg-icon/svg-icons";
 
 interface ISectionButtonAppDriver {
   label:string;

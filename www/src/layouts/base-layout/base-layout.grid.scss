@@ -7,10 +7,15 @@
   display:grid;
 
   grid-template-columns: 1fr;
-  grid-template-rows: var(--app-header_height) 1fr;
+  grid-template-rows: auto var(--app-header_height) 1fr;
   grid-template-areas:
+          "collapse-informer"
           "header"
           "content";
+}
+
+.app-grid-item__collapsed-informer{
+  grid-area: collapse-informer;
 }
 .app-grid-item__header {
   max-width: 100vw;

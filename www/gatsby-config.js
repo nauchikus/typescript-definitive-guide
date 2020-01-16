@@ -6,6 +6,8 @@ const path = require( 'path' );
 const { CustomGatsbyNodeType } = require( './plugins/gatsby-node-types' );
 const { FilesystemSourceName } = require( './plugins/filesystem-gatsby-node-types' );
 
+
+
 const getPlugins = locale => ( [
   {
     resolve: `gatsby-transformer-app-localization`,

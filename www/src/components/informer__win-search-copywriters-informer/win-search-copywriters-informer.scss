@@ -1,0 +1,51 @@
+@import "../../styles/app-vars";
+@import "../../styles/breakpoints";
+
+.win-search-copywrites-informer {
+  min-height: 72px;
+  background-color: dodgerblue;
+
+  padding: 24px 24px 32px 24px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+
+  @include media-breakpoint-up(sm){
+    padding: 24px 24px 24px 24px;
+  }
+}
+
+.win-search-copywrites__informer_text-wrapper{
+
+}
+
+.win-search-copywrites-informer__textfield{
+  color:white;
+
+  text-align: center;
+  //font-size:1.3rem;
+}
+.win-search-copywrites-informer__link-button{
+  color:white;
+
+  //background-color: rgba(0,0,0,.1);
+  background-color: var(--button_bg_color_balck-rgba_default);
+
+  border-radius: var(--button_border-radius);
+
+  padding: 8px;
+
+  margin: 0 0 0 16px;
+
+  &:hover{
+    background-color: var(--button_bg_color_balck-rgba_default_hover);
+  }
+
+
+
+  @media all and (max-width: 869px){
+    margin-top:16px;
+  }
+}

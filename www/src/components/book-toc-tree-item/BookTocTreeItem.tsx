@@ -7,7 +7,7 @@ import * as StringUtils from "../../utils/string-utils";
 import { useTranslator } from "../../react__hooks/translator.hook";
 import { AppLocalization, BookTocGuiLocalization, LocalizationPaths } from "../../localization";
 import { IconButton, Size } from "../icon-button/IconButton";
-import { ArrowDownSvgIcon, LinkSvgIcon } from "../svg-icon/svg-icons";
+import { ArrowDownSvgIcon, LinkSvgIcon } from "../icon__svg-icon/svg-icons";
 import { RotateContainer } from "../transform__rotate-container/RotateContainer";
 import { useBookTocStores } from "../../mobx/MobxBookTocProvider";
 import { BookTocNode, TreeNode } from "../../stores/BookTocTreeStore";

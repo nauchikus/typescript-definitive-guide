@@ -13,6 +13,8 @@ import ArrowDownNativeSvgIcon from '../../../assets/icon__svg/baseline-keyboard_
 import ArrowUpNativeSvgIcon from '../../../assets/icon__svg/baseline-keyboard_arrow_up-24px.svg';
 import ArrowBeforeNativeSvgIcon from '../../../assets/icon__svg/baseline-navigate_before-24px.svg';
 import ArrowNextNativeSvgIcon from '../../../assets/icon__svg/baseline-navigate_next-24px.svg';
+import CloseNativeSvgIcon from '../../../assets/icon__svg/baseline-close-24px.svg';
+import EditNativeSvgIcon from '../../../assets/icon__svg/iconmonstr-edit-9.svg';
 
 interface ISvgIconProps {
   className?:string;
@@ -84,5 +86,15 @@ export const ArrowBeforeSvgIcon:FC<ISvgIconProps>=({className}) => (
 export const ArrowNextSvgIcon:FC<ISvgIconProps>=({className}) => (
   <svg className={className?`svg-icon ${className}`:`svg-icon`} width={24} height={24} viewBox="0 0 24 24">
     <use xlinkHref={ `#${ ArrowNextNativeSvgIcon.id }` }/>
+  </svg>
+);
+export const CloseSvgIcon:FC<ISvgIconProps>=({className}) => (
+  <svg className={className?`svg-icon ${className}`:`svg-icon`} width={24} height={24} viewBox="0 0 24 24">
+    <use xlinkHref={ `#${ CloseNativeSvgIcon.id }` }/>
+  </svg>
+);
+export const EditSvgIcon:FC<ISvgIconProps>=({className}) => (
+  <svg className={className?`svg-icon ${className}`:`svg-icon`} width={24} height={24} viewBox="0 0 24 24">
+    <use xlinkHref={ `#${ EditNativeSvgIcon.id }` }/>
   </svg>
 );

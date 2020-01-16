@@ -1,5 +1,5 @@
 import React, { FC, FormEvent, useRef } from "react";
-import { MagnifierSvgIcon, SearchSvgIcon } from "../svg-icon/svg-icons";
+import { MagnifierSvgIcon, SearchSvgIcon } from "../icon__svg-icon/svg-icons";
 import { useShareStores } from "../../mobx";
 import { observer } from "mobx-react-lite";
 import { OutsideClick } from "../outside-click/OutsideClick";

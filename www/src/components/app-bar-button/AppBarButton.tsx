@@ -1,7 +1,7 @@
 import React, { FC, ReactElement } from "react";
 import { AdaptiveMenuButtonLink } from "../adaptive-menu-button-link/AdaptiveMenuButtonLink";
 import { ScaleContainer, ScaleContainerProvider } from "../transform__scale-container/ScaleContainer";
-import { PdfSvgIcon } from "../svg-icon/svg-icons";
+import { PdfSvgIcon } from "../icon__svg-icon/svg-icons";
 import { Tooltip, TooltipPosition } from "../tooltip/Tooltip";
 
 interface IAppBarButtonProps {

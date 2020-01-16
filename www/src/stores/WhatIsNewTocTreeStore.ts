@@ -1,6 +1,7 @@
 import { createToggleState, ToggleUiState } from "./AppStateService";
 import { createToggle } from "../utils/toggle";
 import { IWhatIsNewToc, IWhatIsNewTocInnovation, IWhatIsNewTocVersionStatus } from "../types/IWhatIsNewToc";
+import { observable } from "mobx";
 
 
 export interface TreeNode<T> {
@@ -25,7 +26,7 @@ export const createWhatIsNewTocTree=<T>(tree:TreeNode<IWhatIsNewToc>[],isCollaps
   // }, new Map<string, number>() );
 
 
-  return ( {
+  let store=observable({
     tree,
     isCollapseAll,
     showTocWithSectionName: BOOK_TOC_SECTION_NAME_ALL,
@@ -63,7 +64,8 @@ export const createWhatIsNewTocTree=<T>(tree:TreeNode<IWhatIsNewToc>[],isCollaps
         .find( item => item.data.versionMMP === versionMMP )
         ?.data.innovations;
     }
-  } );
+  })
+  return store;
 };
 
 

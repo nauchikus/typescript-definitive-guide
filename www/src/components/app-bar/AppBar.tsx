@@ -6,7 +6,7 @@ import { GithubAppMenuButton, PdfAppMenuButton, TelegramAppMenuButton } from "..
 import { Dropdown } from "../dropdown/Dropdown";
 import { useShareStores } from "../../mobx";
 import { DropdownMenu } from "../dropdown/DropdownMenu";
-import { ThreeDotsAnimatedCssIcon } from "../css-icon__three-dots-animated-css-icon/ThreeDotsAnimatedCssIcon";
+import { ThreeDotsAnimatedCssIcon } from "../icon__css-icon__three-dots-animated-css-icon/ThreeDotsAnimatedCssIcon";
 import { observer } from "mobx-react-lite";
 
 interface IAppBarProps {

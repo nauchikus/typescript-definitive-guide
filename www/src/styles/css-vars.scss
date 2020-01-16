@@ -35,6 +35,9 @@
   --color_dark_hover:#{$color_dark_hover};
   --color_darkmiddle_rgba:#{$color_darkmiddle_rgba};
 
+  --link_color_default:rgba(0,0,255,.9);
+  --link_color_default_hover:rgba(0,0,255,1);
+
   /*color__font*/
   --font_color_dark_60:#{$color_dark_60};
 
@@ -50,6 +53,11 @@
   --content-layout_max-width:#{$content-layout__center-layout_width};
   --content-layout_padding_x:#{$padding_48};
   --content-layout_padding_y:#{$padding_48};
+
+
+  --contributor__avatar_default-contributor_size:24px;
+  --contributor__avatar_creator-contributor_size:32px;
+
   @media all and (min-width: $content-layout__center-layout_width){
     --content-layout_padding_x:#{$padding_96};
     --content-layout_padding_y:#{$padding_48};
@@ -96,7 +104,7 @@
   --content__section_cover_padding-top:24px;
   --content__section_cover_padding-bottom:0;
   --content__section_cover_margin-bottom:0;
-  --content__section_padding-top:96px;
+  --content__section_padding-top:72px;
   --content__section_padding-bottom:0;
 
   @include media-breakpoint-up(sm){
@@ -153,6 +161,9 @@
   --button_bg_color-default: #{$color_darklite};
   --button_color-default_hover: #{$color_darklite};
   --button_border-radius: 5px;
+
+  --button_bg_color_balck-rgba_default:rgba(0,0,0,0.1);
+  --button_bg_color_balck-rgba_default_hover:rgba(0,0,0,0.12);
 
   --flat-button_color:#{$color_darklite};
   --flat-button_color_hover:#{$color_darklite_hover};

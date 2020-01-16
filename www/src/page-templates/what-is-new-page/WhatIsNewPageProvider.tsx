@@ -33,23 +33,22 @@ const WhatIsNewPageProvider: FC<IWhatIsNewPageProviderProps> = ( { pageContext }
     let winStoresRef = useRef<UseWhatIsNewStores>( createWhatIsNewPageGuiStores( {
         winTocTree
     } ) );
-    let winStores = useLocalStore( () => winStoresRef.current );
 
 
     return (
-        <MobxWhatIsNewContext.Provider value={winStores}>
-            <PageNavDataContext.Provider value={pageNavDataAll}>
-                <Localization.Provider value={localization}>
-                    <BaseLayout>
-                        <SEO/>
-                        <WinDataContext.Provider value={innovationData}>
-                            <WhatIsNewPage/>
-                        </WinDataContext.Provider>
-                    </BaseLayout>
-                </Localization.Provider>
-            </PageNavDataContext.Provider>
-        </MobxWhatIsNewContext.Provider>
-    )
+      <MobxWhatIsNewContext.Provider value={ winStoresRef.current }>
+          <PageNavDataContext.Provider value={ pageNavDataAll }>
+              <Localization.Provider value={ localization }>
+                  <BaseLayout>
+                      <SEO/>
+                      <WinDataContext.Provider value={ innovationData }>
+                          <WhatIsNewPage/>
+                      </WinDataContext.Provider>
+                  </BaseLayout>
+              </Localization.Provider>
+          </PageNavDataContext.Provider>
+      </MobxWhatIsNewContext.Provider>
+    );
 };
 
 export default WhatIsNewPageProvider

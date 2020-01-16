@@ -3,12 +3,13 @@ import { InnovationCoverWinContent } from "../win__content_innovation-cover/Inno
 import { InnovationListWinContent } from "../win__content__innovation-list/InnovationListWinContent";
 import { AsideBarContent } from "../content__aside-bar/AsideBarContent";
 import { IconButton } from "../icon-button/IconButton";
-import { ArrowBeforeSvgIcon, ArrowDownSvgIcon, ArrowNextSvgIcon, ArrowUpSvgIcon } from "../svg-icon/svg-icons";
+import { ArrowBeforeSvgIcon, ArrowDownSvgIcon, ArrowNextSvgIcon, ArrowUpSvgIcon } from "../icon__svg-icon/svg-icons";
 import {
   LeftControlWinContentBar,
   RightControlWinContentBar
 } from "../content__aside-bar_win-control-all/ControlWinContentBar";
 import { DownPanelContent } from "../content__down-panel/DownPanelContent";
+import { ContentUnderCoverBar } from "../content__under-cover-bar/ContentUnderCoverBar";
 
 interface IWinContentProps {
 
@@ -22,6 +23,7 @@ export const WinContent: FC<IWinContentProps> = ( { children } ) => {
       </AsideBarContent>
       <main>
         <InnovationCoverWinContent/>
+        <ContentUnderCoverBar/>
         <InnovationListWinContent/>
       </main>
       <AsideBarContent className="content__aside-bar_right">

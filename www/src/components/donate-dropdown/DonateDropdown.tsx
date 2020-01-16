@@ -1,7 +1,7 @@
 import React, { FC } from "react";
 import { DropdownToggle } from "../dropdown/DropdownToggle";
 import { DonateButton } from "../donate-button/DonateButton";
-import { BrickwallSvgIcon, DonateSvgIcon, ForwardArrowSvgIcon } from "../svg-icon/svg-icons";
+import { BrickwallSvgIcon, DonateSvgIcon, ForwardArrowSvgIcon } from "../icon__svg-icon/svg-icons";
 import { DropdownMenu } from "../dropdown/DropdownMenu";
 import { GatsbyImage } from "../image";
 import { Dropdown } from "../dropdown/Dropdown";

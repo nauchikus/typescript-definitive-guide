@@ -1,6 +1,6 @@
 import { AdaptiveMenuButtonLink } from "../adaptive-menu-button-link/AdaptiveMenuButtonLink";
 import { ScaleContainer, ScaleContainerProvider } from "../transform__scale-container/ScaleContainer";
-import { GithubSvgIcon, PdfSvgIcon, TelegramSvgIcon } from "../svg-icon/svg-icons";
+import { GithubSvgIcon, PdfSvgIcon, TelegramSvgIcon } from "../icon__svg-icon/svg-icons";
 import React, { FC } from "react";
 import { Tooltip, TooltipPosition } from "../tooltip/Tooltip";
 import { MainNavAnimatedCssIcon } from "../main-nav-animated-css-icon/MainNavAnimatedCssIcon";
