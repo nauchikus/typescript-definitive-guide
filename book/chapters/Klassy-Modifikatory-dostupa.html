@@ -14,25 +14,27 @@
 <p>В <em>TypeScript</em> существует три модификатора доступа, указывающихся с помощью ключевых слов <code class="inline-code">public</code>, <code class="inline-code">protected</code> и <code class="inline-code">private</code>. Влияние модификаторов доступа ограничивается <em>TypeScript</em> и после компиляции от них не остается и следа. Кроме того, в скомпилированном коде нет никакой разницы между членами, к которым были применены те или иные модификаторы доступа.</p>
 <p>С помощью модификаторов доступа можно указать уровень доступа для полей, аксессоров и методов, в том числе статических. Кроме того, в <em>TypeScript</em> при помощи модификаторов доступа можно ограничивать доступ к конструктору класса.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">class</span> Animal {
-  <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> DEFAULT_NICKNAME: <span class="hljs-built_in">string</span> = <span class="hljs-string">'animal'</span>;
-  <span class="hljs-keyword">protected</span> <span class="hljs-keyword">static</span> inputInfoDecor( text: <span class="hljs-built_in">string</span> ): <span class="hljs-built_in">string</span> {
-      <span class="hljs-keyword">return</span> <span class="hljs-string">`[object <span class="hljs-subst">${ text }</span>]`</span>;
-  }
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> DEFAULT_NICKNAME: <span class="hljs-built_in">string</span> = <span class="hljs-string">'animal'</span>;
 
-  <span class="hljs-keyword">private</span> _nickname: <span class="hljs-built_in">string</span> = Animal.DEFAULT_NICKNAME;
+    <span class="hljs-keyword">protected</span> <span class="hljs-keyword">static</span> inputInfoDecor(text: <span class="hljs-built_in">string</span>): <span class="hljs-built_in">string</span> {
+        <span class="hljs-keyword">return</span> <span class="hljs-string">`[object <span class="hljs-subst">${text}</span>]`</span>;
+    }
+    
+    <span class="hljs-keyword">private</span> _nickname: <span class="hljs-built_in">string</span> = Animal.DEFAULT_NICKNAME;
+    
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">get</span> nickname(): <span class="hljs-built_in">string</span> {
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>._nickname;
+    }
 
-  <span class="hljs-keyword">public</span> <span class="hljs-keyword">get</span> nickname(): <span class="hljs-built_in">string</span> {
-      <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>._nickname;
-  }
-  <span class="hljs-keyword">public</span> <span class="hljs-keyword">set</span> nickname( value: <span class="hljs-built_in">string</span> ){
-      <span class="hljs-keyword">this</span>._nickname = value;
-  }
-
-  <span class="hljs-keyword">public</span> <span class="hljs-keyword">constructor</span>(<span class="hljs-params"></span>){}
- 
-  <span class="hljs-keyword">public</span> toString(): <span class="hljs-built_in">string</span> {
-      <span class="hljs-keyword">return</span> Animal.inputInfoDecor( <span class="hljs-string">'Animal'</span> );
-  }
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">set</span> nickname(value: <span class="hljs-built_in">string</span>){
+        <span class="hljs-keyword">this</span>._nickname = value;
+    }
+    
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">constructor</span>(<span class="hljs-params"></span>) {}
+    
+    <span class="hljs-keyword">public</span> toString(): <span class="hljs-built_in">string</span> {
+        <span class="hljs-keyword">return</span> Animal.inputInfoDecor(<span class="hljs-string">'Animal'</span>);
+    }
 }</code></pre>
 </section><section id="Modifikator-dostupa-public-publichnyi" name="Модификатор доступа public (публичный)" class="subchapter">
             <h2 class="subchapter-title">
@@ -48,15 +50,15 @@
 <p>Члены помеченные ключевым словом <code class="inline-code">public</code> доступны как в классах, в которых они объявлены, так и в классах-потомках. Также к публичным членам можно обращаться через экземпляры класса.</p>
 <p>Если при разработке приложения особое внимание уделяется архитектуре, то, как правило, модификатором доступа <code class="inline-code">public</code> помечаются только члены, описанные в интерфейсе (глава <a class="book__chapter__chapter-link" href="/book/contents/Tipy-Interface" title="Типы - Interface" target="_blank">Типы - Interface</a>).</p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">class</span> Animal {
-  <span class="hljs-keyword">public</span> nickname: <span class="hljs-built_in">string</span>;
-
-  <span class="hljs-keyword">constructor</span>(<span class="hljs-params"></span>){
-      <span class="hljs-keyword">this</span>.nickname = <span class="hljs-string">'animal'</span>;
-  }
+    <span class="hljs-keyword">public</span> nickname: <span class="hljs-built_in">string</span>;
+    
+    <span class="hljs-keyword">constructor</span>(<span class="hljs-params"></span>) {
+        <span class="hljs-keyword">this</span>.nickname = <span class="hljs-string">'animal'</span>;
+    }
 }
 
 <span class="hljs-keyword">class</span> Bird <span class="hljs-keyword">extends</span> Animal {
-  <span class="hljs-keyword">constructor</span>(<span class="hljs-params"></span>){
+  <span class="hljs-keyword">constructor</span>(<span class="hljs-params"></span>) {
       <span class="hljs-keyword">super</span>();
       <span class="hljs-keyword">super</span>.nickname = <span class="hljs-string">'bird'</span>;
   }
@@ -66,12 +68,10 @@
 animal.nickname = <span class="hljs-string">'newanimal'</span>;
 
 <span class="hljs-keyword">let</span> bird: Bird = <span class="hljs-keyword">new</span> Bird();
-bird.nickname = <span class="hljs-string">'newbird'</span>;
-<span class="hljs-comment">// Члены, у которых отсутствует указание какого-либо модификатора доступа, воспринимаются компилятором как public.</span>
-
-
-<span class="hljs-keyword">class</span> Animal {
- nickname: <span class="hljs-built_in">string</span>; <span class="hljs-comment">// is equal public nickname: string</span>
+bird.nickname = <span class="hljs-string">'newbird'</span>;</code></pre>
+<p>Члены, у которых отсутствует указание какого-либо модификатора доступа, воспринимаются компилятором как public:</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">class</span> Animal {
+ nickname: <span class="hljs-built_in">string</span>; <span class="hljs-comment">// эквивалентно public nickname: string</span>
 }</code></pre>
 </section><section id="Modifikator-dostupa-private-zakrytyi-ili-skrytyi" name="Модификатор доступа private (закрытый или скрытый)" class="subchapter">
             <h2 class="subchapter-title">
@@ -87,18 +87,18 @@ bird.nickname = <span class="hljs-string">'newbird'</span>;
 <p>Модификатор доступа <code class="inline-code">private</code> является полной противоположностью модификатору доступа <code class="inline-code">public</code>. Члены, помеченные с помощью ключевого слова <code class="inline-code">private</code>, доступны только контексту класса, в котором они объявлены.</p>
 <p>Чем меньше окружающему миру известно о внутреннем устройстве классов, тем меньше оно взаимодействует с ним. Взаимодействия программы с объектом называют <em>сопряжением</em> (coupling), уровень которого варьируется от сильного до слабого. <em>Слабое сопряжение</em> (loose coupling) является признаком качественной архитектуры программы. Этот факт подталкивает скрывать как можно больше информации при проектировании программы. В языках программирования, в которых существуют модификаторы доступа, скрывать различные конструкции принято с помощью модификатора <code class="inline-code">private</code>.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">class</span> Animal {
- <span class="hljs-keyword">private</span> metainfo: <span class="hljs-built_in">string</span>;
-
- <span class="hljs-keyword">constructor</span>(<span class="hljs-params"></span>){
-     <span class="hljs-keyword">this</span>.metainfo = <span class="hljs-string">'...'</span>;
- }
+    <span class="hljs-keyword">private</span> metainfo: <span class="hljs-built_in">string</span>;
+    
+    <span class="hljs-keyword">constructor</span>(<span class="hljs-params"></span>) {
+        <span class="hljs-keyword">this</span>.metainfo = <span class="hljs-string">'...'</span>;
+    }
 }
 
 <span class="hljs-keyword">class</span> Bird <span class="hljs-keyword">extends</span> Animal {
- <span class="hljs-keyword">constructor</span>(<span class="hljs-params"></span>){
-     <span class="hljs-keyword">super</span>();
-     <span class="hljs-keyword">super</span>.metainfo = <span class="hljs-string">'bird'</span>; <span class="hljs-comment">// Error</span>
- }
+    <span class="hljs-keyword">constructor</span>(<span class="hljs-params"></span>) {
+        <span class="hljs-keyword">super</span>();
+        <span class="hljs-keyword">super</span>.metainfo = <span class="hljs-string">'bird'</span>; <span class="hljs-comment">// Error</span>
+    }
 }
 
 <span class="hljs-keyword">let</span> animal: Animal = <span class="hljs-keyword">new</span> Animal();
@@ -117,21 +117,21 @@ bird.metainfo = <span class="hljs-string">'newbird'</span>; <span class="hljs-co
             </h2>
         
 <hr>
-<p>Члены, которым установлен модификатор доступа <code class="inline-code">protected</code>, доступны только контексту класса, в котором они объявлены, а также всем его потомкам. Попытка обратится к членам, помеченным как <code class="inline-code">protected</code>, снаружи, приведет к возникновению ошибки.</p>
+<p>Члены, которым установлен модификатор доступа <code class="inline-code">protected</code>, доступны только контексту класса, в котором они объявлены, а также всем его потомкам. Попытка обратится к членам, помеченным как <code class="inline-code">protected</code> снаружи, приведет к возникновению ошибки.</p>
 <p>Как правило, при современной разработке упор делается только на два вида модификаторов доступа - <code class="inline-code">public</code> и <code class="inline-code">private</code>. Но, в редких случаях, по сценарию может возникнуть необходимость обращаться к членам своего суперкласса в подклассах, которые, при этом, должны быть скрыты от окружающего мира. В таких случаях члены помечают как <code class="inline-code">protected</code>.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">class</span> Animal {
-  <span class="hljs-keyword">protected</span> isUpdate: <span class="hljs-built_in">boolean</span>;
-
-  <span class="hljs-keyword">constructor</span>(<span class="hljs-params"></span>){
-      <span class="hljs-keyword">this</span>.isUpdate = <span class="hljs-literal">false</span>;
-  }
+    <span class="hljs-keyword">protected</span> isUpdate: <span class="hljs-built_in">boolean</span>;
+    
+    <span class="hljs-keyword">constructor</span>(<span class="hljs-params"></span>) {
+        <span class="hljs-keyword">this</span>.isUpdate = <span class="hljs-literal">false</span>;
+    }
 }
 
 <span class="hljs-keyword">class</span> Bird <span class="hljs-keyword">extends</span> Animal {
-  <span class="hljs-keyword">constructor</span>(<span class="hljs-params"></span>){
-      <span class="hljs-keyword">super</span>();
-      <span class="hljs-keyword">super</span>.isUpdate = <span class="hljs-literal">false</span>;
-  }
+    <span class="hljs-keyword">constructor</span>(<span class="hljs-params"></span>) {
+        <span class="hljs-keyword">super</span>();
+        <span class="hljs-keyword">super</span>.isUpdate = <span class="hljs-literal">false</span>;
+    }
 }
 
 <span class="hljs-keyword">let</span> animal: Animal = <span class="hljs-keyword">new</span> Animal();
@@ -152,80 +152,76 @@ bird.isUpdate = <span class="hljs-literal">true</span>; <span class="hljs-commen
 <hr>
 <p>В <em>TypeScript</em> существует возможность управлять доступом конструкторов. Конструктор, который не отмечен ни одним модификатором доступа, эквивалентен конструктору, помеченным как <code class="inline-code">public</code>.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">class</span> A {
-  <span class="hljs-keyword">public</span> <span class="hljs-keyword">constructor</span>(<span class="hljs-params"></span>){} <span class="hljs-comment">// access modifier public explicitly set</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">constructor</span>(<span class="hljs-params"></span>) {} <span class="hljs-comment">// модификатор public установлен явно</span>
 }
 
 <span class="hljs-keyword">class</span> B {
-  <span class="hljs-keyword">constructor</span>(<span class="hljs-params"></span>){} <span class="hljs-comment">// access modifier public is not set explicitly</span>
+    <span class="hljs-keyword">constructor</span>(<span class="hljs-params"></span>) {} <span class="hljs-comment">// модификатор public установлен не явно</span>
 }</code></pre>
-<p>В случаях, когда класс состоит только из статических свойств и методов, как, например, класс <code class="inline-code">Math</code>, его конструктор можно пометить, как приватный, тем самым запретить создавать его экземпляры.</p>
+<p>Если класс состоит только из статических свойств и методов, как например класс <code class="inline-code">Math</code>, то его конструктор можно пометить как приватный, тем самым запретив создавать его экземпляры.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">class</span> AnimalUtil {
-   <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> MS_TO_DAY: <span class="hljs-built_in">number</span> = <span class="hljs-number">1000</span> * <span class="hljs-number">60</span> * <span class="hljs-number">60</span> * <span class="hljs-number">24</span>;
-
-   <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> ageFromMsToDayFormat( time: <span class="hljs-built_in">number</span> ): <span class="hljs-built_in">number</span> { 
-       <span class="hljs-keyword">return</span> <span class="hljs-built_in">Math</span>.ceil( time / AnimalUtil.MS_TO_DAY );
-   }
-
-   <span class="hljs-keyword">private</span> <span class="hljs-keyword">constructor</span>(<span class="hljs-params"></span>) { };
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> MS_TO_DAY: <span class="hljs-built_in">number</span> = <span class="hljs-number">1000</span> * <span class="hljs-number">60</span> * <span class="hljs-number">60</span> * <span class="hljs-number">24</span>;
+    
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> ageFromMsToDayFormat(time: <span class="hljs-built_in">number</span>): <span class="hljs-built_in">number</span> { 
+        <span class="hljs-keyword">return</span> <span class="hljs-built_in">Math</span>.ceil(time / AnimalUtil.MS_TO_DAY);
+    }
+    
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">constructor</span>(<span class="hljs-params"></span>) {};
 }
 
 <span class="hljs-keyword">class</span> Animal {
-   <span class="hljs-keyword">private</span> _timeOfBirth: <span class="hljs-built_in">number</span> = <span class="hljs-built_in">Date</span>.now();
-
-   <span class="hljs-keyword">public</span> <span class="hljs-keyword">get</span> age(): <span class="hljs-built_in">number</span> {
-       <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>._timeOfBirth - <span class="hljs-built_in">Date</span>.now();
-   }
-
-   <span class="hljs-keyword">public</span> <span class="hljs-keyword">constructor</span>(<span class="hljs-params"></span>) {}
+    <span class="hljs-keyword">private</span> _timeOfBirth: <span class="hljs-built_in">number</span> = <span class="hljs-built_in">Date</span>.now();
+    
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">get</span> age(): <span class="hljs-built_in">number</span> {
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>._timeOfBirth - <span class="hljs-built_in">Date</span>.now();
+    }
+    
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">constructor</span>(<span class="hljs-params"></span>) {}
 }
 
 <span class="hljs-keyword">let</span> animal: Animal = <span class="hljs-keyword">new</span> Animal();
 <span class="hljs-keyword">let</span> age: <span class="hljs-built_in">number</span> = AnimalUtil.ageFromMsToDayFormat(animal.age);
 
-<span class="hljs-comment">// нельзя создать экземпляр</span>
-<span class="hljs-keyword">let</span> util = <span class="hljs-keyword">new</span> AnimalUtil(); <span class="hljs-comment">// compilation error</span></code></pre>
+<span class="hljs-keyword">let</span> util = <span class="hljs-keyword">new</span> AnimalUtil(); <span class="hljs-comment">// Ошибка при компиляции, нельзя создать экземпляр</span></code></pre>
 <p>Кроме того, класс, у которого конструктор объявлен с модификатором доступа <code class="inline-code">private</code>, нельзя расширять (<code class="inline-code">extends</code>). </p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">class</span> AnimalUtil {
-   <span class="hljs-comment">// ...</span>
-
-   <span class="hljs-keyword">private</span> <span class="hljs-keyword">constructor</span>(<span class="hljs-params"></span>) { };
+    <span class="hljs-comment">// ...</span>
+    
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">constructor</span>(<span class="hljs-params"></span>) {};
 }
 
-<span class="hljs-comment">// нельзя расширить класс конструктор которого имеет модификатор доступа private</span>
-<span class="hljs-keyword">class</span> AnimalStringUtil <span class="hljs-keyword">extends</span> AnimalUtil { } <span class="hljs-comment">// compilation error</span></code></pre>
+<span class="hljs-keyword">class</span> AnimalStringUtil <span class="hljs-keyword">extends</span> AnimalUtil {} <span class="hljs-comment">// Ошибка</span></code></pre>
 <p>Класс, в котором конструктор объявлен с модификатором доступа <code class="inline-code">protected</code>, также, как и в случае с модификатором доступа <code class="inline-code">private</code>, не позволит создать свой экземпляр, но открыт для расширения (<code class="inline-code">extends</code>).</p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">class</span> Animal {
-  <span class="hljs-keyword">protected</span> <span class="hljs-keyword">constructor</span>(<span class="hljs-params"></span>){}
+    <span class="hljs-keyword">protected</span> <span class="hljs-keyword">constructor</span>(<span class="hljs-params"></span>) {}
 }
-
 
 <span class="hljs-comment">// можно наследоваться от класса с защищенным конструктором</span>
 <span class="hljs-keyword">class</span> Bird <span class="hljs-keyword">extends</span> Animal {
-  <span class="hljs-keyword">constructor</span>(<span class="hljs-params"> </span>){
-      <span class="hljs-keyword">super</span>( );
-  }
+    <span class="hljs-keyword">constructor</span>(<span class="hljs-params"></span>) {
+        <span class="hljs-keyword">super</span>();
+    }
 }
 
-<span class="hljs-keyword">let</span> animal: Animal = <span class="hljs-keyword">new</span> Animal(  ); <span class="hljs-comment">// Error</span>
-<span class="hljs-keyword">let</span> bird: Bird = <span class="hljs-keyword">new</span> Bird(  ); <span class="hljs-comment">// Ok</span></code></pre>
+<span class="hljs-keyword">let</span> animal: Animal = <span class="hljs-keyword">new</span> Animal(); <span class="hljs-comment">// Error</span>
+<span class="hljs-keyword">let</span> bird: Bird = <span class="hljs-keyword">new</span> Bird(); <span class="hljs-comment">// Ok</span></code></pre>
 <p>Тем не менее есть один нюанс. Не получится создать экземпляр подкласса, если он не переопределил конструктор суперкласса.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">class</span> Animal {
-  <span class="hljs-keyword">protected</span> <span class="hljs-keyword">constructor</span>(<span class="hljs-params"></span>){}
+    <span class="hljs-keyword">protected</span> <span class="hljs-keyword">constructor</span>(<span class="hljs-params"></span>) {}
 }
-
 
 <span class="hljs-comment">// потомок переопределяет конструктор предка</span>
 <span class="hljs-keyword">class</span> Bird <span class="hljs-keyword">extends</span> Animal {
-  <span class="hljs-keyword">constructor</span>(<span class="hljs-params"> </span>){
-      <span class="hljs-keyword">super</span>( );
-  }
+    <span class="hljs-keyword">constructor</span>(<span class="hljs-params"></span>) {
+        <span class="hljs-keyword">super</span>();
+    }
 }
 
 <span class="hljs-comment">// потомок не переопределяет конструктор предка</span>
 <span class="hljs-keyword">class</span> Fish <span class="hljs-keyword">extends</span> Animal {}
 
 <span class="hljs-keyword">let</span> bird: Bird = <span class="hljs-keyword">new</span> Bird(); <span class="hljs-comment">// Ok</span>
-<span class="hljs-keyword">let</span> fish: Fish = <span class="hljs-keyword">new</span> Fish(  ); <span class="hljs-comment">// Error</span></code></pre>
+<span class="hljs-keyword">let</span> fish: Fish = <span class="hljs-keyword">new</span> Fish(); <span class="hljs-comment">// Error</span></code></pre>
 </section><section id="Bystroe-obyavlenie-polei" name="Быстрое объявление полей" class="subchapter">
             <h2 class="subchapter-title">
                 <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="Bystroe-obyavlenie-polei" type="absolute-url">
@@ -238,68 +234,67 @@ bird.isUpdate = <span class="hljs-literal">true</span>; <span class="hljs-commen
         
 <hr>
 <p>В разработке очень часто используются классы, которые состоят только из открытых полей, ассоциированных со значениями, переданными в качестве аргументов при вызове конструктора.</p>
-<p>Помимо обычного способа объявления полей в теле класса с последующей инициализаций в конструкторе, существует сокращенный вариант.</p>
-<pre><code class="hljs language-typescript"><span class="hljs-keyword">class</span> BirdEntity { <span class="hljs-comment">// default</span>
-  <span class="hljs-keyword">public</span> name: <span class="hljs-built_in">string</span>;
-  <span class="hljs-keyword">public</span> age: <span class="hljs-built_in">number</span>;
-  <span class="hljs-keyword">public</span> isLife: <span class="hljs-built_in">boolean</span>;
+<p>Помимо обычного способа объявления полей в теле класса с последующей инициализацией в конструкторе, существует сокращенный вариант.</p>
+<p>Обычный способ:</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">class</span> BirdEntity {
+    <span class="hljs-keyword">public</span> name: <span class="hljs-built_in">string</span>;
+    <span class="hljs-keyword">public</span> age: <span class="hljs-built_in">number</span>;
+    <span class="hljs-keyword">public</span> isAlive: <span class="hljs-built_in">boolean</span>;
 
-   <span class="hljs-comment">// обычный способ инициализации полей класса</span>
-  <span class="hljs-keyword">constructor</span>(<span class="hljs-params"> name: <span class="hljs-built_in">string</span>, age: <span class="hljs-built_in">number</span>, isLife: <span class="hljs-built_in">boolean</span> </span>){
-      <span class="hljs-keyword">this</span>.name = name;
-      <span class="hljs-keyword">this</span>.age = age;
-      <span class="hljs-keyword">this</span>.isLife = isLife;
-  }
-}
-
-<span class="hljs-keyword">class</span> FishEntity { <span class="hljs-comment">// short</span>
-   <span class="hljs-comment">// сокращенный способ инициализации полей класса</span>
-  <span class="hljs-keyword">constructor</span>(<span class="hljs-params">
-      <span class="hljs-keyword">public</span> name: <span class="hljs-built_in">string</span>,
-      <span class="hljs-keyword">public</span> age: <span class="hljs-built_in">number</span>,
-      <span class="hljs-keyword">public</span> isLife: <span class="hljs-built_in">boolean</span>
-  </span>){}
+    <span class="hljs-keyword">constructor</span>(<span class="hljs-params">name: <span class="hljs-built_in">string</span>, age: <span class="hljs-built_in">number</span>, isAlive: <span class="hljs-built_in">boolean</span></span>){
+        <span class="hljs-keyword">this</span>.name = name;
+        <span class="hljs-keyword">this</span>.age = age;
+        <span class="hljs-keyword">this</span>.isAlive = isAlive;
+    }
 }</code></pre>
-<p>В сокращенном варианте поля не указываются в теле класса, а указываются только в конструкторе. При этом обязательным условием является указание одного из существующих модификатора доступа (либо модификатора <code class="inline-code">readonly</code>, о котором речь пойдет в главе <a class="book__chapter__chapter-link" href="/book/contents/Klassy-Modifikator-readonly" title="Классы - Модификатор readonly" target="_blank">Классы - Модификатор readonly</a>), без которого идентификатор является обычным параметром.</p>
-<pre><code class="hljs language-typescript"><span class="hljs-keyword">class</span> FishEntity { <span class="hljs-comment">// short</span>
-  <span class="hljs-keyword">constructor</span>(<span class="hljs-params">
-      <span class="hljs-keyword">public</span> name: <span class="hljs-built_in">string</span>, <span class="hljs-comment">// field</span>
-      <span class="hljs-keyword">public</span> age: <span class="hljs-built_in">number</span>, <span class="hljs-comment">// field</span>
-      isLife: <span class="hljs-built_in">boolean</span> <span class="hljs-comment">// param</span>
-  </span>){}
+<p>Сокращенный способ инициализации полей класса:</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">class</span> FishEntity { 
+    <span class="hljs-keyword">constructor</span>(<span class="hljs-params">
+        <span class="hljs-keyword">public</span> name: <span class="hljs-built_in">string</span>,
+        <span class="hljs-keyword">public</span> age: <span class="hljs-built_in">number</span>,
+        <span class="hljs-keyword">public</span> isAlive: <span class="hljs-built_in">boolean</span>
+    </span>) {}
+}</code></pre>
+<p>В сокращенном варианте поля не указываются в теле класса, а указываются только в конструкторе. При этом обязательным условием является указание одного из существующих модификаторов доступа (либо модификатора <code class="inline-code">readonly</code>, о котором речь пойдет в главе <a class="book__chapter__chapter-link" href="/book/contents/Klassy-Modifikator-readonly" title="Классы - Модификатор readonly" target="_blank">Классы - Модификатор readonly</a>), без которого идентификатор является обычным параметром.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">class</span> FishEntity {
+    <span class="hljs-keyword">constructor</span>(<span class="hljs-params">
+        <span class="hljs-keyword">public</span> name: <span class="hljs-built_in">string</span>, <span class="hljs-comment">// поле</span>
+        <span class="hljs-keyword">public</span> age: <span class="hljs-built_in">number</span>, <span class="hljs-comment">// поле</span>
+        isAlive: <span class="hljs-built_in">boolean</span> <span class="hljs-comment">// параметр</span>
+    </span>) {}
 }</code></pre>
 <p>При этом не существует строго заданного порядка, в котором должны объявляться параметры и сокращенное объявление полей.</p>
-<pre><code class="hljs language-typescript"><span class="hljs-keyword">class</span> FishEntity { <span class="hljs-comment">// short</span>
-  <span class="hljs-keyword">constructor</span>(<span class="hljs-params">
-      name: <span class="hljs-built_in">string</span>, <span class="hljs-comment">// param</span>
-      <span class="hljs-keyword">public</span> age: <span class="hljs-built_in">number</span>, <span class="hljs-comment">// field</span>
-      isLife: <span class="hljs-built_in">boolean</span> <span class="hljs-comment">// param</span>
-  </span>){}
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">class</span> FishEntity {
+    <span class="hljs-keyword">constructor</span>(<span class="hljs-params">
+        name: <span class="hljs-built_in">string</span>, <span class="hljs-comment">// параметр</span>
+        <span class="hljs-keyword">public</span> age: <span class="hljs-built_in">number</span>, <span class="hljs-comment">// поле</span>
+        isAlive: <span class="hljs-built_in">boolean</span> <span class="hljs-comment">// параметр</span>
+    </span>) {}
 }</code></pre>
 <p>Полям, объявленным в конструкторе, также, как и полям, объявленным в теле класса, можно устанавливать различные модификаторы доступа.</p>
-<pre><code class="hljs language-typescript"><span class="hljs-keyword">class</span> FishEntity { <span class="hljs-comment">// short</span>
-  <span class="hljs-keyword">constructor</span>(<span class="hljs-params">
-      <span class="hljs-keyword">public</span> name: <span class="hljs-built_in">string</span>,
-      <span class="hljs-keyword">protected</span> age: <span class="hljs-built_in">number</span>,
-      <span class="hljs-keyword">private</span> isLife: <span class="hljs-built_in">boolean</span>
-  </span>){}
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">class</span> FishEntity {
+    <span class="hljs-keyword">constructor</span>(<span class="hljs-params">
+        <span class="hljs-keyword">public</span> name: <span class="hljs-built_in">string</span>,
+        <span class="hljs-keyword">protected</span> age: <span class="hljs-built_in">number</span>,
+        <span class="hljs-keyword">private</span> isAlive: <span class="hljs-built_in">boolean</span>
+    </span>) {}
 }</code></pre>
-<p>При наличии у класса логики, обращение к полям, объявленным прямо в конструкторе, ничем не отличается от обращения к полям, объявленным в теле класса.</p>
-<pre><code class="hljs language-typescript"><span class="hljs-keyword">class</span> Animal { <span class="hljs-comment">// short</span>
-  <span class="hljs-keyword">constructor</span>(<span class="hljs-params">
-      <span class="hljs-keyword">public</span> name: <span class="hljs-built_in">string</span>,
-      <span class="hljs-keyword">protected</span> age: <span class="hljs-built_in">number</span>,
-      <span class="hljs-keyword">private</span> isLife: <span class="hljs-built_in">boolean</span>
-  </span>){}
+<p>Обращение к полям объявленным прямо в конструкторе ничем не отличается от обращения к полям, объявленным в теле класса.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">class</span> Animal {
+    <span class="hljs-keyword">constructor</span>(<span class="hljs-params">
+        <span class="hljs-keyword">public</span> name: <span class="hljs-built_in">string</span>,
+        <span class="hljs-keyword">protected</span> age: <span class="hljs-built_in">number</span>,
+        <span class="hljs-keyword">private</span> isAlive: <span class="hljs-built_in">boolean</span>
+    </span>) {}
 
-  <span class="hljs-keyword">public</span> dead(): <span class="hljs-built_in">void</span> {
-      <span class="hljs-keyword">this</span>.isLife = <span class="hljs-literal">false</span>;
-  }
+    <span class="hljs-keyword">public</span> dead(): <span class="hljs-built_in">void</span> {
+        <span class="hljs-keyword">this</span>.isAlive = <span class="hljs-literal">false</span>;
+    }
 }
 
 <span class="hljs-keyword">class</span> Bird <span class="hljs-keyword">extends</span> Animal {
-  <span class="hljs-keyword">public</span> toString(): <span class="hljs-built_in">string</span> {
-      <span class="hljs-keyword">return</span> <span class="hljs-string">`[bird <span class="hljs-subst">${ <span class="hljs-keyword">super</span>.name }</span>]`</span>;
-  }
+    <span class="hljs-keyword">public</span> toString(): <span class="hljs-built_in">string</span> {
+        <span class="hljs-keyword">return</span> <span class="hljs-string">`[bird <span class="hljs-subst">${<span class="hljs-keyword">super</span>.name}</span>]`</span>;
+    }
 }</code></pre>
 </section>
