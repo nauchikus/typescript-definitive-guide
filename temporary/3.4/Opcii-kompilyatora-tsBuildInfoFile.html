@@ -1,8 +1,0 @@
-<p>Для того чтобы задать место сохранения файла <code class="inline-code">.tsbuildinf</code>, в компилятор <em>TypeScript</em>  был добавлен флаг <code class="inline-code">--tsBuildInfoFile</code>.</p>
-<p><code class="inline-code">--tsBuildInfoFile</code> - флаг с помощью которого указывается местосохранения файла <code class="inline-code">.tsbuildinf</code> генерирующегося при активной опции <code class="inline-code">--incremental</code> и служущий для хранения метаинформации призванной ускорить последуюзщие сборки.</p>
-<pre><code class="hljs language-typescript">{
-    <span class="hljs-string">"compilerOptions"</span>: {
-        <span class="hljs-string">"incremental"</span>: <span class="hljs-literal">true</span>,
-        <span class="hljs-string">"tsBuildInfoFile"</span>: <span class="hljs-string">"./buildinfo"</span>,
-    }
-}</code></pre>
