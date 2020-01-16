@@ -2306,4 +2306,156 @@ f.bind(<span class="hljs-literal">null</span>, <span class="hljs-number">0</span
 <p><strong>type</strong>: <code class="inline-code">boolean</code>
 <strong>default</strong>: <code class="inline-code">false</code>
 <strong>values</strong>: <code class="inline-code">true</code>, <code class="inline-code">false</code></p>
+</section><section id="importsNotUsedAsValues" name="importsNotUsedAsValues" class="subchapter">
+            <h2 class="subchapter-title">
+                <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="importsNotUsedAsValues" type="absolute-url">
+                    <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <use href="#icon_link"/>
+                    </svg>
+                </button>
+                importsNotUsedAsValues
+            </h2>
+        
+<hr>
+<p><code class="inline-code">--importsNotUsedAsValues</code> - задает стратегию используемую компилятором для разрешения зависимостей модуля путем уточнения формы импорта и экспорта. Более подрбно о текущем флаге можно прочесть в главе "Импорт и экспорт только типа и флаг --importsNotUsedAsValues".</p>
+<pre><code class="hljs language-typescript">{
+    <span class="hljs-string">"compilerOptions"</span>: {
+        <span class="hljs-string">"importsNotUsedAsValues"</span>: <span class="hljs-string">"remove"</span>,
+    }
+}</code></pre>
+<p><strong>type</strong>: <code class="inline-code">string</code>
+<strong>default</strong>: <code class="inline-code">remove</code>
+<strong>values</strong>: <code class="inline-code">remove</code>, <code class="inline-code">preserve</code>, <code class="inline-code">error</code></p>
+</section><section id="assumeChangesOnlyAffectDirectDependencies" name="assumeChangesOnlyAffectDirectDependencies" class="subchapter">
+            <h2 class="subchapter-title">
+                <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="assumeChangesOnlyAffectDirectDependencies" type="absolute-url">
+                    <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <use href="#icon_link"/>
+                    </svg>
+                </button>
+                assumeChangesOnlyAffectDirectDependencies
+            </h2>
+        
+<hr>
+<p><code class="inline-code">--assumeChangesOnlyAffectDirectDependencies</code> - в режиме <code class="inline-code">--watch</code> + <code class="inline-code">--incremental</code> активация данной опции позволяет компилятору отказаться от перепроверок\перестраивания файлов, которые на основе метоинформации считаюся затронутыми. Вместо этого будет перепроверятся\перестраиваться только непосредственно именненые файлы и файлы их импортирующие.</p>
+<p>Представьте что <code class="inline-code">fileA.ts</code> импортирует <code class="inline-code">fileB.ts</code>, который импортирует <code class="inline-code">fileC.ts</code>, который импортирует <code class="inline-code">fileD.td</code>.</p>
+<p>При активном рижиме <code class="inline-code">--watch</code> изменения в файле <code class="inline-code">fileD.ts</code> означает что как минимум будут проверены <code class="inline-code">fileC.ts</code>, <code class="inline-code">fileB.ts</code> и <code class="inline-code">fileA.ts</code>. При активной опциеи <code class="inline-code">--assumeChangesOnlyAffectDirectDependencies</code> проверке подвергнется лишь <code class="inline-code">fileA.ts</code> и <code class="inline-code">fileB.ts</code>.</p>
+<pre><code class="hljs language-json">// tsconfig.json
+
+{
+    <span class="hljs-attr">"watchOptions"</span>: {
+        <span class="hljs-attr">"assumeChangesOnlyAffectDirectDependencies"</span>: <span class="hljs-string">"false"</span>
+    }
+}</code></pre>
+<p><strong>type</strong>: <code class="inline-code">boolean</code>
+<strong>default</strong>: <code class="inline-code">false</code>
+<strong>values</strong>: <code class="inline-code">true</code>, <code class="inline-code">false</code></p>
+</section><section id="watchFile" name="watchFile" class="subchapter">
+            <h2 class="subchapter-title">
+                <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="watchFile" type="absolute-url">
+                    <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <use href="#icon_link"/>
+                    </svg>
+                </button>
+                watchFile
+            </h2>
+        
+<hr>
+<p><code class="inline-code">--watchFile</code> - стратегия наблюдения за отдельными файлами.</p>
+<pre><code class="hljs language-json">// tsconfig.json
+
+{
+    <span class="hljs-attr">"watchOptions"</span>: {
+        <span class="hljs-attr">"watchFile"</span>: <span class="hljs-string">"useFsEvents"</span>
+    }
+}</code></pre>
+<p><strong>type</strong>: <code class="inline-code">string</code>
+<strong>default</strong>: <code class="inline-code">useFsEvents</code>
+<strong>values</strong>: <code class="inline-code">fixedPollingInterval</code>, <code class="inline-code">priorityPollingInterval</code>, <code class="inline-code">dynamicPriorityPolling</code>, <code class="inline-code">useFsEvents</code>, <code class="inline-code">useFsEventsOnParentDirectory</code></p>
+<p><strong>описание</strong></p>
+<ul class="book__list">
+<li class="book__list__item"><code class="inline-code">fixedPollingInterval</code>: Проверять каждый файл на наличие изменений несколько раз в секунду с фиксированным интервалом.</li>
+<li class="book__list__item"><code class="inline-code">priorityPollingInterval</code>: Проверяйть каждый файл на наличие изменений несколько раз в секунду, но использовать эвристику для проверки файлов определенных типов реже, чем других.</li>
+<li class="book__list__item"><code class="inline-code">dynamicPriorityPolling</code>: Использовать динамическую очередь, в которой менее часто изменяемые файлы будут проверяться реже.</li>
+<li class="book__list__item"><code class="inline-code">useFsEvents</code> [ПО УМОЛЧАНИЮ]: Пытаться использовать собственные события операционной системы / файловой системы для изменения файлов.</li>
+<li class="book__list__item"><code class="inline-code">useFsEventsOnParentDirectory</code>: Пытаться использовать собственные события операционной системы/файловой системы для прослушивания изменений в каталогах, содержащих файл. Это может использовать меньше файловых наблюдателей, но также быть менее точным.</li>
+</ul>
+</section><section id="watchDirectory" name="watchDirectory" class="subchapter">
+            <h2 class="subchapter-title">
+                <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="watchDirectory" type="absolute-url">
+                    <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <use href="#icon_link"/>
+                    </svg>
+                </button>
+                watchDirectory
+            </h2>
+        
+<hr>
+<p><code class="inline-code">--watchDirectory</code> - стратегия наблюдения за целыми деревьями каталогов в системах, в которых отсутствует рекурсивная функция наблюдения за файлами.</p>
+<pre><code class="hljs language-json">// tsconfig.json
+
+{
+    <span class="hljs-attr">"watchOptions"</span>: {
+        <span class="hljs-attr">"watchDirectory"</span>: <span class="hljs-string">"useFsEvents"</span>
+    }
+}</code></pre>
+<p><strong>type</strong>: <code class="inline-code">string</code>
+<strong>default</strong>: <code class="inline-code">useFsEvents</code>
+<strong>values</strong>: <code class="inline-code">fixedPollingInterval</code>, <code class="inline-code">dynamicPriorityPolling</code>, <code class="inline-code">useFsEvents</code></p>
+<p><strong>описание</strong></p>
+<ul class="book__list">
+<li class="book__list__item"><code class="inline-code">fixedPollingInterval</code>: Проверять каждый каталог на наличие изменений несколько раз в секунду с фиксированным интервалом.</li>
+<li class="book__list__item"><code class="inline-code">dynamicPriorityPolling</code>: Использовать динамическую очередь, в которой менее часто изменяемые каталоги будут проверяться реже.</li>
+<li class="book__list__item"><code class="inline-code">useFsEvents</code>[ПО УМОЛЧАНИЮ]: Пытаться использовать собственные события операционной системы / файловой системы для изменений каталога.</li>
+</ul>
+</section><section id="fallbackPolling" name="fallbackPolling" class="subchapter">
+            <h2 class="subchapter-title">
+                <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="fallbackPolling" type="absolute-url">
+                    <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <use href="#icon_link"/>
+                    </svg>
+                </button>
+                fallbackPolling
+            </h2>
+        
+<hr>
+<p><code class="inline-code">--fallbackPolling</code> - при использовании событий файловой системы этот параметр определяет стратегию опроса, которая используется, когда в системе заканчиваются собственные наблюдатели файлов и / или не поддерживаются собственные средства простмотра файлов.</p>
+<pre><code class="hljs language-json">// tsconfig.json
+
+{
+    <span class="hljs-attr">"watchOptions"</span>: {
+        <span class="hljs-attr">"fallbackPolling"</span>: <span class="hljs-string">"dynamicPriorityPolling"</span>
+    }
+}</code></pre>
+<p><strong>type</strong>: <code class="inline-code">string</code>
+<strong>default</strong>: <code class="inline-code">useFsEvents</code>
+<strong>values</strong>: <code class="inline-code">fixedPollingInterval</code>, <code class="inline-code">dynamicPriorityPolling</code>, <code class="inline-code">priorityPollingInterval</code></p>
+<p><strong>описание</strong></p>
+<ul class="book__list">
+<li class="book__list__item"><code class="inline-code">fixedPollingInterval</code>: Проверять каждый файл на наличие изменений несколько раз в секунду с фиксированным интервалом.</li>
+<li class="book__list__item"><code class="inline-code">dynamicPriorityPolling</code>: Использовать динамическую очередь, в которой менее часто изменяемые файлы будут проверяться реже.</li>
+<li class="book__list__item"><code class="inline-code">priorityPollingInterval</code>: Проверяйть каждый файл на наличие изменений несколько раз в секунду, но использовать эвристику для проверки файлов определенных типов реже, чем других.</li>
+</ul>
+</section><section id="synchronousWatchDirectory" name="synchronousWatchDirectory" class="subchapter">
+            <h2 class="subchapter-title">
+                <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="synchronousWatchDirectory" type="absolute-url">
+                    <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <use href="#icon_link"/>
+                    </svg>
+                </button>
+                synchronousWatchDirectory
+            </h2>
+        
+<hr>
+<p><code class="inline-code">--synchronousWatchDirectory</code> - отключить отложенное наблюдение за каталогами.</p>
+<pre><code class="hljs language-json">// tsconfig.json
+
+{
+    <span class="hljs-attr">"watchOptions"</span>: {
+        <span class="hljs-attr">"synchronousWatchDirectory"</span>: <span class="hljs-string">"false"</span>
+    }
+}</code></pre>
+<p><strong>type</strong>: <code class="inline-code">boolean</code>
+<strong>default</strong>: <code class="inline-code">false</code>
+<strong>values</strong>: <code class="inline-code">true</code>, <code class="inline-code">false</code></p>
 </section>
