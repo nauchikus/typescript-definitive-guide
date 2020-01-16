@@ -1,0 +1,43 @@
+<p>В повседневной разработке очень часто требуется определить новый тип описывающий некоторую часть существующего. До версии <em>TypeScript</em> <code class="inline-code">3.5</code> подобное можно было реализовать при помощи типов <code class="inline-code">Exclude&#x3C;T, U></code> и <code class="inline-code">Pick&#x3C;T, K></code>.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">type</span> Person = {
+    firstName: <span class="hljs-built_in">string</span>;
+    lastName: <span class="hljs-built_in">string</span>;
+
+    age: <span class="hljs-built_in">number</span>;
+};
+
+<span class="hljs-comment">/**
+ * определяем тип Union состоящий из строковых литеральных типов
+ * представляемых ключами типа Person, за исключением исключенного
+ * поля age.
+ * 
+ * type RemainingKeys = "firstName" | "lastName"
+ */</span>
+<span class="hljs-keyword">type</span> RemainingKeys = Exclude&#x3C;keyof Person, <span class="hljs-string">"age"</span>>;
+
+<span class="hljs-comment">/**
+ * определяем новый тип состоящий из ключей
+ * полученных на предыдущем шаге.
+ * 
+ * type PersonName = {
+ *  firstName: string;
+ *  lastName: string;
+ * }
+ */</span>
+<span class="hljs-keyword">type</span> PersonName = Pick&#x3C;Person, RemainingKeys>;</code></pre>
+<p>Поскольку потребность в сужении типа возникает довольно часто, это вынуждает разработчиков выносить требующийся функционал в отдельную сущность, что неизбежно затрудняет чтение кода другими разработчиками, так как знакомый всем механизм скрыт за незнакомым им идентификатором типа (именем типа).</p>
+<p>По этой причине разработчики <code class="inline-code">TypeScript</code> расширили стандартную библиотеку <code class="inline-code">lib.d.ts</code> новым вспомогательным типом <code class="inline-code">Omit&#x3C;T, K></code>, который стандартизирует, обсуждаемую на протяжении главы, логику.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">type</span> Person = {
+    firstName: <span class="hljs-built_in">string</span>;
+    lastName: <span class="hljs-built_in">string</span>;
+
+    age: <span class="hljs-built_in">number</span>;
+};
+
+<span class="hljs-comment">/**
+ * type PersonName = {
+ *  firstName: string;
+ *  lastName: string;
+ * }
+ */</span>
+<span class="hljs-keyword">type</span> PersonName = Omit&#x3C;Person, <span class="hljs-string">'age'</span>>;</code></pre>

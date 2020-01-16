@@ -1,0 +1,15 @@
+<p>Начиная с версии <code class="inline-code">v3.5</code> обобщенные параметры типа неявно определяются как принадлежащие к типу <code class="inline-code">unknown</code>.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">declare</span> <span class="hljs-keyword">class</span> Stack&#x3C;T> {
+    getItem():T;
+}
+
+
+<span class="hljs-comment">/**
+ * &#x3C;v3.5
+ * let item: {}
+ * 
+ * >= v3.5
+ * let item: unknown
+ */</span>
+<span class="hljs-keyword">let</span> stack = <span class="hljs-keyword">new</span> Stack();
+<span class="hljs-keyword">let</span> item = stack.getItem();</code></pre>

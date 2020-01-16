@@ -1,0 +1,15 @@
+<p>Зачастую появляется необходимость ре-экспорта содержимого модуля, как единую точку входа.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-comment">// @file utils.ts</span>
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> sum = <span class="hljs-function">(<span class="hljs-params">a:<span class="hljs-built_in">number</span>, b:<span class="hljs-built_in">number</span></span>) =></span> a + b;
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> mul = <span class="hljs-function">(<span class="hljs-params">a:<span class="hljs-built_in">number</span>, b:<span class="hljs-built_in">number</span></span>) =></span> a * b;</code></pre>
+<pre><code class="hljs language-typescript"><span class="hljs-comment">// MathUtils.ts</span>
+
+<span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> MathUtils <span class="hljs-keyword">from</span> <span class="hljs-string">"./utils"</span>;
+<span class="hljs-keyword">export</span> {MathUtils};</code></pre>
+<p>Подоное встречается столь часто, что в спецификацию <em>ECMScript 2020</em> была включена новая форма ре-экспорта всего содержимого.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">export</span> * <span class="hljs-keyword">as</span> Identificator <span class="hljs-keyword">from</span> <span class="hljs-string">"path"</span>;</code></pre>
+<p>Благодаря разработчикам языка <em>TypeScript</em> подобная форма ре-экспорта стала доступной начиная с версии <code class="inline-code">3.8</code>. Предыдущий пример с применением нового синтаксиса мог бы сократится до одной строчки.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-comment">// MathUtils.ts</span>
+
+<span class="hljs-keyword">export</span> * <span class="hljs-keyword">as</span> MathUtils <span class="hljs-keyword">from</span> <span class="hljs-string">"./utils"</span>;</code></pre>

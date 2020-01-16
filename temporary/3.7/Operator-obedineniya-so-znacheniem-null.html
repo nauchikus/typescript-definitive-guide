@@ -1,0 +1,27 @@
+<p>Ко всему прочему начиная с версии <code class="inline-code">v3.7</code> в <em>TypeScript</em> был реализован механизм обозначеный в спецификации <em>ECMScript</em> как <em>объединение со значение null</em> (<em>nullish coalescing</em>) для чего в синтаксис был введен новый оператор представленный двумя знаками вопроса <code class="inline-code">??</code> по обе стороны которого распологаются опернады <code class="inline-code">left-operand ?? right-operand</code>. В случае когда операнд расположенный левее оператора имеет значение <code class="inline-code">null</code> или <code class="inline-code">undefined</code> то результатом выражения является операнд находящийся правее оператора. Это очень похоже на работу логического оператора <em>или</em> (<code class="inline-code">||</code>) за исключением того, что последний взаимодействует с любыми значениями, в то время как новый оператор исключительно с <code class="inline-code">null</code> и <code class="inline-code">undefined</code>, что в некоторых случаях избавляет от дополнительных условий.</p>
+<pre><code class="hljs language-ts"><span class="hljs-literal">null</span> || <span class="hljs-string">'default'</span><span class="hljs-comment">// default</span>
+<span class="hljs-literal">undefined</span> || <span class="hljs-string">'default'</span><span class="hljs-comment">// default</span>
+<span class="hljs-literal">false</span> || <span class="hljs-string">'default'</span><span class="hljs-comment">// default</span>
+<span class="hljs-number">0</span> || <span class="hljs-string">'default'</span><span class="hljs-comment">// default</span>
+<span class="hljs-literal">NaN</span> || <span class="hljs-string">'default'</span><span class="hljs-comment">// default</span>
+<span class="hljs-string">''</span> || <span class="hljs-string">'default'</span><span class="hljs-comment">// default</span>
+
+
+<span class="hljs-literal">null</span> ?? <span class="hljs-string">'default'</span><span class="hljs-comment">// default</span>
+<span class="hljs-literal">undefined</span> ?? <span class="hljs-string">'default'</span><span class="hljs-comment">// default</span>
+<span class="hljs-literal">false</span> ?? <span class="hljs-string">'default'</span><span class="hljs-comment">// false </span>
+<span class="hljs-number">0</span> ?? <span class="hljs-string">'default'</span><span class="hljs-comment">// 0</span>
+<span class="hljs-literal">NaN</span> ?? <span class="hljs-string">'default'</span><span class="hljs-comment">// NaN</span>
+<span class="hljs-string">''</span> ?? <span class="hljs-string">'default'</span><span class="hljs-comment">// ''</span></code></pre>
+<p>Механизм <em>объединение со значением null</em> является прекрасным дополнением другого такого механизма, как <em>опциональная последовательность</em>. В то время как второй механизм предотвращает исключения при операциях над ссылками имеющими значение <code class="inline-code">null</code> или отсутствующими вовсе <code class="inline-code">undefined</code>, первый предоставляет возможность задасть значение по умолчанию только при реальном его отсутствии.</p>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">interface</span> A {
+    b: {
+        c: {
+            n: <span class="hljs-built_in">number</span>;
+        }
+    }
+}
+
+<span class="hljs-keyword">let</span> a: A = <span class="hljs-built_in">JSON</span>.parse(<span class="hljs-string">"{}"</span>);
+<span class="hljs-keyword">let</span> n = a?.b?.c?.n ?? <span class="hljs-number">0</span>; <span class="hljs-comment">// let n: number = 0;</span></code></pre>
+<p>И на последок не будет лишнем напомнить, что прибегать к обоим механизмам стоит только вмсамых крайних случаях. В других же стоит позаботится о значениях по умолчанию.</p>

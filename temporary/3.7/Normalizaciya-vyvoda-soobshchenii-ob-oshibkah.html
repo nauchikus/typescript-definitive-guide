@@ -1,0 +1,30 @@
+<p>До этого момента чтение информации вывода об ошибке, возникшей на большой вложенности, могло привести в ужас даже бывалого разработчика.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">type</span> TypeWithNumber = { a: { b: { c: { d: { e: { f(): <span class="hljs-built_in">number</span> } } } } } }
+<span class="hljs-keyword">type</span> TypeWithString = { a: { b: { c: { d: { e: { f(): <span class="hljs-built_in">string</span> } } } } } }
+
+<span class="hljs-keyword">declare</span> <span class="hljs-keyword">let</span> x: TypeWithNumber;
+<span class="hljs-keyword">declare</span> <span class="hljs-keyword">let</span> y: TypeWithString;
+
+
+x = y; <span class="hljs-comment">// Error</span></code></pre>
+<p>До <code class="inline-code">v3.7</code> информация об ошибке выглядела следующим образом -</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">let</span> x: TypeWithNumber
+Type <span class="hljs-string">'TypeWithString'</span> is not assignable to <span class="hljs-keyword">type</span> <span class="hljs-string">'TypeWithNumber'</span>.
+  Types of property <span class="hljs-string">'a'</span> are incompatible.
+    Type <span class="hljs-string">'{ b: { c: { d: { e: { f(): string; }; }; }; }; }'</span> is not assignable to <span class="hljs-keyword">type</span> <span class="hljs-string">'{ b: { c: { d: { e: { f(): number; }; }; }; }; }'</span>.
+      Types of property <span class="hljs-string">'b'</span> are incompatible.
+        Type <span class="hljs-string">'{ c: { d: { e: { f(): string; }; }; }; }'</span> is not assignable to <span class="hljs-keyword">type</span> <span class="hljs-string">'{ c: { d: { e: { f(): number; }; }; }; }'</span>.
+          Types of property <span class="hljs-string">'c'</span> are incompatible.
+            Type <span class="hljs-string">'{ d: { e: { f(): string; }; }; }'</span> is not assignable to <span class="hljs-keyword">type</span> <span class="hljs-string">'{ d: { e: { f(): number; }; }; }'</span>.
+              Types of property <span class="hljs-string">'d'</span> are incompatible.
+                Type <span class="hljs-string">'{ e: { f(): string; }; }'</span> is not assignable to <span class="hljs-keyword">type</span> <span class="hljs-string">'{ e: { f(): number; }; }'</span>.
+                  Types of property <span class="hljs-string">'e'</span> are incompatible.
+                    Type <span class="hljs-string">'{ f(): string; }'</span> is not assignable to <span class="hljs-keyword">type</span> <span class="hljs-string">'{ f(): number; }'</span>.
+                      Types of property <span class="hljs-string">'f'</span> are incompatible.
+                        Type <span class="hljs-string">'() => string'</span> is not assignable to <span class="hljs-keyword">type</span> <span class="hljs-string">'() => number'</span>.
+                          Type <span class="hljs-string">'string'</span> is not assignable to <span class="hljs-keyword">type</span> <span class="hljs-string">'number'</span>.ts(<span class="hljs-number">2322</span>)</code></pre>
+<p>Начиная с версии <code class="inline-code">v3.7</code> информация об шибках подвергается нормализации (выравниванию) до легко усвояимого уровня -</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">let</span> x: TypeWithNumber
+Type <span class="hljs-string">'TypeWithString'</span> is not assignable to <span class="hljs-keyword">type</span> <span class="hljs-string">'TypeWithNumber'</span>.
+  The types returned by <span class="hljs-string">'a.b.c.d.e.f()'</span> are incompatible between these types.
+    Type <span class="hljs-string">'string'</span> is not assignable to <span class="hljs-keyword">type</span> <span class="hljs-string">'number'</span>.ts(<span class="hljs-number">2322</span>)</code></pre>

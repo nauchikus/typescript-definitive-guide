@@ -1,0 +1,135 @@
+<p>Случаются случаи, когда разработчики по невнимательности или из-за невнятно выбранных названий забывают вызывать функции, что может привести к трудновыявляемому багу. </p>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">interface</span> IUser {
+    isAuthorized():<span class="hljs-built_in">boolean</span>;
+}
+
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">someAction</span> (<span class="hljs-params">user:IUser</span>) </span>{
+    <span class="hljs-comment">/**
+     * Разработчик подумал что isAuthorized
+     * это поле или свойство объекта, но не метод.
+     * 
+     * Учитывая многообразие языков программирования
+     * с различными конвенциями именования, такая ошибка
+     * не является надуманной для недавно пришедших в
+     * ECMScript коммунити.
+     */</span>
+    <span class="hljs-keyword">if</span>(user.isAuthorized){
+        <span class="hljs-comment">/**
+         * гость смог выполнить действия требующие
+         * привелегии авторизованного пользователя.
+         */</span>
+    }
+}</code></pre>
+<p>Поэтому начиная с <em>TypeScript</em> <code class="inline-code">v3.7</code> компилятор расценивает подобные ситуации как ошибку.</p>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">interface</span> IUser {
+    isAuthorized():<span class="hljs-built_in">boolean</span>;
+}
+
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">someAction</span> (<span class="hljs-params">user:IUser</span>) </span>{
+    <span class="hljs-comment">/**
+     * [TypeScript &#x3C; v3.7]
+     * > Ok! Трудно выявляемая ошибка,
+     * 
+     * [TypeScript >= v3.7]
+     * > Error! 
+     * This condition will always return true since the
+     * function is always defined. Did you mean to call
+     * it instead?
+     */</span>
+    <span class="hljs-keyword">if</span>(user.isAuthorized){
+    }
+}</code></pre>
+<p>Но поскольку подобное изменение является значимым, новое поведение нацелено исключительно на выражения расположенные в условном операторе <code class="inline-code">if</code>.</p>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">interface</span> IUser {
+    name: <span class="hljs-built_in">string</span>;
+
+    isAuthorized():<span class="hljs-built_in">boolean</span>;
+}
+
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">someAction</span> (<span class="hljs-params">user:IUser</span>) </span>{
+    <span class="hljs-comment">/**
+     * [TypeScript >= v3.7]
+     * > Error
+     */</span>
+    <span class="hljs-keyword">if</span>(user.isAuthorized){
+    }
+
+    <span class="hljs-comment">/**
+     * name эквивалентно undefined
+     * хотя в реальности должно
+     * иметь значение 'guest'.
+     */</span>
+    <span class="hljs-keyword">let</span> name = user.isAuthorized ? user.name : <span class="hljs-string">'guest'</span>;
+}</code></pre>
+<p>Кроме того, оно не работает с необязательными членами и при установленным в <code class="inline-code">false</code> опции компилятора <code class="inline-code">--strictNullChecks</code>.</p>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">interface</span> IUser {
+    isAuthorized ? ():<span class="hljs-built_in">boolean</span>; <span class="hljs-comment">// необязательный член</span>
+}
+
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">someAction</span> (<span class="hljs-params">user:IUser</span>) </span>{
+    <span class="hljs-comment">/**
+     * [TypeScript &#x3C; v3.7]
+     * > Ok! Трудно выявляемая ошибка,
+     * 
+     * [TypeScript >= v3.7]
+     * > Ok! Трудно выявляемая ошибка,
+     */</span>
+    <span class="hljs-keyword">if</span>(user.isAuthorized){
+    }
+}</code></pre>
+<p>Также же ошибки не возникает если невызванная функция вызывается далее в условном блоке.</p>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">interface</span> IUser {
+    isAuthorized():<span class="hljs-built_in">boolean</span>;
+}
+
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">someAction</span> (<span class="hljs-params">user:IUser</span>) </span>{
+    <span class="hljs-comment">// Error</span>
+    <span class="hljs-keyword">if</span>(user.isAuthorized){
+    }
+
+    <span class="hljs-comment">// Ok</span>
+    <span class="hljs-keyword">if</span>(user.isAuthorized){
+        user.isAuthorized();
+    }
+
+    <span class="hljs-comment">// Ok!, ???</span>
+    <span class="hljs-keyword">if</span>(user.isAuthorized){
+        user.isAuthorized;
+    }
+
+    <span class="hljs-comment">// Error</span>
+    <span class="hljs-keyword">if</span>(user.isAuthorized){
+    }<span class="hljs-keyword">else</span>{
+        user.isAuthorized();
+    }
+
+    <span class="hljs-comment">// Error</span>
+    <span class="hljs-keyword">if</span>(user.isAuthorized){
+    }
+
+    user.isAuthorized();
+}</code></pre>
+<p>В случаях когда подобный сценарий является преднамеренным, как например при тестировании, то невызванную функцию можно проверять на <code class="inline-code">null</code> или <code class="inline-code">undefined</code>, а также прибегнуть к двойному отрицанию и тем самым дать понять что действия являются обдуманными.</p>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">interface</span> IUser {
+    isAuthorized():<span class="hljs-built_in">boolean</span>;
+}
+
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">someAction</span> (<span class="hljs-params">user:IUser</span>) </span>{
+    <span class="hljs-comment">// Ok</span>
+    <span class="hljs-keyword">if</span>(user.isAuthorized !== <span class="hljs-literal">null</span>){
+    }
+
+    <span class="hljs-comment">// Ok</span>
+    <span class="hljs-keyword">if</span>(user.isAuthorized !== <span class="hljs-literal">undefined</span>){
+    }
+
+    <span class="hljs-comment">// Ok</span>
+    <span class="hljs-keyword">if</span>(!!user.isAuthorized){
+    }
+}</code></pre>

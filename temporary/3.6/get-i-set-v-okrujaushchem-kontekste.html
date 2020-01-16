@@ -1,0 +1,7 @@
+<p>Начаиная с версии <code class="inline-code">v3.6</code>, <code class="inline-code">TypeScript</code> получил возможность объявлять <code class="inline-code">get/set</code> в окружающем контексте (<code class="inline-code">declare class ID {}</code> или в файлах декларациях <code class="inline-code">.d.ts</code>).</p>
+<pre><code class="hljs language-typescript"><span class="hljs-comment">// Начиная с v3.6 - Ok</span>
+<span class="hljs-keyword">declare</span> <span class="hljs-keyword">class</span> T {
+    <span class="hljs-keyword">get</span> field():<span class="hljs-built_in">string</span>;
+    <span class="hljs-keyword">set</span> field(value: <span class="hljs-built_in">string</span>): <span class="hljs-built_in">void</span>;
+}</code></pre>
+<p>Кроме того, начиная с версии <code class="inline-code">v3.7</code>  компилятор начнет использовать данный функционал при генерации <code class="inline-code">.d.ts</code> файлов.</p>

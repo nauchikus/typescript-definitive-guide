@@ -1,0 +1,68 @@
+<p>Начиная с версии <code class="inline-code">v3.6</code>, хелпер, генерирующийся при компиляции такой конструкции, как <code class="inline-code">array spread ([...Array(5)])</code>, в ECMAScript ниже 6 версии, при неактивном флаге <code class="inline-code">--downlevelIteration</code>, притерпел кардинальные изменения. Но обо всем по порядку.</p>
+<p>До <code class="inline-code">TypeScript</code> версии <code class="inline-code">v3.6</code>, при компиляции кода в версию ниже <code class="inline-code">es6</code>, для эмитации механизма <code class="inline-code">spread</code> примененого к массиву генерировался код объединяющий массивы с помощью его метода <code class="inline-code">.concat()</code> - </p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">let</span> array = [<span class="hljs-number">0</span>, <span class="hljs-number">1</span>, ...[<span class="hljs-number">2</span>, <span class="hljs-number">3</span>]]; <span class="hljs-comment">// этот код es6+ компилировался в..</span>
+<span class="hljs-keyword">var</span> array = [<span class="hljs-number">0</span>, <span class="hljs-number">1</span>].concat([<span class="hljs-number">2</span>, <span class="hljs-number">3</span>]); <span class="hljs-comment">// ..этот es5 код</span></code></pre>
+<p>Но эмитация подобным образом не соответствует поведению предполагаемого спецификацией <code class="inline-code">es6</code> при использовании массива созданного с помощью конструктора, которому при вызове передали в качестве единственного аргумента числовое значение.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">let</span> array = [<span class="hljs-number">0</span>, <span class="hljs-number">1</span>, ...Array(<span class="hljs-number">3</span>), <span class="hljs-number">2</span>, <span class="hljs-number">3</span>]; <span class="hljs-comment">// этот код es6+ компилировался в..</span>
+<span class="hljs-keyword">var</span> array = [<span class="hljs-number">0</span>, <span class="hljs-number">1</span>].concat(<span class="hljs-built_in">Array</span>(<span class="hljs-number">2</span>), [<span class="hljs-number">2</span>, <span class="hljs-number">3</span>]); <span class="hljs-comment">// ..этот es5 код</span></code></pre>
+<p>Получение экземпляра массива подобным образом приводит к созданию объекта массива с заданной длиной, равной значению переданного вкачестве аргумента, а также полным отсутствием элементов и следовательно ассоциированных с ними ключей (индексов массива).</p>
+<pre><code class="hljs language-typescript"><span class="hljs-built_in">Array</span>(<span class="hljs-number">3</span>); <span class="hljs-comment">// [empty × 3]</span>
+
+[<span class="hljs-string">'a'</span>, <span class="hljs-string">'b'</span>, <span class="hljs-string">'c'</span>]; <span class="hljs-comment">// ['a', 'b', 'c']</span>
+
+
+<span class="hljs-comment">/**
+ * У объекта массива созданного с помощью конструктора
+ * длина равна переданному аргументу, то есть 3, но
+ * ключи представляющие индекс массива, также как и
+ * элементы - отсутствуют.
+ */</span>
+<span class="hljs-built_in">Array</span>(<span class="hljs-number">3</span>); <span class="hljs-comment">// псевдо объект массива {length: 3}</span>
+
+<span class="hljs-comment">/**
+ * У объекта массива созданного с помощью литерала массива
+ * длина равняется количеству его элементов, то есть 3, а также
+ * существуют ключи (0, 1, 2) ассоциированные с элементами ('a','b','c').
+ */</span>
+[<span class="hljs-string">'a'</span>, <span class="hljs-string">'b'</span>, <span class="hljs-string">'c'</span>] <span class="hljs-comment">// псевдо объект массива {length: 3, 0: 'a', 1: 'b', 2: 'c'}</span></code></pre>
+<p>Не будет лишним напомнить, что элементы у массива созданного с помощью конструктора буквально полностью отсутствуют, а не имеют значение <code class="inline-code">undefined</code>, как может показаться. При обращении к элементам по индексу входящего в диапазон установленного его длиной, <code class="inline-code">undefined</code> возвращается не потому что хранится в качестве элемента, а потому что <code class="inline-code">undefined</code> возвращается всегда при обращении к несуществующему ключу объекта.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-comment">// случай с объектом созданного при помощи литерала</span>
+
+({prop: <span class="hljs-string">'value'</span>})[<span class="hljs-string">'prop'</span>]; <span class="hljs-comment">// value - обращение к существующему ключу prop  </span>
+({})[<span class="hljs-string">'prop'</span>]; <span class="hljs-comment">// undefined - обращение к не существующему ключу prop</span>
+
+<span class="hljs-comment">// случай с массивом созданного при помощи литерала</span>
+
+[<span class="hljs-string">'a'</span>, <span class="hljs-string">'b'</span>, <span class="hljs-string">'c'</span>][<span class="hljs-number">0</span>]; <span class="hljs-comment">// a - обращение к существующему ключу 0</span>
+[<span class="hljs-string">'a'</span>, <span class="hljs-string">'b'</span>, <span class="hljs-string">'c'</span>][<span class="hljs-number">10</span>]; <span class="hljs-comment">// undefined - обращение к не существующему ключу 10</span>
+
+<span class="hljs-comment">// случай с массивом созданного при помощи конструктора</span>
+
+<span class="hljs-built_in">Array</span>(<span class="hljs-number">3</span>)[<span class="hljs-number">0</span>]; <span class="hljs-comment">// undefined - обращение к не существующему ключу 0</span></code></pre>
+<p>Отсутствие ключей является причиной несоответствия количества реальных итераций и длины массива при работе с ними. Методы массива (<code class="inline-code">.forEach()</code>, <code class="inline-code">.map()</code> и др.) и итерирующие конструкции (<code class="inline-code">forin\forof</code>)проверяют ключи с помощью метода <code class="inline-code">.hasOwnProperty(key)</code> доставшегося по наследству от базового типа <code class="inline-code">Object</code>.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-comment">/**
+ * псевдо объект массива {length: 3}
+ * Нет ключей - нет итераций!
+ * Вывод в консоль: (пусто)
+ */</span>
+<span class="hljs-built_in">Array</span>(<span class="hljs-number">3</span>).forEach(<span class="hljs-function"><span class="hljs-params">()</span>=></span><span class="hljs-built_in">console</span>.log(<span class="hljs-string">`iteration`</span>));
+
+
+<span class="hljs-comment">/**
+ * псевдо объект массива {length: 3}
+ * Нет ключей - нет итераций!
+ * Вывод в консоль: (пусто)
+ */</span>
+<span class="hljs-keyword">for</span>(<span class="hljs-keyword">let</span> item of <span class="hljs-built_in">Array</span>(<span class="hljs-number">3</span>)){<span class="hljs-built_in">console</span>.log(<span class="hljs-string">`iteration`</span>);}</code></pre>
+<p>Тем не менее при применении механиза <code class="inline-code">spread</code> к массиву в <code class="inline-code">es6+</code> создает несуществующие элементы и заполняет их значениями <code class="inline-code">undefined</code>.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-comment">/**
+ * Длина === 7, количество итераций === 7
+ */</span>
+[<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, ...Array(<span class="hljs-number">3</span>), <span class="hljs-number">3</span>, <span class="hljs-number">4</span>]; <span class="hljs-comment">// es6 - [1, 2, undefined, undefined, undefined, 3, 4]</span></code></pre>
+<p>Но скомпилированный <code class="inline-code">TypeScript</code> в <code class="inline-code">es &#x3C; v6</code> код при неактивном флаге <code class="inline-code">--downlevelIteration</code>, до версии <code class="inline-code">v3.6</code> не соответствовал этому поведению, поскольку не преобразовывал отсутствующие элементы в элементы ассоциированные со значением <code class="inline-code">undefined</code>.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-comment">/**
+ * Длина === 7, количество итераций === 4!
+ */</span>
+[<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, ...Array(<span class="hljs-number">3</span>), <span class="hljs-number">3</span>, <span class="hljs-number">4</span>]; <span class="hljs-comment">// es6 синтаксис компилировался в..</span>
+[<span class="hljs-number">1</span>, <span class="hljs-number">2</span>].concat(<span class="hljs-built_in">Array</span>(<span class="hljs-number">3</span>), [<span class="hljs-number">2</span>, <span class="hljs-number">3</span>]); <span class="hljs-comment">// в es5 подобный код - [1, 2, empty × 3, 2, 3]</span></code></pre>
+<p>После того, как коммунити обратило внимание на несоответствие в поведении, подход с нативным методом <code class="inline-code">.concat()</code> заменили на генерацию хелпера <code class="inline-code">__spreadArrays(array)</code> и тем самым исправили поведение на предполагаемое спецификацией. Отказ от нативного <code class="inline-code">.concat()</code> замедлил сказался на производительности, снизив её ровно в два раза.</p>
