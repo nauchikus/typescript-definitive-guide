@@ -2,12 +2,6 @@
 
 
 .content__aside-bar {
-
-
-
-
-  //background-color: coral;
-
   display: flex;
   flex-direction: column;
 
@@ -24,16 +18,16 @@
 
     //background-color: tomato;
 
-    height: calc(100vh - var(--app-header_height));
+    height: calc(100vh - var(--content-layout__aside-bar_position_top));
 
     justify-content: center;
     align-items: center;
     flex-grow: 1;
     flex-shrink: 0;
 
-    top: var(--app-header_height);
 
     position: sticky;
+    top: var(--content-layout__aside-bar_position_top);
 
   }
   @media all and (max-width:$content__nav_down_media){

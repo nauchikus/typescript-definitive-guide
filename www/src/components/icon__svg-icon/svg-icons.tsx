@@ -15,6 +15,9 @@ import ArrowBeforeNativeSvgIcon from '../../../assets/icon__svg/baseline-navigat
 import ArrowNextNativeSvgIcon from '../../../assets/icon__svg/baseline-navigate_next-24px.svg';
 import CloseNativeSvgIcon from '../../../assets/icon__svg/baseline-close-24px.svg';
 import EditNativeSvgIcon from '../../../assets/icon__svg/iconmonstr-edit-9.svg';
+import FilterListNativeSvgIcon from '../../../assets/icon__svg/filter_list-24px.svg';
+import CheckboxActiveNativeSvgIcon from '../../../assets/icon__svg/check_box-24px.svg';
+import CheckboxUnactiveNativeSvgIcon from '../../../assets/icon__svg/check_box_outline_blank-24px.svg';
 
 interface ISvgIconProps {
   className?:string;
@@ -96,5 +99,20 @@ export const CloseSvgIcon:FC<ISvgIconProps>=({className}) => (
 export const EditSvgIcon:FC<ISvgIconProps>=({className}) => (
   <svg className={className?`svg-icon ${className}`:`svg-icon`} width={24} height={24} viewBox="0 0 24 24">
     <use xlinkHref={ `#${ EditNativeSvgIcon.id }` }/>
+  </svg>
+);
+export const FilterListSvgIcon:FC<ISvgIconProps>=({className}) => (
+  <svg className={className?`svg-icon ${className}`:`svg-icon`} width={24} height={24} viewBox="0 0 24 24">
+    <use xlinkHref={ `#${ FilterListNativeSvgIcon.id }` }/>
+  </svg>
+);
+export const CheckboxActiveSvgIcon:FC<ISvgIconProps>=({className}) => (
+  <svg className={className?`svg-icon ${className}`:`svg-icon`} width={24} height={24} viewBox="0 0 24 24">
+    <use xlinkHref={ `#${ CheckboxActiveNativeSvgIcon.id }` }/>
+  </svg>
+);
+export const CheckboxUnactiveSvgIcon:FC<ISvgIconProps>=({className}) => (
+  <svg className={className?`svg-icon ${className}`:`svg-icon`} width={24} height={24} viewBox="0 0 24 24">
+    <use xlinkHref={ `#${ CheckboxUnactiveNativeSvgIcon.id }` }/>
   </svg>
 );

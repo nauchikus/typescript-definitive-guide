@@ -1,0 +1,28 @@
+.checkbox__input{
+  opacity: 0;
+
+  &:checked {
+    & + label > .checkbox__svg-icon_active{
+      display:block;
+    }
+    & + label .checkbox__svg-icon_unactive{
+      display: none;
+    }
+
+  }
+  &:not(:checked) {
+    & + label > .checkbox__svg-icon_active{
+      display: none;
+    }
+    & + label > .checkbox__svg-icon_unactive{
+      display: block;
+    }
+  }
+
+}
+.checkbox__svg-icon{
+  position: absolute;
+}
+.checkbox__label{
+
+}
