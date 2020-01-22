@@ -11,51 +11,54 @@ ________________
 
 ~~~~~typescript
 interface IAnimal {
-name: string;
+    name: string;
 }
 
 class Animal {
-public name: string;
+    public name: string;
 }
 
 class Bird implements IAnimal { // Ok
-public name: string;
+    public name: string;
 }
 class Fish implements Animal { // Ok
-public name: string;
+    public name: string;
 }
 ~~~~~
 
-Как уже можно было догадаться, при реализации классом другого класса действуют те же правила, что и при расширении класса интерфейсом. То есть класс, у которого все члены объявлены как публичные (`public`), может реализовать любой другой класс. В то время как класс, имеющий члены с такими модификаторами доступа, как закрытые (`private`) или защищенные (`protected`), может реализовать только этот же класс или его потомков.
+Как уже можно было догадаться, при реализации классом другого класса действуют те же правила, что и при расширении класса интерфейсом. То есть класс, у которого все члены объявлены как публичные (`public`), может реализовать любой другой класс. В то время как класс, имеющий члены с такими модификаторами доступа, как закрытые (`private`) или защищенные (`protected`), может реализовать только этот же класс или его потомки.
 
 ~~~~~typescript
 class Animal {
-public name: string;
+    public name: string;
 }
 
 class Bird implements Animal { // Ok
-public name: string;
-protected age: number;
+    public name: string;
+    protected age: number;
 }
+
 class Fish implements Animal { // Ok
-public name: string;
-private arial: string;
+    public name: string;
+    private arial: string;
 }
 
 class Raven implements Bird { // Error
-public name: string;
-protected age: number;
+    public name: string;
+    protected age: number;
 }
+
 class Owl extends Bird implements Bird { // Ok
-public name: string;
-protected age: number;
+    public name: string;
+    protected age: number;
 }
 
 class Shark implements Fish { // Error
-public name: string;
+    public name: string;
 }
+
 class Barracuda extends Fish implements Fish { // Ok
-public name: string;
+    public name: string;
 }
 ~~~~~
 
@@ -67,20 +70,18 @@ ________________
 
 ~~~~~typescript
 interface Animal {
-id: string;
-age: number;
+    id: string;
+    age: number;
 }
 
-class Animal {
+class Animal {}
 
-}
-
-let animal = new Animal(); // Ok
+const animal = new Animal(); // Ok
 
 animal.id = 'animal'; // Ok
 animal.age = 0; // Ok
 
-let {id, age} = animal; // Ok -> id: string and age: number
+const { id, age } = animal; // Ok -> id: string and age: number
 
 console.log(id, age); // 'animal', 0
 ~~~~~

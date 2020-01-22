@@ -3,15 +3,15 @@ ________________
 
 В *TypeScript* существует модификатор, с помощью которого поле объекта помечается как *“только для чтения”*.
 
-Модификатор, запрещающий изменение значений полей объектов, указывается с помощью ключевого слова `readonly`. Модификатор `readonly` применяется к полям как при их объявлении в классе, так и при их описании в интерфейсе.
+Модификатор, запрещающий изменение значений полей объектов, указывается с помощью ключевого слова `readonly`. Он применяется к полям как при их объявлении в классе, так и при их описании в интерфейсе.
 
 ~~~~~typescript
 interface IAnimal {
-  readonly name: string;
+    readonly name: string;
 }
 
 class Animal {
-  public readonly name: string = 'name';
+    public readonly name: string = 'name';
 }
 ~~~~~
 
@@ -19,37 +19,36 @@ class Animal {
 
 ~~~~~typescript
 interface IAnimal {
-  readonly name: string;
+    readonly name: string;
 }
 
 class Bird implements IAnimal {
-  public readonly name: string = 'bird'; // Ok
+    public readonly name: string = 'bird'; // Ok
 }
 
 class Fish implements IAnimal {
-  public name: string = 'fish'; // Ok
+    public name: string = 'fish'; // Ok
 }
 
-let bird: Bird = new Bird();
+const bird: Bird = new Bird();
 bird.name = 'newbird'; // Error
 
-let fish: Fish = new Fish();
+const fish: Fish = new Fish();
 fish.name = 'newfish'; // Ok
 ~~~~~
 
-Это правило работает и в обратном направлении: поле, описанное в интерфейсе без указания модификатора `readonly`, может быть помечено этим модификатором при реализации.
+Это правило работает и в обратном направлении — поле, описанное в интерфейсе без указания модификатора `readonly`, может быть помечено этим модификатором при реализации.
 
 ~~~~~typescript
 interface IAnimal {
-  name: string;
+    name: string;
 }
 
 class Bird implements IAnimal {
-  public readonly name: string = 'bird'; // Ok
+    public readonly name: string = 'bird'; // Ok
 }
 
-
-let bird: Bird = new Bird();
+const bird: Bird = new Bird();
 bird.name = 'newbird'; // Error
 ~~~~~
 
@@ -57,45 +56,43 @@ bird.name = 'newbird'; // Error
 
 ~~~~~typescript
 interface IAnimal {
-  name: string;
+    name: string;
 }
 
 class Bird implements IAnimal {
-  constructor(public readonly name: string){}
+    constructor(public readonly name: string) {}
 }
 
-
-let bird: Bird = new Bird( 'bird' );
+const bird: Bird = new Bird('bird');
 ~~~~~
 
 В случае применения модификатора `readonly` к свойствам, объявленным как параметры, модификаторы доступа можно не указывать.
 
 ~~~~~typescript
 interface IAnimal {
-  name: string;
+    name: string;
 }
 
 class Bird implements IAnimal {
-  constructor(readonly name: string){}
+    constructor(readonly name: string) {}
 }
 
-
-let bird: Bird = new Bird( 'bird' );
+const bird: Bird = new Bird('bird');
 ~~~~~
 
-Кроме того, полю, к которому применен модификатор `readonly`, не обязательно присваивать значение в момент объявления. Но в таком случае присвоить ему значение можно будет только из конструктора класса, в котором это поле объявлено. Поле, которому не было присвоено значение, и к которому применен модификатор `readonly`, так же как и любое другое неинициализированное поле, имеет значение `undefined`.
+Полю к которому применен модификатор `readonly`, не обязательно присваивать значение в момент объявления. Но в таком случае присвоить ему значение можно будет только из конструктора класса, в котором это поле объявлено. Если полю был применён модификатор `readonly` и не было присвоено значение, то такое поле, так же как и любое другое неинициализированное поле, будет иметь значение `undefined`.
 
 ~~~~~typescript
 interface IAnimal {
-  readonly name: string;
+    readonly name: string;
 }
 
 class Animal implements IAnimal {
-  public readonly name: string; // Ok
-
-  constructor(){
-      this.name = 'animal'; // Ok
-  }
+    public readonly name: string; // Ok
+    
+    constructor(){
+        this.name = 'animal'; // Ok
+    }
 }
 ~~~~~
 
@@ -103,39 +100,39 @@ class Animal implements IAnimal {
 
 ~~~~~typescript
 interface IAnimal {
-  readonly name: string;
+    readonly name: string;
 }
 
 class Animal implements IAnimal {
-  public readonly name: string; // Ok
-
-  public setName( name: string ): void {
-      this.name = name; // Error
-  }
+    public readonly name: string; // Ok
+    
+    public setName(name: string): void {
+        this.name = name; // Error
+    }
 }
 ~~~~~
 
-Не получится избежать возникновения ошибки и при попытке присвоить значение из конструктора класса-потомка (с условием, что потомок не переопределяет его).
+Не получится избежать возникновения ошибки, и при попытке присвоить значение из конструктора класса-потомка (с условием, что потомок не переопределяет его).
 
 ~~~~~typescript
 interface IAnimal {
-  readonly name: string;
-  readonly age: number;
+    readonly name: string;
+    readonly age: number;
 }
 
 class Animal implements IAnimal {
-  public readonly name: string; // Ok
-  public readonly age: number; // Ok
+    public readonly name: string; // Ok
+    public readonly age: number; // Ok
 }
 
 class Bird extends Animal {
-  public readonly age: number; // override field
+    public readonly age: number; // переопределение поля
 
-  constructor(){
-      super();
-      super.name = 'bird'; // Error
-      this.age = 0; // Ok
-  }
+    constructor(){
+        super();
+        super.name = 'bird'; // Error
+        this.age = 0; // Ok
+    }
 }
 ~~~~~
 
@@ -143,10 +140,10 @@ class Bird extends Animal {
 
 ~~~~~typescript
 interface IAnimal {
-  readonly name: string;
+    readonly name: string;
 }
 
-let animal: IAnimal = { name: 'animal' };
+const animal: IAnimal = { name: 'animal' };
 
 animal.name = 'newanimal'; // Error
 ~~~~~
@@ -155,13 +152,13 @@ animal.name = 'newanimal'; // Error
 
 ~~~~~typescript
 class Animal {
-  public readonly nameReadonly = 'animal'; // nameReadonly: "animal"
-  public nameDefault = 'animal';           // nameDefault: string
-
-  public readonly ageReadonly = 0; // ageReadonly: 0
-  public ageDefault = 0;           // ageReadonly: number
-
-  public readonly isLifeReadonly = true; // isLifeReadonly: true
-  public isLifeDefault = true;           // isLifeDefault: boolean
+    public readonly nameReadonly = 'animal'; // nameReadonly: "animal"
+    public nameDefault = 'animal';           // nameDefault: string
+    
+    public readonly ageReadonly = 0; // ageReadonly: 0
+    public ageDefault = 0;           // ageReadonly: number
+    
+    public readonly isLifeReadonly = true; // isLifeReadonly: true
+    public isLifeDefault = true;           // isLifeDefault: boolean
 }
 ~~~~~
