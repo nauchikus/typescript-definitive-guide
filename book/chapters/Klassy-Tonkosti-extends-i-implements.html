@@ -23,47 +23,50 @@
 <hr>
 <p>Кроме того, что класс может реализовать (<code class="inline-code">implements</code>) интерфейсы (<code class="inline-code">interface</code>), он также может реализовать другой класс.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">interface</span> IAnimal {
-name: <span class="hljs-built_in">string</span>;
+    name: <span class="hljs-built_in">string</span>;
 }
 
 <span class="hljs-keyword">class</span> Animal {
-<span class="hljs-keyword">public</span> name: <span class="hljs-built_in">string</span>;
+    <span class="hljs-keyword">public</span> name: <span class="hljs-built_in">string</span>;
 }
 
 <span class="hljs-keyword">class</span> Bird <span class="hljs-keyword">implements</span> IAnimal { <span class="hljs-comment">// Ok</span>
-<span class="hljs-keyword">public</span> name: <span class="hljs-built_in">string</span>;
+    <span class="hljs-keyword">public</span> name: <span class="hljs-built_in">string</span>;
 }
 <span class="hljs-keyword">class</span> Fish <span class="hljs-keyword">implements</span> Animal { <span class="hljs-comment">// Ok</span>
-<span class="hljs-keyword">public</span> name: <span class="hljs-built_in">string</span>;
+    <span class="hljs-keyword">public</span> name: <span class="hljs-built_in">string</span>;
 }</code></pre>
-<p>Как уже можно было догадаться, при реализации классом другого класса действуют те же правила, что и при расширении класса интерфейсом. То есть класс, у которого все члены объявлены как публичные (<code class="inline-code">public</code>), может реализовать любой другой класс. В то время как класс, имеющий члены с такими модификаторами доступа, как закрытые (<code class="inline-code">private</code>) или защищенные (<code class="inline-code">protected</code>), может реализовать только этот же класс или его потомков.</p>
+<p>Как уже можно было догадаться, при реализации классом другого класса действуют те же правила, что и при расширении класса интерфейсом. То есть класс, у которого все члены объявлены как публичные (<code class="inline-code">public</code>), может реализовать любой другой класс. В то время как класс, имеющий члены с такими модификаторами доступа, как закрытые (<code class="inline-code">private</code>) или защищенные (<code class="inline-code">protected</code>), может реализовать только этот же класс или его потомки.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">class</span> Animal {
-<span class="hljs-keyword">public</span> name: <span class="hljs-built_in">string</span>;
+    <span class="hljs-keyword">public</span> name: <span class="hljs-built_in">string</span>;
 }
 
 <span class="hljs-keyword">class</span> Bird <span class="hljs-keyword">implements</span> Animal { <span class="hljs-comment">// Ok</span>
-<span class="hljs-keyword">public</span> name: <span class="hljs-built_in">string</span>;
-<span class="hljs-keyword">protected</span> age: <span class="hljs-built_in">number</span>;
+    <span class="hljs-keyword">public</span> name: <span class="hljs-built_in">string</span>;
+    <span class="hljs-keyword">protected</span> age: <span class="hljs-built_in">number</span>;
 }
+
 <span class="hljs-keyword">class</span> Fish <span class="hljs-keyword">implements</span> Animal { <span class="hljs-comment">// Ok</span>
-<span class="hljs-keyword">public</span> name: <span class="hljs-built_in">string</span>;
-<span class="hljs-keyword">private</span> arial: <span class="hljs-built_in">string</span>;
+    <span class="hljs-keyword">public</span> name: <span class="hljs-built_in">string</span>;
+    <span class="hljs-keyword">private</span> arial: <span class="hljs-built_in">string</span>;
 }
 
 <span class="hljs-keyword">class</span> Raven <span class="hljs-keyword">implements</span> Bird { <span class="hljs-comment">// Error</span>
-<span class="hljs-keyword">public</span> name: <span class="hljs-built_in">string</span>;
-<span class="hljs-keyword">protected</span> age: <span class="hljs-built_in">number</span>;
+    <span class="hljs-keyword">public</span> name: <span class="hljs-built_in">string</span>;
+    <span class="hljs-keyword">protected</span> age: <span class="hljs-built_in">number</span>;
 }
+
 <span class="hljs-keyword">class</span> Owl <span class="hljs-keyword">extends</span> Bird <span class="hljs-keyword">implements</span> Bird { <span class="hljs-comment">// Ok</span>
-<span class="hljs-keyword">public</span> name: <span class="hljs-built_in">string</span>;
-<span class="hljs-keyword">protected</span> age: <span class="hljs-built_in">number</span>;
+    <span class="hljs-keyword">public</span> name: <span class="hljs-built_in">string</span>;
+    <span class="hljs-keyword">protected</span> age: <span class="hljs-built_in">number</span>;
 }
 
 <span class="hljs-keyword">class</span> Shark <span class="hljs-keyword">implements</span> Fish { <span class="hljs-comment">// Error</span>
-<span class="hljs-keyword">public</span> name: <span class="hljs-built_in">string</span>;
+    <span class="hljs-keyword">public</span> name: <span class="hljs-built_in">string</span>;
 }
+
 <span class="hljs-keyword">class</span> Barracuda <span class="hljs-keyword">extends</span> Fish <span class="hljs-keyword">implements</span> Fish { <span class="hljs-comment">// Ok</span>
-<span class="hljs-keyword">public</span> name: <span class="hljs-built_in">string</span>;
+    <span class="hljs-keyword">public</span> name: <span class="hljs-built_in">string</span>;
 }</code></pre>
 </section><section id="Chastichnoe-Sliyanie-interfeisa-s-klassom" name="Частичное Слияние интерфейса с классом" class="subchapter">
             <h2 class="subchapter-title">
@@ -78,20 +81,18 @@ name: <span class="hljs-built_in">string</span>;
 <hr>
 <p>На текущий момент известно, что два интерфейса, объявленные в одной области видимости, сливаются вместе. Кроме того, если интерфейс объявлен в одной области видимости с одноимённым классом, то компилятор считает, что класс реализовал одноимённый интерфейс.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">interface</span> Animal {
-id: <span class="hljs-built_in">string</span>;
-age: <span class="hljs-built_in">number</span>;
+    id: <span class="hljs-built_in">string</span>;
+    age: <span class="hljs-built_in">number</span>;
 }
 
-<span class="hljs-keyword">class</span> Animal {
+<span class="hljs-keyword">class</span> Animal {}
 
-}
-
-<span class="hljs-keyword">let</span> animal = <span class="hljs-keyword">new</span> Animal(); <span class="hljs-comment">// Ok</span>
+<span class="hljs-keyword">const</span> animal = <span class="hljs-keyword">new</span> Animal(); <span class="hljs-comment">// Ok</span>
 
 animal.id = <span class="hljs-string">'animal'</span>; <span class="hljs-comment">// Ok</span>
 animal.age = <span class="hljs-number">0</span>; <span class="hljs-comment">// Ok</span>
 
-<span class="hljs-keyword">let</span> {id, age} = animal; <span class="hljs-comment">// Ok -> id: string and age: number</span>
+<span class="hljs-keyword">const</span> { id, age } = animal; <span class="hljs-comment">// Ok -> id: string and age: number</span>
 
 <span class="hljs-built_in">console</span>.log(id, age); <span class="hljs-comment">// 'animal', 0</span></code></pre>
 </section>
