@@ -1,7 +1,7 @@
 ## Размеченные Объединения (Tagged Union)
 ________________
 
-Тип `Tagged Union` (размеченное объединение), ещё известный как `Discriminated Unions`, также как и тип `Union` (объединение), представляет из себя множество типов данных,  значение которого может принадлежать к одному конкретному типу. Размеченные объединения указывается с помощью оператора прямой черты `|`, по обе стороны которой располагаются типы данных.
+Тип `Tagged Union` (размеченное объединение), ещё известный как `Discriminated Unions`, так же как и тип `Union` (объединение), представляет собой множество типов данных,  значение которого может принадлежать к одному конкретному типу. Размеченные объединения указывается с помощью оператора прямой черты `|`, по обе стороны которой располагаются типы данных.
 
 ~~~~~typescript
 let v1: T1 | T2 | T3;
@@ -11,38 +11,38 @@ let v1: T1 | T2 | T3;
 
 Несмотря на то, что `Tagged Union` в большей степени идентичен типу `Union`, все же существует два отличия. Первое отличие заключается в том, что к типу `Tagged Union` могут принадлежать только ссылочные типы данных. Второе отличие в том, что каждому объектному типу, которые ещё называют варианты, составляющему `Tagged Union`, указывается идентификатор варианта.
 
-
-Помните, что компилятор, без помощи разработчика, способен работать лишь с общими для всех типов признаками? 
+Помните ли вы что компилятор без помощи разработчика способен работать лишь с общими для всех типов признаками?
 
 ~~~~~typescript
 class Bird {
- fly(): void {}
+    fly(): void {}
 
- toString(): string {
-     return 'bird';
- }
+    toString(): string {
+        return 'bird';
+    }
 }
-class Fish {
- swim(): void {}
 
- toString(): string {
-     return 'fish';
- }
+class Fish {
+    swim(): void {}
+
+    toString(): string {
+        return 'fish';
+    }
 }
 class Insect {
- crawl(): void {}
+    crawl(): void {}
 
- toString(): string {
-     return 'insect';
- }
+    toString(): string {
+        return 'insect';
+    }
 }
 
-function move( animal: Bird | Fish | Insect ): void {
-  animal.fly(); // Error
-  animal.swim(); // Error
-  animal.crawl(); // Error
+function move(animal: Bird | Fish | Insect): void {
+    animal.fly(); // Error
+    animal.swim(); // Error
+    animal.crawl(); // Error
 
-  animal.toString(); // Ok
+    animal.toString(); // Ok
 }
 ~~~~~
 
@@ -50,93 +50,97 @@ function move( animal: Bird | Fish | Insect ): void {
 
 ~~~~~typescript
 class Bird {
-  type: 'bird' = 'bird';
+    type: 'bird' = 'bird';
 
-  fly(): void {}
+    fly(): void {}
 
-  toString(): string {
-      return 'bird';
-  }
+    toString(): string {
+        return 'bird';
+    }
 }
+
 class Fish {
-  type: 'fish' = 'fish';
+    type: 'fish' = 'fish';
 
-  swim(): void {}
+    swim(): void {}
 
-  toString(): string {
-      return 'fish';
-  }
+    toString(): string {
+        return 'fish';
+    }
 }
+
 class Insect {
-  type: 'insect' = 'insect';
+    type: 'insect' = 'insect';
 
-  crawl(): void {}
+    crawl(): void {}
 
-  toString(): string {
-      return 'insect';
-  }
+    toString(): string {
+        return 'insect';
+    }
 }
 
 function move(animal: Bird | Fish | Insect): void {
-  if (animal.type === 'bird') {
-      animal.fly(); // Ok
-  } else if (animal.type === 'fish') {
-      animal.swim(); // Ok
-  } else {
-      animal.crawl(); // Ok
-  }
+    if (animal.type === 'bird') {
+        animal.fly(); // Ok
+    } else if (animal.type === 'fish') {
+        animal.swim(); // Ok
+    } else {
+        animal.crawl(); // Ok
+    }
 
-  animal.toString(); // Ok
+    animal.toString(); // Ok
 }
 ~~~~~
 
-Механизм, с помощью которого разработчик помогает выводу типов, называется *“защитники типа”*, и  будет рассмотрен позднее в одноимённой главе  (глава [“Типизация - Защитники типа”]()). А пока стоит сосредоточится на самих идентификаторах вариантов.
+Механизм, с помощью которого разработчик помогает выводу типов, называется *“защитники типа”*, и  будет рассмотрен позднее в одноимённой главе  (глава [“Типизация - Защитники типа”]()). А пока стоит сосредоточиться на самих идентификаторах вариантов.
 
 Прежде всего стоит пояснить, что идентификаторы вариантов это обычные поля объекта, которые имеют одинаковые имена и которые обязательно должны присутствовать в каждом типе множества, составляющего `Tagged Union`. Помимо этого, поля обязательно должны принадлежать только к литеральным типам, таким как `Literal Number`, `Literal String`, `Literal Boolean`, `Literal Enum`. Кроме того, поля обязательно должны быть инициализированы при объявлении или в конструкторе. Но если быть до конца откровенным, то нет разницы, в каком месте и в какое время полю будет присвоено значение. Главное, чтобы оно было присвоено раньше, чем наступит момент использовать его в условии, на основе которого будет определяться его принадлежность к конкретному типу данных.
 
 ~~~~~typescript
 class Bird {
-  type: 'bird' = 'bird';
+    type: 'bird' = 'bird';
 
-  fly(): void {}
+    fly(): void {}
 }
+
 class Fish {
-  type: 'fish' = 'fish';
+    type: 'fish' = 'fish';
 
-  swim(): void {}
+    swim(): void {}
 }
+
 class Insect {
-  type: 'insect';
+    type: 'insect';
 
-  constructor(){
-      this.type = 'insect';
-  }
+    constructor(){
+        this.type = 'insect';
+    }
 
-  crawl(): void {}
+    crawl(): void {}
 }
 
-function move( animal: Bird | Fish | Insect ): void {
-
-}
+function move(animal: Bird | Fish | Insect): void {}
 ~~~~~
 
 В случае, когда типы полей являются уникальными для всего множества, они идентифицируют только свой тип.
 
 ~~~~~typescript
 class Bird {
-  groupID: 0 = 0;
+    groupID: 0 = 0;
 
-  fly(): void {}
+    fly(): void {}
 }
+
 class Fish {
-  groupID: 1 = 1;
+    groupID: 1 = 1;
 
-  swim(): void {}
+    swim(): void {}
 }
-class Insect {
-  groupID: 2 = 2;
 
-  crawl(): void {}
+class Insect {
+    groupID: 2 = 2;
+
+    crawl(): void {}
 }
 
 // groupID 0 === Bird
@@ -148,55 +152,58 @@ class Insect {
 
 ~~~~~typescript
 class Bird {
-  groupID: 0 = 0;
+    groupID: 0 = 0;
 
-  fly(): void {}
+    fly(): void {}
 }
+
 class Fish {
-  groupID: 0 = 0;
+    groupID: 0 = 0;
 
-  swim(): void {}
+    swim(): void {}
 }
-class Insect {
-  groupID: 1 = 1;
 
-  crawl(): void {}
+class Insect {
+    groupID: 1 = 1;
+
+    crawl(): void {}
 }
 
 // groupID 0 === Bird | Fish
 // groupID 1 === Insect
 ~~~~~
 
-Количество полей, которые служат идентификаторами вариантов, может быть сколько угодно.
+Количество полей, которые служат идентификаторами вариантов, может быть любым.
 
 ~~~~~typescript
 enum AnimalTypes {
-  Bird = 'bird',
-  Fish = 'fish',
-  Insect = 'insect'
+    Bird = 'bird',
+    Fish = 'fish',
+    Insect = 'insect'
 }
-
 
 class Bird {
-  type: AnimalTypes.Bird = AnimalTypes.Bird;
-  uid: 0 = 0;
-  name: 'bird' = 'bird';
+    type: AnimalTypes.Bird = AnimalTypes.Bird;
+    uid: 0 = 0;
+    name: 'bird' = 'bird';
 
-  fly(): void {}
+    fly(): void {}
 }
-  class Fish {
-  type: AnimalTypes.Fish = AnimalTypes.Fish;
-  uid: 1 = 1;
-  name: 'fish' = 'fish';
 
-  swim(): void {}
+class Fish {
+    type: AnimalTypes.Fish = AnimalTypes.Fish;
+    uid: 1 = 1;
+    name: 'fish' = 'fish';
+
+    swim(): void {}
 }
-  class Insect {
-  type: AnimalTypes.Insect = AnimalTypes.Insect;
-  uid: 2 = 2;
-  name: 'insect' = 'insect';
 
-  crawl(): void {}
+class Insect {
+    type: AnimalTypes.Insect = AnimalTypes.Insect;
+    uid: 2 = 2;
+    name: 'insect' = 'insect';
+
+    crawl(): void {}
 }
 
 // type AnimalTypes.Bird === Bird
@@ -221,36 +228,35 @@ class Bird {
 class Bird {
   type: 'bird';
 }
+
 class Fish {
   type: 'fish';
 }
 
 function move(animal: Bird | Fish): void {
-  if( animal.type === 'bird' ){ // is equal undefined === 'bird'
-      // ...
-  }else if( animal.type === 'fish' ){ // is equal undefined === 'fish'
-      // ...
-  }
+    if (animal.type === 'bird') { // эквивалентно undefined === 'bird'
+        // ...
+    } else if (animal.type === 'fish') { // эквивалентно undefined === 'fish'
+        // ...
+    }
 }
 ~~~~~
 
-Однако в скомпилированном коде от типов не останется и следа. Таким образом, в условие вместо значения будет находится значение `undefined`, что сделает условия неверными.
+Однако в скомпилированном коде от типов не останется и следа. Таким образом, в условие вместо значения будет находиться значение `undefined`, что сделает условия неверными.
 
 
 *Пример с неправильным скомпилированным кодом*
 
 ~~~~~typescript
-class Bird { // missing field type
-}
-class Fish { // missing field type
-}
+class Bird {} // missing field type
+class Fish {} // missing field type
+
 function move(animal) {
-  if (animal.type === 'bird') {
-      // ...
-  }
-  else if (animal.type === 'fish') {
-      // ...
-  }
+    if (animal.type === 'bird') {
+        // ...
+    } else if (animal.type === 'fish') {
+        // ...
+    }
 }
 ~~~~~
 
@@ -261,37 +267,38 @@ function move(animal) {
 
 ~~~~~typescript
 class Bird {
-  type: 'bird' = 'bird';
+    type: 'bird' = 'bird';
 }
+
 class Fish {
-  type: 'fish' = 'fish';
+    type: 'fish' = 'fish';
 }
 
 function move(animal: Bird | Fish): void {
-  if( animal.type === 'bird' ){ // is equal 'bird' === 'bird'
-      // ...
-  }else if( animal.type === 'fish' ){ // is equal 'fish' === 'fish'
-      // ...
-  }
+    if (animal.type === 'bird') { // эквивалентно 'bird' === 'bird'
+        // ...
+    } else if(animal.type === 'fish') { // эквивалентно 'fish' === 'fish'
+        // ...
+    }
 }
 ~~~~~
-
 
 *Пример с правильным скомпилированным кодом*
 
 ~~~~~typescript
 class Bird {
-  type: 'bird' = 'bird';
+    type: 'bird' = 'bird';
 }
+
 class Fish {
-  type: 'fish' = 'fish';
+    type: 'fish' = 'fish';
 }
 
 function move(animal: Bird | Fish): void {
-  if( animal.type === 'bird' ){ // is equal 'bird' === 'bird'
-      // ...
-  }else if( animal.type === 'fish' ){ // is equal 'fish' === 'fish'
-      // ...
-  }
+    if(animal.type === 'bird') { // эквивалентно 'bird' === 'bird'
+        // ...
+    } else if(animal.type === 'fish') { // эквивалентно 'fish' === 'fish'
+        // ...
+    }
 }
 ~~~~~
