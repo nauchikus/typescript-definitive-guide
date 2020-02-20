@@ -11,30 +11,36 @@ import { IWhatIsNewToc } from "../../types/IWhatIsNewToc";
 import { TreeNode } from "../../stores/WhatIsNewTocTreeStore";
 import { createBookTocPageStores, UseBookTocStores } from "../../stores/book-toc-stores";
 import { useLocalStore } from "mobx-react-lite";
-import { createWhatIsNewTocPageGuiStores, UseWhatIsNewTocStores } from "../../stores/what-is-new-toc-stores";
+import { createWhatIsNewTocMobxEntry, UseWhatIsNewTocStores } from "../../stores/mobx-entry__what-is-new_toc";
+import { BehaviorNotificationContext } from "../../react__context/BehaviorNotificationContext";
 
 
 interface IWhatIsNewTocPageProviderProps {
-    pageContext:{
-        locale: Locales;
-        localization: AppLocalization;
-        winTocTree:TreeNode<IWhatIsNewToc>[]
-    }
+  pageContext: {
+    locale: Locales;
+    localization: AppLocalization;
+    winTocTree: TreeNode<IWhatIsNewToc>[]
+  },
+  location: Location;
 }
 
-const WhatIsNewTocPageProvider: FC<IWhatIsNewTocPageProviderProps> = ( { pageContext } ) => {
-  let {winTocTree} = pageContext;
-  let winTocStoresRef = useRef<UseWhatIsNewTocStores>( createWhatIsNewTocPageGuiStores( {
-    winTocTree
+const WhatIsNewTocPageProvider: FC<IWhatIsNewTocPageProviderProps> = ( { pageContext,location } ) => {
+  let {localization,winTocTree} = pageContext;
+  let winTocStoresRef = useRef<UseWhatIsNewTocStores>( createWhatIsNewTocMobxEntry( {
+    winTocTree,
+    location
   } ) );
-  let winTocStores = useLocalStore( () => winTocStoresRef.current );
 
   return (
-    <MobxWhatIsNewTocContext.Provider value={winTocStores }>
-      <BaseLayout>
-        <SEO/>
-        <WhatIsNewTocPage/>
-      </BaseLayout>
+    <MobxWhatIsNewTocContext.Provider value={ winTocStoresRef.current }>
+      <BehaviorNotificationContext.Provider value={ winTocStoresRef.current.behaviorNotificationStore }>
+        <Localization.Provider value={ localization }>
+          <BaseLayout>
+            <SEO/>
+            <WhatIsNewTocPage/>
+          </BaseLayout>
+        </Localization.Provider>
+      </BehaviorNotificationContext.Provider>
     </MobxWhatIsNewTocContext.Provider>
   );
 };

@@ -14,11 +14,11 @@
 
 
   @media all and (min-width: $content__nav_down_media){
-    min-width: 56px;
+    min-width: $content__aside-bar_width;
 
     //background-color: tomato;
 
-    height: calc(100vh - var(--content-layout__aside-bar_position_top));
+    height: calc(100vh - calc(var(--content-layout__aside-bar_position_top) + var(--app-footer_height)));
 
     justify-content: center;
     align-items: center;

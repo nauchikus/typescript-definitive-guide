@@ -2,6 +2,7 @@ import { createToggleState, ToggleUiState } from "./AppStateService";
 import { createToggle } from "../utils/toggle";
 import { IWhatIsNewToc, IWhatIsNewTocInnovation, IWhatIsNewTocVersionStatus } from "../types/IWhatIsNewToc";
 import { observable } from "mobx";
+import { Version } from "../utils/Version";
 
 
 export interface TreeNode<T> {
@@ -14,18 +15,6 @@ export interface TreeNode<T> {
 export const BOOK_TOC_SECTION_NAME_ALL = "";
 
 export const createWhatIsNewTocTree=<T>(tree:TreeNode<IWhatIsNewToc>[],isCollapseAll=false) => {
-  // let sectionMatchCount = tree.reduce( ( result, current ) => {
-  //   let { section } = current.data;
-  //
-  //   let count = result.has( section ) ? ( result.get( section ) ?? 0 ) + 1 : 1;
-  //
-  //   result.set( section, count );
-  //
-  //
-  //   return result;
-  // }, new Map<string, number>() );
-
-
   let store=observable({
     tree,
     isCollapseAll,
@@ -61,10 +50,12 @@ export const createWhatIsNewTocTree=<T>(tree:TreeNode<IWhatIsNewToc>[],isCollaps
     },
     getInnovationAllByVersionMMP(versionMMP:string){
       return this.tree
-        .find( item => item.data.versionMMP === versionMMP )
+        .find( item => new Version(item.data.releaseHistory[0].version).mmp === versionMMP )
         ?.data.innovations;
     }
   })
+  
+  
   return store;
 };
 

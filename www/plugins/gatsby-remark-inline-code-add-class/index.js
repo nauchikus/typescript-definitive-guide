@@ -1,4 +1,5 @@
-const visit=require('unist-util-visit');
+const visit = require( "unist-util-visit" );
+const { addClassRemarkNode } = require( "../utils" );
 
 
 module.exports = ( ...params ) => {
@@ -11,15 +12,7 @@ module.exports = ( ...params ) => {
         const isInlineCodeTag = node => node.type === INLINE_CODE_TAG_NAME;
 
         visit( ast, isInlineCodeTag, inlineCodeNode => {
-            inlineCodeNode.data || ( inlineCodeNode.data = {} );
-            inlineCodeNode.data.hProperties || ( inlineCodeNode.data.hProperties = {} );
-            inlineCodeNode.data.hProperties.className || ( inlineCodeNode.data.hProperties.className = [] );
-
-            inlineCodeNode.data.hProperties.className.push( "inline-code" );
-            //
-            // Object.assign( inlineCodeNode.data.hProperties, {
-            //     class: `inline-code`
-            // } );
+            addClassRemarkNode( inlineCodeNode, "inline-code" );
         } );
     }catch(error){
         console.error(error);

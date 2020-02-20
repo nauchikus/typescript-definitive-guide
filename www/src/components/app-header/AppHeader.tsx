@@ -32,9 +32,6 @@ export const AppHeader: FC<IAppHeaderProps> = observer(( {...props} ) => {
       </div>
       <div className="app-header-grid-item__informer">
       </div>
-      <div className="app-header-grid-item__donate">
-        <DonateButton/>
-      </div>
       <div className="app-header-grid-item__search">
         <Search/>
       </div>

@@ -1,9 +1,46 @@
+@import "../../styles/css-vars";
+
+$content-layer_padding-left_xs:24px;
+$control-bar_border-bottom_offset-right:16px;
+
+///TODO:[refactor][first] replace --win-content_padding_x to --win-content_padding_[left & right | horizontal]
 .content__control-bar{
+  max-width: 608px;///TODO[refactor][]
   width: 100%;
 
-  background-color: lightpink;
+  background-color: var(--app_base-color);
 
-  padding: 16px;
+  padding: 4px 0;
+
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
 
   position: sticky;
+
+
+  &:after {
+    content: "";
+
+    height: 1px;
+
+    background-color: var(--color_dark_60);
+
+    position: absolute;
+    left: 24px;
+    right:24px;
+    bottom: 0;
+
+    @media all and (min-width: #{$app-content_media_xs}){
+      left:0;
+      right:0;
+    }
+
+  }
+}
+
+.content__control-bar-dropdown-item{
+  max-height: calc(100vh - calc(var(--app-header_height) + var(--content__control-bar_height)));
+
+  //overflow-y: auto;
 }

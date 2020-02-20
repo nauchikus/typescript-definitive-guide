@@ -2,6 +2,7 @@
 
 $icon-button:$app-bar__icon-button_width;
 $logo:$app-bar__logo_width;
+$grid-gap:$app-bar__grid_gap-column;
 
 .app-header-grid {
   max-width: 100vw;
@@ -9,11 +10,9 @@ $logo:$app-bar__logo_width;
 
   display: grid;
 
-  grid-template-columns: $icon-button $logo 1fr $icon-button $icon-button $icon-button;
-  grid-template-rows: 40px 40px;
-  grid-template-areas:
-          "nav-toggle logo informer donate . menu"
-          "nav-toggle search search search search menu";
+  grid-template-columns: $icon-button $logo 1fr $icon-button $icon-button;
+  grid-template-rows: 40px;
+  grid-template-areas: "nav-toggle logo informer search menu";
   grid-column-gap: 4px;
 
   position: relative;
@@ -30,11 +29,9 @@ $logo:$app-bar__logo_width;
   }
 
   @media all and (min-width: $app-bar_media_xs) {
-    grid-template-columns: $icon-button $logo 1fr 128px $icon-button auto;
+    grid-template-columns: $icon-button $logo 1fr $icon-button $icon-button*3;
     grid-template-rows: inherit;
-    grid-template-areas:
-            "nav-toggle logo informer donate . menu"
-            "nav-toggle logo search search search menu";
+    grid-template-areas: "nav-toggle logo informer search menu";
   }
 }
 
@@ -55,7 +52,7 @@ $logo:$app-bar__logo_width;
   width: auto;
   height: 71px;
 
-  background: var(--color_default-lite);
+  //background: var(--color_default-lite);
   //background: tomato;
 
   border-radius: var(--app_border-radius-default);
@@ -68,11 +65,20 @@ $logo:$app-bar__logo_width;
 
   z-index:1;
 
-  position: absolute;
-  right: 0;
-  top: -56px;
+  //position: absolute;
+  //right: 0;
+  //top: -56px;
 
   z-index: 9999999;
+
+  &:after {
+    content: "";
+
+    width: auto;
+    height:72px;
+
+    background-color: tomato;
+  }
   //transition: all .4s ease;
 }
 .app-header-grid-item__donate{

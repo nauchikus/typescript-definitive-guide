@@ -8,9 +8,8 @@ import { AppNavigationLocalization, LocalizationPaths } from "../../localization
 import { FooterAppDriver } from "../app-driver__footer/FooterAppDriver";
 import { useWhatIsNewStores } from "../../mobx/MobxWhatIsNewProvider";
 import { Link } from "gatsby";
-import { pathToFileURL } from "url";
-import { useContentSectionInformer } from "../../react__hooks/content-section-informer-hook";
-import { useAppContentIntersectionObserver } from "../../react__hooks/scroll-page-hook";
+import { Version } from "../../utils/Version";
+import { observer } from "mobx-react-lite";
 
 interface IWhatIsNewPageAppDriverProps {
 }
@@ -20,11 +19,13 @@ interface ILinkAppDriverProps {
   name:string;
   isActive:boolean;
   activeClassName:string;
+  disabled?:boolean;
 }
 
-export const LinkAppDriver: FC<ILinkAppDriverProps> = ( { path, name, isActive, activeClassName } ) => {
+export const LinkAppDriver: FC<ILinkAppDriverProps> = ( { path, name, isActive, activeClassName ,disabled=false} ) => {
   let classes = cn( `app-driver__link`, {
-    [ activeClassName ]: isActive
+    [ activeClassName ]: isActive,
+    [ `app-driver__link_disabled` ]: disabled
   } );
   let linkProps = { className: classes };
 
@@ -41,12 +42,11 @@ export const LinkAppDriver: FC<ILinkAppDriverProps> = ( { path, name, isActive, 
 };
 
 
-
-export const WhatIsNewPageAppDriver: FC<IWhatIsNewPageAppDriverProps> = ( {  } ) => {
+export const WhatIsNewPageAppDriver: FC<IWhatIsNewPageAppDriverProps> = observer( ( {} ) => {
   let [appNavigationAll] = useTranslator<[AppNavigationLocalization]>( LocalizationPaths.AppNavigation );
-  let {winTocTreeStore} = useWhatIsNewStores();
+  let { winTocTreeStore } = useWhatIsNewStores();
   let routerStore = useRouter();
-  let { activeSectionId } = useContentSectionInformer();
+  let { contentSection, versionFilter } = useWhatIsNewStores();
 
 
   let innovationAll = winTocTreeStore.getInnovationAllByVersionMMP( routerStore.pageName );
@@ -54,12 +54,8 @@ export const WhatIsNewPageAppDriver: FC<IWhatIsNewPageAppDriverProps> = ( {  } )
 
   const hasAppNavLinkActive = ( href: string ) =>
     routerStore.pathname === href;
-  const hasPageNavLinkActive = ( href: string,anchor:string ) => {
-    let isHashMatchValid = anchor === routerStore.anchor;
-    let isAnchorMatchValid = anchor === activeSectionId;
-
-    return ( isHashMatchValid && isAnchorMatchValid ) || isAnchorMatchValid;
-  };
+  const hasPageNavLinkActive = ( href: string, anchor: string ) =>
+    anchor === contentSection.currentSectionId;
 
 
   if ( !innovationAll ) {
@@ -68,11 +64,11 @@ export const WhatIsNewPageAppDriver: FC<IWhatIsNewPageAppDriverProps> = ( {  } )
 
 
   let navItemAll = innovationAll.map( innovation => ( {
-    path:`${routerStore.pathname}#${innovation.path}`,
+    path: `${ routerStore.pathname }#${ innovation.path }`,
     name: innovation.innovationName,
-    anchor:innovation.path,
+    anchor: innovation.path,
+    version: new Version( innovation.version ).preReleaseName
   } ) );
-
 
 
   let appNavLinkAll = appNavigationAll.map( ( { name, path }, index ) => (
@@ -82,11 +78,12 @@ export const WhatIsNewPageAppDriver: FC<IWhatIsNewPageAppDriverProps> = ( {  } )
                    isActive={ hasAppNavLinkActive( path ) }
                    activeClassName="app-driver__link_active"/>
   ) );
-  let pageNavLinkAll = navItemAll.map( ( { name, path, anchor }, index ) => (
+  let contentNavLinkAll = navItemAll.map( ( { name, path, anchor, version }, index ) => (
     <LinkAppDriver key={ index }
                    name={ name }
                    path={ path }
                    isActive={ hasPageNavLinkActive( path, anchor ) }
+                   disabled={ !versionFilter.isCheckedByVersion( version ) }
                    activeClassName="app-driver__link_page-nav-item_active"/>
   ) );
   return (
@@ -97,9 +94,9 @@ export const WhatIsNewPageAppDriver: FC<IWhatIsNewPageAppDriverProps> = ( {  } )
       </NavSectionAppDriver>
       <NavSectionAppDriver itemLabel={ "Подразделы" }
                            itemIndex={ 1 }>
-        { pageNavLinkAll }
+        { contentNavLinkAll }
       </NavSectionAppDriver>
       <FooterAppDriver/>
     </AppDriver>
   );
-};
+} );

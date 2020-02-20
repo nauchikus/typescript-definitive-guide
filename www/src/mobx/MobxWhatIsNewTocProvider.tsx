@@ -1,5 +1,5 @@
 import React, { createContext, useContext } from "react";
-import { UseWhatIsNewTocStores } from "../stores/what-is-new-toc-stores";
+import { UseWhatIsNewTocStores } from "../stores/mobx-entry__what-is-new_toc";
 
 
 

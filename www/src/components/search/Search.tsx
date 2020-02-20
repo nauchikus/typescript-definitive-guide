@@ -72,10 +72,10 @@ export const Search: FC<ISearchProps> = observer(( {} ) => {
 
 
 
-
+  /*appSearch.active.state*/
 
   return (
-    <>
+    <div className="search_wrapper" toggle={appSearch.active.isToggle.toString()}>
       <OutsideClick isToggle={appSearch.active.isToggle} onOutsideClick={toggle}/>
       <form className="search"
             autoComplete="off"
@@ -116,7 +116,7 @@ export const Search: FC<ISearchProps> = observer(( {} ) => {
           </div>
         </If>
       </form>
-    </>
+    </div>
 
   );
 });

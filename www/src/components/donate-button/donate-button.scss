@@ -43,9 +43,11 @@ $app-bar__donate-button_short-width / 2;
 }
 
 .donate-button {
+  width: 100%;
   height: fit-content;
 
-  background-color: var(--donate-button_default-color);
+  //background-color: var(--donate-button_default-color);
+  background-color: cornflowerblue;
 
   border-radius: var(--button_border-radius);
 
@@ -64,7 +66,8 @@ $app-bar__donate-button_short-width / 2;
 
 
   &:hover {
-    background-color: var(--donate-button_default-color_hover);
+    background-color: rgb(85, 124, 199);
+
   }
 
   @include focus;
@@ -80,18 +83,17 @@ $app-bar__donate-button_short-width / 2;
     }
   }
 }
+.donate-button__svg-icon {
+  fill: #fff;
+
+}
 
 .donate-button__label {
-  color: var(--donate-button__label_color);
+  //color: var(--donate-button__label_color);
+  color: #fff;
 
-  font-size: 11px;
+  font-size: .83rem;
 
-  display: none;
-
-  @media all and (min-width:$app-bar_media_xs) {
-    display: flex;
-    flex-direction: column;
-  }
 }
 
 
@@ -120,19 +122,6 @@ $app-bar__donate-button_short-width / 2;
 
   position: relative;
 
-  //&:after {
-  //  content: "";
-  //
-  //  width: 100%;
-  //  height: 100%;
-  //
-  //  background-color: white;
-  //  border-radius: 5px;
-  //
-  //
-  //  position: absolute;
-  //
-  //}
 }
 .donate-svg-icon__wrapper{
   background: var(--app_base_darklite-color);

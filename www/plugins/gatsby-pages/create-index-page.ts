@@ -1,6 +1,6 @@
 import * as path from 'path';
 
-import {RouteUtils} from '../../src/utils/route-utils';
+import {RouterUtils} from '../../src/utils/router-utils';
 
 import { GatsbyCreatePages } from "../types/gatsby-create-pages";
 import { Locales } from "../types/locales";
@@ -26,7 +26,7 @@ export const createPages: GatsbyCreatePages<IIndexCreatePageOptions> = async ( h
 
 
     createPage( {
-        path: RouteUtils.appRoutes.getIndexRoute( { locale } ),
+        path: RouterUtils.appRoutes.getIndexRoute( { locale } ),
         component: path.resolve( __dirname, '../../src/page-templates/index-page/IndexPageProvider.tsx' ),
         context: {
             locale,

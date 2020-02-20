@@ -1,0 +1,30 @@
+@import "../../styles/app-vars";
+
+$icon-button:$app-bar__icon-button_width;
+$logo:$app-bar__logo_width;
+
+.app-footer-grid {
+  width: 100%;
+
+  display: grid;
+
+  grid-template-columns: 1fr;
+  grid-template-rows: auto;
+  grid-template-areas:"contacts";
+  //grid-column-gap: 4px;
+
+  position: relative;
+
+  //
+  //@media all and (min-width: $app-bar_media_xs) {
+  //  grid-template-columns: $icon-button $logo 1fr 128px $icon-button auto;
+  //  grid-template-rows: inherit;
+  //  grid-template-areas:
+  //          "nav-toggle logo informer donate . menu"
+  //          "nav-toggle logo search search search menu";
+  //}
+}
+
+.app-footer-grid-item__contacts{
+  grid-area: contacts;
+}

@@ -1,9 +1,9 @@
 import { useTranslator } from "./translator.hook";
-import { useBehaviorNotification } from "../stores/what-is-new-stores";
 import { useRef } from "react";
 import { NoticeType } from "../stores/PageNavStore";
 import { BehaviorNotificationLocalization, LocalizationPaths } from "../localization";
 import { generateStringId } from "../utils/string-utils";
+import { useBehaviorNotification } from "../react__context/BehaviorNotificationContext";
 
 export const useBehaviorNotificationAction = () => {
   let [t] = useTranslator<[BehaviorNotificationLocalization]>(LocalizationPaths.BehaviorNotification);

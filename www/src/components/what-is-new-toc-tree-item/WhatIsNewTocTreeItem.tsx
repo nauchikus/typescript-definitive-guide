@@ -9,8 +9,11 @@ import { ArrowDownSvgIcon, LinkSvgIcon } from "../icon__svg-icon/svg-icons";
 import { Tooltip, TooltipPosition } from "../tooltip/Tooltip";
 import { RotateContainer } from "../transform__rotate-container/RotateContainer";
 import { If } from "../if-operator/If";
-import {RouteUtils} from "../../utils/route-utils";
+import {RouterUtils} from "../../utils/router-utils";
 import * as DateUtils from "../../utils/date-utils";
+import {Version} from "../../utils/Version";
+import { toLastReleaseInfo, toVersionInfo } from "../../utils/version-utils";
+import { ReleaseInfo } from "../../transformers/innovationDataToVersionInfoTransformer";
 
 interface IWhatIsNewTocTreeItemProps {
   winTocTreeNodeId:string;
@@ -28,23 +31,24 @@ export const WhatIsNewTocTreeItem: FC<IWhatIsNewTocTreeItemProps> = ( { winTocTr
   }
 
   let winToc = winTocTreeNode.data;
+  let lastReleaseInfo = toLastReleaseInfo( winToc );
 
 
 
   let whatIsNewTocSecondLevelTreeItems = winToc.innovations.map( ( winTocItem, index ) => (
     <WhatIsNewTocSecondLevelTreeItem key={ index }
-                                     version={ winTocItem.version }
+                                     version={ toVersionInfo(winTocItem.version).mmp }
                                      innovationName={ winTocItem.innovationName }
                                      path={ winTocItem.path }
                                      onCopyLinkToBuffer={ onCopyLinkToBuffer }/>
   ) );
 
+
   return (
     <div className="win-toc">
       <div className="win-toc__first-level">
         <WhatIsNewTocFirstLevelTreeItem
-          version={ winToc.lastVersionStatus.version }
-          lastVersionStatus={ winToc.lastVersionStatus }
+          releaseInfo={ lastReleaseInfo }
           locale={locale}
           onCopyLinkToBuffer={ onCopyLinkToBuffer }/>
       </div>
@@ -57,25 +61,29 @@ export const WhatIsNewTocTreeItem: FC<IWhatIsNewTocTreeItemProps> = ( { winTocTr
   );
 };
 
+
 interface IWhatIsNewTocFirstLevelTreeItemProps {
-  version:string;
-  lastVersionStatus:IWhatIsNewTocVersionStatus;
+  releaseInfo:ReleaseInfo;
   locale:string;
 
   onCopyLinkToBuffer:(path:string)=>void;
 }
 
+
+
 export const WhatIsNewTocFirstLevelTreeItem: FC<IWhatIsNewTocFirstLevelTreeItemProps> = ( props ) => {
   let [t] = useTranslator<[WhatIsNewTocGuiLocalization]>( LocalizationPaths.WhatIsNewTocPageGui );
-  let { version, lastVersionStatus, locale,onCopyLinkToBuffer } = props;
-  let route = RouteUtils.whatIsNewRoutes.getWhatIsNewRoute( {version} );
+  let { releaseInfo, locale,onCopyLinkToBuffer } = props;
+  let versionInfo = toVersionInfo( releaseInfo.version );
+
+  let route = RouterUtils.whatIsNewRoutes.getWhatIsNewRoute( { version: versionInfo.mmp } );
 
 
   return (
     <div className="win-toc__item win-toc__item_first-level">
 
       <Link className="win-toc__gatsby-link win-toc__version" to={route}>
-        <span className="win-toc__version-phase">{ lastVersionStatus.version }</span>
+        <span className="win-toc__version-phase">{ versionInfo.version }</span>
       </Link>
 
       <div className="win-toc__control win-toc__control_first-level">
@@ -90,7 +98,7 @@ export const WhatIsNewTocFirstLevelTreeItem: FC<IWhatIsNewTocFirstLevelTreeItemP
       </div>
 
       <div className="win-toc__version-date">
-        <span>{ DateUtils.toAppDateFormat(lastVersionStatus.date,locale) }</span>
+        <span>{ DateUtils.toAppDateFormat(releaseInfo.dateRelease,locale) }</span>
       </div>
 
     </div>
@@ -108,15 +116,17 @@ interface IWhatIsNewTocSecondLevelTreeItemProps {
 export const WhatIsNewTocSecondLevelTreeItem: FC<IWhatIsNewTocSecondLevelTreeItemProps> = ( props ) => {
   let [t] = useTranslator<[WhatIsNewTocGuiLocalization]>( LocalizationPaths.WhatIsNewTocPageGui );
   let { version, innovationName, path, onCopyLinkToBuffer } = props;
-  let route = RouteUtils.whatIsNewRoutes.getWhatIsNewRoute( {
-    version,
+  let route = RouterUtils.whatIsNewRoutes.getWhatIsNewRoute( {
+    version: new Version( version ).mmp,
     innovation: path
   } );
 
   return (
     <div className="win-toc__item win-toc__item_second-level">
       <div className="win-toc__version_color-indicator"></div>
-      <Link className="win-toc__gatsby-link" to={ route }>{ innovationName }</Link>
+      <div>
+        <Link className="win-toc__gatsby-link" to={ route }>{ innovationName }</Link>
+      </div>
       <div className="win-toc__control">
         <IconButton className="win-toc-control__copy-to-buffer-button win-toc-control__button_offset-for-center"
                     size={ Size.SM }

@@ -52,13 +52,16 @@ body{
   width: 100%;
   height: calc(100vh - var(--app-header_height));
 
+  background-color: var(--app_base-color);
+
   flex-shrink: 0;
 
   position: sticky;
   top: var(--app-header_height);
 
-  transition: margin-left .4s cubic-bezier(.25,.8,.25,1);
+  z-index: 2;
 
+  transition: margin-left .4s cubic-bezier(.25,.8,.25,1);
 
   @include media-breakpoint-up(sm) {
     width: var(--content-layout__left-layout_width);
@@ -87,8 +90,11 @@ body{
   height: 100%;
 
   //padding: 0 #{padding_16};
+  margin:0 0 var(--app-footer_height) 0;
 
   flex-shrink: 0;
+
+  z-index: 1;
 
   transition: margin-left .4s cubic-bezier(.25,.8,.25,1);
 

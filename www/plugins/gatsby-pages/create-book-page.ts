@@ -1,6 +1,6 @@
 import * as path from 'path';
 
-import {RouteUtils} from '../../src/utils/route-utils';
+import {RouterUtils} from '../../src/utils/router-utils';
 
 import { GatsbyCreatePages } from "../types/gatsby-create-pages";
 import { Locales } from "../types/locales";
@@ -28,7 +28,7 @@ export const createPages: GatsbyCreatePages<IIndexCreatePageOptions> = async ( h
 
 
     createPage( {
-        path: RouteUtils.bookRoutes.getBookRoute( { locale, chapterName } ),
+        path: RouterUtils.bookRoutes.getBookRoute( { locale, chapterName } ),
         component: path.resolve( __dirname, '../../src/page-templates/book-page/BookPageProvider.tsx' ),
         context: {
             locale,

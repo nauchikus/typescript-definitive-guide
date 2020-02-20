@@ -1,13 +1,16 @@
 @import "../../styles/native-scrollbars";
 
-.app-driver{
+.app-driver {
   max-height: 100%;
+  height: 100%;
 
-  padding: 0 var(--app-driver_padding);
+  border-right: 1px solid var(--color_dark_90);
+
+  //padding: 0 var(--app-driver_padding);
 
   display: flex;
   flex-direction: column;
-  
+
 
   @include nativeScrollbarSmall();
 }
@@ -17,21 +20,21 @@
 
   background-color: var(--app_base-color);
 
-  padding: 16px 24px 16px 16px;
+  padding: 8px 24px 8px 28px;
 
   position:sticky;
 
   &:after {
     content: "";
 
-    width: 100%;
+    width: calc(100% - 32px);
     height: 1px;
 
-    background-color: var(--color_darkmiddle_rgba);
+    background-color: var(--color_dark_80);
 
     position: absolute;
-    left: 0;
-    right: 100%;
+    left: 16px;
+    right: 16px;
     bottom: 0;
   }
 
@@ -41,6 +44,8 @@
   &[item-index="1"]{
     top:56px;
     bottom:0;
+
+    z-index: 1;
   }
 }
 
@@ -58,6 +63,10 @@
 .app-driver__link_active{
   color:var(--app-nav_link_active);
   font-weight: bold;
+}
+.app-driver__link_disabled{
+  opacity: .5;
+  pointer-events: none;
 }
 .app-driver__link_page-nav-item_active{
   color:var(--page-nav_link_active)!important;
@@ -81,7 +90,7 @@
 }
 
 .app-driver__list{
-  padding: 16px;
+  padding: 16px 16px 16px 28px;
 }
 .app-driver__list-item{
   padding: 8px 0;

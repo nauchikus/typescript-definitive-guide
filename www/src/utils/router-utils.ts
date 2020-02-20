@@ -31,7 +31,8 @@ const whatIsNewRoutes = {
         `/ru/what-is-new/${ version }`
 };
 
-export const RouteUtils = {
+
+export const RouterUtils = {
     appRoutes,
     bookRoutes,
     whatIsNewRoutes

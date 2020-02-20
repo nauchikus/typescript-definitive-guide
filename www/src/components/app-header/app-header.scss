@@ -1,11 +1,15 @@
+@import "../../styles/app-vars";
+
 :root {
   --app-bar_bg-color: white;
 }
+
 
 .app-header{
   background-color: var(--app-bar_bg-color);
 
   border-bottom: 1px solid grey;
-  padding: 16px;
+  //padding: 16px 8px 16px 16px;
+  padding: $app-header_padding;
 }
 

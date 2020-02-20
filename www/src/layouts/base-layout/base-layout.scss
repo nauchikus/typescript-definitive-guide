@@ -26,16 +26,20 @@
 @import "../../components/icon__css-icon__search-reset-css-icon/search-reset-css-icon";
 @import "../../components/icon__css-icon__three-dots-animated-css-icon/three-dots-animated-css-icon";
 @import "../../components/book-toc-tree-item/book-toc-tree-item";
+@import "../../components/icon__image-icon/image-icon";
 
 
 
 @import "../../components/app-menu-buttons/app-menu-buttons";
+@import "../../components/dropdown__app-footer__contacts/dropdown__contacts-dropdown";
 
 
 @import "../../components/icon__css-icon__informer-content-icon/css-icon__informer-content-icon";
 @import "../../components/icon__css-icon__informer-content-icon/informer-content-icons";
 @import "../../components/app-header/app-header";
 @import "../../components/app-header/app-header.grid";
+@import "../../components/app-footer/app-footer";
+@import "../../components/app-footer/app-footer.grid";
 @import "../../components/search/search";
 @import "../../components/icon__svg-icon/svg-icon";
 @import "../../components/icon-button/icon-button";
@@ -48,6 +52,7 @@
 @import "../../components/informer__danate-informer/donate-informer";
 @import "../../components/informer__win-search-copywriters-informer/win-search-copywriters-informer";
 @import "../../components/button__colapse-informer-close-button/collapse-informer-close-button";
+@import "../../components/button__dropdown-toggle__contacts-toggle-button/contacts-toggle-button";
 
 
 h1,h2,h3,h4,h5,h6{

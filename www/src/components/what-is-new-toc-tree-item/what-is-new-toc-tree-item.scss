@@ -10,6 +10,7 @@
 }
 
 .win-toc{
+  max-width: var(--app-content_width);
   display:flex;
   flex-direction: column;
   align-items: flex-start;
@@ -55,6 +56,7 @@
   flex-direction: row;
 
 
+
   @media all and (min-width: $app-bar_media_xs){
     &:hover > .win-toc__control {
       visibility: visible;
@@ -72,7 +74,8 @@
   //        $toc__low-level_padding_right
   //        $toc__low-level_padding_bottom
   //        $toc__low-level_padding_left;
-
+  display:grid;
+  grid-template-columns:40px 1fr 48px;
   align-items: flex-start;
 }
 .win-toc,

@@ -1,6 +1,6 @@
 import * as path from 'path';
 
-import {RouteUtils} from '../../src/utils/route-utils';
+import {RouterUtils} from '../../src/utils/router-utils';
 
 import { GatsbyCreatePages } from "../types/gatsby-create-pages";
 import { Locales } from "../types/locales";
@@ -40,7 +40,7 @@ export const createPages: GatsbyCreatePages<IIndexCreatePageOptions> = async ( h
 
 
     createPage( {
-        path: RouteUtils.whatIsNewRoutes.getWhatIsNewTocRoute(  ),
+        path: RouterUtils.whatIsNewRoutes.getWhatIsNewTocRoute(  ),
         component: path.resolve( __dirname, '../../src/page-templates/what-is-new-toc-page/WhatIsNewTocPageProvider.tsx' ),
         context: {
             locale,

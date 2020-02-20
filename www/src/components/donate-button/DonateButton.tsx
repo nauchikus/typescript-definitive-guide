@@ -1,7 +1,7 @@
 import React, { FC, ReactElement } from "react";
 import { default as cn } from "classnames";
 import { RippleLayer } from "../ripple-layer/RippleLayer";
-import { DonateSvgIcon } from "../icon__svg-icon/svg-icons";
+import { CreditCardSvgIcon, DonateSvgIcon } from "../icon__svg-icon/svg-icons";
 import { useTranslator } from "../../react__hooks/translator.hook";
 import { LocalizationPaths, SharedLayoutLocalization } from "../../localization";
 
@@ -19,15 +19,16 @@ export const DonateButton: FC<IDonateButtonProps> = ( { className, children } ) 
     ['donate-button']:true
   } );
 
+  let donateButtonLabel = donateDropdown.toggleButton.label.join( ` ` );
+
 
   return (
     <button className={ classes }>
       <RippleLayer/>
-      <DonateSvgIcon/>
-      <div className="donate-button__label">
-        <span>{donateDropdown.toggleButton.label[0]}</span>
-        <span>{donateDropdown.toggleButton.label[1]}</span>
-      </div>
+      <CreditCardSvgIcon className="donate-button__svg-icon"/>
+      <span className="donate-button__label">
+        { donateButtonLabel }
+      </span>
     </button>
   );
 };

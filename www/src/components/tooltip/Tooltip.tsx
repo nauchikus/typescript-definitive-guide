@@ -36,6 +36,8 @@ export const Tooltip: FC<ITooltipProps> = ( { position,children, className } ) =
   } );
 
   return (
-    <div className={ classes }>{ children }</div>
+    <div className={ classes }>
+      <span>{ children }</span>
+    </div>
   );
 };

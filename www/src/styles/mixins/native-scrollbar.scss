@@ -23,7 +23,7 @@
 
     border-radius: 20px;
 
-    margin: 8px 0 8px 0;
+    //margin: 8px 0 8px 0;
 
   }
 
@@ -31,7 +31,7 @@
     max-height: 200px;
 
     background-color: var(--scrollbar__thumb_color_hover);
-    //border: var(--scrollbar_border-size) solid var(--scrollbar_border-color);
+    border: 2px solid var(--scrollbar_border-color);
     border-radius: 20px;
 
     //opacity: .4;

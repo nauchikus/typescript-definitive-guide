@@ -9,6 +9,7 @@ import { createInformerRotator } from "../../react__hooks/collapse-informer-hook
 import { createBaseLayoutStores, UseBaseLayoutStores } from "../../stores/base-layout-stores";
 import { useLocalStore } from "mobx-react-lite";
 import { BaseLayoutMoxContext } from "../../mobx/BaseLayoutMobxProvider";
+import { AppFooter } from "../../components/app-footer/AppFooter";
 
 
 interface IBaseLayoutProps {
@@ -31,6 +32,9 @@ const BaseLayout: FC<IBaseLayoutProps> = ( { children } ) => {
         </div>
         <div className="app-grid-item__content">
           { children }
+        </div>
+        <div className="app-grid-item__footer">
+          <AppFooter/>
         </div>
       </div>
     </BaseLayoutMoxContext.Provider>

@@ -1,5 +1,10 @@
 {
-    "versionMMP": "3.3",
+    "releaseHistory": [
+        {
+            "version": "3.3",
+            "dateRelease": "january 31, 2019"
+        }
+    ],
     "innovations": [
         {
             "id": "",

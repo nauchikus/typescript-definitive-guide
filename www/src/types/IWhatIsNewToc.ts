@@ -1,4 +1,5 @@
 import { ICommitInfo } from "../../plugins/gatsby-pages/graphql-querys";
+import { ReleaseInfo } from "../transformers/innovationDataToVersionInfoTransformer";
 
 export interface IWhatIsNewTocVersionStatus {
   version:string;
@@ -19,18 +20,19 @@ export interface IWhatIsNewTocInnovation {
 }
 
 export interface IWhatIsNewToc {
-  versionMMP:string;
+  // version:string;
   lastVersionStatus:IWhatIsNewTocVersionStatus;
+  releaseHistory:ReleaseInfo[];
   innovations: IWhatIsNewTocInnovation[];
 }
 
-interface IWhatIsNewTocInnovationWithContent extends IWhatIsNewTocInnovation{
+export interface IWhatIsNewTocInnovationWithContent extends IWhatIsNewTocInnovation{
   html:string;
   commitInfoAll:ICommitInfo[];
   fileOnGithubLink:string;
 }
 export interface IWhatIsNewData extends IWhatIsNewToc{
-  versionMMP:string;
-  lastVersionStatus:IWhatIsNewTocVersionStatus;
+  // versionMMP:string;
+  // lastVersionStatus:IWhatIsNewTocVersionStatus;
   innovations: IWhatIsNewTocInnovationWithContent[];
 }

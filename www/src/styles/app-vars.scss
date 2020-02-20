@@ -73,9 +73,30 @@ $app-footer_height:56px;
 $app-menu_height:300px;
 $app-secondary-bar_height:72px;
 
+$content__aside-bar_width:48px;
+$content__control-bar_height:   40px;
+$content__control-bar__dropdown-menu_padding_y:   16px;
+$content__control-bar__dropdown-menu__header_height:   42px;
+$content__control-bar__dropdown-menu__header_margin-bottom:   4px;
+
+$content__control-bar_top_media_xs:   $app-header_height + $content__control-bar_height;
+$content__control-bar_bottom_media_xs:   24px;
+$content__control-bar_right_media_xs:   24px;
+
+
+//$content__aside-bar_
+
+//$content__control-bar_media_xs_max-height:
+
 $donate-dropdown_max-width:320px;
 
 $app-content_width:608px;
+
+$app-header_padding:(16px 8px 16px 16px);
+$app-header_padding-right:nth($app-header_padding,2);
+$app-header_padding_x:nth($app-header_padding,2) + nth($app-header_padding,4);
+
+$app-scroll_y_size:16px;
 
 
 $app-search__width_open-state:320px;
@@ -86,6 +107,9 @@ $app-search__width_close-state:40px;
 $app-search__match-output_max-height:300px;
 
 $app-bar__menu_full-width:40px * 3;
+
+
+$app-content_media_xs: $app-content_width + $padding_24x2;
 
 $content-layout__left-layout_width:280px;
 $content-layout__center-layout_width:800px;
@@ -128,6 +152,16 @@ $color_darklarge_hover: #555555;
 $color_dark: rgba(0,0,0,.8);
 $color_dark_hover: rgba(0,0,0,.9);
 
+$color_dark_lite:lighten(#000000,95%);
+$color_dark_95:lighten(#000000,95%);
+$color_dark_90:lighten(#000000,90%);
+$color_dark_80:lighten(#000000,80%);
+$color_dark_60:lighten(#000000,60%);
+$color_dark_40:lighten(#000000,40%);
+$color_dark_20:lighten(#000000,20%);
+$color_dark_10:lighten(#000000,10%);
+$color_base_50:#007ACC;
+
 $color_dark_60:lighten(#000,60%);
 
 $border__color_darklite: lighten(#000000, 90%);
@@ -137,6 +171,7 @@ $border__color_darklite: lighten(#000000, 90%);
 $app-bar__icon-button_width:40px;
 $app-bar__driver-toggle-button_width:40px;
 $app-bar__logo_width:80px;
+$app-bar__grid_gap-column:4px;
 $app-bar__book-chapter-info_width:320px;
 $app-bar__search_width:40px;
 $app-bar__donate-button_full-width:128px;

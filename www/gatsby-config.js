@@ -203,6 +203,14 @@ module.exports = {
             resolve: `gatsby-remark-add-heading-link`,
             options: { locale: `ru` },
           },
+          {
+            resolve:`gatsby-remark-add-classes`,
+            options:{}
+          },
+          {
+            resolve:`gatsby-remark-create-tag-bar`,
+            options:{}
+          },
 
 
           // {

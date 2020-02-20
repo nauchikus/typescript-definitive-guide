@@ -2,7 +2,7 @@ import * as path from 'path';
 
 import * as StringUtils from "../../src/utils/string-utils";
 import * as DateUtils from "../../src/utils/date-utils";
-import {RouteUtils} from '../../src/utils/route-utils';
+import {RouterUtils} from '../../src/utils/router-utils';
 
 import { GatsbyCreatePages } from "../types/gatsby-create-pages";
 import { Locales } from "../types/locales";
@@ -19,6 +19,7 @@ import {
 } from "./graphql-querys";
 import { TreeNode } from "../../src/stores/WhatIsNewTocTreeStore";
 import { IWhatIsNewToc } from "../../src/types/IWhatIsNewToc";
+import { Version } from "../../src/utils/Version";
 
 interface IIndexCreatePageOptions {
     locale: Locales;
@@ -33,13 +34,16 @@ interface IAppLocalization {
 
 const winTocToPageNav = ( winToc: IWhatIsNewToc[] ) =>
   winToc.map( winTocItem => ( {
-      name: winTocItem.versionMMP,
+      name: new Version(winTocItem.releaseHistory[0].version).mmp,
       path: ``,
 
-      sections: winTocItem.innovations.map( innovation => ( {
-          name: innovation.innovationName,
-          path: innovation.path
-      } ) )
+      sections: winTocItem.innovations
+        .map( innovation => ( {
+            name: innovation.innovationName,
+            path: innovation.path,
+            version: innovation.version
+        } ) )
+
   } ) );
 
 
@@ -72,11 +76,12 @@ export const createPages: GatsbyCreatePages<IIndexCreatePageOptions> = async ( h
         data: node
     } ) );
 
+
     let pageNavDataAll = winTocToPageNav( winToc );
 
     let winPagePromiseAll = winToc.map( async ( winTocItem ) => {
         let { innovations, ...innovationInfo } = winTocItem;
-        let { versionMMP } = innovationInfo;
+        let versionMMP = new Version( innovationInfo.releaseHistory[ 0 ].version ).mmp;
         let innovationVersionMMP = StringUtils.escapeString( versionMMP );
 
 
@@ -94,7 +99,7 @@ export const createPages: GatsbyCreatePages<IIndexCreatePageOptions> = async ( h
                 ),
                 graphql<IGetGithubCommitHistoryResponse, { path: string; }>(
                   getGithubCommitHistoryQuery(),
-                  { path: createWinFileOnGithubPath({versionMMP, innovationName:innovation.innovationName}) }
+                  { path: createWinFileOnGithubPath( { versionMMP, innovationName: innovation.innovationName } ) }
                 )
                 // graphql<IGetGithubCommitHistoryResponse, { path: string; }>(
                 //   getGithubCommitHistoryQuery(),
@@ -109,6 +114,10 @@ export const createPages: GatsbyCreatePages<IIndexCreatePageOptions> = async ( h
             ] = graphqlResponseAll;
 
             // console.log(fileOnGithubHistoryInfoGraphQlResponse);
+
+            if ( innovationContentHtmlGraphQlResponse.errors ) {
+                console.log( innovationContentHtmlGraphQlResponse.errors );
+            }
 
             if ( !innovationContentHtmlGraphQlResponse.data?.markdownRemark ) {
                 throw new Error( `Innovation for version "${ versionMMP }" with name "${ innovation.innovationName }" not exists.` );
@@ -165,7 +174,7 @@ export const createPages: GatsbyCreatePages<IIndexCreatePageOptions> = async ( h
 
 
         await createPage( {
-            path: RouteUtils.whatIsNewRoutes.getWhatIsNewRoute( { version: versionMMP } ),
+            path: RouterUtils.whatIsNewRoutes.getWhatIsNewRoute( { version: versionMMP } ),
             component: path.resolve( __dirname, "../../src/page-templates/what-is-new-page/WhatIsNewPageProvider.tsx" ),
             context: {
                 locale,

@@ -71,13 +71,12 @@ export const createBehaviorNotification = () => {
   const destroy = ( noticeModel: INoticeModel ) => {
     // store.noticeAll = store.noticeAll.filter( item => item !== noticeModel );
     store.noticeAll.splice( store.noticeAll.indexOf( noticeModel ), 1 );
-    // console.log( 'notice-length',store.noticeAll.length );
+
     changeIndex( store.noticeAll );
   };
 
 
-  // console.log(`[[DEFINE-STORE]]`);
-
-
   return store;
 };
+
+export type BehaviorNotification = ReturnType<typeof createBehaviorNotification>;

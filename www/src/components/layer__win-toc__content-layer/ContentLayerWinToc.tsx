@@ -3,15 +3,23 @@ import { useWhatIsNewTocStores } from "../../mobx/MobxWhatIsNewTocProvider";
 import { WhatIsNewTocTreeItem } from "../../components/what-is-new-toc-tree-item/WhatIsNewTocTreeItem";
 import { useTranslator } from "../../react__hooks/translator.hook";
 import { LocalizationPaths, WhatIsNewTocGuiLocalization } from "../../localization";
+import * as NativeUtils from "../../utils/native-utils";
+import { useBehaviorNotificationAction } from "../../react__hooks/behavior-notification-action-hook";
 
-interface IWhatIsNewTocContentLayoutProps {
+interface IContentLayerWinTocProps {
 }
 
-export const WhatIsNewTocContentLayout: FC<IWhatIsNewTocContentLayoutProps> = ( {} ) => {
+export const ContentLayerWinToc: FC<IContentLayerWinTocProps> = ( {} ) => {
   let [t] = useTranslator<[WhatIsNewTocGuiLocalization]>( LocalizationPaths.WhatIsNewTocPageGui );
-  let { winTocTreeStore } = useWhatIsNewTocStores();
+  let { winTocTreeStore,router } = useWhatIsNewTocStores();
+  let behaviorNotificationActions = useBehaviorNotificationAction();
+
 
   const onCopyLinkToBuffer = ( path: string ) => {
+    let href = `${ router.origin }${ path }`;
+
+    NativeUtils.copyToBuffer( href );
+    behaviorNotificationActions.copyLink();
   };
 
   let winTocTree = winTocTreeStore.tree.reverse().map( tocTreeNode => (
@@ -22,19 +30,8 @@ export const WhatIsNewTocContentLayout: FC<IWhatIsNewTocContentLayoutProps> = ( 
 
 
   return(
-    <div className="win-toc-content-layout win-content-layout__grid">
-      <div className="win-content-layout-grid-item__primary-content-bar">
-        <div className="win-toc-content-layout__bar">
-          <div className="primary-content-bar">
-            <span className="primary-content-bar__label">{t.primaryContentBar.label}</span>
-          </div>
-        </div>
-      </div>
-      <div className="win-content-layout-grid-item__content">
-        <div className="win-toc-content-layout__content">
-          {winTocTree}
-        </div>
-      </div>
-    </div>
+    <main className="win-toc-content">
+      {winTocTree}
+    </main>
   );
 };

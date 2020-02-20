@@ -9,12 +9,30 @@ $native-scrollbar_width:16px;
 
   display:flex;
   flex-direction: column;
+  align-items:center;
 
   position: relative;
 
   @media all and (min-width: $content__nav_down_media){
-    flex-direction: row;
+    //flex-direction: row;
 
   }
 
+}
+
+.content-layout__control-bar {
+  width: 100%;
+
+  display: flex;
+  justify-content: center;
+
+  position: sticky;
+  top: 0;
+
+}
+.content-layout__content{
+  width: 100%;
+
+  display:flex;
+  justify-content: center;
 }

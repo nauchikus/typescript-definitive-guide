@@ -1,0 +1,16 @@
+@import "../../styles/app-vars";
+
+
+.win-toc-content-control-bar {
+  margin-right: auto;
+
+  @media all and (max-width: #{$app-content_media_xs}) {
+    padding: 0 0 0 24px;
+
+  }
+}
+.win-toc-content-control-bar__label{
+  line-height: 24px;
+
+  margin: 0 auto 0 0;
+}

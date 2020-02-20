@@ -5,6 +5,7 @@ interface ILocation {
   pathname: string;
   hash: string;
   origin:string;
+  search:string;
 }
 
 export class RouterService{
@@ -69,6 +70,10 @@ export class RouterService{
   get route(){
     return `${ this.pathname }${ this.hash }`;
   }
+
+  get search(){
+    return new URLSearchParams( this.location.search );
+  }
   constructor ( private location:ILocation ) {
   }
 
@@ -80,6 +85,8 @@ export const  RouterContext = createContext( new RouterService({
   pathname:'',
   hash:'',
   origin:'',
+  search: ``
+
 }));
 
 

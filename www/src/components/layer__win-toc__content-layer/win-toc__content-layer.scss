@@ -1,0 +1,12 @@
+@import "../../styles/app-vars";
+
+
+.win-toc-content {
+  max-width: var(--content_max-width);
+  width: auto;
+
+  @media all  and (max-width: $app-content_media_xs){
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+}

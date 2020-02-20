@@ -11,7 +11,7 @@ import { ArrowDownSvgIcon, LinkSvgIcon } from "../icon__svg-icon/svg-icons";
 import { RotateContainer } from "../transform__rotate-container/RotateContainer";
 import { useBookTocStores } from "../../mobx/MobxBookTocProvider";
 import { BookTocNode, TreeNode } from "../../stores/BookTocTreeStore";
-import { RouteUtils } from "../../utils/route-utils";
+import { RouterUtils } from "../../utils/router-utils";
 import {
   getClassNameWithBgColorAttrBySectionName,
   getClassNameWithBorderColorAttrBySectionName
@@ -46,7 +46,7 @@ export const BookTocTreeItem: FC<IBookTocTreeItemProps> = observer( ( { bookTocT
                                section={section}
                                isCollapse={ isCollapse }
                                title={ title }
-                               path={ RouteUtils.bookRoutes.getBookRoute( { locale, chapterName: firstLevelPath } ) }
+                               path={ RouterUtils.bookRoutes.getBookRoute( { locale, chapterName: firstLevelPath } ) }
                                relativePath={ firstLevelPath }
                                onCollapse={ onCollapse }
                                onCopyLinkToBuffer={ onCopyLinkToBuffer }>
@@ -57,7 +57,7 @@ export const BookTocTreeItem: FC<IBookTocTreeItemProps> = observer( ( { bookTocT
                                     locale={locale}
                                     index={ `${ firstLevelIndex }.${ secondLevelIndex }` }
                                     title={ subtitle }
-                                    path={ RouteUtils.bookRoutes.getBookRoute( {
+                                    path={ RouterUtils.bookRoutes.getBookRoute( {
                                       locale,
                                       chapterName: secondLevelPath
                                     } ) }

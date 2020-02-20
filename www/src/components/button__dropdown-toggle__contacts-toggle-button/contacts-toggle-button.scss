@@ -1,0 +1,22 @@
+.contacts-dropdown-toggle__button {
+  border-radius: var(--button_border-radius);
+
+  padding: 8px 16px;
+
+  display: flex;
+  align-items: center;
+
+  &:hover{
+    background-color: var(--color_dark_95);
+  }
+}
+.contacts-dropdown-toggle-button__svg-icon_open{
+  transform: rotate(180deg);
+}
+.contacts-dropdown-toggle-button__label {
+  color: var(--color_dark_20);
+  font-weight: bold;
+
+  margin: 0 4px 0 0;
+
+}

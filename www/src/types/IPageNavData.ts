@@ -1,7 +1,8 @@
 
-interface INav {
+export interface INav {
   name:string;
   path:string;
+  version:string;
 }
 interface ISectionNav extends INav{
   hasPrevAnchor:boolean;

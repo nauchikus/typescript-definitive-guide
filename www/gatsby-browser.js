@@ -11,7 +11,7 @@
 
 import "./src/styles/dev-utils.scss";
 
-import React from "react";
+import React, { useLayoutEffect } from "react";
 import { MobxProvider, useShareStores } from "./src/mobx";
 import { RouterContext, RouterService } from "./src/react__hooks/router-hook";
 import { Localization } from "./src/react__hooks/translator.hook";
@@ -33,10 +33,5 @@ export const wrapPageElement = ( { element, props } ) => {
 };
 
 export const onRouteUpdate = ( { location: { hash } } ) => {
-  if ( hash ) {
-    document
-      .querySelector( `main` )
-      .querySelector( `section#${ hash.replace( /^#/, "" ) }` )
-      .scrollIntoView();
-  }
+  
 };

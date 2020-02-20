@@ -1,0 +1,28 @@
+.content__content-placeholder_empty{
+  width: 100%;
+
+  padding: 48px 0;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.content-placeholder__informer{
+  width: 100%;
+
+  text-align: center;
+  text-transform: uppercase;
+
+  background-color: var(--color_dark_95);
+
+  border-radius: var(--app_border-radius-default);
+
+  padding: 24px;
+}
+.content-placeholder__label{
+  color:var(--color_dark_60);
+
+  font-size: 1rem;
+  font-weight: bold;
+}

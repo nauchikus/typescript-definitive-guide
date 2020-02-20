@@ -1,54 +1,108 @@
-import React, { FC, ReactNode, useEffect, useState } from "react";
-import { Dropdown } from "../dropdown/Dropdown";
-import { DropdownToggle } from "../dropdown/DropdownToggle";
-import { IconButton } from "../icon-button/IconButton";
-import { FilterListSvgIcon } from "../icon__svg-icon/svg-icons";
-import { DropdownMenu } from "../dropdown/DropdownMenu";
-import { Tooltip, TooltipPosition } from "../tooltip/Tooltip";
-import { useWhatIsNewStores } from "../../mobx/MobxWhatIsNewProvider";
-import { useWinData } from "../../react__hooks/win-data-hook";
-import { useVersionFilter } from "../../stores/what-is-new-stores";
-import { useRouter } from "../../react__hooks/router-hook";
-import { Checkbox } from "../ui__checkbox/Checkbox";
-import { CheckboxLabel } from "../ui__checkbox/CheckboxLabel";
+import React, { FC } from "react";
+import { useVersionFilter } from "../../stores/mobx-entry__what-is-new";
+import { Checkbox, CheckedEvent } from "../ui__checkbox/Checkbox";
+import { Radio } from "../ui__radio/Radio";
+import { Label } from "../ui__label/Label";
+import { RadioGroup } from "../ui__radio-group/RadioGroup";
+import { CheckboxIconGroup } from "../ui__checkbox/CheckboxIconGroup";
+import { observer } from "mobx-react-lite";
+import { InputModel } from "../../stores/CheckboxStore";
+import { ReleaseInfo, VersionInfoMeta } from "../../transformers/innovationDataToVersionInfoTransformer";
+
 
 interface IWinDropdownMenuFilterDropdownProps {
 
 }
 
-export const WinDropdownMenuFilterDropdown: FC<IWinDropdownMenuFilterDropdownProps> = ( {} ) => {
-  let contentData = useWinData();
-  let router = useRouter();
+
+export const FilterFormWinFilterDropdownMenu: FC<any> = observer(( {} ) => {
   let versionFilter = useVersionFilter();
 
-  let [versionAll, setVersionAll] = useState<string[]>( [] );
+  const allVersionRadio_checkedHandler = ( { checked }: CheckedEvent ) =>
+    checked && versionFilter.checkedAllVersion();
+  const lastVersionRadio_checkedHandler = ( { checked }: CheckedEvent ) =>
+    checked && versionFilter.checkedLastVersion();
 
 
-  useEffect( () => {
-    let versions = contentData.innovations
-      .reduce( ( set, innovation ) =>
-        set.add( innovation.version ), new Set<string>()
-      );
-    setVersionAll( Array.from( versions ) );
-    // let versionAll = contentData.innovations
-    //   .map( innovation => innovation.version );
+  return (
+    <form className="win-filter-dropdown-menu__control-bar">
+      <fieldset className="fieldset_md">
+        <legend className="legend_md">Отобразить:</legend>
+        <RadioGroup name="filter-version">
+          <Radio value="last"
+                 className="win-filter-version__radio"
+                 classNameChecked="win-filter-version__radio_checked"
+                 classNameNotChecked="win-filter-version__radio_not-checked"
+                 onChecked={ lastVersionRadio_checkedHandler }
+                 checked={ versionFilter.isLastVersionChecked }>
+            <Label>Последнее</Label>
+          </Radio>
+          <Radio value="all"
+                 className="win-filter-version__radio"
+                 classNameChecked="win-filter-version__radio_checked"
+                 classNameNotChecked="win-filter-version__radio_not-checked"
+                 onChecked={ allVersionRadio_checkedHandler }
+                 checked={ versionFilter.isAllVersionChecked }>
+            <Label>Все</Label>
+          </Radio>
+        </RadioGroup>
+      </fieldset>
+    </form>
+  );
+});
 
-    // versionFilter.clean();
-    // versionFilter.addVersion( ...versionAll );
-  }, [router.basepath] );
 
-  let listItemAll = versionAll.map( version => (
-    <li className="list-item">
-      <Checkbox id={version} checked={ versionFilter.has( version ) }/>
-      <CheckboxLabel id={version}>{version}</CheckboxLabel>
+interface IVersionFilterWinFilterContentFormProps {
+}
+
+
+export const VersionFilterWinFilterContentForm: FC<IVersionFilterWinFilterContentFormProps> = observer( ( {} ) => {
+  let versionFilter = useVersionFilter();
+
+
+  let listItemAll = versionFilter.versionInfoAll.map( ( inputModel:Required<InputModel<VersionInfoMeta>>, index:number ) => (
+    <li key={ index } className="win-filter-content-form__list-item">
+      <Checkbox id={ inputModel.data.version }
+                className="win-filter-content-form__checkbox"
+                value={ inputModel.data.version }
+                onChecked={ () => versionFilter.changeByVersion(inputModel.data.version) }
+                checked={ inputModel.checked }>
+        <Label className="win-filter-content-form__label">
+          <CheckboxIconGroup/>
+          <span className="win-filter-content-form__label_version">{ inputModel.data.version }</span>
+          <span className="win-filter-content-form__label_date">({ inputModel.data.dateRelease })</span>
+          <span className="win-filter-content-form__label_count">{ inputModel.data.count }</span>
+        </Label>
+      </Checkbox>
     </li>
   ) );
 
+
   return (
-    <div className="win-filter-dropdown__dropdown-menu">
-      <ul className="list">
-        { listItemAll }
-      </ul>
+    <form className="win-filter-content-form">
+      <fieldset className="fieldset_md">
+        <legend className="legend_md legend-with-meta">
+          <span className="legend_md_base-info">История версий</span>
+          <span className="legend_md_meta-info">Всего: {versionFilter.innovationCount}</span>
+        </legend>
+        <ul>
+          { listItemAll }
+        </ul>
+      </fieldset>
+    </form>
+  );
+} );
+
+export const WinDropdownMenuFilterDropdown: FC<IWinDropdownMenuFilterDropdownProps> = observer(( {} ) => {
+  return (
+    <div className="win-version-filter">
+      <header className="win-version-filter__header">
+        <span>Версионный фильтр</span>
+      </header>
+      <div className="scroll-wrapper">
+        <FilterFormWinFilterDropdownMenu/>
+        <VersionFilterWinFilterContentForm/>
+      </div>
     </div>
   );
-};
+});
