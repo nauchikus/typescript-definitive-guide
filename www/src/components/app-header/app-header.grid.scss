@@ -11,9 +11,11 @@ $grid-gap:$app-bar__grid_gap-column;
   display: grid;
 
   grid-template-columns: $icon-button $logo 1fr $icon-button $icon-button;
-  grid-template-rows: 40px;
+  grid-template-rows: auto;
   grid-template-areas: "nav-toggle logo informer search menu";
   grid-column-gap: 4px;
+
+  align-items: center;
 
   position: relative;
 
@@ -22,8 +24,9 @@ $grid-gap:$app-bar__grid_gap-column;
 
     transition: all $app-search__grid-item_transition_duration ease $app-search__grid-item_transition_delay;
   }
+
   &[app-search-toggle="open"] > .app-header-grid-item__search {
-    left:0;
+    left: 0;
 
     transition: all $app-search__grid-item_transition_duration ease;
   }
@@ -50,10 +53,7 @@ $grid-gap:$app-bar__grid_gap-column;
 }
 .app-header-grid-item__search{
   width: auto;
-  height: 71px;
-
-  //background: var(--color_default-lite);
-  //background: tomato;
+  height: 40px;
 
   border-radius: var(--app_border-radius-default);
 
@@ -62,12 +62,6 @@ $grid-gap:$app-bar__grid_gap-column;
   align-items: flex-start;
 
   grid-area: search;
-
-  z-index:1;
-
-  //position: absolute;
-  //right: 0;
-  //top: -56px;
 
   z-index: 9999999;
 

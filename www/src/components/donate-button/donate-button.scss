@@ -75,17 +75,19 @@ $app-bar__donate-button_short-width / 2;
     padding: 8px 16px;
   }
 
-  & > svg {
-    pointer-events: none;
-
-    @media all and (min-width:$app-bar_media_xs) {
-      margin:0 8px 0 0;
-    }
-  }
+  //& > svg {
+  //  pointer-events: none;
+  //
+  //  @media all and (min-width:$app-bar_media_xs) {
+  //    margin:0 8px 0 0;
+  //  }
+  //}
 }
 .donate-button__svg-icon {
   fill: #fff;
 
+  margin: 0 8px 0 0;
+  pointer-events: none;
 }
 
 .donate-button__label {

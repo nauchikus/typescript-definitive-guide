@@ -9,7 +9,7 @@
   background-color: var(--app-bar_bg-color);
 
   border-bottom: 1px solid grey;
-  //padding: 16px 8px 16px 16px;
-  padding: $app-header_padding;
+
+  padding:0 $app-header_padding_right 0 $app-header_padding_left;
 }
 

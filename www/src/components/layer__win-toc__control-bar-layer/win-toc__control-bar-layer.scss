@@ -4,8 +4,10 @@
 .win-toc-content-control-bar {
   margin-right: auto;
 
+  padding: 4px 0;
+
   @media all and (max-width: #{$app-content_media_xs}) {
-    padding: 0 0 0 24px;
+    padding: 4px 0 4px 24px;
 
   }
 }
