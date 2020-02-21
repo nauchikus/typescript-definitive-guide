@@ -1,15 +1,25 @@
 import React, { FC, ReactNode, useRef } from "react";
 import { DriverContext } from "../../react__hooks/app-driver-hook";
+import { ScrollProviderCallback, ScrollProviderContext } from "../../react__hooks/scroll-provider-hook";
 
 interface IAppDriverProps {
   children:ReactNode|ReactNode[];
 }
 
 export const AppDriver: FC<IAppDriverProps> = ( { children } ) => {
+  let appDriverRef = useRef<HTMLDivElement|null>(null);
+  let scrollCallbackRef = useRef<ScrollProviderCallback>(({x=0,y=0})=>{
+    console.log(x,y);
+    appDriverRef.current?.scrollTo( x, y );
+  });
+
   return (
-    <div className="app-driver">
-      { children }
-    </div>
+    <ScrollProviderContext.Provider value={scrollCallbackRef.current}>
+      <div ref={appDriverRef} className="app-driver">
+        { children }
+      </div>
+    </ScrollProviderContext.Provider>
+
 
   );
 };

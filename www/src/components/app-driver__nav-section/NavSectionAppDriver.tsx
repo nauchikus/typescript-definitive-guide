@@ -2,6 +2,7 @@ import React, { FC, ReactNode, useRef } from "react";
 import { Link } from "gatsby";
 import { SectionButtonAppDriver } from "../button__app-driver-section-button/SectionButtonAppDriver";
 import { useDriver } from "../../react__hooks/app-driver-hook";
+import { useScrollProvider } from "../../react__hooks/scroll-provider-hook";
 
 export interface INavItem{
   path:string;
@@ -28,30 +29,37 @@ interface IGetPropsGatsbyLink{
 export const NavSectionAppDriver: FC<INavSectionAppDriverProps> = props => {
   let { children, itemIndex, itemLabel, isMatchPathWithHash = true } = props;
 
+  let scrollCallback = useScrollProvider();
   let driverSectionControlRef=useRef<HTMLDivElement>(null);
 
 
   const scrollToCurrentSection = () => {
     let { current: element } = driverSectionControlRef;
 
-    if ( !element ) {
+    if ( !element || !element.parentElement ) {
       return;
     }
 
-    let itemIndex=element.getAttribute(`item-index`);
 
-    if ( !itemIndex ) {
-      throw new Error( `Attribute "item-index" must be define` );
-    }
+    let parent = element.parentElement;
+    let sectionControlHeight = parseInt( window
+      .getComputedStyle( document.documentElement )
+      .getPropertyValue( `--app-driver__section-control_height` ) );
+    let currentSectionControlIndex = parseInt( element.getAttribute( `item-index` ) as string );
 
-    let scrollTop = element.scrollTop;
+    const getInitialHeight = () => currentSectionControlIndex === 0 ? 0 : sectionControlHeight;
 
-    if ( Math.round( scrollTop ) === parseInt( itemIndex ) ) {
-      element.scrollIntoView({ block: "end"})
-    }else{
-      element.scrollIntoView({ block: "start"})
-    }
+    let scrollOffsetTop = Array
+      .from( parent.children )
+      .filter( element => !element.classList.contains( `app-driver__section-control` ) )
+      .slice( 0, currentSectionControlIndex )
+      .reduce( ( height, element ) =>
+        height + ( element.clientHeight - sectionControlHeight ), getInitialHeight() );
 
+
+    scrollCallback( {
+      y: scrollOffsetTop
+    } );
 
   };
   

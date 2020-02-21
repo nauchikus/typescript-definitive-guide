@@ -41,9 +41,9 @@
   &[item-index="0"]{
     top:0;
   }
-  &[item-index="1"]{
-    top:56px;
-    bottom:0;
+  &[item-index="1"] {
+    top: $app-driver__section-control_height * 1;
+    bottom: 0;
 
     z-index: 1;
   }
