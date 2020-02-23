@@ -1,27 +1,30 @@
 import React, { FC } from "react";
 import { If } from "../if-operator/If";
 import { useWhatIsNewStores } from "../../mobx/MobxWhatIsNewProvider";
+import { BackArrowSvgIcon, ForwardArrowSvgIcon } from "../icon__svg-icon/svg-icons";
 
 interface INavContentConclusionProps {
 }
 
 export const NavContentConclusion:FC<INavContentConclusionProps>=()=>{
-  let { router,contentNav } = useWhatIsNewStores();
+  let { contentNav } = useWhatIsNewStores();
 
   return (
     <nav className="content-conclusion__nav">
-      <button className="conclusion-button-prev" onClick={()=>contentNav.goPrevPage()}>
+      <button className="conclusion-prev-button" onClick={()=>contentNav.goPrevPage()}>
         <If condition={ contentNav.hasPrevPage() }>
           <span className="conclusion-label">
             {contentNav.pageItem.prevPage?.name}
           </span>
+          <BackArrowSvgIcon className="conclusion-button__svg-icon"/>
         </If>
       </button>
-      <button className="conclusion-button-next" onClick={()=>contentNav.goNextPage()}>
+      <button className="conclusion-next-button" onClick={()=>contentNav.goNextPage()}>
         <If condition={contentNav.hasNextPage()}>
           <span className="conclusion-label">
-            {contentnav.pageItem.nextPage?.name}
+            {contentNav.pageItem.nextPage?.name}
           </span>
+          <ForwardArrowSvgIcon className="conclusion-button__svg-icon"/>
         </If>
       </button>
     </nav>

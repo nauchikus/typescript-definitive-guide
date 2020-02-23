@@ -7,6 +7,7 @@ import DonateNativeSvgIcon from '../../../assets/icon__svg/donate.svg';
 import PdfNativeSvgIcon from '../../../assets/icon__svg/pdf-file.svg';
 import BrickwallNativeSvgIcon from '../../../assets/icon__svg/brickwall.svg';
 import ForwardArrowNativeSvgIcon from '../../../assets/icon__svg/baseline-arrow_forward-24px.svg';
+import BackArrowNativeSvgIcon from '../../../assets/icon__svg/baseline-arrow_back-24px.svg';
 import MagnifierNativeSvgIcon from '../../../assets/icon__svg/magnifier.svg';
 import LinkNativeSvgIcon from '../../../assets/icon__svg/iconmonstr-link.svg';
 import ArrowDownNativeSvgIcon from '../../../assets/icon__svg/baseline-keyboard_arrow_down-24px.svg';
@@ -61,6 +62,11 @@ export const BrickwallSvgIcon:FC<ISvgIconProps>=({className}) => (
 export const ForwardArrowSvgIcon:FC<ISvgIconProps>=({className}) => (
   <svg className={className?`svg-icon ${className}`:`svg-icon`} width={24} height={24} viewBox="0 0 24 24">
     <use xlinkHref={ `#${ ForwardArrowNativeSvgIcon.id }` }/>
+  </svg>
+);
+export const BackArrowSvgIcon:FC<ISvgIconProps>=({className}) => (
+  <svg className={className?`svg-icon ${className}`:`svg-icon`} width={24} height={24} viewBox="0 0 24 24">
+    <use xlinkHref={ `#${ BackArrowNativeSvgIcon.id }` }/>
   </svg>
 );
 export const MagnifierSvgIcon:FC<ISvgIconProps>=({className}) => (

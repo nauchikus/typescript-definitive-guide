@@ -4,6 +4,8 @@ export type AppLocalization = typeof json;
 
 export type AppNavigationLocalization = AppLocalization["appNavigation"];
 export type SharedLayoutLocalization = AppLocalization["layouts"]["shared"];
+export type InformersLocalization = AppLocalization["layouts"]["shared"]["informers"];
+export type LinksLocalization = AppLocalization["layouts"]["shared"]["links"];
 export type BookTocLocalization = AppLocalization["pages"]["book__chapters"];
 export type WhatIsNewTocLocalization = AppLocalization["pages"]["what-is-new__toc"];
 export type BookTocGuiLocalization = BookTocLocalization["gui"];
@@ -13,6 +15,8 @@ export type BehaviorNotificationLocalization = AppLocalization["notification"]["
 export const LocalizationPaths = {
   AppNavigation: "appNavigation",
   SharedLayout: "layouts.shared",
+  Informers: "layouts.shared.informers",
+  Links: "layouts.shared.links",
   IndexPage: "pages.index",
   BookChaptersPage: "pages.book__chapters",
   BookChaptersPageGui: "pages.book__chapters.gui",
