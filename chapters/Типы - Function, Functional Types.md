@@ -102,7 +102,7 @@ let v1 = { // v1: {f2: (this: IT1) => void;}
     f2: f2
 };
 
-a.f1(); // Error
+v1.f2(); // Error
 
 let v2 = { // v2: {p1: string; f2: (this: IT1) => void;}
     p1: '',
@@ -124,7 +124,7 @@ class Point {
 
 class Animal {
     private readonly position: Point = new Point();
-    
+
     public move({clientX, clientY}: MouseEvent): void {
         this.position.x = clientX;
         this.position.y = clientY;
@@ -166,7 +166,7 @@ class Point {
 
 class Animal {
     private readonly position: Point = new Point();
-    
+
     public move(this: Animal, {clientX, clientY}: MouseEvent): void { // <= изменения
         this.position.x = clientX;
         this.position.y = clientY;
