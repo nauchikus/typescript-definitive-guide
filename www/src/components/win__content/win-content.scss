@@ -133,8 +133,14 @@ pre > code {
   }
 }
 
-.content__conclusion{
+.content-conclusion{
 
+}
+.content-conclusion__item{
+  &:not(:last-child) {
+    margin: 0 0 40px 0;
+
+  }
 }
 
 ul.content__list{

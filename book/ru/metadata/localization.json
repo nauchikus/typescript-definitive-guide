@@ -60,6 +60,16 @@
             "links": {
                 "telegram": "#"
             },
+            "appContent": {
+                "contentNav": {
+                    "prevButton": {
+                        "label": "Назад"
+                    },
+                    "nextButton": {
+                        "label": "Вперед"
+                    }
+                }
+            },
             "appHeader": {
                 "navToggleButton": {
                     "tooltips": {

@@ -91,6 +91,7 @@ $content__control-bar_right_media_xs:   24px;
 $donate-dropdown_max-width:320px;
 
 $app-content_width:608px;
+$app-content_content-nav_label_visible_media_xs:460px;
 
 $app-header_padding:(16px 8px 16px 16px);
 $app-header_padding-left:nth($app-header_padding,4);
@@ -161,7 +162,9 @@ $color_dark_95:lighten(#000000,95%);
 $color_dark_90:lighten(#000000,90%);
 $color_dark_80:lighten(#000000,80%);
 $color_dark_60:lighten(#000000,60%);
+$color_dark_50:lighten(#000000,50%);
 $color_dark_40:lighten(#000000,40%);
+$color_dark_30:lighten(#000000,30%);
 $color_dark_20:lighten(#000000,20%);
 $color_dark_10:lighten(#000000,10%);
 $color_base_50:#007ACC;

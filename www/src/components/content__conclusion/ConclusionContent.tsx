@@ -7,9 +7,13 @@ interface IConclusionContentProps {
 
 export const ConclusionContent: FC<IConclusionContentProps> = ( {} ) => {
   return (
-    <aside className="content__section content__conclusion">
-      <InformerContentConclusion/>
-      <NavContentConclusion/>
+    <aside className="content__section content-conclusion">
+      <div className="content-conclusion__item">
+        <InformerContentConclusion/>
+      </div>
+      <div className="content-conclusion__item">
+        <NavContentConclusion/>
+      </div>
     </aside>
   );
 };
