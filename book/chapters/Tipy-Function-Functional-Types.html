@@ -102,7 +102,7 @@ f3(); <span class="hljs-comment">// Ok</span>
     f2: f2
 };
 
-a.f1(); <span class="hljs-comment">// Error</span>
+v1.f2(); <span class="hljs-comment">// Error</span>
 
 <span class="hljs-keyword">let</span> v2 = { <span class="hljs-comment">// v2: {p1: string; f2: (this: IT1) => void;}</span>
     p1: <span class="hljs-string">''</span>,
@@ -120,7 +120,7 @@ v2.f2(); <span class="hljs-comment">// Ok</span></code></pre>
 
 <span class="hljs-keyword">class</span> Animal {
     <span class="hljs-keyword">private</span> readonly position: Point = <span class="hljs-keyword">new</span> Point();
-    
+
     <span class="hljs-keyword">public</span> move({clientX, clientY}: MouseEvent): <span class="hljs-built_in">void</span> {
         <span class="hljs-keyword">this</span>.position.x = clientX;
         <span class="hljs-keyword">this</span>.position.y = clientY;
@@ -153,7 +153,7 @@ controller.addEventListener(<span class="hljs-string">'mousemove'</span>, animal
 
 <span class="hljs-keyword">class</span> Animal {
     <span class="hljs-keyword">private</span> readonly position: Point = <span class="hljs-keyword">new</span> Point();
-    
+
     <span class="hljs-keyword">public</span> move(<span class="hljs-keyword">this</span>: Animal, {clientX, clientY}: MouseEvent): <span class="hljs-built_in">void</span> { <span class="hljs-comment">// &#x3C;= изменения</span>
         <span class="hljs-keyword">this</span>.position.x = clientX;
         <span class="hljs-keyword">this</span>.position.y = clientY;

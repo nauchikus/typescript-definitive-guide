@@ -182,7 +182,7 @@ animals.forEach(<span class="hljs-function"><span class="hljs-params">value</spa
 <span class="hljs-keyword">let</span> v2: T = <span class="hljs-function"><span class="hljs-params">()</span> =></span> <span class="hljs-literal">true</span>; <span class="hljs-comment">// Ok</span>
 <span class="hljs-keyword">let</span> v3: T = <span class="hljs-function"><span class="hljs-params">()</span> =></span> ({}); <span class="hljs-comment">// Ok</span></code></pre>
 <p>Причину, по которой поведение типа <code class="inline-code">void</code>, в случаях указания его в аннотации возвращаемого из функции значения, было изменено, лучше рассмотреть на примере работы с массивом, а точнее его методом <code class="inline-code">forEach</code>.</p>
-<p>Предположим, есть два массива. Первый массив состоит из элементов, принадлежащих к объектному типу, у которого определенно поле <code class="inline-code">name</code>. Второй массив предназначен для хранения строк, и имеет длину, равную <code class="inline-code">0</code>. </p>
+<p>Предположим, есть два массива. Первый массив состоит из элементов, принадлежащих к объектному типу, у которого определенно поле <code class="inline-code">name</code>. Второй массив предназначен для хранения строк, и имеет длину, равную <code class="inline-code">0</code>.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">class</span> Animal { 
     name: <span class="hljs-built_in">string</span>;
 }
@@ -203,11 +203,15 @@ animals.forEach(<span class="hljs-function"><span class="hljs-params">value</spa
     <span class="hljs-keyword">new</span> Animal()
 ];
 
-<span class="hljs-keyword">let</span> animalNames: <span class="hljs-built_in">string</span>[] = [];
+<span class="hljs-keyword">let</span> animalNameAll: <span class="hljs-built_in">string</span>[] = [];
 
-animals.forEach(<span class="hljs-function"><span class="hljs-params">value</span> =></span> animalNames.push(value.name)); <span class="hljs-comment">// forEach ожидает () => void, а получает () => number, так как стрелочная функция без тела неявно возвращает значение, возвращаемое методом push.</span></code></pre>
-<p>И напоследок стоит упомянуть, что две обобщенные функции считаются совместимы, если у них в аннотации возвращаемого значения указан параметр типа.</p>
-<pre><code class="hljs language-typescript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">f0</span>&#x3C;<span class="hljs-title">T</span>>(<span class="hljs-params">p: T</span>): <span class="hljs-title">T</span> </span>{ <span class="hljs-keyword">return</span> p; }
+animalNameAll.forEach( <span class="hljs-function"><span class="hljs-params">animal</span> =></span> animalNameAll.push( animal.name ) ); <span class="hljs-comment">// forEach ожидает () => void, а получает () => number, так как стрелочная функция без тела неявно возвращает значение, возвращаемое методом push.</span>
+
+
+И напоследок стоит упомянуть, что две обобщенные функции считаются совместимы, если у них в аннотации возвращаемого значения указан параметр типа.
+
+~~~~~typescript
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">f0</span>&#x3C;<span class="hljs-title">T</span>>(<span class="hljs-params">p: T</span>): <span class="hljs-title">T</span> </span>{ <span class="hljs-keyword">return</span> p; }
 <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">f1</span>&#x3C;<span class="hljs-title">S</span>>(<span class="hljs-params">p: S</span>): <span class="hljs-title">S</span> </span>{ <span class="hljs-keyword">return</span> p; }
 
 <span class="hljs-keyword">type</span> T0 = <span class="hljs-keyword">typeof</span> f0;

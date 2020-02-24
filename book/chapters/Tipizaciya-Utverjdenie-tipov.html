@@ -21,9 +21,9 @@
 <p>Но факт, что разработчику известен тип, к которому принадлежит объект по конкретному селектору, дает основания попросить компилятор пересмотреть свое отношение к типу конкретного объекта.</p>
 <p>Попросить дословно означает то, что мы можем лишь указать компилятору пересмотреть отношение к типу. Но решение разрешить операцию или нет, все равно остается за ним. В тех случаях, когда тип объекта несовместим с типом, с которым он должен быть совместим, компилятор уведомит о своем отказе.</p>
 <p>Выражаясь человеческим языком, в <em>TypeScript</em> процесс, который вынуждает компилятор пересмотреть свое отношение к типу данных, называется <em>утверждением типа</em> (<code class="inline-code">Type Assertion</code>).</p>
-<p>Утверждение типа похоже на <em>преобразование</em> (приведение) типов (type conversion, typecasting), за исключением того, что от них не остается и следа в скомпилированном коде, а внутренний механизм различен. Именно поэтому они и называются утверждения. </p>
+<p>Утверждение типа похоже на <em>преобразование</em> (приведение) типов (type conversion, typecasting), за исключением того, что от них не остается и следа в скомпилированном коде, а внутренний механизм различен. Именно поэтому они и называются утверждения.</p>
 <p>Утверждая тип, разработчик говорит компилятору — <em>“поверь мне, я знаю, что делаю”</em> (<em>Trust me, I know what I'm doing</em>).</p>
-<p>Нельзя не уточнить, что, хотя в <em>TypeScript</em> и существует термин утверждение типа, по ходу изложения в качестве синонимов будут употребляться слова преобразование, реже — приведение. А так же, не будет лишним напомнить, что приведение — это процесс в котором объект одного типа преобразуется в объект другого типа. </p>
+<p>Нельзя не уточнить, что, хотя в <em>TypeScript</em> и существует термин утверждение типа, по ходу изложения в качестве синонимов будут употребляться слова преобразование, реже — приведение. А так же, не будет лишним напомнить, что приведение — это процесс в котором объект одного типа преобразуется в объект другого типа.</p>
 <p>Утверждение типа имеет две формы. Первый способ заключается в указании принадлежности к типу с помощью угловых скобок <code class="inline-code">&#x3C;Type></code>. Второй — с помощью оператора <code class="inline-code">as</code>.</p>
 </section><section id="Utverjdenie-v-signature-Signature-Assertion" name="Утверждение в сигнатуре (Signature Assertion)" class="subchapter">
             <h2 class="subchapter-title">
@@ -36,7 +36,7 @@
             </h2>
         
 <hr>
-<p>Помимо функций реализущих механизм <em>утверждения типа</em> в <em>TypeScript</em> существует механизм <em>утверждения в сигнатуре</em> позволяющий определять утверждающие функции, вызов которых в случае отрицательного значения приводит к выбрасыванию исключения. </p>
+<p>Помимо функций реализущих механизм <em>утверждения типа</em> в <em>TypeScript</em> существует механизм <em>утверждения в сигнатуре</em> позволяющий определять утверждающие функции, вызов которых в случае отрицательного значения приводит к выбрасыванию исключения.</p>
 <p>Для того чтобы объявить утверждающую функцию, в её сигнатуре (там где располагается возвращаемое значение) следует указать ключевое слово <code class="inline-code">asserts</code>, а затем, параметр принимаемого на вход условия.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">identifier</span>(<span class="hljs-params">condition: <span class="hljs-built_in">any</span></span>): <span class="hljs-title">asserts</span> <span class="hljs-title">condition</span> </span>{
     <span class="hljs-keyword">if</span> (!condition) {
@@ -94,14 +94,14 @@
 
     text.touppercase(); <span class="hljs-comment">// нет ошибки, потому что утверждение типов не работает</span>
 }</code></pre>
-</section><section id="Utverjdenie-Tipa-Type-sintaksis" name="Утверждение Типа <Type> синтаксис" class="subchapter">
+</section><section id="Utverjdenie-Tipa-code-class-inline-code-x3C-Type-code-sintaksis" name="Утверждение Типа <code class="inline-code">&#x3C;Type></code> синтаксис" class="subchapter">
             <h2 class="subchapter-title">
-                <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="Utverjdenie-Tipa-Type-sintaksis" type="absolute-url">
+                <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="Utverjdenie-Tipa-code-class-inline-code-x3C-Type-code-sintaksis" type="absolute-url">
                     <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                         <use href="#icon_link"/>
                     </svg>
                 </button>
-                Утверждение Типа <Type> синтаксис
+                Утверждение Типа <code class="inline-code">&#x3C;Type></code> синтаксис
             </h2>
         
 <hr>
@@ -180,7 +180,7 @@ element.dataset.count = (<span class="hljs-number">0</span>).toString();
 element.addEventListener(<span class="hljs-string">'click'</span>, <span class="hljs-function">(<span class="hljs-params">{ target }</span>) =></span> {
     <span class="hljs-keyword">let</span> element = target <span class="hljs-keyword">as</span> HTMLElement;
     <span class="hljs-keyword">let</span> count: <span class="hljs-built_in">number</span> = element.dataset.count <span class="hljs-keyword">as</span> <span class="hljs-built_in">any</span> <span class="hljs-keyword">as</span> <span class="hljs-built_in">number</span>;
-    
+
     element.dataset.count = (++count).toString();
 });</code></pre>
 <p>В случае несовместимости типов, в результате операции утверждения возникнет ошибка.</p>
@@ -221,7 +221,7 @@ element.addEventListener(<span class="hljs-string">'click'</span>, <span class="
             </h2>
         
 <hr>
-<p>Ни для кого не секрет, что с точки зрения <em>JavaScript</em>, а следовательно и <em>TypeScript</em>, все примитивные литеральные значения являются константными значениями. С точки зрения среды исполнения два эквивалентных литерала любого литерального типа являются единым значением. То есть, среда исполнения расценивает два строковых литерала <code class="inline-code">'text'</code> и <code class="inline-code">'text'</code> как один литерал. Тоже самое справедливо и для остальных литералов, к которым помимо типа <code class="inline-code">string</code> также относятся такие типы, как <code class="inline-code">number</code>, <code class="inline-code">boolean</code> и <code class="inline-code">symbol</code>. </p>
+<p>Ни для кого не секрет, что с точки зрения <em>JavaScript</em>, а следовательно и <em>TypeScript</em>, все примитивные литеральные значения являются константными значениями. С точки зрения среды исполнения два эквивалентных литерала любого литерального типа являются единым значением. То есть, среда исполнения расценивает два строковых литерала <code class="inline-code">'text'</code> и <code class="inline-code">'text'</code> как один литерал. Тоже самое справедливо и для остальных литералов, к которым помимо типа <code class="inline-code">string</code> также относятся такие типы, как <code class="inline-code">number</code>, <code class="inline-code">boolean</code> и <code class="inline-code">symbol</code>.</p>
 <p>Тем не менее, сложно найти разработчика <em>TypeScript</em>, который при объявлении каких-либо конструкций, которым предстоит проверка на принадлежность к литеральному типу, не испытывал дискомфорта из-за вывода типов.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">type</span> Status = <span class="hljs-number">200</span> | <span class="hljs-number">404</span>;
 <span class="hljs-keyword">type</span> Request = { status: Status }
@@ -306,7 +306,7 @@ element.addEventListener(<span class="hljs-string">'click'</span>, <span class="
 <span class="hljs-keyword">let</span> o0 = {f: {f: <span class="hljs-number">100</span>}} <span class="hljs-keyword">as</span> <span class="hljs-keyword">const</span>; <span class="hljs-comment">// {f: {readonly f: 100;};}</span>
 <span class="hljs-comment">// ожидаемо - o1.f имеет модификатор readonly. возможно ожидаемо - o1.f.f мутабельный (изменяемый) объект</span>
 <span class="hljs-keyword">let</span> o1 = {f: defaultObject} <span class="hljs-keyword">as</span> <span class="hljs-keyword">const</span>; <span class="hljs-comment">// {readonly f: {f: number;};}</span>
-<span class="hljs-comment">// ожидаемо - o2 иммутабельный (неизменяемый) объект </span>
+<span class="hljs-comment">// ожидаемо - o2 иммутабельный (неизменяемый) объект</span>
 <span class="hljs-keyword">let</span> o2 = {...defaultObject} <span class="hljs-keyword">as</span> <span class="hljs-keyword">const</span>; <span class="hljs-comment">// {readonly f: number;}</span>
 <span class="hljs-comment">// неожиданно - o3.f не имеет модификатора readonly. ожидаемо- o3.f.f иммутабельный (неизменяемый) объект</span>
 <span class="hljs-keyword">let</span> o3 = {f: {...defaultObject}} <span class="hljs-keyword">as</span> <span class="hljs-keyword">const</span>; <span class="hljs-comment">// {f: {readonly f: number;};}</span>

@@ -9,8 +9,8 @@
             </h2>
         
 <hr>
-<p>Чтобы не повторять определения, которые были даны в главе <a class="book__chapter__chapter-link" href="/book/contents/Ekskurs-v-tipizaciu-Svyazyvanie-tipizaciya-vyvod-tipov" title="Экскурс в типизацию - Связывание, типизация, вывод типов" target="_blank">Экскурс в типизацию - Связывание, типизация, вывод типов</a>, эту главу стоит начать с неформально определения. </p>
-<p><em>Вывод типов</em> — это механизм, благодаря которому разрабатывать на статически типизированном <em>TypeScript</em> становится намного легче. Он берет на себя ту работу, которая во многих случаях может показаться рутинной. Вывод типов работает не только тогда, когда вы не указывает тип явно; он работает всегда, когда компилятор встречает код. Дело в том, что компилятор не доверяет разработчику и поэтому весь код, в штатном режиме, проходит через вывод типов. В этом механизме нет ничего сложного, но несмотря на это, у разработчиков, которые только приступают к изучению <em>TypeScript</em>, некоторые неочевидные особенности могут вызвать вопросы, на которые и постарается ответить данная глава. </p>
+<p>Чтобы не повторять определения, которые были даны в главе <a class="book__chapter__chapter-link" href="/book/contents/Ekskurs-v-tipizaciu-Svyazyvanie-tipizaciya-vyvod-tipov" title="Экскурс в типизацию - Связывание, типизация, вывод типов" target="_blank">Экскурс в типизацию - Связывание, типизация, вывод типов</a>, эту главу стоит начать с неформально определения.</p>
+<p><em>Вывод типов</em> — это механизм, благодаря которому разрабатывать на статически типизированном <em>TypeScript</em> становится намного легче. Он берет на себя ту работу, которая во многих случаях может показаться рутинной. Вывод типов работает не только тогда, когда вы не указывает тип явно; он работает всегда, когда компилятор встречает код. Дело в том, что компилятор не доверяет разработчику и поэтому весь код, в штатном режиме, проходит через вывод типов. В этом механизме нет ничего сложного, но несмотря на это, у разработчиков, которые только приступают к изучению <em>TypeScript</em>, некоторые неочевидные особенности могут вызвать вопросы, на которые и постарается ответить данная глава.</p>
 <p>Кроме того, ещё одна цель этой главы — раскрыть те моменты, рассказ о которых в других частях книги мог быть не ко времени и излишне усложнил бы понимание. Поэтому те части книги просто ссылались на текущую главу. Но, также в этой главе вкратце будет повторено то, что уже было рассмотрено по ходу изложения материала.</p>
 </section><section id="Vyvod-primitivnyh-tipov" name="Вывод примитивных типов" class="subchapter">
             <h2 class="subchapter-title">
@@ -23,7 +23,7 @@
             </h2>
         
 <hr>
-<p>Вывод типов для значений, принадлежащих к так называемым примитивным типам, не таит в себе ничего необычно. Кроме того, будь это переменные, поля, параметры, возвращаемые из функций и методов значения, результат во всех случаях будет идентичным. </p>
+<p>Вывод типов для значений, принадлежащих к так называемым примитивным типам, не таит в себе ничего необычно. Кроме того, будь это переменные, поля, параметры, возвращаемые из функций и методов значения, результат во всех случаях будет идентичным.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">enum</span> Enums {
     Value
 };
@@ -60,8 +60,8 @@
     readonly f2 = <span class="hljs-literal">true</span>;<span class="hljs-comment">// f2: true</span>
 }</code></pre>
 <p>Если значение принадлежит к типу <code class="inline-code">enum</code>, то вывод типов установит принадлежность к типу <code class="inline-code">enum</code>.</p>
-<pre><code class="hljs language-typescript"><span class="hljs-keyword">enum</span> Enums { 
-    Value 
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">enum</span> Enums {
+    Value
 };
 
 <span class="hljs-keyword">const</span> v = Enums.Value; <span class="hljs-comment">// let v: Enums</span>
@@ -113,7 +113,7 @@
         
 <hr>
 <p>С выводом типов объединения (глава <a class="book__chapter__chapter-link" href="/book/contents/Tipy-Union-Intersection" title="Типы - Union, Intersection" target="_blank">Типы - Union, Intersection</a>) связаны как очевидные, так и нет, случаи.</p>
-<p>К очевидным случаям можно отнести массив, состоящий из разных примитивных типов. В таком случае будет выведен очевидный тип объединение, который составляют типы присутствующих в массиве примитивов.  </p>
+<p>К очевидным случаям можно отнести массив, состоящий из разных примитивных типов. В таком случае будет выведен очевидный тип объединение, который составляют типы присутствующих в массиве примитивов.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">let</span> v = [<span class="hljs-number">0</span>, <span class="hljs-string">'text'</span>, <span class="hljs-literal">true</span>]; <span class="hljs-comment">// let v: (string | number | boolean)[]</span></code></pre>
 <p>В случае получения любого элемента массива, вывод типов также установит принадлежность к объединенному типу.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">let</span> v = [<span class="hljs-number">0</span>, <span class="hljs-string">'text'</span>, <span class="hljs-literal">true</span>]; <span class="hljs-comment">// let v: (string | number | boolean)[]</span>
@@ -130,13 +130,13 @@
   { a: <span class="hljs-number">5</span>, b: <span class="hljs-string">'text'</span> },
   { a: <span class="hljs-number">6</span> },
   { a: <span class="hljs-number">7</span>, b: <span class="hljs-literal">true</span> }
-]; <span class="hljs-comment">// let v: ({ a: number, b: number } | { a: number, b?: undefined } | { a: number, b: boolean })[]</span></code></pre>
+]; <span class="hljs-comment">// let v: ({ a: number, b: string } | { a: number, b?: undefined } | { a: number, b: boolean })[]</span></code></pre>
 <p>Как видно из примера выше, вывод типов приводит все объектные типы, составляющие тип объединение, к единому виду. Он добавляет к типам не существующие в них, но существующие в других объектных типах, поля, декларируя их как необязательные (глава  <a class="book__chapter__chapter-link" href="/book/contents/Operatory-Optional-Not-Null-Not-Undefined-Definite-Assignment-Assertion" title="Операторы - Optional, Not-Null, Not-Undefined, Definite Assignment Assertion" target="_blank">Операторы - Optional, Not-Null, Not-Undefined, Definite Assignment Assertion</a>). Сделано это для того, чтобы можно было конкретизировать тип любого элемента массива. Простыми словами, чтобы не получить ошибку во время выполнения, любой элемент массива должен иметь общие для всех элементов признаки. Но так как в реальности в объектах некоторые члены вовсе могут отсутствовать, вывод типов, чтобы повысить типобезопасность, декларирует их, как необязательные. Таким образом, он предупреждает разработчика о возможности возникновения ситуации, при которой эти члены будут иметь значение <code class="inline-code">undefined</code>, что и демонстрируется в примере ниже.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">let</span> v = [
   { a: <span class="hljs-number">5</span>, b: <span class="hljs-string">'text'</span> },
   { a: <span class="hljs-number">6</span> },
   { a: <span class="hljs-number">7</span>, b: <span class="hljs-literal">true</span> }
-]; <span class="hljs-comment">// let v: ({ a: number, b: number } | { a: number, b?: undefined } | { a: number, b: boolean })[]</span>
+]; <span class="hljs-comment">// let v: ({ a: number, b: string } | { a: number, b?: undefined } | { a: number, b: boolean })[]</span>
 
 <span class="hljs-keyword">let</span> a = v[<span class="hljs-number">0</span>].a; <span class="hljs-comment">// let a: number</span>
 <span class="hljs-keyword">let</span> b = v[<span class="hljs-number">0</span>].b; <span class="hljs-comment">// let b: string | boolean | undefined</span></code></pre>
