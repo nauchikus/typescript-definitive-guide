@@ -7,11 +7,11 @@ ________________
 Из-за высокой популярности *React*, создателями *TypeScript* было принято решение создать расширение *.tsx*. Но одного расширения недостаточно, чтобы благополучно компилировать *.tsx*. Так как React можно использовать для создания как веб, так и мобильных приложений, компилятору с помощью флага `--jsx` нужно указать конкретную принадлежность к `“react”` или `“react-native”`. По умолчанию выставлено значение `“preserve”`.
 
 ~~~~~typescript
-// tsconfig.json  
+// tsconfig.json
 {
-  "compilerOptions": {
-      "jsx": "react"
-  }
+    "compilerOptions": {
+        "jsx": "react"
+    }
 }
 ~~~~~
 
@@ -24,8 +24,8 @@ ________________
 
 ~~~~~typescript
 import * as React from "react";
-import { Component, ReactElement, ReactEventHandler, RefObject, SyntheticEvent } from "react";
-import { ErrorInfo } from "react";
+import {Component, ReactElement, ReactEventHandler, RefObject, SyntheticEvent} from "react";
+import {ErrorInfo} from "react";
 
 interface GreeterDefaultProps {} // для декларации свойств по умолчанию
 export interface GreeterProps extends GreeterDefaultProps {} // для декларации свойств + экспорт интерфейса
@@ -37,45 +37,45 @@ type Props = Readonly<GreeterProps>; // помечаем как неизменя
 type State = Readonly<GreeterState>; // помечаем как неизменяемые члены объекта state
 type Snapshot = Readonly<GreeterSnapshot>; // помечаем как неизменяемые члены объекта Snapshot
 
-type TextRefCallback = ( element: HTMLSpanElement ) => void; // декларация псевдонима типа для типа описывающего функцию обратного вызова, устанавливающего ссылку на dom  элемент
+type TextRefCallback = (element: HTMLSpanElement) => void; // декларация псевдонима типа для типа описывающего функцию обратного вызова, устанавливающего ссылку на dom  элемент
 
 export default class Greeter extends Component<Props, State, Snapshot> {
-  public static readonly defaultProps: DefaultProps = {}; // помечаем как неизменяемый сам объект defaultProps, модификатор доступа которого должен быть public
+    public static readonly defaultProps: DefaultProps = {}; // помечаем как неизменяемый сам объект defaultProps, модификатор доступа которого должен быть public
 
-  public static getDerivedStateToProps ? ( nextProps: Readonly<Props>, prevState: State ): Partial<State> | null {
-      return null;
-  }
- 
-  public readonly state: State = {}; // помечаем как неизменяемый сам объект state, модификатор доступа которого должен быть public
+    public static getDerivedStateToProps ? (nextProps: Readonly<Props>, prevState: State): Partial<State> | null {
+        return null;
+    }
 
-  private readonly containerRef: RefObject<HTMLDivElement> = React.createRef(); // создание объекта RefObject, с помощью которого будет получена ссылка на DOM-элемент
-  private textRef: HTMLSpanElement; // поле, в которое будет сохранена ссылка на DOM-элемент
-  private readonly textRefCallback: TextRefCallback = element => this.textRef = element; // объявление функции обратного вызова для установления ссылки на DOM-элемент
+    public readonly state: State = {}; // помечаем как неизменяемый сам объект state, модификатор доступа которого должен быть public
 
-  constructor ( props: Props ) {
-      super( props );
-  }
+    private readonly containerRef: RefObject<HTMLDivElement> = React.createRef(); // создание объекта RefObject, с помощью которого будет получена ссылка на DOM-элемент
+    private textRef: HTMLSpanElement; // поле, в которое будет сохранена ссылка на DOM-элемент
+    private readonly textRefCallback: TextRefCallback = element => this.textRef = element; // объявление функции обратного вызова для установления ссылки на DOM-элемент
 
-  public componentDidMount ? ():void {}
-  public componentWillUnmount ? (): void {}
-  public shouldComponentUpdate  ? ( nextProps: Readonly<Props>, nextState: Readonly<State>, nextContext: any ):
-      boolean { return true; }
-  public componentDidUpdate ? ( prevProps: Readonly<Props>, prevState: Readonly<State>, Snapshot?: Snapshot ):
-      void { }
-  public componentDidCatch ? ( error: Error, errorInfo: ErrorInfo ): void {}
-  public getSnapshotBeforeUpdate ? ( prevProps: Readonly<Props>, prevState: Readonly<State> ): Snapshot | null {
-      return null
-  }
+    constructor (props: Props) {
+        super(props);
+    }
 
-  private readonly closeButton_clickHandler: ReactEventHandler<HTMLButtonElement> = ( event: SyntheticEvent<HTMLButtonElement> ) => {
-      this.setState( ( prevState: State, prevProps: Props ) => {
-          return {  };
-      } )
-  };
+    public componentDidMount ? (): void {}
+    public componentWillUnmount ? (): void {}
+    public shouldComponentUpdate ? (nextProps: Readonly<Props>, nextState: Readonly<State>, nextContext: any): boolean {
+        return true;
+    }
+    public componentDidUpdate ? (prevProps: Readonly<Props>, prevState: Readonly<State>, Snapshot?: Snapshot): void {}
+    public componentDidCatch ? (error: Error, errorInfo: ErrorInfo): void {}
+    public getSnapshotBeforeUpdate ? (prevProps: Readonly<Props>, prevState: Readonly<State>): Snapshot | null {
+        return null
+    }
 
-  public render (): ReactElement<Props> {
-      return null;
-  }
+    private readonly closeButton_clickHandler: ReactEventHandler<HTMLButtonElement> = (event: SyntheticEvent<HTMLButtonElement>) => {
+        this.setState((prevState: State, prevProps: Props) => {
+            return {};
+        });
+    };
+
+    public render(): ReactElement<Props> {
+        return null;
+    }
 }
 ~~~~~
 
@@ -139,15 +139,15 @@ private textRef: HTMLSpanElement;
 private readonly textRefCallback: TextRefCallback = element => this.textRef = element;
 
 // ...
-~~~~~	
+~~~~~
 
 Следующим по очереди идет конструктор, в объявлении которого нет ничего необычно. Вслед за ним объявляется поле `closeButton_clickHandler`, которому в качестве значения присваивается стрелочная функция, выступающая в роли слушателя события (*event handler*).
 
 ~~~~~typescript
 private readonly closeButton_clickHandler: ReactEventHandler<HTMLButtonElement> = ( event: SyntheticEvent<HTMLButtonElement> ) => {
-  this.setState( ( prevState: State, prevProps: Props ) => {
-      return {  };
-  } )
+    this.setState((prevState: State, prevProps: Props) => {
+        return {};
+    });
 };
 ~~~~~
 
@@ -157,7 +157,7 @@ private readonly closeButton_clickHandler: ReactEventHandler<HTMLButtonElement> 
 
 ~~~~~typescript
 private readonly closeButton_clickHandler = ( ) => {
-   // произвести какие-то операции, которые не требуют объекта event
+    // произвести какие-то операции, которые не требуют объекта event
 };
 ~~~~~
 
@@ -166,28 +166,28 @@ private readonly closeButton_clickHandler = ( ) => {
 Первая из них заключается в аннотировании параметра `event`, которому присваивается слушатель событий. Из-за того, что этот код нельзя трактовать двусмысленно, не страдает его читаемость. Кроме того, вывод типов сможет вывести тип для поля, если информацию о нем потребуется получить с помощью подсказок, предоставляемых всеми современными ide.
 
 ~~~~~typescript
-private readonly closeButton_clickHandler = ( event: SyntheticEvent<HTMLButtonElement> ) => {
-  // какие-то операции с объектом event
+private readonly closeButton_clickHandler = (event: SyntheticEvent<HTMLButtonElement>) => {
+    // какие-то операции с объектом event
 };
 
 // вывод типа видит этот код как private readonly closeButton_clickHandler: ( event: SyntheticEvent<HTMLButtonElement> ) => void = ( event: SyntheticEvent<HTMLButtonElement> ) => {};
-~~~~~	
+~~~~~
 
 Второй способ диаметрально противоположен первому и предполагает явно аннотировать поле, а не значение, в роли которого выступает слушатель событий.
 
 ~~~~~typescript
 private readonly closeButton_clickHandler: ReactEventHandler<HTMLButtonElement> = event => {
-        // какие-то операции с параметром event  
+    // какие-то операции с параметром event
 };
 ~~~~~
 
 Выбор способа зависит лишь от конвенций по стилю кода, установленного в команде, и от специфики некоторых ситуаций.
 
-Далее стоит обратить внимание на код в теле слушателя событий, а именно — операции асинхронного изменения состояния при помощи функции, также называемой *“функциональным состоянием”*. Именно этот способ был выбран по той причине, что он отлично дополняет сказанное относительно отступления от правил, касающихся классического подхода при аннотировании языковых конструкций. 
+Далее стоит обратить внимание на код в теле слушателя событий, а именно — операции асинхронного изменения состояния при помощи функции, также называемой *“функциональным состоянием”*. Именно этот способ был выбран по той причине, что он отлично дополняет сказанное относительно отступления от правил, касающихся классического подхода при аннотировании языковых конструкций.
 
 ~~~~~typescript
-this.setState( ( prevState: State, prevProps: Props ) => {
-    return {  };
+this.setState((prevState: State, prevProps: Props) => {
+    return {};
 }
 ~~~~~
 
@@ -197,30 +197,30 @@ this.setState( ( prevState: State, prevProps: Props ) => {
 
 ~~~~~typescript
 public render (): ReactElement<Props> {
-  return (  );
+    return();
 }
 ~~~~~
 
 На самом деле с методом `render` связан один нюанс, который обязательно нужно знать, а кроме того надеяться, что создатели деклараций для `React` исправят положение. И дело вот в чем. Предположим, что разработчику потребовалось создать компонент "лист".
 
-~~~~~
+~~~~~typescript
 interface ListItemProps {}
 interface ListItemState {}
 
 class ListItem extends Component<ListItemProps, ListItemState> {
-render(){
-  return <li>{this.props.children}</li>;
+    render() {
+        return <li>{this.props.children}</li>;
+    }
 }
-}
-	
+
 
 interface ListProps {}
 interface ListState {}
 
 class List extends Component<ListProps, ListState> {
-render(){
-  return <ul>{this.props.children}</ul>;
-}
+    render(){
+        return <ul>{this.props.children}</ul>;
+    }
 }
 ~~~~~
 
@@ -231,33 +231,32 @@ interface ListItemProps {}
 interface ListItemState {}
 
 class ListItem extends Component<ListItemProps, ListItemState> {
-render(): ReactElement<ListItemProps> { // уточняем возвращаемый тип
-  return <li>{this.props.children}</li>;
+    render(): ReactElement<ListItemProps> { // уточняем возвращаемый тип
+        return <li>{this.props.children}</li>;
+    }
 }
-}
-
 
 interface ListProps {
-children: ReactElement<ListItemProps>; // ограничиваем children
+    children: ReactElement<ListItemProps>; // ограничиваем children
 }
 interface ListState {}
 
 class List extends Component<ListProps, ListState> {
-render(){
-  return <ul>{this.props.children}</ul>;
+    render() {
+        return <ul>{this.props.children}</ul>;
+    }
 }
-}
-	
+
 
 // почему нет ошибки, сообщающей, что div — это не ReactElement<ListItemProps>?
 let list = (
-<List>
-  <div></div>
-</List>
+    <List>
+        <div></div>
+    </List>
 );
-~~~~~	 
+~~~~~
 
-Но на деле всё не так, как ожидалось. И все дело в том, что метод класса `Component` должен возвращать один из нескольких типов — `string`, `number`, `boolean`, `null`, `undefined`, `ReactPortal`, `ReactFragment` или `ReactChild` (который является типом `Union` для типов `string`, `number` и `ReactElement<T>`). Кроме того, в качестве возвращаемого типа можно указывать `ReactNode`, который принадлежит ко всем перечисленным типам. 
+Но на деле всё не так, как ожидалось. И все дело в том, что метод класса `Component` должен возвращать один из нескольких типов — `string`, `number`, `boolean`, `null`, `undefined`, `ReactPortal`, `ReactFragment` или `ReactChild` (который является типом `Union` для типов `string`, `number` и `ReactElement<T>`). Кроме того, в качестве возвращаемого типа можно указывать `ReactNode`, который принадлежит ко всем перечисленным типам.
 
 В случае кастомизации, эти ограничения вынуждают разработчика указывать тип, возвращаемый из переопределяемого метода `render`, как `ReactElement<T>`, который, к несчастью, является базовым типом для типа `Element`, который в свою очередь является базовым для всех react-элементов. Это делает все react-элементы совместимые со всеми react-компонентами. Кроме того, метод `React.createElement` во всех его перегруженных вариантах возвращает тип, совместимый с `ReactElement<T>`, что делает совместимыми абсолютно все компоненты.
 
@@ -266,16 +265,16 @@ let list = (
 Напоследок осталось рассмотреть методы жизненного цикла компонента. Но, так как в них нет ничего такого, на что читатели, к этому моменту, не смогли бы дать ответ самостоятельно, комментариев не будет.
 
 ~~~~~typescript
-public componentDidMount ? ():void {}
+public componentDidMount ? (): void {}
 public componentWillUnmount ? (): void {}
-public shouldComponentUpdate  ? ( nextProps: Readonly<Props>, nextState: Readonly<State>, nextContext: any ):
-  boolean { return true; }
-public componentDidUpdate ? ( prevProps: Readonly<Props>, prevState: Readonly<State>, Snapshot?: Snapshot ):
-  void { }
-public componentDidCatch ? ( error: Error, errorInfo: ErrorInfo ): void {}
+public shouldComponentUpdate ? (nextProps: Readonly<Props>, nextState: Readonly<State>, nextContext: any): boolean {
+    return true;
+}
+public componentDidUpdate ? (prevProps: Readonly<Props>, prevState: Readonly<State>, Snapshot?: Snapshot): void {}
+public componentDidCatch ? (error: Error, errorInfo: ErrorInfo): void {}
 public getSnapshotBeforeUpdate ? ( prevProps: Readonly<Props>, prevState: Readonly<State> ): Snapshot | null {
-  return null
-} 
+    return null
+}
 ~~~~~
 
 ## React - производные от PureComponent
@@ -285,13 +284,13 @@ ________________
 
 ~~~~~typescript
 import * as React from "react";
-import { PureComponent, ReactElement, ReactEventHandler, RefObject, SyntheticEvent } from "react";
-import { ErrorInfo } from "react";
+import {PureComponent, ReactElement, ReactEventHandler, RefObject, SyntheticEvent} from "react";
+import {ErrorInfo} from "react";
 
 // здесь точно такой же код, как был разобран на предыдущем шаге
 
 export default class Greeter extends PureComponent<Props, State, Snapshot> {
-  // здесь точно такой же код, как был разобран на предыдущем шаге
+    // здесь точно такой же код, как был разобран на предыдущем шаге
 }
 ~~~~~
 
@@ -304,18 +303,18 @@ ________________
 
 ~~~~~typescript
 import * as React from "react";
-import { ReactElement } from "react";
+import {ReactElement} from "react";
 
 export interface GreeterProps {
-  requiredProperty: string;
-  optionalProperty: string;
+    requiredProperty: string;
+    optionalProperty: string;
 }
 
 type Props = GreeterProps;
 
 
-function Greeter ( { requiredProperty, optionalProperty = 'value' }: Props ): ReactElement<Props> {
-  return null;
+function Greeter ({requiredProperty, optionalProperty = 'value'}: Props): ReactElement<Props> {
+    return null;
 }
 
 export default Greeter;
@@ -325,18 +324,17 @@ export default Greeter;
 
 ~~~~~typescript
 import * as React from "react";
-import { ReactElement } from "react";
+import {ReactElement} from "react";
 
 export interface GreeterProps {
-  requiredProperty: string;
-  optionalProperty: string;
+    requiredProperty: string;
+    optionalProperty: string;
 }
 
 type Props = GreeterProps;
 
-
-const Greeter = ( { requiredProperty, optionalProperty = 'value' }: Props ): ReactElement<Props> => {
-  return null;
+const Greeter = ({requiredProperty, optionalProperty = 'value'}: Props): ReactElement<Props> => {
+    return null;
 };
 
 export default Greeter;
@@ -346,17 +344,17 @@ export default Greeter;
 
 ~~~~~typescript
 import * as React from "react";
-import { FunctionComponent } from "react";
+import {FunctionComponent} from "react";
 
 export interface GreeterProps {
-  requiredProperty: string;
-  optionalProperty: string;
+    requiredProperty: string;
+    optionalProperty: string;
 }
 
 type Props = GreeterProps;
 
-const Greeter: FunctionComponent<Props> = ( { requiredProperty, optionalProperty = 'value' } ) => {
-  return null;
+const Greeter: FunctionComponent<Props> = ({requiredProperty, optionalProperty = 'value'}) => {
+    return null;
 };
 
 export default Greeter;
@@ -383,7 +381,7 @@ class CustomComponent<T> extends PureComponent<Props<T>, State, Snapshot> {}
 interface Props<T> {}
 
 function CustomComponent <T>(props: Props<T>): ReactElement<Props<T>> {
-  return <div></div>;
+    return <div></div>;
 }
 ~~~~~
 
@@ -392,12 +390,12 @@ function CustomComponent <T>(props: Props<T>): ReactElement<Props<T>> {
 ~~~~~typescript
 // Erorr, в файлах с расширением .tsx нельзя объявлять обобщенные стрелочные функции
 const CustomComponent: FunctionComponent<Props> = <T>(props: Props): ReactElement<Props> => (
-  <div></div>
+    <div></div>
 );
 
 // OK
 const CustomComponent: FunctionComponent<Props> = <T extends any>(props: Props): ReactElement<Props> => (
-  <div></div>
+    <div></div>
 );
 ~~~~~
 
@@ -407,7 +405,7 @@ const CustomComponent: FunctionComponent<Props> = <T extends any>(props: Props):
 interface Props<T> {}
 
 const CustomComponent: FunctionComponent<Props< /** как получить тут, то... */ >> = function < /** ...что объявляется здесь */ > (props) {
-  return <div></div>;
+    return <div></div>;
 }
 ~~~~~
 
@@ -418,7 +416,7 @@ interface Props<T> {}
 
 // переложить аннотирование ссылки на вывод типов
 const CustomComponent =  function <T>(props: Props<T>): ReactElement<Props<T>> {
-  return <div></div>;
+    return <div></div>;
 };
 ~~~~~
 
@@ -436,7 +434,7 @@ interface IData {  }
 
 Сложно представить приложение, в котором при построении отображения обошлось бы без идентичного кода, который повторяется в нескольких частях программы. Поэтому разработчики на основе готовых, низкоуровневых компонентов создают свои, более высокоуровневые компоненты. При этом, чтобы их можно было переиспользовать, они должны быть максимально универсальными. Поэтому давайте на простых примерах выясним, почему к этому стоит стремится и как этого добиться.
 
-В качестве простого примера представим, что существует используемый во множестве частей программы компонент `Select`. Каждый раз, когда пользователь выбирает тот или иной `Option`, компонент `Select` посылает вместе с событием `id` выбранного `Option`. При этом чтобы воспользоваться этим компонентом, необходимо по данным построить дерево, состоящее из компонентов `Select` и `Option`. То есть появляется потребность в использовании циклов. Кроме того, очень часто после получения id выбранного `Option` требуются операции над данными, с которыми он ассоциирован. Это означает, что каждый раз, когда вызывается слушатель событий, нужно перебирать массив с данными для поиска в нем элемента с нужным `id`. 
+В качестве простого примера представим, что существует используемый во множестве частей программы компонент `Select`. Каждый раз, когда пользователь выбирает тот или иной `Option`, компонент `Select` посылает вместе с событием `id` выбранного `Option`. При этом чтобы воспользоваться этим компонентом, необходимо по данным построить дерево, состоящее из компонентов `Select` и `Option`. То есть появляется потребность в использовании циклов. Кроме того, очень часто после получения id выбранного `Option` требуются операции над данными, с которыми он ассоциирован. Это означает, что каждый раз, когда вызывается слушатель событий, нужно перебирать массив с данными для поиска в нем элемента с нужным `id`.
 
 Представьте сколько действий нужно проделать. А если в приложении будет создаваться множество компонентов `Select`, то эти действия придется повторить для каждого отдельного случая. Налицо нарушения принципа *DRY* (*“Don't repeat yourself”*, *“Не повторяйся”*).
 
@@ -446,59 +444,60 @@ interface IData {  }
 
 ~~~~~typescript
 interface IContactInfo { // описание каких-то данных
-  id: string;
- 
-  phone: string;
-  person: string;
+    id: string;
+    phone: string;
+    person: string;
 }
 
 interface Props { // описание свойств компонента высокого уровня
-  data: IContactInfo[]; // данные
-  onSelect: (data: IContactInfo) => void; // слушатель событий с помощью которого компонент высокого уровня будет сообщать об изменении внутреннего состояния
+    data: IContactInfo[]; // данные
+    onSelect: (data: IContactInfo) => void; // слушатель событий с помощью которого компонент высокого уровня будет сообщать об изменении внутреннего состояния
 }
 
 // компонент более высокого уровня абстракции, который инкапсулировал хранение данных, логику построения компонентов по данным
-function SelectWithData({data, onSelect}:Props):ReactElement<Props>{
-  // функция для динамического построения элементов Option по данным
-  const getOptionAll = ( data: IContactInfo[] ) => data.map<ReactElement<OptionProps>>( ( { id, person } ) => (
-      <Option key={ id }>{ person }</Option>
-  ) );
+function SelectWithData({data, onSelect}: Props): ReactElement<Props>{
+    // функция для динамического построения элементов Option по данным
+    const getOptionAll = (data: IContactInfo[]) => data.map<ReactElement<OptionProps>>(({id, person}) => (
+        <Option key={ id }>{ person }</Option>
+    ));
 
-  // внутренний слушатель событий, который отслеживает изменение более низкоуровневого компонента Select
-  const onInternalSelect = ( id: string ) => {
-      let currentData = data.find( item => item.id === id ); // ищем данные
+    // внутренний слушатель событий, который отслеживает изменение более низкоуровневого компонента Select
+    const onInternalSelect = (id: string) => {
+        let currentData = data.find(item => item.id === id); // ищем данные
 
-      if ( currentData ) {
-          onSelect( currentData ); // посылаем данные во внешний мир
-      }
-  };
+        if (currentData) {
+            onSelect( currentData ); // посылаем данные во внешний мир
+        }
+    };
 
-  let optionAll = getOptionAll( data );
+    let optionAll = getOptionAll( data );
 
-  return (
-      <Select onSelect={ onInternalSelect }>{ optionAll }</Select>
-  );
+    return (
+        <Select onSelect={onInternalSelect} >
+            {optionAll}
+        </Select>
+    );
 }
-	
+
 
 // ...
 
 const data: IContactInfo[]  = [
-  { id: '0', person: 'Ivan', phone: '00000000' },
-  { id: '1', person: 'Vasya', phone: '0000000' }
+    {id: '0', person: 'Ivan', phone: '00000000'},
+    {id: '1', person: 'Vasya', phone: '0000000'}
 ];
 
 const onSelect = ( data: IContactInfo ) => {
-  // данные принадлежат к типу IContactInfo
+    // данные принадлежат к типу IContactInfo
 };
 
 // где-то в коде
 
-<SelectWithData data={data} onSelect={ onSelect } />
+<SelectWithData data={data} onSelect={onSelect} />
 
 // ещё где-то в коде
 
-<SelectWithData data={data} onSelect={ onSelect } />
+<SelectWithData data={data} onSelect={onSelect} />
 ~~~~~
 
 Как видно из примера, у разработчика получилось решить проблему с хранением данных и повторением кода, но он получил другую: данный компонент нельзя назвать универсальным, так как он жестко зависит от типа `IContactInfo`, что причисляет его код к “неправильному”. Этот “неправильный” код специально был включен в примеры, чтобы ещё раз показать начинающим разработчикам, как делать нельзя. Нельзя завязывать код на специфических типах. Если потребуется отобразить данные, не принадлежащие к типу `IContactInfo`, придется создать новый компонент и тем самым снова нарушить принцип *DRY*.
@@ -507,168 +506,180 @@ const onSelect = ( data: IContactInfo ) => {
 
 ~~~~~typescript
 interface ISelectData { // декларируем минимально требующиеся для работы компонента характеристики
-  id: string;
-  value: string;
+    id: string;
+    value: string;
 }
 
 interface Props { // описание свойств компонента высокого уровня
-  data: ISelectData[]; // ожидаем данные...
-  onSelect: (data: ISelectData) => void; // ...и выдаем данные принадлежащие к специфическому, для конкретного компонента, типу данных
+    data: ISelectData[]; // ожидаем данные...
+    onSelect: (data: ISelectData) => void; // ...и выдаем данные принадлежащие к специфическому, для конкретного компонента, типу данных
 }
 
 // для успешного выполнения работы компонента достаточно данных принадлежащих к типу ISelectData
-function SelectWithData({data, onSelect}:Props):ReactElement<Props>{
-  const getOptionAll = ( data: ISelectData[] ) => data.map<ReactElement<OptionProps>>( ( { id, value } ) => (
-      <Option key={ id }>{ value }</Option>
-  ) );
+function SelectWithData({data, onSelect}: Props): ReactElement<Props>{
+    const getOptionAll = (data: ISelectData[]) => data.map<ReactElement<OptionProps>>(({id, value}) => (
+        <Option key={id} >
+            {value}
+        </Option>
+    ));
 
-  const onInternalSelect = ( id: string ) => {
-      let currentData = data.find( item => item.id === id );
+    const onInternalSelect = (id: string) => {
+        let currentData = data.find(item => item.id === id);
 
-      if ( currentData ) {
-          onSelect( currentData );
-      }
-  };
+        if (currentData) {
+            onSelect(currentData);
+        }
+    };
 
-  let optionAll = getOptionAll( data );
+    let optionAll = getOptionAll(data);
 
-  return (
-      <Select onSelect={ onInternalSelect }>{ optionAll }</Select>
-  );
+    return (
+        <Select onSelect={onInternalSelect} >
+            {optionAll}
+        </Select>
+    );
 }
-	
+
 
 // ...
 
 interface IContactInfo {
-  id: string;
-
-  phone: string;
-  person: string;
+    id: string;
+    phone: string;
+    person: string;
 }
 
 interface IContactForSelectWithDataInfo extends ISelectData { // декларируем тип который будет предназначен только для данных IContact и только для работы с компонентом SelectWithData
-  data: IContactInfo;
+    data: IContactInfo;
 }
 
 const data: IContactInfo[]  = [
-  { id: '0', person: 'Ivan', phone: '00000000' },
-  { id: '1', person: 'Vasya', phone: '0000000' }
+    {id: '0', person: 'Ivan', phone: '00000000'},
+    {id: '1', person: 'Vasya', phone: '0000000'}
 ];
 
 // преобразовываем данные с типом IContactInfo к данным с типом IContactForSelectWithDataInfo
-const transformedВata: IContactForSelectWithDataInfo[] = data.map( ( { id, person, phone } ) => ( {
-  id,
-  value: person,
+const transformedData: IContactForSelectWithDataInfo[] = data.map(({ id, person, phone}) => ({
+    id,
+    value: person,
+    data: {
+        id,
+        person,
+        phone
+    }
+}));
 
-  data: { id, person, phone }
-} ) );
-
-const onSelect = ( data: ISelectData ) => {
-  // данные принадлежат к типу ISelectData, чтобы работать с ними, как с типом IContactForSelectWithDataInfo, потребуется явное приведение типа
+const onSelect = (data: ISelectData) => {
+    // данные принадлежат к типу ISelectData, чтобы работать с ними, как с типом IContactForSelectWithDataInfo, потребуется явное приведение типа
 };
 
 // где-то в коде
 
-<SelectWithData data={transformedВata} onSelect={ onSelect } />
+<SelectWithData data={transformedData} onSelect={onSelect} />
 
 // ещё где-то в коде
 
-<SelectWithData data={transformedВata} onSelect={ onSelect } />
-~~~~~	
+<SelectWithData data={transformedData} onSelect={onSelect} />
+~~~~~
 
 В этот раз получилось избавится от всех описанных проблем (повторения кода, усложнения программы, отсутствие универсальности), но появилась ещё одна. Теперь данные, которые компонент передает в качестве аргументов при вызове слушателя событий, ограничены типом данных `ISelectData`, в то время как ожидается `IContactForSelectWithDataInfo`,  который не получится получить без явного приведения типов (механизм приведения типов рассматривается в главе [“Типизация - Утверждение типов”]()). Простыми словами, отсутствие возможности работать с компонентом не прибегая к механизмам преобразования типов делает его не полностью универсальным. Решить это можно было бы с помощью более общего типа, коим является тип `any`. Но в таком случае снизится типобезопасность программы, к тому же разработчик лишится такого замечательного механизма, как автодополнение.
 
-В типизированных языках проблема с универсальностью решаются с помощью механизма создания обобщенных типов. К тому же *TypeScript* поддерживает синтаксис параметризированных компонентов, что будет продемонстрировано в последнем примере. 
+В типизированных языках проблема с универсальностью решаются с помощью механизма создания обобщенных типов. К тому же *TypeScript* поддерживает синтаксис параметризированных компонентов, что будет продемонстрировано в последнем примере.
 
 Оставшейся код ничем не отличается от предыдущего, за исключением введения обобщений, поэтому комментариев по нему не будет. Но стоит обратить внимание на параметры типов, как у типа `Props`, так и функционального компонента. Для того, чтобы не возникло ситуации, при которой данные не будут соответствовать минимально требующемуся для успешной работы компонента типу данных, параметр типа, объявленный в типе `Props`, расширяет тип данных `ISelectData`. И, так как тип Props имеет параметр типа, ограниченный типом данных `ISelectData`, тип, выступающий в качестве аргумента типа `Props`, должен также быть совместимым с типом `ISelectData`. Другими словами, параметр типа функционального компонента также должен расширять тип данных `ISelectData` или же быть совместимым с ним.
 
 ~~~~~typescript
 interface ISelectData {
-  id: string;
-  value: string;
+    id: string;
+    value: string;
 }
 
 
 interface Props<Data extends ISelectData> { // обобщенные свойства. будет лучше, если параметр типа Data будет расширять минимально требующийся для успешной работы тип данных
-  data: Data[]; // указываем параметр типа в аннотации
-  onSelect: (data: Data) => void; // указываем параметр типа в аннотации параметра
+    data: Data[]; // указываем параметр типа в аннотации
+    onSelect: (data: Data) => void; // указываем параметр типа в аннотации параметра
 }
 
 
 // параметр типа компонента также, как и Params, должен расширять ISelectData
-function SelectWithData <Data extends ISelectData> ({data, onSelect}:Props<Data>):ReactElement<Props<Data>>{
-  const getOptionAll = ( data: ISelectData[] ) => data.map<ReactElement<OptionProps>>( ( { id, value } ) => (
-      <Option key={ id } id={id}>{ value }</Option>
-  ) );
+function SelectWithData <Data extends ISelectData> ({data, onSelect}: Props<Data>): ReactElement<Props<Data>>{
+    const getOptionAll = (data: ISelectData[]) => data.map<ReactElement<OptionProps>>(({id, value}) => (
+        <Option key={id} id={id} >
+            {value}
+        </Option>
+    ));
 
-  const onInternalSelect = ( id: string ) => {
-      let currentData = data.find( item => item.id === id );
+    const onInternalSelect = (id: string) => {
+        let currentData = data.find(item => item.id === id );
 
-      if ( currentData ) {
-          onSelect( currentData );
-      }
-  };
+        if (currentData) {
+            onSelect(currentData);
+        }
+    };
 
-  let optionAll = getOptionAll( data );
+    let optionAll = getOptionAll( data );
 
-  return (
-      <Select onSelect={ onInternalSelect }>{ optionAll }</Select>
-  );
+    return (
+        <Select onSelect={onInternalSelect} >
+            {optionAll}
+        </Select>
+    );
 }
-	
+
 
 // ...
 
 interface IContactInfo {
-  id: string;
-
-  phone: string;
-  person: string;
+    id: string;
+    phone: string;
+    person: string;
 }
 
 interface IContactForSelectWithDataInfo extends ISelectData {
-  data: IContactInfo;
+    data: IContactInfo;
 }
 
 const data: IContactInfo[]  = [
-  { id: '0', person: 'Ivan', phone: '00000000' },
-  { id: '1', person: 'Vasya', phone: '0000000' }
+    {id: '0', person: 'Ivan', phone: '00000000'},
+    {id: '1', person: 'Vasya', phone: '0000000'}
 ];
 
-const transformedВata: IContactForSelectWithDataInfo[] = data.map( ( { id, person, phone } ) => ( {
-  id,
-  value: person,
+const transformedData: IContactForSelectWithDataInfo[] = data.map(({id, person, phone}) => ({
+    id,
+    value: person,
+    data: {
+        id,
+        person,
+        phone
+    }
+}));
 
-  data: { id, person, phone }
-} ) );
-
-const onSelect = ( data: IContactForSelectWithDataInfo ) => {
-  // данные принадлежат к требуемому по сценарию типу
+const onSelect = (data: IContactForSelectWithDataInfo) => {
+    // данные принадлежат к требуемому по сценарию типу
 };
-	
+
 
 // где-то в коде
 
 // передаем аргументы типа SelectWithData<IContactForSelectWithDataInfo>
-<SelectWithData<IContactForSelectWithDataInfo> data={transformedВata} onSelect={onSelect}/>
+<SelectWithData<IContactForSelectWithDataInfo> data={transformedData} onSelect={onSelect} />
 
 // ещё где-то в коде
 
 // передаем аргументы типа SelectWithData<IContactForSelectWithDataInfo>
-<SelectWithData<IContactForSelectWithDataInfo> data={transformedВata} onSelect={onSelect}/>
+<SelectWithData<IContactForSelectWithDataInfo> data={transformedData} onSelect={onSelect} />
 ~~~~~
 
 ## React  - HOC (Higher-Order Components)
 ________________
 
-При разработке React приложений очень часто разработчикам приходится создавать конструкцию, известную в *react*-сообществе, как *HOC* (*Higher-Order Components*). 
+При разработке React приложений очень часто разработчикам приходится создавать конструкцию, известную в *react*-сообществе, как *HOC* (*Higher-Order Components*).
 
-*HOC* — это функция, которая принимает один компонент и возвращает новый. Другими словами, *hoc* — это функция, ожидающая в качестве параметров компонент (назовем его входным), который оборачивается в другой, объявленный в теле функции, компонент, который выступает в роли возвращаемого из функции значения (назовем его выходным). Слово “оборачивание”,  применимое относительно компонентов, означает, что один компонент отрисовывает (рендерит) другой компонент, со всеми вытекающими из этого процесса (проксирования). За счет того, что входной компонент оборачивается в выходной, достигается расширение его и/или общего функционала. Кроме того, это позволяет устанавливать входному компоненту как зависимости, так и данные, полученные из внешних сервисов. 
+*HOC* — это функция, которая принимает один компонент и возвращает новый. Другими словами, *hoc* — это функция, ожидающая в качестве параметров компонент (назовем его входным), который оборачивается в другой, объявленный в теле функции, компонент, который выступает в роли возвращаемого из функции значения (назовем его выходным). Слово “оборачивание”,  применимое относительно компонентов, означает, что один компонент отрисовывает (рендерит) другой компонент, со всеми вытекающими из этого процесса (проксирования). За счет того, что входной компонент оборачивается в выходной, достигается расширение его и/или общего функционала. Кроме того, это позволяет устанавливать входному компоненту как зависимости, так и данные, полученные из внешних сервисов.
 
 Если объяснения, что такое `hoc` и в каких случаях в нем появляется необходимость, выходит за рамки данной книги, то с примерами, иллюстрирующими самые распространенные случаи, ознакомится все же стоит.
 
-Но прежде чем приступить к краткому рассмотрению примеров, будет полезно более подробно ознакомиться с сигнатурой `hoc`-функции.  
+Но прежде чем приступить к краткому рассмотрению примеров, будет полезно более подробно ознакомиться с сигнатурой `hoc`-функции.
 
 
 Как уже было сказано, входной компонент оборачивается в объявленный в теле функции выходной компонент. И прежде чем кратко ознакомится с каждым из случаев, будет полезно отдельно рассмотреть сигнатуру `hoc`-функции на распространенном в практике примере, когда свойства (`props`) выходного компонента лишь дополняются свойствами входного компонента.
@@ -676,10 +687,9 @@ ________________
 ~~~~~typescript
 interface OutputProps {}
 
-function withHOC<InputProps extends OutputProps>(WrappedComponent:
-      FunctionComponent<OutputProps> |
-      ComponentClass<OutputProps>): ComponentClass<InputProps>
-	
+function withHOC<InputProps extends OutputProps>(
+    WrappedComponent: FunctionComponent<OutputProps> | ComponentClass<OutputProps>
+): ComponentClass<InputProps>
 ~~~~~
 
 Первым делом, при необходимости, декларируется тип-интерфейс, описывающий специфические для выходного компонента свойства (`props`). Далее объявляется параметр типа `InputProps`, который представляет специфические для входного компонента свойства и который расширяет тип данных `OutputProps`. В данном простом примере, в теле *hoc* оперировать требуется таким типом, которому полностью соответствует композиция типов входных и выходных свойств. Поэтому для удобства и сокращения кода тип входных параметров расширяет тип выходных параметров. Но стоит заметить, что бывают случаи, при которых подобное недопустимо (один из них будет рассмотрен далее).
@@ -694,35 +704,32 @@ function withHOC<InputProps extends OutputProps>(WrappedComponent:
 
 ~~~~~typescript
 import * as React from "react";
-import { FunctionComponent, ComponentClass } from "react";
-
+import {FunctionComponent, ComponentClass} from "react";
 
 interface OutputProps {
-  outputProp: string;
+    outputProp: string;
 }
 interface State {}
 interface Snapshot {}
 
-function withHOC<InputProps extends OutputProps>(WrappedComponent:
-  FunctionComponent<OutputProps> |
-  ComponentClass<OutputProps>): FunctionComponent<InputProps> {
- 
- 
-  const WrapperComponent: FunctionComponent<InputProps> = props => (
-      <WrappedComponent {...props} />
-  );
+function withHOC<InputProps extends OutputProps>(
+    WrappedComponent: FunctionComponent<OutputProps> | ComponentClass<OutputProps>
+): FunctionComponent<InputProps> {
+    const WrapperComponent: FunctionComponent<InputProps> = props => (
+        <WrappedComponent {...props} />
+    );
 
-  return WrapperComponent;
+    return WrapperComponent;
 }
 
 // файл CustomComponent.tsx
 
 interface CustomComponentProps extends OutputProps {
-  inputProp: string;
+    inputProp: string;
 }
 
 const CustomComponent: FunctionComponent<CustomComponentProps> = ({inputProp, outputProp}) => {
-  return null;
+    return null;
 }
 
 export default withHOC<CustomComponentProps>(CustomComponent);
@@ -733,38 +740,37 @@ export default withHOC<CustomComponentProps>(CustomComponent);
 import CustomComponent from "./CustomComponent";
 
 <CustomComponent /> // Error, отсутствуют обязательные свойства inputProp и outputProp
-<CustomComponent inputProp={ '' } /> // Error, отсутствует обязательное свойство outputProp
-<CustomComponent inputProp={ '' } outputProp={ '' } /> // Ok
+<CustomComponent inputProp='' /> // Error, отсутствует обязательное свойство outputProp
+<CustomComponent inputProp='' outputProp='' /> // Ok
 ~~~~~
 
 Если же потребности в жизненом цикле нет, то предпочтительней использовать *hoc*, у которого выходной компонент является функциональным.
 
 ~~~~~typescript
 import * as React from "react";
-import { FunctionComponent, ComponentClass } from "react"
+import {FunctionComponent, ComponentClass} from "react"
 
 
 interface OutputProps {
-  outputProp: string;
+    outputProp: string;
 }
 
-function withHOC<InputProps extends OutputProps>(WrappedComponent:
-  FunctionComponent<OutputProps> |
-  ComponentClass<OutputProps>): FunctionComponent<InputProps> {
- 
-  const WrapperComponent:FunctionComponent<InputProps> = props => <WrappedComponent {...props} />
+function withHOC<InputProps extends OutputProps>(
+    WrappedComponent: FunctionComponent<OutputProps> | ComponentClass<OutputProps>
+): FunctionComponent<InputProps> {
+    const WrapperComponent: FunctionComponent<InputProps> = props => <WrappedComponent {...props} />
 
-  return WrapperComponent;
+    return WrapperComponent;
 }
 
 // файл CustomComponent.tsx
 
 interface CustomProps extends OutputProps {
-  inputProp: string;
+    inputProp: string;
 }
 
 const CustomComponent: FunctionComponent<CustomProps> = ({inputProp, outputProp}) => {
-  return null;
+    return null;
 }
 
 export default withHOC<CustomProps>(CustomComponent);
@@ -775,8 +781,8 @@ export default withHOC<CustomProps>(CustomComponent);
 import CustomComponent from "./CustomComponent";
 
 <CustomComponent /> // Error, отсутствуют обязательные свойства inputProp и outputProp
-<CustomComponent inputProp={ '' } /> // Error, отсутствует обязательное свойство outputProp
-<CustomComponent inputProp={ '' } outputProp={ '' } /> // Ok
+<CustomComponent inputProp='' /> // Error, отсутствует обязательное свойство outputProp
+<CustomComponent inputProp='' outputProp='' /> // Ok
 ~~~~~
 
 И в заключение предлагаю рассмотреть случай, когда параметры, устанавливаемые компоненту-обертке, отличаются от тех, которые он устанавливает оборачиваемому компоненту. И несмотря на то, что показанный ниже код отличается от предыдущего, подробного разбора не будет, так как в нем нет ничего, что к этому моменту не было бы известно читателю.
@@ -786,11 +792,11 @@ import CustomComponent from "./CustomComponent";
 
 // входные свойства hoc
 interface InputProps {
-  inputProps: string;
+    inputProps: string;
 }
 // выходные свойства hoc
 interface OutputProps {
-  outputProp: number;
+    outputProp: number;
 }
 interface State {}
 interface Snapshot {}
@@ -798,58 +804,54 @@ interface Snapshot {}
 
 // параметру типа SharedProps не требуется расширять другие типы
 // обобщенный тип, указанный в аннотации параметра функции, принимает в качестве аргумента типа тип пересечение Intersection
-function withHOC<SharedProps>(WrappedComponent:
-  FunctionComponent<SharedProps & OutputProps> |
-  ComponentClass<SharedProps & OutputProps>): ComponentClass<SharedProps & InputProps> {
- 
+function withHOC<SharedProps>(
+    WrappedComponent: FunctionComponent<SharedProps & OutputProps> | ComponentClass<SharedProps & OutputProps>
+): ComponentClass<SharedProps & InputProps> {
+    type InternalInputProps = SharedProps & InputProps; // делаем код читабельным (повышаем его семантику)
 
- 
+    // тип свойства выходного компонента указан как псевдоним типа
+    class WrapperComponent extends Component<InternalInputProps, State, Snapshot> {
+        constructor(props: InternalInputProps){
+            super(props);
+        }
 
-  type InternalInputProps = SharedProps & InputProps; // делаем код читабельным (повышаем его семантику)
+        private getOutputProps(): OutputProps {
+            // здесь создаем часть выходных свойств определяемую типом OutputProps
+            let outputProps: OutputProps = {outputProp: 0};
 
-  // тип свойства выходного компонента указан как псевдоним типа
-  class WrapperComponent extends Component<InternalInputProps, State, Snapshot> {
-      constructor(props: InternalInputProps){
-          super(props);
-      }
+            return outputProps;
+        }
 
-      private getOutputProps():OutputProps {
-          // здесь создаем часть выходных свойств определяемую типом OutputProps
-          let outputProps: OutputProps = {outputProp: 0};
+        private inputToOutputProps(inputProps: Readonly<InternalInputProps>, outputProps: OutputProps): SharedProps & OutputProps {
+            // здесь создаем выходные свойства определяемые типами OutputProps и SharedProps
 
-          return outputProps;
-      }
+            let {propInputInHOC, ...sharedProps} = inputProps as any; // фильтруем свойства
+            let resultProps: SharedProps & OutputProps = {...outputProps, ...sharedProps}; // комбинируем свойства
 
-      private inputToOutputProps(inputProps: Readonly<InternalInputProps>, outputProps: OutputProps): SharedProps & OutputProps {
-          // здесь создаем выходные свойства определяемые типами OutputProps и SharedProps
-         
-          let {propInputInHOC, ...sharedProps} = inputProps as any; // фильтруем свойства
-          let resultProps: SharedProps & OutputProps = {...outputProps, ...sharedProps}; // комбинируем свойства
-
-          return resultProps;
-      }
+            return resultProps;
+        }
 
 
-      render(): ReactElement<SharedProps & OutputProps> {
-          let outputProps = this.inputToOutputProps(this.props, this.getOutputProps()); // трансформируем свойства
+        render(): ReactElement<SharedProps & OutputProps> {
+            let outputProps = this.inputToOutputProps(this.props, this.getOutputProps()); // трансформируем свойства
 
-          return <WrappedComponent {...outputProps} />
-      };
-  }
+            return <WrappedComponent {...outputProps} />
+        };
+    }
 
-  return WrapperComponent;
+    return WrapperComponent;
 }
 
 // файл CustomComponent.tsx
 
 // расширение другого типа не требуется
 interface CustomProps {
-  sharedProp: string;
+    sharedProp: string;
 }
 
 // параметры выражены типом пересечения
 const CustomComponent: FunctionComponent<CustomProps & OutputProps> = ({sharedProp, outputProp}) => {
-  return null;
+    return null;
 }
 
 // export default withHOC<InputProps>(CustomComponent);
@@ -860,6 +862,6 @@ const CustomComponent: FunctionComponent<CustomProps & OutputProps> = ({sharedPr
 import CustomComponent from "./CustomComponent";
 
 <CustomComponent /> // Error, отсутствуют обязательные свойства sharedProp и outputProps
-<CustomComponent sharedProp={ '' } /> // Error, отсутствует обязательное свойство outputProps
-<CustomComponent sharedProp={ '' } outputProps={ '' } /> // Ok
+<CustomComponent sharedProp='' /> // Error, отсутствует обязательное свойство outputProps
+<CustomComponent sharedProp='' outputProps='' /> // Ok
 ~~~~~
