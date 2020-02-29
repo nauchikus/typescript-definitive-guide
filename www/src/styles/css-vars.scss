@@ -23,6 +23,7 @@
   /**/
   /*media*/
   --media_app-bar_xs:#{$app-bar_media_xs};
+  --media_app_layout_right_show:#{$content-layout__right-layout_media_width_xl};
 
 
   /*colors*/
@@ -105,8 +106,8 @@
   --content_max-width: #{$app-content_width + $padding_48x2};
 
   --content-bar__primary-bar_padding_x: #{$padding_16};
-  --content_padding_left: #{$padding_16x2};
-  --content_padding_right: #{$padding_16};
+  --content_padding_left: 32px;
+  --content_padding_right: 24px;
   --content_padding_x: #{$padding_24};
 
   --win-content-bar__primary-bar_padding_x: #{$padding_16};
@@ -142,8 +143,8 @@
   @media all and (min-width: $app-bar_media_xs){
     --content-bar__primary-bar_padding_x: #{$padding_24};
     --content_padding_x: #{$padding_24x2};
-    --content_padding_left: #{$padding_24x2};
-    --content_padding_right: #{$padding_24x2};
+    --content_padding_left: 56px;
+    --content_padding_right: 56px;
 
     --win-content-bar__primary-bar_padding_x: #{$padding_24};
     --win-content_padding_x: #{$padding_24};

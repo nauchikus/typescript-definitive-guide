@@ -1,6 +1,6 @@
-import React, { FC } from "react";
+import React, { FC,Fragment } from "react";
 import { useBookTocStores } from "../../mobx/MobxBookTocProvider";
-import {BookTocTreeItem } from "../../components/book-toc-tree-item/BookTocTreeItem";
+import {BookTocTreeItem } from "../../components/tree__tree-item_book-toc/BookTocTreeItem";
 import { TocCollapseAllButton } from "../../components/toc-collapse-all-button/TocCollapseAllButton";
 import { observer } from "mobx-react-lite";
 import { BookTocTagBar } from "../../components/book-toc-tag-bar/BookTocTagBar";
@@ -9,11 +9,18 @@ import { TocFilterButton } from "../../components/toc-filter-button/TocFilterBut
 import { SecondaryContentBar } from "../../components/secondary-content-bar/SecondaryContentBar";
 import { useTranslator } from "../../react__hooks/translator.hook";
 import { BookTocGuiLocalization, LocalizationPaths } from "../../localization";
+import { BookTocNode, TreeNode } from "../../stores/BookTocTreeStore";
+import { BookTocTreeSectionLabel } from "../../components/tree__tree-section-label_book-toc/BookTocTreeSectionLabel";
+import { BookTocTreeCloseDecor } from "../../components/tree__tree-close-decor_book-toc/BookTocTreeCloseDecor";
 
 
 interface IBookTocContentLayoutProps {
 }
 
+type DividedIntoSectionItem = {
+  section: string;
+  items: TreeNode<BookTocNode>[];
+};
 
 export const BookTocContentLayout: FC<IBookTocContentLayoutProps> = observer( ( {} ) => {
   let [t] = useTranslator<[BookTocGuiLocalization]>( LocalizationPaths.BookChaptersPageGui );
@@ -24,37 +31,57 @@ export const BookTocContentLayout: FC<IBookTocContentLayoutProps> = observer( ( 
   const onCopyLinkToBuffer = ( path: string ) => {
   };
 
-  let bookToc = bookTocTreeStore.treeFiltered
-    .map( ( node ) =>
-      <BookTocTreeItem key={ node.id }
-                       bookTocTreeNodeId={ node.id }
-                       onCollapse={ onCollapse }
-                       onCopyLinkToBuffer={ onCopyLinkToBuffer }/>
-    );
+
+  function getLastItem <T>(array:T[]) {
+    return array[ array.length - 1 ];
+  }
+  function isEmpty<T> ( array: T[] ) {
+    return array.length === 0;
+  }
+  function isSectionContinues(array:DividedIntoSectionItem[],item:TreeNode<BookTocNode>){
+    return getLastItem( array ).section === item.data.section;
+  }
+
+
+  let bookToc = (bookTocTreeStore.treeFiltered as TreeNode<BookTocNode>[])
+    .reduce( ( treeWithSectionAll, current ) => {
+      if ( ( !isEmpty( treeWithSectionAll ) && isSectionContinues( treeWithSectionAll, current ) ) ) {
+        getLastItem( treeWithSectionAll ).items.push( current );
+      } else {
+        treeWithSectionAll.push( {
+          section: current.data.section,
+          items: [current]
+        } );
+      }
+
+
+      return treeWithSectionAll;
+    }, [] as DividedIntoSectionItem[] )
+    .map( ( item,index ) => {
+      let sectionKey = `${ item.section }_${ index }`;
+      let section = <BookTocTreeSectionLabel key={sectionKey}
+                                             sectionName={ item.section }/>;
+      let items = item.items.map( node => (
+        <BookTocTreeItem key={ node.id }
+                         bookTocTreeNodeId={ node.id }
+                         onCollapse={ onCollapse }
+                         onCopyLinkToBuffer={ onCopyLinkToBuffer }/>
+      ) );
+
+
+      return(
+        <Fragment key={sectionKey}>
+          {section}
+          {items}
+        </Fragment>
+      )
+    } );
 
 
   return (
-    <div className="book-toc-content-layout chapters-content-layout__grid">
-      <div className="chapters-content-layout-grid-item__primary-content-bar">
-        <div className="book-toc-content-layout__bar">
-          <div className="primary-content-bar">
-            <span className="primary-content-bar__label">{t.secondaryContentBar.label}</span>
-            <div className="book-toc__control">
-              <TocFilterButton className="book-toc-control__item"/>
-              <TocCollapseAllButton className="book-toc-control__item"/>
-            </div>
-          </div>
-        </div>
-      </div>
-      <SecondaryContentBar>
-        <BookTocAsideLayout/>
-        <div className="secondary-bar__divider divide_x"></div>
-      </SecondaryContentBar>
-      <div className="content-layout-grid-item__content">
-        <div className="book-toc-content-layout__toc" filter={ bookTocTreeStore.showTocWithSectionName }>
-          { bookToc }
-        </div>
-      </div>
+    <div className="book-toc-content-layout__toc" filter={ bookTocTreeStore.showTocWithSectionName }>
+      { bookToc }
+      <BookTocTreeCloseDecor/>
     </div>
   );
 } );

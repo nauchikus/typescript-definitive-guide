@@ -13,7 +13,7 @@
     top: var(--app-header_height);
 
     @media all and (min-height: $content-layout__right-layout_media_height_xl){
-      flex-direction: column;
+      //flex-direction: column;
     }
 
   }

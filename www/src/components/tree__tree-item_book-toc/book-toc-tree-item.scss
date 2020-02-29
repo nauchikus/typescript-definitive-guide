@@ -1,7 +1,7 @@
 @import "../../styles/app-vars";
 
 .collapse{
-
+  padding: 0 0 0 8px;
 }
 .collapse__content{}
 .collapse__collapsed-content{
@@ -22,7 +22,7 @@ $toc_padding_left:0;
 $toc__low-level_padding_top:8px;
 $toc__low-level_padding_right:0;
 $toc__low-level_padding_bottom:10px;
-$toc__low-level_padding_left:48px;
+$toc__low-level_padding_left:32px;
 
 .toc{
   width: 100%;
@@ -105,7 +105,7 @@ $line_low-level_offset_x:$marker_radius_low-level / 2 - $marker__line_width / 2;
 
 $point_low-level_margin-top:4px;
 $point_low-level_margin-right:16px;
-$point_low-level_margin-left:-11px;
+$point_low-level_margin-left:-12px;
 
 .point-map__point_high-level{
   width: $marker_radius_high-level;
@@ -120,7 +120,7 @@ $point_low-level_margin-left:-11px;
     content: "";
 
     width: $marker__line_width;
-    height: 100%;
+    //height: 100%;
 
     background-color: inherit;
 
@@ -128,12 +128,12 @@ $point_low-level_margin-left:-11px;
     left: $line_high-level_offset_x;
   }
   &:before{
-    top: -9px;
-    bottom:0;
+    top: -16px;
+    bottom:8px;
   }
   &:after{
     top:0;
-    bottom: 0;
+    bottom: 1px;
 
     //z-index: 9999;
   }
@@ -167,17 +167,17 @@ $point_low-level_margin-left:-11px;
 
 }
 
-$branch__angle_size:16px;
+$branch__angle_size:24px;
 $branch__base-path_width:18px;
 $branch__base-path_height:calc(100% - #{$branch__angle_size * 2});
-$branch__base-path_left:24px;
-$branch__base-path_top:$toc__low-level_padding_top;
+$branch__base-path_left:8px;
+$branch__base-path_top:0;
 $branch__base-path_bottom:24px;
 $branch__base-path_before_offset_x:-$branch__base-path_left;
 $branch__base-path_before_offset_y:-$branch__base-path_top;
 
 .point-map__branch{
-  width: $branch__base-path_width;
+  width: 14px;
   //height: $branch__base-path_height;
 
   //border-color: inherit;
@@ -192,14 +192,14 @@ $branch__base-path_before_offset_y:-$branch__base-path_top;
   position: absolute;
   top: $branch__base-path_top;
   bottom: $branch__base-path_bottom;
-  left: $branch__base-path_left;
+  left: 11px;
   right: $branch__base-path_left*2+24px;
 
   &:before,
   &:after {
     content: "";
 
-    width: $branch__angle_size;
+    width: 4px;
     height: $branch__angle_size;
 
     //border-radius: 5px;
@@ -215,8 +215,8 @@ $branch__base-path_before_offset_y:-$branch__base-path_top;
 
     border-color: inherit;
 
-    left: -17px;
-    top: -18px;
+    left: -4px;
+    top: -26px;
   }
   &:after {
     border-left: 2px solid;
@@ -225,8 +225,8 @@ $branch__base-path_before_offset_y:-$branch__base-path_top;
 
     border-color: inherit;
 
-    left: -17px;
-    bottom: -18px;
+    left: -4px;
+    bottom: -26px;
   }
 }
 

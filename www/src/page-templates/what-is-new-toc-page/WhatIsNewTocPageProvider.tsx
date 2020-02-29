@@ -9,7 +9,7 @@ import { AppLocalization } from "../../localization";
 import { MobxWhatIsNewTocContext } from "../../mobx/MobxWhatIsNewTocProvider";
 import { IWhatIsNewToc } from "../../types/IWhatIsNewToc";
 import { TreeNode } from "../../stores/WhatIsNewTocTreeStore";
-import { createBookTocPageStores, UseBookTocStores } from "../../stores/book-toc-stores";
+import { createBookTocMobxEntry, UseBookTocStores } from "../../stores/mobx-entry__book_toc";
 import { useLocalStore } from "mobx-react-lite";
 import { createWhatIsNewTocMobxEntry, UseWhatIsNewTocStores } from "../../stores/mobx-entry__what-is-new_toc";
 import { BehaviorNotificationContext } from "../../react__context/BehaviorNotificationContext";

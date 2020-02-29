@@ -37,7 +37,10 @@ export const BookTocTagBar: FC<IBookTocTagBarProps> = ( {} ) => {
 
         if ( sectionName === "" ) {
           bookTocTreeStore.showAll();
+          console.log(`showAll`);
         }else{
+          console.log(`show_only:${sectionName}`);
+
           bookTocTreeStore.hideBySectionName( sectionName );
         }
       } )

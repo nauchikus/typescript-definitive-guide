@@ -1,5 +1,6 @@
 import { createToggleState, ToggleUiState } from "./AppStateService";
 import { createToggle } from "../utils/toggle";
+import { observable } from "mobx";
 
 export interface ISection {
   section:string;
@@ -39,7 +40,7 @@ export const createBookTocTree=<T extends ISection>(tree:TreeNode<T>[],isCollaps
   }, new Map<string, number>() );
 
 
-  return ( {
+  let store = observable.object( {
     tree,
     isCollapseAll,
     showTocWithSectionName: BOOK_TOC_SECTION_NAME_ALL,
@@ -49,7 +50,7 @@ export const createBookTocTree=<T extends ISection>(tree:TreeNode<T>[],isCollaps
     get treeFiltered () {
       return this.isAllSection ?
         this.tree :
-        this.tree.filter( node => node.data.section === this.showTocWithSectionName );
+        this.tree.filter( (node:TreeNode<T>) => node.data.section === this.showTocWithSectionName );
     },
     getNodeById ( id: string ) {
       return this.tree.find( node => node.id === id );
@@ -71,10 +72,12 @@ export const createBookTocTree=<T extends ISection>(tree:TreeNode<T>[],isCollaps
     showAll () {
       this.showTocWithSectionName = BOOK_TOC_SECTION_NAME_ALL;
     },
-    getSectionMatchCount(sectionName:string){
+    getSectionMatchCount ( sectionName: string ) {
       return sectionMatchCount.get( sectionName ) ?? 0;
     }
   } );
+
+  return store;
 };
 
 

@@ -2,7 +2,7 @@ import React, { FC } from "react";
 import { default as cn } from "classnames";
 import { RotateContainer } from "../transform__rotate-container/RotateContainer";
 import { ArrowDownSvgIcon } from "../icon__svg-icon/svg-icons";
-import { IconButton } from "../icon-button/IconButton";
+import { IconButton, Size } from "../icon-button/IconButton";
 import { useBookTocStores } from "../../mobx/MobxBookTocProvider";
 import { observer } from "mobx-react-lite";
 import { Tooltip, TooltipPosition } from "../tooltip/Tooltip";
@@ -21,7 +21,7 @@ export const TocCollapseAllButton: FC<ITocCollapseAllButtonProps> = observer( ( 
   let classes = cn( "toc-collapse-all-button", className );
 
   return (
-    <IconButton className={classes} onClick={ () => bookTocTreeStore.collapseAll() }>
+    <IconButton className={classes} size={Size.SM} onClick={ () => bookTocTreeStore.collapseAll() }>
       <RotateContainer isToggle={ !bookTocTreeStore.isCollapseAll }>
         <ArrowDownSvgIcon/>
       </RotateContainer>

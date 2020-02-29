@@ -1,6 +1,7 @@
 .svg-icon {
-  fill: var(--color_dark_40);
+  //fill: var(--color_dark_40);
 
+  fill-opacity: .6;
   display: block;
   pointer-events: none;
 }

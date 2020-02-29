@@ -1,7 +1,7 @@
 @import "../../styles/app-vars";
 @import "../../styles/mixins/native-scrollbar";
 
-
+///TODO:[refactor][extract]
 .scroll-wrapper{
   max-height: calc(
     calc(100vh - #{$app-header_height + $content__control-bar_height}) -

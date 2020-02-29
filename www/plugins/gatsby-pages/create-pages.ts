@@ -14,7 +14,7 @@ interface ICreatePagesOptions {
 export const createPages: GatsbyCreatePages<ICreatePagesOptions> = async (...params) => {
     // await IndexPageCreator.createPages( ...params );
     // await BookPageCreator.createPages( ...params );
-    // await BookTocPageCreator.createPages( ...params );
+    await BookTocPageCreator.createPages( ...params );
     await WhatIsNewPageCreator.createPages( ...params );
     await WhatIsNewTocPageGuiCreator.createPages( ...params );
 };

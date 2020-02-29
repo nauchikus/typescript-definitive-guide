@@ -6,9 +6,10 @@ import SEO from "../../components/seo";
 import BaseLayout from "../../layouts/base-layout/BaseLayout";
 import { AppLocalization } from "../../localization";
 import { MobxBookTocContext } from "../../mobx/MobxBookTocProvider";
-import { createBookTocPageStores, UseBookTocStores } from "../../stores/book-toc-stores";
+import { createBookTocMobxEntry, UseBookTocStores } from "../../stores/mobx-entry__book_toc";
 import { useLocalStore } from "mobx-react-lite";
 import { BookTocNode, TreeNode } from "../../stores/BookTocTreeStore";
+import { BehaviorNotificationContext } from "../../react__context/BehaviorNotificationContext";
 
 
 interface IBookTocPageProviderProps {
@@ -21,19 +22,19 @@ interface IBookTocPageProviderProps {
 
 const BookTocPageProvider: FC<IBookTocPageProviderProps> = ( { pageContext } ) => {
     let { bookTocTree } = pageContext;
-    let bookTocStoresRef = useRef<UseBookTocStores>( createBookTocPageStores( {
+    let bookTocStoresRef = useRef<UseBookTocStores>( createBookTocMobxEntry( {
         bookTocTree
     } ) );
-    let bookTocStores = useLocalStore( () => bookTocStoresRef.current );
-
 
 
     return (
-        <MobxBookTocContext.Provider value={bookTocStores}>
-            <BaseLayout>
-                <SEO/>
-                <BookTocPage/>
-            </BaseLayout>
+        <MobxBookTocContext.Provider value={bookTocStoresRef.current}>
+            <BehaviorNotificationContext.Provider value={bookTocStoresRef.current.behaviorNotificationStore}>
+                <BaseLayout>
+                    <SEO/>
+                    <BookTocPage/>
+                </BaseLayout>
+            </BehaviorNotificationContext.Provider>
         </MobxBookTocContext.Provider>
     )
 };

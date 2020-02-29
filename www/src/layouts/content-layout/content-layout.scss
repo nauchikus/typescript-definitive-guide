@@ -27,12 +27,17 @@ $native-scrollbar_width:16px;
   justify-content: center;
 
   position: sticky;
-  top: 0;
+  top: var(--app-header_height);
+
+  z-index: 1;
 
 }
-.content-layout__content{
+.content-layout__content {
   width: 100%;
 
-  display:flex;
+  display: flex;
   justify-content: center;
+
+  z-index: 0;
+  
 }

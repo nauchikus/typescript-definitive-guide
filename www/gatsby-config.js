@@ -6,6 +6,16 @@ const path = require( 'path' );
 const { CustomGatsbyNodeType } = require( './plugins/gatsby-node-types' );
 const { FilesystemSourceName } = require( './plugins/filesystem-gatsby-node-types' );
 
+class ProjectPath{
+  static IMAGES_DIR = path.resolve(`./src/images`);
+  // static IMAGES_DIR = `${ __dirname }/src/images`;
+  // static ASSETS_DIR = `${ __dirname }/src/assets`;
+  static ASSETS_DIR = path.resolve(`./assets`);
+  static LOCALIZATION_RU = path.resolve( '../book/ru/metadata/localization.json' );
+  static NAVIGATION_RU = path.resolve( '../book/ru/metadata/navigation.json' );
+  static BOOK_TOC_RU = path.resolve( '../book/ru/metadata/toc.json' );
+  static WHAT_IS_NEW_DIR = path.resolve( '../what-is-new/' );
+}
 
 
 const getPlugins = locale => ( [
@@ -69,42 +79,42 @@ module.exports = {
       resolve: `gatsby-source-filesystem`,
       options: {
         name: `images`,
-        path: `${ __dirname }/src/images`,
+        path: ProjectPath.IMAGES_DIR,
       },
     },
     {
       resolve: `gatsby-source-filesystem`,
       options: {
         name: `icon__image`,
-        path: `${ __dirname }/assets`,
+        path: ProjectPath.ASSETS_DIR,
       },
     },
     {
       resolve: `gatsby-source-filesystem`,
       options: {
         name: `localization_ru`,
-        path: path.resolve( '../book/ru/metadata/localization.json' ),
+        path: ProjectPath.LOCALIZATION_RU,
       },
     },
     {
       resolve: `gatsby-source-filesystem`,
       options: {
         name: `navigation_ru`,
-        path: path.resolve( '../book/ru/metadata/navigation.json' ),
+        path: ProjectPath.NAVIGATION_RU,
       },
     },
     {
       resolve: `gatsby-source-filesystem`,
       options: {
         name: `book-toc_ru`,
-        path: path.resolve( '../book/ru/metadata/toc.json' ),
+        path: ProjectPath.BOOK_TOC_RU,
       },
     },
     {
       resolve: `gatsby-source-filesystem`,
       options: {
         name: FilesystemSourceName.WhatIsNew,
-        path: path.resolve( '../what-is-new/' ),
+        path: ProjectPath.WHAT_IS_NEW_DIR,
       },
     },
     {

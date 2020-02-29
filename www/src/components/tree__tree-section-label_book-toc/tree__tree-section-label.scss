@@ -1,0 +1,16 @@
+.book-toc-tree__section-label {
+  color: white;
+  vertical-align: middle;
+
+  border-radius: var(--app_border-radius-default);
+
+  padding: 4px 4px 4px 12px;
+
+  margin: 0 0 16px 0;
+
+  position: sticky;
+  top: calc(var(--app-header_height) + var(--content__control-bar_height));
+
+  z-index: 9999999999;
+
+}
