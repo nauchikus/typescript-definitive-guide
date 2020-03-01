@@ -3,12 +3,12 @@ ________________
 
 Самое время взять паузу и рассмотреть типизацию в *TypeScript* более детально через призму полученных знаний.
 
-Итак, что известно о *TypeScript*? *TypeScript*:
+Итак, что известно о *TypeScript*? *TypeScript* это язык:
 
-1. Статически типизированный язык с возможностью динамического связывания
+1. Статически типизированный с возможностью динамического связывания
 2. Сильно типизированный
 3. Явно типизированный с возможностью вывода типов
-4. Совместимость типов проходит по правилам структурной типизации 
+4. Совместимость типов в *TypeScript* проходит по правилам структурной типизации 
 5. Совместимость типов зависит от вариантности, чей конкретный вид определяется конкретным случаем
 
 Кроме этого, существуют понятия, которые входят в уже упомянутые, но в *TypeScript* вынесены в отдельные определения. Именно поэтому они будут рассматриваться отдельно. Такими понятиями являются: 
@@ -53,13 +53,13 @@ ________________
 
 С определениями закончили, осталось закрепить конкретными примерами.
 
-*[ 2 ]* Сильная типизация в *TypeScript* проявляет себя в случаях, схожих с операцией сложения числа с массивом. В этом случае компилятор выбрасывает ошибки.
+*[ 1 ]* Сильная типизация в *TypeScript* проявляет себя в случаях, схожих с операцией сложения числа с массивом. В этом случае компилятор выбрасывает ошибки.
 
 ~~~~~typescript
-let value = 5 + []; // Error
+const value = 5 + []; // Error
 ~~~~~
 
-*[ 1 ]* Статическая типизация в *TypeScript* проявляется в том, что к моменту окончания компиляции компилятор уже знает, к какому конкретному типу принадлежат все конструкции, нуждающиеся в аннотации типа.
+*[ 2 ]* Статическая типизация в *TypeScript* проявляется в том, что к моменту окончания компиляции компилятор уже знает, к какому конкретному типу принадлежат все конструкции, нуждающиеся в аннотации типа.
 
 *[ 3 ]* В *TypeScript*, если тип не указывается явно, компилятор с помощью вывода типов выводит и указывает тип самостоятельно.
 
@@ -80,7 +80,7 @@ var fish: Fish = new Bird();
 
 В таких языках, как *Java* или *C#*, такое поведение недопустимо. В *TypeScript* это становится возможно из-за структурной типизации.
 
-Так как совместимость типов происходит на основе описания типов, то в первом случае компилятор запоминает все члены типа `Fish` и, если он находит аналогичные члены в типе `Bird`, типы считаются совместимы. Тоже самое компилятор проделывает тогда, когда во втором случае присваивает экземпляр класса `Bird` переменной с типом `Fish`. Так как оба типа имеют по одному полю, с одинаковым типом и идентификатором, то они считаются совместимыми.
+Так как совместимость типов происходит на основе описания типов, то в первом случае компилятор запоминает все члены типа `Fish` и, если он находит аналогичные члены в типе `Bird`, типы считаются совместимы. То же самое компилятор проделывает тогда, когда во втором случае присваивает экземпляр класса `Bird` переменной с типом `Fish`. Так как оба типа имеют по одному полю, с одинаковым типом и идентификатором, то они считаются совместимыми.
 
 Если добавить классу `Bird` поле `wings`, то при попытке присвоить его экземпляр переменной с типом `Fish` возникнет ошибка, так как в типе `Fish` отсутствует после `wings`. Обратное действие, то есть присвоение экземпляра класса `Bird` переменной с типом `Fish`, ошибки не вызовет, так как в типе `Bird` будут найдены все члены, объявленные в типе `Fish`.
 
@@ -94,7 +94,6 @@ var fish: Fish = new Bird();
 
 Стоит добавить, что правилам структурной типизации подчиняются все объекты в *TypeScript*. А, как известно, в *JavaScript* все, кроме примитивных типов, объекты. Это же утверждение верно и для *TypeScript*.
 
-
 С первыми четырьмя пунктами разобрались. Двигаемся дальше.
 
 
@@ -106,18 +105,31 @@ ________________
 Ковариантность позволяет большему типу быть совместимым с меньшими типом.
 
 ~~~~~typescript
-interface IAnimal { type: string; }
-interface IBird extends IAnimal { fly(): void; }
-
-function f0(  ): IAnimal {
-  let v: IAnimal = { type: 'animal' };
-
-  return v;
+interface IAnimal { 
+    type: string;
 }
-function f1(  ): IBird {
-  let v: IBird = { type: 'bird', fly(){} };
 
-  return v;
+interface IBird extends IAnimal { 
+    fly(): void; 
+}
+
+function f0(): IAnimal {
+    const v: IAnimal = { 
+        type: 'animal' 
+    };
+    
+    return v;
+}
+
+function f1(): IBird {
+    const v: IBird = { 
+        type: 'bird', 
+        fly() {
+        
+        } 
+    };
+    
+    return v;
 }
 
 
@@ -132,40 +144,46 @@ let v1: T1 = f0; // Error
 Контравариантность позволяет меньшему типу быть совместимым с большим типом.
 
 ~~~~~typescript
-interface IAnimal { type: string; }
-interface IBird extends IAnimal { fly(): void; }
+interface IAnimal { 
+    type: string; 
+}
 
-function f0( p: IAnimal ): void {}
-function f1( p: IBird ): void {}
+interface IBird extends IAnimal { 
+    fly(): void; 
+}
 
+function f0(p: IAnimal): void {}
+function f1(p: IBird): void {}
 
 type T0 = typeof f0;
 type T1 = typeof f1;
-
 
 let v0: T0 = f1; // Error
 let v1: T1 = f0; // Ok
 ~~~~~
 
-Бивариантность, доступная исключительно для параметров функций при условии, что флаг `--strictFunctionTypes` установлен в значение `false`,  делает возможной совместимость как большего типа с меньшим, так и наооборот — меньшего с большим.
+Бивариантность, доступная исключительно для параметров функций при условии, что флаг `--strictFunctionTypes` установлен в значение `false`, делает возможной совместимость как большего типа с меньшим, так и наоборот — меньшего с большим.
 
 ~~~~~typescript
-interface IAnimal { type: string; }
-interface IBird extends IAnimal { fly(): void; }
+interface IAnimal { 
+    type: string;
+}
 
-function f0( p: IAnimal ): void {}
-function f1( p: IBird ): void {}
+interface IBird extends IAnimal { 
+    fly(): void; 
+}
 
+function f0(p: IAnimal): void {}
+function f1(p: IBird): void {}
 
 type T0 = typeof f0;
 type T1 = typeof f1;
-
 
 let v0: T0 = f1; // Ok, (--strictFunctionTypes === false)
 let v1: T1 = f0; // Ok
 ~~~~~
 
-Не будет лишним упомянуть, что бивариантность снижает уровень типобезопасности программы и поэтому рекомендуется вести разработку с флагом `--strictFunctionTypes` устанавленным в значение `true`.
+Не будет лишним упомянуть, что бивариантность снижает уровень типобезопасности программы и поэтому рекомендуется вести разработку с флагом `--strictFunctionTypes` установленным в значение `true`.
  
 
 ## Наилучший общий тип (Best common type)
@@ -182,11 +200,11 @@ class Animal {}
 class Elephant extends Animal {}
 class Lion extends Animal {}
 
-let animalAll = [
-  new Elephant(),
-  new Lion(),
-  new Animal()
-]; // animalAll: Elephant[ ]
+const animalAll = [
+    new Elephant(),
+    new Lion(),
+    new Animal()
+]; // animalAll: Elephant[]
 ~~~~~
 
 Так как *TypeScript* проверяет совместимость типов по правилам структурной типизации, а все три типа идентичны с точки зрения их описания, то с точки зрения вывода типов все три типа выглядят идентичными. Поэтому, скорее всего вывод типов укажет переменной тип данных первого элемента массива.
@@ -195,40 +213,40 @@ let animalAll = [
 
 ~~~~~typescript
 class Animal {}
-class Elephant extends Animal{ thrunk; }
-class Lion extends Animal{}
+class Elephant extends Animal { thrunk; }
+class Lion extends Animal {}
 
-let animalAll = [
-  new Elephant(),
-  new Lion (),
-  new Animal()
-]; // animalAll: Animal[ ]
+const animalAll = [
+    new Elephant(),
+    new Lion (),
+    new Animal()
+]; // animalAll: Animal[]
 ~~~~~
 
 В случае, если в массиве не будет присутствовать базовый для всех типов тип `Animal`, то вывод типов укажет в качестве типа массива тип `Lion`. Сделает он это потому что из двух типов, присутствующих в массиве, тип `Lion`, совместим с каждым из них. Тип `Lion` считается совместимым с типом `Elephant` потому, что все члены описанные в типе `Lion` присутствуют в типе `Elephant`. В данном случае в типе `Lion` вообще не описано ни одного члена. А то что вывод типов не привел массив, как ранее, к базовому типу `Animal`, наглядно иллюстрирует то, что вывод типов делает заключение на основе анализа конкретного выражения. В данном случае выражением является литерал массива, в который заключены два типа `Elephant` и `Lion`. Базового типа `Animal` в этом выражении нет, и поэтому вывод типов не берет его в расчет.
 
 ~~~~~typescript
 class Animal {}
-class Elephant extends Animal{ thrunk; }
-class Lion extends Animal{}
+class Elephant extends Animal { thrunk; }
+class Lion extends Animal {}
 
 let animalAll = [
-  new Elephant(),
-  new Lion()
-]; // animalAll: Lion[ ]
+    new Elephant(),
+    new Lion()
+]; // animalAll: Lion[]
 ~~~~~
 
 После того, как типу `Lion` тоже будет добавлено уникальное поле, скажем, грива (`mane`), выводу типов ничего не останется, кроме как указать в качестве типа массива тип объединение (`union`), состоящий из типов `Elephant` и `Lion`.
 
 ~~~~~typescript
 class Animal {}
-class Elephant extends Animal{ thrunk; }
-class Lion extends Animal{ mane; }
+class Elephant extends Animal { thrunk; }
+class Lion extends Animal { mane; }
 
 let animalAll = [
-  new Elephant(),
-  new Lion()
-]; // animalAll: ( Elephant | Lion )[ ]
+    new Elephant(),
+    new Lion()
+]; // animalAll: (Elephant | Lion)[]
 ~~~~~
 
 Как видно, ничего неожиданного или сложного в теме наилучшего общего типа совершенно нет.
@@ -237,21 +255,21 @@ let animalAll = [
 ## Контекстный тип (Contextual Type)
 ________________
 
-Контекстным типом называется тип, который при не явном объявлении указывается не с помощью вывода типов, а за счет декларации контекста.
+Контекстным называется тип, который при не явном объявлении указывается за счет декларации контекста, а не с помощью вывода типов.
 
-Лучшим примером контекстного типа может служить подписка `document` на событие мыши `mousedown`. Так как у слушателя события, параметру `event`, тип не указан явно, а также ему в момент объявления не было присвоено значение, то, как мы уже знаем, вывод типов должен был указать тип `any`. Но в данном случае компилятор указывает тип `MouseEvent`, потому что именно он указан в декларации типа слушателя событий. В случае подписания `document` на событие `keydown`, компилятор указывает тип как `KeyboardEvent`.
+Лучшим примером контекстного типа может служить подписка `document` на событие мыши `mousedown`. Так как у слушателя события, тип параметра `event` не указан явно, а также ему в момент объявления не было присвоено значение, то, как мы уже знаем, вывод типов должен был указать тип `any`. Но в данном случае компилятор указывает тип `MouseEvent`, потому что именно он указан в декларации типа слушателя событий. В случае подписания `document` на событие `keydown`, компилятор указывает тип как `KeyboardEvent`.
 
 ~~~~~typescript
-document.addEventListener( 'mousedown', ( event ) => { } ); // event: MouseEvent
-document.addEventListener( 'keydown', ( event ) => { } ); // event: KeyboardEvent
+document.addEventListener('mousedown', (event) => { }); // event: MouseEvent
+document.addEventListener('keydown', (event) => { }); // event: KeyboardEvent
 ~~~~~
 
 Для того чтобы понять, как это работает, опишем случай из жизни зоопарка, а именно — представление с морским львом. Для этого создадим класс морской лев `SeaLion` и объявим в нем два метода: вращаться (`rotate`) и голос (`voice`).
 
 ~~~~~typescript
 class SeaLion {
-  rotate( ): void { }
-  voice( ): void { }
+    rotate(): void { }
+    voice(): void { }
 }
 ~~~~~
 
@@ -259,7 +277,7 @@ class SeaLion {
 
 ~~~~~typescript
 class Trainer {
-  addEventListener( type: string, handler: Function ) {}
+    addEventListener(type: string, handler: Function) {}
 }
 ~~~~~
 
@@ -280,25 +298,25 @@ type VoiceEventType = "voice";
 Теперь осталось только задекларировать ещё два псевдонима типов для функциональных типов, у обоих из которых будет один параметр `event` и отсутствовать возвращаемое значение. Первому псевдониму зададим имя `RotateTrainerHandler`, а его параметру установим тип  `RotateTrainerEvent`. Второму псевдониму зададим имя `VoiceTrainerHandler`, а его параметру установим тип `VoiceTrainerEvent`.
 
 ~~~~~typescript
-type RotateTrainerHandler = ( event: RotateTrainerEvent ) => void;
-type VoiceTrainerHandler = ( event: VoiceTrainerEvent ) => void;
+type RotateTrainerHandler = (event: RotateTrainerEvent) => void;
+type VoiceTrainerHandler = (event: VoiceTrainerEvent) => void;
 ~~~~~
 
 Соберём части воедино. Для этого в классе дрессировщик `Trainer` перегрузим метод `addEventListener`. У первого перегруженного метода параметр `type` будет иметь тип `RotateEventType`, а параметру `handler` укажем тип `RotateTrainerHandler`. Второму перегруженному методу в качестве типа параметра `type` укажем `VoiceEventType`, а параметру `handler` укажем тип `VoiceTrainerHandler`.
 
 ~~~~~typescript
 class Trainer {
-  addEventListener( type: RotateEventType, handler: RotateTrainerHandler );
-  addEventListener( type: VoiceEventType, handler: VoiceTrainerHandler );
-  addEventListener( type: string, handler: Function ) {}
+  addEventListener(type: RotateEventType, handler: RotateTrainerHandler);
+  addEventListener(type: VoiceEventType, handler: VoiceTrainerHandler);
+  addEventListener(type: string, handler: Function) {}
 }
 ~~~~~
 
-Осталось только убедится что все работает правильно. Для этого создадим экземпляр класса `Trainer` и подпишемся на события. Сразу же можно увидеть подтверждение того, что цель достигнута. У слушателя события `RotateTrainerEvent` параметру `event` указан контекстный тип `RotateTrainerEvent`. А слушателю события `VoiceTrainerEvent` параметру `event` указан контекстный тип `VoiceTrainerEvent`.
+Осталось только убедиться что все работает правильно. Для этого создадим экземпляр класса `Trainer` и подпишемся на события. Сразу же можно увидеть подтверждение того, что цель достигнута. У слушателя события `RotateTrainerEvent` параметру `event` указан контекстный тип `RotateTrainerEvent`. А слушателю события `VoiceTrainerEvent` параметру `event` указан контекстный тип `VoiceTrainerEvent`.
 
 ~~~~~typescript
-type RotateTrainerHandler = ( event: RotateTrainerEvent ) => void;
-type VoiceTrainerHandler = ( event: VoiceTrainerEvent ) => void;
+type RotateTrainerHandler = (event: RotateTrainerEvent) => void;
+type VoiceTrainerHandler = (event: VoiceTrainerEvent) => void;
 
 type RotateEventType = "rotate";
 type VoiceEventType = "voice";
@@ -307,21 +325,21 @@ class RotateTrainerEvent {}
 class VoiceTrainerEvent {}
 
 class SeaLion {
-  rotate( ): void { }
-  voice( ): void { }
+    rotate(): void {}
+    voice(): void {}
 }
 
 class Trainer {
-  addEventListener( type: RotateEventType, handler: RotateTrainerHandler );
-  addEventListener( type: VoiceEventType, handler: VoiceTrainerHandler );
-  addEventListener( type: string, handler: Function ) {}
+    addEventListener(type: RotateEventType, handler: RotateTrainerHandler);
+    addEventListener(type: VoiceEventType, handler: VoiceTrainerHandler);
+    addEventListener(type: string, handler: Function) {}
 }
 
 let seaLion: SeaLion = new SeaLion();
 
 let trainer: Trainer = new Trainer();
-trainer.addEventListener( 'rotate', ( event ) => seaLion.rotate() );
-trainer.addEventListener( 'voice', ( event ) => seaLion.voice() );
+trainer.addEventListener('rotate', (event) => seaLion.rotate());
+trainer.addEventListener('voice', (event) => seaLion.voice());
 ~~~~~
 
 
