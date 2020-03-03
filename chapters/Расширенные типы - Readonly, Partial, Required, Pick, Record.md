@@ -1,21 +1,19 @@
 ## Расширенные типы — Readonly, Partial, Required, Pick, Record
 ________________
 
-
 Как уже было сказано ранее, *TypeScript* в помощь разработчикам реализовал несколько типов сопоставлений. К таким типам относятся `Readonly<T>`, `Partial<T>`, `Required<T>`, `Pick<T, K>` и `Record<K, T>`. Все, кроме `Record<K, T>`, являются *гомоморфными* (homomorphic). Очень простыми словами, *гомоморфизм* — это возможность сохранять свойства всех операций. На самом деле это очень просто и убедится в этом можно будет немного позже.
 
 
 ## Readonly
 ________________
 
-
 Тип сопоставления `Readonly` помечает все члены только для чтения (модификатор `readonly`).
 
 ~~~~~typescript
-// lib.se6/d/ts
+// lib.es6.d.ts
 
 type Readonly<T> = {
-  readonly [P in keyof T]: T[P];
+    readonly [P in keyof T]: T[P];
 };
 ~~~~~
 
@@ -26,31 +24,30 @@ type Readonly<T> = {
 
 ~~~~~typescript
 interface IAnimalEntity {
-  name: string;
-  age: number;
+    name: string;
+    age: number;
 }
 
 let json = '{"name": "animal", "age": 0}';
 
 let animal: Readonly<IAnimalEntity> = JSON.parse(json);
-animal.name = 'newanimal'; // Error -> all fields is immutable
-animal.age = 0; // Error -> all fields is immutable
+animal.name = 'newanimal'; // Error -> Cannot assign to 'name' because it is a read-only property.
+animal.age = 0; // Error -> Cannot assign to 'age' because it is a read-only property.
 ~~~~~
 
 Тип сопоставления `Readonly<T>` является гомоморфным и не влияет на существующие модификаторы, а лишь расширяет модификаторы конкретного типа. То, что тип, указанный в качестве аргумента типа, полностью сохранил свое поведение (в данном случае — модификаторы), делает сопоставленный тип `Readonly<T>` гомоморфным.
 
 ~~~~~typescript
 interface IAnimal {
-  name?: string;
+    name?: string;
 }
 
-let animal: Readonly<IAnimal> = // { readonly name?: string }
+let animal: Readonly<IAnimal>; // { readonly name?: string }
 ~~~~~
 
 
 ## Partial
 ________________
-
 
 Тип сопоставления `Partial<T>` помечает все члены необязательными (`:?`).
 
@@ -58,7 +55,7 @@ ________________
 // lib.es6.d.ts
 
 type Partial<T> = {
-  [P in keyof T]?: T[P];
+    [P in keyof T]?: T[P];
 };
 ~~~~~
 
@@ -66,58 +63,56 @@ type Partial<T> = {
 
 ~~~~~typescript
 class Model<T> {
-  constructor(private entity: T) {}
-
-  public getValueByKey<U extends keyof T>( key: U ): T[ U ] {
-      return this.entity[ key ];
-  }
-
-  public update( partial: Partial<T> ): void {
-      Object.assign( this.entity, partial );
-  }
+    constructor(private entity: T) {}
+    
+    public getValueByKey<U extends keyof T>(key: U): T[U] {
+        return this.entity[key];
+    }
+    
+    public update(partial: Partial<T>): void {
+        Object.assign(this.entity, partial);
+    }
 }
 
 interface IAnimalEntity {
-  name: string;
-  age: number;
+    name: string;
+    age: number;
 }
 
-let json = '{"name": "animal", "age": 0}';
-let entity = JSON.parse(json);
+const json = '{"name": "animal", "age": 0}';
+const entity = JSON.parse(json);
 
-let animalModel: Model<IAnimalEntity> = new Model(entity);
+const animalModel: Model<IAnimalEntity> = new Model(entity);
 
-console.log( animalModel.getValueByKey( 'name' ) ); // animal
+console.log(animalModel.getValueByKey('name')); // animal
 
-let newJSON = '{"name": "newanimal"}';
-let newEntity = JSON.parse(newJSON);
+const newJSON = '{"name": "newanimal"}';
+const newEntity = JSON.parse(newJSON);
 
 animalModel.update(newEntity); // Ok
 
-console.log( animalModel.getValueByKey( 'name' ) ); // newanimal
+console.log(animalModel.getValueByKey('name')); // newanimal
 ~~~~~
 
 Тип сопоставления `Partial<T>` является гомоморфным и не влияет на существующие модификаторы, а лишь расширяет модификаторы конкретного типа.
 
 ~~~~~typescript
 interface IAnimal {
-  readonly name: string;
+    readonly name: string;
 }
 
-let animal: Partial<IAnimal> = // { readonly name?: string }
+let animal: Partial<IAnimal>;// { readonly name?: string }
 ~~~~~
-
 
 
 ## Required
 ________________
 
-
 Тип сопоставления `Required<T>` удаляет все необязательные модификаторы `:?` приводя члены объекта к обязательным. Простыми словами, `Required<T>`, с помощью префикса - (глава [“Оператор keyof, Lookup Types, Mapped Types, Mapped Types - префиксы + и -”]()),  помечает модификатор `:?` на удаление.
 
 ~~~~~typescript
 type Required<T> = {
-  [P in keyof T]-?: T[P];
+    [P in keyof T]-?: T[P];
 };
 ~~~~~
 
@@ -132,60 +127,63 @@ let v1: Required<IT>; // { a: number; b: string; }, обязательные ч�
 ## Pick
 ________________
 
-
 В типе сопоставлении `Pick<T, K>` определено два обязательных параметра типа. Первый параметр в качестве значения принимает конкретный тип данных. Второй параметр ожидает объединенный тип данных (`Union`), который состоит только из строковых литеральных типов, эквивалентных идентификаторам ключей типа, соответствующему первому параметру типа.
 
 ~~~~~typescript
 // lib.es6.d.ts
 
 type Pick<T, K extends keyof T> = {
-  [P in K]: T[P];
+    [P in K]: T[P];
 };
 ~~~~~
 
 Предназначен сопоставленный тип `Pick<T, K>` для ограничения описания типа на основе идентификаторов его членов. Простыми словами, у разработчиков и вывода типа появилась возможность фильтровать тип по именам его членов. 
 
 ~~~~~typescript
-type T1 = {f1: string, f2: number, f3: boolean};
+type T1 = { f1: string, f2: number, f3: boolean };
 type T2 = Pick<T1, 'f1' | 'f2'>;
 
-let v1: T1 = {f1: '', f2: 0, f3: true}; // Ok
-let v2: T2 = {f1: '', f2: 0, f3: true}; // Error
-let v3: T2 = {f1: '', f2: 0}; // Ok
+let v1: T1 = { f1: '', f2: 0, f3: true }; // Ok
+let v2: T2 = { f1: '', f2: 0, f3: true }; // Error
+let v3: T2 = { f1: '', f2: 0 }; // Ok
 ~~~~~
 
 Подобное можно было бы реализовать с помощью только параметров обобщенного типа, но при этом требовалось бы всегда указывать входящие и выходящие типы данных.
 
 ~~~~~typescript
-function pick<T, U>( object: T, ...keys: string[ ] ): U {
-  return keys.reduce( (result, key) => {
-      return Object.assign( result, {[key]: object[key]} );
-  }, {} as U );
+function pick<T, U>(object: T, ...keys: string[]): U {
+    return keys.reduce((result, key) => {
+        return Object.assign(result, {
+            [key]: object[key]
+        });
+    }, {} as U);
 }
 
 interface IAnimal {
-  type: string;
-  arial: string;
-  age: number;
+    type: string;
+    arial: string;
+    age: number;
 }
 
 interface IAnimapPartial {
-  arial: string;
-  age: number;
+    arial: string;
+    age: number;
 }
 
-let animal = {type: 'animal', arial: 'default', age: 0};
+let animal = { type: 'animal', arial: 'default', age: 0 };
 let partial = pick<IAnimal, IAnimapPartial>(animal, 'arial', 'notexistfield'); // Ok -> { arial: string, notexistfield: undefined }
-let partial = pick<IAnimal, IAnimapPartial>( animal, 'arial', 'age' ); // Ok -> { arial: string, age: number }
+let partial = pick<IAnimal, IAnimapPartial>(animal, 'arial', 'age'); // Ok -> { arial: string, age: number }
 ~~~~~
 
 В случаях, когда разрабатываемая библиотека рассчитана на широкий круг разработчиков, рекомендуется сделать выбор в пользу динамического вывода типов.
 
 ~~~~~typescript
 function pick<T, K extends keyof T>(object: T, ...keys: (K & string)[]): Pick<T, K> {
-  return keys.reduce( (result, key) => {
-      return Object.assign( result, {[key]: object[key]} )
-  }, {} as Pick<T, K> );
+    return keys.reduce((result, key) => {
+        return Object.assign(result, {
+            [key]: object[key]
+        });
+  }, {} as Pick<T, K>);
 }
 
 let animal = {type: 'animal', arial: 'default', age: 0};
@@ -197,11 +195,11 @@ let partial = pick(animal, 'arial', 'age');  // Ok -> { arial: string, age: numb
 
 ~~~~~typescript
 interface IAnimal {
-  readonly name?: string;
-  readonly age?: number;
+    readonly name?: string;
+    readonly age?: number;
 }
 
-let animal: Pick<IAnimal, 'name'> // { readonly name?: string }
+let animal: Pick<IAnimal, 'name'>; // { readonly name?: string }
 ~~~~~
 
 
@@ -214,7 +212,7 @@ ________________
 // lib.es6.d.ts
 
 type Record<K extends string, T> = {
-  [P in K]: T;
+    [P in K]: T;
 };
 ~~~~~
 
@@ -248,8 +246,8 @@ let v3: T3 = {f1: true, f2: {}}; // Ok
 
 ~~~~~typescript
 interface IIndexed {
-  [key: string]: any;
-  [key: number]: any;
+    [key: string]: any;
+    [key: number]: any;
 }
 
 let object: IIndexed = { a: 0, b: 0 };
