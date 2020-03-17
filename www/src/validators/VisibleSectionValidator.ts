@@ -1,10 +1,10 @@
-import { IWhatIsNewData } from "../types/IWhatIsNewToc";
+import { IWinPageContentData } from "../types/IWhatIsNewToc";
 import { VersionFilterStore } from "../stores/VersionFilterStore";
 import { Version } from "../utils/Version";
 
 
 interface IVisibleSectionValidatorParams {
-  contentData:IWhatIsNewData;
+  contentData:IWinPageContentData;
   versionFilter: VersionFilterStore;
 }
 
@@ -14,7 +14,7 @@ export class VisibleSectionValidator {
 
   private static DEFAULT_SECTION_ID = ``;
 
-  constructor ( private contentData: IWhatIsNewData, private versionFilter: VersionFilterStore ) {
+  constructor ( private contentData: IWinPageContentData, private versionFilter: VersionFilterStore ) {
 
   }
 

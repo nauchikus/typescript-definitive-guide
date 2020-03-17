@@ -6,7 +6,7 @@ import { useTranslator } from "../../react__hooks/translator.hook";
 import { LocalizationPaths, SharedLayoutLocalization } from "../../localization";
 import { DynamicGatsbyImage } from "../dynamic-gatsby-image/DynamicGatsbyImage";
 import { observer } from "mobx-react-lite";
-import { useBaseLayoutStores } from "../../mobx/BaseLayoutMobxProvider";
+import { useBaseLayoutStores } from "../../mobx__react-content-provider/BaseLayoutMobxProvider";
 import { QuestionInformerCssIcon } from "../icon__css-icon__informer-content-icon/informer-content-icons";
 
 interface IDonateInformerProps {

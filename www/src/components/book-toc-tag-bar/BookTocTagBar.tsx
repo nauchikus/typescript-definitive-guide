@@ -1,5 +1,5 @@
 import React, { FC, useEffect, useRef } from "react";
-import { useBookTocStores } from "../../mobx/MobxBookTocProvider";
+import { useBookTocStores } from "../../mobx__react-content-provider/MobxBookTocProvider";
 import { BookTocTag } from "../book-toc-tag/BookTocTag";
 import { Subject, merge, Observable } from "rxjs";
 import { auditTime, debounceTime, delay, takeUntil, tap, throttleTime } from "rxjs/operators";

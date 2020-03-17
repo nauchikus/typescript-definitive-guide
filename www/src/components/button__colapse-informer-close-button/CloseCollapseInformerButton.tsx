@@ -2,7 +2,7 @@ import React, { FC } from "react";
 import { CloseSvgIcon } from "../icon__svg-icon/svg-icons";
 import { IconButton } from "../icon-button/IconButton";
 import { observer } from "mobx-react-lite";
-import { useBaseLayoutStores } from "../../mobx/BaseLayoutMobxProvider";
+import { useBaseLayoutStores } from "../../mobx__react-content-provider/BaseLayoutMobxProvider";
 
 interface ICloseCollapseInformerButtonProps {
 }

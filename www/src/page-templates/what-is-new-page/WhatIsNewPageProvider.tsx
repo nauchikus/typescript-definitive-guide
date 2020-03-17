@@ -6,34 +6,38 @@ import SEO from "../../components/seo";
 import { Localization } from "../../react__hooks/translator.hook";
 import BaseLayout from "../../layouts/base-layout/BaseLayout";
 import { AppLocalization } from "../../localization";
-import { IWhatIsNewData, IWhatIsNewToc } from "../../types/IWhatIsNewToc";
-import { WinDataContext } from "../../react__hooks/win-data-hook";
-import { useLocalStore } from "mobx-react-lite";
+import { IWinPageContentData, IWhatIsNewToc } from "../../types/IWhatIsNewToc";
+import { WinPageContentDataContext } from "../../react__hooks/win__page-content-data-hook";
 import { createWhatIsNewMobxEntry, UseWhatIsNewMobxEntry, UseWhatIsNewStores } from "../../stores/mobx-entry__what-is-new";
-import { MobxWhatIsNewContext } from "../../mobx/MobxWhatIsNewProvider";
+import { MobxWhatIsNewContext } from "../../mobx__react-content-provider/MobxWhatIsNewProvider";
 import { TreeNode } from "../../stores/WhatIsNewTocTreeStore";
-import { useRouter } from "../../react__hooks/router-hook";
-import { IPageNavData } from "../../types/IPageNavData";
-import { PageNavDataContext } from "../../react__context/PageNavDataContext";
+import { IPageNavLeaf, IPageNavNode } from "../../types/IPageNavData";
+import { WinPageNavDataContext } from "../../react__context/WinPageNavDataContext";
 import { innovationDataToVersionInfoTransformer } from "../../transformers/innovationDataToVersionInfoTransformer";
 import { urlSearchFilterParamToVersionFilterItemTransformer } from "../../transformers/url-search-filter-param-to-version-filter-item-transformer";
-import { string } from "prop-types";
-import {
-    createWhatIsNewValidators,
-    UseWhatIsNewValidators,
-    WhatIsNewValidatorsContext
-} from "../../validators/create-what-is-new-validators";
+import { WhatIsNewValidatorsContext } from "../../validators/create-what-is-new-validators";
 import { BehaviorNotificationContext } from "../../react__context/BehaviorNotificationContext";
 import { BehaviorNotification as CustomNotification } from "../../components/notification__behavior-notification/BehaviorNotification";
+import { ContentDownPanelStoreContext } from "../../mobx__mobx-shared-store__react-context/ContentDownPanelStoreMobxContext";
+import { ContentNavStoreContext } from "../../mobx__mobx-shared-store__react-context/ContentNavStoreMobxContext";
+import { ContentIntersectionObserverStoreContext } from "../../react__context/ContentIntersectionObserverStoreContext";
+import { RouterStoreContext } from "../../stores/RouterStore";
+
+export interface IVersionable {
+    version:string;
+}
+export interface IWinPageNavData extends IPageNavNode<Required<IPageNavLeaf<IVersionable>>>{
+
+}
 
 
 interface IWhatIsNewPageProviderProps {
     pageContext:{
         locale: Locales;
         localization: AppLocalization;
-        innovationData:IWhatIsNewData;
+        innovationData:IWinPageContentData;
         winTocTree:TreeNode<IWhatIsNewToc>[];
-        pageNavDataAll: IPageNavData[];
+        pageNavDataAll: IWinPageNavData[];
     },
     location:Location
 }
@@ -43,7 +47,6 @@ type DisposerRefs={
 }
 const WhatIsNewPageProvider: FC<IWhatIsNewPageProviderProps> = ( { pageContext,location } ) => {
     let { localization,innovationData,winTocTree,pageNavDataAll } = pageContext;
-    let routerStore = useRouter();
 
     let winMobxRef = useRef<UseWhatIsNewMobxEntry>( createWhatIsNewMobxEntry( {
         winTocTree,
@@ -59,7 +62,6 @@ const WhatIsNewPageProvider: FC<IWhatIsNewPageProviderProps> = ( { pageContext,l
     let { stores, validators } = winMobxRef.current;
     let { router } = stores;
 
-  console.log(`[[[PROVADER]]]`);
 
     useEffect( () => {
         router.setLocation( location );
@@ -74,7 +76,7 @@ const WhatIsNewPageProvider: FC<IWhatIsNewPageProviderProps> = ( { pageContext,l
 
 
         let versionFilterCheckedIdAll = urlSearchFilterParamToVersionFilterItemTransformer(
-          routerStore.search.get( `filter` )
+          router.search.get( `filter` )
         );
 
         versionFilterCheckedIdAll.length > 0 ?
@@ -89,17 +91,25 @@ const WhatIsNewPageProvider: FC<IWhatIsNewPageProviderProps> = ( { pageContext,l
       <MobxWhatIsNewContext.Provider value={ stores }>
           <WhatIsNewValidatorsContext.Provider value={validators}>
               <BehaviorNotificationContext.Provider value={stores.behaviorNotificationStore}>
-                  <PageNavDataContext.Provider value={ pageNavDataAll }>
+                  <WinPageNavDataContext.Provider value={ pageNavDataAll }>
                       <Localization.Provider value={ localization }>
-                          <BaseLayout>
-                              <SEO/>
-                              <WinDataContext.Provider value={ innovationData }>
-                                  <WhatIsNewPage/>
-                                  <CustomNotification/>
-                              </WinDataContext.Provider>
-                          </BaseLayout>
+                          <RouterStoreContext.Provider value={router}>
+                              <ContentIntersectionObserverStoreContext.Provider value={stores.contentIntersectionObserver}>
+                                  <ContentNavStoreContext.Provider value={stores.contentNav}>
+                                      <ContentDownPanelStoreContext.Provider value={stores.contentDownPanelStore}>
+                                          <BaseLayout>
+                                              <SEO/>
+                                              <WinPageContentDataContext.Provider value={ innovationData }>
+                                                  <WhatIsNewPage/>
+                                                  <CustomNotification/>
+                                              </WinPageContentDataContext.Provider>
+                                          </BaseLayout>
+                                      </ContentDownPanelStoreContext.Provider>
+                                  </ContentNavStoreContext.Provider>
+                              </ContentIntersectionObserverStoreContext.Provider>
+                          </RouterStoreContext.Provider>
                       </Localization.Provider>
-                  </PageNavDataContext.Provider>
+                  </WinPageNavDataContext.Provider>
               </BehaviorNotificationContext.Provider>
           </WhatIsNewValidatorsContext.Provider>
       </MobxWhatIsNewContext.Provider>

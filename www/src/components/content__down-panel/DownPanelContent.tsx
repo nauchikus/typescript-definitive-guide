@@ -1,17 +1,17 @@
 import React, { FC } from "react";
-import { useWhatIsNewStores } from "../../mobx/MobxWhatIsNewProvider";
 import { IconButton } from "../icon-button/IconButton";
 import {
   ThreeDotsAnimatedCssIcon,
   ThreeDotsAnimatedCssIconPosition
 } from "../icon__css-icon__three-dots-animated-css-icon/ThreeDotsAnimatedCssIcon";
 import { observer } from "mobx-react-lite";
+import { useContentDownPanelStore } from "../../mobx__mobx-shared-store__react-context/ContentDownPanelStoreMobxContext";
 
 interface IDownPanelContentProps {
 }
 
 export const DownPanelContent: FC<IDownPanelContentProps> = observer( ( {} ) => {
-  let { contentDownPanelStore } = useWhatIsNewStores();
+  let contentDownPanelStore = useContentDownPanelStore();
 
   const togglePanelIconButton_click = () => contentDownPanelStore.toggle();
 

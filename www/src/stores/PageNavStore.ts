@@ -1,82 +1,68 @@
-import { observable } from "mobx";
+import { PageNavTreeCreator } from "./PageNavTreeCreator";
+import { RouterStore } from "./RouterStore";
+import { IContentSectionStore } from "./ContentSectionStore";
+import { IPageNavLeaf, IPageNavNode, IPageNavPage, IPageNavSection } from "../types/IPageNavData";
+import { computed, decorate, observable } from "mobx";
 
-export enum NoticeType {
-  DefaultNotice="defaultNotice",
-  CopyLinkDefaultNotice="copyLinkDefaultNotice",
-}
-export enum NoticePhase {
-  BeforeShow="beforeShow",
-  Show="show",
-  UserClose="userClose",
-  AutoClose="autoClose",
-  Hide="hide",
+
+export interface IPageNavStoreParams<TNodeData=null,TLeafData=null> {
+  pageNavDataAll: IPageNavNode<IPageNavLeaf<TLeafData>,TNodeData>[];
+  router: RouterStore;
+  contentSection: IContentSectionStore;
 }
 
-export interface INotice {
-  type:NoticeType;
-  id?:string;
-  message:string;
-}
-export interface INoticeModel extends INotice{
-  phase:NoticePhase;
-  index:{
-    current:number;
-    total:number;
-  };
-  show():void;
-  hide():void;
-  userClose():void;
-  autoClose():void;
-  destroy():void;
+export interface IPageNavStore<TNodeData=null,TLeafData=null> {
+  pageItem: IPageNavPage<TNodeData, TLeafData>;
+  sectionItem: IPageNavSection<TLeafData> | null;
+
 }
 
 
+export class PageNavStore<TNodeData=null,TLeafData=null> implements IPageNavStore<TNodeData,TLeafData> {
+  public static create = <TNodeData,TLeafData>( params: IPageNavStoreParams<TNodeData,TLeafData> ) => new PageNavStore<TNodeData,TLeafData>(
+    params.pageNavDataAll,
+    params.router,
+    params.contentSection
+  );
 
-export const createBehaviorNotification = () => {
-  const store = observable( {
-    noticeAll: [] as INoticeModel[],
-    send ( notice: INotice ) {
-      this.noticeAll.push( {
-        ...notice,
-        phase: NoticePhase.BeforeShow,
-        index: {
-          current: this.noticeAll.length,
-          total: this.noticeAll.length + 1
-        },
+  readonly pageNavTree: IPageNavPage<TNodeData, TLeafData>[];
 
-        show () {
-          this.phase = NoticePhase.Show;
-        },
-        hide () {
-          this.phase = NoticePhase.Hide;
-        },
-        userClose (): void {
-          this.phase = NoticePhase.UserClose;
-        },
-        autoClose (): void {
-          this.phase = NoticePhase.AutoClose;
-        },
-        destroy (): void {
-          destroy( this );
-        }
-      } );
+  get pageItem () {
+    let currentPageItem = this.pageNavTree
+      .find( item => encodeURI(item.path) === this.router.pageName );
 
-      changeIndex( this.noticeAll );
+
+    if ( !currentPageItem ) {
+      throw new Error( `Page with name "${ decodeURI(this.router.pageName) }" not found.` );
     }
-  } );
-  const changeIndex = ( noticeAll: INoticeModel[] ) => noticeAll.forEach( ( notice, index, array ) => {
-    notice.index.current = index;
-    notice.index.total = array.length;
-  } );
-  const destroy = ( noticeModel: INoticeModel ) => {
-    // store.noticeAll = store.noticeAll.filter( item => item !== noticeModel );
-    store.noticeAll.splice( store.noticeAll.indexOf( noticeModel ), 1 );
-
-    changeIndex( store.noticeAll );
-  };
 
 
-  return store;
-};
+    return currentPageItem;
+  }
+  get sectionItem () {
+    let currentSection = ( this.pageItem.sections as Required<IPageNavSection<TLeafData>>[] )
+      .find( section => section.path === this.contentSection.currentSectionId );
 
-export type BehaviorNotification = ReturnType<typeof createBehaviorNotification>;
+
+    if ( this.contentSection.currentSectionId !== `` && !currentSection ) {
+      throw new Error( `Section with name "${ this.contentSection.currentSectionId }" not found.` );
+    }
+
+
+    return currentSection ?? null;
+
+  }
+
+  constructor ( private pageNavDataAll: IPageNavNode<IPageNavLeaf<TLeafData>,TNodeData>[],
+                private router: RouterStore,
+                private contentSection: IContentSectionStore ) {
+    this.pageNavTree = PageNavTreeCreator.createPageNavTree( pageNavDataAll );
+
+  }
+}
+
+decorate( PageNavStore, {
+  pageNavTree: observable,
+  pageItem: computed,
+  sectionItem: computed
+} );

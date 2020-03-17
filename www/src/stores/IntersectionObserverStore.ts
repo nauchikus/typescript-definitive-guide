@@ -30,6 +30,7 @@ export const createIntersectionObserverStore = ({...selectors}:ICreateIntersecti
   let mutationObserver:MutationObserverService;
   let mutationObserverSubscription:Subscription;
 
+  console.log(selectors);
 
   const getRootMargin = () => {
     let contentTopOffset = parseInt(
@@ -64,6 +65,7 @@ export const createIntersectionObserverStore = ({...selectors}:ICreateIntersecti
 
     createIntersectionObserver();
 
+    console.log( "container", document.querySelector( `div.content` ) );
     getAppContentSections( selectors )
       ?.forEach( section => intersectionObserver?.observe( section ) );
   };
@@ -75,7 +77,7 @@ export const createIntersectionObserverStore = ({...selectors}:ICreateIntersecti
   };
 
   const init = () => {
-    mutationObserver = new MutationObserverService( `main` );
+    mutationObserver = new MutationObserverService( selectors.containerSelector );
 
     mutationObserverSubscription = mutationObserver.getObservable()
     .subscribe( { next: observe, error:error=>console.error(error),complete: unobserve } );

@@ -1,13 +1,13 @@
 # Exclude, Extract, NonNullable, ReturnType, InstanceType, Omit
 ![Chapter Cover](./images/chapter-cover.png)
 ## Расширенные типы - Exclude, Extract, NonNullable, ReturnType, InstanceType, Omit
-________________
+
 
 Чтобы сэкономить время разработчиков, в систему типов *TypeScript* были включены несколько часто требующихся условных типов, которые подробно будут рассмотрены в этой главе.
 
 
 ## Exclude
-________________
+
 
 В результате разрешения условный тип `Exclude<T, U>`, будет представлять разницу типа `T` относительно типа `U`. 
 
@@ -51,7 +51,7 @@ let v2: IB = difference( a, b ); // Error
 
 
 ## Extract
-________________
+
 
 
 В результате разрешения, условный тип `Extract<T, U>`,будет представлять пересечения типа `T` относительно типа `U`.
@@ -96,7 +96,7 @@ let v2: IB = intersection( a, b ); // Error
 
 
 ## NonNullable
-________________
+
 
 
 Условный тип `NonNullable<T>` служит для исключения из типа признаков типов `Null` и `Undefined`.
@@ -114,7 +114,7 @@ let v2: NonNullable<undefined | null>; // let v2: never
 ~~~~~
 
 ## ReturnType
-________________
+
 
 Условный тип `ReturnType<T>` служит для установления возвращаемого из функции типа.
 
@@ -133,7 +133,7 @@ let v7: ReturnType< number >; // Error
 ~~~~~
 
 ## InstanceType
-________________
+
 
 Условный тип `InstanceType<T>` предназначен для установления тип экземпляра.
 
@@ -152,7 +152,7 @@ let v5: InstanceType< Function >; // Error
 ~~~~~
 
 ## Parameters
-________________
+
 
 Расширенный тип `Parameters<T>` предназначен для получения типов указанных в аннотации параметров функции.
 
@@ -170,7 +170,7 @@ type FunctionParams = Parameters<typeof f>; // type FunctionParams = [{}, number
 
 
 ## ConstructorParameters
-________________
+
 
 
 Расширенный тип `ConstructorParameters<T>` предназначен для получения типов указанных в аннотации параметров конструктора.
@@ -190,7 +190,7 @@ type ClassParams = ConstructorParameters<typeof Class>; // type ClassParams = [{
 `````
 
 ## Тип Omit
-________________
+
 
 Расширенный тип `Omit<T, K>`предназначен для определения на основе существующего нового суженного типа.
 

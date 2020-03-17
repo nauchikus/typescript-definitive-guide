@@ -1,11 +1,11 @@
 import React, { FC } from "react";
-import { useWhatIsNewStores } from "../../mobx/MobxWhatIsNewProvider";
 import { BackArrowSvgIcon, ForwardArrowSvgIcon } from "../icon__svg-icon/svg-icons";
 import { useTranslator } from "../../react__hooks/translator.hook";
 import {
   AppContentLocalization,
   LocalizationPaths
 } from "../../localization";
+import { useContentNavStore } from "../../mobx__mobx-shared-store__react-context/ContentNavStoreMobxContext";
 
 interface INavContentConclusionProps {
 }
@@ -14,7 +14,7 @@ export const NavContentConclusion: FC<INavContentConclusionProps> = () => {
   let [appContent] = useTranslator<[AppContentLocalization]>(
     LocalizationPaths.AppContent
   );
-  let { contentNav } = useWhatIsNewStores();
+  let contentNav = useContentNavStore();
 
   return (
     <nav className="content-conclusion__nav">

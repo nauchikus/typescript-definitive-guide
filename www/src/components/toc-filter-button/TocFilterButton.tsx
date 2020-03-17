@@ -1,7 +1,7 @@
 import React, { FC } from "react";
 import { IconButton } from "../icon-button/IconButton";
 import { default as cn } from "classnames";
-import { useBookTocStores } from "../../mobx/MobxBookTocProvider";
+import { useBookTocStores } from "../../mobx__react-content-provider/MobxBookTocProvider";
 import { MenuAnimatedCssIcon } from "../menu-animated-css-icon/MenuAnimatedCssIcon";
 import { observer } from "mobx-react-lite";
 import { Tooltip, TooltipPosition } from "../tooltip/Tooltip";

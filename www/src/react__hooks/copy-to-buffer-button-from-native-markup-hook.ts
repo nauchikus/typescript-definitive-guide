@@ -1,7 +1,7 @@
 import * as NativeUtils from "../utils/native-utils";
 import { useBehaviorNotificationAction } from "./behavior-notification-action-hook";
-import { useRouter } from "./router-hook";
 import { useLayoutEffect } from "react";
+import { useRouter } from "../stores/RouterStore";
 
 
 export const useCopyToBufferButtonFromNativeMarkup = () => {

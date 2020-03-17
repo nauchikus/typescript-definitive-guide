@@ -1,5 +1,5 @@
 import React, { FC, ReactNode } from "react";
-import { InnovationCoverWinContent } from "../win__content_innovation-cover/InnovationCoverWinContent";
+import { InnovationCoverWinContent } from "../content__cover_win/InnovationCoverWinContent";
 import { InnovationListWinContent } from "../win__content__innovation-list/InnovationListWinContent";
 import { AsideBarContent } from "../content__aside-bar/AsideBarContent";
 import { IconButton } from "../icon-button/IconButton";
@@ -14,7 +14,7 @@ import { ContentUnderCoverBar } from "../content__under-cover-bar/ContentUnderCo
 interface IWinContentProps {
 
 }
-
+///TODO:[refactoring][delete]
 export const WinContent: FC<IWinContentProps> = ( { children } ) => {
   return (
     <>

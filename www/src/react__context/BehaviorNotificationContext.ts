@@ -1,6 +1,5 @@
 import { createContext, useContext } from "react";
-import { IPageNavData } from "../types/IPageNavData";
-import { BehaviorNotification } from "../stores/PageNavStore";
+import { BehaviorNotification } from "../stores/behavior-notificaion-store";
 
 export const BehaviorNotificationContext = createContext<BehaviorNotification | null>( null );
 export const useBehaviorNotification = () => useContext( BehaviorNotificationContext ) as BehaviorNotification;

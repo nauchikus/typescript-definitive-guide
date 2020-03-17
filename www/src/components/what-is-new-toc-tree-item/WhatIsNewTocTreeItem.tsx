@@ -1,7 +1,7 @@
 import React, { FC, ReactNode } from "react";
 import { useTranslator } from "../../react__hooks/translator.hook";
 import { AppLocalization, LocalizationPaths, WhatIsNewTocGuiLocalization } from "../../localization";
-import { useWhatIsNewTocStores } from "../../mobx/MobxWhatIsNewTocProvider";
+import { useWhatIsNewTocStores } from "../../mobx__react-content-provider/MobxWhatIsNewTocProvider";
 import { IWhatIsNewTocVersionStatus } from "../../types/IWhatIsNewToc";
 import { Link } from "gatsby";
 import { IconButton, Size } from "../icon-button/IconButton";

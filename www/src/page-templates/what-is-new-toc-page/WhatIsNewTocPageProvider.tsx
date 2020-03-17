@@ -6,7 +6,7 @@ import SEO from "../../components/seo";
 import { Localization } from "../../react__hooks/translator.hook";
 import BaseLayout from "../../layouts/base-layout/BaseLayout";
 import { AppLocalization } from "../../localization";
-import { MobxWhatIsNewTocContext } from "../../mobx/MobxWhatIsNewTocProvider";
+import { MobxWhatIsNewTocContext } from "../../mobx__react-content-provider/MobxWhatIsNewTocProvider";
 import { IWhatIsNewToc } from "../../types/IWhatIsNewToc";
 import { TreeNode } from "../../stores/WhatIsNewTocTreeStore";
 import { createBookTocMobxEntry, UseBookTocStores } from "../../stores/mobx-entry__book_toc";

@@ -3,7 +3,7 @@ import { DonateInformer } from "../informer__danate-informer/DonateInformer";
 import { CloseCollapseInformerButton } from "../button__colapse-informer-close-button/CloseCollapseInformerButton";
 import { If } from "../if-operator/If";
 import { observer } from "mobx-react-lite";
-import { useBaseLayoutStores } from "../../mobx/BaseLayoutMobxProvider";
+import { useBaseLayoutStores } from "../../mobx__react-content-provider/BaseLayoutMobxProvider";
 import { WinSearchCopywritesInformer } from "../informer__win-search-copywriters-informer/WinSearchCopywritesInformer";
 import { InformerId } from "../../react__hooks/collapse-informer-hook";
 

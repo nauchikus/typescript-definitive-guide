@@ -1,12 +1,7 @@
 import { action, computed, decorate, IObservableArray, observable } from "mobx";
-import { CheckboxStore, createCheckboxStore, InputData, InputModel, InputState } from "./CheckboxStore";
-import { default as DateUtils, IDated, sortByDateFromMaxToMin } from "../utils/date-utils";
-import { Version } from "../utils/Version";
+import { CheckboxStore, InputData, InputState } from "./CheckboxStore";
 import { VersionInfoMeta } from "../transformers/innovationDataToVersionInfoTransformer";
 
-// export interface VersionInfoMeta extends IDated {
-//   version: string;
-// };
 
 type InputModelWithRequiredData<T> = Required<InputData<T>> & InputState;
 

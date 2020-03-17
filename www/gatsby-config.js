@@ -15,10 +15,22 @@ class ProjectPath{
   static NAVIGATION_RU = path.resolve( '../book/ru/metadata/navigation.json' );
   static BOOK_TOC_RU = path.resolve( '../book/ru/metadata/toc.json' );
   static WHAT_IS_NEW_DIR = path.resolve( '../what-is-new/' );
+  static BOOK_DIR = path.resolve( '../book/' );
+
+  static getBookDirLocalized(locale){
+    return `${ ProjectPath.BOOK_DIR }/${ locale }/`;
+  }
 }
 
-
 const getPlugins = locale => ( [
+  {
+    resolve: `gatsby-source-filesystem`,
+    options: {
+      name: FilesystemSourceName.localized( FilesystemSourceName.BookChapters, locale ),
+      path: ProjectPath.getBookDirLocalized(locale),
+      locale
+    },
+  },
   {
     resolve: `gatsby-transformer-app-localization`,
     options: {
@@ -38,7 +50,7 @@ const getPlugins = locale => ( [
     options: {
       name: `book-toc_${ locale }`,
       nodeId: `book-toc_${ locale }`,
-      nodeType: CustomGatsbyNodeType.BookToc,
+      nodeType: CustomGatsbyNodeType.BookTocSource,
       contentId:`toc`,
       locale
     }
@@ -54,6 +66,11 @@ const getPlugins = locale => ( [
 
 module.exports = {
   siteMetadata: {
+    repository:{
+      owner:process.env.REPOSITORY_OWNER,
+      branch:process.env.REPOSITORY_BRANCH,
+    },
+
     title: ``,
     description: ``,
     author: `nauchikus`,
@@ -166,6 +183,12 @@ module.exports = {
         gfm: true,
         // Plugins configs
         plugins: [
+          {
+            resolve: `gatsby-remark-images`,
+            options: {
+              maxWidth: 608,
+            },
+          },
           // {
           //   resolve: `gatsby-remark-decorate-what-is-new-heading-h1`,
           // },
@@ -196,14 +219,14 @@ module.exports = {
           // },
 
 
-          // {
-          //   resolve: `gatsby-remark-divide-into-section`,
-          //   options: {},
-          // },
-          // {
-          //   resolve: `gatsby-remark-add-section-id`,
-          //   options: { locale: "ru" },
-          // },
+          {
+            resolve: `gatsby-remark-divide-into-section`,
+            options: {},
+          },
+          {
+            resolve: `gatsby-remark-add-section-id`,
+            options: { locale: "ru" },
+          },
           {
             resolve:`gatsby-remark-decorate-block-code`,
             options:{}
@@ -223,10 +246,10 @@ module.exports = {
           },
 
 
-          // {
-          //   resolve: `gatsby-remark-decorate-book-chapter-h1`,
-          //   options: { locale: `ru` },
-          // },
+          {
+            resolve: `gatsby-remark-book-chapter-cover`,
+            options: { locale: `ru` },
+          },
 
 
 

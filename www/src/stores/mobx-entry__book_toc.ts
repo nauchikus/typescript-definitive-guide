@@ -1,6 +1,6 @@
 import { BookTocNode, createBookTocTree, TreeNode } from "./BookTocTreeStore";
 import { createToggleState, ToggleUiState } from "./AppStateService";
-import { createBehaviorNotification } from "./PageNavStore";
+import { createBehaviorNotification } from "./behavior-notificaion-store";
 
 
 interface ICreateBookTocPageMobxEntryParams {

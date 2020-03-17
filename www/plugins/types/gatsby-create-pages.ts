@@ -45,7 +45,7 @@ export type GraphQlQuery<TParams = null>=TParams extends null ?  ()=>string : (p
 // type GraphQlResponse<TParams = null>=TParams extends null ?  ()=>string : (params:TParams)=>string;
 // type GetNodesByType=<TReturn>(type:string)=>Promise<TReturn[]>
 export type GraphQlResponse<TData>={errors:unknown;data?:TData}
-type GraphQl=
+export type GraphQl=
   <TData = unknown,TParams=null>
     (query:string,params?:TParams)=>
       Promise<GraphQlResponse<TData>>;

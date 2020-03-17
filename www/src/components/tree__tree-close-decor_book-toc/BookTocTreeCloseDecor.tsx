@@ -4,7 +4,7 @@ import { useTranslator } from "../../react__hooks/translator.hook";
 import { AppLocalization } from "../../localization";
 import { default as cn } from "classnames";
 import { getClassNameWithBgColorAttrBySectionName } from "../../maps/book-chapter-section-type-to-style-color-map";
-import { useBookTocStores } from "../../mobx/MobxBookTocProvider";
+import { useBookTocStores } from "../../mobx__react-content-provider/MobxBookTocProvider";
 import { BookTocNode, TreeNode } from "../../stores/BookTocTreeStore";
 
 

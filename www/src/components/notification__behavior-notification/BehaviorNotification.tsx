@@ -1,9 +1,9 @@
 import React, { FC, ReactElement } from "react";
-import { NoticeType } from "../../stores/PageNavStore";
 import { DefaultBehaviorNotice } from "../notification__behavior-notice__default-notice/DefaultBehaviorNotice";
 import { observer } from "mobx-react-lite";
 import { CopyLinkDefaultBehaviorNotice } from "../notification__behavior-notice__copy-link-default-notice/CopyLinkDefaultBehaviorNotice";
 import { useBehaviorNotification } from "../../react__context/BehaviorNotificationContext";
+import { INoticeModel, NoticeType } from "../../stores/behavior-notificaion-store";
 
 interface IBehaviorNotificationProps {
 }
@@ -22,7 +22,7 @@ export class NoticeReactComponentFactory {
 export const BehaviorNotification: FC<IBehaviorNotificationProps> = observer( ( {} ) => {
   let behaviorNotificationStore = useBehaviorNotification();
 
-  let notices = behaviorNotificationStore.noticeAll.map( noticeModel => {
+  let notices = behaviorNotificationStore.noticeAll.map( (noticeModel:INoticeModel) => {
     let Notice = NoticeReactComponentFactory.getNoticeComponentByType( noticeModel.type );
 
 

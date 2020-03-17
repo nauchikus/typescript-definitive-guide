@@ -1,9 +1,37 @@
 import { GraphQlQuery, GraphQlResponse } from "../types/gatsby-create-pages";
 
-interface IGetWhatIsNewContentHtmlRequest {
+export interface IGetSiteMetadataRequest {
+  site: {
+    siteMetadata: {
+      repository: {
+        owner: string;
+        branch: string;
+      }
+    }
+  }
+}
+
+export const getSiteMetadataRequest: GraphQlQuery = () => ( `
+query SiteMetadataQuery {
+    site {
+        siteMetadata {
+            repository{
+                owner
+                branch
+            }
+        }
+    }
+}
+` );
+
+
+export interface IGetContentHtmlRequest {
   regexp:string;
 }
-export interface IGetWinContentHtmlResponse{
+export interface IContentHtmlData {
+  html:string;
+}
+export interface IGetContentHtmlResponse{
   markdownRemark:{
     html:string;
   }
@@ -71,6 +99,11 @@ export interface ICommitHistory {
   };
 }
 
+export interface IGetGithubCommitHistoryRequest {
+  path:string;
+  owner:string;
+  branch:string;
+}
 export interface IGetGithubCommitHistoryResponse {
   github:{
     repository:{
@@ -98,10 +131,10 @@ export interface IGetFileOnGithubHistoryInfoResponse {
   }
 }
 export const getGithubCommitHistoryQuery: GraphQlQuery = (  ) => ( `
-query GetGithubCommitHistory($path: String!) {
+query GetGithubCommitHistory($path: String!, $owner: String!, $branch: String!) {
   github {
-    repository(owner: "nauchikus", name: "typescript-definitive-guide") {
-      ref(qualifiedName: "new-www") {
+    repository(owner: $owner, name: "typescript-definitive-guide") {
+      ref(qualifiedName: $branch) {
         target {
           ... on GitHub_Commit {
             history(path: $path) {

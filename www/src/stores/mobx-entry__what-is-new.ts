@@ -1,29 +1,31 @@
 import { createToggleState, ToggleUiState } from "./AppStateService";
 import { createWhatIsNewTocTree, TreeNode } from "./WhatIsNewTocTreeStore";
-import { IWhatIsNewData, IWhatIsNewToc } from "../types/IWhatIsNewToc";
-import { createBehaviorNotification } from "./PageNavStore";
-import { useWhatIsNewStores } from "../mobx/MobxWhatIsNewProvider";
+import { IWinPageContentData, IWhatIsNewToc } from "../types/IWhatIsNewToc";
+import { useWhatIsNewStores } from "../mobx__react-content-provider/MobxWhatIsNewProvider";
 import { VersionFilterStore } from "./VersionFilterStore";
-import { createRouterStore, LocationPartial } from "./RouterStore";
 import { createIntersectionObserverStore } from "./IntersectionObserverStore";
-import { createContentNavStore } from "./ContentNavStore";
-import { IPageNavData } from "../types/IPageNavData";
 import { ContentSectionStore } from "./ContentSectionStore";
 import { VisibleSectionValidator } from "../validators/VisibleSectionValidator";
 import { VersionInfoMeta } from "../transformers/innovationDataToVersionInfoTransformer";
+import { PageNavWithFilterStore } from "./PageNavWithFilterStore";
+import { createBehaviorNotification } from "./behavior-notificaion-store";
+import { IWinPageNavData } from "../page-templates/what-is-new-page/WhatIsNewPageProvider";
+import { ContentNavStore } from "./ContentNavStore";
+import { ContentSectionWithFilterStore } from "./ContentSectionWithFilterStore";
+import { LocationPartial, RouterStore } from "./RouterStore";
 
 
 interface ICreateWhatIsNewPageGuiStoresParams {
   winTocTree:TreeNode<IWhatIsNewToc>[];
-  innovationData:IWhatIsNewData;
-  pageNavDataAll:IPageNavData[];
+  innovationData:IWinPageContentData;
+  pageNavDataAll:IWinPageNavData[];
   location:LocationPartial;
   initialCheckedVersion:string[];
   versionInfoAll:VersionInfoMeta[];
 }
 
 export const createWhatIsNewMobxEntry = ({innovationData,versionInfoAll,initialCheckedVersion,winTocTree,pageNavDataAll,location}:ICreateWhatIsNewPageGuiStoresParams) => {
-  let router = createRouterStore({location});
+  let router = new RouterStore( location );
   let contentIntersectionObserver = createIntersectionObserverStore( {
     containerSelector:`main`,
     sectionSelector:`section.content__section`,
@@ -39,7 +41,12 @@ export const createWhatIsNewMobxEntry = ({innovationData,versionInfoAll,initialC
     versionFilter
   } );
 
-  let contentSection = ContentSectionStore.create( {
+  let contentSectionDefault = ContentSectionStore.create( {
+    router,
+    contentIntersectionObserver,
+  } );
+  let contentSection = ContentSectionWithFilterStore.create( {
+    contentSection:contentSectionDefault,
     router,
     contentIntersectionObserver,
     versionFilter,
@@ -47,12 +54,15 @@ export const createWhatIsNewMobxEntry = ({innovationData,versionInfoAll,initialC
   } );
 
 
-
-  let contentNav = createContentNavStore( {
+  let pageNav = PageNavWithFilterStore.create( {
     pageNavDataAll,
     router,
-    contentIntersectionObserver,
     versionFilter,
+    contentSection
+  } );
+  let contentNav = ContentNavStore.create( {
+    pageNav,
+    router,
     contentSection,
   } );
 

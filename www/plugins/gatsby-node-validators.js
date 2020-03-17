@@ -48,6 +48,12 @@ const isWhatIsNewTitleMarkdownRemarkGatsbyNode = node =>
   /.*\/what-is-new\/\d+\.\d+\/title\/content\.md$/.test( node.fileAbsolutePath );
 
 
+//fileAbsolutePath: '/home/ivan/projects/typescript-definitive-guide/book/ru/chapters/000.(Общее) Что такое и для чего нужен TypeScript/content.md'
+const isBookChapterMarkdownRemarkGatsbyNode = node => {
+  return /.*\/book\/(ru)\/chapters\/.*?\/content\.md/
+    .test( node.fileAbsolutePath );
+};
+
 module.exports = {
   isFileGatsbyNode,
   isMarkdownRemarkGatsbyNode,
@@ -67,6 +73,9 @@ module.exports = {
     isBookSource
   },
 
+  bookChapter:{
+    isBookChapterMarkdownRemarkGatsbyNode,
+  },
   whatIsNew: {
     isWhatIsNewMarkdownRemarkGatsbyNode,
     isWhatIsNewTitleMarkdownRemarkGatsbyNode,

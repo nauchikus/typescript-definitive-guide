@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import { useWhatIsNewTocStores } from "../../mobx/MobxWhatIsNewTocProvider";
+import { useWhatIsNewTocStores } from "../../mobx__react-content-provider/MobxWhatIsNewTocProvider";
 import { WhatIsNewTocTreeItem } from "../../components/what-is-new-toc-tree-item/WhatIsNewTocTreeItem";
 import { useTranslator } from "../../react__hooks/translator.hook";
 import { LocalizationPaths, WhatIsNewTocGuiLocalization } from "../../localization";

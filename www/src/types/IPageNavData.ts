@@ -1,22 +1,27 @@
 
-export interface INav {
+export interface IData<T=null> {
+  data?:T;
+}
+export interface ISection<T> {
+  sections:Array<T>;
+}
+export interface IPageNavLeaf<TLeafData=null> extends IData<TLeafData>{
   name:string;
   path:string;
-  version:string;
 }
-interface ISectionNav extends INav{
-  hasPrevAnchor:boolean;
-  hasNextAnchor:boolean;
-}
-export interface IPageNavData extends INav{
-  sections: INav[];
-}
-export interface IPageNavItem extends INav{
-  sections:ISectionNav[];
+export interface IPageNavNode<TSection,TNodeData=null> extends IPageNavLeaf<TNodeData>,ISection<TSection>{
 
+}
+export interface IPageNavSection<TLeafData=null> extends IPageNavLeaf<TLeafData>{
+  prevAnchor: IPageNavLeaf<TLeafData> | null;
+  nextAnchor: IPageNavLeaf<TLeafData> | null;
+
+}
+export interface IPageNavPage<TNodeData=null,TLeafData=null> extends IPageNavNode<IPageNavSection<TLeafData>,TNodeData>{
   hasPrevPage:boolean;
   hasNextPage:boolean;
 
-  prevPage:INav;
-  nextPage:INav;
+  prevPage: IPageNavLeaf<TNodeData> | null;
+  nextPage: IPageNavLeaf<TNodeData> | null;
+
 }

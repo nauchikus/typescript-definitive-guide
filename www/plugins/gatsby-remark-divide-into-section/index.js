@@ -5,7 +5,9 @@ const findAfter=require('unist-util-find-after');
 
 module.exports = ( { markdownAST: ast, markdownNode } ) => {
     try{
-        if ( Validators.whatIsNew.isWhatIsNewMarkdownRemarkGatsbyNode( markdownNode ) ) {
+
+
+        if ( !Validators.bookChapter.isBookChapterMarkdownRemarkGatsbyNode( markdownNode ) ) {
             return ast;
         }
 
@@ -13,7 +15,10 @@ module.exports = ( { markdownAST: ast, markdownNode } ) => {
         const HEADING_TAG_NAME = "heading";
         const H1_TAG_DEPTH = 1;
         const H2_TAG_DEPTH = 2;
-        const NODE_DEPTHS = new Set( [H1_TAG_DEPTH, H2_TAG_DEPTH] );
+        const NODE_DEPTHS = new Set( [
+            H1_TAG_DEPTH,
+            H2_TAG_DEPTH
+        ] );
 
         const isHeadingTag = node => node.type === HEADING_TAG_NAME;
         const isDepth = node => NODE_DEPTHS.has( node.depth );
@@ -30,6 +35,7 @@ module.exports = ( { markdownAST: ast, markdownNode } ) => {
             nextIndex = nextIndex > 0 ? nextIndex : undefined;
 
             let between = ast.children.slice( currentIndex, nextIndex );
+
 
             children.push( {
                 type: "section",

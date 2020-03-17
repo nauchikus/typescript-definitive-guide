@@ -51,7 +51,7 @@ export const NavSectionAppDriver: FC<INavSectionAppDriverProps> = props => {
 
     let scrollOffsetTop = Array
       .from( parent.children )
-      .filter( element => !element.classList.contains( `app-driver__section-control` ) )
+      .filter( element => !element.classList.contains( `footer/app-footer__content-layerapp-driver__section-control` ) )
       .slice( 0, currentSectionControlIndex )
       .reduce( ( height, element ) =>
         height + ( element.clientHeight - sectionControlHeight ), getInitialHeight() );

@@ -1,12 +1,8 @@
 import React, { FC,Fragment } from "react";
-import { useBookTocStores } from "../../mobx/MobxBookTocProvider";
+import { useBookTocStores } from "../../mobx__react-content-provider/MobxBookTocProvider";
 import {BookTocTreeItem } from "../../components/tree__tree-item_book-toc/BookTocTreeItem";
 import { TocCollapseAllButton } from "../../components/toc-collapse-all-button/TocCollapseAllButton";
 import { observer } from "mobx-react-lite";
-import { BookTocTagBar } from "../../components/book-toc-tag-bar/BookTocTagBar";
-import { BookTocAsideLayout } from "../book-toc-aside-layout/BookTocAsideLayout";
-import { TocFilterButton } from "../../components/toc-filter-button/TocFilterButton";
-import { SecondaryContentBar } from "../../components/secondary-content-bar/SecondaryContentBar";
 import { useTranslator } from "../../react__hooks/translator.hook";
 import { BookTocGuiLocalization, LocalizationPaths } from "../../localization";
 import { BookTocNode, TreeNode } from "../../stores/BookTocTreeStore";

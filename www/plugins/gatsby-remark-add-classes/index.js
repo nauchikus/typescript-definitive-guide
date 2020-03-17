@@ -7,7 +7,7 @@ const commands = [
     {
         validator: node => node.type === "list",
         action: node => addClassRemarkNode( node, "content__list" )
-    }
+    },
 ];
 
 const validator = node => commands.some( command => command.validator( node ) );

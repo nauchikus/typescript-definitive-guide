@@ -2,14 +2,14 @@ import React, { FC, ReactNode } from "react";
 import { AppDriver } from "../app-driver/AppDriver";
 import { default as cn } from "classnames";
 import { NavSectionAppDriver } from "../app-driver__nav-section/NavSectionAppDriver";
-import { useRouter } from "../../react__hooks/router-hook";
 import { useTranslator } from "../../react__hooks/translator.hook";
 import { AppNavigationLocalization, LocalizationPaths } from "../../localization";
 import { FooterAppDriver } from "../app-driver__footer/FooterAppDriver";
 import { Link } from "gatsby";
 import { Version } from "../../utils/Version";
 import { observer } from "mobx-react-lite";
-import { useWhatIsNewTocStores } from "../../mobx/MobxWhatIsNewTocProvider";
+import { useWhatIsNewTocStores } from "../../mobx__react-content-provider/MobxWhatIsNewTocProvider";
+import { useRouter } from "../../stores/RouterStore";
 
 interface IWhatIsNewPageAppDriverProps {
 }
@@ -45,12 +45,12 @@ export const LinkAppDriver: FC<ILinkAppDriverProps> = ( { path, name, isActive, 
 export const WhatIsNewTocPageAppDriver: FC<IWhatIsNewPageAppDriverProps> = observer( ( {} ) => {
   let [appNavigationAll] = useTranslator<[AppNavigationLocalization]>( LocalizationPaths.AppNavigation );
   // let { winTocTreeStore } = useWhatIsNewTocStores();
-  let routerStore = useRouter();
+  let router = useRouter();
 
 
 
   const hasAppNavLinkActive = ( href: string ) =>
-    routerStore.pathname === href;
+    router.pathname === href;
 
 
 

@@ -8,7 +8,7 @@ import { AppHeader } from "../../components/app-header/AppHeader";
 import { createInformerRotator } from "../../react__hooks/collapse-informer-hook";
 import { createBaseLayoutStores, UseBaseLayoutStores } from "../../stores/base-layout-stores";
 import { useLocalStore } from "mobx-react-lite";
-import { BaseLayoutMoxContext } from "../../mobx/BaseLayoutMobxProvider";
+import { BaseLayoutMoxContext } from "../../mobx__react-content-provider/BaseLayoutMobxProvider";
 import { AppFooter } from "../../components/app-footer/AppFooter";
 
 

@@ -1,4 +1,4 @@
-import { IWhatIsNewData } from "../types/IWhatIsNewToc";
+import { IWinPageContentData } from "../types/IWhatIsNewToc";
 import { RouterStore } from "../stores/RouterStore";
 import { VersionFilterStore } from "../stores/VersionFilterStore";
 import { VisibleSectionValidator } from "./VisibleSectionValidator";

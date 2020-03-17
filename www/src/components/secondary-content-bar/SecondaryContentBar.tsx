@@ -1,5 +1,5 @@
 import React, { FC, ReactNode } from "react";
-import { useBookTocStores } from "../../mobx/MobxBookTocProvider";
+import { useBookTocStores } from "../../mobx__react-content-provider/MobxBookTocProvider";
 import { observer } from "mobx-react-lite";
 
 interface ISecondaryContentBarProps {

@@ -2,14 +2,16 @@ import React, { FC } from "react";
 import { ArrowBeforeSvgIcon, ArrowDownSvgIcon, ArrowNextSvgIcon, ArrowUpSvgIcon } from "../icon__svg-icon/svg-icons";
 import { IconButton } from "../icon-button/IconButton";
 import { Tooltip, TooltipPosition } from "../tooltip/Tooltip";
-import { useWhatIsNewStores } from "../../mobx/MobxWhatIsNewProvider";
 import { observer } from "mobx-react-lite";
+import { useContentDownPanelStore } from "../../mobx__mobx-shared-store__react-context/ContentDownPanelStoreMobxContext";
+import { useContentNavStore } from "../../mobx__mobx-shared-store__react-context/ContentNavStoreMobxContext";
 
 interface IControlWinContentBarProps {
 }
 
 export const LeftControlWinContentBar: FC<IControlWinContentBarProps> = observer( ( {} ) => {
-  let { contentDownPanelStore,contentNav } = useWhatIsNewStores();
+  let contentNav =useContentNavStore();
+  let contentDownPanelStore = useContentDownPanelStore();
 
   return (
     <div className="content-bar__control content-bar__control_left" toggle-state={ contentDownPanelStore.state }>
@@ -28,7 +30,8 @@ export const LeftControlWinContentBar: FC<IControlWinContentBarProps> = observer
 
 
 export const RightControlWinContentBar: FC<IControlWinContentBarProps> = observer( ( {} ) => {
-  let { contentDownPanelStore,contentNav } = useWhatIsNewStores();
+  let contentNav = useContentNavStore();
+  let contentDownPanelStore = useContentDownPanelStore();
 
   return (
     <div className="content-bar__control content-bar__control_right" toggle-state={ contentDownPanelStore.state }>

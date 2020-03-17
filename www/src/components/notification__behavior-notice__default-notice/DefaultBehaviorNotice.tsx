@@ -1,8 +1,7 @@
 import React, { FC, ReactNode, useLayoutEffect } from "react";
 import { default as cn } from "classnames";
-import { INoticeModel, NoticePhase } from "../../stores/PageNavStore";
 import { observer } from "mobx-react-lite";
-import { unstable_renderSubtreeIntoContainer } from "react-dom";
+import { INoticeModel, NoticePhase } from "../../stores/behavior-notificaion-store";
 
 
 export interface IDefaultBehaviorNoticeProps {

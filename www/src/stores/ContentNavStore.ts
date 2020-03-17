@@ -1,160 +1,84 @@
-import { autorun, observable, observe, computed, IObservableArray } from "mobx";
-import { INav, IPageNavData } from "../types/IPageNavData";
+import { computed, decorate } from "mobx";
 import { RouterStore } from "./RouterStore";
-import { IIntersectionObserverEntryInfo, IntersectionObserverStore } from "./IntersectionObserverStore";
-import { VersionFilterStore } from "./VersionFilterStore";
-import { Version } from "../utils/Version";
-import { changeDependenciesStateTo0 } from "mobx/lib/core/derivation";
-import { IArrayChange, IArraySplice } from "mobx/lib/types/observablearray";
-import { ContentSectionStore } from "./ContentSectionStore";
+import { ContentSectionStore, IContentSectionStore } from "./ContentSectionStore";
+import { IPageNavStore } from "./PageNavStore";
 
 
-interface ICreateContentNavStoreProps {
-  pageNavDataAll:IPageNavData[];
+interface IContentNavStoreParams<TNodeData,TLeafData> {
+  pageNav:IPageNavStore<TNodeData,TLeafData>;
   router:RouterStore;
-  contentIntersectionObserver:IntersectionObserverStore;
-  versionFilter:VersionFilterStore;
-  contentSection:ContentSectionStore;
+  contentSection:IContentSectionStore;
 }
 
-const getCurrentPageNavData = ( pageName: string, pageNavDataAll: IPageNavData[] ) => {
-  let currentPageNavData = pageNavDataAll.find( item => item.name === pageName );
+export interface IContentNavStore<TNodeData, TLeafData> extends ContentNavStore<TNodeData,TLeafData>{
 
-  if ( !currentPageNavData ) {
-    throw new Error( `Page nav data for page with name "${ pageName }" not found.` );
-  }
-
-
-  return currentPageNavData;
-};
-const getSequencePageData = ( currentPageName: string, pageNavDataAll: IPageNavData[] ) => {
-  let currentPageNavData = getCurrentPageNavData( currentPageName, pageNavDataAll );
-  let currentPageNavDataIndex = pageNavDataAll.indexOf( currentPageNavData );
-
-  let prevPageNavData = pageNavDataAll[ currentPageNavDataIndex - 1 ];
-  let nextPageNavData = pageNavDataAll[ currentPageNavDataIndex + 1 ];
-
-  return {
-    prevPageNavData,
-    currentPageNavData,
-    nextPageNavData
-  };
-};
-const createPageItem = ( {prevPageNavData,currentPageNavData,nextPageNavData}:ReturnType<typeof getSequencePageData> ) => {
-  const hasPrevPage = () => prevPageNavData != null;
-  const hasNextPage = () => nextPageNavData != null;
-
-  const getPrevPageData = () => !hasPrevPage() ? null : ( {
-    name: prevPageNavData.name,
-    path: prevPageNavData.name
-  } );
-  const getNextPageData = () => !hasNextPage() ? null : ( {
-    name: nextPageNavData.name,
-    path: nextPageNavData.name
-  } );
-
-  let result = {
-    name: currentPageNavData.name,
-    path: currentPageNavData.name,
-
-    hasPrevPage: hasPrevPage(),
-    hasNextPage: hasNextPage(),
-
-    prevPage: getPrevPageData(),
-    nextPage: getNextPageData(),
-
-
-    sections: currentPageNavData.sections
+}
+export class ContentNavStore<TNodeData,TLeafData> {
+  static create = <TNodeData=null,TLeafData=null>( { pageNav, router, contentSection }: IContentNavStoreParams<TNodeData,TLeafData> ) => {
+    return new ContentNavStore<TNodeData,TLeafData>(
+      pageNav,
+      router,
+      contentSection
+    );
   };
 
 
-  return result;
-};
-const createSectionItem = ( anchorPath: string, sectionAll: IPageNavData["sections"] ) => {
-  if ( anchorPath.startsWith( `#` ) ) {
-    anchorPath = anchorPath.substring( 1 );
+  get currentSectionId(){
+    return this.contentSection.currentSectionId;
+  }
+  get pageItem () {
+    return this.pageNav.pageItem;
+  }
+  get sectionAll(){
+    return this.pageNav.pageItem.sections;
   }
 
 
-  let currentAnchorData = sectionAll.find( item => item.path === anchorPath );
-  if ( !currentAnchorData && anchorPath !== `` ) {
-    throw new Error( `Anchor "${ anchorPath }" not found.` );
+  constructor(private pageNav:IPageNavStore<TNodeData,TLeafData>,
+              private router:RouterStore,
+              private contentSection:IContentSectionStore){}
+
+  hasPrevPage () {
+    return this.pageItem.hasPrevPage;
   }
-  let currentAnchorIndex = currentAnchorData ? sectionAll.indexOf( currentAnchorData ) : -1;
+  hasNextPage () {
+    return this.pageItem.hasNextPage;
+  }
+
+  goPrevPage () {
+    this.pageItem.prevPage && this.router.goTo(
+      `${ this.router.basepath }/${ this.pageItem.prevPage.path }`
+    );
+  }
+
+  goNextPage () {
+    this.pageItem.nextPage && this.router.goTo(
+      `${ this.router.basepath }/${ this.pageItem.nextPage.path }`
+    );
+  }
+
+  hasPrevAnchor () {
+    return this.pageNav.sectionItem?.prevAnchor != null;
+  }
+  hasNextAnchor () {
+    return this.pageNav.sectionItem?.nextAnchor != null;
+  }
 
 
-  let prevAnchorData = sectionAll[ currentAnchorIndex - 1 ];
-  let nextAnchorData = sectionAll[ currentAnchorIndex + 1 ];
+  goPrevAnchor () {
+    this.pageNav.sectionItem?.prevAnchor && this.router.goTo(
+      `${ this.router.pathname }#${ this.pageNav.sectionItem.prevAnchor.path }`
+    );
+  }
 
-  let result = {
-    prevAnchor: prevAnchorData,
-    nextAnchor: nextAnchorData
-  };
+  goNextAnchor () {
+    this.pageNav.sectionItem?.nextAnchor && this.router.goTo(
+      `${ this.router.pathname }#${ this.pageNav.sectionItem.nextAnchor.path }`
+    );
+  }
+}
 
-
-  return result;
-};
-
-export const DEFAULT_SECTION_ID = ``;
-
-export const createContentNavStore = ( { contentSection,pageNavDataAll, router, contentIntersectionObserver, versionFilter }: ICreateContentNavStoreProps ) => {
-  let store = observable.object( {
-    get currentSectionId(){
-      return contentSection.currentSectionId;
-    },
-    get pageItem () {
-      return createPageItem(
-        getSequencePageData( router.pageName, pageNavDataAll )
-      );
-    },
-    get sectionItem () {
-      return createSectionItem(
-        contentSection.currentSectionId,
-        this.pageItem.sections
-          .filter( (section:INav) => versionFilter.isCheckedByVersion( new Version( section.version ).preReleaseName ) )
-      );
-    },
-
-    hasPrevPage () {
-      return this.pageItem.hasPrevPage;
-    },
-    hasNextPage () {
-      return this.pageItem.hasNextPage;
-    },
-
-    goPrevPage () {
-      this.pageItem.prevPage && router.goTo(
-        `${ router.basepath }/${ this.pageItem.prevPage.path }`
-      );
-    },
-
-    goNextPage () {
-      this.pageItem.nextPage && router.goTo(
-        `${ router.basepath }/${ this.pageItem.nextPage.path }`
-      );
-    },
-
-    hasPrevAnchor () {
-      return this.sectionItem.prevAnchor != null;
-    },
-    hasNextAnchor () {
-      return this.sectionItem.nextAnchor != null;
-    },
-
-
-    goPrevAnchor () {
-      this.sectionItem.prevAnchor && router.goTo(
-        `${ router.pathname }#${ this.sectionItem.prevAnchor.path }`
-      );
-    },
-
-    goNextAnchor () {
-      this.sectionItem.nextAnchor && router.goTo(
-        `${ router.pathname }#${ this.sectionItem.nextAnchor.path }`
-      );
-    }
-  } );
-
-
-  return store;
-};
+decorate( ContentNavStore, {
+  currentSectionId: computed,
+  pageItem: computed
+} );

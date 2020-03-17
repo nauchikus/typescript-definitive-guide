@@ -1,11 +1,12 @@
 import React, { FC, ReactNode, useEffect, useLayoutEffect } from "react";
 import { observer } from "mobx-react-lite";
-import { useWinData } from "../../react__hooks/win-data-hook";
+import { useWinPageContentData } from "../../react__hooks/win__page-content-data-hook";
 import { SectionInformerContent } from "../content__section-informer/SectionInformerContent";
 import { useCopyToBufferButtonFromNativeMarkup } from "../../react__hooks/copy-to-buffer-button-from-native-markup-hook";
 import { useVersionFilter } from "../../stores/mobx-entry__what-is-new";
 import { Version } from "../../utils/Version";
-import { useWhatIsNewStores } from "../../mobx/MobxWhatIsNewProvider";
+import { useWhatIsNewStores } from "../../mobx__react-content-provider/MobxWhatIsNewProvider";
+import { useContentIntersectionObserver } from "../../react__hooks/content-intersection-observer-hook";
 
 interface IInnovationListWinContentProps {
 
@@ -13,20 +14,22 @@ interface IInnovationListWinContentProps {
 
 export const InnovationListWinContent: FC<IInnovationListWinContentProps> = observer(( {  } ) => {
   useCopyToBufferButtonFromNativeMarkup();
+  useContentIntersectionObserver();
+
 
   let {
     versionFilter,
     contentIntersectionObserver,
     router
   } = useWhatIsNewStores();
-  let winContentData=useWinData();
+  let winContentData=useWinPageContentData();
 
-  useLayoutEffect( () => {
-    router.scrollToAnchor();
-    contentIntersectionObserver.init();
-
-    return () => contentIntersectionObserver.destroy();
-  }, [] );
+  // useLayoutEffect( () => {
+  //   router.scrollToAnchor();
+  //   contentIntersectionObserver.init();
+  //
+  //   return () => contentIntersectionObserver.destroy();
+  // }, [] );
 
 
 

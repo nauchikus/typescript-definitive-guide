@@ -7,7 +7,7 @@ import { GatsbyCreatePages } from "../types/gatsby-create-pages";
 import { Locales } from "../types/locales";
 import { CustomGatsbyNodeType } from '../gatsby-node-types';
 import { AppLocalization } from "../../src/types/app-localizations";
-import { IBookToc } from "../../src/types/IBookToc";
+import { IBookTocSource } from "../../src/types/IBookToc";
 import { BookTocNode, TreeNode } from "../../src/stores/BookTocTreeStore";
 
 
@@ -20,19 +20,19 @@ interface IAppLocalization {
     locale: Locales;
     localization: AppLocalization;
 }
-interface IBookTocGatsbyNode {
+export interface IBookSourceTocGatsbyNode {
     locale: Locales;
-    toc: IBookToc[];
+    toc: IBookTocSource[];
 }
 
 export const createPages: GatsbyCreatePages<IIndexCreatePageOptions> = async ( helpers, options ) => {
-    let { actions: { createPage }, getNodesByType } = helpers;
+    let { actions: { createPage }, getNodesByType, graphql } = helpers;
     let { locale } = options;
 
 
     let [{ localization }] = getNodesByType<IAppLocalization>( CustomGatsbyNodeType.AppLocalization )
       .filter( node => node.locale === locale );
-    let [{ toc }] = getNodesByType<IBookTocGatsbyNode>( CustomGatsbyNodeType.BookToc )
+    let [{ toc }] = getNodesByType<IBookSourceTocGatsbyNode>( CustomGatsbyNodeType.BookTocSource )
         .filter( node => node.locale === locale );
 
     let bookToc: BookTocNode[] = toc.map( chapter => ( {

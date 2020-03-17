@@ -31,7 +31,7 @@ export interface IWhatIsNewTocInnovationWithContent extends IWhatIsNewTocInnovat
   commitInfoAll:ICommitInfo[];
   fileOnGithubLink:string;
 }
-export interface IWhatIsNewData extends IWhatIsNewToc{
+export interface IWinPageContentData extends IWhatIsNewToc{
   // versionMMP:string;
   // lastVersionStatus:IWhatIsNewTocVersionStatus;
   innovations: IWhatIsNewTocInnovationWithContent[];

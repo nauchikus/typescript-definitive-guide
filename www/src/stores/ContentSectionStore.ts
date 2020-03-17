@@ -8,12 +8,16 @@ import { VisibleSectionValidator } from "../validators/VisibleSectionValidator";
 interface IContentSectionStoreParams {
   router:RouterStore;
   contentIntersectionObserver:IntersectionObserverStore;
-  versionFilter:VersionFilterStore;
-  visibleSectionValidator:VisibleSectionValidator;
 }
 
-export class ContentSectionStore {
-  public static create = ( params: IContentSectionStoreParams ) => new ContentSectionStore( params );
+export interface IContentSectionStore {
+  currentSectionId:string;
+}
+export class ContentSectionStore implements IContentSectionStore{
+  public static create = ( params: IContentSectionStoreParams ) => new ContentSectionStore(
+    params.router,
+    params.contentIntersectionObserver,
+  );
 
   private static DEFAULT_SECTION_ID = ``;
 
@@ -21,24 +25,15 @@ export class ContentSectionStore {
 
 
 
-  constructor ( { visibleSectionValidator,router, contentIntersectionObserver,versionFilter }: IContentSectionStoreParams ) {
-    // versionFilter.versionInfoAll.observe( () => {
-    //   if ( !versionFilter.isAllVersionChecked && !visibleSectionValidator.validate( this.currentSectionId ) ) {
-    //     this.currentSectionId = ``;
-    //   }
-    // } );
-    computed( () => versionFilter.checkedLength ).observe( () => {
-      if ( !versionFilter.isAllVersionChecked && !visibleSectionValidator.validate( this.currentSectionId ) ) {
-        this.currentSectionId = ``;
-      }
-    } );
-    computed( () => router.anchor ).observe( changes => {
+  constructor ( private router:RouterStore,
+                private contentIntersectionObserver:IntersectionObserverStore ) {
+    computed( () => this.router.anchor ).observe( changes => {
       this.currentSectionId = changes.newValue;
     } );
 
     type ChangeData = IArrayChange<IIntersectionObserverEntryInfo> | IArraySplice<IIntersectionObserverEntryInfo>;
 
-    ( contentIntersectionObserver.intersections as IObservableArray<IIntersectionObserverEntryInfo> ).observe( ( changes: ChangeData ) => {
+    ( this.contentIntersectionObserver.intersections as IObservableArray<IIntersectionObserverEntryInfo> ).observe( ( changes: ChangeData ) => {
       let entry = changes.type === "update" ?
         changes.newValue :
         changes.added.find( item => item.isIntersecting );

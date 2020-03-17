@@ -9,6 +9,10 @@
 @import "../../components/ui__label/label";
 
 @import "../../components/app-footer/app-footer__content-layer";
+@import "../../components/app-driver/app-driver";
+@import "../../components/app-driver__footer/app-driver-footer";
+@import "../../components/button__app-driver-section-button/app-driver-section-button";
+
 @import "../../components/content__placeholder_empty/content__content-placeholder_empty";
 @import "../../components/content__control-bar/content__control-bar";
 @import "../../components/content__control-bar_win/content__control-bar_win";
@@ -16,14 +20,14 @@
 @import "../../components/content__section-informer/conetnt-section-informer";
 @import "../../components/content__aside-bar/conetnt-aside-bar";
 @import "../../components/content__down-panel/conetnt-down-panel";
-@import "../../components/content__base-content/content-base-content";
 @import "../../components/content__conclusion__informer/content__conclusion__informer";
 @import "../../components/content__conclusion__nav/content__conclusion__nav";
 @import "../../components/informer__conclusion__watch-with-telegram-informer/watch-with-telegram-informer";
-@import "../../components/win__content/win-content";
+@import "../../components/content/content";
+@import "../../components/content_win/content_win";
 @import "../../components/content__conclusion/content__conclusion";
 @import "../../components/content__aside-bar_control/content-bar-control";
-@import "../../components/win__content_innovation-cover/win-content-innovation-cover";
+@import "../../components/content__cover_win/content__cover_win";
 @import "../../components/dropdown/dropdown";
 @import "../../components/dropdown__filter-dropdown/dropdown__filter-dropdown";
 @import "../../components/dropdown__filter-dropdown__dropdown-menu__win/dropdown__filter-dropdown__dropdown-menu__win";

@@ -12,6 +12,7 @@
     "gatsby-plugin-offline": "^3.0.16",
     "gatsby-plugin-react-helmet": "^3.1.13",
     "gatsby-plugin-sharp": "^2.2.31",
+    "gatsby-remark-images": "^3.1.49",
     "gatsby-source-filesystem": "^2.1.33",
     "gatsby-transformer-sharp": "^2.2.23",
     "mobx": "^5.14.2",
@@ -41,7 +42,7 @@
     "prettier": "^1.18.2",
     "prismjs": "^1.17.1",
     "ts-node": "^8.4.1",
-    "typescript": "^3.7.2",
+    "typescript": "^3.8.3",
     "unist-util-find-after": "^2.0.4",
     "unist-util-visit": "^2.0.1"
   },

@@ -3,7 +3,7 @@ import { default as cn } from "classnames";
 import { RotateContainer } from "../transform__rotate-container/RotateContainer";
 import { ArrowDownSvgIcon } from "../icon__svg-icon/svg-icons";
 import { IconButton, Size } from "../icon-button/IconButton";
-import { useBookTocStores } from "../../mobx/MobxBookTocProvider";
+import { useBookTocStores } from "../../mobx__react-content-provider/MobxBookTocProvider";
 import { observer } from "mobx-react-lite";
 import { Tooltip, TooltipPosition } from "../tooltip/Tooltip";
 import { If } from "../if-operator/If";

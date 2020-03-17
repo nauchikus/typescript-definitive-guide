@@ -5,17 +5,18 @@ import BookTocPage from "./BookTocPage";
 import SEO from "../../components/seo";
 import BaseLayout from "../../layouts/base-layout/BaseLayout";
 import { AppLocalization } from "../../localization";
-import { MobxBookTocContext } from "../../mobx/MobxBookTocProvider";
+import { MobxBookTocContext } from "../../mobx__react-content-provider/MobxBookTocProvider";
 import { createBookTocMobxEntry, UseBookTocStores } from "../../stores/mobx-entry__book_toc";
-import { useLocalStore } from "mobx-react-lite";
 import { BookTocNode, TreeNode } from "../../stores/BookTocTreeStore";
 import { BehaviorNotificationContext } from "../../react__context/BehaviorNotificationContext";
+import { IBookChapterPageContentData } from "../../../plugins/gatsby-pages/create-book-page";
 
 
 interface IBookTocPageProviderProps {
     pageContext:{
         locale: Locales;
         localization: AppLocalization;
+        pageContentData:IBookChapterPageContentData;
         bookTocTree:TreeNode<BookTocNode>[];
     }
 }

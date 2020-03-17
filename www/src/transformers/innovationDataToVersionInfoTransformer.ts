@@ -1,5 +1,5 @@
 import * as DateUtils from "../utils/date-utils";
-import { IWhatIsNewData } from "../types/IWhatIsNewToc";
+import { IWinPageContentData } from "../types/IWhatIsNewToc";
 import { toVersionInfo } from "../utils/version-utils";
 
 export type ReleaseInfo={
@@ -8,7 +8,7 @@ export type ReleaseInfo={
 }
 export type VersionInfoMeta = ReleaseInfo & { count: number; };
 
-export const innovationDataToVersionInfoTransformer = ( dataAll: IWhatIsNewData ):VersionInfoMeta[] => {
+export const innovationDataToVersionInfoTransformer = ( dataAll: IWinPageContentData ):VersionInfoMeta[] => {
   let counts = dataAll.innovations.reduce( ( hash, innovation ) => {
     if ( !hash.hasOwnProperty( innovation.version ) ) {
       hash[ innovation.version ] = 0;

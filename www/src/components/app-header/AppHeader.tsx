@@ -2,7 +2,6 @@ import React, { FC, ReactElement } from "react";
 import { Search } from "../search/Search";
 import { useShareStores } from "../../mobx";
 import { observer } from "mobx-react-lite";
-import { useRouter } from "../../react__hooks/router-hook";
 import { If } from "../if-operator/If";
 import {
   NavToggleButton,
@@ -10,6 +9,7 @@ import {
 import { DonateDropdown } from "../donate-dropdown/DonateDropdown";
 import { AppBar } from "../app-bar/AppBar";
 import { DonateButton } from "../donate-button/DonateButton";
+import { useRouter } from "../../stores/RouterStore";
 
 
 interface IAppHeaderProps {

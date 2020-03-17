@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useEffect, useLayoutEffect, useRef, useState } from "react";
-import { useRouter } from "./router-hook";
 import { fromEvent, merge, Subject, Subscription } from "rxjs";
 import { share, tap } from "rxjs/operators";
+import { useRouter } from "../stores/RouterStore";
 
 
 export const resizeGlobalObserver = fromEvent( window, `resize` ).pipe( share() );

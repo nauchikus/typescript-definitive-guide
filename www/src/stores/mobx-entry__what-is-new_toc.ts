@@ -1,7 +1,7 @@
 import { IWhatIsNewToc } from "../types/IWhatIsNewToc";
 import { createWhatIsNewTocTree,TreeNode } from "./WhatIsNewTocTreeStore";
-import { createBehaviorNotification } from "./PageNavStore";
 import { createRouterStore } from "./RouterStore";
+import { createBehaviorNotification } from "./behavior-notificaion-store";
 
 
 interface ICreateWhatIsNewTocPageGuiStoresParams {

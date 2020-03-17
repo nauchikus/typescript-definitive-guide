@@ -6,8 +6,9 @@ const Validators=require('../gatsby-node-validators');
 module.exports = ( ...params ) => {
     let [{ markdownAST: ast, markdownNode, getNodes }, { locale }] = params;
 
+
     try{
-        if ( Validators.whatIsNew.isWhatIsNewMarkdownRemarkGatsbyNode( markdownNode ) ) {
+        if ( !Validators.bookChapter.isBookChapterMarkdownRemarkGatsbyNode( markdownNode ) ) {
             return ast;
         }
 

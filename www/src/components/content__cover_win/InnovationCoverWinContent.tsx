@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import { useWinData } from "../../react__hooks/win-data-hook";
+import { useWinPageContentData } from "../../react__hooks/win__page-content-data-hook";
 import * as DateUtils from "../../utils/date-utils";
 import { DynamicGatsbyImage } from "../dynamic-gatsby-image/DynamicGatsbyImage";
 import { toLastReleaseInfo, toVersionInfo } from "../../utils/version-utils";
@@ -8,7 +8,7 @@ interface IInnovationCoverWinContentProps {
 }
 
 export const InnovationCoverWinContent: FC<IInnovationCoverWinContentProps> = ( {} ) => {
-  let winContentData = useWinData();
+  let winContentData = useWinPageContentData();
 
   let versionInfo = toLastReleaseInfo( winContentData );
   let version = toVersionInfo( versionInfo.version );

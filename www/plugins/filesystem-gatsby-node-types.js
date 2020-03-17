@@ -3,6 +3,11 @@ class FilesystemGatsbyNodeType{
 }
 class FilesystemSourceName{
     static WhatIsNew = `what-is-new`;
+    static BookChapters = `book-chapters`;
+
+    static localized(name,locale){
+        return `${ name }_${ locale }`;
+    }
 }
 
 module.exports = {
