@@ -1,0 +1,17 @@
+<p>До текущей версии типу объединения включающего тип с индексной сигнатурой было возможно присвоить значение имеющее поля неудовлетворяющие этой индексной сигнатуре. Начиная с версии <code class="inline-code">3.8</code> это поведение стало строже и описанный выше сценарий считается ошибочным.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">let</span> o0: { [key: <span class="hljs-built_in">string</span>]: <span class="hljs-built_in">number</span> } | { field: <span class="hljs-built_in">number</span> };
+<span class="hljs-comment">/**
+ * [&#x3C; v3.8] Ok
+ * [>= v3.8] Error
+ * Type 'string' is not assignable to type 'number'.ts(2322)
+ */</span>
+o0 = { field: <span class="hljs-number">5</span>, dynamicKey: <span class="hljs-string">''</span> };
+
+
+<span class="hljs-keyword">let</span> o1: { [key: <span class="hljs-built_in">string</span>]: <span class="hljs-built_in">number</span> } | { [key: <span class="hljs-built_in">number</span>]: <span class="hljs-built_in">number</span> };
+<span class="hljs-comment">/**
+ * [&#x3C; v3.8] Ok
+ * [>= v3.8] Error
+ * Type 'string' is not assignable to type 'number'.ts(2322)
+ */</span>
+o1 = { dynamicKey: <span class="hljs-string">''</span> };</code></pre>
