@@ -3,6 +3,7 @@
 @import "../../layouts/content-layout/content-layout";
 @import "../../layouts/content-layout/content-layout__grid";
 
+
 @import "../../components/layer__book__control-bar-layer/book__control-bar-layer";
 @import "../../components/layer__book__book-content/book-content-layer";
 
@@ -17,4 +18,9 @@
 @import "../../components/content__control-bar/content__control-bar";
 @import "../../components/content__cover_bc/content__cover_bc";
 @import "../../components/content__aside-bar/conetnt-aside-bar";
+@import "../../components/content__down-panel/conetnt-down-panel";
 @import "../../components/content__aside-bar_control/content-bar-control";
+@import "../../components/content__conclusion__informer/content__conclusion__informer";
+@import "../../components/content__conclusion__nav/content__conclusion__nav";
+@import "../../components/content__conclusion/content__conclusion";
+@import "../../components/informer__conclusion__watch-with-telegram-informer/watch-with-telegram-informer";

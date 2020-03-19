@@ -117,6 +117,9 @@ type CreateRouterStoreParams = {
 
 
 export class RouterStore{
+  static create({location}:CreateRouterStoreParams){
+    return new RouterStore( location );
+  }
   get isIndexPage(){
     return this.location.pathname==='/ru'
   }
@@ -190,10 +193,10 @@ export class RouterStore{
     navigate( path );
 
     this.scrollToAnchor(  );
-  },
+  }
   setLocation ( location: Location ) {
     this.location = location;
-  },
+  }
   scrollToAnchor(anchor?:string){
     if ( anchor || this.anchor ) {
       document
@@ -211,7 +214,7 @@ decorate( RouterStore, {
   pageName: computed,
   hash: computed,
   anchor: computed,
-  router: computed,
+  route: computed,
   search: computed,
 
   location: observable,

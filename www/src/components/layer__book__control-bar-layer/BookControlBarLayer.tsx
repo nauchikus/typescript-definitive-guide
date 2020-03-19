@@ -2,19 +2,19 @@ import React, { FC } from "react";
 import { useTranslator } from "../../react__hooks/translator.hook";
 import { BookTocGuiLocalization, LocalizationPaths } from "../../localization";
 import { ControlBarContent } from "../content__control-bar/ControlBarContent";
+import { EditSvgIcon } from "../icon__svg-icon/svg-icons";
+import { IconButton } from "../icon-button/IconButton";
+import { EditOnGithubButton } from "../button__content__conent-bar__edit-on-github-button/EditOnGithubButton";
 
 interface IBookControlBarLayerProps {
 }
 
 export const BookControlBarLayer: FC<IBookControlBarLayerProps> = () => {
-  let [t] = useTranslator<[BookTocGuiLocalization]>( LocalizationPaths.BookChaptersPageGui );
-
 
   return (
     <ControlBarContent>
-      <div className="book-control-bar-layer">
-        <span className="book-control-bar-layer__label">{t.secondaryContentBar.label}</span>
-
+      <div className="bc-control-bar-layer">
+      <EditOnGithubButton/>
       </div>
     </ControlBarContent>
   );

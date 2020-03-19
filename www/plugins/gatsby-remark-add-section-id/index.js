@@ -28,6 +28,7 @@ module.exports = ( ...params ) => {
         const NODE_DEPTHS = new Set( [H1_TAG_DEPTH, H2_TAG_DEPTH] );
         const isHeadingTag = node => node.type === HEADING_TAG_NAME;
         const isDepth = node => NODE_DEPTHS.has( node.depth );
+        const isH2 = node => node.depth === H2_TAG_DEPTH;
         const isHeading = node => isHeadingTag( node ) && isDepth( node );
         const isSection = node => node.type === SECTION_TAG_NAME;
 
@@ -43,7 +44,12 @@ module.exports = ( ...params ) => {
             }
 
             let { value: heading } = textNode;
-            let path = StringUtils.chapterHeadingToPath( heading, locale );
+            let path = ``;
+
+
+            if ( isH2( headingNode ) ) {
+                path = StringUtils.chapterHeadingToPath( heading, locale );
+            }
 
 
             sectionNode.data || ( sectionNode.data = {} );
