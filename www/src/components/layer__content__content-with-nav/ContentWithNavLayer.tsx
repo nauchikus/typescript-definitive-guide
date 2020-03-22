@@ -20,11 +20,11 @@ export const ContentWithNavLayer: FC<IContentWithNavLayerProps> = ( { children }
         </AsideBarContent>
       </div>
       <div className="content-layout-grid-item__main">
-        <main>
+        <main className="content content-with-control">
           { children }
         </main>
       </div>
-      <div className="content-layout-grid-item__aside-bar_right">
+      <divgit className="content-layout-grid-item__aside-bar_right">
         <AsideBarContent className="content__aside-bar_right">
           <RightControlWinContentBar/>
         </AsideBarContent>

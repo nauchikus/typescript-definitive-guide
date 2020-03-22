@@ -26,9 +26,9 @@ export const WatchWithTelegramInformer:FC<IWatchWithTelegramInformerProps>=()=>{
 
   return (
     <div className="informer__watch-with-telegram">
-      <DynamicGatsbyImage className="wwt__bg-image"
+      {/*<DynamicGatsbyImage className="wwt__bg-image"
                           relativePath="images/informers/watch-with-telegram__background.png"
-                          alt="background"/>
+                          alt="background"/>*/}
       <div className="watch-with-telegram-informer__text_container">
         <p className="watch-with-telegram-informer__text_primary">
           { primaryText }

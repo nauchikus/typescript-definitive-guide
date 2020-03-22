@@ -12,7 +12,7 @@ export const ControlBarLayerWinToc: FC<IControlBarLayerWinTocProps> = ( {} ) => 
 
   return(
     <ControlBarContent>
-      <div className="win-toc-content-control-bar">
+      <div className="content__win-toc-control-bar_wrapper">
         <span className="win-toc-content-control-bar__label">{t.primaryContentBar.label}</span>
       </div>
     </ControlBarContent>

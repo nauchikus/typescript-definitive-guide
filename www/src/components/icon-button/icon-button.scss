@@ -26,11 +26,11 @@
     background-color: var(--button_color-default_hover);
   }
   &>.svg-icon {
-    fill: var(--svg-icon_color-default);
+    //fill: var(--svg-icon_color-default);
     transition: fill .2s ease;
   }
   &:hover>.svg-icon {
-    fill: var(--svg-icon_color-default_hover);
+    fill: var(--color_dark_30);
   }
 
   @include focus;

@@ -1,7 +1,7 @@
 enum BookChapterSectionRuName {
   Common="Общее",
   TypingIntroduction="Экскурс в типизацию",
-  SyntacticConstruction="Синтаксические констркуции",
+  SyntacticConstruction="Синтаксические конструкции",
   Types="Типы",
   TypescriptFeatures="Тонкости TypeScript",
   WorkingWithTypes="Работа с типами",

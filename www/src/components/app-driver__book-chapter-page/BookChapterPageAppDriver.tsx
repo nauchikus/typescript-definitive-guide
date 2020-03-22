@@ -15,22 +15,14 @@ interface IBookChapterPageAppDriverProps {
 
 export const BookChapterPageAppDriver: FC<IBookChapterPageAppDriverProps> = observer( ( {} ) => {
   let [appNavigationAll] = useTranslator<[AppNavigationLocalization]>( LocalizationPaths.AppNavigation );
-  // let { winTocTreeStore } = useWhatIsNewStores();
   let router = useRouter();
   let { contentSection, contentNav } = useBookChapterStores();
 
 
-  // let innovationAll = winTocTreeStore.getInnovationAllByVersionMMP( router.pageName );
-
-  console.log(contentNav.currentSectionId);
-
   const hasAppNavLinkActive = ( href: string ) =>
     router.pathname === href;
-  const hasPageNavLinkActive = ( href: string, anchor: string ) => {
-    console.log( anchor, contentSection.currentSectionId );
-
-    return anchor === contentSection.currentSectionId;
-  };
+  const hasPageNavLinkActive = ( href: string, anchor: string ) =>
+    anchor === contentSection.currentSectionId;
 
 
   // if ( !innovationAll ) {

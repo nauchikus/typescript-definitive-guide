@@ -14,8 +14,8 @@ export const EditOnGithubButton: FC<IEditOnGithubButtonProps> = ( {} ) => {
   let bookChapterContent = useContentDataBookChapter();
 
   return (
-    <LinkButton href={bookChapterContent.fileOnGithubLink}>
-      <EditSvgIcon/>
+    <LinkButton className="edit-on-github-link-button" href={bookChapterContent.fileOnGithubLink}>
+      <EditSvgIcon className="edit-on-github-link-button__svg-icon"/>
       <Tooltip position={TooltipPosition.BottomCenter}>
         {t.secondaryContentBar.editOnGithubButton.tooltip}
       </Tooltip>

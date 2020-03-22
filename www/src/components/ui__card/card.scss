@@ -1,7 +1,10 @@
 @import "../../styles/app-vars";
 
 
-.card{}
+.card {
+  background-color: var(--app_base-color);
+
+}
 .card__header{
   color: var(--color_dark_10);
 

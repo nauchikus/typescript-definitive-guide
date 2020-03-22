@@ -63,7 +63,15 @@
 
   border-radius: var(--app_border-radius-default);
 
-  padding: 16px;
+  padding: 4px 8px;
+}
+
+
+.bc-cover__index{
+  margin: 0 0 0 -8px;
+}
+.bc-cover__section{
+  margin: 0 -8px 0 0;
 }
 
 .bc-cover__title{

@@ -59,11 +59,13 @@ $TOOLTIP_DIRECTION_LEFT:"left";
 }
 
 .tooltip {
+  text-align: center;
+
   background-color: var(--color_darklite);
 
   color: var(--app_base_darkmiddle-color);
   font-size: 12px;
-  word-break:normal;
+  word-break: normal;
 
   border: 1px solid var(--app_border_color-default);
   border-radius: var(--app_border-radius-default);
@@ -72,15 +74,13 @@ $TOOLTIP_DIRECTION_LEFT:"left";
 
   position: absolute;
 
-  transition:
-          opacity .4s ease 0s,
-          transform .4s ease 0s,
-          visibility .4s ease 0s;
+  transition: opacity .4s ease 0s,
+  transform .4s ease 0s,
+  visibility .4s ease 0s;
 
-  z-index:99999999999999999999999999999999999999;
+  z-index: 99999999999999999999999999999999999999;
 
-  pointer-events:none;
-
+  pointer-events: none;
 
 
   @include tooltip-hide_from-yourself-direction();

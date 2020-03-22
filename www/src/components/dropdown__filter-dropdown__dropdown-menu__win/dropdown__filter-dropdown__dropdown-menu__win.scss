@@ -58,6 +58,8 @@
 .win-filter-content-form__label {
   width: 100%;
 
+  padding-left: 0;
+
   display: inline-flex;
   align-items: center;
 
@@ -92,7 +94,7 @@
 .fieldset_md {
   width: 100%;
 
-  margin: 24px 0 0 0;
+  //margin: 24px 0 0 0;
 
   position: relative;
 }
@@ -102,7 +104,7 @@
 
   margin: -24px 0 0 0;
 
-  position: absolute;
+  position: relative;
 }
 .legend-with-meta {
   width: 100%;
@@ -121,7 +123,6 @@
 
 
   width: 50%;
-  height: 100%;
 
   border: 1px solid var(--app_border_color-default);
 

@@ -18,7 +18,7 @@ interface ICreateBookPageMobxEntryParams {
 export const createBookChapterMobxEntry = ( { location,pageNavDataAll }: ICreateBookPageMobxEntryParams ) => {
   let router = new RouterStore(location);
   let contentIntersectionObserver = createIntersectionObserverStore( {
-    containerSelector:`div.content`,
+    containerSelector:`span.content__html-content-wrapper`,
     sectionSelector:`section.content__section`,
   } );
   let contentSection = ContentSectionStore.create( {

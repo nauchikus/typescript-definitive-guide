@@ -1,6 +1,25 @@
+@import "../components/tooltip/tooltip";
+
 .link-button {
   padding: 8px 16px;
 
   display: flex;
   align-items: center;
+
+  position: relative;
+
+
+  &:hover {
+    background-color: var(--button_color-default_hover);
+  }
+
+  & > .svg-icon {
+    transition: fill .2s ease;
+  }
+
+  &:hover > .svg-icon {
+    fill: var(--color_dark_30);
+  }
+
+  @include tooltip-hover-hook-with-media();
 }

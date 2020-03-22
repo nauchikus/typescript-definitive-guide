@@ -9,10 +9,10 @@ export const ConclusionContent: FC<IConclusionContentProps> = ( {} ) => {
   return (
     <aside className="content__section content-conclusion">
       <div className="content-conclusion__item">
-        <InformerContentConclusion/>
+        <NavContentConclusion/>
       </div>
       <div className="content-conclusion__item">
-        <NavContentConclusion/>
+        <InformerContentConclusion/>
       </div>
     </aside>
   );

@@ -13,6 +13,7 @@ import { createBookTocMobxEntry, UseBookTocStores } from "../../stores/mobx-entr
 import { useLocalStore } from "mobx-react-lite";
 import { createWhatIsNewTocMobxEntry, UseWhatIsNewTocStores } from "../../stores/mobx-entry__what-is-new_toc";
 import { BehaviorNotificationContext } from "../../react__context/BehaviorNotificationContext";
+import { RouterStoreContext } from "../../stores/RouterStore";
 
 
 interface IWhatIsNewTocPageProviderProps {
@@ -34,12 +35,14 @@ const WhatIsNewTocPageProvider: FC<IWhatIsNewTocPageProviderProps> = ( { pageCon
   return (
     <MobxWhatIsNewTocContext.Provider value={ winTocStoresRef.current }>
       <BehaviorNotificationContext.Provider value={ winTocStoresRef.current.behaviorNotificationStore }>
-        <Localization.Provider value={ localization }>
-          <BaseLayout>
-            <SEO/>
-            <WhatIsNewTocPage/>
-          </BaseLayout>
-        </Localization.Provider>
+        <RouterStoreContext.Provider value={winTocStoresRef.current.router}>
+          <Localization.Provider value={ localization }>
+            <BaseLayout>
+              <SEO/>
+              <WhatIsNewTocPage/>
+            </BaseLayout>
+          </Localization.Provider>
+        </RouterStoreContext.Provider>
       </BehaviorNotificationContext.Provider>
     </MobxWhatIsNewTocContext.Provider>
   );

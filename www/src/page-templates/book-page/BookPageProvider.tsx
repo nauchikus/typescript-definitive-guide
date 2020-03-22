@@ -34,22 +34,22 @@ interface IBookPageProviderProps {
 
 const BookPageProvider: FC<IBookPageProviderProps> = ( { pageContext,location } ) => {
   let { locale, pageContentData,pageNavDataAll,localization } = pageContext;
-  let bookChapterStoresRef = useRef<UseBookStores>( createBookChapterMobxEntry( {
+  let bcMobxRef = useRef<UseBookStores>( createBookChapterMobxEntry( {
     location,
     pageNavDataAll
   } ) );
 
 
   return (
-    <MobxBookChapterContext.Provider value={bookChapterStoresRef.current}>
-      <BehaviorNotificationContext.Provider value={bookChapterStoresRef.current.behaviorNotificationStore}>
+    <MobxBookChapterContext.Provider value={bcMobxRef.current}>
+      <BehaviorNotificationContext.Provider value={bcMobxRef.current.behaviorNotificationStore}>
         <Localization.Provider value={localization}>
-          <ContentNavStoreContext.Provider value={bookChapterStoresRef.current.contentNav}>
-            <ContentDownPanelStoreContext.Provider value={bookChapterStoresRef.current.contentDownPanelStore}>
-              <RouterStoreContext.Provider value={bookChapterStoresRef.current.router}>
+          <ContentNavStoreContext.Provider value={bcMobxRef.current.contentNav}>
+            <ContentDownPanelStoreContext.Provider value={bcMobxRef.current.contentDownPanelStore}>
+              <RouterStoreContext.Provider value={bcMobxRef.current.router}>
                 <BaseLayout>
                   <SEO/>
-                  <ContentIntersectionObserverStoreContext.Provider value={bookChapterStoresRef.current.contentIntersectionObserver}>
+                  <ContentIntersectionObserverStoreContext.Provider value={bcMobxRef.current.contentIntersectionObserver}>
                     <BookChapterPageContentDataContext.Provider value={pageContentData}>
                       <BookPage/>
                       <CustomNotification/>

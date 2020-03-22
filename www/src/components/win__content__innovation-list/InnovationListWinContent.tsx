@@ -1,4 +1,4 @@
-import React, { FC, ReactNode, useEffect, useLayoutEffect } from "react";
+import React, { Fragment,FC, ReactNode, useEffect, useLayoutEffect } from "react";
 import { observer } from "mobx-react-lite";
 import { useWinPageContentData } from "../../react__hooks/win__page-content-data-hook";
 import { SectionInformerContent } from "../content__section-informer/SectionInformerContent";

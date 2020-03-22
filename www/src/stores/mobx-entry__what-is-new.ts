@@ -27,7 +27,7 @@ interface ICreateWhatIsNewPageGuiStoresParams {
 export const createWhatIsNewMobxEntry = ({innovationData,versionInfoAll,initialCheckedVersion,winTocTree,pageNavDataAll,location}:ICreateWhatIsNewPageGuiStoresParams) => {
   let router = new RouterStore( location );
   let contentIntersectionObserver = createIntersectionObserverStore( {
-    containerSelector:`main`,
+    containerSelector:`main.content`,
     sectionSelector:`section.content__section`,
   } );
   let versionFilter = new VersionFilterStore({});

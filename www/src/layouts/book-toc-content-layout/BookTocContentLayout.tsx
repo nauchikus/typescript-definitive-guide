@@ -71,13 +71,14 @@ export const BookTocContentLayout: FC<IBookTocContentLayoutProps> = observer( ( 
           {items}
         </Fragment>
       )
+
     } );
 
 
   return (
-    <div className="book-toc-content-layout__toc" filter={ bookTocTreeStore.showTocWithSectionName }>
+    <main className="content book-toc-content-layout__toc" filter={ bookTocTreeStore.showTocWithSectionName }>
       { bookToc }
       <BookTocTreeCloseDecor/>
-    </div>
+    </main>
   );
 } );

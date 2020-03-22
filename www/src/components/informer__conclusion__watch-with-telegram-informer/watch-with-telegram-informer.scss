@@ -1,10 +1,15 @@
 .informer__watch-with-telegram {
+  font-size: 14px;
+
   width: 100%;
   height: 100%;
 
-  border-radius:var(--app_border-radius-default);
+  border-width: 1px;
+  border-style: solid;
+  border-color: var(--color_dark_80);
+  border-radius: var(--app_border-radius-default);
 
-  padding: 24px;
+  padding: 16px;
 
   position: relative;
 }
@@ -32,8 +37,9 @@
 
   margin-bottom: 4px;
 }
-.watch-with-telegram-informer__text_secondary{
-  color:white;
+.watch-with-telegram-informer__text_secondary {
+  color: rgba(255, 255, 255, .9);
+
 }
 .wwt__text_telegram-name {
   color: #ffb229;
@@ -45,21 +51,21 @@
   justify-content: center;
 }
 .watch-with-telegram-informer__subscribe-button{
-  color: #0a2b68;
+  color: rgba(10, 43, 104,.8);
 
-  font-size:1rem;
+  font-size:14px;
   font-weight:bold;
 
   background-color: white;
 
   border-radius: var(--button_border-radius);
 
-  padding: 8px 16px;
+  padding: 4px 8px;
 
 
   transition: all .2s;
 
   &:hover{
-    background-color: rgba(255,255,255,.8);
+    background-color: rgba(255, 255, 255,.9);
   }
 }
