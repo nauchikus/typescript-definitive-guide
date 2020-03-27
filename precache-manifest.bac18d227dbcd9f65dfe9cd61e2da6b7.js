@@ -1,11 +1,11 @@
 self.__precacheManifest = [
   {
-    "revision": "960af9d1ff196f187a14",
+    "revision": "d4cc3a7d5d56c10e1e7f",
     "url": "/typescript-definitive-guide/css/app.0a0d14a2.css"
   },
   {
-    "revision": "960af9d1ff196f187a14",
-    "url": "/typescript-definitive-guide/js/app.9e0ac4e0.js"
+    "revision": "d4cc3a7d5d56c10e1e7f",
+    "url": "/typescript-definitive-guide/js/app.6b61feff.js"
   },
   {
     "revision": "b7403f88be246df2eac8",
@@ -75,7 +75,7 @@ self.__precacheManifest = [
     "url": "/typescript-definitive-guide/img/icons.84286bb2.svg"
   },
   {
-    "revision": "17adb109f0b0c4213646b542766aa447",
+    "revision": "e70d459f01f3b50980aa8b78daab008c",
     "url": "/typescript-definitive-guide/index.html"
   },
   {
