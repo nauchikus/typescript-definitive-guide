@@ -167,7 +167,11 @@
                 "description": "Подробное руководство по языку TypeScript, которое шаг за шагом раскрывает весь его потенциал не оставляя без внимания ни одной мелочи."
             },
             "gui":{
-                "greeting":"ПриветМир!"
+                "secondaryContentBar": {
+                    "editOnGithubButton": {
+                        "tooltip": "Редактировать на Github"
+                    }
+                }
             }
         },
         "what-is-new__toc": {
