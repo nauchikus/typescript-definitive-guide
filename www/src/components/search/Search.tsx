@@ -1,6 +1,5 @@
 import React, { FC, FormEvent, useRef } from "react";
 import { MagnifierSvgIcon, SearchSvgIcon } from "../icon__svg-icon/svg-icons";
-import { useShareStores } from "../../mobx";
 import { observer } from "mobx-react-lite";
 import { OutsideClick } from "../outside-click/OutsideClick";
 import { ScaleButton } from "../button__scale-button/ScaleButton";
@@ -8,6 +7,7 @@ import { useScale, useScaleControl } from "../transform__scale-container/ScaleCo
 import { useTranslator } from "../../react__hooks/translator.hook";
 import { LocalizationPaths, SharedLayoutLocalization } from "../../localization";
 import { If } from "../if-operator/If";
+import { useAppSearch } from "../../stores/mobx-entry__shared-stores";
 
 interface ISearchProps {
 }
@@ -17,7 +17,7 @@ const SCALE_CONTROL_ID = "app-search";
 export const Search: FC<ISearchProps> = observer(( {} ) => {
   let [shared] = useTranslator<[SharedLayoutLocalization]>( LocalizationPaths.SharedLayout );
   let { appHeader: {appSearch:appSearchTranslation} } = shared;
-  let { appSearch } = useShareStores();
+  let appSearch = useAppSearch();
   let control = useScaleControl(SCALE_CONTROL_ID);
   let inputRef = useRef<HTMLInputElement>(null);
 
@@ -75,12 +75,12 @@ export const Search: FC<ISearchProps> = observer(( {} ) => {
   /*appSearch.active.state*/
 
   return (
-    <div className="search_wrapper" toggle={appSearch.active.isToggle.toString()}>
+    <div className="search_wrapper" toggle={appSearch.active.isToggle.toString() as "true"|"false"}>
       <OutsideClick isToggle={appSearch.active.isToggle} onOutsideClick={toggle}/>
       <form className="search"
             autoComplete="off"
             action="#"
-            toggle={appSearch.active.state}
+            toggle-state={appSearch.active.state}
             is-match={appSearch.match.isToggle.toString()}
             onKeyDown={onKeyDown}
             onSubmit={onSubmit}>

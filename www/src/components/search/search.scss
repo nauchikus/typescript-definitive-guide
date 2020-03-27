@@ -65,7 +65,7 @@ $search_padding-y_open:4px;
   z-index: 0;
 
 
-  &[toggle="open"] > .search__input-section > .search__query-input:placeholder-shown ~ .search__submit-button-placeholder{
+  &[toggle-state="open"] > .search__input-section > .search__query-input:placeholder-shown ~ .search__submit-button-placeholder{
     opacity: .7;
     pointer-events: none;
   }
@@ -76,7 +76,7 @@ $search_padding-y_open:4px;
     display: flex;
   }
 
-  &[toggle="open"] {
+  &[toggle-state="open"] {
     width: 100%;
 
     padding: $search_padding-y_open $search_padding-x_open;

@@ -18,6 +18,8 @@
 
 
 :root{
+  /*breakpoints*/
+  --breakpoint_sm:576px;
   /*warning*/
   --book-toc__aside_height:#{$book-toc__aside_height};
   /**/
@@ -98,7 +100,7 @@
   --content-layout__center-layout_width: #{$content-layout__center-layout_width};
   --content-layout__right-layout_width: #{$content-layout__right-layout_min-width};
   --content-layout__right-layout_min-width: calc(100vw - #{$content-layout__left-layout_width + $content-layout__center-layout_width});
-
+  --content-layout__driver-and-content_min-width:#{$content-layout__driver-and-content_min-width};
   --app-nav_link_active: #63a8ff;
   --page-nav_link_active:tomato;
 

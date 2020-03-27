@@ -1,5 +1,4 @@
 import "./base-layout.scss";
-import "./base-layout.grid.scss";
 
 import React, { ReactElement, useRef } from "react";
 import {FC} from "react"

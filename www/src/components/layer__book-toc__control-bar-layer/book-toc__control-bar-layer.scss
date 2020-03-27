@@ -9,10 +9,10 @@
   align-items: center;
 
 
-  @media all and (max-width: #{$app-content_media_xs}) {
-    padding: 0 12px 0 24px;
-
-  }
+  //@media all and (max-width: #{$app-content_media_xs}) {
+  //  padding: 0 12px 0 24px;
+  //
+  //}
 }
 
 .book-toc-control-bar-layer__control {

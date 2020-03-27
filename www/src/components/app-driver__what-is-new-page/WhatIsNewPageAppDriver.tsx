@@ -11,6 +11,8 @@ import { Version } from "../../utils/Version";
 import { observer } from "mobx-react-lite";
 import { PageWithContentNavAppDriver } from "../app-driver__nav_page-with-content/PageWithContentNavAppDriver";
 import { useRouter } from "../../stores/RouterStore";
+import { AppNavSectionAppDriver } from "../app-driver__nav-section_app-nav/AppNavSectionAppDriver";
+import { ContentNavSectionAppDriver } from "../app-driver__nav-section_page-nav/ContentNavSectionAppDriver";
 
 interface IWhatIsNewPageAppDriverProps {
 }
@@ -22,9 +24,11 @@ export interface ILinkAppDriverData {
   activeClassName:string;
   disabled?:boolean;
 }
-export interface ILinkAppDriverProps extends ILinkAppDriverData{}
+export interface ILinkAppDriverProps extends ILinkAppDriverData{
+  onClick?:()=>void;
+}
 
-export const LinkAppDriver: FC<ILinkAppDriverProps> = ( { path, name, isActive, activeClassName ,disabled=false} ) => {
+export const LinkAppDriver: FC<ILinkAppDriverProps> = ( { path, name, isActive, activeClassName ,onClick,disabled=false} ) => {
   let classes = cn( `app-driver__link`, {
     [ activeClassName ]: isActive,
     [ `app-driver__link_disabled` ]: disabled
@@ -35,7 +39,8 @@ export const LinkAppDriver: FC<ILinkAppDriverProps> = ( { path, name, isActive, 
     <div className="app-driver__list-item">
       <Link className="app-driver__list-item"
             to={ path }
-            getProps={ () => linkProps }>
+            getProps={ () => linkProps }
+            onClick={onClick}>
         { name }
       </Link>
     </div>
@@ -45,7 +50,6 @@ export const LinkAppDriver: FC<ILinkAppDriverProps> = ( { path, name, isActive, 
 
 
 export const WhatIsNewPageAppDriver: FC<IWhatIsNewPageAppDriverProps> = observer( ( {} ) => {
-  let [appNavigationAll] = useTranslator<[AppNavigationLocalization]>( LocalizationPaths.AppNavigation );
   let { winTocTreeStore } = useWhatIsNewStores();
   let routerStore = useRouter();
   let { contentSection, versionFilter } = useWhatIsNewStores();
@@ -54,8 +58,6 @@ export const WhatIsNewPageAppDriver: FC<IWhatIsNewPageAppDriverProps> = observer
   let innovationAll = winTocTreeStore.getInnovationAllByVersionMMP( routerStore.pageName );
 
 
-  const hasAppNavLinkActive = ( href: string ) =>
-    routerStore.pathname === href;
   const hasPageNavLinkActive = ( href: string, anchor: string ) =>
     anchor === contentSection.currentSectionId;
 
@@ -73,12 +75,6 @@ export const WhatIsNewPageAppDriver: FC<IWhatIsNewPageAppDriverProps> = observer
   } ) );
 
 
-  let appNavLinkDataAll = appNavigationAll.map( ( { name, path }, index ) => ( {
-    name,
-    path,
-    isActive: hasAppNavLinkActive( path ),
-    activeClassName: "app-driver__link_active"
-  } ) );
   let contentNavLinkDataAll = navItemAll.map( ( { name, path, anchor, version }, index ) => ( {
     name,
     path,
@@ -90,7 +86,8 @@ export const WhatIsNewPageAppDriver: FC<IWhatIsNewPageAppDriverProps> = observer
 
   return (
     <AppDriver>
-      <PageWithContentNavAppDriver appNavLinkDataAll={appNavLinkDataAll} contentNavLinkDataAll={contentNavLinkDataAll}/>
+      <AppNavSectionAppDriver/>
+      <ContentNavSectionAppDriver contentNavLinkDataAll={contentNavLinkDataAll}/>
       <FooterAppDriver/>
     </AppDriver>
   );

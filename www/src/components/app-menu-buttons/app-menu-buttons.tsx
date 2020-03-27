@@ -5,32 +5,31 @@ import React, { FC } from "react";
 import { Tooltip, TooltipPosition } from "../tooltip/Tooltip";
 import { MainNavAnimatedCssIcon } from "../main-nav-animated-css-icon/MainNavAnimatedCssIcon";
 import { IconButton } from "../icon-button/IconButton";
-import { useShareStores } from "../../mobx";
 import { If } from "../if-operator/If";
-import { ToggleUiState } from "../../stores/AppStateService";
 import { observer } from "mobx-react-lite";
 import { useTranslator } from "../../react__hooks/translator.hook";
 import { LocalizationPaths, SharedLayoutLocalization } from "../../localization";
+import { useAppDriver } from "../../stores/mobx-entry__shared-stores";
 
 interface IAppMenuButtonProps {
 }
 
 export const NavToggleButton: FC<IAppMenuButtonProps> = observer(() => {
   let [shared] = useTranslator<[SharedLayoutLocalization]>( LocalizationPaths.SharedLayout );
-  let { appStore } = useShareStores();
+  let appDriver = useAppDriver();
 
   let { appHeader: { navToggleButton: { tooltips } } } = shared;
 
 
   return (
-    <IconButton onClick={ () => appStore.driverToggle.toggle() }>
-      <MainNavAnimatedCssIcon state={ appStore.driverToggle.invertState }/>
+    <IconButton onClick={ () => appDriver.toggle() }>
+      <MainNavAnimatedCssIcon state={ appDriver.invertState }/>
       <Tooltip className="tooltip_pdf" position={TooltipPosition.BottomLeft}>
-        <If condition={appStore.driverToggle.isClose}>
+        <If condition={appDriver.isClose}>
           <p>{tooltips.open[0]}</p>
           <p>{tooltips.open[1]}</p>
         </If>
-        <If condition={appStore.driverToggle.isOpen}>
+        <If condition={appDriver.isOpen}>
           <p>{tooltips.close[0]}</p>
           <p>{tooltips.close[1]}</p>
         </If>

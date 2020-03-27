@@ -1,14 +1,12 @@
 import "./slider-second-space.layout.scss";
 
-import React, { ReactElement, useLayoutEffect } from "react";
-import {FC} from "react"
-import { useAppDriver } from "../../react__hooks/app-driver-control.hook";
-import { useShareStores } from "../../mobx";
+import React, { FC, ReactElement, useLayoutEffect } from "react";
 import { observer } from "mobx-react-lite";
 import { Media } from "../../components/media/Media";
 import { If } from "../../components/if-operator/If";
 import { useCssPropertyAsNumber } from "../../react__hooks/media-hook";
 import { CssPropertyName } from "../../CssPropertyName";
+import { useAppDriver } from "../../stores/mobx-entry__shared-stores";
 
 interface HTMLDivElement{
   toggle:boolean;
@@ -22,7 +20,7 @@ interface ISliderSecondSpaceLayoutProps{
 }
 
 const SliderSecondSpaceLayout: FC<ISliderSecondSpaceLayoutProps> = observer( ( { driver, content,aside } ) => {
-  let { appStore } = useShareStores();
+  let appDriver = useAppDriver();
   let asideMediaSize = useCssPropertyAsNumber( CssPropertyName.AppRightLayoutShowMedia );
   let asideMediaQuery = !isNaN( asideMediaSize ) ? `(min-width:${ asideMediaSize }px)` : ``;
 
@@ -30,7 +28,7 @@ const SliderSecondSpaceLayout: FC<ISliderSecondSpaceLayoutProps> = observer( ( {
 
 
   return (
-    <div className="float-content" toggle={ appStore.driverToggle.state }>
+    <div className="float-content" toggle-state={ appDriver.state }>
       <div className="float-content__driver-layout">
         { driver }
       </div>

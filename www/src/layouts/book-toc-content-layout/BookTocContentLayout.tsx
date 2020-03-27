@@ -76,7 +76,7 @@ export const BookTocContentLayout: FC<IBookTocContentLayoutProps> = observer( ( 
 
 
   return (
-    <main className="content book-toc-content-layout__toc" filter={ bookTocTreeStore.showTocWithSectionName }>
+    <main className="content content-without-control book-toc-content-layout__toc" filter={ bookTocTreeStore.showTocWithSectionName }>
       { bookToc }
       <BookTocTreeCloseDecor/>
     </main>

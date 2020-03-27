@@ -1,12 +1,3 @@
-
-// type CreatePageNavNodeParams<TNodeData,TLeafData>{
-//   nodes:{
-//     prevPageNavData:IPageNavTreeNodeData<TNodeData>|null;
-//     currentPageNavData:IPageNavTreeNodeData<TNodeData>;
-//     nextPageNavData:IPageNavTreeNodeData<TNodeData>|null;
-//   };
-// }
-
 import { IPageNavLeaf, IPageNavNode, IPageNavPage, IPageNavSection } from "../types/IPageNavData";
 
 type CreatePageNavNodeParams<TNodeData,TLeafData>={
@@ -34,72 +25,24 @@ export class PageNavTreeCreator {
     return currentPageNavData;
   };
 
-  // static getSequencePageData = <TData>( currentPageName: string, pageNavDataAll: IPageNavTreeNode<TData>[] ) => {
-  //   let currentPageNavData = PageNavTreeCreator.getCurrentPageNavTreeNode( currentPageName, pageNavDataAll );
-  //   let currentPageNavDataIndex = pageNavDataAll.indexOf( currentPageNavData );
-  //
-  //   let prevPageNavData = pageNavDataAll[ currentPageNavDataIndex - 1 ];
-  //   let nextPageNavData = pageNavDataAll[ currentPageNavDataIndex + 1 ];
-  //
-  //   return {
-  //     prevPageNavData,
-  //     currentPageNavData,
-  //     nextPageNavData
-  //   };
-  // };
-
-  // static createPageItem = <TData>( {prevPageNavData,currentPageNavData,nextPageNavData}:ReturnType<typeof PageNavTreeCreator.getSequencePageData> ) => {
-  //   const hasPrevPage = () => prevPageNavData != null;
-  //   const hasNextPage = () => nextPageNavData != null;
-  //
-  //   const getPrevPageData = () => !hasPrevPage() ? null : ( {
-  //     name: prevPageNavData.name,
-  //     path: prevPageNavData.name,
-  //     data: prevPageNavData.data
-  //   } );
-  //   const getNextPageData = () => !hasNextPage() ? null : ( {
-  //     name: nextPageNavData.name,
-  //     path: nextPageNavData.name,
-  //     data: nextPageNavData.data
-  //   } );
-  //
-  //   let result = {
-  //     name: currentPageNavData.name,
-  //     path: currentPageNavData.name,
-  //
-  //     hasPrevPage: hasPrevPage(),
-  //     hasNextPage: hasNextPage(),
-  //
-  //     prevPage: getPrevPageData(),
-  //     nextPage: getNextPageData(),
-  //
-  //
-  //     sections: currentPageNavData.sections
-  //   };
-  //
-  //
-  //   return result;
-  // };
-
-
   static createPageNavPage = <TNodeData,TLeafData>({prevNode,currentNode,nextNode}:CreatePageNavNodeParams<TNodeData,TLeafData>):IPageNavPage<TNodeData,TLeafData> => {
     const hasPrevPage = () => prevNode != null;
     const hasNextPage = () => nextNode != null;
 
     const getPrevPageData = () => prevNode == null ? null : ( {
       name: prevNode.name,
-      path: prevNode.name,
+      path: prevNode.path,
       data: prevNode.data
     } );
     const getNextPageData = () => nextNode == null ? null : ( {
       name: nextNode.name,
-      path: nextNode.name,
+      path: nextNode.path,
       data: nextNode.data,
     } );
 
     let result = {
       name: currentNode.name,
-      path: currentNode.name,
+      path: currentNode.path,
 
       hasPrevPage: hasPrevPage(),
       hasNextPage: hasNextPage(),
@@ -131,31 +74,6 @@ export class PageNavTreeCreator {
 
     return result;
   };
-
-  // static createSectionItem = <TData>( anchorPath: string, sectionAll: IPageNavTreeLeaf<TData>[] ) => {
-  //   if ( anchorPath.startsWith( `#` ) ) {
-  //     anchorPath = anchorPath.substring( 1 );
-  //   }
-  //
-  //
-  //   let currentAnchorData = sectionAll.find( item => item.path === anchorPath );
-  //   if ( !currentAnchorData && anchorPath !== `` ) {
-  //     throw new Error( `Anchor "${ anchorPath }" not found.` );
-  //   }
-  //   let currentAnchorIndex = currentAnchorData ? sectionAll.indexOf( currentAnchorData ) : -1;
-  //
-  //
-  //   let prevAnchorData = sectionAll[ currentAnchorIndex - 1 ];
-  //   let nextAnchorData = sectionAll[ currentAnchorIndex + 1 ];
-  //
-  //   let result = {
-  //     prevAnchor: prevAnchorData,
-  //     nextAnchor: nextAnchorData
-  //   };
-  //
-  //
-  //   return result;
-  // };
 
   static createPageNavTree = <TNodeData = null,TLeafData=null> ( pageNavDataAll: IPageNavNode<IPageNavLeaf<TLeafData>,TNodeData>[] ):IPageNavPage<TNodeData,TLeafData>[] =>
     pageNavDataAll.map( ( data, index, array ) =>

@@ -120,6 +120,7 @@ $content-layout__left-layout_width:280px;
 $content-layout__center-layout_width:800px;
 $content-layout__right-layout_min-width:180px;
 $content-layout__right-layout_max-width:280px;
+$content-layout__driver-and-content_min-width:$content-layout__left-layout_width + $content-layout__center-layout_width;
 $content-layout__width:
         $content-layout__left-layout_width +
         $content-layout__center-layout_width +

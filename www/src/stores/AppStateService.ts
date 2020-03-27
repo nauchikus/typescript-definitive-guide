@@ -40,7 +40,7 @@ export const getMenuInitialState = () => {
   return ToggleUiState.Open;
 };
 
-export const createToggleState = ( initialState: ToggleUiState ) => observable( {
+export const createToggleState = ( initialState: ToggleUiState = ToggleUiState.Open ) => observable( {
   state: initialState,
   isOpen: initialState === ToggleUiState.Open,
   isClose: initialState === ToggleUiState.Close,

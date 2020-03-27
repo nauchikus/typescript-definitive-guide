@@ -10,6 +10,7 @@ import { Version } from "../../utils/Version";
 import { observer } from "mobx-react-lite";
 import { useWhatIsNewTocStores } from "../../mobx__react-content-provider/MobxWhatIsNewTocProvider";
 import { useRouter } from "../../stores/RouterStore";
+import { AppNavSectionAppDriver } from "../app-driver__nav-section_app-nav/AppNavSectionAppDriver";
 
 interface IWhatIsNewPageAppDriverProps {
 }
@@ -43,32 +44,9 @@ export const LinkAppDriver: FC<ILinkAppDriverProps> = ( { path, name, isActive, 
 
 
 export const WhatIsNewTocPageAppDriver: FC<IWhatIsNewPageAppDriverProps> = observer( ( {} ) => {
-  let [appNavigationAll] = useTranslator<[AppNavigationLocalization]>( LocalizationPaths.AppNavigation );
-  // let { winTocTreeStore } = useWhatIsNewTocStores();
-  let router = useRouter();
-
-
-
-  const hasAppNavLinkActive = ( href: string ) =>
-    router.pathname === href;
-
-
-
-  let appNavLinkAll = appNavigationAll.map( ( { name, path }, index ) => (
-    <LinkAppDriver key={ index }
-                   name={ name }
-                   path={ path }
-                   isActive={ hasAppNavLinkActive( path ) }
-                   activeClassName="app-driver__link_active"/>
-  ) );
-
-
   return (
     <AppDriver>
-      <NavSectionAppDriver itemLabel={ "Навигация" }
-                           itemIndex={ 0 }>
-        { appNavLinkAll }
-      </NavSectionAppDriver>
+      <AppNavSectionAppDriver/>
       <FooterAppDriver/>
     </AppDriver>
   );

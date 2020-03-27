@@ -1,22 +1,20 @@
 import React, { FC, ReactElement } from "react";
 import { Search } from "../search/Search";
-import { useShareStores } from "../../mobx";
 import { observer } from "mobx-react-lite";
 import { If } from "../if-operator/If";
 import {
   NavToggleButton,
 } from "../app-menu-buttons/app-menu-buttons";
-import { DonateDropdown } from "../donate-dropdown/DonateDropdown";
 import { AppBar } from "../app-bar/AppBar";
-import { DonateButton } from "../donate-button/DonateButton";
 import { useRouter } from "../../stores/RouterStore";
+import { useAppSearch } from "../../stores/mobx-entry__shared-stores";
 
 
 interface IAppHeaderProps {
 }
 
 export const AppHeader: FC<IAppHeaderProps> = observer(( {...props} ) => {
-  let { appSearch } = useShareStores();
+  let appSearch = useAppSearch();
   let router = useRouter();
 
 

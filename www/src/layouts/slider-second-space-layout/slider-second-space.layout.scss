@@ -1,55 +1,53 @@
-// cdn dependencies
-@import url(https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css);
-@import url(https://fonts.googleapis.com/css?family=Roboto&display=swap&subset=cyrillic);
-
 // shared dependencies
 @import "../../styles/app-vars";
 @import "../../styles/breakpoints";
 
-body{
-  overflow-x: hidden;
-}
 
 .float-content {
   width: 100%;
   height: 100%;
 
   display: flex;
+  //flex-direction: column;
 
   position: relative;
 
 
-  &[toggle="open"] > .float-content__driver-layout {
+  &[toggle-state="open"] > .float-content__driver-layout {
     margin-left: 0;
   }
-  &[toggle="close"] > .float-content__driver-layout {
-    margin-left: -100%;
+
+  &[toggle-state="close"] > .float-content__driver-layout {
+    ///TODO:[refactor][mobile][primary] (set size 100%)
+    //margin-left: -100%;
+    margin-left: var(--content-layout__left-layout_width_negative-number);
   }
 
-  @include media-breakpoint-up(sm){
-    &[toggle="open"] > .float-content__driver-layout {
-      margin-left: 0;
-    }
-    &[toggle="close"] > .float-content__driver-layout {
-      margin-left: var(--content-layout__left-layout_width_negative-number);
-    }
+  ///TODO:[refactor][mobile][primary] (set size 100%)
+  //@include media-breakpoint-up(sm) {
+  //  &[toggle-state="open"] > .float-content__driver-layout {
+  //    margin-left: 0;
+  //  }
+  //  &[toggle-state="close"] > .float-content__driver-layout {
+  //    margin-left: var(--content-layout__left-layout_width_negative-number);
+  //  }
+  //
+  //}
 
-  }
-  @include media-breakpoint-up(app-driver-is-opened_min-size){
-
-  }
-  @media all and (min-width:800px){
-    &[toggle="close"] > .float-content__content-layout {
+  @media all and (min-width: 800px) {
+    &[toggle-state="close"] > .float-content__content-layout {
       margin-left: calc(50vw - 400px);
     }
 
-    &[toggle="open"] > .float-content__driver-layout {
+    &[toggle-state="open"] > .float-content__driver-layout {
       margin-rigth: 0;
     }
   }
 }
 .float-content__driver-layout {
-  width: 100%;
+  ///TODO:[refactor][mobile][primary] (set size 100%)
+  //width: 100%;
+  width: var(--content-layout__left-layout_width);
   height: calc(100vh - var(--app-header_height));
 
   background-color: var(--app_base-color);
@@ -63,9 +61,10 @@ body{
 
   transition: margin-left .4s cubic-bezier(.25,.8,.25,1);
 
-  @include media-breakpoint-up(sm) {
-    width: var(--content-layout__left-layout_width);
-  }
+  ///TODO:[refactor][mobile][primary] (set size 100%)
+  //@include media-breakpoint-up(sm) {
+  //  width: var(--content-layout__left-layout_width);
+  //}
 }
 //.float-content__content-layout {
 //  max-width: var(--content-layout__center-layout_width);
@@ -84,12 +83,9 @@ body{
 //}
 
 .float-content__content-layout {
-  //max-width:var(--content-layout__center-layout_width);
-
   width: 100%;
   height: 100%;
 
-  //padding: 0 #{padding_16};
   padding:0 0 var(--app-footer_height) 0;
 
   flex-shrink: 0;
@@ -98,12 +94,6 @@ body{
 
   transition: margin-left .4s cubic-bezier(.25,.8,.25,1);
 
-  @media all and (min-width: $content-layout__center-layout_width) {
-    //width: calc(100vw - #{$content-layout__left-layout_width});
-  }
-  @media all and (max-width: $content-layout__center-layout_width) {
-    //padding: 0 24px;
-  }
 }
 
 .float-content__aside-layout {

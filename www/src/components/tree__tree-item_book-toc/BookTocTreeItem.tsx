@@ -38,6 +38,8 @@ export const BookTocTreeItem: FC<IBookTocTreeItemProps> = observer( ( { bookTocT
   let { id, isCollapse, index: firstLevelIndex, data } = bookTocTreeNode;
   let { section, title, path: firstLevelPath, subtitles } = data;
 
+
+
   return (
     <BookTocFirstLevelTreeItem key={`${firstLevelIndex}`}
                                id={ id }
@@ -113,7 +115,7 @@ export const BookTocFirstLevelTreeItem: FC<IBookTocFirstLevelTreeItemProps> = ob
         </div>
 
         <div className="toc__center-section">
-          <Link className="toc__gatsby-link" to={`/${relativePath}`}>{title}</Link>
+          <Link className="toc__gatsby-link" to={`/${path}`}>{title}</Link>
         </div>
 
         <div className="toc__right-section">
@@ -184,7 +186,7 @@ export const BookTocSecondLevelTreeItem: FC<IBookTocSecondLevelTreeItemProps> = 
       </div>
 
       <div className="toc__center-section">
-        <Link className="toc__gatsby-link" to={`/${relativePath}`}>{title}</Link>
+        <Link className="toc__gatsby-link" to={`/${path}`}>{title}</Link>
       </div>
 
       <div className="toc__right-section">

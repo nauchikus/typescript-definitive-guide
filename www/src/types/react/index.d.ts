@@ -5,7 +5,7 @@ declare module 'react' {
   interface HTMLAttributes<T> extends AriaAttributes, DOMAttributes<T> {
     // extends React's HTMLAttributes
     state?: string;
-    toggle?: boolean;
+    toggle?: "true"|"false";
     filter?: string;
     ['toggle-state']?: string;
     [`is-match`]?: string;

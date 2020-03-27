@@ -1,27 +1,26 @@
 import React, { FC } from "react";
 import { DropdownToggle } from "../dropdown/DropdownToggle";
 import { IconButton } from "../icon-button/IconButton";
-import { MenuAnimatedCssIcon } from "../menu-animated-css-icon/MenuAnimatedCssIcon";
 import { GithubAppMenuButton, PdfAppMenuButton, TelegramAppMenuButton } from "../app-menu-buttons/app-menu-buttons";
 import { Dropdown } from "../dropdown/Dropdown";
-import { useShareStores } from "../../mobx";
 import { DropdownMenu } from "../dropdown/DropdownMenu";
 import { ThreeDotsAnimatedCssIcon } from "../icon__css-icon__three-dots-animated-css-icon/ThreeDotsAnimatedCssIcon";
 import { observer } from "mobx-react-lite";
+import { useAppMenuToggle } from "../../stores/mobx-entry__shared-stores";
 
 interface IAppBarProps {
 }
 
 export const AppBar: FC<IAppBarProps> = observer(( {} ) => {
-  let { appStore } = useShareStores();
+  let appMenuToggle = useAppMenuToggle();
 
-  const menuDropdownToggle = () => appStore.menuToggle.toggle();
+  const menuDropdownToggle = () => appMenuToggle.toggle();
 
   return (
     <Dropdown className="app-bar-dropdown" onOutsideClick={menuDropdownToggle}>
       <DropdownToggle className="app-bar-dropdown__toggle">
         <IconButton onClick={ menuDropdownToggle }>
-          <ThreeDotsAnimatedCssIcon state={ appStore.menuToggle.state }/>
+          <ThreeDotsAnimatedCssIcon state={ appMenuToggle.state }/>
         </IconButton>
       </DropdownToggle>
       <DropdownMenu className="app-bar-dropdown__menu"

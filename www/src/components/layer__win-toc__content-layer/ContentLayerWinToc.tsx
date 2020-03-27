@@ -30,7 +30,7 @@ export const ContentLayerWinToc: FC<IContentLayerWinTocProps> = ( {} ) => {
 
 
   return(
-    <main className="content win-toc-content">
+    <main className="content content-without-control win-toc-content">
       {winTocTree}
     </main>
   );

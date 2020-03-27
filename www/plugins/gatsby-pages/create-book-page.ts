@@ -103,14 +103,13 @@ export const createPages: GatsbyCreatePages<IIndexCreatePageOptions> = async ( h
     // let bookToc: IBookTocWithContentNode[] = toc.map( async (chapter,index) => {
     let bookChapterPageContentPromiseAll = toc.filter((item,index)=>index===0).map( async (chapter,index) => {
         let chapterEscapedName = StringUtils.escapeString( chapter.title );
+        let chapterEscapedPath = toPath( chapterEscapedName );
         let chapterGithubName = createBookChapterName( {
             index,
             sectionName: chapter.section,
             chapterName: chapter.title
         } );
         let chapterEscapedGithubName = StringUtils.escapeString( chapterGithubName );
-
-
 
 
         let bookChapterFileOnGithubHtmlContentDataProvider = new BookChapterFileOnGithubHtmlContentDataProvider( graphql )
@@ -153,7 +152,7 @@ export const createPages: GatsbyCreatePages<IIndexCreatePageOptions> = async ( h
         };
 
         await createPage( {
-            path: RouterUtils.bookRoutes.getBookRoute( { locale, chapterName:chapterEscapedName } ),
+            path: RouterUtils.bookRoutes.getBookRoute( { locale, chapterName:chapterEscapedPath } ),
             component: path.resolve( __dirname, '../../src/page-templates/book-page/BookPageProvider.tsx' ),
             context: {
                 locale,
@@ -165,143 +164,6 @@ export const createPages: GatsbyCreatePages<IIndexCreatePageOptions> = async ( h
         } );
     }  );
 
-
-    /////////
-    // let { actions: { createPage }, getNodesByType, graphql } = helpers;
-    // let { locale } = options;
-    //
-    //
-    // let [{ localization }] = getNodesByType<IAppLocalization>( CustomGatsbyNodeType.AppLocalization )
-    //   .filter( node => node.locale === locale );
-    // let [{ toc: winToc }] = getNodesByType<IWhatIsNewTocGatsbyNode>( CustomGatsbyNodeType.BookTocSource );
-    //
-    // let winTocTree: TreeNode<IWhatIsNewToc>[] = winToc.map( ( node, index ) => ( {
-    //     id: index.toString(),
-    //     isCollapse: false,
-    //     index,
-    //     data: node
-    // } ) );
-    //
-    //
-    // let pageNavDataAll = winTocToPageNav( winToc );
-    //
-    // let winPagePromiseAll = winToc.map( async ( winTocItem ) => {
-    //     let { innovations, ...innovationInfo } = winTocItem;
-    //     let versionMMP = new Version( innovationInfo.releaseHistory[ 0 ].version ).mmp;
-    //     let innovationVersionMMP = StringUtils.escapeString( versionMMP );
-    //
-    //
-    //     let innovationDataPromiseAll = innovations.map( async ( innovation ) => {
-    //         let innovationName = StringUtils.escapeString( innovation.innovationName );
-    //         // let innovationContentHtmlGraphQlResponse = await graphql<IGetWinContentHtmlResponse, { regexp: string; }>(
-    //         //   getWhatIsNewContentHtmlRequest(),
-    //         //   { regexp: `/.*/what-is-new/${ innovationVersionMMP }/${ innovationName }/content\\.md/` }
-    //         // );
-    //
-    //         let graphqlResponseAll = await Promise.all( [
-    //             graphql<IGetWinContentHtmlResponse, { regexp: string; }>(
-    //               getWhatIsNewContentHtmlRequest(),
-    //               { regexp: `/.*/what-is-new/${ innovationVersionMMP }/${ innovationName }/content\\.md/` }
-    //             ),
-    //             graphql<IGetGithubCommitHistoryResponse, { path: string; }>(
-    //               getGithubCommitHistoryQuery(),
-    //               { path: createWinFileOnGithubPath( { versionMMP, innovationName: innovation.innovationName } ) }
-    //             )
-    //             // graphql<IGetGithubCommitHistoryResponse, { path: string; }>(
-    //             //   getGithubCommitHistoryQuery(),
-    //             //   { path: createWinFileOnGithubPath({versionMMP, innovationName:innovation.innovationName}) }
-    //             // )
-    //         ] );
-    //
-    //         let [
-    //             innovationContentHtmlGraphQlResponse,
-    //             githubCommitHistoryGraphQlResponse
-    //
-    //         ] = graphqlResponseAll;
-    //
-    //         // console.log(fileOnGithubHistoryInfoGraphQlResponse);
-    //
-    //         if ( innovationContentHtmlGraphQlResponse.errors ) {
-    //             console.log( innovationContentHtmlGraphQlResponse.errors );
-    //         }
-    //
-    //         if ( !innovationContentHtmlGraphQlResponse.data?.markdownRemark ) {
-    //             throw new Error( `Innovation for version "${ versionMMP }" with name "${ innovation.innovationName }" not exists.` );
-    //         }
-    //
-    //
-    //         let innovationContentHtml = innovationContentHtmlGraphQlResponse.data?.markdownRemark.html;
-    //
-    //         let commitHistoryAll = githubCommitHistoryGraphQlResponse?.data?.github.repository.ref.target.history.commits;
-    //         let uniqueCommitterMap = commitHistoryAll?.reduceRight( ( map, commitInfo ) => {
-    //             return map.set( commitInfo.committer.name, commitInfo );
-    //         }, new Map<string, ICommitHistory>() );
-    //         let commitInfoAll = await Promise.all( Array.from( uniqueCommitterMap?.values() ?? [] ).map( async commitInfo => {
-    //             let githubUserResponse = await graphql<IGetGithubUserResponse, { userName: string; }>(
-    //               getGithubUserQuery(),
-    //               { userName: commitInfo.committer.name }
-    //             );
-    //
-    //             let committerData = githubUserResponse?.data?.github.search.edges[ 0 ].node;
-    //
-    //             if ( !committerData ) {
-    //                 throw new Error( `Data about committer with name: "${ commitInfo.committer.name }" not found.` );
-    //             }
-    //
-    //             let { committer, ...commitData } = commitInfo;
-    //             let result = {
-    //                 ...commitData,
-    //                 committer: committerData
-    //             };
-    //
-    //
-    //             return result;
-    //         } ) );
-    //         let fileOnGithubLink = createEditeWinFileOnGithubLink( { versionMMP, innovationName } );
-    //
-    //
-    //         let innovationData = {
-    //             ...innovation,
-    //             html: innovationContentHtml,
-    //             commitInfoAll,
-    //             fileOnGithubLink,
-    //         };
-    //
-    //         return innovationData;
-    //     } );
-    //
-    //
-    //     let innovationDataAll = await Promise.all( innovationDataPromiseAll );
-    //     let innovationData = {
-    //         ...innovationInfo,
-    //         innovations: innovationDataAll
-    //     };
-    //
-    //
-    //
-    //     await createPage( {
-    //         path: RouterUtils.whatIsNewRoutes.getWhatIsNewRoute( { version: versionMMP } ),
-    //         component: path.resolve( __dirname, "../../src/page-templates/what-is-new-page/WhatIsNewPageProvider.tsx" ),
-    //         context: {
-    //             locale,
-    //             localization,
-    //             innovationData,
-    //             winTocTree,
-    //             pageNavDataAll,
-    //         }
-    //     } );
-    // } );
-    //
-    // await Promise.all( winPagePromiseAll );
-    /////////
-
-    //
-
-
-    // let [{ localization }] = getNodesByType<IAppLocalization>( CustomGatsbyNodeType.AppLocalization )
-    //     .filter( node => node.locale === locale );
-
-    // let chapterName = 'first';
 
 
     return Promise.all( bookChapterPageContentPromiseAll );

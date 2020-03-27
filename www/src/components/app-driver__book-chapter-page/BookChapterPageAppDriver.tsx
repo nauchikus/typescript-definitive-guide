@@ -8,19 +8,18 @@ import { useBookChapterStores } from "../../stores/mobx-entry__book";
 import { IPageNavSection } from "../../types/IPageNavData";
 import { observer } from "mobx-react-lite";
 import { useRouter } from "../../stores/RouterStore";
+import { AppNavSectionAppDriver } from "../app-driver__nav-section_app-nav/AppNavSectionAppDriver";
+import { ContentNavSectionAppDriver } from "../app-driver__nav-section_page-nav/ContentNavSectionAppDriver";
 
 interface IBookChapterPageAppDriverProps {
 }
 
 
 export const BookChapterPageAppDriver: FC<IBookChapterPageAppDriverProps> = observer( ( {} ) => {
-  let [appNavigationAll] = useTranslator<[AppNavigationLocalization]>( LocalizationPaths.AppNavigation );
   let router = useRouter();
   let { contentSection, contentNav } = useBookChapterStores();
 
 
-  const hasAppNavLinkActive = ( href: string ) =>
-    router.pathname === href;
   const hasPageNavLinkActive = ( href: string, anchor: string ) =>
     anchor === contentSection.currentSectionId;
 
@@ -29,13 +28,6 @@ export const BookChapterPageAppDriver: FC<IBookChapterPageAppDriverProps> = obse
   //   throw new Error( "Innovation not found" );
   // }
 
-
-  let appNavLinkDataAll = appNavigationAll.map( ( { name, path }, index ) => ( {
-    name,
-    path,
-    isActive: hasAppNavLinkActive( path ),
-    activeClassName: "app-driver__link_active"
-  } ) );
 
   ///TODO:[refactoring][remove][(remove first map)]
   let contentNavLinkDataAll = contentNav.sectionAll
@@ -54,8 +46,8 @@ export const BookChapterPageAppDriver: FC<IBookChapterPageAppDriverProps> = obse
 
   return (
     <AppDriver>
-      <PageWithContentNavAppDriver appNavLinkDataAll={ appNavLinkDataAll }
-                                   contentNavLinkDataAll={ contentNavLinkDataAll }/>
+      <AppNavSectionAppDriver/>
+      <ContentNavSectionAppDriver contentNavLinkDataAll={contentNavLinkDataAll}/>
       <FooterAppDriver/>
     </AppDriver>
   );

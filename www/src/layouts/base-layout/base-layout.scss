@@ -1,9 +1,6 @@
-// cdn dependencies
-@import url(https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css);
-@import url(https://fonts.googleapis.com/css?family=Roboto&display=swap&subset=cyrillic);
+@import"../../styles__dll/shared_all";
 
-
-//@import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
+@import "base-layout.grid";
 
 @import "../../styles/clean-native-style";
 @import "../../styles/list";

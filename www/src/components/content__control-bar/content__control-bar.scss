@@ -1,11 +1,11 @@
-@import "../../styles/css-vars";
+@import "../../styles/app-vars";
 
 $content-layer_padding-left_xs:24px;
 $control-bar_border-bottom_offset-right:16px;
 
 ///TODO:[refactor][first] replace --win-content_padding_x to --win-content_padding_[left & right | horizontal]
-.content__control-bar{
-  max-width: 608px;///TODO[refactor][]
+.content__control-bar {
+  max-width: 608px; ///TODO[refactor][]
   width: 100%;
 
   background-color: var(--app_base-color);
@@ -28,13 +28,20 @@ $control-bar_border-bottom_offset-right:16px;
 
     position: absolute;
     left: 24px;
-    right:24px;
+    right: 24px;
     bottom: 0;
 
-    @media all and (min-width: #{$app-content_media_xs}){
-      left:0;
-      right:0;
+    @media all and (min-width: #{$app-content_media_xs}) {
+      left: 0;
+      right: 0;
     }
+
+  }
+
+
+  @media all and (max-width: #{$app-content_media_xs}) {
+    padding-left: 24px;
+    padding-right: 12px;
 
   }
 }
