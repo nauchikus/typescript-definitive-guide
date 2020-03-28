@@ -1,6 +1,7 @@
 import { navigate } from "gatsby";
 import { observable, autorun, decorate, computed, action } from "mobx";
 import { createContext, useContext } from "react";
+import * as StringUtils from "../utils/string-utils";
 
 export type LocationPartial =Pick<Location,"pathname"|"hash"|"origin"|"search">;
 
@@ -201,7 +202,7 @@ export class RouterStore{
     if ( anchor || this.anchor ) {
       document
         .querySelector( `main` )
-        ?.querySelector( `section#${ anchor ?? this.anchor }` )
+        ?.querySelector( `section#${ StringUtils.escapeString(anchor ?? this.anchor) }` )
         ?.scrollIntoView();
     }
   }

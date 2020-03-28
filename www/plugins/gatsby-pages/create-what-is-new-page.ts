@@ -28,20 +28,24 @@ interface IAppLocalization {
 
 
 const winTocToPageNav = ( winToc: IWhatIsNewToc[] ) =>
-  winToc.map( winTocItem => ( {
-      name: new Version(winTocItem.releaseHistory[0].version).mmp,
-      path: ``,
+  winToc.map( winTocItem => {
+      let version = new Version( winTocItem.releaseHistory[ 0 ].version );
 
-      sections: winTocItem.innovations
-        .map( innovation => ( {
-            name: innovation.innovationName,
-            path: innovation.path,
-            data:{
-                version: innovation.version
-            }
-        } ) )
 
-  } ) );
+      return {
+          name: version.mmp,
+          path: StringUtils.toPath( version.mmp ),
+
+          sections: winTocItem.innovations
+            .map( innovation => ( {
+                name: innovation.innovationName,
+                path: innovation.path,
+                data: {
+                    version: innovation.version
+                }
+            } ) )
+      };
+  }  );
 
 
 interface ICreateWinFileOnGithubPathParams {

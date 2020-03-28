@@ -75,7 +75,7 @@ export class PageNavTreeCreator {
     return result;
   };
 
-  static createPageNavTree = <TNodeData = null,TLeafData=null> ( pageNavDataAll: IPageNavNode<IPageNavLeaf<TLeafData>,TNodeData>[] ):IPageNavPage<TNodeData,TLeafData>[] =>
+  static createPageNavTree = <TNodeData = null, TLeafData = null> ( pageNavDataAll: IPageNavNode<IPageNavLeaf<TLeafData>, TNodeData>[] ): IPageNavPage<TNodeData, TLeafData>[] =>
     pageNavDataAll.map( ( data, index, array ) =>
       PageNavTreeCreator.createPageNavPage( {
         prevNode: array[ index - 1 ],

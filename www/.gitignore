@@ -68,5 +68,3 @@ yarn-error.log
 # Yarn Integrity file
 .yarn-integrity
 
-www/.env.development
-.env.development

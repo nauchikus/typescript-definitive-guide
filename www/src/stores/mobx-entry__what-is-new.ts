@@ -60,6 +60,7 @@ export const createWhatIsNewMobxEntry = ({innovationData,versionInfoAll,initialC
     versionFilter,
     contentSection
   } );
+  pageNavDataAll.forEach( data => console.log( data ) );
   let contentNav = ContentNavStore.create( {
     pageNav,
     router,

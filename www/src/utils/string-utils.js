@@ -28,14 +28,15 @@ function translitRusToEng ( str ) {
   }
 
   return n_str.join( "" )
-              .replace( /[!\W|_]/g, " " )
-              .replace( / {2,}/g, " " )
-              .replace( /\s/g, "-" )
-              .replace( /^-|-$/g, "" );
+              // .replace( /[!\W|_]/g, " " )
+              // .replace( / {2,}/g, " " )
+              // .replace( /\s/g, "-" )
+              // .replace( /^-|-$/g, "" );
 }
 
 const chapterHeadingToPath = ( chapterHeading ) => {
-  return fixedEncodeURIComponent( toPath( chapterHeading ) );
+  return toPath( chapterHeading );
+  // return fixedEncodeURIComponent( toPath( chapterHeading ) );
 };
 /**
  *
@@ -43,14 +44,37 @@ const chapterHeadingToPath = ( chapterHeading ) => {
  * @returns {string}
  */
 const escapeString = ( text ) => text.replace( /[(){}\[\]|^$.*+!?]/g, `\\$&` );
-// const escapeString = fixedEncodeURIComponent
+const normalizeSpace = ( text ) => text.replace( / {2,}/g, " " );
+/**
+ *
+ * @param {string} text
+ * @param {string} symbol @default -
+ * @returns {string}
+ */
+const spaceToSymbol = ( text, symbol = `-` ) => text.replace( /\s/g, "-" );
+const noWordToSpace = ( text ) => text.replace( /[!\W|_]/g, " " );
+/**
+ *
+ * @param {string} path
+ * @returns {string}
+ */
+const normalizePath = ( path ) => [
+  spaceToSymbol
+].reduce( ( result, current ) => current( result ), path );
 const toFirstCharUpperCase = ( text ) => text[ 0 ].toLocaleUpperCase() + text.substring( 1 );
 const generateIndex = ( index, length = 1, symbol = "0" ) => symbol
   .repeat( length - String( index ).length )
   .concat( index );
 
-const toPath = name => translitRusToEng( name ).toLowerCase();
-
+const pathTransformerAll = [
+  translitRusToEng,
+  normalizeSpace,
+  path => path.trim().toLowerCase(),
+  // noWordToSpace,
+  spaceToSymbol
+];
+const toPath = name => pathTransformerAll
+  .reduce((result,current)=>current(result),name);
 const generateStringId = ( ( length = 6, count = -1 ) => () =>
     "0".repeat( length - ( count++ ).toString().length ).concat( count.toString() )
 )();

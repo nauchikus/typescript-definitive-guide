@@ -4,6 +4,8 @@
   width: 100%;
   height: 100%;
 
+  background-color:rgba(10, 43, 104,.8);
+
   border-width: 1px;
   border-style: solid;
   border-color: var(--color_dark_80);
@@ -31,7 +33,7 @@
 
   margin-bottom: 16px;
 }
-.watch-with-telegram-informer__text_primary{
+.watch-with-telegram-informer__text_primary {
   color: white;
   font-weight: bold;
 

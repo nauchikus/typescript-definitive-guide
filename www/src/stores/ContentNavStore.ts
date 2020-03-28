@@ -46,6 +46,11 @@ export class ContentNavStore<TNodeData,TLeafData> {
   }
 
   goPrevPage () {
+    console.log(
+      JSON.stringify(this.pageNav.pageItem),
+      `${ this.router.basepath }/${ this.pageItem.prevPage?.path }`,
+      `${ this.router.basepath }/${ this.pageItem.nextPage?.path }`
+    );
     this.pageItem.prevPage && this.router.goTo(
       `${ this.router.basepath }/${ this.pageItem.prevPage.path }`
     );

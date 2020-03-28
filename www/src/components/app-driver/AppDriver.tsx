@@ -9,7 +9,7 @@ interface IAppDriverProps {
 export const AppDriver: FC<IAppDriverProps> = ( { children } ) => {
   let appDriverRef = useRef<HTMLDivElement|null>(null);
   let scrollCallbackRef = useRef<ScrollProviderCallback>(({x=0,y=0})=>{
-    // appDriverRef.current?.scrollTo( x, y );
+    appDriverRef.current?.scrollTo( x, y );
   });
 
   return (

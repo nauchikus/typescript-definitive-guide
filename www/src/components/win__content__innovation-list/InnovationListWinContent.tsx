@@ -19,17 +19,9 @@ export const InnovationListWinContent: FC<IInnovationListWinContentProps> = obse
 
   let {
     versionFilter,
-    contentIntersectionObserver,
-    router
   } = useWhatIsNewStores();
   let winContentData=useWinPageContentData();
 
-  // useLayoutEffect( () => {
-  //   router.scrollToAnchor();
-  //   contentIntersectionObserver.init();
-  //
-  //   return () => contentIntersectionObserver.destroy();
-  // }, [] );
 
 
 

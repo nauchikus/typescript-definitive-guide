@@ -2,6 +2,23 @@ require( "dotenv" ).config( {
   path: `.env.${ process.env.NODE_ENV }`,
 } )
 
+
+const githubNodeEnvValid = () => {
+  if ( !process.env.GITHUB_TOKEN ) {
+    throw new Error(`GITHUB_TOKEN must be specified`)
+  }
+  if ( !process.env.REPOSITORY_OWNER ) {
+    throw new Error(`REPOSITORY_OWNER must be specified`)
+  }
+  if ( !process.env.REPOSITORY_BRANCH ) {
+    throw new Error(`REPOSITORY_BRANCH must be specified`)
+  }
+};
+
+//1da6274c3f44595b2c3a307921528b2f9b8a3066
+
+githubNodeEnvValid();
+
 const path = require( 'path' );
 const { CustomGatsbyNodeType } = require( './plugins/gatsby-node-types' );
 const { FilesystemSourceName } = require( './plugins/filesystem-gatsby-node-types' );
