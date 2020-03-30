@@ -1,0 +1,9 @@
+<p>Начиная с версии <em>es6</em> метод <code class="inline-code">Object.keys</code> при передави в качестве аргументов значения не принадлежащему к типу <code class="inline-code">object</code> возвращает пустой массив. Тем не менее в аналогичной ситуации в версии <em>es5</em> возникает исключение. Поэтому начиная с версии <em>v3.5</em> поведение для метода <code class="inline-code">Object.keys</code> при передачи в него аргументов не совместымых с типом <code class="inline-code">object</code> было изменено.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-comment">/**
+ * tsconfig.json
+ * "target": "es5" or\and "lib": ["es5"]
+ * 
+ * v&#x3C;3.5 is Ok, let keys: string[]
+ * v>=3.5 is Error
+ */</span>
+<span class="hljs-keyword">let</span> keys = <span class="hljs-built_in">Object</span>.keys(<span class="hljs-number">50</span>);</code></pre>

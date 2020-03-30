@@ -1,0 +1,60 @@
+<p>Поскольку современную разработку на языке <em>JavaScript</em> сложно представить без таких конструкций как <code class="inline-code">Promise</code>, которые выглядят намного привлекательней при использовании совместно с таким механизмом активирующимся при помощи ключевого слова <code class="inline-code">await</code>. Но правилами установлено, что ключевое слово <code class="inline-code">await</code> должно указываться исключительно в функциях объявленных с использованием ключевого слова <code class="inline-code">async</code>. Это в свою очередь, в некоторых случаях вынуждало разработчиков объявлять нетребующиеся им функции.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-comment">/**
+ * Применение ключевого слова await
+ * требует объявления функции в которой
+ * появляется потребность исключительно
+ * из-за необходимости в ключевом слове async
+ */</span>
+
+<span class="hljs-keyword">const</span> run = <span class="hljs-keyword">async</span> () => {
+    <span class="hljs-keyword">let</span> hello = <span class="hljs-keyword">await</span> <span class="hljs-built_in">Promise</span>.resolve(<span class="hljs-string">`Hello`</span>);
+    <span class="hljs-keyword">let</span> world = <span class="hljs-keyword">await</span> <span class="hljs-built_in">Promise</span>.resolve(<span class="hljs-string">`World`</span>);
+    
+    
+    <span class="hljs-keyword">return</span> <span class="hljs-string">`<span class="hljs-subst">${hello}</span> <span class="hljs-subst">${world}</span>!`</span>
+};
+
+run().then(<span class="hljs-function"><span class="hljs-params">greeting</span>=></span> <span class="hljs-built_in">console</span>.log(greeting));</code></pre>
+<p>Создатели спецификации <em>ECMScript</em> обратили на это внимание и добавили в неё такой механизм, как <code class="inline-code">await</code> высшего уровня (<em>top-level await</em>). <code class="inline-code">await</code> высшего уровня позволяет избавится от нетребующейся функции.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-comment">// @file index.ts</span>
+
+<span class="hljs-comment">/**
+ * Внимание, псевдо код!
+ * Данный код находящийся
+ * в файле index.ts не считается
+ * модулем. Объяснение дается далее
+ * по содержанию. 
+ */</span>
+
+<span class="hljs-keyword">let</span> hello = <span class="hljs-keyword">await</span> <span class="hljs-built_in">Promise</span>.resolve(<span class="hljs-string">`Hello`</span>);
+<span class="hljs-keyword">let</span> world = <span class="hljs-keyword">await</span> <span class="hljs-built_in">Promise</span>.resolve(<span class="hljs-string">`World`</span>);
+
+<span class="hljs-keyword">let</span> greeting = <span class="hljs-string">`<span class="hljs-subst">${hello}</span> <span class="hljs-subst">${world}</span>!`</span>;
+
+<span class="hljs-built_in">console</span>.log(greeting);</code></pre>
+<p>Единственное стоит всегда помнить, что высшим уровнем считается модуль, а файл в <em>TypeScript</em> считается модулем тогда, когда включает в себя хотя бы одно упоминания импорта или экспорта. Поэтому не исключено что в особых случаях появится необходимость приведения к модулю.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-comment">// @file gtreeting-utils.ts</span>
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> toMessage = <span class="hljs-function">(<span class="hljs-params">hello:<span class="hljs-built_in">string</span>,world:<span class="hljs-built_in">string</span></span>) =></span> 
+    <span class="hljs-string">`<span class="hljs-subst">${hello}</span> <span class="hljs-subst">${world}</span>!`</span>;</code></pre>
+<pre><code class="hljs language-typescript"><span class="hljs-comment">// пример с import</span>
+
+<span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> GreetingUtils <span class="hljs-keyword">from</span> <span class="hljs-string">"./greeting-utils"</span>;
+
+<span class="hljs-keyword">let</span> hello = <span class="hljs-keyword">await</span> <span class="hljs-built_in">Promise</span>.resolve(<span class="hljs-string">`Hello`</span>);
+<span class="hljs-keyword">let</span> world = <span class="hljs-keyword">await</span> <span class="hljs-built_in">Promise</span>.resolve(<span class="hljs-string">`World`</span>);
+
+<span class="hljs-keyword">let</span> greeting = GreetingUtils.toMessage(hello, world);
+
+<span class="hljs-built_in">console</span>.log(greeting);</code></pre>
+<pre><code class="hljs language-typescript"><span class="hljs-comment">// пример с пустым экспортом</span>
+
+<span class="hljs-keyword">let</span> hello = <span class="hljs-keyword">await</span> <span class="hljs-built_in">Promise</span>.resolve(<span class="hljs-string">`Hello`</span>);
+<span class="hljs-keyword">let</span> world = <span class="hljs-keyword">await</span> <span class="hljs-built_in">Promise</span>.resolve(<span class="hljs-string">`World`</span>);
+
+<span class="hljs-keyword">let</span> greeting = <span class="hljs-string">`<span class="hljs-subst">${hello}</span> <span class="hljs-subst">${world}</span>!`</span>;
+
+<span class="hljs-built_in">console</span>.log(greeting);
+
+<span class="hljs-keyword">export</span> {};</code></pre>
+<p>Кроме того поддержка <code class="inline-code">await</code> высшего уровня становится доступной при компиляции в версию начиная с <code class="inline-code">es2017</code>, а в качестве модулей выбрано <code class="inline-code">esnext</code> или <code class="inline-code">system</code>.</p>

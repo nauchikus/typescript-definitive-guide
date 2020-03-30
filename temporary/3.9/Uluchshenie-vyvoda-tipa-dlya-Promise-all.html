@@ -1,0 +1,39 @@
+<p>В последних версиях <em>TypeScript</em> (начиная с версии <code class="inline-code">3.7</code>) были обновлены декларации для таких методов как <code class="inline-code">Promise.all</code> и <code class="inline-code">Promise.race</code>. Но к сожалению это привело к неожиданным результатам в работе вывода типа, что более всего стало очевидно если в выводе учавствуют <code class="inline-code">null</code> или <code class="inline-code">undefined</code>.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">interface</span> Foodstuff{
+    isExpirationDate():<span class="hljs-built_in">boolean</span>;
+}
+<span class="hljs-keyword">interface</span> Milk <span class="hljs-keyword">extends</span> Foodstuff {
+}
+<span class="hljs-keyword">interface</span> Coffee <span class="hljs-keyword">extends</span> Foodstuff {
+}
+
+<span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">factory</span>(<span class="hljs-params">milkOrder: <span class="hljs-built_in">Promise</span>&#x3C;Milk>, coffeeOrder: <span class="hljs-built_in">Promise</span>&#x3C;Coffee | <span class="hljs-literal">undefined</span>></span>) </span>{
+    <span class="hljs-keyword">let</span> [milk, coffee] = <span class="hljs-keyword">await</span> <span class="hljs-built_in">Promise</span>.all([milkOrder, coffeeOrder]);
+    
+    <span class="hljs-comment">/**
+     * [error] Object is possibly 'undefined'.
+     * [сейчас] let milk: Milk | undefined
+     * [должно] let milk: Milk
+     * 
+     * [ERROR] Ошибочное поведение!
+     */</span>
+    milk.isExpirationDate();
+    <span class="hljs-comment">/**
+     * [error] Object is possibly 'undefined'.
+     * [сейчас] let milk: Coffee | undefined
+     * 
+     * [Ok] Ожидаемое\правильное поведение!
+     */</span>
+    coffee.isExpirationDate();
+
+}</code></pre>
+<p>Поскольку данное поведение ошибочно, начиная с версии <code class="inline-code">3.9</code> оно было исправленно должным образом.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-comment">// ...</span>
+
+<span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">factory</span>(<span class="hljs-params">milkOrder: <span class="hljs-built_in">Promise</span>&#x3C;Milk>, coffeeOrder: <span class="hljs-built_in">Promise</span>&#x3C;Coffee | <span class="hljs-literal">undefined</span>></span>) </span>{
+    <span class="hljs-keyword">let</span> [milk, coffee] = <span class="hljs-keyword">await</span> <span class="hljs-built_in">Promise</span>.all([milkOrder, coffeeOrder]);
+    
+    milk.isExpirationDate(); <span class="hljs-comment">// Ok! let milk: Milk</span>
+    coffee.isExpirationDate(); <span class="hljs-comment">// Error! let coffee: Coffee | undefined</span>
+
+}</code></pre>

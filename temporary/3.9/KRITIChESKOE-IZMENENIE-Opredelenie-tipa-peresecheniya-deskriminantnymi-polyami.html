@@ -1,0 +1,45 @@
+<p>До версии <code class="inline-code">3.9</code> сужение на основе дескиминантных полей определяющих тип пересечение (<code class="inline-code">Intersection</code>) определяло такие поля, как принадлежащие к типу <code class="inline-code">never</code>.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">declare</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">join</span>&#x3C;<span class="hljs-title">T</span>, <span class="hljs-title">U</span>>(<span class="hljs-params">a: T, b: U</span>): <span class="hljs-title">T</span> &#x26; <span class="hljs-title">U</span></span>;
+
+
+<span class="hljs-keyword">interface</span> NameInfo {
+    <span class="hljs-keyword">type</span>: <span class="hljs-string">"name"</span>;
+
+    firstName: <span class="hljs-built_in">string</span>;
+    lastName: <span class="hljs-built_in">string</span>;
+}
+<span class="hljs-keyword">interface</span> AddressInfo {
+    <span class="hljs-keyword">type</span>: <span class="hljs-string">"address"</span>;
+
+    country:<span class="hljs-built_in">string</span>;
+    city: <span class="hljs-built_in">string</span>;
+}
+
+
+<span class="hljs-keyword">declare</span> <span class="hljs-keyword">let</span> nameInfo: NameInfo;
+<span class="hljs-keyword">declare</span> <span class="hljs-keyword">let</span> addressInfo: AddressInfo;
+
+<span class="hljs-comment">/**
+ * let person: NameInfo &#x26; AddressInfo
+ */</span>
+<span class="hljs-keyword">let</span> person = join(nameInfo, addressInfo);
+
+<span class="hljs-comment">/**
+ * Ok, До версии 3.9
+ */</span>
+person.type; <span class="hljs-comment">// (property) type: never</span></code></pre>
+<p>Поскольку на практике потеря информации о типах полей недопустима начиная с текущей версии вывод типов определит как тип <code class="inline-code">never</code> не дескриминантные поля, а сам тип пересечения.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-comment">// ...код</span>
+
+
+<span class="hljs-comment">/**
+ * let person: never
+ */</span>
+<span class="hljs-keyword">let</span> person = join(nameInfo, addressInfo);
+
+<span class="hljs-comment">/**
+ * Error, Начиная с версии 3.9 -
+ * 
+ * Property 'type' does not exist on type 'never'.
+ */</span>
+person.type; <span class="hljs-comment">// (property) type: never</span></code></pre>

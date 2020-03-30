@@ -1,0 +1,47 @@
+<p>Оптимольно организовать наблюдение за файловой системой дело довольно не простое поскольку ресурсоемкость и энергозатратность сильно зависит как от <em>api</em> платформы, так и от предоставляемых различными библиотеками деклараций. И это не удивительно, ведь ОС по разному реализуют процесс наблюдения и тем самым затрудняют поддержание актуальности при интенсивном изменении отслежываемых файлов. И кроме того, только задумайтесь, сколько пакетов в директории <em>node_modules</em> и каково суммарное количество строк предоставляемых ими деклараций <em>.d.ts</em>?</p>
+<p>Поэтому перед разработчиками <em>TypeScript</em> всегда остро стояла задача максимально оптимизировать этот процесс. Как следствие в конфигурационном файле <em>tsconfig.json</em> появилась новая группа для конфигурирования <code class="inline-code">watchOptions</code> позволяющая выбрать оптимальную стратегию в зависимости от самого проекта.</p>
+<pre><code class="hljs language-json"><span class="hljs-comment">// tsconfig.json</span>
+
+{
+    <span class="hljs-attr">"compilerOptions"</span>: {},
+    <span class="hljs-comment">// новое поле</span>
+    <span class="hljs-attr">"watchOptions"</span>: {
+
+    }
+}</code></pre>
+<p>Так новая группа реализует четыре параметра - <code class="inline-code">watchFile</code>, <code class="inline-code">watchDirectory</code>, <code class="inline-code">fallbackPolling</code> и <code class="inline-code">synchronousWatchDirectory</code>.</p>
+<pre><code class="hljs language-json"><span class="hljs-comment">// tsconfig.json</span>
+
+{
+    <span class="hljs-attr">"compilerOptions"</span>: {},
+    <span class="hljs-comment">// новое поле</span>
+    <span class="hljs-attr">"watchOptions"</span>: {
+        <span class="hljs-attr">"watchFile"</span>: <span class="hljs-string">"..."</span>,
+        <span class="hljs-attr">"watchDirectory"</span>: <span class="hljs-string">"..."</span>,
+        <span class="hljs-attr">"fallbackPolling"</span>: <span class="hljs-string">"..."</span>,
+        <span class="hljs-attr">"synchronousWatchDirectory"</span>: <span class="hljs-string">"..."</span>
+    }
+}</code></pre>
+<ul class="book__list">
+<li class="book__list__item"><code class="inline-code">watchFile</code>: стратегия наблюдения за отдельными файлами<ul class="book__list">
+<li class="book__list__item"><code class="inline-code">fixedPollingInterval</code>: Проверять каждый файл на наличие изменений несколько раз в секунду с фиксированным интервалом.</li>
+<li class="book__list__item"><code class="inline-code">priorityPollingInterval</code>: Проверяйть каждый файл на наличие изменений несколько раз в секунду, но использовать эвристику для проверки файлов определенных типов реже, чем других.</li>
+<li class="book__list__item"><code class="inline-code">dynamicPriorityPolling</code>: Использовать динамическую очередь, в которой менее часто изменяемые файлы будут проверяться реже.</li>
+<li class="book__list__item"><code class="inline-code">useFsEvents</code> [ПО УМОЛЧАНИЮ]: Пытаться использовать собственные события операционной системы / файловой системы для изменения файлов.</li>
+<li class="book__list__item"><code class="inline-code">useFsEventsOnParentDirectory</code>: Пытаться использовать собственные события операционной системы/файловой системы для прослушивания изменений в каталогах, содержащих файл. Это может использовать меньше файловых наблюдателей, но также быть менее точным.</li>
+</ul></li>
+<li class="book__list__item"><code class="inline-code">watchDirectory</code>: стратегия наблюдения за целыми деревьями каталогов в системах, в которых отсутствует рекурсивная функция наблюдения за файлами.<ul class="book__list">
+<li class="book__list__item"><code class="inline-code">fixedPollingInterval</code>: Проверять каждый каталог на наличие изменений несколько раз в секунду с фиксированным интервалом.</li>
+<li class="book__list__item"><code class="inline-code">dynamicPriorityPolling</code>: Использовать динамическую очередь, в которой менее часто изменяемые каталоги будут проверяться реже.</li>
+<li class="book__list__item"><code class="inline-code">useFsEvents</code>[ПО УМОЛЧАНИЮ]: Пытаться использовать собственные события операционной системы / файловой системы для изменений каталога.</li>
+</ul></li>
+<li class="book__list__item"><code class="inline-code">fallbackPolling</code>: при использовании событий файловой системы этот параметр определяет стратегию опроса, которая используется, когда в системе заканчиваются собственные наблюдатели файлов и / или не поддерживаются собственные средства простмотра файлов.<ul class="book__list">
+<li class="book__list__item"><code class="inline-code">fixedPollingInterval</code>: см выше.</li>
+<li class="book__list__item"><code class="inline-code">priorityPollingInterval</code>[ПО УМОЛЧАНИЮ]: см выше.</li>
+<li class="book__list__item"><code class="inline-code">dynamicPriorityPolling</code>: см выше.</li>
+</ul></li>
+<li class="book__list__item"><code class="inline-code">synchronousWatchDirectory</code>: Отключить отложенное наблюдение за каталогами.<ul class="book__list">
+<li class="book__list__item"><code class="inline-code">true</code></li>
+<li class="book__list__item"><code class="inline-code">false</code>[ПО УМОЛЧАНИЮ]</li>
+</ul></li>
+</ul>

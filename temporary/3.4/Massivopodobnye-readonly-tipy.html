@@ -1,0 +1,46 @@
+<p>Начиная с версии <code class="inline-code">v3.4</code>, в <em>TypeScript</em> появилась возможность объявлять <code class="inline-code">Массивоподобные readonly структуры</code> типы, к которым относятся массивы (<code class="inline-code">Array</code>) и кортежи (<code class="inline-code">Tuples</code>). Данный механизм призван защитить элементы массиовоподобных структур от изменения и тем самым повысить типобезопасность программ разрабатываемых на <em>TypeScript</em>. Элементы массивоподобных структур объявленных как <code class="inline-code">readonly</code> невозможно заменить или удалить. Кроме того, в подобные структуры невозможно добавить новые элементы.</p>
+<p>Для того чтобы объявить <code class="inline-code">readonly</code> массив или кортеж достаточно указать в сигнатуре типа модификатор <code class="inline-code">readonly</code>.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">let</span> array: readonly <span class="hljs-built_in">string</span>[ ] = [<span class="hljs-string">'Kent'</span>, <span class="hljs-string">'Clark'</span>]; <span class="hljs-comment">// Массив</span>
+<span class="hljs-keyword">let</span> tuple: readonly [<span class="hljs-built_in">string</span>, <span class="hljs-built_in">string</span>] = [<span class="hljs-string">'Kent'</span>, <span class="hljs-string">'Clark'</span>]; <span class="hljs-comment">// Кортеж</span></code></pre>
+<p>В случаи, объявления <code class="inline-code">readonly</code> массива, становится невозможно изменить его элементы с помощью индексной сигнатуры (<code class="inline-code">array[...]</code>) </p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">let</span> array: readonly <span class="hljs-built_in">string</span>[] = [<span class="hljs-string">'Kent'</span>, <span class="hljs-string">'Clark'</span>];
+array[<span class="hljs-number">0</span>] = <span class="hljs-string">'Wayne'</span>; <span class="hljs-comment">// Error, Index signature in type 'readonly number[]' only permits reading.ts(2542)</span>
+array[array.length] = <span class="hljs-string">'Batman'</span>; <span class="hljs-comment">// Error, Index signature in type 'readonly number[]' only permits reading.ts(2542)</span></code></pre>
+<p>Помимо этого, у <code class="inline-code">readonly</code> массива отсутствуют методы с помощью которым можно изменить элементы массива.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">let</span> array: readonly <span class="hljs-built_in">string</span>[] = [<span class="hljs-string">'Kent'</span>, <span class="hljs-string">'Clark'</span>];
+array.push(<span class="hljs-string">'Batman'</span>); <span class="hljs-comment">// Error, Property 'push' does not exist on type 'readonly number[]'.ts(2339)</span>
+array.shift(); <span class="hljs-comment">// Error, Property 'shift' does not exist on type 'readonly number[]'.ts(2339)</span>
+
+array.indexOf(<span class="hljs-string">'Kent'</span>); <span class="hljs-comment">// Ok</span>
+array.map( <span class="hljs-function"><span class="hljs-params">item</span> =></span> item ); <span class="hljs-comment">// Ok</span></code></pre>
+<p>С учетом погрешности на известные различия между массивом и кортежем, справедливо утверждать, что правила для <code class="inline-code">readonly</code> массива, справедливы и для <code class="inline-code">readonly</code> кортежа.</p>
+<p>Помимо того, что невозможно изменить или удалить слоты кортежа, он также теряет признаки массива, которые способны привести кего изменению.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">let</span> tuple: readonly [<span class="hljs-built_in">string</span>, <span class="hljs-built_in">string</span>] = [<span class="hljs-string">'Kent'</span>, <span class="hljs-string">'Clark'</span>];
+tuple[<span class="hljs-number">0</span>] = <span class="hljs-string">'Wayne'</span>; <span class="hljs-comment">// Error, Cannot assign to '0' because it is a read-only property.ts(2540)</span>
+
+tuple.push(<span class="hljs-string">'Batman'</span>); <span class="hljs-comment">// Error, Property 'push' does not exist on type 'readonly [string, string]'.ts(2339)</span>
+tuple.shift(); <span class="hljs-comment">// Error, Property 'shift' does not exist on type 'readonly [string, string]'.ts(2339)</span>
+
+tuple.indexOf(<span class="hljs-string">'Kent'</span>); <span class="hljs-comment">// Ok</span>
+tuple.map( <span class="hljs-function"><span class="hljs-params">item</span> =></span> item ); <span class="hljs-comment">// Ok</span></code></pre>
+<p>Кроме того механизм массивоподобных <code class="inline-code">readonly</code> структур, начиная с версии <em>TypeScript</em> <code class="inline-code">v3.4</code>, повлиял на поведение такого расширенного типа, как <code class="inline-code">Readonly&#x3C;T></code>. </p>
+<p>До версии <code class="inline-code">v3.4</code> поведение типа <code class="inline-code">Readonly&#x3C;T></code> полноценно распростронялось только на объекты.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-comment">// Ok, { readonly a: string, readonly b: number }</span>
+<span class="hljs-keyword">type</span> A = Readonly&#x3C;{ a: <span class="hljs-built_in">string</span>, b: <span class="hljs-built_in">number</span> }>;
+
+<span class="hljs-comment">// Bad, number[]</span>
+<span class="hljs-keyword">type</span> B = Readonly&#x3C;<span class="hljs-built_in">number</span>[]>;
+
+<span class="hljs-comment">// Bad, [string, boolean]</span>
+<span class="hljs-keyword">type</span> C = Readonly&#x3C;[<span class="hljs-built_in">string</span>, <span class="hljs-built_in">boolean</span>]>;</code></pre>
+<p>,fdktyyj
+Но начиная с версии <code class="inline-code">v3.4</code> поведение для типа <code class="inline-code">Readonly&#x3C;T></code> дополняется поведением массивоподобных <code class="inline-code">readonly</code> структур.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-comment">// Ok, { readonly a: string, readonly b: number }</span>
+<span class="hljs-keyword">type</span> A = Readonly&#x3C;{ a: <span class="hljs-built_in">string</span>, b: <span class="hljs-built_in">number</span> }>;
+
+<span class="hljs-comment">// Ok, readonly number[]</span>
+<span class="hljs-keyword">type</span> B = Readonly&#x3C;<span class="hljs-built_in">number</span>[]>;
+
+<span class="hljs-comment">// Ok, readonly [string, boolean]</span>
+<span class="hljs-keyword">type</span> C = Readonly&#x3C;[<span class="hljs-built_in">string</span>, <span class="hljs-built_in">boolean</span>]>;</code></pre>
+<p>На последок стоит упомянуть, что используя механизм массивоподобных <code class="inline-code">readonly</code> структур, по своей сути, компилятор расценивает эти структуры, как принадлежащие к интерфейсу добавленному вверсии <code class="inline-code">v3.4</code> <code class="inline-code">ReadonlyArray&#x3C;T></code>,речь о котором пойдет далее.</p>

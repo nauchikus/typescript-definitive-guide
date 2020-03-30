@@ -1,0 +1,7 @@
+<p>Спецификация <code class="inline-code">JSX</code> не допускает наличие закрывающих фигурных (<code class="inline-code">}</code>) и угловых (<code class="inline-code">></code>) скобок в строках. Поэтому начиная с текущей версии при явном их указании будет возникать ошибка текст которой предложит решение в виде их экранирования или замены на спец-символы допускаемые <code class="inline-code">JSX</code> спецификацией.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">let</span> text = [
+    <span class="hljs-comment">// Unexpected token. Did you mean `{'}'}` or `&#x26;rbrace;`?</span>
+    &#x3C;span>Text <span class="hljs-keyword">with</span> closing curly bracket }.&#x3C;<span class="hljs-regexp">/span>,
+    /</span><span class="hljs-regexp">/ Unexpected token. Did you mean `{'>'}` or `&#x26;gt;`?
+    &#x3C;span>Text with closing angle bracket >.&#x3C;/</span>span>,
+];</code></pre>

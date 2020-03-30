@@ -1,0 +1,61 @@
+<p>Во многих языках, в том числе и <em>Node.js</em>, реализован функционал обозначаемый как <code class="inline-code">assert</code> и представленный функциями принимающими условие, в случае ложности которого выбрасывается исключение.</p>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> assert, { AssertionError } <span class="hljs-keyword">from</span> <span class="hljs-string">"assert"</span>;
+
+<span class="hljs-keyword">try</span> {
+    assert(<span class="hljs-number">5</span> === <span class="hljs-built_in">Math</span>.round(<span class="hljs-built_in">Math</span>.random() * <span class="hljs-number">5</span>));
+} <span class="hljs-keyword">catch</span> (error) {
+    <span class="hljs-built_in">console</span>.log(error <span class="hljs-keyword">instanceof</span> AssertionError);<span class="hljs-comment">// true</span>
+}</code></pre>
+<p>До версии ёё <code class="inline-code">v3.7</code> полноценно реализовать подобный механизм было невозможно. Поэтому начиная с текущей версии, язык <em>TypeScript</em> пополнился новой концепцией обозначаемой как <em>утверждение в сигнатуре</em> (<em>assertion signatures</em>) с помощью которых стало возможным моделирование рассмотренного выше приведения поведения.</p>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> {AssertionError} <span class="hljs-keyword">from</span> <span class="hljs-string">"assert"</span>;
+
+
+<span class="hljs-comment">/**custom assert */</span>
+<span class="hljs-keyword">const</span> DEFAULT_ASSERTION_MESSAGE=<span class="hljs-string">'this condition is false'</span>;
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">stringAssert</span>(<span class="hljs-params">condition: <span class="hljs-built_in">any</span>, message?: <span class="hljs-built_in">string</span></span>): <span class="hljs-title">asserts</span> <span class="hljs-title">condition</span> </span>{
+    <span class="hljs-keyword">if</span> (!condition) {
+        <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> AssertionError({
+            message:message??DEFAULT_ASSERTION_MESSAGE
+        });
+    }
+}
+
+<span class="hljs-keyword">const</span> toUpperCase=<span class="hljs-function">(<span class="hljs-params">text:<span class="hljs-built_in">any</span></span>)=></span>{
+    text.touppercase(); <span class="hljs-comment">// not error</span>
+
+    stringAssert(<span class="hljs-keyword">typeof</span> text === <span class="hljs-string">"string"</span>);
+
+    <span class="hljs-comment">// text.touppercase(); // error</span>
+
+    <span class="hljs-keyword">return</span> text.toUpperCase();
+}</code></pre>
+<p>При использовании механизма <em>утверждения в сигнатуре</em> с имеющимся механизмом <em>утверждения типа</em> условие из вызова утверждающей функции можно перенести в её тело.</p>
+<pre><code class="hljs language-ts"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">isStringAssert</span>(<span class="hljs-params">value: <span class="hljs-built_in">any</span></span>): <span class="hljs-title">asserts</span> <span class="hljs-title">value</span> <span class="hljs-title">is</span> <span class="hljs-title">string</span> </span>{
+    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> value !== <span class="hljs-string">"string"</span>) {
+        <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">`value is not type string`</span>);
+    }
+}
+<span class="hljs-keyword">const</span> toUpperCase = <span class="hljs-function">(<span class="hljs-params">text: <span class="hljs-built_in">any</span></span>) =></span> {
+    text.touppercase(); <span class="hljs-comment">// not error</span>
+
+    isStringAssert(text);
+
+    <span class="hljs-comment">// text.touppercase(); // error</span>
+
+    <span class="hljs-keyword">return</span> text.toUpperCase();
+}</code></pre>
+<p>Стоит заметить, что в случае переноса условного выражения в тело утверждающей функции сигнатура которой лишина <em>утверждения типов</em>, то есть содержащей исключительно <em>утверждения в сигнатуре</em>, подобный механизм функционировать не будет.</p>
+<pre><code class="hljs language-ts"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">isStringAssert</span>(<span class="hljs-params">value: <span class="hljs-built_in">any</span></span>): <span class="hljs-title">asserts</span> <span class="hljs-title">value</span> </span>{
+    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> value !== <span class="hljs-string">"string"</span>) {
+        <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">`value is not type string`</span>);
+    }
+}
+<span class="hljs-keyword">const</span> toUpperCase = <span class="hljs-function">(<span class="hljs-params">text: <span class="hljs-built_in">any</span></span>) =></span> {
+    text.touppercase(); <span class="hljs-comment">// not error</span>
+
+    isStringAssert(text);
+
+    text.touppercase(); <span class="hljs-comment">// not error</span>
+
+    <span class="hljs-keyword">return</span> text.toUpperCase();
+}</code></pre>
