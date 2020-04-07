@@ -1,8 +1,6 @@
 import React, { FC, ReactNode } from "react";
 import { useTranslator } from "../../react__hooks/translator.hook";
 import { AppLocalization, LocalizationPaths, WhatIsNewTocGuiLocalization } from "../../localization";
-import { useWhatIsNewTocStores } from "../../mobx__react-content-provider/MobxWhatIsNewTocProvider";
-import { IWhatIsNewTocVersionStatus } from "../../types/IWhatIsNewToc";
 import { Link } from "gatsby";
 import { IconButton, Size } from "../icon-button/IconButton";
 import { ArrowDownSvgIcon, LinkSvgIcon } from "../icon__svg-icon/svg-icons";
@@ -14,6 +12,7 @@ import * as DateUtils from "../../utils/date-utils";
 import {Version} from "../../utils/Version";
 import { toLastReleaseInfo, toVersionInfo } from "../../utils/version-utils";
 import { ReleaseInfo } from "../../transformers/innovationDataToVersionInfoTransformer";
+import { useWhatIsNewTocPageStores } from "../../stores/mobx-entry__what-is-new_toc";
 
 interface IWhatIsNewTocTreeItemProps {
   winTocTreeNodeId:string;
@@ -23,7 +22,7 @@ interface IWhatIsNewTocTreeItemProps {
 
 export const WhatIsNewTocTreeItem: FC<IWhatIsNewTocTreeItemProps> = ( { winTocTreeNodeId, onCopyLinkToBuffer } ) => {
   let [{ lang: locale }] = useTranslator<[AppLocalization]>();
-  let { winTocTreeStore } = useWhatIsNewTocStores();
+  let { winTocTreeStore } = useWhatIsNewTocPageStores();
   let winTocTreeNode = winTocTreeStore.getNodeById( winTocTreeNodeId );
 
   if ( !winTocTreeNode ) {

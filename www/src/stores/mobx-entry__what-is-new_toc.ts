@@ -2,6 +2,7 @@ import { IWhatIsNewToc } from "../types/IWhatIsNewToc";
 import { createWhatIsNewTocTree,TreeNode } from "./WhatIsNewTocTreeStore";
 import { RouterStore } from "./RouterStore";
 import { createBehaviorNotification } from "./behavior-notificaion-store";
+import { createContext, useContext } from "react";
 
 
 
@@ -10,10 +11,13 @@ interface ICreateWhatIsNewTocPageGuiStoresParams {
   location: Location;
 }
 
-export const createWhatIsNewTocMobxEntry = ({winTocTree}:ICreateWhatIsNewTocPageGuiStoresParams) => ( {
+export const createWhatIsNewTocPageMobxEntry = ({winTocTree}:ICreateWhatIsNewTocPageGuiStoresParams) => ( {
   winTocTreeStore:createWhatIsNewTocTree(winTocTree,false),
   behaviorNotificationStore:createBehaviorNotification(),
   router: RouterStore.create( { location } ),
 } );
 
-export type UseWhatIsNewTocStores=ReturnType<typeof createWhatIsNewTocMobxEntry>;
+export type UseWhatIsNewTocPageStores=ReturnType<typeof createWhatIsNewTocPageMobxEntry>;
+
+export const MobxWhatIsNewTocPageContext = createContext<UseWhatIsNewTocPageStores | null>( null );
+export const useWhatIsNewTocPageStores = () => useContext( MobxWhatIsNewTocPageContext )  as UseWhatIsNewTocPageStores;

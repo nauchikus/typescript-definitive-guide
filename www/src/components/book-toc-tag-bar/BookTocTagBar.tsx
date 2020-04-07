@@ -1,10 +1,10 @@
 import React, { FC, useEffect, useRef } from "react";
-import { useBookTocStores } from "../../mobx__react-content-provider/MobxBookTocProvider";
 import { BookTocTag } from "../book-toc-tag/BookTocTag";
 import { Subject, merge, Observable } from "rxjs";
 import { auditTime, debounceTime, delay, takeUntil, tap, throttleTime } from "rxjs/operators";
 import { useTranslator } from "../../react__hooks/translator.hook";
 import { BookTocGuiLocalization, LocalizationPaths } from "../../localization";
+import { useBookTocPageStores } from "../../stores/mobx-entry__book_toc";
 
 
 interface IBookTocTagBarProps {
@@ -20,7 +20,7 @@ const SECONDARY_CONTENT_BAR_CLOSE_DELAY = 400;
 
 export const BookTocTagBar: FC<IBookTocTagBarProps> = ( {} ) => {
   let [t] = useTranslator<[BookTocGuiLocalization]>( LocalizationPaths.BookChaptersPageGui );
-  let { bookTocTreeStore, tocFilterStore } = useBookTocStores();
+  let { bookTocTreeStore, tocFilterStore } = useBookTocPageStores();
   let filterSectionRef = useRef<FilterSectionUseRef>( {
     bookTocTree$: null,
     filterSection: null

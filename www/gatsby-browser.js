@@ -11,8 +11,8 @@
 
 import "./src/styles/dev-utils.scss";
 
-import React, { useLayoutEffect } from "react";
-import { MobxProvider, useShareStores } from "./src/mobx";
+import React from "react";
+import { MobxProvider } from "./src/mobx";
 import { Localization } from "./src/react__hooks/translator.hook";
 
 export const wrapRootElement = ({element}) => {
@@ -21,14 +21,14 @@ export const wrapRootElement = ({element}) => {
   );
 };
 
-export const wrapPageElement = ( { element, props } ) => {
-  return (
-    <Localization.Provider value={ props.pageContext.localization }>
-      { element }
-    </Localization.Provider>
-  );
-};
+// export const wrapPageElement = ( { element, props } ) => {
+//   return (
+//     <Localization.Provider value={ props.pageContext.localization }>
+//       { element }
+//     </Localization.Provider>
+//   );
+// };
 
-export const onRouteUpdate = ( { location: { hash } } ) => {
-  
-};
+// export const onRouteUpdate = ( { location: { hash } } ) => {
+//
+// };

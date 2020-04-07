@@ -1,8 +1,4 @@
-function fixedEncodeURIComponent ( str ) {
-  return encodeURIComponent( str ).replace( /[!'()*]/g, function( c ) {
-    return "%" + c.charCodeAt( 0 ).toString( 16 );
-  } );
-}
+
 
 function translitRusToEng ( str ) {
   // https://gist.github.com/diolavr/d2d50686cb5a472f5696
@@ -18,13 +14,15 @@ function translitRusToEng ( str ) {
   str = str.replace( /[ъь]+/g, "" ).replace( /й/g, "i" );
 
   for ( var i = 0; i < str.length; ++i ) {
+    /*eslint-disable*/
     n_str.push(
-      ru[ str[ i ] ]
+    ru[ str[ i ] ]
       || ru[ str[ i ].toLowerCase() ] == undefined && str[ i ]
       || ru[ str[ i ].toLowerCase() ].replace( /^(.)/, function( match ) {
         return match.toUpperCase();
       } )
     );
+    /*eslint-enable*/
   }
 
   return n_str.join( "" )
@@ -43,24 +41,24 @@ const chapterHeadingToPath = ( chapterHeading ) => {
  * @param {string} text
  * @returns {string}
  */
-const escapeString = ( text ) => text.replace( /[(){}\[\]|^$.*+!?]/g, `\\$&` );
+const escapeString = ( text ) => text.replace( /[(){}\[\]|^$.*+!?]/g, `\\$&` );// eslint-disable-line no-useless-escape
 const normalizeSpace = ( text ) => text.replace( / {2,}/g, " " );
-/**
- *
- * @param {string} text
- * @param {string} symbol @default -
- * @returns {string}
- */
+// /**
+//  *
+//  * @param {string} text
+//  * @param {string} symbol @default -
+//  * @returns {string}
+//  */
 const spaceToSymbol = ( text, symbol = `-` ) => text.replace( /\s/g, "-" );
-const noWordToSpace = ( text ) => text.replace( /[!\W|_]/g, " " );
-/**
- *
- * @param {string} path
- * @returns {string}
- */
-const normalizePath = ( path ) => [
-  spaceToSymbol
-].reduce( ( result, current ) => current( result ), path );
+// const noWordToSpace = ( text ) => text.replace( /[!\W|_]/g, " " );
+// /**
+//  *
+//  * @param {string} path
+//  * @returns {string}
+//  */
+// const normalizePath = ( path ) => [
+//   spaceToSymbol
+// ].reduce( ( result, current ) => current( result ), path );
 const toFirstCharUpperCase = ( text ) => text[ 0 ].toLocaleUpperCase() + text.substring( 1 );
 const generateIndex = ( index, length = 1, symbol = "0" ) => symbol
   .repeat( length - String( index ).length )

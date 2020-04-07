@@ -1,13 +1,12 @@
 import React, { FC,Fragment } from "react";
-import { useBookTocStores } from "../../mobx__react-content-provider/MobxBookTocProvider";
 import {BookTocTreeItem } from "../../components/tree__tree-item_book-toc/BookTocTreeItem";
-import { TocCollapseAllButton } from "../../components/toc-collapse-all-button/TocCollapseAllButton";
 import { observer } from "mobx-react-lite";
 import { useTranslator } from "../../react__hooks/translator.hook";
 import { BookTocGuiLocalization, LocalizationPaths } from "../../localization";
 import { BookTocNode, TreeNode } from "../../stores/BookTocTreeStore";
 import { BookTocTreeSectionLabel } from "../../components/tree__tree-section-label_book-toc/BookTocTreeSectionLabel";
 import { BookTocTreeCloseDecor } from "../../components/tree__tree-close-decor_book-toc/BookTocTreeCloseDecor";
+import { useBookTocPageStores } from "../../stores/mobx-entry__book_toc";
 
 
 interface IBookTocContentLayoutProps {
@@ -20,7 +19,7 @@ type DividedIntoSectionItem = {
 
 export const BookTocContentLayout: FC<IBookTocContentLayoutProps> = observer( ( {} ) => {
   let [t] = useTranslator<[BookTocGuiLocalization]>( LocalizationPaths.BookChaptersPageGui );
-  let { bookTocTreeStore } = useBookTocStores();
+  let { bookTocTreeStore } = useBookTocPageStores();
 
 
   const onCollapse = ( id: string ) => bookTocTreeStore.collapseById( id );

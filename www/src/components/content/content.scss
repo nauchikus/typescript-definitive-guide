@@ -145,7 +145,13 @@ pre > code {
 }
 
 ul.content__list{
-  margin: var(--content__ul_margin-top) 0 var(--content__ul_margin-bottom) 0!important;
+  margin: var(--content__ul_margin-top) 0 var(--content__ul_margin-bottom) var(--content__ul_margin-left)!important;
+
+  list-style: disc;
+
+  &>li{
+    padding: 8px 0;
+  }
 }
 
 .content__tooltip_copy-to-buffer {

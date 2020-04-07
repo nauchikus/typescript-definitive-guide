@@ -5,8 +5,11 @@ import BookTocPage from "./BookTocPage";
 import SEO from "../../components/seo";
 import BaseLayout from "../../layouts/base-layout/BaseLayout";
 import { AppLocalization } from "../../localization";
-import { MobxBookTocContext } from "../../mobx__react-content-provider/MobxBookTocProvider";
-import { createBookTocMobxEntry, UseBookTocStores } from "../../stores/mobx-entry__book_toc";
+import {
+    createBookTocPageMobxEntry, MobxBookTocPageContext,
+    UseBookTocPageStores,
+    useBookTocPageStores
+} from "../../stores/mobx-entry__book_toc";
 import { BookTocNode, TreeNode } from "../../stores/BookTocTreeStore";
 import { BehaviorNotificationContext } from "../../react__context/BehaviorNotificationContext";
 import { IBookChapterPageContentData } from "../../../plugins/gatsby-pages/create-book-page";
@@ -25,14 +28,14 @@ interface IBookTocPageProviderProps {
 
 const BookTocPageProvider: FC<IBookTocPageProviderProps> = ( { pageContext },location ) => {
     let { bookTocTree } = pageContext;
-    let bookTocStoresRef = useRef<UseBookTocStores>( createBookTocMobxEntry( {
+    let bookTocStoresRef = useRef<UseBookTocPageStores>( createBookTocPageMobxEntry( {
         bookTocTree,
         location
     } ) );
 
 
     return (
-        <MobxBookTocContext.Provider value={bookTocStoresRef.current}>
+        <MobxBookTocPageContext.Provider value={bookTocStoresRef.current}>
             <BehaviorNotificationContext.Provider value={bookTocStoresRef.current.behaviorNotificationStore}>
                 <RouterStoreContext.Provider value={bookTocStoresRef.current.router}>
                     <BaseLayout>
@@ -41,7 +44,7 @@ const BookTocPageProvider: FC<IBookTocPageProviderProps> = ( { pageContext },loc
                     </BaseLayout>
                 </RouterStoreContext.Provider>
             </BehaviorNotificationContext.Provider>
-        </MobxBookTocContext.Provider>
+        </MobxBookTocPageContext.Provider>
     )
 };
 

@@ -30,10 +30,15 @@ const whatIsNewRoutes = {
         `/ru/what-is-new/${ version }#${ innovation }` :
         `/ru/what-is-new/${ version }`
 };
+const notFoundRoutes = {
+    notFound: ({ locale }:ILocaleRouter ) =>
+      `/404/index.html`
+};
 
 
 export const RouterUtils = {
     appRoutes,
     bookRoutes,
-    whatIsNewRoutes
+    whatIsNewRoutes,
+    notFoundRoutes
 };

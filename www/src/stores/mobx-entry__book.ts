@@ -15,7 +15,7 @@ interface ICreateBookPageMobxEntryParams {
   pageNavDataAll:IBookChapterPageNavData[];
 }
 
-export const createBookChapterMobxEntry = ( { location,pageNavDataAll }: ICreateBookPageMobxEntryParams ) => {
+export const createBookChapterPageMobxEntry = ( { location,pageNavDataAll }: ICreateBookPageMobxEntryParams ) => {
   let router = new RouterStore(location);
   let contentIntersectionObserver = createIntersectionObserverStore( {
     containerSelector:`span.content__html-content-wrapper`,
@@ -48,9 +48,9 @@ export const createBookChapterMobxEntry = ( { location,pageNavDataAll }: ICreate
   };
 };
 
-export type UseBookStores=ReturnType<typeof createBookChapterMobxEntry>;
+export type UseBookPageStores=ReturnType<typeof createBookChapterPageMobxEntry>;
 
 
 
-export const MobxBookChapterContext = createContext<UseBookStores | null>( null );
-export const useBookChapterStores = () => useContext( MobxBookChapterContext ) as UseBookStores;
+export const MobxBookChapterPageContext = createContext<UseBookPageStores | null>( null );
+export const useBookChapterStores = () => useContext( MobxBookChapterPageContext ) as UseBookPageStores;

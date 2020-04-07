@@ -4,7 +4,7 @@ import { Locales } from "../../../plugins/types/locales";
 import SEO from "../../components/seo";
 import BaseLayout from "../../layouts/base-layout/BaseLayout";
 import { BehaviorNotificationContext } from "../../react__context/BehaviorNotificationContext";
-import { createBookChapterMobxEntry, UseBookStores, MobxBookChapterContext } from "../../stores/mobx-entry__book";
+import { createBookChapterPageMobxEntry, UseBookPageStores, MobxBookChapterPageContext } from "../../stores/mobx-entry__book";
 import { IPageNavLeaf, IPageNavNode } from "../../types/IPageNavData";
 import { AppLocalization } from "../../localization";
 import { IBookChapterPageContentData } from "../../../plugins/gatsby-pages/create-book-page";
@@ -34,14 +34,14 @@ interface IBookPageProviderProps {
 
 const BookPageProvider: FC<IBookPageProviderProps> = ( { pageContext,location } ) => {
   let { locale, pageContentData,pageNavDataAll,localization } = pageContext;
-  let bcMobxRef = useRef<UseBookStores>( createBookChapterMobxEntry( {
+  let bcMobxRef = useRef<UseBookPageStores>( createBookChapterPageMobxEntry( {
     location,
     pageNavDataAll
   } ) );
 
 
   return (
-    <MobxBookChapterContext.Provider value={bcMobxRef.current}>
+    <MobxBookChapterPageContext.Provider value={bcMobxRef.current}>
       <BehaviorNotificationContext.Provider value={bcMobxRef.current.behaviorNotificationStore}>
         <Localization.Provider value={localization}>
           <ContentNavStoreContext.Provider value={bcMobxRef.current.contentNav}>
@@ -61,7 +61,7 @@ const BookPageProvider: FC<IBookPageProviderProps> = ( { pageContext,location } 
           </ContentNavStoreContext.Provider>
         </Localization.Provider>
       </BehaviorNotificationContext.Provider>
-    </MobxBookChapterContext.Provider>
+    </MobxBookChapterPageContext.Provider>
   )
 
 };

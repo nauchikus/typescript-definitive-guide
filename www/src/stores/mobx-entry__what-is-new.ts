@@ -1,7 +1,6 @@
 import { createToggleState, ToggleUiState } from "./AppStateService";
 import { createWhatIsNewTocTree, TreeNode } from "./WhatIsNewTocTreeStore";
 import { IWinPageContentData, IWhatIsNewToc } from "../types/IWhatIsNewToc";
-import { useWhatIsNewStores } from "../mobx__react-content-provider/MobxWhatIsNewProvider";
 import { VersionFilterStore } from "./VersionFilterStore";
 import { createIntersectionObserverStore } from "./IntersectionObserverStore";
 import { ContentSectionStore } from "./ContentSectionStore";
@@ -13,6 +12,7 @@ import { IWinPageNavData } from "../page-templates/what-is-new-page/WhatIsNewPag
 import { ContentNavStore } from "./ContentNavStore";
 import { ContentSectionWithFilterStore } from "./ContentSectionWithFilterStore";
 import { LocationPartial, RouterStore } from "./RouterStore";
+import { createContext, useContext } from "react";
 
 
 interface ICreateWhatIsNewPageGuiStoresParams {
@@ -24,7 +24,7 @@ interface ICreateWhatIsNewPageGuiStoresParams {
   versionInfoAll:VersionInfoMeta[];
 }
 
-export const createWhatIsNewMobxEntry = ({innovationData,versionInfoAll,initialCheckedVersion,winTocTree,pageNavDataAll,location}:ICreateWhatIsNewPageGuiStoresParams) => {
+export const createWhatIsNewPageMobxEntry = ({innovationData,versionInfoAll,initialCheckedVersion,winTocTree,pageNavDataAll,location}:ICreateWhatIsNewPageGuiStoresParams) => {
   let router = new RouterStore( location );
   let contentIntersectionObserver = createIntersectionObserverStore( {
     containerSelector:`main.content`,
@@ -85,18 +85,15 @@ export const createWhatIsNewMobxEntry = ({innovationData,versionInfoAll,initialC
   }
 } ;
 
-export type UseWhatIsNewMobxEntry=ReturnType<typeof createWhatIsNewMobxEntry>;
-export type UseWhatIsNewStores=ReturnType<typeof createWhatIsNewMobxEntry>["stores"];
-export type UseWhatIsNewValidators=ReturnType<typeof createWhatIsNewMobxEntry>["validators"];
+export type UseWhatIsNewPageMobxEntry=ReturnType<typeof createWhatIsNewPageMobxEntry>;
+export type UseWhatIsNewPageStores=ReturnType<typeof createWhatIsNewPageMobxEntry>["stores"];
 
 
-// export const useBehaviorNotification = () => {
-//   let { behaviorNotificationStore } = useWhatIsNewStores();
-//
-//   return behaviorNotificationStore;
-// };
-export const useVersionFilter = ():UseWhatIsNewStores["versionFilter"] => {
-  let { versionFilter } = useWhatIsNewStores();
+export const MobxWhatIsNewPageContext = createContext<UseWhatIsNewPageStores | null>( null );
+export const useWhatIsNewPageStores = () => useContext( MobxWhatIsNewPageContext )  as UseWhatIsNewPageStores;
+
+export const useVersionFilter = ():UseWhatIsNewPageStores["versionFilter"] => {
+  let { versionFilter } = useWhatIsNewPageStores();
 
   return versionFilter;
 };

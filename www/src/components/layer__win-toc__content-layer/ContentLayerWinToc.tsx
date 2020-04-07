@@ -1,17 +1,17 @@
 import React, { FC } from "react";
-import { useWhatIsNewTocStores } from "../../mobx__react-content-provider/MobxWhatIsNewTocProvider";
 import { WhatIsNewTocTreeItem } from "../../components/what-is-new-toc-tree-item/WhatIsNewTocTreeItem";
 import { useTranslator } from "../../react__hooks/translator.hook";
 import { LocalizationPaths, WhatIsNewTocGuiLocalization } from "../../localization";
 import * as NativeUtils from "../../utils/native-utils";
 import { useBehaviorNotificationAction } from "../../react__hooks/behavior-notification-action-hook";
+import { useWhatIsNewTocPageStores } from "../../stores/mobx-entry__what-is-new_toc";
 
 interface IContentLayerWinTocProps {
 }
 
 export const ContentLayerWinToc: FC<IContentLayerWinTocProps> = ( {} ) => {
   let [t] = useTranslator<[WhatIsNewTocGuiLocalization]>( LocalizationPaths.WhatIsNewTocPageGui );
-  let { winTocTreeStore,router } = useWhatIsNewTocStores();
+  let { winTocTreeStore,router } = useWhatIsNewTocPageStores();
   let behaviorNotificationActions = useBehaviorNotificationAction();
 
 

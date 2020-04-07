@@ -1,5 +1,5 @@
 import { createContext, useContext } from "react";
-import { UseBookStores } from "../stores/mobx-entry__book";
+import { UseBookPageStores } from "../stores/mobx-entry__book";
 import { IContentNavStore } from "../stores/ContentNavStore";
 
 

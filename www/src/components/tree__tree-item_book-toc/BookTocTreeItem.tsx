@@ -9,8 +9,6 @@ import { AppLocalization, BookTocGuiLocalization, LocalizationPaths } from "../.
 import { IconButton, Size } from "../icon-button/IconButton";
 import { ArrowDownSvgIcon, LinkSvgIcon } from "../icon__svg-icon/svg-icons";
 import { RotateContainer } from "../transform__rotate-container/RotateContainer";
-import { useBookTocStores } from "../../mobx__react-content-provider/MobxBookTocProvider";
-import { BookTocNode, TreeNode } from "../../stores/BookTocTreeStore";
 import { RouterUtils } from "../../utils/router-utils";
 import {
   getClassNameWithBgColorAttrBySectionName,
@@ -18,6 +16,7 @@ import {
 } from "../../maps/book-chapter-section-type-to-style-color-map";
 import { Tooltip, TooltipPosition } from "../tooltip/Tooltip";
 import { If } from "../if-operator/If";
+import { useBookTocPageStores } from "../../stores/mobx-entry__book_toc";
 
 interface IBookTocTreeItemProps {
   bookTocTreeNodeId:string;
@@ -28,7 +27,7 @@ interface IBookTocTreeItemProps {
 
 export const BookTocTreeItem: FC<IBookTocTreeItemProps> = observer( ( { bookTocTreeNodeId,onCollapse,onCopyLinkToBuffer } ) => {
   let [{lang:locale}]=useTranslator<[AppLocalization]>();
-  let { bookTocTreeStore } = useBookTocStores();
+  let { bookTocTreeStore } = useBookTocPageStores();
   let bookTocTreeNode = bookTocTreeStore.getNodeById( bookTocTreeNodeId );
 
   if ( !bookTocTreeNode ) {

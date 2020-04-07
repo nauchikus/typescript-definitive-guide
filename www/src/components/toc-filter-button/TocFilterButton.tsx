@@ -1,12 +1,12 @@
 import React, { FC } from "react";
 import { IconButton } from "../icon-button/IconButton";
 import { default as cn } from "classnames";
-import { useBookTocStores } from "../../mobx__react-content-provider/MobxBookTocProvider";
 import { MenuAnimatedCssIcon } from "../menu-animated-css-icon/MenuAnimatedCssIcon";
 import { observer } from "mobx-react-lite";
 import { Tooltip, TooltipPosition } from "../tooltip/Tooltip";
 import { useTranslator } from "../../react__hooks/translator.hook";
 import { BookTocGuiLocalization, LocalizationPaths } from "../../localization";
+import { useBookTocPageStores } from "../../stores/mobx-entry__book_toc";
 
 interface ITocFilterButtonProps {
   className?:string;
@@ -14,7 +14,7 @@ interface ITocFilterButtonProps {
 
 export const TocFilterButton: FC<ITocFilterButtonProps> = observer(( {className} ) => {
   let [t] = useTranslator<[BookTocGuiLocalization]>( LocalizationPaths.BookChaptersPageGui );
-  let { tocFilterStore } = useBookTocStores();
+  let { tocFilterStore } = useBookTocPageStores();
 
   let classes = cn( "toc-filter-button", className );
 

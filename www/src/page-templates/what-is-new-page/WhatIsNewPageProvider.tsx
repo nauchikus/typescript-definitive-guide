@@ -8,8 +8,12 @@ import BaseLayout from "../../layouts/base-layout/BaseLayout";
 import { AppLocalization } from "../../localization";
 import { IWinPageContentData, IWhatIsNewToc } from "../../types/IWhatIsNewToc";
 import { WinPageContentDataContext } from "../../react__hooks/win__page-content-data-hook";
-import { createWhatIsNewMobxEntry, UseWhatIsNewMobxEntry, UseWhatIsNewStores } from "../../stores/mobx-entry__what-is-new";
-import { MobxWhatIsNewContext } from "../../mobx__react-content-provider/MobxWhatIsNewProvider";
+import {
+    createWhatIsNewPageMobxEntry,
+    MobxWhatIsNewPageContext,
+    UseWhatIsNewPageMobxEntry,
+    UseWhatIsNewPageStores
+} from "../../stores/mobx-entry__what-is-new";
 import { TreeNode } from "../../stores/WhatIsNewTocTreeStore";
 import { IPageNavLeaf, IPageNavNode } from "../../types/IPageNavData";
 import { WinPageNavDataContext } from "../../react__context/WinPageNavDataContext";
@@ -48,7 +52,7 @@ type DisposerRefs={
 const WhatIsNewPageProvider: FC<IWhatIsNewPageProviderProps> = ( { pageContext,location } ) => {
     let { localization,innovationData,winTocTree,pageNavDataAll } = pageContext;
 
-    let winMobxRef = useRef<UseWhatIsNewMobxEntry>( createWhatIsNewMobxEntry( {
+    let winMobxRef = useRef<UseWhatIsNewPageMobxEntry>( createWhatIsNewPageMobxEntry( {
         winTocTree,
         innovationData,
         pageNavDataAll,
@@ -88,7 +92,7 @@ const WhatIsNewPageProvider: FC<IWhatIsNewPageProviderProps> = ( { pageContext,l
 
 
     return (
-      <MobxWhatIsNewContext.Provider value={ stores }>
+      <MobxWhatIsNewPageContext.Provider value={ stores }>
           <WhatIsNewValidatorsContext.Provider value={validators}>
               <BehaviorNotificationContext.Provider value={stores.behaviorNotificationStore}>
                   <WinPageNavDataContext.Provider value={ pageNavDataAll }>
@@ -112,7 +116,7 @@ const WhatIsNewPageProvider: FC<IWhatIsNewPageProviderProps> = ( { pageContext,l
                   </WinPageNavDataContext.Provider>
               </BehaviorNotificationContext.Provider>
           </WhatIsNewValidatorsContext.Provider>
-      </MobxWhatIsNewContext.Provider>
+      </MobxWhatIsNewPageContext.Provider>
     );
 };
 

@@ -26,7 +26,7 @@ export class BookChapterFileOnGithubCommitHistoryDataProvider extends BaseFileOn
   }
 
   async getData (params:IBookChapterFileOnGithubCommitHistoryGetDataParams): Promise<ResultData> {
-    let response = await this.load(
+    let response = await super.load(
       getGithubCommitHistoryQuery(),
       this.createGraphQlRequest( params )
     );
@@ -41,7 +41,9 @@ export class BookChapterFileOnGithubCommitHistoryDataProvider extends BaseFileOn
     }
 
 
-    return Promise.resolve( super.responseToData( response as Required<GraphQlResponse<IGetFileOnGithubHistoryInfoResponse>> ) );
+    return Promise.resolve(
+      super.responseToData( response as Required<GraphQlResponse<IGetFileOnGithubHistoryInfoResponse>> )
+    );
   }
 }
 

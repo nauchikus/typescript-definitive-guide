@@ -1,14 +1,14 @@
 import React, { FC } from "react";
 import { If } from "../if-operator/If";
-import { useWhatIsNewStores } from "../../mobx__react-content-provider/MobxWhatIsNewProvider";
 import { observer } from "mobx-react-lite";
 import { EmptyContentPlaceholder } from "../content__placeholder_empty/EmptyContentPlaceholder";
+import { useWhatIsNewPageStores } from "../../stores/mobx-entry__what-is-new";
 
 interface IContentPlaceholderAutodetectProps {
 }
 
 export const ContentPlaceholderAutodetect: FC<IContentPlaceholderAutodetectProps> = observer( ( {} ) => {
-  let { versionFilter } = useWhatIsNewStores();
+  let { versionFilter } = useWhatIsNewPageStores();
 
   const isEmptySelectPlaceholderVisible = (  ) => versionFilter.checkedLength === 0;
   const isSelectWithoutInnovationPlaceholderVisible = () =>

@@ -37,6 +37,8 @@
 .content-layout-grid-item__aside-bar_left {
   grid-area: aside-bar_left;
 
+  z-index: 2;
+
 
   @media all and (min-width: $content__nav_down_media){
     position: sticky;
@@ -48,6 +50,8 @@
 .content-layout-grid-item__aside-bar_right {
   grid-area: aside-bar_right;
 
+
+  z-index: 2;
 
   @media all and (min-width: $content__nav_down_media){
     position: sticky;
@@ -63,5 +67,8 @@
   align-items: center;
 
   grid-area: main;
+
+  z-index: 1;
+
 }
 

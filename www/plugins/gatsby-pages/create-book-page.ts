@@ -98,10 +98,9 @@ export const createPages: GatsbyCreatePages<IIndexCreatePageOptions> = async ( h
     let githubRepositoryInfoDataProvider = new GithubRepositoryInfoDataProvider( graphql );
     let { repository } = await githubRepositoryInfoDataProvider.getData();
 
-
     let pageNavDataAll = bookTocToPageNav( toc );
     // let bookToc: IBookTocWithContentNode[] = toc.map( async (chapter,index) => {
-    let bookChapterPageContentPromiseAll = toc.filter((item,index)=>index===0).map( async (chapter,index) => {
+    let bookChapterPageContentPromiseAll = toc.filter((item,index)=>index<13).map( async (chapter,index) => {
         let chapterEscapedName = StringUtils.escapeString( chapter.title );
         let chapterEscapedPath = toPath( chapterEscapedName );
         let chapterGithubName = createBookChapterName( {

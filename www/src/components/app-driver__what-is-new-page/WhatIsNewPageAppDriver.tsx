@@ -1,18 +1,14 @@
 import React, { FC, ReactNode } from "react";
 import { AppDriver } from "../app-driver/AppDriver";
 import { default as cn } from "classnames";
-import { NavSectionAppDriver } from "../app-driver__nav-section/NavSectionAppDriver";
-import { useTranslator } from "../../react__hooks/translator.hook";
-import { AppNavigationLocalization, LocalizationPaths } from "../../localization";
 import { FooterAppDriver } from "../app-driver__footer/FooterAppDriver";
-import { useWhatIsNewStores } from "../../mobx__react-content-provider/MobxWhatIsNewProvider";
 import { Link } from "gatsby";
 import { Version } from "../../utils/Version";
 import { observer } from "mobx-react-lite";
-import { PageWithContentNavAppDriver } from "../app-driver__nav_page-with-content/PageWithContentNavAppDriver";
 import { useRouter } from "../../stores/RouterStore";
 import { AppNavSectionAppDriver } from "../app-driver__nav-section_app-nav/AppNavSectionAppDriver";
 import { ContentNavSectionAppDriver } from "../app-driver__nav-section_page-nav/ContentNavSectionAppDriver";
+import { useWhatIsNewPageStores } from "../../stores/mobx-entry__what-is-new";
 
 interface IWhatIsNewPageAppDriverProps {
 }
@@ -50,9 +46,9 @@ export const LinkAppDriver: FC<ILinkAppDriverProps> = ( { path, name, isActive, 
 
 
 export const WhatIsNewPageAppDriver: FC<IWhatIsNewPageAppDriverProps> = observer( ( {} ) => {
-  let { winTocTreeStore } = useWhatIsNewStores();
+  let { winTocTreeStore } = useWhatIsNewPageStores();
   let routerStore = useRouter();
-  let { contentSection, versionFilter } = useWhatIsNewStores();
+  let { contentSection, versionFilter } = useWhatIsNewPageStores();
 
 
   let innovationAll = winTocTreeStore.getInnovationAllByVersionMMP( routerStore.pageName );

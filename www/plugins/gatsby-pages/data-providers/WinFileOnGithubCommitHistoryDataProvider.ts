@@ -35,7 +35,9 @@ export class WinFileOnGithubCommitHistoryDataProvider extends BaseFileOnGithubCo
     }
 
 
-    return Promise.resolve( super.responseToData( response as Required<GraphQlResponse<IGetFileOnGithubHistoryInfoResponse>> ) );
+    return Promise.resolve(
+      super.responseToData( response as Required<GraphQlResponse<IGetFileOnGithubHistoryInfoResponse>> )
+    );
   }
 }
 
