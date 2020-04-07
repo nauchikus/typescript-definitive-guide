@@ -4,24 +4,19 @@
     "description": "Подробное руководство по языку TypeScript, которое шаг за шагом раскрывает весь его потенциал не оставляя без внимания ни одной мелочи.",
     "appNavigation": [
         {
+            "id": "index",
             "path": "/ru",
             "name": "Главная"
         },
         {
+            "id": "book-contents",
             "path": "/ru/book/chapters",
             "name": "Оглавление"
         },
         {
-            "path": "/ru/what-is-new",
+            "id": "what-is-new-contents",
+            "path": "/what-is-new",
             "name": "Что нового?"
-        },
-        {
-            "path": "/ru/tests",
-            "name": "Срез знаний"
-        },
-        {
-            "path": "/ru/keywords",
-            "name": "Ключевой указатель"
         }
     ],
     "notification": {
@@ -122,6 +117,12 @@
                 "description": "Подробное руководство по языку TypeScript, которое шаг за шагом раскрывает весь его потенциал не оставляя без внимания ни одной мелочи."
             },
             "gui":{
+                "subtitleAll": [
+                    "TypeScript в деталях",
+                    "TypeScript крупным планом",
+                    "TypeScript под микроскопом",
+                    "TypeScript со всех сторон"
+                ]
             }
         },
         "book__chapters":{
@@ -187,6 +188,18 @@
                     "copyLinkToBufferButton": {
                         "tooltip": "Скопировать ссылку в буффер обмена"
                     }
+                }
+            }
+        },
+        "not-found": {
+            "metadata":{
+                "title": "TypeScript - в деталях",
+                "description": "Подробное руководство по языку TypeScript, которое шаг за шагом раскрывает весь его потенциал не оставляя без внимания ни одной мелочи."
+            },
+            "gui": {
+                "notFound_404": {
+                    "status": "404",
+                    "title": "Страница не найдена :("
                 }
             }
         }

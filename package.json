@@ -1,0 +1,19 @@
+{
+  "name": "typescript-definitive-guide",
+  "version": "1.0.0",
+  "description": "",
+  "main": "vue.config.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github-nauchikus:nauchikus/typescript-definitive-guide.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "prettier": "^2.0.2"
+  }
+}
