@@ -69,7 +69,7 @@ var animalAll: string[] = [
 ];
 
 animalAll.push(5); // Error
-animalAll.push(boolean); // Error
+animalAll.push(true); // Error
 animalAll.push(null); // Ok
 animalAll.push(undefined); // Ok
 ~~~~~
@@ -150,7 +150,7 @@ let liontData: [string, number] = [1, 'Simba']; // Error
 ~~~~~typescript
 let elephantData: [string, number] = ['Dambo', 1]; // Ok
 let liontData: [string, number] = ['Simba', 1, 1]; // Error, лишний элемент
-let fawnData: [string, number] = ['Bambi']; // Error, не достает одного элемент
+let fawnData: [string, number] = ['Bambi']; // Error, не достает одного элемента
 let giraffeData: [string, number] = []; // Error, не достает всех элементов
 ~~~~~
 
