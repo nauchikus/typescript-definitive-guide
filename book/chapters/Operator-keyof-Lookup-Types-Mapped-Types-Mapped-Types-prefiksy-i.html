@@ -101,7 +101,7 @@
 }
 
 <span class="hljs-keyword">let</span> v1: IInterfaceType[<span class="hljs-string">'p1'</span>]; <span class="hljs-comment">// v1: number</span>
-<span class="hljs-keyword">let</span> v2: IInterfaceType[<span class="hljs-string">'p2'</span>]; <span class="hljs-comment">// p2: number</span>
+<span class="hljs-keyword">let</span> v2: IInterfaceType[<span class="hljs-string">'p2'</span>]; <span class="hljs-comment">// v2: string</span>
 <span class="hljs-keyword">let</span> union: IInterfaceType[<span class="hljs-string">'p1'</span> | <span class="hljs-string">'p2'</span>]; <span class="hljs-comment">// union: number | string</span>
 <span class="hljs-keyword">let</span> notexist: IInterfaceType[<span class="hljs-string">'notexist'</span>]; <span class="hljs-comment">// Error -> Property 'notexist' does not exist on type 'IAnimal'</span></code></pre>
 <p>Если в качестве типа выступает класс, то получить типы можно только у членов его экземпляра. При попытке получить тип несуществующего члена возникнет ошибка.</p>
