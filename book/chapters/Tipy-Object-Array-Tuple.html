@@ -75,7 +75,7 @@ seaLionAsAny.voice(); <span class="hljs-comment">// Ok</span></code></pre>
 ];
 
 animalAll.push(<span class="hljs-number">5</span>); <span class="hljs-comment">// Error</span>
-animalAll.push(<span class="hljs-built_in">boolean</span>); <span class="hljs-comment">// Error</span>
+animalAll.push(<span class="hljs-literal">true</span>); <span class="hljs-comment">// Error</span>
 animalAll.push(<span class="hljs-literal">null</span>); <span class="hljs-comment">// Ok</span>
 animalAll.push(<span class="hljs-literal">undefined</span>); <span class="hljs-comment">// Ok</span></code></pre>
 <p>В случае неявного указания типа, вывод типов самостоятельно укажет тип как <code class="inline-code">string[]</code>.</p>
@@ -133,7 +133,7 @@ lionData = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Arr
 <p>Длина массива-значения должна соответствовать количеству типов, указанных в <code class="inline-code">Tuple</code>.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">let</span> elephantData: [<span class="hljs-built_in">string</span>, <span class="hljs-built_in">number</span>] = [<span class="hljs-string">'Dambo'</span>, <span class="hljs-number">1</span>]; <span class="hljs-comment">// Ok</span>
 <span class="hljs-keyword">let</span> liontData: [<span class="hljs-built_in">string</span>, <span class="hljs-built_in">number</span>] = [<span class="hljs-string">'Simba'</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>]; <span class="hljs-comment">// Error, лишний элемент</span>
-<span class="hljs-keyword">let</span> fawnData: [<span class="hljs-built_in">string</span>, <span class="hljs-built_in">number</span>] = [<span class="hljs-string">'Bambi'</span>]; <span class="hljs-comment">// Error, не достает одного элемент</span>
+<span class="hljs-keyword">let</span> fawnData: [<span class="hljs-built_in">string</span>, <span class="hljs-built_in">number</span>] = [<span class="hljs-string">'Bambi'</span>]; <span class="hljs-comment">// Error, не достает одного элемента</span>
 <span class="hljs-keyword">let</span> giraffeData: [<span class="hljs-built_in">string</span>, <span class="hljs-built_in">number</span>] = []; <span class="hljs-comment">// Error, не достает всех элементов</span></code></pre>
 <p>Но это правило не мешает добавить новые элементы после того, как массив был присвоен ссылке (ассоциирован со ссылкой). Но элементы, чьи индексы выходят за пределы установленные кортежем, обязаны иметь тип, совместимый с одним из перечисленных в этом кортеже.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">let</span> elephantData: [<span class="hljs-built_in">string</span>, <span class="hljs-built_in">number</span>] = [<span class="hljs-string">'Dambo'</span>, <span class="hljs-number">1</span>];
