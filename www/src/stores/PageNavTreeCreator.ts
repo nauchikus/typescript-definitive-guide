@@ -1,17 +1,17 @@
 import { IPageNavLeaf, IPageNavNode, IPageNavPage, IPageNavSection } from "../types/IPageNavData";
 
-type CreatePageNavNodeParams<TNodeData,TLeafData>={
-  prevNode:IPageNavNode<IPageNavLeaf<TLeafData>,TNodeData>|null;
-  currentNode:IPageNavNode<IPageNavLeaf<TLeafData>,TNodeData>;
-  nextNode:IPageNavNode<IPageNavLeaf<TLeafData>,TNodeData>|null;
-}
+type CreatePageNavNodeParams<TNodeData, TLeafData> = {
+  prevNode: IPageNavNode<IPageNavLeaf<TLeafData>, TNodeData> | null;
+  currentNode: IPageNavNode<IPageNavLeaf<TLeafData>, TNodeData>;
+  nextNode: IPageNavNode<IPageNavLeaf<TLeafData>, TNodeData> | null;
+};
 
 
-type CreatePageNavLeafParams<TData>={
-  prevLeaf:IPageNavLeaf<TData>|null;
-  currentLeaf:IPageNavLeaf<TData>;
-  nextLeaf:IPageNavLeaf<TData>|null;
-}
+type CreatePageNavLeafParams<TData> = {
+  prevLeaf: IPageNavLeaf<TData> | null;
+  currentLeaf: IPageNavLeaf<TData>;
+  nextLeaf: IPageNavLeaf<TData> | null;
+};
 
 export class PageNavTreeCreator {
   static getCurrentPageNavTreeNode = <TData>( pageName: string, pageNavDataAll: IPageNavPage<TData>[] ) => {

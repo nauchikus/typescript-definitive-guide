@@ -61,16 +61,16 @@ const getPlugins = locale => ( [
   //     locale
   //   }
   // },
-  // {
-  //   resolve: `gatsby-transformer-json-to-gatsby-node`,
-  //   options: {
-  //     name: `book-toc_${ locale }`,
-  //     nodeId: `book-toc_${ locale }`,
-  //     nodeType: CustomGatsbyNodeType.BookTocSource,
-  //     contentId:`toc`,
-  //     locale
-  //   }
-  // },
+  {
+    resolve: `gatsby-transformer-json-to-gatsby-node`,
+    options: {
+      name: `book-toc_${ locale }`,
+      nodeId: `book-toc_${ locale }`,
+      nodeType: CustomGatsbyNodeType.BookTocSource,
+      contentId:`toc`,
+      locale
+    }
+  },
   {
     resolve:`gatsby-pages`,
     options: {
@@ -99,15 +99,15 @@ module.exports = {
     ]
   },
   plugins: [
+    {
+      resolve: `gatsby-plugin-ts`,
+      options: {
+        fileName: `gen/graphql-types.ts`,
+      }
+    },
     `gatsby-plugin-sass`,
     `gatsby-plugin-svg-sprite`,
     `gatsby-plugin-react-helmet`,
-    {
-      resolve: "gatsby-plugin-ts-loader",
-      options: {
-        tslint: false // false or exclude to disable tslint
-      }
-    },
     // {
     //   resolve: `gatsby-source-filesystem`,
     //   options: {
@@ -136,25 +136,31 @@ module.exports = {
     //     path: ProjectPath.NAVIGATION_RU,
     //   },
     // },
-    // {
-    //   resolve: `gatsby-source-filesystem`,
-    //   options: {
-    //     name: `book-toc_ru`,
-    //     path: ProjectPath.BOOK_TOC_RU,
-    //   },
-    // },
-    // {
-    //   resolve: `gatsby-source-filesystem`,
-    //   options: {
-    //     name: FilesystemSourceName.WhatIsNew,
-    //     path: ProjectPath.WHAT_IS_NEW_DIR,
-    //   },
-    // },
-    // {
-    //   resolve: `gatsby-transformer-what-is-new-toc`,
-    //   options: {},
-    // },
-    `gatsby-transformer-sharp`,
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        name: `book-toc_ru`,
+        path: ProjectPath.BOOK_TOC_RU,
+      },
+    },
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        name: FilesystemSourceName.WhatIsNew,
+        path: ProjectPath.WHAT_IS_NEW_DIR,
+      },
+    },
+    {
+      resolve: `gatsby-transformer-what-is-new-toc`,
+      options: {},
+    },
+    {
+      resolve: `gatsby-transformer-sharp`,
+      options: {
+        // The option defaults to true
+        checkSupportedExtensions: false,
+      },
+    },
     `gatsby-plugin-sharp`,
     {
       resolve: `gatsby-plugin-manifest`,
@@ -169,117 +175,116 @@ module.exports = {
       },
     },
 
-    // {
-    //   resolve: "gatsby-source-graphql",
-    //   options: {
-    //     typeName: "GitHub",
-    //     fieldName: "github",
-    //     // Url to query from
-    //     url: "https://api.github.com/graphql",
-    //     // HTTP headers
-    //     headers: {
-    //       // Learn about environment variables: https://gatsby.dev/env-vars
-    //       Authorization: `bearer ${ process.env.GITHUB_TOKEN }`,
-    //     },
-    //     // Additional options to pass to node-fetch
-    //     fetchOptions: {},
-    //   },
-    // },
+    {
+      resolve: "gatsby-source-graphql",
+      options: {
+        typeName: "GitHub",
+        fieldName: "github",
+        // Url to query from
+        url: "https://api.github.com/graphql",
+        // HTTP headers
+        headers: {
+          // Learn about environment variables: https://gatsby.dev/env-vars
+          Authorization: `bearer ${ process.env.GITHUB_TOKEN }`,
+        },
+        // Additional options to pass to node-fetch
+        fetchOptions: {},
+      },
+    },
 
-    // {
-    //   resolve: `gatsby-transformer-remark`,
-    //   options: {
-    //     // CommonMark mode (default: true)
-    //     commonmark: true,
-    //     // Footnotes mode (default: true)
-    //     footnotes: true,
-    //     // Pedantic mode (default: true)
-    //     pedantic: true,
-    //     // GitHub Flavored Markdown mode (default: true)
-    //     gfm: true,
-    //     // Plugins configs
-    //     plugins: [
-    //       {
-    //         resolve: `gatsby-remark-images`,
-    //         options: {
-    //           maxWidth: 608,
-    //         },
-    //       },
-    //       // {
-    //       //   resolve: `gatsby-remark-decorate-what-is-new-heading-h1`,
-    //       // },
-    //       {
-    //         resolve:`gatsby-remark-collect-info-for-block-code-before-prismjs`,
-    //         options:{}
-    //       },
-    //
-    //       {
-    //         resolve: `gatsby-remark-prismjs`,
-    //         options: {
-    //           classPrefix: "language-",
-    //           // inlineCodeMarker: null,
-    //           // // This toggles the display of line numbers globally alongside the code.
-    //           // // To use it, add the following line in src/layouts/index.js
-    //           // // right after importing the prism color scheme:
-    //           // //  `require("prismjs/plugins/line-numbers/prism-line-numbers.css");`
-    //           // // Defaults to false.
-    //           // // If you wish to only show line numbers on certain code blocks,
-    //           // // leave false and use the {numberLines: true} syntax below
-    //           showLineNumbers: false,
-    //           noInlineHighlight: true,
-    //         },
-    //       },
-    //       // {
-    //       //   resolve: `gatsby-remark-inline-code-add-class`,
-    //       //   options: {  },
-    //       // },
-    //
-    //
-    //       {
-    //         resolve: `gatsby-remark-divide-into-section`,
-    //         options: {},
-    //       },
-    //       {
-    //         resolve: `gatsby-remark-add-section-id`,
-    //         options: { locale: "ru" },
-    //       },
-    //       {
-    //         resolve:`gatsby-remark-decorate-block-code`,
-    //         options:{}
-    //       },
-    //
-    //       {
-    //         resolve: `gatsby-remark-add-heading-link`,
-    //         options: { locale: `ru` },
-    //       },
-    //       {
-    //         resolve:`gatsby-remark-add-classes`,
-    //         options:{}
-    //       },
-    //       {
-    //         resolve:`gatsby-remark-create-tag-bar`,
-    //         options:{}
-    //       },
-    //
-    //
-    //       {
-    //         resolve: `gatsby-remark-book-chapter-cover`,
-    //         options: { locale: `ru` },
-    //       },
-    //
-    //
-    //
-    //       // {
-    //       //   resolve:`gatsby-remark-copy-linked-files`,
-    //       //   options:{}
-    //       // },
-    //
-    //
-    //       // `gatsby-remark-images`,
-    //
-    //     ],
-    //   },
-    // },
+    {
+      resolve: `gatsby-transformer-remark`,
+      options: {
+        // CommonMark mode (default: true)
+        commonmark: true,
+        // Footnotes mode (default: true)
+        footnotes: true,
+        // Pedantic mode (default: true)
+        pedantic: true,
+        // GitHub Flavored Markdown mode (default: true)
+        gfm: true,
+        // Plugins configs
+        plugins: [
+          {
+            resolve: `gatsby-remark-images`,
+            options: {
+              maxWidth: 608,
+            },
+          },
+          // {
+          //   resolve: `gatsby-remark-decorate-what-is-new-heading-h1`,
+          // },
+          {
+            resolve:`gatsby-remark-collect-info-for-block-code-before-prismjs`,
+            options:{}
+          },
+
+          {
+            resolve: `gatsby-remark-prismjs`,
+            options: {
+              classPrefix: "language-",
+              // inlineCodeMarker: null,
+              // // This toggles the display of line numbers globally alongside the code.
+              // // To use it, add the following line in src/layouts/index.js
+              // // right after importing the prism color scheme:
+              // //  `require("prismjs/plugins/line-numbers/prism-line-numbers.css");`
+              // // Defaults to false.
+              // // If you wish to only show line numbers on certain code blocks,
+              // // leave false and use the {numberLines: true} syntax below
+              showLineNumbers: false,
+              noInlineHighlight: true,
+            },
+          },
+          // {
+          //   resolve: `gatsby-remark-inline-code-add-class`,
+          //   options: {  },
+          // },
+
+
+          {
+            resolve: `gatsby-remark-divide-into-section`,
+            options: {},
+          },
+          {
+            resolve: `gatsby-remark-add-section-id`,
+            options: { locale: "ru" },
+          },
+          {
+            resolve:`gatsby-remark-decorate-block-code`,
+            options:{}
+          },
+
+          {
+            resolve: `gatsby-remark-add-heading-link`,
+            options: { locale: `ru` },
+          },
+          {
+            resolve:`gatsby-remark-add-classes`,
+            options:{}
+          },
+          {
+            resolve:`gatsby-remark-create-tag-bar`,
+            options:{}
+          },
+
+
+          {
+            resolve: `gatsby-remark-book-chapter-cover`,
+            options: { locale: `ru` },
+          },
+
+
+
+          // {
+          //   resolve:`gatsby-remark-copy-linked-files`,
+          //   options:{}
+          // },
+
+
+
+        ],
+      },
+    },
 
 
     // this (optional) plugin enables Progressive Web App + Offline functionality

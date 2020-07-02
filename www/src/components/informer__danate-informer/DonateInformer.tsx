@@ -19,7 +19,7 @@ export const DonateInformer: FC<IDonateInformerProps> = observer( ( {} ) => {
 
 
   return (
-    <div className="donate-informer" state={ informerRotator.currentInformerState }>
+    <div className="donate-informer" current-state={ informerRotator.currentInformerState }>
 
       <div className="donate-informer__first-frame frame_first">
         <QuestionInformerCssIcon/>

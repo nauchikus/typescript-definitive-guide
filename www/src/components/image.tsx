@@ -1,6 +1,7 @@
 import React, { FC } from "react";
 import { useStaticQuery, graphql } from "gatsby"
-import Img from "gatsby-image"
+// import Img from "gatsby-image"
+import { default as Img } from "gatsby-image";
 
 /*
  * This component is built using `gatsby-image` to automatically serve optimized
@@ -12,6 +13,13 @@ import Img from "gatsby-image"
  * - `gatsby-image`: https://gatsby.dev/gatsby-image
  * - `useStaticQuery`: https://www.gatsbyjs.org/docs/use-static-query/
  */
+
+
+
+
+
+
+
 
 interface IGatsbyImageProps {
   path:string;
@@ -52,7 +60,11 @@ export const GatsbyImage: FC<IGatsbyImageProps> = ( { className,path,alt } ) => 
     parent: { relativePath: string };
     fluid: { originalName: string }
   };
+
+  console.log( `[Image Path] > ${ path }` );
+
   let node = data.images.nodes.find( ( node: ImageNode ) => node.parent.relativePath === path );
 
+  // return <Img className={ className } fluid={ node.fluid } alt={ alt }/>;
   return <Img className={ className } fluid={ node.fluid } alt={ alt }/>;
 };

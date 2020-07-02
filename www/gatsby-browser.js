@@ -13,7 +13,6 @@ import "./src/styles/dev-utils.scss";
 
 import React from "react";
 import { MobxProvider } from "./src/mobx";
-import { Localization } from "./src/react__hooks/translator.hook";
 
 export const wrapRootElement = ({element}) => {
   return (
