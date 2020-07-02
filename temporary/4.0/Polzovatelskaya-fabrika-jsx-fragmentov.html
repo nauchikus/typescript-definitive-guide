@@ -1,0 +1,27 @@
+<p>До текущей версии было не возможно использовать <code class="inline-code">react</code> фрагменты при определении пользовательской фабрики в <em>tsconfig.json</em> <code class="inline-code">"jsxFactory": "h"</code> или с помощью инлайн дерективы <code class="inline-code">/** @jsx dom */</code>. По этой причине, начиная с текущей версии в <em>TypeScript</em> появилась возможность определять пользувательскую фабрику фрагментов с помощью новой опции <code class="inline-code">jsxFragmentFactory</code> значение <code class="inline-code">Fragment</code> которой выполняет компиляцию с помощью определенного вместо встроенного в <code class="inline-code">react</code> механизма <code class="inline-code">React.Fragment</code>.</p>
+<pre><code class="hljs language-json">{
+  <span class="hljs-attr">"compilerOptions"</span>: {
+    <span class="hljs-attr">"target"</span>: <span class="hljs-string">"esnext"</span>,
+    <span class="hljs-attr">"module"</span>: <span class="hljs-string">"commonjs"</span>,
+    <span class="hljs-attr">"jsx"</span>: <span class="hljs-string">"react"</span>,
+    <span class="hljs-attr">"jsxFactory"</span>: <span class="hljs-string">"h"</span>,
+    <span class="hljs-attr">"jsxFragmentFactory"</span>: <span class="hljs-string">"Fragment"</span>
+  }
+}</code></pre>
+<p>Кроме того для реализации того же поведения можно воспользоватся новой инлайн директивой <code class="inline-code">/** @jsxFrag */</code>.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-comment">/**
+ * Данный код будет скомпилирован
+ * с помощью механизмов библиотеки preact
+ * подменяющих React.createElement и
+ * React.Fragment
+ */</span>
+
+<span class="hljs-comment">/** @jsx h */</span>
+<span class="hljs-comment">/** @jsxFrag Fragment */</span>
+
+<span class="hljs-keyword">import</span> { h, Fragment } <span class="hljs-keyword">from</span> <span class="hljs-string">"preact"</span>;
+
+<span class="hljs-keyword">let</span> Title = &#x3C;>
+    &#x3C;h1>Title&#x3C;/h1>
+    &#x3C;h2>Subtitle&#x3C;/h2>
+&#x3C;/>;</code></pre>

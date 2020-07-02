@@ -129,15 +129,15 @@
 <span class="hljs-keyword">let</span> n1 = o0?.a.n; <span class="hljs-comment">// let n1: number; а не number | undefined</span></code></pre>
 <p>Кроме того элвис-опрератор также может быть применен при вызове методов, а в случае отстутствия ссылок на них результатом вызова также будет <code class="inline-code">undefined</code>.</p>
 <pre><code class="hljs language-ts"><span class="hljs-keyword">interface</span> IT {
-    f: <span class="hljs-function">(<span class="hljs-params">(<span class="hljs-params"></span>) => <span class="hljs-built_in">number</span></span>) | <span class="hljs-params">null</span>;
+    f: (<span class="hljs-function">() =></span> <span class="hljs-built_in">number</span>) | <span class="hljs-literal">null</span>;
 }
-<span class="hljs-params">class</span> <span class="hljs-params">T</span> <span class="hljs-params">implements</span> <span class="hljs-params">IT</span> {
-    /**
+<span class="hljs-keyword">class</span> T <span class="hljs-keyword">implements</span> IT {
+    <span class="hljs-comment">/**
      * Вводим вывод типов в амешательство путем
      * присваивания функции в положительном случае
-     * и <span class="hljs-params">null</span> в отрицательном. 
-     */
-    <span class="hljs-params">f</span> = <span class="hljs-params">Math</span>.<span class="hljs-params">round</span>(<span class="hljs-params"><span class="hljs-built_in">Math</span>.random(<span class="hljs-params"></span>) * 1</span>) === 1 ? <span class="hljs-params">()</span> =></span> <span class="hljs-number">10</span> : <span class="hljs-literal">null</span>;
+     * и null в отрицательном. 
+     */</span>
+    f = <span class="hljs-built_in">Math</span>.round(<span class="hljs-built_in">Math</span>.random() * <span class="hljs-number">1</span>) === <span class="hljs-number">1</span> ? <span class="hljs-function">() =></span> <span class="hljs-number">10</span> : <span class="hljs-literal">null</span>;
 }
 
 <span class="hljs-keyword">let</span> t = <span class="hljs-keyword">new</span> T();
@@ -605,7 +605,7 @@
 
 <span class="hljs-keyword">class</span> T {
     <span class="hljs-keyword">constructor</span>(<span class="hljs-params"></span>){
-        <span class="hljs-keyword">this</span>.f0 = <span class="hljs-number">5</span>;
+        <span class="hljs-built_in">this</span>.f0 = <span class="hljs-number">5</span>;
         
         <span class="hljs-comment">// отсутствует не инициализированное поле</span>
     }
@@ -615,13 +615,13 @@
 
 <span class="hljs-keyword">class</span> T {
     <span class="hljs-keyword">constructor</span>(<span class="hljs-params"></span>) {
-        <span class="hljs-built_in">Object</span>.defineProperty(<span class="hljs-keyword">this</span>, <span class="hljs-string">"f0"</span>, {
+        <span class="hljs-built_in">Object</span>.defineProperty(<span class="hljs-built_in">this</span>, <span class="hljs-string">"f0"</span>, {
             enumerable: <span class="hljs-literal">true</span>,
             configurable: <span class="hljs-literal">true</span>,
             writable: <span class="hljs-literal">true</span>,
             value: <span class="hljs-number">0</span>
         }); <span class="hljs-comment">// поле инициализированное при объявлении</span>
-        <span class="hljs-built_in">Object</span>.defineProperty(<span class="hljs-keyword">this</span>, <span class="hljs-string">"f1"</span>, {
+        <span class="hljs-built_in">Object</span>.defineProperty(<span class="hljs-built_in">this</span>, <span class="hljs-string">"f1"</span>, {
             enumerable: <span class="hljs-literal">true</span>,
             configurable: <span class="hljs-literal">true</span>,
             writable: <span class="hljs-literal">true</span>,
@@ -633,10 +633,10 @@
 <pre><code class="hljs language-typescript"><span class="hljs-comment">// до компиляции (.ts)</span>
 
 <span class="hljs-keyword">class</span> SuperClass {
-    <span class="hljs-keyword">set</span> prop(value: <span class="hljs-built_in">number</span>){
+    set prop(value: <span class="hljs-built_in">number</span>){
         <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'setter'</span>);
     }
-    <span class="hljs-keyword">get</span> prop(): <span class="hljs-built_in">number</span> {
+    get prop(): <span class="hljs-built_in">number</span> {
         <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'getter'</span>);
 
         <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
@@ -655,18 +655,18 @@
 
 <span class="hljs-comment">// после компиляции (.js)</span>
 <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">SuperClass</span> </span>{
-    <span class="hljs-keyword">set</span> prop(value) {
+    <span class="hljs-keyword">set</span> <span class="hljs-title">prop</span>(<span class="hljs-params">value</span>) {
         <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'setter'</span>);
     }
-    <span class="hljs-keyword">get</span> prop() {
+    <span class="hljs-keyword">get</span> <span class="hljs-title">prop</span>() {
         <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'getter'</span>);
         <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
     }
 }
 <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">SubClass</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">SuperClass</span> </span>{
     <span class="hljs-keyword">constructor</span>() {
-        <span class="hljs-keyword">super</span>(...arguments);
-        <span class="hljs-keyword">this</span>.prop = <span class="hljs-number">5</span>; <span class="hljs-comment">// [0] установка значения сеттеру определенному в суперклассе</span>
+        <span class="hljs-built_in">super</span>(...arguments);
+        <span class="hljs-built_in">this</span>.prop = <span class="hljs-number">5</span>; <span class="hljs-comment">// [0] установка значения сеттеру определенному в суперклассе</span>
     }
 }
 <span class="hljs-keyword">let</span> subClass = <span class="hljs-keyword">new</span> SubClass();
@@ -684,17 +684,17 @@
 <span class="hljs-comment">// после компиляции (.js)</span>
 
 <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">SuperClass</span> </span>{
-    <span class="hljs-keyword">set</span> prop(value) {
+    <span class="hljs-keyword">set</span> <span class="hljs-title">prop</span>(<span class="hljs-params">value</span>) {
         <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'setter'</span>);
     }
-    <span class="hljs-keyword">get</span> prop() {
+    <span class="hljs-keyword">get</span> <span class="hljs-title">prop</span>() {
         <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'getter'</span>);
         <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
     }
 }
 <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">SubClass</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">SuperClass</span> </span>{
     <span class="hljs-keyword">constructor</span>() {
-        <span class="hljs-keyword">super</span>(...arguments);
+        <span class="hljs-built_in">super</span>(...arguments);
         <span class="hljs-comment">/**
          * Происходит ПЕРЕОПРЕДЕЛЕНИЕ свойств
          * определенных в суперклассе. При дальнейшем
@@ -702,7 +702,7 @@
          * SubClass вызовы аксессоров производится
          * не будут.
          */</span>
-        <span class="hljs-built_in">Object</span>.defineProperty(<span class="hljs-keyword">this</span>, <span class="hljs-string">"prop"</span>, {
+        <span class="hljs-built_in">Object</span>.defineProperty(<span class="hljs-built_in">this</span>, <span class="hljs-string">"prop"</span>, {
             <span class="hljs-attr">enumerable</span>: <span class="hljs-literal">true</span>,
             <span class="hljs-attr">configurable</span>: <span class="hljs-literal">true</span>,
             <span class="hljs-attr">writable</span>: <span class="hljs-literal">true</span>,
@@ -724,22 +724,22 @@
 <span class="hljs-comment">// Хорошо.</span>
 <span class="hljs-keyword">class</span> SubClass <span class="hljs-keyword">extends</span> SuperClass {
     <span class="hljs-keyword">constructor</span>(<span class="hljs-params"></span>){
-        <span class="hljs-keyword">super</span>();
+        <span class="hljs-built_in">super</span>();
 
-        <span class="hljs-keyword">this</span>.prop = <span class="hljs-number">5</span>;
+        <span class="hljs-built_in">this</span>.prop = <span class="hljs-number">5</span>;
     }
 }
 
 <span class="hljs-comment">// Хорошо.</span>
 <span class="hljs-keyword">class</span> SubClass <span class="hljs-keyword">extends</span> SuperClass {
     <span class="hljs-keyword">constructor</span>(<span class="hljs-params"></span>){
-        <span class="hljs-keyword">super</span>();
+        <span class="hljs-built_in">super</span>();
 
-        <span class="hljs-keyword">this</span>.init();
+        <span class="hljs-built_in">this</span>.init();
     }
 
     init(){
-        <span class="hljs-keyword">this</span>.prop = <span class="hljs-number">5</span>;
+        <span class="hljs-built_in">this</span>.prop = <span class="hljs-number">5</span>;
     }
 }</code></pre>
 <p>Кроме того специализация свойств также не будет работать.</p>
@@ -767,7 +767,7 @@
      */</span>
 
     <span class="hljs-keyword">constructor</span>(<span class="hljs-params">bird: IBird</span>){
-        <span class="hljs-keyword">super</span>(bird);
+        <span class="hljs-built_in">super</span>(bird);
     }
 }</code></pre>
 <p>Для решения этой проблемы в синтаксис <em>TypeScript</em> было добавлено ключевое слово <code class="inline-code">declare</code> указывающее компилятору о необходимости учесть специализированное свойство.  </p>
@@ -781,7 +781,7 @@
     <span class="hljs-keyword">declare</span> resident: IBird; <span class="hljs-comment">// специализация свойства</span>
 
     <span class="hljs-keyword">constructor</span>(<span class="hljs-params">bird: IBird</span>){
-        <span class="hljs-keyword">super</span>(bird);
+        <span class="hljs-built_in">super</span>(bird);
     }
 }</code></pre>
 <p>Стоит упомянуть, что в случаи со специализированными свойствами флаг компилятора <code class="inline-code">strictPropertyInitialization</code> установленный в значение <code class="inline-code">false</code>, точно также как и модификатор <code class="inline-code">!</code> (<em>definite assignment assertion</em>) никакого влияния не оказывают.</p>
@@ -797,16 +797,16 @@
      * [!] - Ok при неактивном флаге useDefineForClassFields
      *       Error при активном флаге useDefineForClassFields
      */</span>
-    <span class="hljs-keyword">set</span> f(value: <span class="hljs-built_in">number</span>){} <span class="hljs-comment">// !</span>
-    <span class="hljs-keyword">get</span> f(): <span class="hljs-built_in">number</span> {<span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;} <span class="hljs-comment">// !</span>
+    set f(value: <span class="hljs-built_in">number</span>){} <span class="hljs-comment">// !</span>
+    get f(): <span class="hljs-built_in">number</span> {<span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;} <span class="hljs-comment">// !</span>
 }</code></pre>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">class</span> A{
-    <span class="hljs-keyword">set</span> f(value: <span class="hljs-built_in">number</span>) {}
-    <span class="hljs-keyword">get</span> f(): <span class="hljs-built_in">number</span> {<span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;}
+    set f(value: <span class="hljs-built_in">number</span>) {}
+    get f(): <span class="hljs-built_in">number</span> {<span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;}
 }
 <span class="hljs-keyword">class</span> B <span class="hljs-keyword">extends</span> A {
-    <span class="hljs-keyword">set</span> f(value: <span class="hljs-built_in">number</span>){} <span class="hljs-comment">// Ok</span>
-    <span class="hljs-keyword">get</span> f(): <span class="hljs-built_in">number</span> {<span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;} <span class="hljs-comment">// Ok</span>
+    set f(value: <span class="hljs-built_in">number</span>){} <span class="hljs-comment">// Ok</span>
+    get f(): <span class="hljs-built_in">number</span> {<span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;} <span class="hljs-comment">// Ok</span>
 } 
 <span class="hljs-keyword">class</span> C <span class="hljs-keyword">extends</span> A {
     <span class="hljs-comment">/**
@@ -854,17 +854,17 @@ x = y; <span class="hljs-comment">// Error</span></code></pre>
 <p>До <code class="inline-code">v3.7</code> информация об ошибке выглядела следующим образом -</p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">let</span> x: TypeWithNumber
 Type <span class="hljs-string">'TypeWithString'</span> is not assignable to <span class="hljs-keyword">type</span> <span class="hljs-string">'TypeWithNumber'</span>.
-  Types of property <span class="hljs-string">'a'</span> are incompatible.
+  Types <span class="hljs-keyword">of</span> property <span class="hljs-string">'a'</span> are incompatible.
     Type <span class="hljs-string">'{ b: { c: { d: { e: { f(): string; }; }; }; }; }'</span> is not assignable to <span class="hljs-keyword">type</span> <span class="hljs-string">'{ b: { c: { d: { e: { f(): number; }; }; }; }; }'</span>.
-      Types of property <span class="hljs-string">'b'</span> are incompatible.
+      Types <span class="hljs-keyword">of</span> property <span class="hljs-string">'b'</span> are incompatible.
         Type <span class="hljs-string">'{ c: { d: { e: { f(): string; }; }; }; }'</span> is not assignable to <span class="hljs-keyword">type</span> <span class="hljs-string">'{ c: { d: { e: { f(): number; }; }; }; }'</span>.
-          Types of property <span class="hljs-string">'c'</span> are incompatible.
+          Types <span class="hljs-keyword">of</span> property <span class="hljs-string">'c'</span> are incompatible.
             Type <span class="hljs-string">'{ d: { e: { f(): string; }; }; }'</span> is not assignable to <span class="hljs-keyword">type</span> <span class="hljs-string">'{ d: { e: { f(): number; }; }; }'</span>.
-              Types of property <span class="hljs-string">'d'</span> are incompatible.
+              Types <span class="hljs-keyword">of</span> property <span class="hljs-string">'d'</span> are incompatible.
                 Type <span class="hljs-string">'{ e: { f(): string; }; }'</span> is not assignable to <span class="hljs-keyword">type</span> <span class="hljs-string">'{ e: { f(): number; }; }'</span>.
-                  Types of property <span class="hljs-string">'e'</span> are incompatible.
+                  Types <span class="hljs-keyword">of</span> property <span class="hljs-string">'e'</span> are incompatible.
                     Type <span class="hljs-string">'{ f(): string; }'</span> is not assignable to <span class="hljs-keyword">type</span> <span class="hljs-string">'{ f(): number; }'</span>.
-                      Types of property <span class="hljs-string">'f'</span> are incompatible.
+                      Types <span class="hljs-keyword">of</span> property <span class="hljs-string">'f'</span> are incompatible.
                         Type <span class="hljs-string">'() => string'</span> is not assignable to <span class="hljs-keyword">type</span> <span class="hljs-string">'() => number'</span>.
                           Type <span class="hljs-string">'string'</span> is not assignable to <span class="hljs-keyword">type</span> <span class="hljs-string">'number'</span>.ts(<span class="hljs-number">2322</span>)</code></pre>
 <p>Начиная с версии <code class="inline-code">v3.7</code> информация об шибках подвергается нормализации (выравниванию) до легко усвояимого уровня -</p>

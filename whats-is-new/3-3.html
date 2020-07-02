@@ -103,7 +103,7 @@ f( { c: <span class="hljs-number">0</span> } ); <span class="hljs-comment">// Er
 <pre><code class="hljs language-typescript"><span class="hljs-comment">/**
 * Так компилятор начиная с v3.3 видит вызываемый тип
 */</span>
-<span class="hljs-keyword">const</span> f: <span class="hljs-function">(<span class="hljs-params">p: A | (<span class="hljs-params">A &#x26; C</span>) | (<span class="hljs-params">B &#x26; A</span>) | (<span class="hljs-params">B &#x26; C</span>)</span>) =></span> <span class="hljs-built_in">string</span> | <span class="hljs-built_in">number</span></code></pre>
+<span class="hljs-keyword">const</span> f: (p: A | (A &#x26; C) | <span class="hljs-function">(<span class="hljs-params">B &#x26; A</span>) | (<span class="hljs-params">B &#x26; C</span>)) =></span> <span class="hljs-built_in">string</span> | <span class="hljs-built_in">number</span></code></pre>
 <p>Кроме того, что уже известно на данный момент, также существует ещё один случай при котором новое поведение работать не будет. Таким случаем является ограничение на использование функциональных обобщены типов. Новое поведение не будет работать, если объединенный тип определяется более чем одним обобщенным вызываемым типом.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-comment">/**
 * Тип A является обобщенным типом (generics type)
@@ -146,7 +146,7 @@ f&#x3C;<span class="hljs-built_in">number</span>>( { a: <span class="hljs-number
 <span class="hljs-keyword">declare</span> <span class="hljs-keyword">const</span> f: T0 | T1;
 
 
-f&#x3C;<span class="hljs-built_in">number</span>><span class="hljs-function">(<span class="hljs-params"> { a: 0} </span>); // <span class="hljs-params">Ok</span>, <span class="hljs-params">const</span> <span class="hljs-params">f</span>: &#x3C;<span class="hljs-params">number</span>>(<span class="hljs-params">p: A&#x3C;<span class="hljs-built_in">number</span>> | (<span class="hljs-params">B &#x26; A&#x3C;<span class="hljs-built_in">number</span>></span>) | (<span class="hljs-params">B &#x26; C</span>) | (<span class="hljs-params">A&#x3C;<span class="hljs-built_in">number</span>> &#x26; C</span>)</span>) =></span> <span class="hljs-built_in">string</span> | <span class="hljs-built_in">number</span></code></pre>
+f&#x3C;<span class="hljs-built_in">number</span>>( { a: <span class="hljs-number">0</span>} ); <span class="hljs-comment">// Ok, const f: &#x3C;number>(p: A&#x3C;number> | (B &#x26; A&#x3C;number>) | (B &#x26; C) | (A&#x3C;number> &#x26; C)) => string | number</span></code></pre>
 <p>Кроме того, новое поведение отразилось на методе принадлежащему классу <code class="inline-code">Array</code>, а именно <code class="inline-code">forEach</code>. До версии <em>v3.3</em>, в случаях когда операции выполнялись над объектом принадлежащем к объединенному типу определенного массивами принадлежащих к разным типам, итерировать с помощью метода <code class="inline-code">forEach</code> над ним можно было лишь после его уточнения.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">interface</span> Bird {
    kind: <span class="hljs-string">"bird"</span>;

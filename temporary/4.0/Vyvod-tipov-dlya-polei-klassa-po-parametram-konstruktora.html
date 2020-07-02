@@ -1,0 +1,90 @@
+<p>До текущей версии при активном флаге <code class="inline-code">noImplicitAny</code> возникала ошибка если тело класса содержало поле без аннотации типа. И не спасало даже то, что они были инициализированны в конструкторе.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">class</span> Square {
+    <span class="hljs-comment">/**
+     * До версии 4.0 поля без аннотации вызывали ошибку .-
+     * Member 'area' implicitly has an 'any' type.
+     * Member 'sideLength' implicitly has an 'any' type.
+     * 
+     */</span>
+    area;
+    sideLength;
+
+    <span class="hljs-keyword">constructor</span>(<span class="hljs-params">sideLength: <span class="hljs-built_in">number</span></span>) {
+        <span class="hljs-built_in">this</span>.sideLength = sideLength;
+        <span class="hljs-built_in">this</span>.area = sideLength ** <span class="hljs-number">2</span>;
+    }
+}</code></pre>
+<p>Простыми словами вывод типов не был обучен выводить типы в подобных случаях. Но как можно догадатся больше для него это не проблема!</p>
+<p>Начиная с текущей версии вывод типов способен вывести тип полю класса, если оно было инициализированно в конструкторе.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">class</span> Square {
+    <span class="hljs-comment">/**
+     * Начиная с версии 4.0 -
+     * (property) Square.area: number
+     * (property) Square.sideLength: number
+     * 
+     * Вывод типов видит что полю sideLength
+     * присваивают значение с типом number, а
+     * полю area результат выражения над числовыми
+     * типами.
+     */</span>
+    area;
+    sideLength;
+
+    <span class="hljs-keyword">constructor</span>(<span class="hljs-params">sideLength: <span class="hljs-built_in">number</span></span>) {
+        <span class="hljs-built_in">this</span>.sideLength = sideLength;
+        <span class="hljs-built_in">this</span>.area = sideLength ** <span class="hljs-number">2</span>;
+    }
+}</code></pre>
+<p>Не будет лишним сделать акцент на словах об инициализации в конструкторе, поскольку это условие является обязательным. При попытке инициализации полей вне тела конструктора будет вызвана ошибка, даже если инициализация производится в методе вызываемом из конструктора.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">class</span> Square {
+    <span class="hljs-comment">/**
+     * Error ->
+     * Member 'area' implicitly has an 'any' type.
+     * 
+     */</span>
+    area;
+    sideLength;
+
+    <span class="hljs-keyword">constructor</span>(<span class="hljs-params">sideLength: <span class="hljs-built_in">number</span></span>) {
+        <span class="hljs-built_in">this</span>.sideLength = sideLength;
+        <span class="hljs-built_in">this</span>.init();
+    }
+
+    init(){
+        <span class="hljs-built_in">this</span>.area = <span class="hljs-built_in">this</span>.sideLength ** <span class="hljs-number">2</span>;
+    }
+}</code></pre>
+<p>Если инициализация полей класса без аннотации по каким-то причинам может не состоятся, то тип будет выведен как объединение включающее так же и тип <code class="inline-code">undefined</code>.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">class</span> Square {
+    <span class="hljs-comment">/**
+     * [1] ...вывод типов определяет принадлежность
+     * поля sideLength как ->
+     * 
+     * (property) Square.sideLength: number | undefined
+     */</span>
+    sideLength;
+
+    <span class="hljs-keyword">constructor</span>(<span class="hljs-params">sideLength: <span class="hljs-built_in">number</span></span>) {
+        <span class="hljs-comment">/**
+         * [0] Поскольку инициализация зависи от
+         * условия выражения которое выполнится
+         * только во время выполнения программы...
+         */</span>
+        <span class="hljs-keyword">if</span> (<span class="hljs-built_in">Math</span>.random()) {
+            <span class="hljs-built_in">this</span>.sideLength = sideLength;
+        }
+    }
+
+    get area() {
+        <span class="hljs-comment">/**
+         * [2] Тем не менее возникает ошибка
+         * поскольку операция возведения в степень
+         * производится над значение которое может
+         * быть undefined
+         * 
+         * Error ->
+         * Object is possibly 'undefined'.
+         */</span>
+        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.sideLength ** <span class="hljs-number">2</span>;
+    }
+}</code></pre>

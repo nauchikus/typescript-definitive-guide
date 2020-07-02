@@ -238,7 +238,7 @@ iterator.next(<span class="hljs-number">123</span>); <span class="hljs-comment">
  * Нет ключей - нет итераций!
  * Вывод в консоль: (пусто)
  */</span>
-<span class="hljs-built_in">Array</span>(<span class="hljs-number">3</span>).forEach(<span class="hljs-function"><span class="hljs-params">()</span>=></span><span class="hljs-built_in">console</span>.log(<span class="hljs-string">`iteration`</span>));
+<span class="hljs-built_in">Array</span>(<span class="hljs-number">3</span>).forEach(<span class="hljs-function">()=></span><span class="hljs-built_in">console</span>.log(<span class="hljs-string">`iteration`</span>));
 
 
 <span class="hljs-comment">/**
@@ -246,7 +246,7 @@ iterator.next(<span class="hljs-number">123</span>); <span class="hljs-comment">
  * Нет ключей - нет итераций!
  * Вывод в консоль: (пусто)
  */</span>
-<span class="hljs-keyword">for</span>(<span class="hljs-keyword">let</span> item of <span class="hljs-built_in">Array</span>(<span class="hljs-number">3</span>)){<span class="hljs-built_in">console</span>.log(<span class="hljs-string">`iteration`</span>);}</code></pre>
+<span class="hljs-keyword">for</span>(<span class="hljs-keyword">let</span> item <span class="hljs-keyword">of</span> <span class="hljs-built_in">Array</span>(<span class="hljs-number">3</span>)){<span class="hljs-built_in">console</span>.log(<span class="hljs-string">`iteration`</span>);}</code></pre>
 <p>Тем не менее при применении механиза <code class="inline-code">spread</code> к массиву в <code class="inline-code">es6+</code> создает несуществующие элементы и заполняет их значениями <code class="inline-code">undefined</code>.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-comment">/**
  * Длина === 7, количество итераций === 7
@@ -272,8 +272,8 @@ iterator.next(<span class="hljs-number">123</span>); <span class="hljs-comment">
         </h2>
         <hr>
         <p>Начиная с версии <code class="inline-code">v3.6</code>, система типов <code class="inline-code">Typescript</code> пополнилась новыми вспомогательными типами представляющими структуры данных <em>только для чтения</em> (<code class="inline-code">readonly</code>). Такими типами стали <code class="inline-code">ReadonlyMap&#x3C;K, V></code> и <code class="inline-code">ReadonlySet&#x3C;T></code> и в отличии от своих прототипов они не имеют методов способных их изменить.</p>
-<pre><code class="hljs language-typescript"><span class="hljs-keyword">let</span> map: ReadonlyMap&#x3C;<span class="hljs-built_in">string</span>, <span class="hljs-built_in">number</span>> = <span class="hljs-keyword">new</span> Map([[<span class="hljs-string">"key"</span>, <span class="hljs-number">0</span>]]);
-<span class="hljs-keyword">let</span> <span class="hljs-keyword">set</span>: ReadonlySet&#x3C;<span class="hljs-built_in">number</span>> = <span class="hljs-keyword">new</span> Set([<span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">2</span>]);</code></pre>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">let</span> map: ReadonlyMap&#x3C;<span class="hljs-built_in">string</span>, <span class="hljs-built_in">number</span>> = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Map</span>([[<span class="hljs-string">"key"</span>, <span class="hljs-number">0</span>]]);
+<span class="hljs-keyword">let</span> set: ReadonlySet&#x3C;<span class="hljs-built_in">number</span>> = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Set</span>([<span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">2</span>]);</code></pre>
 
     </section>
 <section id="Strokovoi-identifikator-funkcii-konstruktora" name="Строковой идентификатор функции-конструктора" class="subchapter">
@@ -300,7 +300,7 @@ iterator.next(<span class="hljs-number">123</span>); <span class="hljs-comment">
 }
 
 <span class="hljs-keyword">let</span> t = <span class="hljs-keyword">new</span> T(); <span class="hljs-comment">// output: Constructor!</span>
-t.<span class="hljs-keyword">constructor</span>(<span class="hljs-params"></span>); <span class="hljs-comment">// output: Method with name "constructor"!</span>
+t.constructor(); <span class="hljs-comment">// output: Method with name "constructor"!</span>
 
 
 <span class="hljs-comment">// ...будетскомпилирован в этот js код</span>
@@ -314,7 +314,7 @@ t.<span class="hljs-keyword">constructor</span>(<span class="hljs-params"></span
     }
 }
 <span class="hljs-keyword">let</span> t = <span class="hljs-keyword">new</span> T(); <span class="hljs-comment">// output: Constructor!</span>
-t.<span class="hljs-keyword">constructor</span>(<span class="hljs-params"></span>); <span class="hljs-comment">// output: Method with name "constructor"!</span></code></pre>
+t.constructor(); <span class="hljs-comment">// output: Method with name "constructor"!</span></code></pre>
 
     </section>
 <section id="Rasshirenie-vyvoda-ob-oshibkah-pri-rabote-s-Promise" name="Расширение вывода об ошибках при работе с Promise" class="subchapter">
@@ -454,8 +454,8 @@ System.register([], <span class="hljs-function"><span class="hljs-keyword">funct
         <p>Начаиная с версии <code class="inline-code">v3.6</code>, <code class="inline-code">TypeScript</code> получил возможность объявлять <code class="inline-code">get/set</code> в окружающем контексте (<code class="inline-code">declare class ID {}</code> или в файлах декларациях <code class="inline-code">.d.ts</code>).</p>
 <pre><code class="hljs language-typescript"><span class="hljs-comment">// Начиная с v3.6 - Ok</span>
 <span class="hljs-keyword">declare</span> <span class="hljs-keyword">class</span> T {
-    <span class="hljs-keyword">get</span> field():<span class="hljs-built_in">string</span>;
-    <span class="hljs-keyword">set</span> field(value: <span class="hljs-built_in">string</span>): <span class="hljs-built_in">void</span>;
+    get field():<span class="hljs-built_in">string</span>;
+    set field(value: <span class="hljs-built_in">string</span>): <span class="hljs-built_in">void</span>;
 }</code></pre>
 <p>Кроме того, начиная с версии <code class="inline-code">v3.7</code>  компилятор начнет использовать данный функционал при генерации <code class="inline-code">.d.ts</code> файлов.</p>
 

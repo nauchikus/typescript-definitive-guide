@@ -1,0 +1,72 @@
+<p>До текущей версии при попытке типизировать параметр блока <code class="inline-code">catch</code> возникала ошибка, хотя по умолчанию тип исключения расценивался копилятором как тип <code class="inline-code">any</code> что снижало типобезопасность программы.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-comment">/**
+ * До версии 4.0
+ */</span>
+
+<span class="hljs-keyword">try</span> {
+    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">`Error!`</span>);
+}<span class="hljs-keyword">catch</span>(e){ <span class="hljs-comment">// Ok</span>
+    e.meSSage.touppercase(); <span class="hljs-comment">// Ошибка времени исполнения</span>
+}
+
+<span class="hljs-keyword">try</span> {
+
+}<span class="hljs-keyword">catch</span>(e: <span class="hljs-built_in">Error</span>){ <span class="hljs-comment">// Error -> [*]</span>
+    e.meSSage.touppercase();
+}
+
+<span class="hljs-keyword">try</span> {
+    
+}<span class="hljs-keyword">catch</span>(e: <span class="hljs-built_in">any</span>){ <span class="hljs-comment">// Error -> [*]</span>
+    e.meSSage.touppercase();
+}
+
+<span class="hljs-keyword">try</span> {
+    
+}<span class="hljs-keyword">catch</span>(e: unknown){ <span class="hljs-comment">// Error -> [*]</span>
+    e.meSSage.touppercase();
+}
+
+<span class="hljs-comment">/**
+ * [*] Catch clause variable cannot have a type annotation.
+ */</span></code></pre>
+<p>Начиная с текущей версии в аннотации исключения блока <code class="inline-code">catch</code> допускается указывать такие типы как <code class="inline-code">unknown</code> и <code class="inline-code">any</code>.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-comment">/**
+ * Начиная с версии 4.0
+ */</span>
+
+<span class="hljs-keyword">try</span> {
+    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">`Error!`</span>);
+}<span class="hljs-keyword">catch</span>(e){ <span class="hljs-comment">// Ok</span>
+    e.meSSage.touppercase(); <span class="hljs-comment">// Ошибка времени исполнения</span>
+}
+
+<span class="hljs-keyword">try</span> {
+
+}<span class="hljs-keyword">catch</span>(e: <span class="hljs-built_in">Error</span>){ <span class="hljs-comment">// Error -> Catch clause variable type annotation must be 'any' or 'unknown' if specified.</span>
+    e.meSSage.touppercase();
+}
+
+<span class="hljs-keyword">try</span> {
+    
+}<span class="hljs-keyword">catch</span>(e: <span class="hljs-built_in">any</span>){ <span class="hljs-comment">// Ok</span>
+    e.meSSage.touppercase(); <span class="hljs-comment">// Ошибка времени исполнения</span>
+}
+
+<span class="hljs-keyword">try</span> {
+    
+} <span class="hljs-keyword">catch</span> (e: unknown) { <span class="hljs-comment">// Ok</span>
+    e.meSSage.touppercase(); <span class="hljs-comment">// Ошибка времени исполнения</span>
+    e.message; <span class="hljs-comment">// Error -> поскольку у типа unknown отсутствует свойство message</span>
+}</code></pre>
+<p>Тип <code class="inline-code">any</code> остается значением по умолчанию и пока остается для обратной совместимости. В будущем планируется добавить новый <em>strict mode</em> флаг, с помощь которого можно будет изменить тип исключения по умолчанию на более строгий <code class="inline-code">unknown</code>, который позволит избежать ошибок при помощи дополнительного уровня проверок.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">try</span> {
+    
+} <span class="hljs-keyword">catch</span> (e: unknown) { <span class="hljs-comment">// Ok</span>
+    e.meSSage.touppercase(); <span class="hljs-comment">// Ошибка времени исполнения</span>
+    e.message; <span class="hljs-comment">// Error -> поскольку у типа unknown отсутствует свойство message</span>
+
+    <span class="hljs-keyword">if</span> (e <span class="hljs-keyword">instanceof</span> <span class="hljs-built_in">Error</span>) {
+        e.message; <span class="hljs-comment">// Ok</span>
+    }
+}</code></pre>

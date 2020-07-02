@@ -301,7 +301,7 @@ dictionary = {}; <span class="hljs-comment">// Ok</span>
 dictionary = literalObjectType; <span class="hljs-comment">// Ok</span>
 dictionary = anyType;
 dictionary = <span class="hljs-keyword">new</span> SomeClass(); <span class="hljs-comment">// Ok</span>
-dictionary = <span class="hljs-function"><span class="hljs-params">()</span> =></span> {}; <span class="hljs-comment">// Ok</span>
+dictionary = <span class="hljs-function">() =></span> {}; <span class="hljs-comment">// Ok</span>
 dictionary = <span class="hljs-built_in">Boolean</span>; <span class="hljs-comment">// Ok</span></code></pre>
 <p>До версии <code class="inline-code">v3.5</code> тип <code class="inline-code">unknown</code> в индексной сигнатуре вел себя аналогичным образом.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-comment">// &#x3C;v3.5</span>
@@ -318,7 +318,7 @@ dictionary = {}; <span class="hljs-comment">// Ok</span>
 dictionary = literalObjectType; <span class="hljs-comment">// Ok</span>
 dictionary = anyType;
 dictionary = <span class="hljs-keyword">new</span> SomeClass(); <span class="hljs-comment">// Ok</span>
-dictionary = <span class="hljs-function"><span class="hljs-params">()</span> =></span> {}; <span class="hljs-comment">// Ok</span>
+dictionary = <span class="hljs-function">() =></span> {}; <span class="hljs-comment">// Ok</span>
 dictionary = <span class="hljs-built_in">Boolean</span>; <span class="hljs-comment">// Ok</span></code></pre>
 <p>Начиная с версии <code class="inline-code">v3.5</code> поведение для типа <code class="inline-code">unknown</code> в индексной сигнатуре было изменено. Теперь он совместим лишь с типами представляемыми литералами объектов и типом <code class="inline-code">any</code>.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-comment">// >= 3.5</span>
@@ -335,7 +335,7 @@ dictionary = {}; <span class="hljs-comment">// Ok</span>
 dictionary = literalObjectType; <span class="hljs-comment">// Ok</span>
 dictionary = anyType;
 dictionary = <span class="hljs-keyword">new</span> SomeClass(); <span class="hljs-comment">// Error</span>
-dictionary = <span class="hljs-function"><span class="hljs-params">()</span> =></span> {}; <span class="hljs-comment">// Error</span>
+dictionary = <span class="hljs-function">() =></span> {}; <span class="hljs-comment">// Error</span>
 dictionary = <span class="hljs-built_in">Boolean</span>; <span class="hljs-comment">// Error</span></code></pre>
 
     </section>

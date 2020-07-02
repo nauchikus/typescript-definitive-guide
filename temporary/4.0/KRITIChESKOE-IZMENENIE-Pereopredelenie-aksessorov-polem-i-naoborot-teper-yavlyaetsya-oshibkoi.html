@@ -1,0 +1,39 @@
+<p>Начиная с версии <code class="inline-code">3.7</code> был введен флаг <code class="inline-code">useDefineForClassFields</code> активация которого запрещала переопределение аксессоров полями и полей аксессорами при реализации механизма наследования (<code class="inline-code">extends</code>). Начиная с текущей версии поведение равное активируемому флагом <code class="inline-code">useDefineForClassFields</code> становится неотключаемым.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">class</span> Base {
+    get value() {
+        <span class="hljs-keyword">return</span> <span class="hljs-string">'value'</span>;
+    }
+    set value(value: <span class="hljs-built_in">string</span>) {
+        
+    }
+}
+
+<span class="hljs-keyword">class</span> Derived <span class="hljs-keyword">extends</span> Base {
+    <span class="hljs-comment">/**
+     * Error ->
+     * 
+     * 'value' is defined as an accessor in class 'Base',
+     * but is overridden here in 'Derived'
+     * as an instance property.
+     */</span>
+    value = <span class="hljs-string">'value'</span>;
+}</code></pre>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">class</span> Base {
+     value = <span class="hljs-string">'value'</span>;
+}
+
+<span class="hljs-keyword">class</span> Derived <span class="hljs-keyword">extends</span> Base {
+    <span class="hljs-comment">/**
+     * Error ->
+     * 
+     * 'value' is defined as a property in class 'Base',
+     * but is overridden here in 'Derived' as an accessor.
+     */</span>
+   
+    get value() {
+        <span class="hljs-keyword">return</span> <span class="hljs-string">'value'</span>;
+    }
+    set value(value: <span class="hljs-built_in">string</span>) {
+        
+    }
+}</code></pre>

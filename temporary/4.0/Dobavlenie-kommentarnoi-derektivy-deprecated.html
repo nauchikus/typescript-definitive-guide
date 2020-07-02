@@ -1,0 +1,13 @@
+<p>Начиная с текущей версии в <em>TypeScript</em> появилась возможность помечать код как устаревший с помощью комментарной директивы <code class="inline-code">/** @deprecated */</code>, что gjpdjkbn cjdhtvtyysv <em>ide</em> подсвечивать устаревшее <em>api</em>.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">class</span> T {
+    <span class="hljs-comment">/** @deprecated use method new()*/</span>
+    old(){}
+    <span class="hljs-keyword">new</span>(){}
+}
+
+<span class="hljs-keyword">let</span> t = <span class="hljs-keyword">new</span> T();
+<span class="hljs-comment">/**
+ * @deprecated — use method new()
+ * 'old' is deprecatedts(6385)
+ */</span>
+t.old();</code></pre>

@@ -1,0 +1,131 @@
+<p>Прендставьте случай при котором перед вами стоит задача реализовать известную всем функцию объединения массивов и кортежей <code class="inline-code">concat</code> и менее известную <code class="inline-code">tail</code>, которая возвращает копию полученного в качестве аргумента массива, но только без первого элемента. На <code class="inline-code">JavaScript</code> описанные функции выглядели бы подобным образом -</p>
+<pre><code class="hljs language-javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">concat</span>(<span class="hljs-params">a, b</span>)</span>{
+    <span class="hljs-keyword">return</span> [...a, ...b];
+}
+
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">tail</span>(<span class="hljs-params">a</span>)</span>{
+    <span class="hljs-keyword">let</span> [, ...rest] = a;
+
+    <span class="hljs-keyword">return</span> rest;
+}</code></pre>
+<p>Если бы при попытке добавть типизацию была потребность в аннотации пригодной исключительно для массивов, то дело бы обошлось привычным типом объединения (<code class="inline-code">Union</code>) -</p>
+<pre><code class="hljs language-typescript"><span class="hljs-comment">/**
+ * Элементы возвращаемого массива могут
+ * принадлежать к типу T или U
+ */</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">concat</span>&#x3C;<span class="hljs-title">T</span>, <span class="hljs-title">U</span>>(<span class="hljs-params">a: T[], b: U[]</span>): <span class="hljs-title">Array</span>&#x3C;<span class="hljs-title">T</span> | <span class="hljs-title">U</span>></span>{
+    <span class="hljs-keyword">return</span> [...a, ...b];
+}
+
+<span class="hljs-comment">/**
+ * Возвращаемый массив может содержать
+ * элементы принадлежащие к типу T, либо
+ * в случаи когда входной массив содержит
+ * только один элемент, к типу undefined.
+ */</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">tail</span>&#x3C;<span class="hljs-title">T</span>>(<span class="hljs-params">a: T[]</span>): <span class="hljs-title">Array</span>&#x3C;<span class="hljs-title">T</span>> | <span class="hljs-title">Array</span>&#x3C;<span class="hljs-title">undefined</span>></span>{
+    <span class="hljs-keyword">let</span> [, ...rest] = a;
+
+    <span class="hljs-keyword">return</span> rest;
+}</code></pre>
+<p>Но посколько обсуждаемые функции должны также работать и с кортажами (<code class="inline-code">Tuple</code>), то до текущей версии единственный выход заключался в описании множества перегрузок.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">concat</span>&#x3C;<span class="hljs-title">A0</span>>(<span class="hljs-params">a: [A0], b: []</span>): [<span class="hljs-title">A0</span>]</span>;
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">concat</span>&#x3C;<span class="hljs-title">A0</span>, <span class="hljs-title">A1</span>>(<span class="hljs-params">a: [A0, A1], b: []</span>): [<span class="hljs-title">A0</span>, <span class="hljs-title">A1</span>]</span>;
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">concat</span>&#x3C;<span class="hljs-title">A0</span>, <span class="hljs-title">A1</span>, <span class="hljs-title">A2</span>>(<span class="hljs-params">a: [A0, A1, A2], b: []</span>): [<span class="hljs-title">A0</span>, <span class="hljs-title">A1</span>, <span class="hljs-title">A2</span>]</span>;
+
+<span class="hljs-comment">/**
+ * И так до бесконечности!
+ * И это только для первого параметра!
+ */</span></code></pre>
+<p>Несмотря на силы затраченные для описания множества вариантов перегрузок создать описание покрывающее все возможные случаи все равно не возможно. Поэтому начиная с версии <code class="inline-code">4.0</code> <em>TypeScript</em> вносит два фундаментальных изменения позволяющих разрешить описанный случай без описания перегрузок.</p>
+<p>Первое нововведение заключается в том, что механиз известный как <code class="inline-code">spread</code> (<em>распростронение</em> <code class="inline-code">[...T]</code>) в кортежах теперь может быть универсальным (<em>generic</em>). Это позволяет производить над типами массивов и кортежей операции более высокого порядка, что позволяет отказатся от перегрузок в пользу более продвинутого способа.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-comment">/**
+ * 0 - указываем что параметр типа должен обязательно быть потомком массива.
+ * 1 - если T является потомком массива у которого существует первый элемент...
+ * 2 - ... то выбираем остаточные элементы и определяем их как тип R.
+ * 3 - при верности условия [1] определяем тип как тип R
+ * 4 - при ложном условии [1] определяем тип как тип T (массива переданного в качестве аргумента)
+ */</span>
+<span class="hljs-comment">//        [      0      ]    [       1       [     2   ]] [3] [4]</span>
+<span class="hljs-keyword">type</span> Tail&#x3C;T <span class="hljs-keyword">extends</span> unknown[]> = T <span class="hljs-keyword">extends</span> [unknown, ...infer R] ? R : T;
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">tail</span>&#x3C;<span class="hljs-title">T</span> <span class="hljs-title">extends</span> <span class="hljs-title">unknown</span>[]>(<span class="hljs-params">arr:  <span class="hljs-keyword">readonly</span> [...T] </span>): <span class="hljs-title">Tail</span>&#x3C;<span class="hljs-title">T</span>> </span>{
+    <span class="hljs-keyword">const</span> [, ...rest] = arr;
+
+    <span class="hljs-keyword">return</span> rest <span class="hljs-keyword">as</span> Tail&#x3C;T>;
+}
+
+<span class="hljs-keyword">let</span> tuple = [<span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>] <span class="hljs-keyword">as</span> <span class="hljs-keyword">const</span>;
+<span class="hljs-keyword">let</span> array = [<span class="hljs-string">'hello'</span>, <span class="hljs-string">'world'</span>];
+
+<span class="hljs-comment">// let v0: string[]</span>
+<span class="hljs-keyword">let</span> v0 = tail(array);
+
+<span class="hljs-comment">// let v1: [1, 2, 3]</span>
+<span class="hljs-keyword">let</span> v1 = tail(tuple);
+
+<span class="hljs-comment">// let v2: [1, 2, 3, ...string[]]</span>
+<span class="hljs-keyword">let</span> v2 = tail([...tuple, ...array] <span class="hljs-keyword">as</span> <span class="hljs-keyword">const</span>);</code></pre>
+<p>Кроме того вторым нововведением является возможность указывать <code class="inline-code">spread</code> в любой части кортежа, а не только в конце.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">type</span> Strings = [<span class="hljs-built_in">string</span>, <span class="hljs-built_in">string</span>];
+<span class="hljs-keyword">type</span> Numbers = [<span class="hljs-built_in">number</span>, <span class="hljs-built_in">number</span>];
+
+<span class="hljs-comment">// type Mixed = [string, string, number, number]</span>
+<span class="hljs-keyword">type</span> Mixed = [...Strings, ...Numbers];</code></pre>
+<p>Когда <code class="inline-code">spread</code> применяется к типу без известной длины (обычный массив <code class="inline-code">...number[]</code>), то результатирующий тип также становится неограниченным и все типы слудующие после такого распростронения (обычный массив) образуют с ним тип объединение (<code class="inline-code">Union</code>).</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">type</span> Strings = [<span class="hljs-built_in">string</span>, <span class="hljs-built_in">string</span>];
+<span class="hljs-keyword">type</span> BooleanArray = <span class="hljs-built_in">boolean</span>[];
+
+<span class="hljs-comment">// type Unbounded0 = [string, string, ...(boolean | symbol)[]]</span>
+<span class="hljs-keyword">type</span> Unbounded0 = [...Strings, ...BooleanArray, symbol];
+
+<span class="hljs-comment">// type Unbounded1 = [string, string, ...(string | boolean | symbol)[]]</span>
+<span class="hljs-keyword">type</span> Unbounded1 = [ ...Strings, ...BooleanArray, symbol, ...Strings]</code></pre>
+<p>Благодаря этим двум нововведениям теперь стало возможно типизировать функцию <code class="inline-code">concat</code> способом исключающим механизм перегрузок.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">type</span> A = <span class="hljs-keyword">readonly</span> unknown[];
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">concat</span>&#x3C;<span class="hljs-title">T</span> <span class="hljs-title">extends</span> <span class="hljs-title">A</span>, <span class="hljs-title">U</span> <span class="hljs-title">extends</span> <span class="hljs-title">A</span>>(<span class="hljs-params">a: T, b: U</span>): [...<span class="hljs-title">T</span>, ...<span class="hljs-title">U</span>] </span>{
+    <span class="hljs-keyword">return</span> [...a, ...b];
+}
+
+<span class="hljs-comment">// let v0: number[]</span>
+<span class="hljs-keyword">let</span> v0 = concat([<span class="hljs-number">0</span>, <span class="hljs-number">1</span>], [<span class="hljs-number">2</span>, <span class="hljs-number">3</span>]);
+
+<span class="hljs-comment">// let v1: [0, 1, 2, 3]</span>
+<span class="hljs-keyword">let</span> v1 = concat([<span class="hljs-number">0</span>, <span class="hljs-number">1</span>] <span class="hljs-keyword">as</span> <span class="hljs-keyword">const</span>, [<span class="hljs-number">2</span>, <span class="hljs-number">3</span>] <span class="hljs-keyword">as</span> <span class="hljs-keyword">const</span>);
+
+<span class="hljs-comment">// let v2: [0, 1, ...number[]]</span>
+<span class="hljs-keyword">let</span> v2 = concat([<span class="hljs-number">0</span>, <span class="hljs-number">1</span>] <span class="hljs-keyword">as</span> <span class="hljs-keyword">const</span>, [<span class="hljs-number">2</span>, <span class="hljs-number">3</span>]);
+
+<span class="hljs-comment">// let v3: number[]</span>
+<span class="hljs-keyword">let</span> v3 = concat([<span class="hljs-number">0</span>, <span class="hljs-number">1</span>], [<span class="hljs-number">2</span>, <span class="hljs-number">3</span>] <span class="hljs-keyword">as</span> <span class="hljs-keyword">const</span>);</code></pre>
+<p>Помимо этого новые возможности помогают изящно реализоват более сложные сценарии одним из которых является функция каррирования основанную на <code class="inline-code">spread</code> параметрах.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">carry</span>(<span class="hljs-params">f, ...initialParams</span>)</span>{
+    <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">...restParams</span>)</span>{
+        <span class="hljs-keyword">return</span> f(...initialParams, ...restParams);
+    }
+}</code></pre>
+<p>Прибегнув к уже рассмотренным механизмам можно с легкостью типизировать столь сложный на первый взгляд случай.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">type</span> A = <span class="hljs-keyword">readonly</span> unknown[];
+<span class="hljs-keyword">type</span> Carry&#x3C;T <span class="hljs-keyword">extends</span> A, U <span class="hljs-keyword">extends</span> A, R> = <span class="hljs-function">(<span class="hljs-params">...restParams: [...T, ...U]</span>) =></span> R;
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">carry</span>&#x3C;<span class="hljs-title">T</span> <span class="hljs-title">extends</span> <span class="hljs-title">A</span>, <span class="hljs-title">U</span> <span class="hljs-title">extends</span> <span class="hljs-title">A</span>, <span class="hljs-title">R</span>>(<span class="hljs-params">f: Carry&#x3C;T, U, R>, ...initialParams: T</span>)</span>{
+    <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">...restParams: U</span>)</span>{
+        <span class="hljs-keyword">return</span> f(...initialParams, ...restParams);
+    }
+}
+
+
+<span class="hljs-comment">// использование</span>
+
+<span class="hljs-keyword">const</span> f = <span class="hljs-function">(<span class="hljs-params">a: <span class="hljs-built_in">number</span>, b: <span class="hljs-built_in">string</span>, c: <span class="hljs-built_in">boolean</span></span>) =></span> {};
+
+<span class="hljs-keyword">const</span> f0 = carry(f, <span class="hljs-number">5</span>, <span class="hljs-string">''</span>); <span class="hljs-comment">// Ok</span>
+<span class="hljs-keyword">const</span> f1 = carry(f, <span class="hljs-number">5</span>, <span class="hljs-string">''</span>, <span class="hljs-literal">true</span>); <span class="hljs-comment">// Ok</span>
+<span class="hljs-keyword">const</span> f2 = carry(f, <span class="hljs-number">5</span>, <span class="hljs-string">''</span>, <span class="hljs-string">''</span>); <span class="hljs-comment">// Error -> Argument of type '""' is not assignable to parameter of type 'boolean'.</span>
+<span class="hljs-keyword">const</span> f3 = carry(f, <span class="hljs-number">5</span>, <span class="hljs-string">''</span>, <span class="hljs-literal">true</span>, <span class="hljs-number">5</span>); <span class="hljs-comment">// Error -> Expected 4 arguments, but got 5.</span>
+
+f0(<span class="hljs-literal">true</span>); <span class="hljs-comment">// Ok</span>
+f0(<span class="hljs-number">1</span>); <span class="hljs-comment">// Error -> Argument of type '1' is not assignable to parameter of type 'boolean'.</span></code></pre>
+<p>И на последок стоит отметить что сложно переоценить важность добавления вариативных кортежей поскольку этот механизм ляжет в основу усовершенствования стандартной декларации описывающей <em>JavaScript</em> конструкции.</p>
