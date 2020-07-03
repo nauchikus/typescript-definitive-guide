@@ -126,7 +126,7 @@ lionData = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Arr
 <hr>
 <p>Тип данных <code class="inline-code">Tuple</code> (кортеж) состоит из строго заданной последовательности типов, череда которых соответствует индексам, указанного в качестве значения массива, начиная с нуля. Тип данных Tuple указывается литералом массива, в котором заключены, перечисленные через запятую, типы данных <code class="inline-code">[T1, T2, T3]</code>.</p>
 <p>Массив, выступающий в качестве значения, должен хранить элементы таким образом, чтобы в индексах, соответствующих расположению типов в кортеже, обязательно находились значения совместимые с этими типами.</p>
-<p>Другими словами, если переменной, аннотированной типом кортеж имеющим определенную последовательность, состоящую из типов <code class="inline-code">string</code> и <code class="inline-code">number</code>, присвоить ссылку на массив у которого первым элементом хранится строка, а вторым цифра, операция присваивания завершится успехом. Если в массиве первым элементом будет значение <code class="inline-code">null</code>, а вторым <code class="inline-code">undefined</code>, то ошибка выброшена не будет, так как эти типы считаются совместимыми с указанными в кортеже. Но если первым элементом будет цифра, а вторым строка, то будет выброшена ошибка, так как заданная последовательность типов не соблюдена.</p>
+<p>Другими словами, если переменной, аннотированной типом кортеж имеющим определенную последовательность, состоящую из типов <code class="inline-code">string</code> и <code class="inline-code">number</code>, присвоить ссылку на массив у которого первым элементом хранится строка, а вторым цифра, операция присваивания завершится успехом. Если в массиве первым элементом будет значение <code class="inline-code">null</code>, а вторым <code class="inline-code">undefined</code>, то ошибка выброшена не будет, так как эти типы считаются совместимыми с указанными в кортеже. Но если первым элементом будет цифра, а вторым строка, то возникнет ошибка по причине не соблюдения заданной последовательности типов.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">let</span> elephantData: [<span class="hljs-built_in">string</span>, <span class="hljs-built_in">number</span>] = [<span class="hljs-string">'Dambo'</span>, <span class="hljs-number">1</span>]; <span class="hljs-comment">// Ok</span>
 <span class="hljs-keyword">let</span> giraffeData: [<span class="hljs-built_in">string</span>, <span class="hljs-built_in">number</span>] = [<span class="hljs-literal">null</span>, <span class="hljs-literal">undefined</span>]; <span class="hljs-comment">// Ok</span>
 <span class="hljs-keyword">let</span> liontData: [<span class="hljs-built_in">string</span>, <span class="hljs-built_in">number</span>] = [<span class="hljs-number">1</span>, <span class="hljs-string">'Simba'</span>]; <span class="hljs-comment">// Error</span></code></pre>
@@ -155,7 +155,7 @@ elephantData[<span class="hljs-number">2</span>] = <span class="hljs-string">'nu
 <span class="hljs-keyword">let</span> elephantName: <span class="hljs-built_in">string</span> = elephantData[<span class="hljs-number">0</span>]; <span class="hljs-comment">// Ok, тип string</span>
 <span class="hljs-keyword">let</span> elephantAge: <span class="hljs-built_in">number</span> = elephantData[<span class="hljs-number">1</span>]; <span class="hljs-comment">// Ok, тип number</span>
 <span class="hljs-keyword">let</span> elephantDiet: <span class="hljs-built_in">string</span> = elephantData[<span class="hljs-number">2</span>]; <span class="hljs-comment">// Error, тип string | number</span></code></pre>
-<p>Есть два варианта решения этой проблемы. Первый вариант, это изменить тип переменной со <code class="inline-code">string</code> на тип объединение <code class="inline-code">string | number</code>, что ненадолго избавит от проблемы совместимости типов. Второй, более подходящий вариант, прибегнуть к приведению типов, который детально будет рассмотрен позднее.</p>
+<p>Есть два варианта решения этой проблемы. Первый вариант, изменить тип переменной со <code class="inline-code">string</code> на тип объединение <code class="inline-code">string | number</code>, что ненадолго избавит от проблемы совместимости типов. Второй, более подходящий вариант, прибегнуть к приведению типов, который детально будет рассмотрен позднее.</p>
 <p>В случае, если описание кортежа может навредить семантике кода, его можно поместить в описание псевдонима типа (<code class="inline-code">type</code>).</p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">type</span> Tuple = [<span class="hljs-built_in">number</span>, <span class="hljs-built_in">string</span>, <span class="hljs-built_in">boolean</span>, <span class="hljs-built_in">number</span>, <span class="hljs-built_in">string</span>];
 
@@ -187,7 +187,54 @@ f(<span class="hljs-number">5</span>, <span class="hljs-string">''</span>, <span
 }
 
 <span class="hljs-keyword">let</span> l = f(<span class="hljs-number">5</span>).length; <span class="hljs-comment">// let l: 1 | 2 | 3</span></code></pre>
-<p>Еще несколько неочевидных моментов, связанным с выводом типов при работе с типом кортеж будет рассмотрено в главе <a class="book__chapter__chapter-link" href="/book/contents/Tipizaciya-Vyvod-tipov" title="Типизация - Вывод типов" target="_blank">Типизация - Вывод типов</a>. </p>
+<p>Кроме того для кортежа существует возможность указывать <code class="inline-code">spread</code> в любой его части, а не только в конце.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">type</span> Strings = [<span class="hljs-built_in">string</span>, <span class="hljs-built_in">string</span>];
+<span class="hljs-keyword">type</span> Numbers = [<span class="hljs-built_in">number</span>, <span class="hljs-built_in">number</span>];
+
+<span class="hljs-comment">// type Mixed = [string, string, number, number]</span>
+<span class="hljs-keyword">type</span> Mixed = [...Strings, ...Numbers];</code></pre>
+<p>Когда <code class="inline-code">spread</code> применяется к типу без известной длины (обычный массив <code class="inline-code">...number[]</code>), то результатирующий тип также становится неограниченным и все типы следующие после такого распростронения (обычный массив) образуют с ним тип объединение (<code class="inline-code">Union</code>).</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">type</span> Strings = [<span class="hljs-built_in">string</span>, <span class="hljs-built_in">string</span>];
+<span class="hljs-keyword">type</span> BooleanArray = <span class="hljs-built_in">boolean</span>[];
+
+<span class="hljs-comment">// type Unbounded0 = [string, string, ...(boolean | symbol)[]]</span>
+<span class="hljs-keyword">type</span> Unbounded0 = [...Strings, ...BooleanArray, symbol];
+
+<span class="hljs-comment">// type Unbounded1 = [string, string, ...(string | boolean | symbol)[]]</span>
+<span class="hljs-keyword">type</span> Unbounded1 = [ ...Strings, ...BooleanArray, symbol, ...Strings]</code></pre>
+<p>Механизм объявления множественного распростронения (<code class="inline-code">spread</code>) значительно упрощает  аннотирование сигнатуры функции при реализации непростых сценариев, один из которых будет рассмотрен далее в главе (Массивоподобные readonly типы)[].</p>
+<p>Еще несколько неочевидных моментов, связанным с выводом типов при работе с типом кортеж будет рассмотрено в главе <a class="book__chapter__chapter-link" href="/book/contents/Tipizaciya-Vyvod-tipov" title="Типизация - Вывод типов" target="_blank">Типизация - Вывод типов</a> (<em>см реализацию функции concat</em>).</p>
+<p>Помимо этого симантику типов кортежей можно повышать за счет добавления им меток.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-comment">// пример безликого кортежа</span>
+
+<span class="hljs-keyword">const</span> f = <span class="hljs-function">(<span class="hljs-params">p: [<span class="hljs-built_in">string</span>, <span class="hljs-built_in">number</span>]</span>) =></span> {}
+
+<span class="hljs-comment">/**
+ * автодополнение -> f(p: [string, number]): void
+ * 
+ * Совершенно не понятно чем конкретно являются
+ * элементы представляемые типами string и number
+ */</span>
+f0()</code></pre>
+<pre><code class="hljs language-typescript"><span class="hljs-comment">// пример кортежа с помеченными элементами</span>
+
+<span class="hljs-keyword">const</span> f = <span class="hljs-function">(<span class="hljs-params">p: [a: <span class="hljs-built_in">string</span>, b: <span class="hljs-built_in">number</span>]</span>) =></span> {};
+
+<span class="hljs-comment">/**
+ * автодополнение -> f(p: [a: string, b: number]): void
+ * 
+ * Теперь мы знаем что функция ожидает не просто 
+ * строку и число, а аргумент "a" и аргумент "b",
+ * которые в реальном проекте будут иметь более
+ * осмысленное смысловое значение, например "name" и "age".
+ */</span>
+f1()</code></pre>
+<p>Поскольку метки являются исключительной частью синтаксиса <em>TypeScript</em> они не имеют никакой силы в коде при деструктуризации массива представленного типом кортежа.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">const</span> f = <span class="hljs-function">(<span class="hljs-params">p: [a: <span class="hljs-built_in">string</span>, b: <span class="hljs-built_in">number</span>]</span>) =></span> {
+    <span class="hljs-keyword">let</span> [c, d] = p;
+};</code></pre>
+<p>Единственное правило касающееся данного механизма заключается в том, что кортеж содержащий метки не может содеражть элементы описанные только типами.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">type</span> T = [a: <span class="hljs-built_in">number</span>, b: <span class="hljs-built_in">string</span>, <span class="hljs-built_in">boolean</span>]; <span class="hljs-comment">// Error -> Tuple members must all have names or all not have names.ts(5084)</span></code></pre>
 <p>Напоследок стоит обратить внимание на тот факт, что тип переменной при присвоении ей инициализированного массива без явного указания типа, будет выведен как массив. Другими словами вывод типа неспособен вывести тип кортеж.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">let</span> elephantData = [<span class="hljs-string">'Dambo'</span>, <span class="hljs-number">1</span>]; <span class="hljs-comment">// type Array (string | number)[]</span></code></pre>
 <p>Тип <code class="inline-code">Tuple</code> является уникальным для <code class="inline-code">TypeScript</code>, в <code class="inline-code">JavaScript</code> подобного типа не существует.</p>

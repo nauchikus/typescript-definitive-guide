@@ -101,6 +101,112 @@
 <span class="hljs-keyword">let</span> v3 = <span class="hljs-keyword">new</span> ClassType(); <span class="hljs-comment">// let v3: ClassType</span>
 <span class="hljs-keyword">let</span> v4 = typeIntreface; <span class="hljs-comment">// let v4: InterfaceType</span>
 <span class="hljs-keyword">let</span> v5 = typeTypeAlias; <span class="hljs-comment">// let v5: number</span></code></pre>
+</section><section id="Vyvod-tipa-dlya-polei-klassa-na-osnove-inicializacii-ih-v-konstruktore" name="Вывод типа для полей класса на основе инициализации их в конструкторе" class="subchapter">
+            <h2 class="subchapter-title">
+                <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="Vyvod-tipa-dlya-polei-klassa-na-osnove-inicializacii-ih-v-konstruktore" type="absolute-url">
+                    <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <use href="#icon_link"/>
+                    </svg>
+                </button>
+                Вывод типа для полей класса на основе инициализации их в конструкторе
+            </h2>
+        
+<p>Если прочитать главу посвященную конфигурации компилятора, то станет известно, что при активном флаге <code class="inline-code">noImplicitAny</code> возникает ошибка если тело класса содержит поля без аннотации типа. Дело в том что вывод типов расценивает поля с явной аннотацией типа как принадлежащие к типу <code class="inline-code">any</code>, который как раз и не допускает активированный флаг <code class="inline-code">noImplicitAny</code>.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">class</span> Square {
+    <span class="hljs-comment">/**
+     * Поля без явной аннотации типа.
+     * Вывод типов определяет их
+     * принадлежность к типу any.
+     * 
+     * (property) Square.area: any
+     * (property) Square.sideLength: any
+     * 
+     * От этого возникает ошибка -> 
+     * Member 'area' implicitly has an 'any' type.(7008)
+     * Member 'sideLength' implicitly has an 'any' type.(7008)
+     */</span>
+    area;
+    sideLength;
+
+    <span class="hljs-keyword">constructor</span>(<span class="hljs-params"></span>) {
+    }
+}</code></pre>
+<p>Но к счастью тип полей без явной аннотации может быть автоматически выведен если инициализация таких полей происходит в конструкторе.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">class</span> Square {
+    <span class="hljs-comment">/**
+     * Поля без явной аннотации типа,
+     * но ошибки не возникает, поскольку
+     * вывод типов определяет их принадлежность
+     * к типу number, так как поле sideLength
+     * инициализиируется в конструкторе его параметром 
+     * принадлежащим к типу number, а поле area инициализируется
+     * там же с помощью выражения результат которого 
+     * также принадлежит к типу number.
+     * 
+     * (property) Square.area: number
+     * (property) Square.sideLength: number
+     */</span>
+    area;
+    sideLength;
+
+    <span class="hljs-keyword">constructor</span>(<span class="hljs-params">sideLength: <span class="hljs-built_in">number</span></span>) {
+        <span class="hljs-keyword">this</span>.sideLength = sideLength;
+        <span class="hljs-keyword">this</span>.area = <span class="hljs-keyword">this</span>.sideLength ** <span class="hljs-number">2</span>;
+    }
+}</code></pre>
+<p>Не будет лишним сделать акцент на словах об инициализации в конструкторе, поскольку это условие является обязательным. При попытке инициализации полей вне тела конструктора будет вызвана ошибка, даже если инициализация производится в методе вызываемом из конструктора.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">class</span> Square {
+    <span class="hljs-comment">/**
+     * Error ->
+     * Member 'area' implicitly has an 'any' type.
+     * 
+     */</span>
+    area;
+    sideLength;
+
+    <span class="hljs-keyword">constructor</span>(<span class="hljs-params">sideLength: <span class="hljs-built_in">number</span></span>) {
+        <span class="hljs-keyword">this</span>.sideLength = sideLength;
+        <span class="hljs-keyword">this</span>.init();
+    }
+
+    init(){
+        <span class="hljs-keyword">this</span>.area = <span class="hljs-keyword">this</span>.sideLength ** <span class="hljs-number">2</span>;
+    }
+}</code></pre>
+<p>Если инициализация полей класса без аннотации по каким-то причинам может не состоятся, то тип будет выведен как объединение включающее так же и тип <code class="inline-code">undefined</code>.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">class</span> Square {
+    <span class="hljs-comment">/**
+     * [1] ...вывод типов определяет принадлежность
+     * поля sideLength как ->
+     * 
+     * (property) Square.sideLength: number | undefined
+     */</span>
+    sideLength;
+
+    <span class="hljs-keyword">constructor</span>(<span class="hljs-params">sideLength: <span class="hljs-built_in">number</span></span>) {
+        <span class="hljs-comment">/**
+         * [0] Поскольку инициализация зависи от
+         * условия выражения которое выполнится
+         * только во время выполнения программы...
+         */</span>
+        <span class="hljs-keyword">if</span> (<span class="hljs-built_in">Math</span>.random()) {
+            <span class="hljs-keyword">this</span>.sideLength = sideLength;
+        }
+    }
+
+    <span class="hljs-keyword">get</span> area() {
+        <span class="hljs-comment">/**
+         * [2] Тем не менее возникает ошибка
+         * поскольку операция возведения в степень
+         * производится над значение которое может
+         * быть undefined
+         * 
+         * Error ->
+         * Object is possibly 'undefined'.
+         */</span>
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.sideLength ** <span class="hljs-number">2</span>;
+    }
+}</code></pre>
 </section><section id="Vyvod-obedinennyh-Union-tipov" name="Вывод объединенных (Union) типов" class="subchapter">
             <h2 class="subchapter-title">
                 <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="Vyvod-obedinennyh-Union-tipov" type="absolute-url">
@@ -207,7 +313,7 @@ f(<span class="hljs-number">5</span>, <span class="hljs-string">''</span>, <span
 <span class="hljs-keyword">let</span> v0 = f(<span class="hljs-number">5</span>);  <span class="hljs-comment">// let v0: [number]</span>
 <span class="hljs-keyword">let</span> v1 = f(<span class="hljs-number">5</span>, <span class="hljs-string">''</span>);  <span class="hljs-comment">// let v1: [number, string]</span>
 <span class="hljs-keyword">let</span> v2 = f(<span class="hljs-number">5</span>, <span class="hljs-string">''</span>, <span class="hljs-literal">true</span>);  <span class="hljs-comment">// let v2: [number, string, boolean]</span></code></pre>
-<p>Если функция, сигнатура которой содержит объявление остаточных параметров, принадлежащих к типу параметра, будет вызвана с аргументами, среди которых будет массив, указанный с помощью расширяющего синтаксиса (spread syntax), то определение типа кортеж также будет включать в себя остаточный тип (<code class="inline-code">...rest</code>).</p>
+<p>Если функция, сигнатура которой содержит объявление остаточных параметров, принадлежащих к типу параметра, будет вызвана с аргументами, среди которых будет массив, указанный с помощью расширяющего синтаксиса (<em>spread syntax</em>), то определение типа кортеж также будет включать в себя остаточный тип (<code class="inline-code">...rest</code>).</p>
 <pre><code class="hljs language-typescript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">tuple</span>&#x3C;<span class="hljs-title">T</span> <span class="hljs-title">extends</span> <span class="hljs-title">any</span>[]>(<span class="hljs-params">...args: T</span>): <span class="hljs-title">T</span> </span>{
     <span class="hljs-keyword">return</span> args;
 }

@@ -95,4 +95,80 @@ animal.age = <span class="hljs-number">0</span>; <span class="hljs-comment">// O
 <span class="hljs-keyword">const</span> { id, age } = animal; <span class="hljs-comment">// Ok -> id: string and age: number</span>
 
 <span class="hljs-built_in">console</span>.log(id, age); <span class="hljs-comment">// 'animal', 0</span></code></pre>
+</section><section id="Pereopredelenie-svoistv-polyami-i-naoborot-pri-nasledovanii" name="Переопределение свойств полями и наоборот при наследовании" class="subchapter">
+            <h2 class="subchapter-title">
+                <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="Pereopredelenie-svoistv-polyami-i-naoborot-pri-nasledovanii" type="absolute-url">
+                    <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <use href="#icon_link"/>
+                    </svg>
+                </button>
+                Переопределение свойств полями и наоборот при наследовании
+            </h2>
+        
+<p>В <em>JavaScript</em> при использовании механизма наследования (<code class="inline-code">extends</code>) производный класс в состоянии переопределить свойство объявленное в базовом классе полем и наоборот, поле свойством.</p>
+<pre><code class="hljs language-javascript"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Base</span> </span>{
+    <span class="hljs-keyword">get</span> value(){
+        <span class="hljs-keyword">return</span> <span class="hljs-string">'base'</span>
+    }
+    <span class="hljs-keyword">set</span> value(value){
+        <span class="hljs-built_in">console</span>.log(value);
+    }
+}
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Derived</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Base</span> </span>{
+    value = <span class="hljs-string">'derived'</span>
+}
+
+<span class="hljs-keyword">let</span> derived = <span class="hljs-keyword">new</span> Derived();
+
+<span class="hljs-built_in">console</span>.log(derived.value); <span class="hljs-comment">// 'derived'</span>
+
+derived.value = <span class="hljs-string">`new derived`</span>; <span class="hljs-comment">// не сложно догадатся что при пресваивании нового значения console.log в сеттер базового класса вызвана не будет</span>
+
+<span class="hljs-built_in">console</span>.log(derived.value); <span class="hljs-comment">// 'new derived'</span>
+
+<span class="hljs-comment">/**
+ * Тоже справедливо и для переопределения
+ * поля объявленного в базовом классе свойствами
+ * производного класса.
+ */</span></code></pre>
+<p>Но во избежание казусов сопряженных с подобным поведением, <em>TypeScript</em> запрещает подобные переопределения при наследовании.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">class</span> Base {
+    <span class="hljs-keyword">get</span> value() {
+        <span class="hljs-keyword">return</span> <span class="hljs-string">'value'</span>;
+    }
+    <span class="hljs-keyword">set</span> value(value: <span class="hljs-built_in">string</span>) {
+        
+    }
+}
+
+<span class="hljs-keyword">class</span> Derived <span class="hljs-keyword">extends</span> Base {
+    <span class="hljs-comment">/**
+     * Error ->
+     * 
+     * 'value' is defined as an accessor in class 'Base',
+     * but is overridden here in 'Derived'
+     * as an instance property.
+     */</span>
+    value = <span class="hljs-string">'value'</span>;
+}</code></pre>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">class</span> Base {
+     value = <span class="hljs-string">'value'</span>;
+}
+
+<span class="hljs-keyword">class</span> Derived <span class="hljs-keyword">extends</span> Base {
+    <span class="hljs-comment">/**
+     * Error ->
+     * 
+     * 'value' is defined as a property in class 'Base',
+     * but is overridden here in 'Derived' as an accessor.
+     */</span>
+   
+    <span class="hljs-keyword">get</span> value() {
+        <span class="hljs-keyword">return</span> <span class="hljs-string">'value'</span>;
+    }
+    <span class="hljs-keyword">set</span> value(value: <span class="hljs-built_in">string</span>) {
+        
+    }
+}</code></pre>
 </section>

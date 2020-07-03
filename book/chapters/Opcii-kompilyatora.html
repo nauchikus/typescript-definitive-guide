@@ -2298,6 +2298,7 @@ f.bind(<span class="hljs-literal">null</span>, <span class="hljs-number">0</span
         
 <hr>
 <p><code class="inline-code">--useDefineForClassFields</code> - данный флаг активирует новое поведение генерации конечного кода, доступное с версии <code class="inline-code">v3.7</code> и предназначенное для предотвращения переопределения свойств при механизме наследования.</p>
+<p>[Важно] Начиная с версии <code class="inline-code">4.0</code> логика компилятора <em>TypeScript</em> подразумевает непереопределяемое поведение равнозначное поведению при активном текущем флаге.</p>
 <pre><code class="hljs language-typescript">{
     <span class="hljs-string">"compilerOptions"</span>: {
         <span class="hljs-string">"useDefineForClassFields"</span>: <span class="hljs-literal">false</span>,
