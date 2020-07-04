@@ -44,7 +44,7 @@
 Расширенные типы - Readonly, Partial, Required, Pick, Record
 Расширенные типы - Exclude, Extract, NonNullable, ReturnType, InstanceType, Omit
 Расширенные типы - Массивоподобные readonly типы, ReadonlyArray, ReadonlyMap, ReadonlySet
-Синтаксические констркции и операторы
+Синтаксические конструкции и операторы
 React - расширение .tsx
 Пространства имен (namespace) и модули (module)
 Настройка рабочего окружения
