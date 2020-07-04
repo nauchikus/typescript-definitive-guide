@@ -1,0 +1,614 @@
+<section id="Variativnyi-kortej" name="Вариативный кортеж" class="subchapter">
+        <h2 class="subchapter-title">
+            <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="Variativnyi-kortej" type="absolute-url">
+                <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <use href="#icon_link"/>
+                </svg>
+            </button>
+            Вариативный кортеж
+        </h2>
+        <hr>
+        <p>Прендставьте случай при котором перед вами стоит задача реализовать известную всем функцию объединения массивов и кортежей <code class="inline-code">concat</code> и менее известную <code class="inline-code">tail</code>, которая возвращает копию полученного в качестве аргумента массива, но только без первого элемента. На <code class="inline-code">JavaScript</code> описанные функции выглядели бы подобным образом -</p>
+<pre><code class="hljs language-javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">concat</span>(<span class="hljs-params">a, b</span>)</span>{
+    <span class="hljs-keyword">return</span> [...a, ...b];
+}
+
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">tail</span>(<span class="hljs-params">a</span>)</span>{
+    <span class="hljs-keyword">let</span> [, ...rest] = a;
+
+    <span class="hljs-keyword">return</span> rest;
+}</code></pre>
+<p>Если бы при попытке добавть типизацию была потребность в аннотации пригодной исключительно для массивов, то дело бы обошлось привычным типом объединения (<code class="inline-code">Union</code>) -</p>
+<pre><code class="hljs language-typescript"><span class="hljs-comment">/**
+ * Элементы возвращаемого массива могут
+ * принадлежать к типу T или U
+ */</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">concat</span>&#x3C;<span class="hljs-title">T</span>, <span class="hljs-title">U</span>>(<span class="hljs-params">a: T[], b: U[]</span>): <span class="hljs-title">Array</span>&#x3C;<span class="hljs-title">T</span> | <span class="hljs-title">U</span>></span>{
+    <span class="hljs-keyword">return</span> [...a, ...b];
+}
+
+<span class="hljs-comment">/**
+ * Возвращаемый массив может содержать
+ * элементы принадлежащие к типу T, либо
+ * в случаи когда входной массив содержит
+ * только один элемент, к типу undefined.
+ */</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">tail</span>&#x3C;<span class="hljs-title">T</span>>(<span class="hljs-params">a: T[]</span>): <span class="hljs-title">Array</span>&#x3C;<span class="hljs-title">T</span>> | <span class="hljs-title">Array</span>&#x3C;<span class="hljs-title">undefined</span>></span>{
+    <span class="hljs-keyword">let</span> [, ...rest] = a;
+
+    <span class="hljs-keyword">return</span> rest;
+}</code></pre>
+<p>Но посколько обсуждаемые функции должны также работать и с кортажами (<code class="inline-code">Tuple</code>), то до текущей версии единственный выход заключался в описании множества перегрузок.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">concat</span>&#x3C;<span class="hljs-title">A0</span>>(<span class="hljs-params">a: [A0], b: []</span>): [<span class="hljs-title">A0</span>]</span>;
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">concat</span>&#x3C;<span class="hljs-title">A0</span>, <span class="hljs-title">A1</span>>(<span class="hljs-params">a: [A0, A1], b: []</span>): [<span class="hljs-title">A0</span>, <span class="hljs-title">A1</span>]</span>;
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">concat</span>&#x3C;<span class="hljs-title">A0</span>, <span class="hljs-title">A1</span>, <span class="hljs-title">A2</span>>(<span class="hljs-params">a: [A0, A1, A2], b: []</span>): [<span class="hljs-title">A0</span>, <span class="hljs-title">A1</span>, <span class="hljs-title">A2</span>]</span>;
+
+<span class="hljs-comment">/**
+ * И так до бесконечности!
+ * И это только для первого параметра!
+ */</span></code></pre>
+<p>Несмотря на силы затраченные для описания множества вариантов перегрузок создать описание покрывающее все возможные случаи все равно не возможно. Поэтому начиная с версии <code class="inline-code">4.0</code> <em>TypeScript</em> вносит два фундаментальных изменения позволяющих разрешить описанный случай без описания перегрузок.</p>
+<p>Первое нововведение заключается в том, что механиз известный как <code class="inline-code">spread</code> (<em>распростронение</em> <code class="inline-code">[...T]</code>) в кортежах теперь может быть универсальным (<em>generic</em>). Это позволяет производить над типами массивов и кортежей операции более высокого порядка, что позволяет отказатся от перегрузок в пользу более продвинутого способа.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-comment">/**
+ * 0 - указываем что параметр типа должен обязательно быть потомком массива.
+ * 1 - если T является потомком массива у которого существует первый элемент...
+ * 2 - ... то выбираем остаточные элементы и определяем их как тип R.
+ * 3 - при верности условия [1] определяем тип как тип R
+ * 4 - при ложном условии [1] определяем тип как тип T (массива переданного в качестве аргумента)
+ */</span>
+<span class="hljs-comment">//        [      0      ]    [       1       [     2   ]] [3] [4]</span>
+<span class="hljs-keyword">type</span> Tail&#x3C;T <span class="hljs-keyword">extends</span> unknown[]> = T <span class="hljs-keyword">extends</span> [unknown, ...infer R] ? R : T;
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">tail</span>&#x3C;<span class="hljs-title">T</span> <span class="hljs-title">extends</span> <span class="hljs-title">unknown</span>[]>(<span class="hljs-params">arr:  <span class="hljs-keyword">readonly</span> [...T] </span>): <span class="hljs-title">Tail</span>&#x3C;<span class="hljs-title">T</span>> </span>{
+    <span class="hljs-keyword">const</span> [, ...rest] = arr;
+
+    <span class="hljs-keyword">return</span> rest <span class="hljs-keyword">as</span> Tail&#x3C;T>;
+}
+
+<span class="hljs-keyword">let</span> tuple = [<span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>] <span class="hljs-keyword">as</span> <span class="hljs-keyword">const</span>;
+<span class="hljs-keyword">let</span> array = [<span class="hljs-string">'hello'</span>, <span class="hljs-string">'world'</span>];
+
+<span class="hljs-comment">// let v0: string[]</span>
+<span class="hljs-keyword">let</span> v0 = tail(array);
+
+<span class="hljs-comment">// let v1: [1, 2, 3]</span>
+<span class="hljs-keyword">let</span> v1 = tail(tuple);
+
+<span class="hljs-comment">// let v2: [1, 2, 3, ...string[]]</span>
+<span class="hljs-keyword">let</span> v2 = tail([...tuple, ...array] <span class="hljs-keyword">as</span> <span class="hljs-keyword">const</span>);</code></pre>
+<p>Кроме того вторым нововведением является возможность указывать <code class="inline-code">spread</code> в любой части кортежа, а не только в конце.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">type</span> Strings = [<span class="hljs-built_in">string</span>, <span class="hljs-built_in">string</span>];
+<span class="hljs-keyword">type</span> Numbers = [<span class="hljs-built_in">number</span>, <span class="hljs-built_in">number</span>];
+
+<span class="hljs-comment">// type Mixed = [string, string, number, number]</span>
+<span class="hljs-keyword">type</span> Mixed = [...Strings, ...Numbers];</code></pre>
+<p>Когда <code class="inline-code">spread</code> применяется к типу без известной длины (обычный массив <code class="inline-code">...number[]</code>), то результатирующий тип также становится неограниченным и все типы слудующие после такого распростронения (обычный массив) образуют с ним тип объединение (<code class="inline-code">Union</code>).</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">type</span> Strings = [<span class="hljs-built_in">string</span>, <span class="hljs-built_in">string</span>];
+<span class="hljs-keyword">type</span> BooleanArray = <span class="hljs-built_in">boolean</span>[];
+
+<span class="hljs-comment">// type Unbounded0 = [string, string, ...(boolean | symbol)[]]</span>
+<span class="hljs-keyword">type</span> Unbounded0 = [...Strings, ...BooleanArray, symbol];
+
+<span class="hljs-comment">// type Unbounded1 = [string, string, ...(string | boolean | symbol)[]]</span>
+<span class="hljs-keyword">type</span> Unbounded1 = [ ...Strings, ...BooleanArray, symbol, ...Strings]</code></pre>
+<p>Благодаря этим двум нововведениям теперь стало возможно типизировать функцию <code class="inline-code">concat</code> способом исключающим механизм перегрузок.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">type</span> A = <span class="hljs-keyword">readonly</span> unknown[];
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">concat</span>&#x3C;<span class="hljs-title">T</span> <span class="hljs-title">extends</span> <span class="hljs-title">A</span>, <span class="hljs-title">U</span> <span class="hljs-title">extends</span> <span class="hljs-title">A</span>>(<span class="hljs-params">a: T, b: U</span>): [...<span class="hljs-title">T</span>, ...<span class="hljs-title">U</span>] </span>{
+    <span class="hljs-keyword">return</span> [...a, ...b];
+}
+
+<span class="hljs-comment">// let v0: number[]</span>
+<span class="hljs-keyword">let</span> v0 = concat([<span class="hljs-number">0</span>, <span class="hljs-number">1</span>], [<span class="hljs-number">2</span>, <span class="hljs-number">3</span>]);
+
+<span class="hljs-comment">// let v1: [0, 1, 2, 3]</span>
+<span class="hljs-keyword">let</span> v1 = concat([<span class="hljs-number">0</span>, <span class="hljs-number">1</span>] <span class="hljs-keyword">as</span> <span class="hljs-keyword">const</span>, [<span class="hljs-number">2</span>, <span class="hljs-number">3</span>] <span class="hljs-keyword">as</span> <span class="hljs-keyword">const</span>);
+
+<span class="hljs-comment">// let v2: [0, 1, ...number[]]</span>
+<span class="hljs-keyword">let</span> v2 = concat([<span class="hljs-number">0</span>, <span class="hljs-number">1</span>] <span class="hljs-keyword">as</span> <span class="hljs-keyword">const</span>, [<span class="hljs-number">2</span>, <span class="hljs-number">3</span>]);
+
+<span class="hljs-comment">// let v3: number[]</span>
+<span class="hljs-keyword">let</span> v3 = concat([<span class="hljs-number">0</span>, <span class="hljs-number">1</span>], [<span class="hljs-number">2</span>, <span class="hljs-number">3</span>] <span class="hljs-keyword">as</span> <span class="hljs-keyword">const</span>);</code></pre>
+<p>Помимо этого новые возможности помогают изящно реализоват более сложные сценарии одним из которых является функция каррирования основанную на <code class="inline-code">spread</code> параметрах.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">carry</span>(<span class="hljs-params">f, ...initialParams</span>)</span>{
+    <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">...restParams</span>)</span>{
+        <span class="hljs-keyword">return</span> f(...initialParams, ...restParams);
+    }
+}</code></pre>
+<p>Прибегнув к уже рассмотренным механизмам можно с легкостью типизировать столь сложный на первый взгляд случай.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">type</span> A = <span class="hljs-keyword">readonly</span> unknown[];
+<span class="hljs-keyword">type</span> Carry&#x3C;T <span class="hljs-keyword">extends</span> A, U <span class="hljs-keyword">extends</span> A, R> = <span class="hljs-function">(<span class="hljs-params">...restParams: [...T, ...U]</span>) =></span> R;
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">carry</span>&#x3C;<span class="hljs-title">T</span> <span class="hljs-title">extends</span> <span class="hljs-title">A</span>, <span class="hljs-title">U</span> <span class="hljs-title">extends</span> <span class="hljs-title">A</span>, <span class="hljs-title">R</span>>(<span class="hljs-params">f: Carry&#x3C;T, U, R>, ...initialParams: T</span>)</span>{
+    <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">...restParams: U</span>)</span>{
+        <span class="hljs-keyword">return</span> f(...initialParams, ...restParams);
+    }
+}
+
+
+<span class="hljs-comment">// использование</span>
+
+<span class="hljs-keyword">const</span> f = <span class="hljs-function">(<span class="hljs-params">a: <span class="hljs-built_in">number</span>, b: <span class="hljs-built_in">string</span>, c: <span class="hljs-built_in">boolean</span></span>) =></span> {};
+
+<span class="hljs-keyword">const</span> f0 = carry(f, <span class="hljs-number">5</span>, <span class="hljs-string">''</span>); <span class="hljs-comment">// Ok</span>
+<span class="hljs-keyword">const</span> f1 = carry(f, <span class="hljs-number">5</span>, <span class="hljs-string">''</span>, <span class="hljs-literal">true</span>); <span class="hljs-comment">// Ok</span>
+<span class="hljs-keyword">const</span> f2 = carry(f, <span class="hljs-number">5</span>, <span class="hljs-string">''</span>, <span class="hljs-string">''</span>); <span class="hljs-comment">// Error -> Argument of type '""' is not assignable to parameter of type 'boolean'.</span>
+<span class="hljs-keyword">const</span> f3 = carry(f, <span class="hljs-number">5</span>, <span class="hljs-string">''</span>, <span class="hljs-literal">true</span>, <span class="hljs-number">5</span>); <span class="hljs-comment">// Error -> Expected 4 arguments, but got 5.</span>
+
+f0(<span class="hljs-literal">true</span>); <span class="hljs-comment">// Ok</span>
+f0(<span class="hljs-number">1</span>); <span class="hljs-comment">// Error -> Argument of type '1' is not assignable to parameter of type 'boolean'.</span></code></pre>
+<p>И на последок стоит отметить что сложно переоценить важность добавления вариативных кортежей поскольку этот механизм ляжет в основу усовершенствования стандартной декларации описывающей <em>JavaScript</em> конструкции.</p>
+
+    </section>
+<section id="Pomechannye-elementy-korteja" name="Помечанные элементы кортежа" class="subchapter">
+        <h2 class="subchapter-title">
+            <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="Pomechannye-elementy-korteja" type="absolute-url">
+                <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <use href="#icon_link"/>
+                </svg>
+            </button>
+            Помечанные элементы кортежа
+        </h2>
+        <hr>
+        <p>Скорость разработки программы зависит не только от уровня разработчиков, но и от симантики кода, которая способна вывести из зоны комфорта даже бывалого специалиста. Понимая это <em>TypeScript</em> не перестает усовершенствовать систему типов стремясь сделать и без того <em>"говорящий код"</em> максималоно читаемым. Поэтому в версии <code class="inline-code">4.0</code> была добавлена возможность помечать элементы кортежа придовая им осмыслённость.</p>
+<p>До текущей версии встретив кортеж наподобие <code class="inline-code">[string, number]</code> было совершенно не понятно что в дейтвительности представляют эти типы.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-comment">// до версии 4.0</span>
+
+<span class="hljs-keyword">const</span> f = <span class="hljs-function">(<span class="hljs-params">p: [<span class="hljs-built_in">string</span>, <span class="hljs-built_in">number</span>]</span>) =></span> {}
+
+<span class="hljs-comment">/**
+ * автодополнение -> f(p: [string, number]): void
+ * 
+ * Совершенно не понятно чем конкретно являются
+ * элементы представляемые типами string и number
+ */</span>
+f0()</code></pre>
+<p>Начиная с текущей версии безликим элементам кортежа стало возможно придавать осмысление за счет механизма добавления меток.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-comment">// начиная с версии 4.0</span>
+
+<span class="hljs-keyword">const</span> f = <span class="hljs-function">(<span class="hljs-params">p: [a: <span class="hljs-built_in">string</span>, b: <span class="hljs-built_in">number</span>]</span>) =></span> {};
+
+<span class="hljs-comment">/**
+ * автодополнение -> f(p: [a: string, b: number]): void
+ * 
+ * Теперь мы знаем что функция ожидает не просто 
+ * строку и число, а аргумент "a" и аргумент "b",
+ * которые в реальном проекте будут иметь более
+ * осмысленное смысловое значение, например "name" и "age".
+ */</span>
+f1()</code></pre>
+<p>Поскольку метки являются исключительной частью синтаксиса <em>TypeScript</em> они не имеют никакой силы в коде при деструктуризации массива представленного типом кортежа.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">const</span> f = <span class="hljs-function">(<span class="hljs-params">p: [a: <span class="hljs-built_in">string</span>, b: <span class="hljs-built_in">number</span>]</span>) =></span> {
+    <span class="hljs-keyword">let</span> [c, d] = p;
+};</code></pre>
+<p>Единственное правило касающееся данного механизма заключается в том, что кортеж содержащий метки не может содеражть элементы описанные только типами.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">type</span> T = [a: <span class="hljs-built_in">number</span>, b: <span class="hljs-built_in">string</span>, <span class="hljs-built_in">boolean</span>]; <span class="hljs-comment">// Error -> Tuple members must all have names or all not have names.ts(5084)</span></code></pre>
+<p>Невозможно умолчать что данный механиз придется по нраву сообществу <code class="inline-code">react</code> поскольку помеченный кортеж придется как нельзя лучше при создании кастомных хуков. </p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">declare</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">useState</span>&#x3C;<span class="hljs-title">T</span>>(<span class="hljs-params">initialState: T</span>):[<span class="hljs-title">state</span>: <span class="hljs-title">T</span>, <span class="hljs-title">setState</span>: (<span class="hljs-params">state: T</span>) => <span class="hljs-title">void</span>]</span>;
+
+<span class="hljs-comment">/**
+ * автокомплит -> useState(initialState: number): [state: number, setState: (state: number) => void]
+ * 
+ * Даже в отсутствии комментариев известно
+ * что именно предполагается в возвращаемом значении!
+ */</span>
+<span class="hljs-keyword">let</span> [state, setState] = useState(<span class="hljs-number">0</span>);</code></pre>
+
+    </section>
+<section id="Operatory-prisvaivaniya-korotkogo-zamykaniya" name="Операторы присваивания короткого замыкания" class="subchapter">
+        <h2 class="subchapter-title">
+            <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="Operatory-prisvaivaniya-korotkogo-zamykaniya" type="absolute-url">
+                <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <use href="#icon_link"/>
+                </svg>
+            </button>
+            Операторы присваивания короткого замыкания
+        </h2>
+        <hr>
+        <p>В большинстве языков в том числе и <em>JavaScript</em> существует такое понятие как составные операторы присваивания (<em>compound assignment operators</em>) позволяющие совмещать операцию присваивания с помощбю оператора <code class="inline-code">=</code> и какой-либо другой допустимой операции (<code class="inline-code">+-*/!</code> и т.д.) и тем самым значительно сокращать выражение.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">let</span> a = <span class="hljs-number">1</span>;
+<span class="hljs-keyword">let</span> b = <span class="hljs-number">2</span>;
+
+a += b; <span class="hljs-comment">// тоже самое что a = a + b</span>
+a *= b; <span class="hljs-comment">// тоже самое что a = a * b</span>
+<span class="hljs-comment">// и т.д.</span></code></pre>
+<p>Множество существующих операторов имеют возможность быть совмещенными с оператором присвояния за исключением трех, часто применяемых таких оператора как <em>логическое И</em> (<code class="inline-code">&#x26;&#x26;</code>), <em>логическое ИЛИ</em> (<code class="inline-code">||</code>) и оператор <em>нулевого слияния</em> (<code class="inline-code">??</code>).</p>
+<pre><code class="hljs language-typescript">a = a &#x26;&#x26; b;
+a = a || b;
+a = a ?? b;</code></pre>
+<p>Поэтому с версии <code class="inline-code">4.0</code> <em>TypeScript</em> реализует такую возможность.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">let</span> a = {};
+<span class="hljs-keyword">let</span> b = {};
+
+a &#x26;&#x26;= b; <span class="hljs-comment">// a &#x26;&#x26; (a = b)</span>
+a ||= b; <span class="hljs-comment">// a || (a = b);</span>
+a ??= b; <span class="hljs-comment">// a !== null &#x26;&#x26; a !== void 0 ? a : (a = b);</span></code></pre>
+
+    </section>
+<section id="Vyvod-tipov-dlya-polei-klassa-po-parametram-konstruktora" name="Вывод типов для полей класса по параметрам конструктора" class="subchapter">
+        <h2 class="subchapter-title">
+            <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="Vyvod-tipov-dlya-polei-klassa-po-parametram-konstruktora" type="absolute-url">
+                <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <use href="#icon_link"/>
+                </svg>
+            </button>
+            Вывод типов для полей класса по параметрам конструктора
+        </h2>
+        <hr>
+        <p>До текущей версии при активном флаге <code class="inline-code">noImplicitAny</code> возникала ошибка если тело класса содержало поле без аннотации типа. И не спасало даже то, что они были инициализированны в конструкторе.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">class</span> Square {
+    <span class="hljs-comment">/**
+     * До версии 4.0 поля без аннотации вызывали ошибку .-
+     * Member 'area' implicitly has an 'any' type.
+     * Member 'sideLength' implicitly has an 'any' type.
+     * 
+     */</span>
+    area;
+    sideLength;
+
+    <span class="hljs-keyword">constructor</span>(<span class="hljs-params">sideLength: <span class="hljs-built_in">number</span></span>) {
+        <span class="hljs-built_in">this</span>.sideLength = sideLength;
+        <span class="hljs-built_in">this</span>.area = sideLength ** <span class="hljs-number">2</span>;
+    }
+}</code></pre>
+<p>Простыми словами вывод типов не был обучен выводить типы в подобных случаях. Но как можно догадатся больше для него это не проблема!</p>
+<p>Начиная с текущей версии вывод типов способен вывести тип полю класса, если оно было инициализированно в конструкторе.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">class</span> Square {
+    <span class="hljs-comment">/**
+     * Начиная с версии 4.0 -
+     * (property) Square.area: number
+     * (property) Square.sideLength: number
+     * 
+     * Вывод типов видит что полю sideLength
+     * присваивают значение с типом number, а
+     * полю area результат выражения над числовыми
+     * типами.
+     */</span>
+    area;
+    sideLength;
+
+    <span class="hljs-keyword">constructor</span>(<span class="hljs-params">sideLength: <span class="hljs-built_in">number</span></span>) {
+        <span class="hljs-built_in">this</span>.sideLength = sideLength;
+        <span class="hljs-built_in">this</span>.area = sideLength ** <span class="hljs-number">2</span>;
+    }
+}</code></pre>
+<p>Не будет лишним сделать акцент на словах об инициализации в конструкторе, поскольку это условие является обязательным. При попытке инициализации полей вне тела конструктора будет вызвана ошибка, даже если инициализация производится в методе вызываемом из конструктора.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">class</span> Square {
+    <span class="hljs-comment">/**
+     * Error ->
+     * Member 'area' implicitly has an 'any' type.
+     * 
+     */</span>
+    area;
+    sideLength;
+
+    <span class="hljs-keyword">constructor</span>(<span class="hljs-params">sideLength: <span class="hljs-built_in">number</span></span>) {
+        <span class="hljs-built_in">this</span>.sideLength = sideLength;
+        <span class="hljs-built_in">this</span>.init();
+    }
+
+    init(){
+        <span class="hljs-built_in">this</span>.area = <span class="hljs-built_in">this</span>.sideLength ** <span class="hljs-number">2</span>;
+    }
+}</code></pre>
+<p>Если инициализация полей класса без аннотации по каким-то причинам может не состоятся, то тип будет выведен как объединение включающее так же и тип <code class="inline-code">undefined</code>.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">class</span> Square {
+    <span class="hljs-comment">/**
+     * [1] ...вывод типов определяет принадлежность
+     * поля sideLength как ->
+     * 
+     * (property) Square.sideLength: number | undefined
+     */</span>
+    sideLength;
+
+    <span class="hljs-keyword">constructor</span>(<span class="hljs-params">sideLength: <span class="hljs-built_in">number</span></span>) {
+        <span class="hljs-comment">/**
+         * [0] Поскольку инициализация зависи от
+         * условия выражения которое выполнится
+         * только во время выполнения программы...
+         */</span>
+        <span class="hljs-keyword">if</span> (<span class="hljs-built_in">Math</span>.random()) {
+            <span class="hljs-built_in">this</span>.sideLength = sideLength;
+        }
+    }
+
+    get area() {
+        <span class="hljs-comment">/**
+         * [2] Тем не менее возникает ошибка
+         * поскольку операция возведения в степень
+         * производится над значение которое может
+         * быть undefined
+         * 
+         * Error ->
+         * Object is possibly 'undefined'.
+         */</span>
+        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.sideLength ** <span class="hljs-number">2</span>;
+    }
+}</code></pre>
+
+    </section>
+<section id="unknown-kak-tip-isklucheniya-bloka-catch" name="unknown как тип исключения блока catch" class="subchapter">
+        <h2 class="subchapter-title">
+            <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="unknown-kak-tip-isklucheniya-bloka-catch" type="absolute-url">
+                <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <use href="#icon_link"/>
+                </svg>
+            </button>
+            unknown как тип исключения блока catch
+        </h2>
+        <hr>
+        <p>До текущей версии при попытке типизировать параметр блока <code class="inline-code">catch</code> возникала ошибка, хотя по умолчанию тип исключения расценивался копилятором как тип <code class="inline-code">any</code> что снижало типобезопасность программы.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-comment">/**
+ * До версии 4.0
+ */</span>
+
+<span class="hljs-keyword">try</span> {
+    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">`Error!`</span>);
+}<span class="hljs-keyword">catch</span>(e){ <span class="hljs-comment">// Ok</span>
+    e.meSSage.touppercase(); <span class="hljs-comment">// Ошибка времени исполнения</span>
+}
+
+<span class="hljs-keyword">try</span> {
+
+}<span class="hljs-keyword">catch</span>(e: <span class="hljs-built_in">Error</span>){ <span class="hljs-comment">// Error -> [*]</span>
+    e.meSSage.touppercase();
+}
+
+<span class="hljs-keyword">try</span> {
+    
+}<span class="hljs-keyword">catch</span>(e: <span class="hljs-built_in">any</span>){ <span class="hljs-comment">// Error -> [*]</span>
+    e.meSSage.touppercase();
+}
+
+<span class="hljs-keyword">try</span> {
+    
+}<span class="hljs-keyword">catch</span>(e: unknown){ <span class="hljs-comment">// Error -> [*]</span>
+    e.meSSage.touppercase();
+}
+
+<span class="hljs-comment">/**
+ * [*] Catch clause variable cannot have a type annotation.
+ */</span></code></pre>
+<p>Начиная с текущей версии в аннотации исключения блока <code class="inline-code">catch</code> допускается указывать такие типы как <code class="inline-code">unknown</code> и <code class="inline-code">any</code>.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-comment">/**
+ * Начиная с версии 4.0
+ */</span>
+
+<span class="hljs-keyword">try</span> {
+    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">`Error!`</span>);
+}<span class="hljs-keyword">catch</span>(e){ <span class="hljs-comment">// Ok</span>
+    e.meSSage.touppercase(); <span class="hljs-comment">// Ошибка времени исполнения</span>
+}
+
+<span class="hljs-keyword">try</span> {
+
+}<span class="hljs-keyword">catch</span>(e: <span class="hljs-built_in">Error</span>){ <span class="hljs-comment">// Error -> Catch clause variable type annotation must be 'any' or 'unknown' if specified.</span>
+    e.meSSage.touppercase();
+}
+
+<span class="hljs-keyword">try</span> {
+    
+}<span class="hljs-keyword">catch</span>(e: <span class="hljs-built_in">any</span>){ <span class="hljs-comment">// Ok</span>
+    e.meSSage.touppercase(); <span class="hljs-comment">// Ошибка времени исполнения</span>
+}
+
+<span class="hljs-keyword">try</span> {
+    
+} <span class="hljs-keyword">catch</span> (e: unknown) { <span class="hljs-comment">// Ok</span>
+    e.meSSage.touppercase(); <span class="hljs-comment">// Ошибка времени исполнения</span>
+    e.message; <span class="hljs-comment">// Error -> поскольку у типа unknown отсутствует свойство message</span>
+}</code></pre>
+<p>Тип <code class="inline-code">any</code> остается значением по умолчанию и пока остается для обратной совместимости. В будущем планируется добавить новый <em>strict mode</em> флаг, с помощь которого можно будет изменить тип исключения по умолчанию на более строгий <code class="inline-code">unknown</code>, который позволит избежать ошибок при помощи дополнительного уровня проверок.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">try</span> {
+    
+} <span class="hljs-keyword">catch</span> (e: unknown) { <span class="hljs-comment">// Ok</span>
+    e.meSSage.touppercase(); <span class="hljs-comment">// Ошибка времени исполнения</span>
+    e.message; <span class="hljs-comment">// Error -> поскольку у типа unknown отсутствует свойство message</span>
+
+    <span class="hljs-keyword">if</span> (e <span class="hljs-keyword">instanceof</span> <span class="hljs-built_in">Error</span>) {
+        e.message; <span class="hljs-comment">// Ok</span>
+    }
+}</code></pre>
+
+    </section>
+<section id="noEmit-sovmeshchennyi-s-incremental" name="--noEmit совмещенный с --incremental" class="subchapter">
+        <h2 class="subchapter-title">
+            <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="noEmit-sovmeshchennyi-s-incremental" type="absolute-url">
+                <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <use href="#icon_link"/>
+                </svg>
+            </button>
+            --noEmit совмещенный с --incremental
+        </h2>
+        <hr>
+        <p>Начиная с версии <code class="inline-code">4.0</code> стало возможным использовать флаг <code class="inline-code">--noEmit</code> при инкрементальной сборке активируемой с помощью флага <code class="inline-code">--incremental</code>.</p>
+
+    </section>
+<section id="Polzovatelskaya-fabrika-jsx-fragmentov" name="Пользовательская фабрика jsx фрагментов" class="subchapter">
+        <h2 class="subchapter-title">
+            <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="Polzovatelskaya-fabrika-jsx-fragmentov" type="absolute-url">
+                <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <use href="#icon_link"/>
+                </svg>
+            </button>
+            Пользовательская фабрика jsx фрагментов
+        </h2>
+        <hr>
+        <p>До текущей версии было не возможно использовать <code class="inline-code">react</code> фрагменты при определении пользовательской фабрики в <em>tsconfig.json</em> <code class="inline-code">"jsxFactory": "h"</code> или с помощью инлайн дерективы <code class="inline-code">/** @jsx dom */</code>. По этой причине, начиная с текущей версии в <em>TypeScript</em> появилась возможность определять пользувательскую фабрику фрагментов с помощью новой опции <code class="inline-code">jsxFragmentFactory</code> значение <code class="inline-code">Fragment</code> которой выполняет компиляцию с помощью определенного вместо встроенного в <code class="inline-code">react</code> механизма <code class="inline-code">React.Fragment</code>.</p>
+<pre><code class="hljs language-json">{
+  <span class="hljs-attr">"compilerOptions"</span>: {
+    <span class="hljs-attr">"target"</span>: <span class="hljs-string">"esnext"</span>,
+    <span class="hljs-attr">"module"</span>: <span class="hljs-string">"commonjs"</span>,
+    <span class="hljs-attr">"jsx"</span>: <span class="hljs-string">"react"</span>,
+    <span class="hljs-attr">"jsxFactory"</span>: <span class="hljs-string">"h"</span>,
+    <span class="hljs-attr">"jsxFragmentFactory"</span>: <span class="hljs-string">"Fragment"</span>
+  }
+}</code></pre>
+<p>Кроме того для реализации того же поведения можно воспользоватся новой инлайн директивой <code class="inline-code">/** @jsxFrag */</code>.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-comment">/**
+ * Данный код будет скомпилирован
+ * с помощью механизмов библиотеки preact
+ * подменяющих React.createElement и
+ * React.Fragment
+ */</span>
+
+<span class="hljs-comment">/** @jsx h */</span>
+<span class="hljs-comment">/** @jsxFrag Fragment */</span>
+
+<span class="hljs-keyword">import</span> { h, Fragment } <span class="hljs-keyword">from</span> <span class="hljs-string">"preact"</span>;
+
+<span class="hljs-keyword">let</span> Title = &#x3C;>
+    &#x3C;h1>Title&#x3C;/h1>
+    &#x3C;h2>Subtitle&#x3C;/h2>
+&#x3C;/>;</code></pre>
+
+    </section>
+<section id="Dobavlenie-kommentarnoi-derektivy-deprecated" name="Добавление комментарной дерективы @deprecated" class="subchapter">
+        <h2 class="subchapter-title">
+            <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="Dobavlenie-kommentarnoi-derektivy-deprecated" type="absolute-url">
+                <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <use href="#icon_link"/>
+                </svg>
+            </button>
+            Добавление комментарной дерективы @deprecated
+        </h2>
+        <hr>
+        <p>Начиная с текущей версии в <em>TypeScript</em> появилась возможность помечать код как устаревший с помощью комментарной директивы <code class="inline-code">/** @deprecated */</code>, что gjpdjkbn cjdhtvtyysv <em>ide</em> подсвечивать устаревшее <em>api</em>.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">class</span> T {
+    <span class="hljs-comment">/** @deprecated use method new()*/</span>
+    old(){}
+    <span class="hljs-keyword">new</span>(){}
+}
+
+<span class="hljs-keyword">let</span> t = <span class="hljs-keyword">new</span> T();
+<span class="hljs-comment">/**
+ * @deprecated — use method new()
+ * 'old' is deprecatedts(6385)
+ */</span>
+t.old();</code></pre>
+
+    </section>
+<section id="KRITIChESKOE-IZMENENIE-Izmenenie-lib-d-ts" name="[КРИТИЧЕСКОЕ ИЗМЕНЕНИЕ]  Изменение lib.d.ts" class="subchapter">
+        <h2 class="subchapter-title">
+            <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="KRITIChESKOE-IZMENENIE-Izmenenie-lib-d-ts" type="absolute-url">
+                <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <use href="#icon_link"/>
+                </svg>
+            </button>
+            [КРИТИЧЕСКОЕ ИЗМЕНЕНИЕ]  Изменение lib.d.ts
+        </h2>
+        <hr>
+        <p>Изменениям в основной библиотеке <code class="inline-code">lib.d.ts</code> подверглись типы описывающие <em>dom api</em>. Наиболее значимое изменение удаление <code class="inline-code">document.origin</code> которое поддерживалось исключительно для старых версий <em>IE</em> и <em>Safari</em>. Взамен <em>MDN</em> рекомендует использовать <code class="inline-code">self.origin</code>.  </p>
+
+    </section>
+<section id="KRITIChESKOE-IZMENENIE-Pereopredelenie-aksessorov-polem-i-naoborot-teper-yavlyaetsya-oshibkoi" name="[КРИТИЧЕСКОЕ ИЗМЕНЕНИЕ]  Переопределение аксессоров полем и наоборот теперь является ошибкой" class="subchapter">
+        <h2 class="subchapter-title">
+            <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="KRITIChESKOE-IZMENENIE-Pereopredelenie-aksessorov-polem-i-naoborot-teper-yavlyaetsya-oshibkoi" type="absolute-url">
+                <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <use href="#icon_link"/>
+                </svg>
+            </button>
+            [КРИТИЧЕСКОЕ ИЗМЕНЕНИЕ]  Переопределение аксессоров полем и наоборот теперь является ошибкой
+        </h2>
+        <hr>
+        <p>Начиная с версии <code class="inline-code">3.7</code> был введен флаг <code class="inline-code">useDefineForClassFields</code> активация которого запрещала переопределение аксессоров полями и полей аксессорами при реализации механизма наследования (<code class="inline-code">extends</code>). Начиная с текущей версии поведение равное активируемому флагом <code class="inline-code">useDefineForClassFields</code> становится неотключаемым.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">class</span> Base {
+    get value() {
+        <span class="hljs-keyword">return</span> <span class="hljs-string">'value'</span>;
+    }
+    set value(value: <span class="hljs-built_in">string</span>) {
+        
+    }
+}
+
+<span class="hljs-keyword">class</span> Derived <span class="hljs-keyword">extends</span> Base {
+    <span class="hljs-comment">/**
+     * Error ->
+     * 
+     * 'value' is defined as an accessor in class 'Base',
+     * but is overridden here in 'Derived'
+     * as an instance property.
+     */</span>
+    value = <span class="hljs-string">'value'</span>;
+}</code></pre>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">class</span> Base {
+     value = <span class="hljs-string">'value'</span>;
+}
+
+<span class="hljs-keyword">class</span> Derived <span class="hljs-keyword">extends</span> Base {
+    <span class="hljs-comment">/**
+     * Error ->
+     * 
+     * 'value' is defined as a property in class 'Base',
+     * but is overridden here in 'Derived' as an accessor.
+     */</span>
+   
+    get value() {
+        <span class="hljs-keyword">return</span> <span class="hljs-string">'value'</span>;
+    }
+    set value(value: <span class="hljs-built_in">string</span>) {
+        
+    }
+}</code></pre>
+
+    </section>
+<section id="KRITIChESKOE-IZMENENIE-Operandy-dlya-delete-doljny-byt-neobyazatelnymi" name="[КРИТИЧЕСКОЕ ИЗМЕНЕНИЕ]  Операнды для delete должны быть необязательными" class="subchapter">
+        <h2 class="subchapter-title">
+            <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="KRITIChESKOE-IZMENENIE-Operandy-dlya-delete-doljny-byt-neobyazatelnymi" type="absolute-url">
+                <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <use href="#icon_link"/>
+                </svg>
+            </button>
+            [КРИТИЧЕСКОЕ ИЗМЕНЕНИЕ]  Операнды для delete должны быть необязательными
+        </h2>
+        <hr>
+        <p>Начиная с текущей версии члены объектов подвергающиеся удалению с помощью оператора <code class="inline-code">delete</code> должны иметь тип <code class="inline-code">any</code>, <code class="inline-code">unknown</code>, <code class="inline-code">never</code> или иметь быть необязательными.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">type</span> T0 = {
+    field: <span class="hljs-built_in">any</span>;
+}
+
+<span class="hljs-keyword">const</span> f0 = <span class="hljs-function">(<span class="hljs-params">o: T0</span>) =></span> <span class="hljs-keyword">delete</span> o.field; <span class="hljs-comment">// Ok</span>
+
+
+<span class="hljs-keyword">type</span> T1 = {
+    field: unknown;
+}
+
+<span class="hljs-keyword">const</span> f1 = <span class="hljs-function">(<span class="hljs-params">o: T1</span>) =></span> <span class="hljs-keyword">delete</span> o.field; <span class="hljs-comment">// Ok</span>
+
+
+<span class="hljs-keyword">type</span> T2 = {
+    field: <span class="hljs-built_in">never</span>;
+}
+
+<span class="hljs-keyword">const</span> f2 = <span class="hljs-function">(<span class="hljs-params">o: T2</span>) =></span> <span class="hljs-keyword">delete</span> o.field; <span class="hljs-comment">// Ok</span>
+
+
+<span class="hljs-keyword">type</span> T3 = {
+    field?: <span class="hljs-built_in">number</span>;
+}
+
+<span class="hljs-keyword">const</span> f3 = <span class="hljs-function">(<span class="hljs-params">o: T3</span>) =></span> <span class="hljs-keyword">delete</span> o.field; <span class="hljs-comment">// Ok</span>
+
+
+<span class="hljs-keyword">type</span> T4 = {
+    field: <span class="hljs-built_in">number</span>;
+}
+
+<span class="hljs-keyword">const</span> f4 = <span class="hljs-function">(<span class="hljs-params">o: T4</span>) =></span> <span class="hljs-keyword">delete</span> o.field; <span class="hljs-comment">// Error -> The operand of a 'delete' operator must be optional.</span></code></pre>
+
+    </section>
+<section id="KRITIChESKOE-IZMENENIE-Izmenenie-fabrichnogo-api-Nodejs" name="[КРИТИЧЕСКОЕ ИЗМЕНЕНИЕ]  Изменение фабричного api Nodejs" class="subchapter">
+        <h2 class="subchapter-title">
+            <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="KRITIChESKOE-IZMENENIE-Izmenenie-fabrichnogo-api-Nodejs" type="absolute-url">
+                <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <use href="#icon_link"/>
+                </svg>
+            </button>
+            [КРИТИЧЕСКОЕ ИЗМЕНЕНИЕ]  Изменение фабричного api Nodejs
+        </h2>
+        <hr>
+        <p>Начиная с текущей версии <em>TypeScript</em> отказывается от старых фабричных функций создания <em>nodejs ast узлов</em> в пользу нового <em>api</em>.</p>
+
+    </section>
