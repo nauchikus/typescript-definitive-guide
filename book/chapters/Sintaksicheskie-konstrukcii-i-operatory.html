@@ -1,0 +1,120 @@
+<h1>Синтаксические констркции и операторы</h1><section id="Operatory-prisvaivaniya-korotkogo-zamykaniya-x26-x26-x26-x26" name="Операторы присваивания короткого замыкания (&#x26;&#x26;=, ||=, &#x26;&#x26;=)" class="subchapter">
+
+            <h2 class="subchapter-title">
+                <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="Operatory-prisvaivaniya-korotkogo-zamykaniya-x26-x26-x26-x26" type="absolute-url">
+                    <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <use href="#icon_link"/>
+                    </svg>
+                </button>
+                Операторы присваивания короткого замыкания (&#x26;&#x26;=, ||=, &#x26;&#x26;=)
+            </h2>
+        
+<p>В большинстве языков в том числе и <em>JavaScript</em> существует такое понятие как составные операторы присваивания (<em>compound assignment operators</em>) позволяющие совмещать операцию присваивания с помощбю оператора <code class="inline-code">=</code> и какой-либо другой допустимой операции (<code class="inline-code">+-*/!</code> и т.д.) и тем самым значительно сокращать выражение.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">let</span> a = <span class="hljs-number">1</span>;
+<span class="hljs-keyword">let</span> b = <span class="hljs-number">2</span>;
+
+a += b; <span class="hljs-comment">// тоже самое что a = a + b</span>
+a *= b; <span class="hljs-comment">// тоже самое что a = a * b</span>
+<span class="hljs-comment">// и т.д.</span></code></pre>
+<p>Множество существующих операторов имеют возможность быть совмещенными с оператором присвояния за исключением трех, часто применяемых таких оператора как <em>логическое И</em> (<code class="inline-code">&#x26;&#x26;</code>), <em>логическое ИЛИ</em> (<code class="inline-code">||</code>) и оператор <em>нулевого слияния</em> (<code class="inline-code">??</code>).</p>
+<pre><code class="hljs language-typescript">a = a &#x26;&#x26; b;
+a = a || b;
+a = a ?? b;</code></pre>
+<p>Поскольку дополнительные синтаксические возможности лишь упрощают процесс разработки программ, благодаря коммунити, в <em>TypeScript</em> появился механизм обозначаемый как <em>операторы присвояния короткого замыкания</em>. Данный механиз позволяет совмещать упомянутые рание операторы непосредственно с оператором присваивания.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">let</span> a = {};
+<span class="hljs-keyword">let</span> b = {};
+
+a &#x26;&#x26;= b; <span class="hljs-comment">// a &#x26;&#x26; (a = b)</span>
+a ||= b; <span class="hljs-comment">// a || (a = b);</span>
+a ??= b; <span class="hljs-comment">// a !== null &#x26;&#x26; a !== void 0 ? a : (a = b);</span></code></pre>
+</section><section id="Operandy-dlya-delete-doljny-byt-neobyazatelnymi" name="Операнды для delete должны быть необязательными" class="subchapter">
+            <h2 class="subchapter-title">
+                <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="Operandy-dlya-delete-doljny-byt-neobyazatelnymi" type="absolute-url">
+                    <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <use href="#icon_link"/>
+                    </svg>
+                </button>
+                Операнды для delete должны быть необязательными
+            </h2>
+        
+<p>Представьте случай при котором в <em>JavaScript</em> коде вам необходимо удалить у объекта одно из трех определенных в нем полей.</p>
+<pre><code class="hljs language-javascript"><span class="hljs-keyword">let</span> o = {
+    <span class="hljs-attr">a</span>: <span class="hljs-number">0</span>,
+    <span class="hljs-attr">b</span>: <span class="hljs-string">''</span>,
+    <span class="hljs-attr">c</span>: <span class="hljs-literal">true</span>
+};
+
+<span class="hljs-keyword">const</span> f = <span class="hljs-function"><span class="hljs-params">o</span> =></span> <span class="hljs-keyword">delete</span> o.b;
+
+f(<span class="hljs-number">0</span>); <span class="hljs-comment">// удаляем поле b</span>
+
+<span class="hljs-built_in">Object</span>
+    .entries(o)
+    .forEach( <span class="hljs-function">(<span class="hljs-params">[key, value]</span>) =></span> <span class="hljs-built_in">console</span>.log(key, value) );
+<span class="hljs-comment">/**
+ * log -
+ * -> a, 0
+ * -> b, true
+ */</span></code></pre>
+<p>Задача предельно простая только с точки зрения динамической типизации <em>JavaScript</em>. С точки зрения статической типизации <em>TypeScript</em> удаление члена объекта нарушает контракт представляемый декларацией типа. Простыми словами <em>TypeScript</em> не может гарантировать типобезопасность пока не может гарантировать существование членов объекта участвующих в каких-либо операциях.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">type</span> O = {
+    a: <span class="hljs-built_in">number</span>;
+    b: <span class="hljs-built_in">string</span>;
+    c: <span class="hljs-built_in">boolean</span>;
+}
+
+<span class="hljs-keyword">let</span> o: O = {
+    a: <span class="hljs-number">0</span>,
+    b: <span class="hljs-string">''</span>,
+    c: <span class="hljs-literal">true</span>
+};
+
+<span class="hljs-keyword">const</span> f = <span class="hljs-function">(<span class="hljs-params">o: O</span>) =></span> <span class="hljs-keyword">delete</span> o.b; <span class="hljs-comment">// [*]</span>
+
+f(o); <span class="hljs-comment">// удаляем поле b</span>
+
+<span class="hljs-comment">/**
+ * [*] Error ->
+ * Oбъект o больше не отвечает
+ * типу O поскольку в нем нет
+ * обязательного поля b. Поэтому
+ * если дальше по ходу выполнения
+ * программы будут производится
+ * операции над удаленным полем,
+ * то возникнет ошибка времени выполнения.
+ */</span></code></pre>
+<p>Поэтому <em>TypeScript</em> позволяет удалять члены объекта при помощи оператора <code class="inline-code">delete</code> только в том случае если они имеют тип <code class="inline-code">any</code>, <code class="inline-code">unknown</code>, <code class="inline-code">never</code> или объявлены как необязательные.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">type</span> T0 = {
+    field: <span class="hljs-built_in">any</span>;
+}
+
+<span class="hljs-keyword">const</span> f0 = <span class="hljs-function">(<span class="hljs-params">o: T0</span>) =></span> <span class="hljs-keyword">delete</span> o.field; <span class="hljs-comment">// Ok</span>
+
+
+<span class="hljs-keyword">type</span> T1 = {
+    field: unknown;
+}
+
+<span class="hljs-keyword">const</span> f1 = <span class="hljs-function">(<span class="hljs-params">o: T1</span>) =></span> <span class="hljs-keyword">delete</span> o.field; <span class="hljs-comment">// Ok</span>
+
+
+<span class="hljs-keyword">type</span> T2 = {
+    field: never;
+}
+
+<span class="hljs-keyword">const</span> f2 = <span class="hljs-function">(<span class="hljs-params">o: T2</span>) =></span> <span class="hljs-keyword">delete</span> o.field; <span class="hljs-comment">// Ok</span>
+
+
+<span class="hljs-keyword">type</span> T3 = {
+    field?: <span class="hljs-built_in">number</span>;
+}
+
+<span class="hljs-keyword">const</span> f3 = <span class="hljs-function">(<span class="hljs-params">o: T3</span>) =></span> <span class="hljs-keyword">delete</span> o.field; <span class="hljs-comment">// Ok</span>
+
+
+<span class="hljs-keyword">type</span> T4 = {
+    field: <span class="hljs-built_in">number</span>;
+}
+
+<span class="hljs-keyword">const</span> f4 = <span class="hljs-function">(<span class="hljs-params">o: T4</span>) =></span> <span class="hljs-keyword">delete</span> o.field; <span class="hljs-comment">// Error -> The operand of a 'delete' operator must be optional.</span></code></pre>
+</section>
