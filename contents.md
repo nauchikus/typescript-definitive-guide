@@ -31,7 +31,7 @@
 Различия var, let, const и модификатора readonly при неявном указании примитивных типов
 Операторы - Optional, Not-Null, Not-Undefined, Definite Assignment Assertion
 Типы - Обобщения (Generics)
-Типы - Tagged Union
+Типы - Discriminated Union
 Типы - Импорт и экспорт только типа
 Типизация - Утверждение типов
 Типизация - Защитники типа
