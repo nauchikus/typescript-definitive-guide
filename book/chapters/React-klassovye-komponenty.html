@@ -1,0 +1,860 @@
+<section id="React-proizvodnye-ot-Component" name="React — производные от Component" class="subchapter">
+            <h2 class="subchapter-title">
+                <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="React-proizvodnye-ot-Component" type="absolute-url">
+                    <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <use href="#icon_link"/>
+                    </svg>
+                </button>
+                React — производные от Component
+            </h2>
+        
+<p>Пользовательские компоненты построенные на основе классов обязаны расширять базовый обобщенный класс имеющего три необязательных параметра типа <code class="inline-code">Component&#x3C;Props, State, Snapshot></code>.  Минимальный пример будет выглядеть приблизительно так.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">import</span> React, {Component} <span class="hljs-keyword">from</span> <span class="hljs-string">"react"</span>;
+
+
+<span class="hljs-keyword">class</span> Timer <span class="hljs-keyword">extends</span> Component {
+    render(){
+        <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>;
+    }
+}
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> Timer;</code></pre>
+<p>Первым делом стоит обратить внимание на первую строку, а именно импорт пространнства имен <em>React</em>. Не зависимо используете вы его напрямую или нет, он обязан быть импортирован, в противном случаи компилятор напомнит об этом с помощью ошибки.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-comment">/**
+ * [0] Забыт импорт пространства
+ * имен React в следствии чего в
+ * точке [1] возникнет ошибка - 
+ * 
+ * 'React' refers to a UMD global,
+ * but the current file is a module.
+ * Consider adding an import instead.ts(2686)
+ */</span>
+
+<span class="hljs-keyword">import</span> {Component} <span class="hljs-keyword">from</span> <span class="hljs-string">"react"</span>; <span class="hljs-comment">// [0]</span>
+
+
+<span class="hljs-keyword">class</span> Timer <span class="hljs-keyword">extends</span> Component {
+    render(){
+        <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>; <span class="hljs-comment">// [1]</span>
+    }
+}
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> Timer;</code></pre>
+<p>Кроме того в нашем примере у метода <code class="inline-code">render</code> отсутствует аннотация возвращаемого типа, что на практике даже приветствуется. Но с образовательной точки зрения её указание не принесет никакого вреда.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">import</span> React, {Component, ReactNode} <span class="hljs-keyword">from</span> <span class="hljs-string">"react"</span>;
+
+
+<span class="hljs-keyword">class</span> Timer <span class="hljs-keyword">extends</span> Component {
+    render(): ReactNode {
+        <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>;
+    }
+}
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> Timer;</code></pre>
+<p>При переопределении производным классом метода <code class="inline-code">render</code> в качестве типа возвращаемого значения необходимо указывать тип совместиый с указанным в базовом классе, то есть с типом <code class="inline-code">ReactNode</code> поведение и нюансы которого были подробно рассмотрены в главе посвященной функциональным компонентам.</p>
+<p>Как говорилось ранее, тип от которого должны наследоваться пользовательские классовые компоненты является обобщенным и имеет три необязательных параметра типа, что и иллюстрирует наш минималистический пример.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-comment">/**
+ * [0] отсутствует передача аргументов типа
+ * определенных как Component&#x3C;Props, State, Snapshot>
+ * что указывает на их необязательность.
+ */</span>
+<span class="hljs-keyword">class</span> Timer <span class="hljs-keyword">extends</span> Component <span class="hljs-comment">/** [0] */</span> {
+    
+}</code></pre>
+<p>В реальеых проектах подобное встречается редко, поэтому следуюющим шагом разберем логику определения типов описывающих пользовательский компонент. </p>
+<p>Начнем по порядку, а именно с <code class="inline-code">Props</code>. Несмотря на то что <em>пропсы</em> делятся на обязательные и необязательные, все они по мере необходимости передаются как аргументы конструктора класса при создании его экземпляра и доступны по ссылке <code class="inline-code">this.props</code> (обозначим их как <em>общие пропсы</em>). Тем не менее за инициализацию необязательных пропсов ответственнен сам классовый компонент для чего и предусмотренно статическое поле <code class="inline-code">defaultProps</code>.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-comment">/**
+ * Аннотации в ожиждании указания
+ * типа.
+ */</span>
+<span class="hljs-keyword">class</span> Timer <span class="hljs-keyword">extends</span> Component {
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> readonly defaultProps <span class="hljs-comment">/** [0] */</span> = {};
+
+    <span class="hljs-keyword">constructor</span>(<span class="hljs-params">props <span class="hljs-comment">/** [1] */</span></span>){
+        <span class="hljs-keyword">super</span>(props);
+    }
+}</code></pre>
+<p>Тот факт что аннотация <code class="inline-code">defaultProps</code> предполагает тип представляющий лишь ассоциированное с этим полем значение вынуждает разделить декларацию общих пропсов на два типа <code class="inline-code">DefaultProps</code> и <code class="inline-code">Props</code>. Ввиду того что тип <code class="inline-code">Props</code> представляет не только обязательные пропсы но и необязательные, он должен расширять (<code class="inline-code">extends</code>) тип <code class="inline-code">DefaultProps</code>. </p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">interface</span> DefaultProps {}
+<span class="hljs-keyword">interface</span> Props <span class="hljs-keyword">extends</span> DefaultProps {}
+
+
+<span class="hljs-keyword">class</span> Timer <span class="hljs-keyword">extends</span> Component {
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> readonly defaultProps = {};
+
+    <span class="hljs-keyword">constructor</span>(<span class="hljs-params">props: Props</span>){
+        <span class="hljs-keyword">super</span>(props);
+    }
+}</code></pre>
+<p>Не будет лишним упомянуть что в реальных проектах интерфейс <code class="inline-code">Props</code>, помимо <code class="inline-code">DefaultProps</code>, очень часто расширяет множество других интерфейсов. В их число входят типы, предоставляемые библиотеками <em>ui</em>, <em>hoc обертками</em> и обычными библиотеками, как например <em>react-router</em> и его тип <code class="inline-code">RouteComponentProps&#x3C;T></code>.</p>
+<p>Поскольку в описании базового класса поле (<code class="inline-code">this.props</code>) принадлежит к типу определенного в качестве первого параметра типа, то есть <code class="inline-code">Component&#x3C;Props></code>, то <code class="inline-code">Props</code> необходимо указать в аннотации не только первого параметра конструктора, но и в качестве первого аргумента базового типа. Иначе <code class="inline-code">this.props</code> так и останется пренадлежать к простому объектному типу <code class="inline-code">{}</code> задданному по умолчанию.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">interface</span> DefaultProps {
+    message: <span class="hljs-built_in">string</span>;
+}
+<span class="hljs-keyword">interface</span> Props <span class="hljs-keyword">extends</span> DefaultProps {
+    duration: <span class="hljs-built_in">number</span>;
+}
+
+<span class="hljs-comment">/**
+ * Если не передавать Props в качестве
+ * аргумента типа в точке [0] то в точке
+ * [1] возникнет ошибка ->
+ * Property 'message' does not exist on type
+ * 'Readonly&#x3C;{}> &#x26; Readonly&#x3C;{ children?: ReactNode; }>'
+ */</span>
+<span class="hljs-keyword">class</span> Timer <span class="hljs-keyword">extends</span> Component&#x3C;Props <span class="hljs-comment">/**[0] */</span>> {
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> readonly defaultProps = {
+        message: <span class="hljs-string">`Done!`</span>
+    };
+
+    <span class="hljs-keyword">constructor</span>(<span class="hljs-params">props: Props</span>){
+        <span class="hljs-keyword">super</span>(props);
+
+        props.message; <span class="hljs-comment">// Ok</span>
+        <span class="hljs-keyword">this</span>.props.message; <span class="hljs-comment">// Ok [1]</span>
+    }
+}</code></pre>
+<p>Как было сказанно в теме посвященной функциональным компонентам, что если взять за правило именновать типы пропсов как <code class="inline-code">DefaultProps</code> и <code class="inline-code">Props</code>, то при необходимости в их импорте непременно возникнит коллизия из-за одинаковых имен. Поэтому принято добавлять к названиям названия самих компонентов <code class="inline-code">*DefaultProps</code> и <code class="inline-code">*Props</code>. Но поскольку эти типы повсеместно указываются в аннотациях расположенных в теле классового компонента, то подобные имена попросту усложняют понимание кода. Поэтому для исчерпывающих имен необходимо создавать более компактные псевдонимы типа <code class="inline-code">type</code>.</p>
+<p>Также стоит сразу сказать, что в все три типа выступающих в качестве аргументов базового типа нуждаются в более компактных идентификаторах определяемых с помощью псевдонимов. Но кроме того, все эти типы описывают объекты мутация которых не предполагается. Простыми словами типы <code class="inline-code">Props</code>, <code class="inline-code">State</code> и <code class="inline-code">Snapshot</code> используются исключительно в аннотациях <code class="inline-code">readonly</code> полей класса, параметрах его методов и возвращаемых ими значениях. Поскольку секрет здорового приложения кроется в типобезопасности языка использованного для его создания, всю упомянутую троицу необходимо сделать неизменяемой. Для этого существует специальный тип <code class="inline-code">Readonly&#x3C;T></code>. Но так как преобразование типов в каждой отдельной аннотации приведет к чрезмерному увеличению кода, необходимо проделать это единожды в определении их псевдонимов.</p>
+<p>Посмотрим как новая информация преобразит наш основной пример.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">import</span> React, {Component, ReactNode} <span class="hljs-keyword">from</span> <span class="hljs-string">"react"</span>;
+
+<span class="hljs-comment">/**
+ * Имена интерфейсов получили префикс
+ * в виде названия компонента.
+ */</span>
+<span class="hljs-keyword">interface</span> TimerDefaultProps {
+    message: <span class="hljs-built_in">string</span>;
+}
+<span class="hljs-keyword">interface</span> TimerProps <span class="hljs-keyword">extends</span> TimerDefaultProps {
+    duration: <span class="hljs-built_in">number</span>;
+}
+
+<span class="hljs-comment">/**
+ * Для конкретных типов преобразованных
+ * в типы только для чтения
+ * определен псевдоним.
+ */</span>
+<span class="hljs-keyword">type</span> DefaultProps = Readonly&#x3C;TimerDefaultProps>;
+<span class="hljs-keyword">type</span> Props = Readonly&#x3C;TimerProps>;
+
+<span class="hljs-keyword">class</span> Timer <span class="hljs-keyword">extends</span> Component&#x3C;Props> {
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> readonly defaultProps: DefaultProps = {
+        message: <span class="hljs-string">`Done!`</span>
+    };
+
+    <span class="hljs-keyword">constructor</span>(<span class="hljs-params">props: Props</span>){
+        <span class="hljs-keyword">super</span>(props);
+    }
+}
+
+<span class="hljs-comment">/**
+ * Добавлен экспорт не только самого
+ * компонента, но и типа представляющего
+ * его основные пропсы.
+ */</span>
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> Timer;
+<span class="hljs-keyword">export</span> {TimerProps}; <span class="hljs-comment">// экспортируем типа *Props</span></code></pre>
+<p>Также стоит упомянуть что пропсы всех компонентов по умолчанию имеют определение необязательного (объявленного с модификатором <code class="inline-code">?:</code>) поля <code class="inline-code">children</code> принадлежащего к оговоренному ранее типу <code class="inline-code">ReactNode</code>. Простыми словами можно вообще не передавать аргументы базовому типу и компилятор не выдаст ошибку при обращении к полю <code class="inline-code">this.props.children</code>;</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">class</span> Label <span class="hljs-keyword">extends</span> Component {
+    render(){
+        <span class="hljs-keyword">return</span> (
+                    <span class="hljs-comment">/**[0] */</span>
+            &#x3C;h1>{<span class="hljs-keyword">this</span>.props.children}&#x3C;<span class="hljs-regexp">/h1>
+        );
+    }
+}
+
+/</span>**
+ * [<span class="hljs-number">0</span>] несмотря на то что базовому
+ * типу не были установлены аргумента типа
+ * обращение к свойству children не вызывает
+ * ошибки поскольку данное свойство определенно
+ * в базовом типе.
+ *<span class="hljs-regexp">/
+
+&#x3C;Label>{"label"}&#x3C;/</span>Label>; <span class="hljs-comment">// string as children -> Ok [1]</span>
+&#x3C;Label>{<span class="hljs-number">1000</span>}&#x3C;<span class="hljs-regexp">/Label>; /</span><span class="hljs-regexp">/ number as children -> Ok [2]
+&#x3C;Label>&#x3C;/</span>Label>; <span class="hljs-comment">// undefined as chiildren -> Ok [3]</span>
+
+ <span class="hljs-comment">/**
+  * При создании экземпляров компонента Label
+  * допустимо указывать в качестве children
+  * как строку [1], так и числа [2] и кроме
+  * того не указывать значения вовсе [3]
+  */</span></code></pre>
+<p>В остальном <code class="inline-code">children</code> имеют тоже поведение и недостатки которые были подробно описанны в главе посвященной функциональным компанентам. Поэтому оставим им и приступим к рассмотрению второго параметра базового типа <code class="inline-code">Component</code>, а именно к типу представляющего состояние компонента <code class="inline-code">Component&#x3C;Props, State></code>.</p>
+<p>Несмотря на то что состояние является закрытым от внешнего мира, тип представляющий его также принято называть с префиксом в роли которого выступает название самого компонента. Причина кроется не только в соблюдении общего стиля кода относительно именования типов пропсов. На практике могут возникнуть коллизии имен при создании вложенных классовых компонентов что является обычным делом при создании <em>hoc</em>. Поэтому для типа описывающего состояние компонента так же необходимо определеить ещё и псевдоним и не забыть передать его в качестве второго аргумента базового типа и указать в аннотации поля <code class="inline-code">state</code>.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">import</span> React, {Component, ReactNode} <span class="hljs-keyword">from</span> <span class="hljs-string">"react"</span>;
+
+<span class="hljs-keyword">interface</span> TimerDefaultProps {
+    message: <span class="hljs-built_in">string</span>;
+}
+<span class="hljs-keyword">interface</span> TimerProps <span class="hljs-keyword">extends</span> TimerDefaultProps {
+    duration: <span class="hljs-built_in">number</span>;
+}
+
+<span class="hljs-comment">// определение State</span>
+<span class="hljs-keyword">interface</span> TimerState {
+    time: <span class="hljs-built_in">number</span>;
+}
+
+<span class="hljs-keyword">type</span> DefaultProps = Readonly&#x3C;TimerDefaultProps>;
+<span class="hljs-keyword">type</span> Props = Readonly&#x3C;TimerProps>;
+<span class="hljs-keyword">type</span> State = Readonly&#x3C;TimerState>; <span class="hljs-comment">// создание псевдонима для типа </span>
+
+<span class="hljs-comment">/**
+ * [0] передача псевдонима State
+ * в качестве второго аргумента
+ * базового типа.
+ */</span>
+<span class="hljs-keyword">class</span> Timer <span class="hljs-keyword">extends</span> Component&#x3C;Props, State <span class="hljs-comment">/** [0] */</span>> { 
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> readonly defaultProps: DefaultProps = {
+        message: <span class="hljs-string">`DOne!`</span>
+    };
+
+    <span class="hljs-comment">// определение поля state</span>
+    <span class="hljs-keyword">public</span> readonly state: State = {
+        time: <span class="hljs-number">0</span>
+    };
+
+    <span class="hljs-keyword">constructor</span>(<span class="hljs-params">props: Props</span>){
+        <span class="hljs-keyword">super</span>(props);
+    }
+}
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> Timer;
+<span class="hljs-keyword">export</span> {TimerProps};</code></pre>
+<p>Пора обратить внимание на момент связанный с объявленим <code class="inline-code">defaultProps</code> и <code class="inline-code">state</code>, которым необходимо указывать (или не указывать вовсе) модификатор доступа <code class="inline-code">public</code>, так как к ним должен быть дотуп извне. Кроме того не будет лишним добавить этим полям модификатор <code class="inline-code">readonly</code>, который поможет избежать случайных изменений.</p>
+<p>Говоря о состоянии нельзя обойти стороной такой метод как <code class="inline-code">setState</code> необходимый для его изменения, о котором известно что в качестве аргумента он может принимать как непосредственно объект представляющий новое состояние, так и функцию возвращающую его. Но поскольку первый случай ничего что нас могло бы заинтересовать из себя не представляет, рассмотрен будет лишь второй вариант с функцией. Поэтому продолжим наш основной пример и внесем в него изменения касающиеся изменения состояния. Создадим скрытый метод <code class="inline-code">reset</code> который будет сбрасывать значение пройденного времени.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">interface</span> TimerState {
+    time: <span class="hljs-built_in">number</span>;
+}
+
+<span class="hljs-keyword">type</span> State = Readonly&#x3C;TimerState>;
+
+
+<span class="hljs-keyword">class</span> Timer <span class="hljs-keyword">extends</span> Component&#x3C;Props, State> { 
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> readonly defaultProps: DefaultProps = {
+        message: <span class="hljs-string">`DOne!`</span>
+    };
+
+    <span class="hljs-keyword">public</span> readonly state: State = {
+        time: <span class="hljs-number">0</span>
+    };
+
+    <span class="hljs-keyword">constructor</span>(<span class="hljs-params">props: Props</span>){
+        <span class="hljs-keyword">super</span>(props);
+    }
+
+    <span class="hljs-comment">// определение скрытого метода reset</span>
+    <span class="hljs-keyword">private</span> reset(){
+        <span class="hljs-comment">/**
+         * Вызываем метод setState с функцией
+         * ассинхронного изменения состояния
+         * в качестве первого аргумента.
+         */</span>
+        <span class="hljs-keyword">this</span>.setState( <span class="hljs-function">(<span class="hljs-params">prevState: Readonly&#x3C;State>, props: Readonly&#x3C;Props></span>) =></span> {
+            <span class="hljs-keyword">return</span> {time: <span class="hljs-number">0</span>}; <span class="hljs-comment">// возвращаем новое состояние</span>
+        } )
+    }
+}</code></pre>
+<p>Из того кода что был добавлен в наш пример стоит обратить внимание на несколько моментов. Прежде всего использование псевдономив <code class="inline-code">Props</code> и <code class="inline-code">State</code> в аннотациях параметров функции переданной в метод <code class="inline-code">setState</code>, обозначим её как <code class="inline-code">updater</code>. Как и было сказанно ранее, типы описывающие состояние и пропсы используются повсеместно в коде компонента. Кроме того стоит сказать что описание сигнатуры функции <code class="inline-code">updater</code> подобным образом излишне и имеет место быт лишь в образовательных целях. Достаточно просто определеить необходимые параметры и вывод типов самостоятельно определит их принадлежность.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">class</span> Timer <span class="hljs-keyword">extends</span> Component&#x3C;Props, State> { 
+    <span class="hljs-keyword">private</span> reset(){
+        <span class="hljs-comment">/**
+         * Вывод типов в состоянии определить
+         * принадлежность параметров, поэтому
+         * самостоятельнаое аннотирование излишне.
+         * 
+         * (parameter) prevState: Readonly&#x3C;TimerState>
+         * (parameter) props: Readonly&#x3C;TimerProps>
+         */</span>
+        <span class="hljs-keyword">this</span>.setState( <span class="hljs-function">(<span class="hljs-params">prevState, props</span>) =></span> {
+            <span class="hljs-keyword">return</span> {time: <span class="hljs-number">0</span>};
+        } )
+    }
+}</code></pre>
+<p>В добавок к этому стоит возложить определение возвращаемого значения из функции <code class="inline-code">updater</code> на вывод типов, поскольку это не просто излишне, но и в большинстве случаев может являтся причиной излишнего кода. Все дело в том что когда состояние содержит множество полей, обновление которых не производится одновременно, при указании возвращаемого типа как <code class="inline-code">State</code> будет невозможно частичное обновление, поскольку часть типа <code class="inline-code">State</code> не совместимо со <code class="inline-code">State</code>.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">interface</span> Props{}
+<span class="hljs-keyword">interface</span> State{ <span class="hljs-comment">/**[0] */</span>
+  yesCount: <span class="hljs-built_in">number</span>;
+  noCount: <span class="hljs-built_in">number</span>;
+}
+<span class="hljs-keyword">class</span> Counter <span class="hljs-keyword">extends</span> Component&#x3C;Props,State>{
+  state = {
+    yesCount:<span class="hljs-number">0</span>,
+    noCount:<span class="hljs-number">0</span>
+  }
+
+  buttonA_clickHandler = <span class="hljs-function"><span class="hljs-params">()</span> =></span> {
+      <span class="hljs-comment">// инкрементируем yesCount</span>
+    <span class="hljs-keyword">this</span>.setState((prevState): <span class="hljs-function"><span class="hljs-params">State</span> =></span> {
+      <span class="hljs-keyword">return</span> {yesCount: prevState.yesCount + <span class="hljs-number">1</span>}; <span class="hljs-comment">/**1 */</span>
+    });
+  };
+  buttonB_clickHandler = <span class="hljs-function"><span class="hljs-params">()</span> =></span> {
+      <span class="hljs-comment">// инкрементируем noCount</span>
+    <span class="hljs-keyword">this</span>.setState((prevState): <span class="hljs-function"><span class="hljs-params">State</span> =></span> {
+        <span class="hljs-keyword">return</span> {noCount: prevState.noCount + <span class="hljs-number">1</span>}; <span class="hljs-comment">/**[2] */</span>
+    });
+  };
+
+
+  render(){
+    <span class="hljs-keyword">return</span> (
+      &#x3C;div>
+          &#x3C;p>Yes: {<span class="hljs-keyword">this</span>.state.yesCount}&#x3C;<span class="hljs-regexp">/p>
+          &#x3C;p>No: {this.state.noCount}&#x3C;/</span>p>
+          &#x3C;button onClick={<span class="hljs-keyword">this</span>.buttonA_clickHandler}>yes++&#x3C;<span class="hljs-regexp">/button>
+          &#x3C;button onClick={this.buttonB_clickHandler}>no++&#x3C;/</span>button>
+      &#x3C;<span class="hljs-regexp">/div>
+    );
+  }
+}
+
+/</span>**
+ * [<span class="hljs-number">0</span>] описание состояния с двумя полями.
+ * [<span class="hljs-number">1</span>] <span class="hljs-built_in">Error</span> -> поскольку {yesCount: <span class="hljs-built_in">number</span>} не совместим
+ * с {yesCount: <span class="hljs-built_in">Number</span>; noCount: <span class="hljs-built_in">number</span>}
+ * [<span class="hljs-number">2</span>] <span class="hljs-built_in">Error</span> -> поскольку {noCount: <span class="hljs-built_in">number</span>} не совместим
+ * с {yesCount: <span class="hljs-built_in">Number</span>; noCount: <span class="hljs-built_in">number</span>}
+ *<span class="hljs-regexp">/</span></code></pre>
+<p>В случае когда функция <code class="inline-code">updater</code> выполняет частичное обновление состояния и при этом тип возвращаемого значения указан явно, необходимо воспользоватся механизмом распростроннения (<code class="inline-code">spread</code>) дополнив отсутствующую часть в новом состоянии старым.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">class</span> Counter <span class="hljs-keyword">extends</span> Component&#x3C;Props,State>{
+  buttonA_clickHandler = <span class="hljs-function"><span class="hljs-params">()</span> =></span> {
+    <span class="hljs-keyword">this</span>.setState((prevState): <span class="hljs-function"><span class="hljs-params">State</span> =></span> {
+                <span class="hljs-comment">/**[0] */</span>
+      <span class="hljs-keyword">return</span> {...prevState, yesCount: prevState.yesCount + <span class="hljs-number">1</span>};
+    });
+  };
+  buttonB_clickHandler = <span class="hljs-function"><span class="hljs-params">()</span> =></span> {
+    <span class="hljs-keyword">this</span>.setState((prevState): <span class="hljs-function"><span class="hljs-params">State</span> =></span> {
+                    <span class="hljs-comment">/**[1] */</span>
+        <span class="hljs-keyword">return</span> {...prevState, noCount: prevState.noCount + <span class="hljs-number">1</span>};
+    });
+  };
+}
+
+<span class="hljs-comment">/**
+ * [0] В обоих случаях ошибки не воникает
+ * поскольку недостающая часть состояния
+ * дополняется из предыдущего состояния,
+ * что делает тип возвращаемого объекта
+ * совместимым с типом State.
+ */</span></code></pre>
+<p>Несмотря на то что механизм распространения помогает обойти трудности связанные с совместимостью типов, лучшим вариантом будет вообще не указывать возвращаемый функцией <code class="inline-code">updater</code> тип, а возложить эту обязанность на вывод типов. </p>
+<p>И последнее о чем ещё не упомянули, что метод <code class="inline-code">setState</code> принимает второй параметр, также функцию обратного вызова, декларация которой очень проста и будет рассмотрена в самом конце данной главы когда весь код будет собран в одном месте.</p>
+<p>И на этом рассмотрение состояния завершено и можно приступить к рассмотрению третьего и последнего параметра базового типа <code class="inline-code">Component&#x3C;Props, State, Snapshot></code>.</p>
+<p>Принципы применяемые для описания типа представляющего <code class="inline-code">Snapshot</code> ничем не отличаются от описания <code class="inline-code">Props</code> и <code class="inline-code">State</code>. То есть точно такие же правила при именовании и создание псевдонима, который будет передан в качестве третьего аргумента базового типа и использован в аннотациях внутри тела компонента.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">import</span> React, {Component, ReactNode} <span class="hljs-keyword">from</span> <span class="hljs-string">"react"</span>;
+
+<span class="hljs-keyword">interface</span> TimerDefaultProps {
+    message: <span class="hljs-built_in">string</span>;
+}
+<span class="hljs-keyword">interface</span> TimerProps <span class="hljs-keyword">extends</span> TimerDefaultProps {
+    duration: <span class="hljs-built_in">number</span>;
+}
+
+<span class="hljs-keyword">interface</span> TimerState {
+    time: <span class="hljs-built_in">number</span>;
+}
+
+<span class="hljs-comment">// определение Snapshot</span>
+<span class="hljs-keyword">interface</span> TimerSnapshot {}
+
+
+<span class="hljs-keyword">type</span> DefaultProps = Readonly&#x3C;TimerDefaultProps>;
+<span class="hljs-keyword">type</span> Props = Readonly&#x3C;TimerProps>;
+<span class="hljs-keyword">type</span> State = Readonly&#x3C;TimerState>;
+<span class="hljs-keyword">type</span> Snapshot = Readonly&#x3C;TimerSnapshot>; <span class="hljs-comment">// создание псевдонима для типа </span>
+
+<span class="hljs-comment">/**
+ * [0] передача псевдонима Snapshot
+ * в качестве третьего аргумента
+ * базового типа.
+ */</span>
+<span class="hljs-keyword">class</span> Timer <span class="hljs-keyword">extends</span> Component&#x3C;Props, State, Snapshot <span class="hljs-comment">/** [0] */</span>> { 
+    <span class="hljs-comment">/**
+     * Поскольку Snapshot используется
+     * в тех конструкциях очерьдь до которых
+     * ещё не дошла, тело класса будет опущенно.
+     */</span>
+}
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> Timer;
+<span class="hljs-keyword">export</span> {TimerProps};</code></pre>
+<p>Ничего особенного совершенно на что стоило бы обратить внимание нет, к тому же мы ещё не добрались до конструкций использующих определенный нами новый тип. Поэтому без лишних коментариев продолжим знакомство с внутренним устройством компонента, а именно его жизненного цикла, который можно разделить на четыре типа - <em>статический жизненный цикл</em></p>
+<p>Начать погружение в типизированный жизненный цикл классовых компонентов необходимо с его разделения на две части - <em>актуальный жизненный цикл</em> и <em>устаревший жизненный цикл</em> который будет исключон из рассмотрения. Поскольку в аннотации методов жизненого цикла не содержат ничего что было бы не понятно к этому моменту, пояснение каждого отдельного случая будет опущенно. Обратить внимание стоит лишь на импорт впервые встречающегося типа <code class="inline-code">ErrorInfo</code> необходимость в котором появляется при определении необязательно метода <code class="inline-code">componentDidCatch</code>. Кроме того не будет лишнем напомнить что в строгом рекомендуемом режиме при котором все элементы без аннотации неявно принадлежат к типу <code class="inline-code">any</code>, аннотация сигнатур методов является обязательной. И по этому случаю ещё раз стоит упомянуть о пользе коротких псевдонимов заменяющих огромные идентификаторы типов <code class="inline-code">*Props</code>, <code class="inline-code">*State</code> и <code class="inline-code">*Snapshot</code>. </p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">import</span> React, {Component, ReactNode, ErrorInfo} <span class="hljs-keyword">from</span> <span class="hljs-string">"react"</span>; <span class="hljs-comment">// необходимость в импорте типа ErrorInfo</span>
+
+<span class="hljs-keyword">class</span> Timer <span class="hljs-keyword">extends</span> Component&#x3C;Props, State, Snapshot> {
+    getDerivedStateFromProps?:<span class="hljs-function">(<span class="hljs-params">nextProps: Readonly&#x3C;Props>, prevState: State</span>) =></span> Partial&#x3C;State> | <span class="hljs-literal">null</span>;
+    getDerivedStateFromError?: <span class="hljs-function">(<span class="hljs-params">error: <span class="hljs-built_in">any</span></span>) =></span> Partial&#x3C;State> | <span class="hljs-literal">null</span>;
+    
+    componentDidMount?(): <span class="hljs-built_in">void</span>
+    shouldComponentUpdate?(nextProps: Readonly&#x3C;Props>, nextState: Readonly&#x3C;State>, nextContext: <span class="hljs-built_in">any</span>): <span class="hljs-built_in">boolean</span>;
+    componentWillUnmount?(): <span class="hljs-built_in">void</span>;
+    componentDidCatch?(error: <span class="hljs-built_in">Error</span>, errorInfo: ErrorInfo): <span class="hljs-built_in">void</span>;
+    getSnapshotBeforeUpdate?(prevProps: Readonly&#x3C;Props>, prevState: Readonly&#x3C;State>): Snapshot | <span class="hljs-literal">null</span>;
+    componentDidUpdate?(prevProps: Readonly&#x3C;Props>, prevState: Readonly&#x3C;State>, snapshot?: Snapshot): <span class="hljs-built_in">void</span>;
+
+}</code></pre>
+<p>Вдобавок необходимо заметить что код иллюстрирующий жизненный цикл компонента взять из декларации устанавливаемой из репозитория <code class="inline-code">@types/react</code> и именно поэтому она изобилует излишними преобразованиями в <code class="inline-code">Readonly&#x3C;T></code> тип. Но как было отмечено ранее, в этом нет нужны поскольку все типы составляющие троицу аргументов базового типа уже прошли преобразование при определении представляющих их псевдонимов.</p>
+<p>Учитывая этот факт предыдущий код будет выглядеть слудующим образом. </p>
+<pre><code class="hljs language-typescript"><span class="hljs-comment">/**
+ * Более компактная запись
+ * без изменения поведения.
+ */</span>
+<span class="hljs-keyword">class</span> Timer <span class="hljs-keyword">extends</span> Component&#x3C;Props, State, Snapshot> {
+    getDerivedStateFromProps?:<span class="hljs-function">(<span class="hljs-params">nextProps: Props, prevState: State</span>) =></span> Partial&#x3C;State> | <span class="hljs-literal">null</span>;
+    getDerivedStateFromError?: <span class="hljs-function">(<span class="hljs-params">error: <span class="hljs-built_in">any</span></span>) =></span> Partial&#x3C;State> | <span class="hljs-literal">null</span>;
+    
+    componentDidMount?(): <span class="hljs-built_in">void</span>
+    shouldComponentUpdate?(nextProps: Props, nextState: State, nextContext: <span class="hljs-built_in">any</span>): <span class="hljs-built_in">boolean</span>;
+    componentWillUnmount?(): <span class="hljs-built_in">void</span>;
+    componentDidCatch?(error: <span class="hljs-built_in">Error</span>, errorInfo: ErrorInfo): <span class="hljs-built_in">void</span>;
+    getSnapshotBeforeUpdate?(prevProps: Props, prevState: State): Snapshot | <span class="hljs-literal">null</span>;
+    componentDidUpdate?(prevProps: Props, prevState: State, snapshot?: Snapshot): <span class="hljs-built_in">void</span>;
+
+}</code></pre>
+<p>Следующий в очереде на рассмотрение механизм получение ссылок на нативные <em>dom элементы</em> и <em>React комопненты</em> обозначаемый как <em>рефы</em> (<em>refs</em>). </p>
+<p>Предположим что существует форма которую по событию <code class="inline-code">submit</code> необходимо очистить при помощи нативного метода <code class="inline-code">reset</code>, доступ к которому возможен лишь через нативный <em>dom элемент</em>, ссылку на которы можно получить с помощью механизма рефов, который реализован в <em>React</em> двумя способоми. Первый способ заключается в создании объекта реф с помощью статичекого метода <code class="inline-code">React.createRef()</code>, а второй в самостоятельном сохранении ссылки на нативный <em>dom елемент</em> с помощью функции обратного вызова.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-comment">/**
+ * задача заключается в
+ * получении ссылки на
+ * нативный dom елемент формы [0]. 
+ */</span>
+<span class="hljs-keyword">class</span> Сhecklist <span class="hljs-keyword">extends</span> Component {
+    render(){
+        <span class="hljs-keyword">return</span> (
+            <span class="hljs-comment">/**[0] */</span>
+            &#x3C;form>&#x3C;<span class="hljs-regexp">/form>
+        );
+    }
+}</span></code></pre>
+<p>Начнем по порядку. Первым делом необходимо определить поле (в нашем случае это <code class="inline-code">formRef</code>) необходимое для сохранения объекта реф и желательно чтобы оно было закрытое (<code class="inline-code">private</code>) и только для чтения (<code class="inline-code">readonly</code>). В примере поле <code class="inline-code">formRef</code> определен вместе с аннотацией в который указан импортированный тип <code class="inline-code">RefObject&#x3C;T></code>, где параметр типа принимает тип нативного <em>dom элемента</em>, в нашем случае это тип <code class="inline-code">HTMLFormElement</code>. Но в данном случае аннотация излишня поскольку мы указали выводу типов принадлежность нативного <em>dom элемента</em> передав его в качестве аргумента типа функции <code class="inline-code">React.createRef&#x3C;T>()</code>.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">import</span> React, {Component, RefObject} <span class="hljs-keyword">from</span> <span class="hljs-string">"react"</span>;
+
+<span class="hljs-keyword">class</span> Сhecklist <span class="hljs-keyword">extends</span> Component {
+                                    <span class="hljs-comment">/**[1] */</span>                                   <span class="hljs-comment">/**[2] */</span>
+    <span class="hljs-keyword">private</span> readonly formRef: RefObject&#x3C;HTMLFormElement> = React.createRef&#x3C;HTMLFormElement>();
+
+}
+
+<span class="hljs-comment">/**
+ * [0] импорт типа RefObject&#x3C;T>
+ * который в аннотации [1] поля
+ * formRef является излишним,
+ * так как тип нативного dom элемента
+ * был уточнен с помощь передачи его
+ * в качестве аргумента типа функции [2]
+ */</span></code></pre>
+<p>На следующим шаге устанавливаем объект реф <em>react элементу</em> <code class="inline-code">&#x3C;form></code> и определяем закрытый метод <code class="inline-code">reset</code> в котором происходит вызов метода <code class="inline-code">reset</code> нативной формы. Не будет лишним обратить внимание что вызов непосредственно метода <code class="inline-code">reset</code> осуществляется при помощи <em>оператора опциональной последовательности</em> (<code class="inline-code">?.</code>), что по причине возможного отсутствия ссылки на нативный элемент.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">import</span> React, {Component, RefObject} <span class="hljs-keyword">from</span> <span class="hljs-string">"react"</span>;
+
+
+<span class="hljs-keyword">class</span> Сhecklist <span class="hljs-keyword">extends</span> Component {
+    <span class="hljs-keyword">private</span> readonly formRef: RefObject&#x3C;HTMLFormElement> = React.createRef&#x3C;HTMLFormElement>();
+
+    <span class="hljs-comment">/**[4] */</span>
+    <span class="hljs-keyword">private</span> resetForm(){
+                        <span class="hljs-comment">/**[5] */</span>
+        <span class="hljs-keyword">this</span>.formRef.current?.reset();
+    }
+
+    render(){
+        <span class="hljs-keyword">return</span> (
+                        <span class="hljs-comment">/**[3] */</span>
+            &#x3C;form ref={<span class="hljs-keyword">this</span>.formRef}>&#x3C;<span class="hljs-regexp">/form>
+        );
+    }
+}
+
+/</span>**
+ * [<span class="hljs-number">3</span>] установка рефа react элементу.
+ * [<span class="hljs-number">4</span>] определение закрытого метода.
+ * [<span class="hljs-number">5</span>] необходимость применения опрератора
+ * опциональной последовательности по причине
+ * возможного отстутствия ссылки на нативный элемент.
+ *<span class="hljs-regexp">/</span></code></pre>
+<p>Второй способ получения ссылки на нативный элемент заключается в определении функции которая в качестве параметра принимает нативный <em>dom элемент</em> сохранение ссылки на который перекладывается на разработчика.</p>
+<p>Для иллюстрации сказанного повторим предыдущий пример. Первым делом импортируем обобщенный тип <code class="inline-code">RefCallback&#x3C;T></code> описывающий функцию и принимающий в качестве аргумента типа тип нативного <em>dom элемента</em> который будет передан в эту функцию в качестве единственного аргумента. Затем определяем поле <code class="inline-code">formNativeElement</code> с типом объединение (<code class="inline-code">Union</code>) множество которого включет не только тип нативного элемента, но и типа <code class="inline-code">null</code>, поскольку в качестве значения при инициализации требуется установить значение принадлежащие к типу <code class="inline-code">null</code>. Это необходимо при активном флаге <code class="inline-code">--strictPropertyInitialization</code> входящим в группировку определяющую рекомуендуемый строгий режим компилятора.</p>
+<p>Следующим шагом происходит определение закрытого только для чтения поля <code class="inline-code">formRefCallback</code> которму в качестве значения присвоенна стрелочная функция определяющая единственный параметр без аннотации типа, поскольку вывод типов определит его как принадлежащего к типу переданного в качестве аргумента типа <code class="inline-code">RefCallback&#x3C;T></code>. В теле данной функции происходит присваивание её параметра полю  <code class="inline-code">formNativeElement</code> определенному на предыдущем шаге.</p>
+<pre><code class="hljs language-typescript">                            <span class="hljs-comment">/**[0] */</span>
+<span class="hljs-keyword">import</span> React, {Component, RefCallback} <span class="hljs-keyword">from</span> <span class="hljs-string">"react"</span>;
+
+
+<span class="hljs-keyword">class</span> Сhecklist <span class="hljs-keyword">extends</span> Component {
+                <span class="hljs-comment">/**[1] */</span>               <span class="hljs-comment">/**[2] */</span>     <span class="hljs-comment">/**[3] */</span>
+    <span class="hljs-keyword">private</span> formNativeElement: HTMLFormElement | <span class="hljs-literal">null</span> = <span class="hljs-literal">null</span>;
+                        <span class="hljs-comment">/**[4] */</span>                    <span class="hljs-comment">/**[5] */</span>      <span class="hljs-comment">/**[6] */</span>                       <span class="hljs-comment">/**[7] */</span>
+    <span class="hljs-keyword">private</span> readonly formRefCallback: RefCallback&#x3C;HTMLFormElement> = <span class="hljs-function"><span class="hljs-params">element</span> =></span> <span class="hljs-keyword">this</span>.formNativeElement = element;
+
+}
+
+<span class="hljs-comment">/**
+ * [0] импорт типа RefCallback&#x3C;T> который в качестве аргумента
+ * типа ожидает тип нативного элемента.
+ * [1] определение поля formNativeElement
+ * и присвоение ему значения null [3], что приводит
+ * к необходимости объединенного типа включающего
+ * тип null [2]. [4] определение поля formRefCallback
+ * значением которого служит стрелочная функция принимающая в
+ * качестве единственного параметра нативный элемент [6] который затем
+ * присваивается полю formNativeElement [7]. Тип этого параметра
+ * будет принадлежать к типу переданному в качестве аргумента типа RefCallback&#x3C;T> [5]
+ * 
+ */</span></code></pre>
+<p>Стоит заметить что тоже самое можно реализовать и без помощи типа импортированного <code class="inline-code">RefCallback&#x3C;T></code>. Для этого лишь потребуется самостоятельно добавить аннотацию типа для параметра функции обратного вызова. </p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">import</span> React, {Component} <span class="hljs-keyword">from</span> <span class="hljs-string">"react"</span>;
+
+
+<span class="hljs-keyword">class</span> Сhecklist <span class="hljs-keyword">extends</span> Component {
+    <span class="hljs-keyword">private</span> formNativeElement: HTMLFormElement | <span class="hljs-literal">null</span> = <span class="hljs-literal">null</span>;
+    <span class="hljs-keyword">private</span> readonly formRefCallback = <span class="hljs-function">(<span class="hljs-params">element: HTMLFormElement</span>) =></span> <span class="hljs-keyword">this</span>.formNativeElement = element;
+
+}
+
+<span class="hljs-comment">/**
+ * [0] определение поля formNativeElement
+ * и присвоение ему значения null [2], что приводит
+ * к необходимости объединенного типа включающего
+ * тип null [1]. [3] определение поля formRefCallback
+ * значением которого служит стрелочная функция в качестве
+ * аргумента котороя ожидает нативный элемент [4] который
+ * затем присваивается полю formNativeElement [5]
+ * 
+ */</span></code></pre>
+<p>Выбор того или иного способа зависит лишь от предпочтений самого разработчика.</p>
+<p>Продолжим доведение примера до финального состояния и установим созданную в первом случае функцию обратного вызова <em>react элементу</em> <code class="inline-code">&#x3C;form></code> в качестве реф. Также определим уже известный метод <code class="inline-code">reset</code> в теле которого будет происходить вызов метода <code class="inline-code">reset</code> у нативного <em>dom элемента</em> ссылка на который будет сохранена в поле класса <code class="inline-code">formNativeElement</code>.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">import</span> React, {Component, RefCallback} <span class="hljs-keyword">from</span> <span class="hljs-string">"react"</span>;
+
+
+<span class="hljs-keyword">class</span> Сhecklist <span class="hljs-keyword">extends</span> Component {
+    <span class="hljs-keyword">private</span> formNativeElement: HTMLFormElement | <span class="hljs-literal">null</span> = <span class="hljs-literal">null</span>;
+    <span class="hljs-keyword">private</span> readonly formRefCallback: RefCallback&#x3C;HTMLFormElement> = <span class="hljs-function"><span class="hljs-params">element</span> =></span> <span class="hljs-keyword">this</span>.formNativeElement = element;
+
+
+    <span class="hljs-comment">/**[1] */</span>
+    <span class="hljs-keyword">private</span> reset(){
+                <span class="hljs-comment">/**[2] */</span>
+        <span class="hljs-keyword">this</span>.formNativeElement?.reset();
+    }
+
+
+    render(){
+        <span class="hljs-keyword">return</span> (
+                            <span class="hljs-comment">/**[0] */</span>
+            &#x3C;form ref={<span class="hljs-keyword">this</span>.formRefCallback}>&#x3C;<span class="hljs-regexp">/form>
+        );
+    }
+}
+
+/</span>**
+ * [<span class="hljs-number">0</span>] устанавливаем каллбэк в качестве занчения реф
+ * после чего определяем метод reset [<span class="hljs-number">1</span>] в теле которого
+ * при помощи оператора опциональной последовательности
+ * вызываем метод reset у нативного dom элемента сохранненого
+ * в поле formNativeElement [<span class="hljs-number">2</span>]
+ * 
+ *<span class="hljs-regexp">/</span></code></pre>
+<p>И раз уж тема дошла до рассмотрения рефов, то необходимо рассмотреть механизм получения с их помощью ссылки на классовый компонент. </p>
+<p>Первым делом определим классовый компонент <code class="inline-code">Slider</code> реализующий два открытых метода предназначенных для перелистывания контента <code class="inline-code">prev</code> и <code class="inline-code">next</code>. Далее определим компонент <code class="inline-code">App</code> в теле которого определим рефу при помощи функции <code class="inline-code">createRef</code> которой в качестве аргумента типа передадим тип классового компонента <code class="inline-code">Slider</code>. Таким образом вывод типа определит рефу <code class="inline-code">sliderRef</code> как пренадлежащую к типу <code class="inline-code">RefObject&#x3C;Slider></code>. После этого в методе рендер создадим экземпляр комопнента <code class="inline-code">Slider</code> и  два <em>react элемента</em> <code class="inline-code">&#x3C;button></code> в обработчиках событий <code class="inline-code">click</code> которых происходит взаимодействие с компонентом <code class="inline-code">Slider</code> при помощи ссылки на него доступной через ассоциированную непосредственно с ним рефу.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">import</span> React, {Component, createRef} <span class="hljs-keyword">from</span> <span class="hljs-string">"react"</span>;
+
+
+<span class="hljs-keyword">class</span> Slider <span class="hljs-keyword">extends</span> Component{
+    <span class="hljs-keyword">public</span> prev = <span class="hljs-function"><span class="hljs-params">()</span> =></span> {}; <span class="hljs-comment">/**[0] */</span>
+    <span class="hljs-keyword">public</span> next = <span class="hljs-function"><span class="hljs-params">()</span> =></span> {}; <span class="hljs-comment">/**[1] */</span>
+    
+}
+
+<span class="hljs-keyword">class</span> App <span class="hljs-keyword">extends</span> Component {
+                     <span class="hljs-comment">/**[2]                 [3]*/</span>
+    <span class="hljs-keyword">private</span> readonly sliderRef = createRef&#x3C;Slider>();
+
+
+    render(){
+        <span class="hljs-keyword">return</span> (
+            &#x3C;>
+                &#x3C;button onClick={<span class="hljs-function"><span class="hljs-params">()</span> =></span> <span class="hljs-keyword">this</span>.sliderRef.current?.prev()}>prev&#x3C;<span class="hljs-regexp">/button> { /</span>**[<span class="hljs-number">4</span>] *<span class="hljs-regexp">/}
+                &#x3C;Slider ref={this.sliderRef} /</span>> { <span class="hljs-comment">/**[5] */</span>}
+                &#x3C;button onClick={<span class="hljs-function"><span class="hljs-params">()</span> =></span> <span class="hljs-keyword">this</span>.sliderRef.current?.next()}>next&#x3C;<span class="hljs-regexp">/button> { /</span>**[<span class="hljs-number">6</span>] *<span class="hljs-regexp">/}
+            &#x3C;/</span>>
+        )
+    }
+}
+
+<span class="hljs-comment">/**
+ * [0] псевдо компонент Slider реализует
+ * два доступных метода перелистывания контента
+ * назад [0] и вперед [1]. Псевдо компонент App
+ * определяет рефу с помощью универсальной функции
+ * createRef в качестве аргумента типа которой был
+ * установдлен тип компонента Slider. В методе render
+ * происходит определение двух пользовательских кнопок
+ * выполняющих перелистывание по событию click, в обработчиках
+ * событий которых происходит вызов доступных методов prev [4]
+ * и next [6] через рефу ассоциированную непосредственно с компонентом [5]
+ */</span></code></pre>
+<p>На этом рассмотрение работы с механизмом рефов в типизированном стиле завершено. Но до завершения полного знакомства с работой классового компонента в основе которого лежит <code class="inline-code">Component&#x3C;Props, State, Snapshot></code> осталась ещё одна тема, а именно работа с <em>React событиями</em>. Кроме того её освещение будет является альтернативным решением задачи получения доступа к нативному элементу. Простыми словами реализуем вызов метода <code class="inline-code">reset</code> у нативного <em>dom элемента</em> ссылку на который будет получена из объекта события <code class="inline-code">submit</code>. Но поскольку данная тема была подробна рассмотрена в главе посвященной функциональным компонентам, здесь подробно будут освещенны только моменты присущие исключительно классовым компонентам.</p>
+<p>Первым делом возвратим предыдущий пример в первоначальное состояние и добавим кнопку для отправки формы.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">import</span> React, {Component} <span class="hljs-keyword">from</span> <span class="hljs-string">"react"</span>;
+
+<span class="hljs-keyword">class</span> Form <span class="hljs-keyword">extends</span> Component {
+    render(){
+        <span class="hljs-keyword">return</span> (
+            &#x3C;form>
+                &#x3C;button <span class="hljs-keyword">type</span>=<span class="hljs-string">"submit"</span>>&#x3C;<span class="hljs-regexp">/button>
+            &#x3C;/</span>form>
+        );
+    }
+}</code></pre>
+<p>Далее нам потребуется определить закрытое поле только для чтения в качестве значения которого будет присвоена стрелочная функция способная сохранить контекст текущего экземпляра. В качестве типа данного поля укажем импортированный из пространства имен <em>React</em> ранее рассмотренный обобщенный тип <code class="inline-code">ReactEventHandler&#x3C;T></code>. </p>
+<pre><code class="hljs language-typescript">                              <span class="hljs-comment">/**[0] */</span>
+<span class="hljs-keyword">import</span> React, {Component, ReactEventHandler} <span class="hljs-keyword">from</span> <span class="hljs-string">"react"</span>;
+
+<span class="hljs-keyword">class</span> Form <span class="hljs-keyword">extends</span> Component {
+                            <span class="hljs-comment">/**[1] */</span>                         <span class="hljs-comment">/**[2] */</span>     <span class="hljs-comment">/**[3] */</span>
+    <span class="hljs-keyword">private</span> readonly form_submitHandler: ReactEventHandler&#x3C;HTMLFormElement> = <span class="hljs-function"><span class="hljs-params">event</span> =></span> {
+
+    }
+
+    render(){
+        <span class="hljs-keyword">return</span> (
+                                    <span class="hljs-comment">/**[4] */</span>
+            &#x3C;form onSubmit={<span class="hljs-keyword">this</span>.form_submitHandler}>
+                &#x3C;button <span class="hljs-keyword">type</span>=<span class="hljs-string">"submit"</span>>&#x3C;<span class="hljs-regexp">/button>
+            &#x3C;/</span>form>
+        );
+    }
+}
+
+<span class="hljs-comment">/**
+ * [0] импорт типа ReactEventHandler&#x3C;T>
+ * представляющего слушателя события.
+ * [1]  Определение закрытого неизменяемого
+ * поля принадлежащего к функциональному 
+ * типу ReactEventHandler&#x3C;T>. [2] тип нативного
+ * dom элемента определенного стандаротной
+ * библиотекой. [3] единственный параметр
+ * функции не нуждается в аннотации поскольку
+ * вывод типа операется на ReactEventHandler&#x3C;T>.
+ * [4] установка слушателя.
+ */</span></code></pre>
+<p>Для завершения примера осталось всего-навсего написать логику слушателя события <code class="inline-code">submit</code>, которая также повторяет пример из главы посвященной функциональным компонентам и поэтому в подробных комментариев не будет.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">class</span> Form <span class="hljs-keyword">extends</span> Component {
+    <span class="hljs-keyword">private</span> readonly form_submitHandler: ReactEventHandler&#x3C;FormEvent&#x3C;HTMLFormElement>> = <span class="hljs-function"><span class="hljs-params">event</span> =></span> {
+        event.preventDefault(); <span class="hljs-comment">// [0]</span>
+        <span class="hljs-keyword">let</span> form = event.target <span class="hljs-keyword">as</span> HTMLFormElement; <span class="hljs-comment">// [1]</span>
+        form.reset(); <span class="hljs-comment">// [2]</span>
+    }
+}
+
+<span class="hljs-comment">/**
+ * [0] для предотвращения отправки формы
+ * и перезагрузки страницы прерываем стандартное
+ * поведение. [1] поскольку доступ к форме можно
+ * получить через ссылку свойства target принадлежащего
+ * к типу EventTarget, появляется необходимость в
+ * приведении к типу HTMLFormElement с при помощи оператора as.
+ * [2] вызываем метод reset.
+ */</span></code></pre>
+<p>Данный способ типизирования слушателей событий является предпочтительным поскольку при таком подходе аннотация включает только два типа и кроме того, стрелочная функция уберегает от неминуемой потери контекста. Случаи требующие определения слушателя как метода класса требуют другого подхода. Отличие заключается в том что в аннотировании типа нуждается непосредственно параметр слушателя. Но поскольку <em>React</em> делегирует все нативные события, необходимо импортировать тип соответствующего события из его пространства имен. Для событий связанных с формами в <em>React</em> определен обобщенный тип <code class="inline-code">FormEvent&#x3C;T></code> ожижающий в качестве аргумента типа тип нативного элемента. И поскольку слушатель ничего не возвращает, то тип возвращаемого значения, явное указание которого излишне, определяется как <code class="inline-code">void</code>.</p>
+<pre><code class="hljs language-typescript">                            <span class="hljs-comment">/**[0] */</span>
+<span class="hljs-keyword">import</span> React, {Component, FormEvent} <span class="hljs-keyword">from</span> <span class="hljs-string">"react"</span>;
+
+<span class="hljs-keyword">class</span> Form <span class="hljs-keyword">extends</span> Component {
+    <span class="hljs-comment">/**[1] */</span>                          <span class="hljs-comment">/**[2] */</span>        <span class="hljs-comment">/**[3] */</span>
+    form_submitHandler(event: FormEvent&#x3C;HTMLFormElement>): <span class="hljs-built_in">void</span> {
+    }
+}
+
+<span class="hljs-comment">/**
+ * [0] импортируем тип FormEvent&#x3C;T> после 
+ * чего определяем метод form_submitHandler
+ * тип единственного параметра которого определен
+ * как FormEvent&#x3C;HTMLFormElement>, а возвращаемое
+ * значение [3] которое указанно лишь для того, чтобы
+ * напомнить об отсутствии необходимости в его явном указании.
+ */</span></code></pre>
+<p>Поскольку установка слушателя представляемого методом класса приведет к неминуемой потери контекста, прибегать к подобному объявлению стоит только при условии выполнения в их теле логики не предполагающей обращение через ссылку экземпляра <code class="inline-code">this</code>.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">class</span> Form <span class="hljs-keyword">extends</span> Component {
+    form_submitHandler(event: FormEvent&#x3C;HTMLFormElement>): <span class="hljs-built_in">void</span> {
+        <span class="hljs-comment">/**
+         * Здесь нельзя обращаться к this
+         * поскольку контекст на текущий экземпляр
+         * был утерян.
+         */</span>
+    }
+
+    render(){
+        <span class="hljs-keyword">return</span> (
+            &#x3C;form onSubmit={<span class="hljs-keyword">this</span>.form_submitHandler}>&#x3C;<span class="hljs-regexp">/form>
+        );
+    }
+
+}</span></code></pre>
+<p>Контекст можно было бы сохранить прибегнув к методу <code class="inline-code">bind</code> или делегированию события непосредственно с помощью стрелочной функции определенной в месте установке слушателя, но зачем? Для <code class="inline-code">bind</code> потребуется определения дополнительного поля.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">class</span> Form <span class="hljs-keyword">extends</span> Component {
+    <span class="hljs-comment">// дополнительное поле</span>
+    <span class="hljs-keyword">private</span> form_submitHandlerBinded: <span class="hljs-function">(<span class="hljs-params">event: FormEvent&#x3C;HTMLFormElement></span>) =></span> <span class="hljs-built_in">void</span>;
+
+    <span class="hljs-keyword">constructor</span>(<span class="hljs-params">props:Props</span>){
+        <span class="hljs-keyword">super</span>(props);
+        
+        <span class="hljs-comment">// лишняя инициализация</span>
+        <span class="hljs-keyword">this</span>.form_submitHandlerBinded = <span class="hljs-keyword">this</span>.form_submitHandler.bind(<span class="hljs-keyword">this</span>);
+    }
+
+
+    form_submitHandler(event: FormEvent&#x3C;HTMLFormElement>): <span class="hljs-built_in">void</span> {
+        <span class="hljs-comment">/**
+         * Теперь здесь можно обращатся к this
+         */</span>
+    }
+
+    render(){
+        <span class="hljs-keyword">return</span> (
+            <span class="hljs-comment">// в качестве слушателя установлена функция связанная с помощью bind</span>
+            &#x3C;form onSubmit={<span class="hljs-keyword">this</span>.form_submitHandlerBinded}>&#x3C;<span class="hljs-regexp">/form>
+        );
+    }
+
+}</span></code></pre>
+<p>Стрелочная функция будет пересоздаватся каждую отрисовку.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">class</span> Form <span class="hljs-keyword">extends</span> Component {
+    form_submitHandler(event: FormEvent&#x3C;HTMLFormElement>): <span class="hljs-built_in">void</span> {
+        <span class="hljs-comment">/**
+         * Теперь здесь можно обращатся к this
+         */</span>
+    }
+
+    render(){
+        <span class="hljs-keyword">return</span> (
+            <span class="hljs-comment">// пересоздание функции каждую отрисовку</span>
+            &#x3C;form onSubmit={<span class="hljs-function"><span class="hljs-params">event</span> =></span> <span class="hljs-keyword">this</span>.form_submitHandler(event)}>&#x3C;<span class="hljs-regexp">/form>
+        );
+    }
+
+}</span></code></pre>
+<p>Кроме того оба случая затрудняют понимание кода. Поэтому необходимо повторить что использовать метод класса в качестве слушателя события стоит только при отсутствии необходимости в обращении через ссылку <code class="inline-code">this</code>. При возникновении именно такого случая не будет лишним уточнения способа выбора типа события. В приведенном примере это был <code class="inline-code">FormEvent&#x3C;T></code>, поскольку работа производилась с формой. Для других событий появится необходимость в других соответствующих типа, узнать которые можно с помощью подсказок вашей <em>ide</em>. Для чего всего-лишь необходимо навести курсор на определение слушателя события.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">class</span> Clicker <span class="hljs-keyword">extends</span> Component {
+    render(){
+        <span class="hljs-keyword">return</span> (
+                <span class="hljs-comment">/**[0] */</span>
+            &#x3C;div onClick={}>&#x3C;<span class="hljs-regexp">/div>
+        )
+    }
+
+}
+
+/</span>**
+ * [<span class="hljs-number">0</span>] при наведении курсором
+ * на определение слушателя onClick
+ * ide подсказывает тип как MouseEvent&#x3C;HTMLDivElement>
+ *<span class="hljs-regexp">/</span></code></pre>
+<p>Также не забываем о упомянутом ранее базовом для всех событийных  <em>React</em> типов обобщенном типе <code class="inline-code">SyntheticEvent&#x3C;T></code>, который в качестве аргумента ожидает тип представляющий нативный элемент.</p>
+<p>На этом тему посвященную созданию классового компонента расширяющего <code class="inline-code">Component&#x3C;Props, State, Snapshot></code> можно заканчивать и переходить к следующей теме. Единственное что точно не будет лишним, так это собрать весь пройденый материал в одном месте.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">import</span> React, {Component, ReactNode, ReactEventHandler, RefObject, SyntheticEvent, ErrorInfo} <span class="hljs-keyword">from</span> <span class="hljs-string">"react"</span>;
+
+<span class="hljs-keyword">interface</span> GreeterDefaultProps {} <span class="hljs-comment">// для декларации свойств по умолчанию</span>
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">interface</span> GreeterProps <span class="hljs-keyword">extends</span> GreeterDefaultProps {
+    children: ReactNode | ReactNode[]; <span class="hljs-comment">// указываем что children могут принадледжать к единичному типу или множеству составляющего тип ReactNode</span>
+} <span class="hljs-comment">// для декларации обязательных свойств + экспорт интерфейса</span>
+<span class="hljs-keyword">interface</span> GreeterState {} <span class="hljs-comment">// для декларации состояния</span>
+<span class="hljs-keyword">interface</span> GreeterSnapshot {} <span class="hljs-comment">// для декларации снимка</span>
+
+<span class="hljs-comment">// создаем псевдонимы для readonly типов представляющих...</span>
+<span class="hljs-keyword">type</span> DefaultProps = Readonly&#x3C;GreeterDefaultProps>; <span class="hljs-comment">// ... статическое поле defaultProps</span>
+<span class="hljs-keyword">type</span> Props = Readonly&#x3C;GreeterProps>; <span class="hljs-comment">// ... поле props</span>
+<span class="hljs-keyword">type</span> State = Readonly&#x3C;GreeterState>; <span class="hljs-comment">// ... поле state</span>
+<span class="hljs-keyword">type</span> Snapshot = Readonly&#x3C;GreeterSnapshot>; <span class="hljs-comment">// ... параметр snapshot определенный в нескольких методах жизненного цикла</span>
+
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-keyword">class</span> Greeter <span class="hljs-keyword">extends</span> Component&#x3C;Props, State, Snapshot> {
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> readonly defaultProps: DefaultProps = {}; <span class="hljs-comment">// модификатор readonly от случайного изменения статического поля defaultProps которое должно иметь модификатор доступа public</span>
+
+
+    <span class="hljs-comment">// необязательные методы класса (статические методы)</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> getDerivedStateFromProps?:<span class="hljs-function">(<span class="hljs-params">nextProps: Props, prevState: State</span>) =></span> Partial&#x3C;State> | <span class="hljs-literal">null</span>;
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> getDerivedStateFromError?: <span class="hljs-function">(<span class="hljs-params">error: <span class="hljs-built_in">any</span></span>) =></span> Partial&#x3C;State> | <span class="hljs-literal">null</span>;
+
+
+    <span class="hljs-keyword">public</span> readonly state: State = {}; <span class="hljs-comment">// модификатор readonly от случайного изменения поля state которое должно иметь модификатор доступа public</span>
+
+
+    <span class="hljs-comment">/** два различных способа получения ссылки на нативный dom элемент */</span>
+    <span class="hljs-comment">// [0] при помощи контейнера</span>
+    <span class="hljs-keyword">private</span> readonly formRef: RefObject&#x3C;HTMLFormElement> = React.createRef(); <span class="hljs-comment">// создание объекта RefObject, с помощью которого будет получена ссылка на dom элемент</span>
+    
+    <span class="hljs-comment">// [1] при помощи каллбэка</span>
+    <span class="hljs-keyword">private</span> textRef: HTMLSpanElement | <span class="hljs-literal">null</span> = <span class="hljs-literal">null</span>; <span class="hljs-comment">// поле, в которое будет сохранена ссылка на DOM-элемент</span>
+    <span class="hljs-keyword">private</span> readonly textRefCallback = <span class="hljs-function">(<span class="hljs-params">element: HTMLSpanElement</span>) =></span> <span class="hljs-keyword">this</span>.textRef = element; <span class="hljs-comment">// определение функции обратного вызова для установления ссылки на DOM-элемент</span>
+
+
+
+    <span class="hljs-keyword">constructor</span> (<span class="hljs-params">props: Props</span>) {
+        <span class="hljs-keyword">super</span>(props);
+    }
+
+    
+    <span class="hljs-comment">// методы жизненного цикла</span>
+    <span class="hljs-keyword">public</span> componentDidMount?(): <span class="hljs-built_in">void</span>
+    <span class="hljs-keyword">public</span> shouldComponentUpdate?(nextProps: Props, nextState: State, nextContext: <span class="hljs-built_in">any</span>): <span class="hljs-built_in">boolean</span>;
+    <span class="hljs-keyword">public</span> componentWillUnmount?(): <span class="hljs-built_in">void</span>;
+    <span class="hljs-keyword">public</span> componentDidCatch?(error: <span class="hljs-built_in">Error</span>, errorInfo: ErrorInfo): <span class="hljs-built_in">void</span>;
+    <span class="hljs-keyword">public</span> getSnapshotBeforeUpdate?(prevProps: Props, prevState: State): Snapshot | <span class="hljs-literal">null</span>;
+    <span class="hljs-keyword">public</span> componentDidUpdate?(prevProps: Props, prevState: State, snapshot?: Snapshot): <span class="hljs-built_in">void</span>;
+
+
+    <span class="hljs-comment">/** два варианта определения слушателя событий */</span>
+    <span class="hljs-comment">// слушатель событий определенный как поле</span>
+    <span class="hljs-keyword">private</span> readonly form_submitHandler: ReactEventHandler&#x3C;HTMLFormElement> = <span class="hljs-function"><span class="hljs-params">event</span> =></span> {
+        <span class="hljs-comment">// изменение состояния</span>
+        <span class="hljs-keyword">this</span>.setState(<span class="hljs-function">(<span class="hljs-params">prevState: State, prevProps: Props</span>) =></span> {
+            <span class="hljs-keyword">return</span> {};
+        });
+    };
+    <span class="hljs-comment">// слушаетль событий определенный как метод</span>
+    <span class="hljs-keyword">private</span> submiteButton_clickHandler(event: SyntheticEvent&#x3C;HTMLButtonElement>): <span class="hljs-built_in">void</span> {
+
+    }
+
+    <span class="hljs-keyword">public</span> render(): ReactNode {
+        <span class="hljs-keyword">return</span> (
+            &#x3C;form ref={<span class="hljs-keyword">this</span>.formRef} onSubmit={<span class="hljs-keyword">this</span>.form_submitHandler}>
+                &#x3C;span ref={<span class="hljs-keyword">this</span>.textRefCallback}>Send form?&#x3C;<span class="hljs-regexp">/span>
+                &#x3C;button type="submit" onClick={this.submiteButton_clickHandler}>yes&#x3C;/</span>button>
+            &#x3C;<span class="hljs-regexp">/form>
+        );
+    }
+}</span></code></pre>
+</section><section id="React-proizvodnye-ot-PureComponent" name="React - производные от PureComponent" class="subchapter">
+            <h2 class="subchapter-title">
+                <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="React-proizvodnye-ot-PureComponent" type="absolute-url">
+                    <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <use href="#icon_link"/>
+                    </svg>
+                </button>
+                React - производные от PureComponent
+            </h2>
+        
+<hr>
+<p>Помимо того, что пользовательские компоненты могут быть производными от универсального класс <code class="inline-code">Component&#x3C;Props, State, Snapshot></code>, они также могут использовать в качестве базового класса универсальный класс <code class="inline-code">PureComponent&#x3C;Props, State, Snapshot></code>. Но поскольку все что было сказанно относительно <code class="inline-code">Component</code> в ста процентах случаев верно и для <code class="inline-code">PureComponent</code>, который также ничего нового не привносит, то данная глава будет ограничена лишь кодом иллюстрирующим определение пользовательского компонента.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">import</span> React, { PureComponent } <span class="hljs-keyword">from</span> <span class="hljs-string">"react"</span>;
+
+<span class="hljs-comment">/**[*] */</span>
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-keyword">class</span> Greeter <span class="hljs-keyword">extends</span> PureComponent&#x3C;Props, State, Snapshot> {
+    <span class="hljs-comment">/**[*] */</span>
+}
+
+<span class="hljs-comment">/**
+ * [*] здесь предполагается логика
+ * рассмотренная рассотренная в главе
+ * посвященной производным от Component&#x3C;P, S, SS>
+ */</span></code></pre>
+<p>Тем кто-то начал своё знакомство с классовыми компонентами с этой главы необходимо вернутся на шаг назад или даже более разумно в самое начало, поскольку именно там объясняется что для полного понимания необходимо ознокомится со всем материалом относящегося к <em>React</em>.</p>
+</section>

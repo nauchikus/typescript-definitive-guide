@@ -1,0 +1,247 @@
+<h1>React  - HOC (Higher-Order Components)</h1>
+<p>Настало время рассмотреть со всех сторон механизм предназначенный для расширения функциональных возможностей компонента с помощью компонента-обертки обозначаемого как <em>Higher-Order Components</em> или сокращенно <em>HOC</em>.</p><section id="Opredelenie-hoc" name="Определение hoc" class="subchapter">
+
+            <h2 class="subchapter-title">
+                <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="Opredelenie-hoc" type="absolute-url">
+                    <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <use href="#icon_link"/>
+                    </svg>
+                </button>
+                Определение hoc
+            </h2>
+        
+<p>При разработке React приложений очень часто разработчикам приходится создавать конструкцию, известную в <em>react</em>-сообществе, как <em>HOC</em> (<em>Higher-Order Components</em>).</p>
+<p><em>HOC</em> — это функция, которая принимает один компонент и возвращает новый. Другими словами, <em>hoc</em> — это функция, ожидающая в качестве параметров компонент (назовем его входным), который оборачивается в другой, объявленный в теле функции, компонент, который выступает в роли возвращаемого из функции значения (назовем его выходным). Слово “оборачивание”,  применимое относительно компонентов, означает, что один компонент отрисовывает (рендерит) другой компонент, со всеми вытекающими из этого процесса (проксирования). За счет того, что входной компонент оборачивается в выходной, достигается расширение его и/или общего функционала. Кроме того, это позволяет устанавливать входному компоненту как зависимости, так и данные, полученные из внешних сервисов.</p>
+</section><section id="Opredelenie-hoc-na-osnove-funkcionalnogo-komponenta" name="Определение hoc на основе функционального компонента" class="subchapter">
+            <h2 class="subchapter-title">
+                <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="Opredelenie-hoc-na-osnove-funkcionalnogo-komponenta" type="absolute-url">
+                    <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <use href="#icon_link"/>
+                    </svg>
+                </button>
+                Определение hoc на основе функционального компонента
+            </h2>
+        
+<p>В качестве примера реализуем сценарий при котором пропсы <em>компонента обертки</em> определяемого в теле <em>hoc</em> разделяются на две категории. Первая необходима исключительно самому компоненту-обертке для генерации новых пропсов, которые в дальнейшем будут объединены с пропсами относящихся ко второй категирии и установлены <em>оборачиваемому компоненту</em>. </p>
+<p>Начать стоит с детального рассмотрения сигнатуры универсальной функции, которая в качестве единственного параметра типа ожидает тип <code class="inline-code">WrappedProps</code> представляющий пропсы предназначенные исключительно оборачиваемому-компоненту ссылка на который доступна через единственный параметр <code class="inline-code">WrappedComponent</code>. <code class="inline-code">WrappedComponent</code> может принадлежать как к функциональному <code class="inline-code">FC&#x3C;T></code> так и классовому типу <code class="inline-code">ComponentClass&#x3C;T></code> пропсы которого помимо типа представленного аргументом типа <code class="inline-code">WrappedProps</code> должны принадлежать ещё и к типу <code class="inline-code">WrapperForWrappedProps</code> описывающего знчения создаваемые у устанавливаемые компонентом-оберткой. Поскольку в нашем конкретном примере <em>фнкция hoc</em> в качестве компонента-обертки определяет функциональный компонент, тип возвращаемого значения указан соответствующим образом <code class="inline-code">FC&#x3C;T></code>. Пропсы компонента-обертки должны принадлежать к нескольким типам одновременно поскольку для его работы требуются не только пропсы необходимые исключительно ему (<code class="inline-code">WrapperProps</code>), но и пропсы которые он лишь пробрасывает оборачиваемому-компоненту (<code class="inline-code">WrappedProps</code>). Поэтому аргумент типа представляющего возращаемое значение является типом пересечение <code class="inline-code">WrappedProps &#x26; WrapperProps</code>.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">import</span> React, {FC, ComponentClass} <span class="hljs-keyword">from</span> <span class="hljs-string">"react"</span>;
+
+
+<span class="hljs-comment">/**[0] */</span>
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">interface</span> WrapperProps {
+    a: <span class="hljs-built_in">number</span>;
+    b: <span class="hljs-built_in">string</span>;
+}
+<span class="hljs-comment">/**[1] */</span>
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">interface</span> WrapperForWrappedProps {
+    c: <span class="hljs-built_in">boolean</span>;
+}
+
+<span class="hljs-comment">/**
+ * [0] WrapperProps описывает данные необходимые
+ * исключительно компоненту-обертке определяемому
+ * внутри функции hoc, который генерирует
+ * и устанавливает данные принадлежащие к типу 
+ * WrapperForWrappedProps [1] обертываемому-компоненту.
+ */</span>
+
+
+                <span class="hljs-comment">/**[2]      [3] */</span>
+<span class="hljs-keyword">export</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">withHoc</span>&#x3C;<span class="hljs-title">WrappedProps</span>>(<span class="hljs-params">
+        <span class="hljs-comment">/**[4]        [5]      [6]              [7]                     [8]           [6]                 [7] */</span>
+    WrappedComponent: FC&#x3C;WrappedProps &#x26; WrapperForWrappedProps> | ComponentClass&#x3C;WrappedProps &#x26; WrapperForWrappedProps></span>)
+       /**[9]    [10]           [11] */
+        : <span class="hljs-title">FC</span>&#x3C;<span class="hljs-title">WrappedProps</span> &#x26; <span class="hljs-title">WrapperProps</span>>
+
+/**
+ * [2] определение универсальной функции <span class="hljs-title">hoc</span>
+ * чей единственный параметр типа <span class="hljs-title">WrappedProps</span> [3]
+ * представляет часть пропсов обертываемого-компонента, а их оставшаяся часть, генерируемая
+ * компонентом-оберткой определенным в теле <span class="hljs-title">hoc</span>, к типу <span class="hljs-title">WrapperForWrappedProps</span>.
+ * 
+ * Единственный параметр <span class="hljs-title">hoc</span> <span class="hljs-title">WrappedComponent</span> [4] принадлежит
+ * к типу объединение состоящему из типов функционального [5] и классового [8] компонента
+ * котором в качестве аргумента типа установлен тип пересечение определяемый типами <span class="hljs-title">WrappedProps</span> [6]
+ * и <span class="hljs-title">WrapperForWrappedProps</span> [7].
+ * 
+ * Тип возвращаемого <span class="hljs-title">hoc</span> значения обозначен как функциональный компонент [9] который по мимо пропсов
+ * устанавливаемых разработчиком и прокидываемых компонентом-оберткой <span class="hljs-title">WrappedProps</span> [10] ожидает ещё и пропсы
+ * генерируемые и устанавливаемые компонентом-оберткой [11].
+ * 
+ * [!] принадлежность возращаемого <span class="hljs-title">hoc</span> значения к функциональному типу указана лишь по причине того
+ * что в нашем пример <span class="hljs-title">hoc</span> возвращает именно его, а не классовый компонент. 
+ */</span></code></pre>
+<p>Поскольку пример является минималистическим реализация тела <em>hoc</em> будет включать в себя лишь определение компонента-обертки выступающего в качестве возвращаемого значение. Тип компонента-обертки принадлежит к функциональному компоненту пропсы которого должны соответствовать типам описывающих как пропсы необходимые исключительно самому компоненту-обертке, так и оборачиваемому-компоненту. В теле комопнента-обертки происходит разделение полученных пропсов на две части. Одна предназначается исключительно самому компоненту-обертке и служит для определения значений предназначенных для объединения со второй частью. Объединенные значения устанавливаются в качестве пропсов оборачиваемому-компоненту ссылка на который доступна через единственный параметр функции <em>hoc</em>. Стоит обратить внимание что поскольку вторая часть пропсов образуется как остаточные параметры полученные при деструктуризации, то их тип принадлежит к типу <code class="inline-code">Pick&#x3C;T, K></code>, который для совместимости с типом описывающим прокидываемые компонентом-оберткой пропсы необходимо сначала привести к типу <code class="inline-code">unknown</code>, а уже затем к конкретному типу <code class="inline-code">WrappedProps</code>.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">import</span> React, {FC, ComponentClass} <span class="hljs-keyword">from</span> <span class="hljs-string">"react"</span>;
+
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">interface</span> WrapperProps {
+    a: <span class="hljs-built_in">number</span>;
+    b: <span class="hljs-built_in">string</span>;
+}
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">interface</span> WrapperForWrappedProps {
+    c: <span class="hljs-built_in">boolean</span>;
+}
+
+<span class="hljs-keyword">export</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">withHoc</span>&#x3C;<span class="hljs-title">WrappedProps</span>>(<span class="hljs-params">
+    WrappedComponent: FC&#x3C;WrappedProps &#x26; WrapperForWrappedProps> | ComponentClass&#x3C;WrappedProps &#x26; WrapperForWrappedProps></span>)
+        : <span class="hljs-title">FC</span>&#x3C;<span class="hljs-title">WrappedProps</span> &#x26; <span class="hljs-title">WrapperProps</span>> </span>{
+
+                    <span class="hljs-comment">/**[0]         [1]    [2]             [3] */</span>
+            <span class="hljs-keyword">const</span> WrapperComponent:FC&#x3C;WrappedProps &#x26; WrapperProps> = <span class="hljs-function"><span class="hljs-params">props</span> =></span> {
+                  <span class="hljs-comment">/**[4]            [5] */</span>
+                <span class="hljs-keyword">let</span> {a, b, ...wrappedOnlyProps} = props;
+                        <span class="hljs-comment">/**[6] */</span>
+                <span class="hljs-keyword">let</span> wrapperToWrappedProps = {
+                    c: <span class="hljs-literal">true</span>
+                };
+                       <span class="hljs-comment">/**[7]                      [8]                     [9]            [10]         [11] */</span>
+                <span class="hljs-keyword">let</span> wrappedFullProps = {...wrapperToWrappedProps, ...wrappedOnlyProps <span class="hljs-keyword">as</span> unknown <span class="hljs-keyword">as</span> WrappedProps};
+
+                            <span class="hljs-comment">/**[12]               [13] */</span>
+                <span class="hljs-keyword">return</span> &#x3C;WrappedComponent {...wrappedFullProps} />
+            }
+
+                    <span class="hljs-comment">/**[14] */</span>
+            <span class="hljs-keyword">return</span> WrapperComponent;
+}
+
+<span class="hljs-comment">/**
+ * [0] определение комопнента-обертки принадлежащего
+ * к типу функционального компонента [1] пропсы которого
+ * одновременно принадлежат к типам описывающих пропсы предназначаемые
+ * исключиетельно обертываемому-компоненту WrappedProps [2] и исключительно
+ * компоненту-обертке WrapperProps [3]. В теле комопнента-обертки общие пропсы
+ * разделяются с помощью механизма дествруктуризации на две категории, первая из
+ * которых прдназначается самому компоненту-обертке [4], а вторая оборачиваемому-компоненту [5].
+ * Поскольку пропсы пердназначенные оборачиваемому-компоненту [5] представляют из себя остаточные значения
+ * полученные при деструктуризации, они принадлежат к типу Pick&#x3C;T, K> что требует перед объединением их [9]
+ * с пропсами созданными компонентом-оберткой [8] сначала к типу unknown [10], а затем уже к необходимому 
+ * WrappedProps [11]. После этого слитые воедино пропсы можно устанавливать [13] компоненту [12] ссылка на который
+ * доступна в качестве едлинственного параметра hoc.
+ * 
+ * [14] возвращаем из hoc компонент-обертку.
+ */</span></code></pre>
+<p>Теперь необходимо определить компонент пропсы которого будут принадледать к типам описывающих значения установка которых разделена между разработчиком и комопнентом-оберткой. Далее этот комопнент необходимо передать в качестве аргумента созданному нами <em>hoc</em> возвращаемое значение которого является комопнентом-оберткой с которым и будет взаимодействовать разработчик. Осталось создать экземпляр компонента-обертки и убедится как сила типизации позволяет установить в качестве пропсов только необходимые значения.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-comment">/**[0] */</span>
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">interface</span> CustomCompoenntProps {
+    d: <span class="hljs-built_in">number</span>;
+    e: <span class="hljs-built_in">string</span>;
+}
+
+                <span class="hljs-comment">/**[1]                  [2]                     [3]                [4] [5][5] */</span>
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> CustomComponent: FC&#x3C;CustomCompoenntProps &#x26; WrapperForWrappedProps> = <span class="hljs-function">(<span class="hljs-params">{c, d, e}</span>) =></span> {
+    <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>;
+} 
+
+                    <span class="hljs-comment">/**[6]              [7]         [8] */</span>
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> CustomComponentWrapped = withHoc(CustomComponent);
+
+<span class="hljs-comment">/**
+ * [0] объявление типа CustomCompoenntProps представляющего пропсы предназначенные
+ * для обертываемого-компонента [1] и установка которых является
+ * задачей разработчика. Пропсы компонента-обертки представленного
+ * функциональным компонентом помимо типа CustomCompoenntProps [2]
+ * описывающего значения устанавливаемые разработчиком [5]
+ * также принадлежат к типу WrapperForWrappedProps [3] описывающего
+ * значения устанавливаемые компонентом-оберткой [4].
+ * 
+ * Ссылка на оборачиваемый-компонент передается в качестве аргумента [8]
+ * функции hoc [7], а результат вызова сохраняется в переменную представляющую
+ * компонент-обертку [8].
+ */</span>
+
+
+                     <span class="hljs-comment">/**[9]   [9]    [10]  [10] */</span>
+&#x3C;CustomComponentWrapped a={<span class="hljs-number">0</span>} b={<span class="hljs-string">``</span>} d={<span class="hljs-number">1</span>} e={<span class="hljs-string">``</span>} />; <span class="hljs-comment">// Ok</span>
+                     <span class="hljs-comment">/**[9]   [9]    [11]     [10]  [10] */</span>
+&#x3C;CustomComponentWrapped a={<span class="hljs-number">0</span>} b={<span class="hljs-string">``</span>} c={<span class="hljs-literal">true</span>} d={<span class="hljs-number">1</span>} e={<span class="hljs-string">``</span>} />; <span class="hljs-comment">// Error -> Property 'c' does not exist on type CustomCompoenntProps &#x26; WrapperProps'</span>
+
+<span class="hljs-comment">/**
+ * При создании экземпляра компонента-обертки будет необходимо установить
+ * параметры описываемые как типом WrapperProps [9] и так и CustomCompoenntProps [10].
+ * При попытке установить иные значения выозникнет ошибка. 
+ */</span></code></pre>
+</section><section id="Opredelenie-hoc-na-osnove-klassovogo-komponenta" name="Определение hoc на основе классового компонента" class="subchapter">
+            <h2 class="subchapter-title">
+                <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="Opredelenie-hoc-na-osnove-klassovogo-komponenta" type="absolute-url">
+                    <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <use href="#icon_link"/>
+                    </svg>
+                </button>
+                Определение hoc на основе классового компонента
+            </h2>
+        
+<p>Поскольку пример для <em>hoc</em> возвращающего в качестве комопнента-обертки классовый компонент отличается от предыдущего лишь заменой функции на класс и объявлением для него двух дополнительных типов <code class="inline-code">*State</code> и <code class="inline-code">*Snapshot</code>, в повторноем комментированиии происходящего попросту нет смысла.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">import</span> React, {FC, ComponentClass, Component} <span class="hljs-keyword">from</span> <span class="hljs-string">"react"</span>;
+
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">interface</span> WrapperProps {
+    a: <span class="hljs-built_in">number</span>;
+    b: <span class="hljs-built_in">string</span>;
+}
+
+<span class="hljs-comment">/**[0] */</span>
+<span class="hljs-keyword">interface</span> WrapperState {}
+<span class="hljs-comment">/**[1] */</span>
+<span class="hljs-keyword">interface</span> WrapperSnapshot {}
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">interface</span> WrapperForWrappedProps {
+    c: <span class="hljs-built_in">boolean</span>;
+}
+
+
+<span class="hljs-comment">/**
+ * Поскольку комопнент-обертка будет представлен
+ * классовым компонентом помимо описания его *Props
+ * также появляется необходимость в объявлении типов
+ * описывающих его *State [0] и *Snapshot [1].
+ */</span>
+
+<span class="hljs-comment">/**
+ * [!] Стоит обратить внимание что по причине
+ * упрощенности примера отсутствуют более компактные
+ * псевдонимы для менее компактных типов.
+ */</span>
+
+<span class="hljs-keyword">export</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">withHoc</span>&#x3C;<span class="hljs-title">WrappedProps</span>>(<span class="hljs-params">
+    WrappedComponent: FC&#x3C;WrappedProps &#x26; WrapperForWrappedProps> | ComponentClass&#x3C;WrappedProps &#x26; WrapperForWrappedProps></span>)
+        : <span class="hljs-title">ComponentClass</span>&#x3C;<span class="hljs-title">WrappedProps</span> &#x26; <span class="hljs-title">WrapperProps</span>> </span>{
+
+                    <span class="hljs-comment">/**[2] */</span>
+            <span class="hljs-keyword">class</span> WrapperComponent <span class="hljs-keyword">extends</span> Component&#x3C;WrapperProps &#x26; WrappedProps, WrapperState, WrapperSnapshot> {
+                render() {
+                    <span class="hljs-keyword">let</span> {a, b, ...wrappedOnlyProps} = <span class="hljs-keyword">this</span>.props;
+                    <span class="hljs-keyword">let</span> wrapperToWrappedProps = {
+                        c: <span class="hljs-literal">true</span>
+                    };
+                    <span class="hljs-keyword">let</span> wrappedFullProps = {...wrapperToWrappedProps, ...wrappedOnlyProps <span class="hljs-keyword">as</span> unknown <span class="hljs-keyword">as</span> WrappedProps};
+
+
+                    <span class="hljs-keyword">return</span> &#x3C;WrappedComponent {...wrappedFullProps} />
+                }
+            }
+
+
+            <span class="hljs-keyword">return</span> WrapperComponent;
+}
+
+<span class="hljs-comment">/**
+ * [2] определение комопнента-обертки в виде классового компонента.
+ */</span>
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">interface</span> CustomCompoenntProps {
+    d: <span class="hljs-built_in">number</span>;
+    e: <span class="hljs-built_in">string</span>;
+}
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> CustomComponent: FC&#x3C;CustomCompoenntProps &#x26; WrapperForWrappedProps> = <span class="hljs-function">(<span class="hljs-params">{c, d, e}</span>) =></span> {
+    <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>;
+} 
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> CustomComponentWrapped = withHoc(CustomComponent);
+
+
+&#x3C;CustomComponentWrapped a={<span class="hljs-number">0</span>} b={<span class="hljs-string">``</span>} d={<span class="hljs-number">1</span>} e={<span class="hljs-string">``</span>} />; <span class="hljs-comment">// Ok</span>
+&#x3C;CustomComponentWrapped a={<span class="hljs-number">0</span>} b={<span class="hljs-string">``</span>} c={<span class="hljs-literal">true</span>} d={<span class="hljs-number">1</span>} e={<span class="hljs-string">``</span>} />; <span class="hljs-comment">// Error -> Property 'c' does not exist on type CustomCompoenntProps &#x26; WrapperProps'</span></code></pre>
+</section>

@@ -1,0 +1,288 @@
+<section id="React-Obobshchennye-komponenty-Generics-Component" name="React - Обобщенные компоненты (Generics Component)" class="subchapter">
+            <h2 class="subchapter-title">
+                <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="React-Obobshchennye-komponenty-Generics-Component" type="absolute-url">
+                    <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <use href="#icon_link"/>
+                    </svg>
+                </button>
+                React - Обобщенные компоненты (Generics Component)
+            </h2>
+        
+<hr>
+<p>В <em>TypeScript</em> существует возможность объявлять пользовательские компоненты обобщенными, что лишь повышает их переиспользование. Чтобы избавить читателя от пересказа того, что подробно было рассмотрено в главе <a class="book__chapter__chapter-link" href="/book/contents/Tipy-Obobshcheniya-Generics" title="Типы - Обобщения (Generics)" target="_blank">Типы - Обобщения (Generics)</a>, опустим основную теорию и сосредоточимся конкретно на той её части, которая сопряжена непосредственно с <em>React</em> комопнентами. Но поскольку польза от универсальных компонентов может быть не совсем очевидна, предже чем приступить к рассмотрению их синтаксиса, стоит упомянуть что
+параметры типа предназначены по большей степени для аннотирования членов типа представляющего пропсы компонента.</p>
+<p>В случае компонентов, расширяющих универсальные классы <code class="inline-code">Component&#x3C;P, S, SS></code> или <code class="inline-code">PureComponent&#x3C;P, S, SS></code>, нет ничего особенного, на что стоит обратить особое внимание.</p>
+<pre><code class="hljs language-typescript">            <span class="hljs-comment">/**[0] */</span>
+<span class="hljs-keyword">interface</span> Props&#x3C;T> {
+    data: T; <span class="hljs-comment">/**[1] */</span>
+}
+
+  <span class="hljs-comment">/**[2][3]                       [4] */</span>
+<span class="hljs-keyword">class</span> A&#x3C;T> <span class="hljs-keyword">extends</span> Component&#x3C;Props&#x3C;T>> {}
+  <span class="hljs-comment">/**[2][3]                         [4] */</span>
+<span class="hljs-keyword">class</span> B&#x3C;T> <span class="hljs-keyword">extends</span> PureComponent&#x3C;Props&#x3C;T>> {}
+
+
+<span class="hljs-comment">// ...где-то в коде</span>
+
+
+
+<span class="hljs-comment">/**[5] */</span>
+<span class="hljs-keyword">interface</span> IDataB {
+    b: <span class="hljs-built_in">string</span>;
+}
+
+<span class="hljs-comment">/**[6] [7]            [8] */</span>
+   &#x3C;A&#x3C;IDataA> data={{a: <span class="hljs-number">0</span>}} />; <span class="hljs-comment">// Ok</span>
+<span class="hljs-comment">/**[6] [7]            [9] */</span>
+   &#x3C;A&#x3C;IDataA> data={{a: <span class="hljs-string">'0'</span>}} />; <span class="hljs-comment">// Error</span>
+
+
+<span class="hljs-comment">/**[5] */</span>
+<span class="hljs-keyword">interface</span> IDataA {
+    a: <span class="hljs-built_in">number</span>;
+}
+
+<span class="hljs-comment">/**[6] [7]            [8] */</span>
+   &#x3C;A&#x3C;IDataB> data={{b: <span class="hljs-string">''</span>}} />; <span class="hljs-comment">// Ok</span>
+<span class="hljs-comment">/**[6] [7]            [9] */</span>
+   &#x3C;A&#x3C;IDataB> data={{b: <span class="hljs-number">0</span>}} />; <span class="hljs-comment">// Error</span>
+
+<span class="hljs-comment">/**
+ * [0] определение обобщенного типа чей
+ * единственный параметр предназначен для
+ * указания в аннотации типа поля data [1].
+ * 
+ * [2] опеределение универсальных классовых
+ * компонентов чей единственный параметр типа [3]
+ * будет установлен в качесте аргумента типа типа
+ * представляющего пропсы комопнента [4]
+ * 
+ * 
+ * [5] определение двух интерфейсов представляющих
+ * два различных типа данных. 
+ * 
+ * [6] создание экземпляра универсального компонента
+ * и установление в качестве пропсов объекты соответствующие [8]
+ * и нет [9] требованиям установленными аргументами типа [7].
+ */</span></code></pre>
+<p>Нет ничего особенного и в определении функционального компонента как <em>Function Declaration</em>.</p>
+<pre><code class="hljs language-typescript">            <span class="hljs-comment">/**[0] */</span>
+<span class="hljs-keyword">interface</span> Props&#x3C;T> {
+    data: T; <span class="hljs-comment">/**[1] */</span>
+}
+
+     <span class="hljs-comment">/**[2][3]             [4] */</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">A</span> &#x3C;<span class="hljs-title">T</span>>(<span class="hljs-params">props: Props&#x3C;T></span>) </span>{
+    <span class="hljs-keyword">return</span> &#x3C;div>&#x3C;<span class="hljs-regexp">/div>;
+}
+
+/</span>**
+ * [<span class="hljs-number">0</span>] определение обобщенного типа чей
+ * единственный параметр предназначен для
+ * указания в аннотации типа поля data [<span class="hljs-number">1</span>].
+ * 
+ * [<span class="hljs-number">2</span>] универсальный функциональный компонент
+ * определенный как <span class="hljs-built_in">Function</span> Delaration [<span class="hljs-number">2</span>] чей
+ * единственный параметр типа [<span class="hljs-number">3</span>] будет установлен 
+ * в качесте аргумента типа типа представляющего 
+ * пропсы комопнента [<span class="hljs-number">4</span>].
+ * 
+ *<span class="hljs-regexp">/</span></code></pre>
+<p>Но относительно функциональных компонентов опеределенных как <em>Function Expression</em> не обошлось без курьезов. Дело в том, что в большинстве случаев лучшим способом описания сигнатуры функционального компонента явялется использование обобщенного типа <code class="inline-code">FC&#x3C;P></code>. Но поскольку данный тип указывается в аннотации типа функционального компонента расположенную по левую сторону от оператора присваяния, то это делает невозможным указание обобщенному типу представляющего пропсы в качестве аргумента типа параметр типа принадлежащий сигнатуре функции расположенной по правую сторону от оператора присваяния.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">interface</span> Props&#x3C;T> {}
+
+<span class="hljs-keyword">const</span> A: FC&#x3C;Props&#x3C; <span class="hljs-comment">/**[0] */</span> >> = <span class="hljs-function"><span class="hljs-keyword">function</span> &#x3C; /**[1] */ > (<span class="hljs-params">props</span>) </span>{
+    <span class="hljs-keyword">return</span> &#x3C;div>&#x3C;<span class="hljs-regexp">/div>;
+}
+
+/</span>**
+ * [<span class="hljs-number">0</span>] как получить тут, то...
+ * [<span class="hljs-number">1</span>] ...что объявляется здесь?
+ *<span class="hljs-regexp">/</span></code></pre>
+<p>Кроме того вообще не существует способа создать универсальный функциональный компонент определенного как <em>Function Expression</em> описание сигнатуры которого вынесенна в отдельный тип предназначенный для указания в аннотации типа этого компонента.</p>
+<p>Единственный возможный вариант заключается в непосредственном тепизировании сигнатуры функционального комопнента чей идентификатор лишен явной аннотации типа. </p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">interface</span> Props&#x3C;T> {
+    data: T;
+}
+
+
+  <span class="hljs-comment">/**[0]            [1]          [2] */</span>
+<span class="hljs-keyword">const</span> A =  <span class="hljs-function"><span class="hljs-keyword">function</span> &#x3C;<span class="hljs-title">T</span>>(<span class="hljs-params">props: Props&#x3C;T></span>) </span>{
+    <span class="hljs-keyword">return</span> &#x3C;div>&#x3C;<span class="hljs-regexp">/div>;
+};
+
+
+&#x3C;A&#x3C;number> data={0}/</span>>; <span class="hljs-comment">// Ok</span>
+&#x3C;A&#x3C;<span class="hljs-built_in">number</span>> data={<span class="hljs-string">''</span>}/>; <span class="hljs-comment">// Error</span>
+
+<span class="hljs-comment">/**
+ * Чтобы функциональный компонент стал
+ * универсальным определение принадлежности
+ * идентификатора функционального выражения [0]
+ * необходимо поручить выводу типов который
+ * сделает это на основе типов явно указанных
+ * в сигнатуре функции [1] [2] выступающей в качестве
+ * значения. 
+ */</span></code></pre>
+<p>Кроме того неприятный момент связан со стрелочными универсальными функциями (<em>arrow function</em>) при определении их в файлах имеющих расширение <em>.tsx</em>. Дело в том что невозможно определить универсальную функцию если она содержить только один параметр типа который не расширяет другой тип.</p>
+<pre><code class="hljs language-typescript">       <span class="hljs-comment">/**[0] */</span>
+<span class="hljs-keyword">const</span> f = &#x3C;T><span class="hljs-function">(<span class="hljs-params">p: T</span>) =></span> {}; <span class="hljs-comment">/**[1] Error */</span>
+
+[].forEach(<span class="hljs-comment">/**[2] */</span>&#x3C;T><span class="hljs-function"><span class="hljs-params">()</span> =></span> { }) <span class="hljs-comment">/**[3] Error */</span>
+
+<span class="hljs-comment">/**
+ * Не имеет значения присвоена универсальная
+ * стрелочная функция [0] [2] переменной [1] или определена
+ * в месте установления аргумента [3] компилятор
+ * никогда не позволит скомпилировать такой код, если
+ * он расположен в файлах с расширением .tsx
+ */</span></code></pre>
+<p>Другими словами, чтобы при определении универсальной стрелочной функции в файле с расширением <em>.tsx</em> не возникало ошибки её единственный параметр типа должен расширять другой тип...</p>
+<pre><code class="hljs language-typescript">             <span class="hljs-comment">/**[0] */</span>
+<span class="hljs-keyword">const</span> f0 = &#x3C;T <span class="hljs-keyword">extends</span> {}><span class="hljs-function">(<span class="hljs-params">p: T</span>) =></span> {}; <span class="hljs-comment">// Ok</span>
+
+             <span class="hljs-comment">/**[0] */</span>
+[].forEach(&#x3C;T <span class="hljs-keyword">extends</span> {}><span class="hljs-function"><span class="hljs-params">()</span> =></span> { }); <span class="hljs-comment">// Ok</span>
+
+
+<span class="hljs-comment">/**
+ * Если единственный параметр типа
+ * расширяет другой тип [0] то ошибк
+ * не возникает.
+ */</span></code></pre>
+<p>... либо параметров типа должно быть несколько.</p>
+<pre><code class="hljs language-typescript">          <span class="hljs-comment">/**[0] */</span>
+<span class="hljs-keyword">const</span> f0 = &#x3C;Tб, U><span class="hljs-function">(<span class="hljs-params">p: T</span>) =></span> {}; <span class="hljs-comment">// Ok</span>
+
+          <span class="hljs-comment">/**[0] */</span>
+[].forEach(&#x3C;T, U><span class="hljs-function"><span class="hljs-params">()</span> =></span> { }); <span class="hljs-comment">// Ok</span>
+
+
+<span class="hljs-comment">/**
+ *[0] ошибки также не возникает
+ если универсальная функция определяет
+ несколько параметров типа.
+ */</span></code></pre>
+<p>В качестве закрепления информации освещенной в данной теме рассмотрим пример. Представьте задачу требующую написание компонента испускающего событие объекто которого содержит поле свойство <code class="inline-code">data</code> в роли значения которого выступает значение переданное вместе с пропсами. Без механизма универсальных компонентов <code class="inline-code">data</code> как в пропсах так и объекте событий будет представленна либо одним конкретным типом, либо множеством типов определяющих тип объединение.</p>
+<p>В первом случае для каждого типа представляющего данные потребуется необходимо определять новый компонент. </p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">interface</span> DataEvent&#x3C;T> {
+    data: T;
+}
+
+
+<span class="hljs-comment">/**[0] */</span>
+<span class="hljs-keyword">interface</span>  CardAProps {
+    data: <span class="hljs-built_in">number</span>; <span class="hljs-comment">/**[1] */</span>
+                             <span class="hljs-comment">/**[1] */</span>
+    handler: <span class="hljs-function">(<span class="hljs-params">event: DataEvent&#x3C;<span class="hljs-built_in">number</span>></span>) =></span> <span class="hljs-built_in">void</span>;
+}
+
+    <span class="hljs-comment">/**[2] */</span>
+<span class="hljs-keyword">const</span> CardA = <span class="hljs-function">(<span class="hljs-params">{data, handler}: CardAProps</span>) =></span> {
+    <span class="hljs-keyword">return</span> (
+        &#x3C;div onClick={<span class="hljs-function"><span class="hljs-params">()</span> =></span> handler({data})}>Card Info&#x3C;<span class="hljs-regexp">/div>
+    );
+}
+
+const handlerA = (event: DataEvent&#x3C;number>) => {}
+
+&#x3C;CardA data={0} handler={handlerA} /</span>>
+
+<span class="hljs-comment">/** ============== */</span>
+
+<span class="hljs-comment">/**[3] */</span>
+<span class="hljs-keyword">interface</span>  CardBProps {
+    data: <span class="hljs-built_in">string</span>; <span class="hljs-comment">/**[4] */</span>
+                             <span class="hljs-comment">/**[4] */</span>
+    handler: <span class="hljs-function">(<span class="hljs-params">event: DataEvent&#x3C;<span class="hljs-built_in">string</span>></span>) =></span> <span class="hljs-built_in">void</span>;
+}
+
+    <span class="hljs-comment">/**[5] */</span>
+<span class="hljs-keyword">const</span> CardB = <span class="hljs-function">(<span class="hljs-params">{data, handler}: CardBProps</span>) =></span> {
+    <span class="hljs-keyword">return</span> (
+        &#x3C;div onClick={<span class="hljs-function"><span class="hljs-params">()</span> =></span> handler({data})}>Card Info&#x3C;<span class="hljs-regexp">/div>
+    );
+}
+
+const handlerB = (event: DataEvent&#x3C;string>) => {}
+
+&#x3C;CardB data={``} handler={handlerB} /</span>>
+
+<span class="hljs-comment">/**
+ * [2] [5] определение идентичных по логике компонентов
+ * нужда в кторых появляется исключительно из-за необходимости
+ * в указании разных типов [1][4] в описании интерфейсов представляющих
+ * их пропсы [0][3] 
+ */</span></code></pre>
+<p>Во втором для сужения множества типов придется производить утомительные проверки.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">interface</span> DataEvent&#x3C;T> {
+    data: T;
+}
+
+
+<span class="hljs-keyword">interface</span>  CardProps {
+    data: <span class="hljs-built_in">number</span> | <span class="hljs-built_in">string</span>; <span class="hljs-comment">/**[0] */</span>
+                                  <span class="hljs-comment">/**[0] */</span>
+    handler: <span class="hljs-function">(<span class="hljs-params">event: DataEvent&#x3C;<span class="hljs-built_in">number</span> | <span class="hljs-built_in">string</span>></span>) =></span> <span class="hljs-built_in">void</span>;
+}
+
+<span class="hljs-keyword">const</span> Card = <span class="hljs-function">(<span class="hljs-params">{data, handler}: CardProps</span>) =></span> {
+    <span class="hljs-keyword">return</span> (
+        &#x3C;div onClick={<span class="hljs-function"><span class="hljs-params">()</span> =></span> handler({data})}>Card Info&#x3C;<span class="hljs-regexp">/div>
+    );
+}
+
+
+const handler = (event: DataEvent&#x3C;number | string>) => {
+    /</span><span class="hljs-regexp">/ утомительные проверки
+
+    if(typeof event.data === `number`){
+        /</span><span class="hljs-regexp">/ в этом блоке кода обраащаемся как с number
+    }else if(typeof event.data === `string`){
+        /</span><span class="hljs-regexp">/ в этом блоке кода обраащаемся как с string
+    }
+}
+
+&#x3C;Card data={0} handler={handler} /</span>>
+
+<span class="hljs-comment">/**
+ * [0] указание типа как объединение number | string
+ * избавило от необходимости определения множества компонентов,
+ * но не избавила от утомительных и излишних проверок при работе
+ * с данными с слушателе событий.
+ */</span></code></pre>
+<p>Избежать повторяющегося или излишнего кода можно путем определения компонентов универсальными.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">interface</span> DataEvent&#x3C;T> {
+    data: T;
+}
+
+
+<span class="hljs-comment">/**[0] */</span>
+<span class="hljs-keyword">interface</span>  CardProps&#x3C;T> {
+    data: T; <span class="hljs-comment">/**[1] */</span>
+                           <span class="hljs-comment">/**[1] */</span>
+    handler: <span class="hljs-function">(<span class="hljs-params">event: DataEvent&#x3C;T></span>) =></span> <span class="hljs-built_in">void</span>;
+}
+
+    <span class="hljs-comment">/**[2]            [3]                           [4] */</span>
+<span class="hljs-keyword">const</span> Card = <span class="hljs-function"><span class="hljs-keyword">function</span> &#x3C;<span class="hljs-title">T</span>>(<span class="hljs-params">{data, handler}: CardProps&#x3C;T></span>) </span>{
+    <span class="hljs-keyword">return</span> (
+        &#x3C;div onClick={<span class="hljs-function"><span class="hljs-params">()</span> =></span> handler({data})}>Card Info&#x3C;<span class="hljs-regexp">/div>
+    );
+}
+
+const handlerWithNumberData = (event: DataEvent&#x3C;number>) => {}
+const handlerWithStringData = (event: DataEvent&#x3C;string>) => {}
+
+&#x3C;Card&#x3C;number> data={0} handler={handlerWithNumberData} /</span>>;
+&#x3C;Card&#x3C;<span class="hljs-built_in">string</span>> data={<span class="hljs-string">``</span>} handler={handlerWithStringData} />;
+
+<span class="hljs-comment">/**
+ * [2] определение универсального функционального компонента
+ * парметр типа которого [3] будет установлен типу представляющего
+ * пропсы [0] в качестве аргумента типа [4], что сделает его описание [1]
+ * универсальным.
+ */</span></code></pre>
+<p>В итоге кода становится меньше что делает его проще для чтения и кроме того код написанный таким образом более соответствет лучшим какнонам обусловленных типизацией.</p>
+</section>

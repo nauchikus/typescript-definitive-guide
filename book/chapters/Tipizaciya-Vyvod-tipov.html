@@ -280,6 +280,80 @@
 <span class="hljs-keyword">let</span> v1 = <span class="hljs-literal">false</span> ? <span class="hljs-keyword">new</span> B() : <span class="hljs-keyword">new</span> C();  <span class="hljs-comment">// let v1: B | C</span>
 <span class="hljs-keyword">let</span> v2 = <span class="hljs-literal">false</span> ? <span class="hljs-keyword">new</span> C() : <span class="hljs-keyword">new</span> D();  <span class="hljs-comment">// let v2: C | D</span></code></pre>
 <p>Так как выражение расположенное в блоке тернарного оператора вычисляется на этапе выполнения программы, вывод типов не может знать результата его вычисления на этапе компиляции. Поэтому, чтобы не нарушить типобезопасность, он вынужден указывать объединенный тип, определяемый всеми блоками выражения.</p>
+</section><section id="Vyvod-peresecheniya-Intersection-s-diskriminantnymi-polyami" name="Вывод пересечения (Intersection) с дискриминантными полями" class="subchapter">
+            <h2 class="subchapter-title">
+                <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="Vyvod-peresecheniya-Intersection-s-diskriminantnymi-polyami" type="absolute-url">
+                    <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <use href="#icon_link"/>
+                    </svg>
+                </button>
+                Вывод пересечения (Intersection) с дискриминантными полями
+            </h2>
+        
+<p>Если при определении типа пересечения определяющее его множество включает больше одного типа определяющего одноименные дискриминантные поля принадлежащие к разным типам (данная тема подробно бала рассмотрены в главе <a class="book__chapter__chapter-link" href="/book/contents/Tipy-Discriminated-Union" title="Типы - Discriminated Union" target="_blank">Типы - Discriminated Union</a>), то такое пересечение определяется как тип <code class="inline-code">never</code>.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">type</span> A = {
+    <span class="hljs-keyword">type</span>: <span class="hljs-string">"a"</span>; <span class="hljs-comment">// дискриминантное поле</span>
+
+    a: <span class="hljs-built_in">number</span>; 
+};
+<span class="hljs-keyword">type</span> B = {
+    <span class="hljs-keyword">type</span>: <span class="hljs-string">"b"</span>; <span class="hljs-comment">// дискриминантное поле</span>
+
+    b: <span class="hljs-built_in">number</span>;
+    
+};
+<span class="hljs-keyword">type</span> C = {
+    c: <span class="hljs-built_in">number</span>; 
+};
+<span class="hljs-keyword">type</span> D = {
+    d: <span class="hljs-built_in">number</span>;
+ };
+
+<span class="hljs-comment">/**
+ * Как видно типы A и B
+ * определяют одноименные
+ * дискриминантные поля type
+ * принадлежащих к разным типам a и b
+ * поэтому тип T будет определен
+ * как тип never.
+ * 
+ * type T = never
+ */</span>
+
+<span class="hljs-keyword">type</span> T = A &#x26; B &#x26; C &#x26; D;</code></pre>
+<p>Но стоит обратить внимание что речь идет только о одноименных полях принадлежащих к разным типа. То есть если множество определяющее пересечение включает несколько типов с одноименными дискриминантными полями принадлежащих к одному типу, то такое множество будет определено ожидаемым образом.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">type</span> A = {
+    <span class="hljs-keyword">type</span>: <span class="hljs-string">"a"</span>; <span class="hljs-comment">// дискриминантное поле с типом a</span>
+
+    a: <span class="hljs-built_in">number</span>; 
+};
+<span class="hljs-keyword">type</span> B = {
+    <span class="hljs-keyword">type</span>: <span class="hljs-string">"a"</span>; <span class="hljs-comment">// дискриминантное поле с типом b</span>
+
+    b: <span class="hljs-built_in">number</span>;
+    
+};
+<span class="hljs-keyword">type</span> C = {
+    c: <span class="hljs-built_in">number</span>; 
+};
+<span class="hljs-keyword">type</span> D = {
+    d: <span class="hljs-built_in">number</span>;
+ };
+
+<span class="hljs-comment">/**
+ * Как видно типы A и B
+ * по-прежднему определяют одноименные
+ * дискриминантные поля type, но на этот
+ * раз они принадлежат к одному типу a,
+ * поэтому тип T будет определен ожидаемым
+ * образом.
+ * 
+ * 
+ * 
+ * type T = A &#x26; B &#x26; C &#x26; D
+ */</span>
+
+<span class="hljs-keyword">type</span> T = A &#x26; B &#x26; C &#x26; D;</code></pre>
 </section><section id="Vyvod-tipov-kortej-Tuple" name="Вывод типов кортеж (Tuple)" class="subchapter">
             <h2 class="subchapter-title">
                 <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="Vyvod-tipov-kortej-Tuple" type="absolute-url">
