@@ -34,8 +34,8 @@
     }
 }</code></pre>
 <p>Класс <code class="inline-code">Controller</code> содержит метод <code class="inline-code">check</code>, который имеет один обязательный параметр <code class="inline-code">eggs</code> c типом <code class="inline-code">IEgg[ ]</code> и возвращающий тип <code class="inline-code">boolean</code>. Если бы не явно указанные типы параметров, то разработчикам пришлось бы только гадать с чем  именно им предстоит работать. Это же относится и к возвращаемому типу.</p>
-<p>Результатом выполнения <code class="inline-code">Validator.valid( eggs )</code> внутри метода <code class="inline-code">check</code> является возвращаемое из функции значение типа <code class="inline-code">boolean</code>. Если бы при объявлении переменной <code class="inline-code">isValid</code> тип <code class="inline-code">boolean</code> не был бы указан явно, то было бы сильно сложнее догадаться то же возвращает метод <code class="inline-code">valid</code>.</p>
-<p>Разработчику впервые увидевшего этот код или тому который имел с ним дело очень давно, не составит труда разобраться за что отвечает данный участок кода.</p>
+<p>Результатом выполнения <code class="inline-code">Validator.valid( eggs )</code> внутри метода <code class="inline-code">check</code> является возвращаемое из функции значение типа <code class="inline-code">boolean</code>. Если бы при объявлении переменной <code class="inline-code">isValid</code> тип <code class="inline-code">boolean</code> не был бы указан явно, то было бы сильно сложнее догадаться что же возвращает метод <code class="inline-code">valid</code>.</p>
+<p>Разработчику впервые увидевшему этот код или тому, кто имел с ним дело очень давно, не составит труда разобраться за что отвечает данный участок кода.</p>
 <p>К языкам с явной типизацией относятся <em>С++</em>, <em>С#</em> и многие другие.</p>
 </section><section id="Neyavnaya-tipizaciya-implicit-typing" name="Неявная типизация (implicit typing)" class="subchapter">
             <h2 class="subchapter-title">
