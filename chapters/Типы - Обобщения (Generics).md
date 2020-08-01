@@ -506,94 +506,90 @@ class T2 <T extends Bird = Animal> {} // Error
 // -------(   Bird   ) = Animal
 ~~~~~
 
-Важным моментом является понимание того, как вывод типов обрабатывает значение по умолчанию. Но чтобы не запутаться, нужно разграничить поведение типа `T` на внешнее (обозначим его как _outside behavior_), и внутреннее (_inside behavior_). Внешнее поведение обуславливается операциями, которые можно производить над значениями снаружи обобщенного типа. Соответственно, внутренним поведением обуславливаются операции, которые можно производить внутри обобщенного типа, то есть в области видимости параметров типа. В данном контексте слово _"поведение"_ нужно понимать как _"к какому типу данных вывод типов установит принадлежность для значения, чей тип указан с помощью параметра типа `T`"_. Но обо всем по порядку.
+Необходимо сделать акцент на том, что вывод типов обращает внимание только при работе с аргументами типа. Чтобы было более понятно вспомним ещё раз что механизм ограничения парамтров типа с помощью ключевого слова `extends` наделяет их указанными признаками служащими не только для ограничения аругментов типа, но и для выполнения опреаций в области видимости. Другими словами вывод типов при работе с аргументами типа берет во внимание как ограничивающий тип, так и тип указанный в качестве типа по умолчанию.
 
-Как известно на данный момент, с точки зрения внешнего поведения обобщенный класс `GenericType<T>`, экземпляр которого был ассоциирован с конструкцией без явного аннотирования типа, будет расцениваться выводом типа, как `GenericType<unknown>`. 
-
-~~~~~typescript
-// outside behavior
-
-class Animal { 
-    name: string = 'animal'; 
+`````typescript
+// ограничение типа T типом string
+declare class A<T extends string>{
+    constructor(value?: T)
 }
 
-class CustomArray<T> extends Array<T> {}
-
-let animalArray = new CustomArray(); // let CustomArray: CustomArray<unknown>
-let animal = animalArray[0]; // let animal: unknown
-animal.name // Error, Object is of type 'unknown'
-~~~~~
-
-Установив для типа `T` значение по умолчанию, с точки зрения внешнего поведения, вывод типов будет расценивать тип `T` как тип, наделенный некоторыми характеристиками. Другими словами, вывод типов будет считать тип `T` принадлежащим к типу, указанному по умолчанию.
-
-~~~~~typescript
-// outside behavior
-
-class Animal { 
-    name: string = 'animal';
+// тип string устанавливается типу T в качестве типа по умолчанию
+declare class B<T = string>{
+    constructor(value?: T)
 }
 
-class CustomArray<T = Animal> extends Array<T> {}
 
-let animalArray = new CustomArray(); // let animalArray: CustomArray<Animal>
-let animal = animalArray[0]; // let animal: Animal
-animal.name // Ok
-~~~~~
+/**[0] */
+let a0 = new A(); // Ok
+let a1 = new A(`ts`); // Ok 
+let a2 = new A(0); // Error ->  Argument of type '0' is not assignable to parameter of type 'string | undefined'.
 
-При этом значение по умолчанию можно переопределить.
+/**[1] */
+let b0 = new B(); // Ok
+let b1 = new B(`ts`); // Ok 
+let b2 = new B(0); // Ok
 
-~~~~~typescript
-// outside behavior
+/**
+ * Вывод типов беретпри работе с аргументами типа
+ * берет во внимание как тип расширяющий его [0]
+ * так и тип указанный в качестве значения по умолчанию [1].
+ */
+`````
 
-class Animal { 
-    name: string = 'animal';
-}
+Но при работе со значениями принадлежащих к типу `T` вывод типов берет в расчет только ограничивающий тип, но не тип выступающий в качестве типа по умолчанию.
 
-class Car { 
-    type: string = 'car';
-}
-
-class CustomArray<T = Animal> extends Array<T> {}
-
-let animalArray = new CustomArray(); // let animalArray: CustomArray<Animal>
-let animal = animalArray[0]; // let anima: Animal
-animal.name // Ok
-
-let carArray = new CustomArray<Car>(); // let carArray: CustomArray<Car>
-let car = carArray[0]; // let car: Car
-car.type // Ok
-~~~~~
-
-Кроме того, обобщенный тип, которому задано значение по умолчанию, можно указать в аннотации без явного указания параметра типа.
-
-~~~~~typescript
-// outside behavior
-
-class A<T> {}
-class B<T = number> {}
-
-let a: A = new A(); // Error
-let b: B = new B(); // Ok, let b: B<number>
-~~~~~
-
-В случае с внутренним поведением главное не забывать, что поведение для значения по умолчанию не имеет ничего общего с поведением, возникающим при использовании механизма ограничения параметров типа с помощью ключевого слова `extends`. При использовании механизма ограничения, параметр типа в области его видения расценивается как тип, наделенный характеристиками типов, указанных после ключевого слова `extends`. Тем не менее параметр типа, которому указано лишь значение по умолчанию, в области видимости расценивается как параметр типа, которому вообще ничего не задано, то есть как тип `T`.
-
-~~~~~typescript
-// inside behavior
-
-class A<T extends string> {
-    method(p: T) {
-        p.toLocaleLowerCase(); // Ok
+`````typescript
+// ограничение типа T типом string
+class A<T extends string>{
+    constructor(value?: T){
+        value?.toLowerCase(); // Ok /**[0] */
     }
 }
 
-class B<T = string> {
-    method(p: T) {
-        p.toLocaleLowerCase(); // Error, Property 'toLocaleLowerCase' does not exist on type 'T'.
+// тип string устанавливается типу T в качестве типа по умолчанию
+class B<T = string>{
+    constructor(value?: T) {
+        value?.toLowerCase(); // Error /**[1] */
     }
 }
-~~~~~
-Несмотря на то, что значения по умолчанию указываются в объявлении параметров типа, предназначаются они для аргументов типа. Простыми словами, с помощью оператора равно `=` указывается значение по умолчанию для аргументов типа, а не для параметров типа.
+
+/**
+ * Вы вод типов берет в расчет только ограничивающий тип [0]
+ * но не тип указанный в качестве типа по умолчанию [1].
+ * 
+ * [0] value наделено признаками типа T.
+ * [1] у value отсутствуют какие-либо признаки.  
+ * 
+ */
+ `````
+
+Не будет лишним также рассмотреть отличия этих двух механизмов при работе вывода типов.
+
+`````typescript
+// ограничение типа T типом string
+declare class A<T extends string>{
+    constructor(value?: T)
+}
+
+// тип string устанавливается типу T в качестве типа по умолчанию
+declare class B<T = string>{
+    constructor(value?: T)
+}
+
+
+let a0 = new A(); // Ok -> let a0: A<string>
+let b0 = new B(); // Ok -> let b0: B<string>
+
+let a1 = new A(`ts`); // Ok -> let a1: A<"ts">
+let b1 = new B(`ts`); // Ok -> let b1: B<string>
+
+let a2 = new A<string>(`ts`); // Ok -> let a2: A<string>
+let b2 = new B<string>(`ts`); // Ok -> let b2: B<string>
+
+let a3 = new A<number>(0); // Error
+let b3 = new B<number>(0); // Ok -> let b3: B<number>
+`````
 
 
 ## Параметры типа - как тип данных
