@@ -1,17 +1,19 @@
-<section id="Tipizaciya-Object-Types-vajno" name="Типизация (Object Types) — важно" class="subchapter">
+<h1>Совместимость объектных типов (Compatible Object Types)</h1>
+<p>На практике очень много недопониманий связанно с темой совместимости которую для лучшего усвояния материала необходимо рассмотреть в тех срезах с которыми она связана. Совместимость объектных типов таит в себе не мало неочевидных моментов, поэтому не будем нарушать устоявшуюся традицию и начнем именно с них.</p><section id="Vajno" name="Важно" class="subchapter">
+
             <h2 class="subchapter-title">
-                <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="Tipizaciya-Object-Types-vajno" type="absolute-url">
+                <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="Vajno" type="absolute-url">
                     <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                         <use href="#icon_link"/>
                     </svg>
                 </button>
-                Типизация (Object Types) — важно
+                Важно
             </h2>
         
 <hr>
 <p>Пришло время более подробно разобраться в том, как компилятор определяет совместимость объектных типов. Как всегда, вначале, стоит напомнить, что в текущей главе, будет использоваться шаблон (<code class="inline-code">: Target = Source</code>), о котором более подробно шла речь в самом начале.</p>
-<p>Но прежде чем начать погружение в тему <em>совместимости типов</em> (compatible types), будет не лишним заметить, что подобный термин не определен спецификацией <em>TypeScript</em>. Тем не менее, в <em>TypeScript</em> описано два типа совместимости. Помимо привычной <em>совместимости подтипов</em> (assignment subtype), также существует <em>совместимость при присваивании</em> (assignment compatibility). Они отличаются только тем, что правила совместимости при присваивании расширяют правила совместимости подтипов. Сделано это по нескольким причинам.</p>
-<p>Начать стоит с того, что поведение типа <code class="inline-code">any</code> не укладывается в рамки определяемые стандартными правилами. Нестандартное поведение заключается в том, что помимо совместимости всех типов на основе обычных правил совместимости с типом <code class="inline-code">any</code>, сам тип <code class="inline-code">any</code> также совместим со всеми, не являясь их подтипом.</p>
+<p>Но прежде чем начать погружение в тему <em>совместимости типов</em> (<em>compatible types</em>), будет не лишним заметить, что подобный термин не определен спецификацией <em>TypeScript</em>. Тем не менее, в <em>TypeScript</em> описано два типа совместимости. Помимо привычной <em>совместимости подтипов</em> (<em>assignment subtype</em>), также существует <em>совместимость при присваивании</em> (<em>assignment compatibility</em>). Они отличаются только тем, что правила совместимости при присваивании расширяют правила совместимости подтипов. Сделано это по нескольким причинам.</p>
+<p>прежде всего поведение типа <code class="inline-code">any</code> не укладывается в рамки определяемые стандартными правилами. Нестандартное поведение заключается в том, что помимо совместимости всех типов на основе обычных правил совместимости с типом <code class="inline-code">any</code>, сам тип <code class="inline-code">any</code> также совместим со всеми, не являясь их подтипом.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">class</span> Animal {
     <span class="hljs-keyword">public</span> name: <span class="hljs-built_in">string</span>;
 }
@@ -25,25 +27,25 @@
 
 <span class="hljs-keyword">let</span> <span class="hljs-built_in">any</span>: <span class="hljs-built_in">any</span> = <span class="hljs-number">0</span>; <span class="hljs-comment">// Ok</span>
 <span class="hljs-keyword">let</span> <span class="hljs-built_in">number</span>: <span class="hljs-built_in">number</span> = <span class="hljs-built_in">any</span>; <span class="hljs-comment">// Ok -> any совместим с number</span></code></pre>
-<p>Кроме того, поведением двухсторонней совместимости также наделен и числовой <code class="inline-code">enum</code>.</p>
+<p>Кроме того, поведением двухсторонней совместимости наделен и числовой <code class="inline-code">enum</code>.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">enum</span> NumberEnum {
     A = <span class="hljs-number">1</span>
 }
 
 <span class="hljs-keyword">let</span> v1: <span class="hljs-built_in">number</span> = NumberEnum.A;
 <span class="hljs-keyword">let</span> v2: NumberEnum.A = <span class="hljs-number">0</span>;</code></pre>
-</section><section id="Tipizaciya-Object-Types-sovmestimost-obektov" name="Типизация (Object Types) - совместимость объектов" class="subchapter">
+</section><section id="Sovmestimost-obektnyh-tipov-v-TypeScript" name="Совместимость объектных типов в TypeScript" class="subchapter">
             <h2 class="subchapter-title">
-                <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="Tipizaciya-Object-Types-sovmestimost-obektov" type="absolute-url">
+                <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="Sovmestimost-obektnyh-tipov-v-TypeScript" type="absolute-url">
                     <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                         <use href="#icon_link"/>
                     </svg>
                 </button>
-                Типизация (Object Types) - совместимость объектов
+                Совместимость объектных типов в TypeScript
             </h2>
         
 <hr>
-<p>Начать тему о совместимости объектных типов стоит с повторения определения структурной типизации, которая лежит в основе <em>TypeScript</em>. Итак, структурная типизация — это механизм сопоставления двух типов по всем признакам их описания. Под признаками понимаются идентификаторы типа и типы которые с ними связаны. </p>
+<p>Начать тему о совместимости объектных типов стоит с повторения определения структурной типизации, которая лежит в основе <em>TypeScript</em>. Итак, <em>структурная типизация</em> — это механизм сопоставления двух типов по всем признакам их описания. Под признаками понимаются идентификаторы типа и типы которые с ними связаны. </p>
 <p>Простыми словами, два типа будут считаться совместимыми не потому, что они связаны иерархическим деревом (наследование), а по тому, что в типе <code class="inline-code">S</code> (<code class="inline-code">: Target = Source</code>) присутствуют все идентификаторы, присутствующие в типе <code class="inline-code">T</code>. При этом, типы с которыми они ассоциированы должны быть совместимы.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">class</span> Bird {
     <span class="hljs-keyword">public</span> name: <span class="hljs-built_in">string</span>;
@@ -58,7 +60,7 @@
 
 <span class="hljs-keyword">let</span> v1: Bird = fish; <span class="hljs-comment">// Ok</span>
 <span class="hljs-keyword">let</span> v2: Fish = bird; <span class="hljs-comment">// Ok</span></code></pre>
-<p>В случаях, когда один тип данных, помимо всех признаков второго типа данных, также имеет любые другие, то он будет совместим со вторым типом, но не наоборот. Для обратной совместимости потребуется операция явного преобразования (приведения) типов.</p>
+<p>В случаях, когда один тип, помимо всех признаков второго типа, также имеет любые другие, то он будет совместим со вторым типом, но не наоборот. Для обратной совместимости потребуется операция явного преобразования (приведения) типов.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">class</span> Bird {
     <span class="hljs-keyword">public</span> name: <span class="hljs-built_in">string</span>;
     <span class="hljs-keyword">public</span> age: <span class="hljs-built_in">number</span>;
@@ -71,7 +73,7 @@
 <span class="hljs-keyword">var</span> bird: Bird = <span class="hljs-keyword">new</span> Fish(); <span class="hljs-comment">// Error</span>
 <span class="hljs-keyword">var</span> bird: Bird = <span class="hljs-keyword">new</span> Fish() <span class="hljs-keyword">as</span> Bird; <span class="hljs-comment">// Ok</span>
 <span class="hljs-keyword">let</span> fish: Fish = <span class="hljs-keyword">new</span> Bird(); <span class="hljs-comment">// Ok</span></code></pre>
-<p>Кроме того, два типа, совместимые по признакам идентификаторов, будут совместимы в том случае, если типы, ассоциированные с идентификаторами, также совместимы.</p>
+<p>Кроме того, два типа, совместимые по признакам идентификаторов, будут совместимы только в том случае, если типы ассоциированные с идентификаторами также совместимы.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">class</span> Bird {
     <span class="hljs-keyword">public</span> name: <span class="hljs-built_in">string</span>;
     <span class="hljs-keyword">public</span> age: <span class="hljs-built_in">number</span>;
@@ -92,7 +94,7 @@
 <span class="hljs-keyword">var</span> birdProvider: BirdProvider = <span class="hljs-keyword">new</span> FishProvider(); <span class="hljs-comment">// Error</span>
 <span class="hljs-keyword">var</span> birdProvider: BirdProvider = <span class="hljs-keyword">new</span> FishProvider() <span class="hljs-keyword">as</span> FishProvider; <span class="hljs-comment">// Error</span>
 <span class="hljs-keyword">let</span> fishProvider: FishProvider = <span class="hljs-keyword">new</span> BirdProvider(); <span class="hljs-comment">// Ok</span></code></pre>
-<p>Методы, объявленные в объектном типе, сравниваются не по правилам совместимости объектных типов данных. Про правила проверки функциональных типов речь пойдет немного позднее (глава <a class="book__chapter__chapter-link" href="/book/contents/Tipizaciya-Sovmestimost-funkcii" title="Типизация - Совместимость функций" target="_blank">Типизация - Совместимость функций</a>). Поэтому комментарии к коду будут опущены.</p>
+<p>Стоит заметить что методы объявленные в объектном типе сравниваются не по правилам совместимости объектных типов данных. Про правила проверки функциональных типов речь пойдет немного позднее (глава <a class="book__chapter__chapter-link" href="/book/contents/Tipizaciya-Sovmestimost-funkcii" title="Типизация - Совместимость функций" target="_blank">Типизация - Совместимость функций</a>). Поэтому комментарии к коду будут опущены.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">class</span> Bird {
     <span class="hljs-keyword">public</span> voice(repeat: <span class="hljs-built_in">number</span>): <span class="hljs-built_in">void</span> {}
 }
@@ -106,8 +108,8 @@
 
 <span class="hljs-keyword">let</span> v3: Bird = v2; <span class="hljs-comment">// Error</span>
 <span class="hljs-keyword">let</span> v4: Fish = v1; <span class="hljs-comment">// Ok</span></code></pre>
-<p>Кроме того, не удосужится подробного разбора следующий пример, в котором происходит проверка типов, содержащих перегруженные методы, так как совместимость их идентична совместимости функциональных типов. Сами функциональные типы будут рассмотрены позднее. </p>
-<p>Сейчас стоит только сказать, что в случаях, когда функция перегружена, проверка на совместимость происходит для каждой из сигнатур. Если существует несколько вариантов перегруженных сигнатур, с которыми может быть совместим тип источник, то выбрана будет та, что объявлена раньше.</p>
+<p>По этой же причине без подробного рассмотрения останется и следующий пример, в котором происходит проверка типов содержащих перегруженные методы, поскольку их совместимость идентична совместимости функциональных типов, которые будут рассмотренны позднее.</p>
+<p>Сейчас стоит только упомянуть, что в случаях когда функция перегружена, проверка на совместимость происходит для каждой из сигнатур. Если существует несколько вариантов перегруженных сигнатур, с которыми может быть совместим тип источник, то выбрана будет та, что объявлена раньше.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">class</span> Bird {
     <span class="hljs-keyword">public</span> voice(repeat: <span class="hljs-built_in">number</span>, volume: <span class="hljs-built_in">number</span>): <span class="hljs-built_in">void</span>;
     <span class="hljs-keyword">public</span> voice(repeat: <span class="hljs-built_in">number</span>): <span class="hljs-built_in">void</span> {}
@@ -122,7 +124,7 @@
 
 <span class="hljs-keyword">let</span> v3: Bird = v2; <span class="hljs-comment">// Ok</span>
 <span class="hljs-keyword">let</span> v4: Fish = v1; <span class="hljs-comment">// Ok</span></code></pre>
-<p>Типы, которые различаются только необязательными членами, также считаются совместимыми.</p>
+<p>Типы, которые различаются только <em>необязательными членами</em>, также считаются совместимыми.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">class</span> Bird {
     <span class="hljs-keyword">public</span> name: <span class="hljs-built_in">string</span>;
     <span class="hljs-keyword">public</span> age?: <span class="hljs-built_in">number</span>;
@@ -168,7 +170,7 @@
 */</span>
 <span class="hljs-keyword">let</span> v2: Fish = bird; <span class="hljs-comment">// Error</span>
 <span class="hljs-keyword">let</span> v3: Fish = bird <span class="hljs-keyword">as</span> Fish; <span class="hljs-comment">// Ok</span></code></pre>
-<p>Существует еще одна неочевидность, связанная с необязательными членами. В случае, если в целевом типе все члены объявлены как необязательные, он будет совместим с любым типом, который частично описывает его, при этом тип источник может описывать любые другие члены. Помимо этого он будет совместим с типом, у которого описание отсутствует вовсе. Но он не будет совместим с типом, у которого описаны только отсутствующие в целевом типе члены. Такое поведение в <em>TypeScript</em> называется <em>Weak Type Detection</em> (обнаружение слабого типа). Типы, описание которых состоит только из необязательных членов, считаются слабыми типами.</p>
+<p>Существует еще одна неочевидность, связанная с необязательными членами. Если в целевом типе все члены объявлены как необязательные, он будет совместим с любым типом, который частично описывает его, при этом тип источник может описывать любые другие члены. Помимо этого он будет совместим с типом, у которого описание отсутствует вовсе. Но он не будет совместим с типом, у которого описаны только отсутствующие в целевом типе члены. Такое поведение в <em>TypeScript</em> называется <em>Weak Type Detection</em> (<em>обнаружение слабого типа</em>). Типы, описание которых состоит только из необязательных членов, считаются слабыми типами.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">class</span> IAnimal {
     name?: <span class="hljs-built_in">string</span>;
     age?: <span class="hljs-built_in">number</span>;
@@ -194,7 +196,7 @@
 <span class="hljs-keyword">let</span> v4: IAnimal = insect; <span class="hljs-comment">// Ok</span>
 <span class="hljs-keyword">let</span> v5: IAnimal = reptile; <span class="hljs-comment">// Ok</span>
 <span class="hljs-keyword">let</span> v6: IAnimal = worm; <span class="hljs-comment">// Error</span></code></pre>
-<p>Обобщенные типы данных, чьи параметры типа указаны в аннотации типа и при этом были установлены аргументами типа, участвуют в проверке на совместимость по характерным для <em>TypeScript</em> правилам.</p>
+<p>Обобщенные типы, закрытые частично или полностью участвуют в проверке на совместимость по характерным для <em>TypeScript</em> правилам.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">class</span> Bird&#x3C;T> {
     <span class="hljs-keyword">public</span> name: T;
 }
@@ -229,7 +231,7 @@
 
 <span class="hljs-keyword">let</span> v3: Bird = v2; <span class="hljs-comment">// Error</span>
 <span class="hljs-keyword">let</span> v4: Fish = v1; <span class="hljs-comment">// Ok</span></code></pre>
-<p>На фоне структурной типизации самое неоднозначное поведение возникает тогда, когда описание типов полностью идентично, за исключением их модификаторов доступа. Если в типе описан хоть один член с отличным от <code class="inline-code">public</code> модификатором доступа, он не будет совместим ни с одним типом, независимо от того, какие модификаторы доступа применены к его описанию.</p>
+<p>На фоне структурной типизации самое неоднозначное поведение возникает тогда, когда описание типов полностью идентично, за исключением их модификаторов доступа. Если в типе описан хоть один член с отличным от <code class="inline-code">public</code> модификатором доступа, он не будет совместим ни с одним схожим типом, независимо от того, какие модификаторы доступа применены к его описанию.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">class</span> Bird {
     <span class="hljs-keyword">private</span> name: <span class="hljs-built_in">string</span>;
 }
@@ -255,7 +257,7 @@
 <span class="hljs-keyword">let</span> v6: Fish = v1; <span class="hljs-comment">// Error</span>
 <span class="hljs-keyword">let</span> v7: Insect = v1; <span class="hljs-comment">// Error</span>
 <span class="hljs-keyword">let</span> v8: Reptile = v1; <span class="hljs-comment">// Error</span></code></pre>
-<p>К счастью, разногласия возникающие в структурной типизации при совместимости типов определяемых классом, к членам которых применены модификаторы доступа отличные от <code class="inline-code">public</code>, не распространяются на номинативную типизацию (глава <a class="book__chapter__chapter-link" href="/book/contents/Ekskurs-v-tipizaciu-Sovmestimost-tipov-na-osnove-vida-tipizacii" title="Экскурс в типизацию - Совместимость типов на основе вида типизации" target="_blank">Экскурс в типизацию - Совместимость типов на основе вида типизации</a>). Номинативная типизация может указывать на принадлежность к типу через иерархию наследования. Простыми словами, потомки будут совместимы с предками, у которых члены объявлены с помощью модификаторов доступа, отличных от <code class="inline-code">public</code>.</p>
+<p>К счастью, разногласия возникающие в структурной типизации при совместимости типов представляемых классом, к членам которых применены модификаторы доступа отличные от <code class="inline-code">public</code>, не распространяются на номинативную типизацию (глава <a class="book__chapter__chapter-link" href="/book/contents/Ekskurs-v-tipizaciu-Sovmestimost-tipov-na-osnove-vida-tipizacii" title="Экскурс в типизацию - Совместимость типов на основе вида типизации" target="_blank">Экскурс в типизацию - Совместимость типов на основе вида типизации</a>). Номинативная типизация может указывать на принадлежность к типу через иерархию наследования. Простыми словами, потомки будут совместимы с предками, у которых члены объявлены с помощью модификаторов доступа, отличных от <code class="inline-code">public</code>.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">class</span> Bird {
     <span class="hljs-keyword">protected</span> name: <span class="hljs-built_in">string</span>;
 }
@@ -290,7 +292,7 @@
 
 <span class="hljs-keyword">let</span> v3: Bird = v2; <span class="hljs-comment">// Ok</span>
 <span class="hljs-keyword">let</span> v4: Fish = v1; <span class="hljs-comment">// Ok</span></code></pre>
-<p>Когда в качестве присваиваемого типа выступает экземпляр класса, то для того, чтобы он считался совместим с типом, указанным в аннотации, в нем, как минимум, должны присутствовать все признаки этого типа. Кроме того, он может иметь дополнительные признаки, которые отсутствуют в типе, указанном в аннотации.</p>
+<p>Когда в качестве присваиваемого типа выступает экземпляр класса, то для того, чтобы он считался совместим с типом, указанным в аннотации, в нем как минимум должны присутствовать все признаки этого типа. также он может обладать дополнительными признаками, которые отсутствуют в типе указанном в аннотации.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">class</span> Bird {
     <span class="hljs-keyword">public</span> name: <span class="hljs-built_in">string</span>;
 }
@@ -326,7 +328,7 @@ f1(<span class="hljs-keyword">new</span> Insect()); <span class="hljs-comment">/
 f1(equal); <span class="hljs-comment">// Ok -> одинаковые поля</span>
 f1(more); <span class="hljs-comment">// Ok -> в Fish полей больше</span>
 f1(less); <span class="hljs-comment">// обязательные поля отсутствуют</span></code></pre>
-<p>Однако, когда в качестве значения выступает объектный тип, созданный с помощью объектного литерала, поведение, в некоторых случаях, отличается от поведения присвоения экземпляров класса. В случаях, в которых объект объявляется непосредственно в операции присвоения, он будет совместим с типом, указанным в аннотации, только если он полностью идентичен. Другими словами, создаваемый с помощью объектного литерала объект не должен содержать ни меньше ни больше членов, чем описано в типе, указанном в аннотации (данное поведение можно изменить с помощью опции компилятора <code class="inline-code">--suppressExcessPropertyErrors</code>, глава <a class="book__chapter__chapter-link" href="/book/contents/Opcii-kompilyatora" title="Опции компилятора" target="_blank">Опции компилятора</a>).</p>
+<p>Однако, когда в качестве значения выступает объектный тип, созданный с помощью объектного литерала, поведение в некоторых случаях отличается от поведения присвоения экземпляров класса. В тех случаях, в которых объект объявляется непосредственно в операции присвоения, он будет совместим с типом, указанным в аннотации только если он полностью идентичен. Другими словами, создаваемый с помощью литерала объект не должен содержать ни меньше ни больше членов, чем описано в типе, указанном в аннотации (данное поведение можно изменить с помощью опции компилятора <code class="inline-code">--suppressExcessPropertyErrors</code>, глава <a class="book__chapter__chapter-link" href="/book/contents/Opcii-kompilyatora" title="Опции компилятора" target="_blank">Опции компилятора</a>).</p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">interface</span> IAnimal {
     name: <span class="hljs-built_in">string</span>;
 }
@@ -352,5 +354,5 @@ f1({}); <span class="hljs-comment">// Ошибка -> полей меньше</s
 f1(equal); <span class="hljs-comment">// Ok -> одинаковые поля</span>
 f1(more); <span class="hljs-comment">// Ok -> полей больше</span>
 f1(less); <span class="hljs-comment">// Ошибка -> полей меньше</span></code></pre>
-<p>Остается только добавить, что выбор в сторону структурной типизации был сделан по причине того, что подобное поведение очень схоже с поведением самого <em>JavaScript</em>, который имеет утиную типизацию. Можно представить удивление <em>Java</em> или <em>C#</em> разработчиков, которые впервые увидят структурную типизацию на примере <em>TypeScript</em>. Сложно представить выражение лица заядлых теоретиков, когда они увидят, что сущность птицы совместима с сущностью рыбы. Но если угнетать ситуацию, выдумывая нереальные примеры, которые из-за структурной типизации приведут к немыслимым последствиям, то вероятность того, что при разработке возникнет хоть одна ошибка, связанная со структурной типизацией, настолько мала, что даже не стоит обращать на это внимание.</p>
+<p>Остается только добавить, что выбор в сторону структурной типизации был сделан по причине того, что подобное поведение очень схоже с поведением самого <em>JavaScript</em>, который реализует <em>утиную типизацию</em>. Можно представить удивление <em>Java</em> или <em>C#</em> разработчиов, которые впервые увидят структурную типизацию на примере <em>TypeScript</em>. Сложно представить выражение лица заядлых теоретиков, когда они увидят, что сущность птицы совместима с сущностью рыбы. Но не стоит угнетать ситуацию выдумывая нереальные примеры, которые из-за структурной типизации приведут к немыслимым последствиям, поскольку вероятность того, что хотя бы один из них найдет олицетворение в реальных проектах настолько мала, что не стоит сил затраченых на их выдумывание.</p>
 </section>
