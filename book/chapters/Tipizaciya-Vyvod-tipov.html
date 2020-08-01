@@ -1,17 +1,20 @@
-<section id="Tipizaciya-Vyvod-tipov" name="Типизация — Вывод типов" class="subchapter">
+<h1>Типизация — Вывод типов</h1>
+<p>Понимание темы относящейся к такому фундаментальному механизму как <em>вывод типов</em> поможет разработчику подчинить компилятор <em>tsc</em>, а не наооборот. Невозможно писать программы на языке <em>TypeScript</em> получая от процесса удовольствие, если нет однозначного ответа на вопрос "указывать явно типы или нет". Ответы на этот и другие вопросы как раз и содержит данная глава посвященнаяв подробному рассмотрению каждого момента.</p><section id="Vyvod-tipov-obshchie-svedeniya" name="Вывод типов - общие сведения" class="subchapter">
+
             <h2 class="subchapter-title">
-                <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="Tipizaciya-Vyvod-tipov" type="absolute-url">
+                <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="Vyvod-tipov-obshchie-svedeniya" type="absolute-url">
                     <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                         <use href="#icon_link"/>
                     </svg>
                 </button>
-                Типизация — Вывод типов
+                Вывод типов - общие сведения
             </h2>
         
 <hr>
 <p>Чтобы не повторять определения, которые были даны в главе <a class="book__chapter__chapter-link" href="/book/contents/Ekskurs-v-tipizaciu-Svyazyvanie-tipizaciya-vyvod-tipov" title="Экскурс в типизацию - Связывание, типизация, вывод типов" target="_blank">Экскурс в типизацию - Связывание, типизация, вывод типов</a>, эту главу стоит начать с неформально определения.</p>
-<p><em>Вывод типов</em> — это механизм, благодаря которому разрабатывать на статически типизированном <em>TypeScript</em> становится намного легче. Он берет на себя ту работу, которая во многих случаях может показаться рутинной. Вывод типов работает не только тогда, когда вы не указывает тип явно; он работает всегда, когда компилятор встречает код. Дело в том, что компилятор не доверяет разработчику и поэтому весь код, в штатном режиме, проходит через вывод типов. В этом механизме нет ничего сложного, но несмотря на это, у разработчиков, которые только приступают к изучению <em>TypeScript</em>, некоторые неочевидные особенности могут вызвать вопросы, на которые и постарается ответить данная глава.</p>
-<p>Кроме того, ещё одна цель этой главы — раскрыть те моменты, рассказ о которых в других частях книги мог быть не ко времени и излишне усложнил бы понимание. Поэтому те части книги просто ссылались на текущую главу. Но, также в этой главе вкратце будет повторено то, что уже было рассмотрено по ходу изложения материала.</p>
+<p><em>Вывод типов</em> — это механизм позволяющий сделать процесс разработки на статически типизированном <em>TypeScript</em> более простой за счет перекладывания на него рутинной работы по явной аннотации типов. Может показаться что вывод типов берется за дело только тогда, когда при разборе кода попадается отсутствующая аннотация типа. Но это не так, поскольку  компилятор не доверяет разработчику и поэтому весь код, в штатном режиме, проходит через вывод типов. Не важно в полной мере разработчик указывает типы определяемым им конструкциям или нет, чтобы их проверить на адекватность и совместимость, вывод типов обязан создать для них собственное описание (понимать как объявление типа).</p>
+<p>В этом механизме нет ничего сложного, но несмотря на это, у разработчиков которые только приступают к изучению <em>TypeScript</em>, некоторые неочевидные особенности могут вызвать вопросы, главным из которых является уже упомянутый в самом начеле - "указывать явно типы или нет".</p>
+<p>Ответ очевиден и прост - во всех случаях допускающих отсутствие явной аннотации типа эту работу стоит поручать выводу типов. Другими словами не нужно указывать типы явно если это за вас сможжет сделать вывод типов. Единственное исключение может возникнуть при необходимости повышения симантики кода, что относительно аннотаций типа бывает сравнительно редко.</p>
 </section><section id="Vyvod-primitivnyh-tipov" name="Вывод примитивных типов" class="subchapter">
             <h2 class="subchapter-title">
                 <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="Vyvod-primitivnyh-tipov" type="absolute-url">
@@ -23,7 +26,7 @@
             </h2>
         
 <hr>
-<p>Вывод типов для значений, принадлежащих к так называемым примитивным типам, не таит в себе ничего необычно. Кроме того, будь это переменные, поля, параметры, возвращаемые из функций и методов значения, результат во всех случаях будет идентичным.</p>
+<p>Вывод типов для значений принадлежащих к так называемым примитивным типам, не таит в себе ничего необычно. Кроме того, будь это переменные, поля, параметры, возвращаемые из функций и методов значения, результат во всех случаях будет идентичным.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">enum</span> Enums {
     Value
 };
@@ -44,13 +47,9 @@
             </h2>
         
 <hr>
-<p>Когда дело доходит до присваивания значений, принадлежащих к примитивным типам, таким конструкциям, как константы (<code class="inline-code">const</code>) и неизменяемые поля (модификатор <code class="inline-code">readonly</code>), поведение вывода типов изменяется.</p>
+<p>Когда дело доходит до присваивания значений принадлежащих к примитивным типам таким конструкциям как константы (<code class="inline-code">const</code>) и неизменяемые поля (модификатор <code class="inline-code">readonly</code>), поведение вывода типов изменяется.</p>
 <p>В случае, когда значение принадлежит к примитивным типам <code class="inline-code">number</code>, <code class="inline-code">string</code> или <code class="inline-code">boolean</code>, вывод типов указывает принадлежность к литеральным примитивным типам, определяемым самим значением.</p>
-<pre><code class="hljs language-typescript"><span class="hljs-keyword">enum</span> Enums {
-    Value
-};
-
-<span class="hljs-keyword">const</span> v0 = <span class="hljs-number">0</span>; <span class="hljs-comment">// let v0: 0</span>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">const</span> v0 = <span class="hljs-number">0</span>; <span class="hljs-comment">// let v0: 0</span>
 <span class="hljs-keyword">const</span> v1 = <span class="hljs-string">'text'</span>; <span class="hljs-comment">// let v1: 'text'</span>
 <span class="hljs-keyword">const</span> v2 = <span class="hljs-literal">true</span>; <span class="hljs-comment">// let v2: true</span>
 
@@ -69,7 +68,7 @@
 <span class="hljs-keyword">class</span> Identifier {
     readonly f = Enums.Value; <span class="hljs-comment">// f: Enums</span>
 }</code></pre>
-<p>Когда вывод типов встречает значение, принадлежащие к типу <code class="inline-code">symbol</code>, его поведение зависит от конструкции, которой присваивается значение. Так, если вывод типов работает с константой, то тип определяется, как запрос типа (глава <a class="book__chapter__chapter-link" href="/book/contents/Tipy-Type-Queries-zaprosy-tipa-Alias-psevdonimy-tipa" title="Типы - Type Queries (запросы типа), Alias (псевдонимы типа)" target="_blank">Типы - Type Queries (запросы типа), Alias (псевдонимы типа)</a>) самой константы. Если же вывод типов устанавливает принадлежность к типу-неизменяемому полю, то тип будет определен, как <code class="inline-code">symbol</code>. Происходит так потому, что при создании каждого нового экземпляра в системе будет определяться и новый символ, что противоречит правилам, установленным для <code class="inline-code">Unique Symbol</code> (глава <a class="book__chapter__chapter-link" href="/book/contents/Tipy-Primitivnye-literalnye-tipy-Number-String-Boolean-Unique-Symbol-Enum" title="Типы - Примитивные литеральные типы Number, String, Boolean, Unique Symbol, Enum" target="_blank">Типы - Примитивные литеральные типы Number, String, Boolean, Unique Symbol, Enum</a>).</p>
+<p>Когда вывод типов встречает значение принадлежащие к типу <code class="inline-code">symbol</code>, его поведение зависит от конструкции, которой присваивается значение. Так, если вывод типов работает с константой, то тип определяется как запрос типа (глава <a class="book__chapter__chapter-link" href="/book/contents/Tipy-Type-Queries-zaprosy-tipa-Alias-psevdonimy-tipa" title="Типы - Type Queries (запросы типа), Alias (псевдонимы типа)" target="_blank">Типы - Type Queries (запросы типа), Alias (псевдонимы типа)</a>) самой константы. Если же вывод типов устанавливает принадлежность к типу неизменяемого поля, то тип будет определен как <code class="inline-code">symbol</code>. Происходит так потому, что вместе с созданием нового экземпляра в системе будет определяться и новый символ, что противоречит правилам установленным для <code class="inline-code">Unique Symbol</code> (глава <a class="book__chapter__chapter-link" href="/book/contents/Tipy-Primitivnye-literalnye-tipy-Number-String-Boolean-Unique-Symbol-Enum" title="Типы - Примитивные литеральные типы Number, String, Boolean, Unique Symbol, Enum" target="_blank">Типы - Примитивные литеральные типы Number, String, Boolean, Unique Symbol, Enum</a>).</p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">const</span> v = Symbol(); <span class="hljs-comment">// const v: typeof v</span>
 
 <span class="hljs-keyword">class</span> Identifier {
@@ -111,7 +110,7 @@
                 Вывод типа для полей класса на основе инициализации их в конструкторе
             </h2>
         
-<p>Если прочитать главу посвященную конфигурации компилятора, то станет известно, что при активном флаге <code class="inline-code">noImplicitAny</code> возникает ошибка если тело класса содержит поля без аннотации типа. Дело в том что вывод типов расценивает поля с явной аннотацией типа как принадлежащие к типу <code class="inline-code">any</code>, который как раз и не допускает активированный флаг <code class="inline-code">noImplicitAny</code>.</p>
+<p>Если прочитать главу посвященную конфигурации компилятора станет известно что при активном флаге <code class="inline-code">--noImplicitAny</code> возникает ошибка если тело класса включает поля без аннотации типа. Дело в том что вывод типов расценивает поля с явной аннотацией типа как принадлежащие к типу <code class="inline-code">any</code>, который как раз и не допускает активированный флаг <code class="inline-code">--noImplicitAny</code>.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">class</span> Square {
     <span class="hljs-comment">/**
      * Поля без явной аннотации типа.
@@ -237,7 +236,7 @@
   { a: <span class="hljs-number">6</span> },
   { a: <span class="hljs-number">7</span>, b: <span class="hljs-literal">true</span> }
 ]; <span class="hljs-comment">// let v: ({ a: number, b: string } | { a: number, b?: undefined } | { a: number, b: boolean })[]</span></code></pre>
-<p>Как видно из примера выше, вывод типов приводит все объектные типы, составляющие тип объединение, к единому виду. Он добавляет к типам не существующие в них, но существующие в других объектных типах, поля, декларируя их как необязательные (глава  <a class="book__chapter__chapter-link" href="/book/contents/Operatory-Optional-Not-Null-Not-Undefined-Definite-Assignment-Assertion" title="Операторы - Optional, Not-Null, Not-Undefined, Definite Assignment Assertion" target="_blank">Операторы - Optional, Not-Null, Not-Undefined, Definite Assignment Assertion</a>). Сделано это для того, чтобы можно было конкретизировать тип любого элемента массива. Простыми словами, чтобы не получить ошибку во время выполнения, любой элемент массива должен иметь общие для всех элементов признаки. Но так как в реальности в объектах некоторые члены вовсе могут отсутствовать, вывод типов, чтобы повысить типобезопасность, декларирует их, как необязательные. Таким образом, он предупреждает разработчика о возможности возникновения ситуации, при которой эти члены будут иметь значение <code class="inline-code">undefined</code>, что и демонстрируется в примере ниже.</p>
+<p>Как видно из примера выше, вывод типов приводит все объектные типы, составляющие тип объединение, к единому виду. Он добавляет к типам не существующие в них, но существующие в других объектных типах, поля, декларируя их как необязательные (глава  <a class="book__chapter__chapter-link" href="/book/contents/Operatory-Optional-Not-Null-Not-Undefined-Definite-Assignment-Assertion" title="Операторы - Optional, Not-Null, Not-Undefined, Definite Assignment Assertion" target="_blank">Операторы - Optional, Not-Null, Not-Undefined, Definite Assignment Assertion</a>). Сделано это для того, чтобы можно было конкретизировать тип любого элемента массива. Простыми словами, чтобы не получить ошибку во время выполнения, любой элемент массива должен иметь общие для всех элементов признаки. Но так как в реальности в объектах некоторые члены вовсе могут отсутствовать, вывод типов, чтобы повысить типобезопасность, декларирует их как необязательные. Таким образом он предупреждает разработчика о возможности возникновения ситуации, при которой эти члены будут иметь значение <code class="inline-code">undefined</code>, что и демонстрируется в примере ниже.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">let</span> v = [
   { a: <span class="hljs-number">5</span>, b: <span class="hljs-string">'text'</span> },
   { a: <span class="hljs-number">6</span> },
@@ -269,7 +268,7 @@
 
 <span class="hljs-keyword">let</span> v3 = [<span class="hljs-keyword">new</span> A(), <span class="hljs-keyword">new</span> B(), <span class="hljs-keyword">new</span> C(), <span class="hljs-keyword">new</span> D(), <span class="hljs-keyword">new</span> E()];  <span class="hljs-comment">// let v3: A[]</span>
 <span class="hljs-keyword">let</span> v4 = [<span class="hljs-keyword">new</span> B(), <span class="hljs-keyword">new</span> C(), <span class="hljs-keyword">new</span> D(), <span class="hljs-keyword">new</span> E()];  <span class="hljs-comment">// let v4: (B | C | D)[]</span></code></pre>
-<p>Те же самые правила применяются для вывода типа, возвращаемого тернарнарным оператором.</p>
+<p>Те же самые правила применяются при выводе типа значения возвращаемого тернарнарным оператором.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">class</span> A {}
 <span class="hljs-keyword">class</span> B <span class="hljs-keyword">extends</span> A { f0 = <span class="hljs-number">0</span>; }
 <span class="hljs-keyword">class</span> C <span class="hljs-keyword">extends</span> A { f1 = <span class="hljs-string">''</span>; }
@@ -371,7 +370,7 @@
 }
 
 <span class="hljs-keyword">let</span> l = f(<span class="hljs-number">5</span>).length; <span class="hljs-comment">// let l: 1 | 2 | 3</span></code></pre>
-<p>Кроме того, остаточные параметры (<code class="inline-code">...rest</code>), аннотированные с помощью параметра типа, рассматриваются и представляются выводом типа, как принадлежащие к типу-кортежу.</p>
+<p>Кроме того, остаточные параметры (<code class="inline-code">...rest</code>), аннотированные с помощью параметра типа, рассматриваются и представляются выводом типа как принадлежащие к типу-кортежу.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">f</span>&#x3C;<span class="hljs-title">T</span> <span class="hljs-title">extends</span> <span class="hljs-title">any</span>[]>(<span class="hljs-params">...rest: T</span>): <span class="hljs-title">T</span> </span>{
     <span class="hljs-keyword">return</span> rest;
 }
@@ -387,7 +386,7 @@ f(<span class="hljs-number">5</span>, <span class="hljs-string">''</span>, <span
 <span class="hljs-keyword">let</span> v0 = f(<span class="hljs-number">5</span>);  <span class="hljs-comment">// let v0: [number]</span>
 <span class="hljs-keyword">let</span> v1 = f(<span class="hljs-number">5</span>, <span class="hljs-string">''</span>);  <span class="hljs-comment">// let v1: [number, string]</span>
 <span class="hljs-keyword">let</span> v2 = f(<span class="hljs-number">5</span>, <span class="hljs-string">''</span>, <span class="hljs-literal">true</span>);  <span class="hljs-comment">// let v2: [number, string, boolean]</span></code></pre>
-<p>Если функция, сигнатура которой содержит объявление остаточных параметров, принадлежащих к типу параметра, будет вызвана с аргументами, среди которых будет массив, указанный с помощью расширяющего синтаксиса (<em>spread syntax</em>), то определение типа кортеж также будет включать в себя остаточный тип (<code class="inline-code">...rest</code>).</p>
+<p>Если функция, сигнатура которой содержит объявление остаточных параметров, принадлежащих к типу параметра, будет вызвана с аргументами среди которых будет массив указанный с помощью расширяющего синтаксиса (<em>spread syntax</em>), то определение типа кортеж также будет включать в себя остаточный тип (<code class="inline-code">...rest</code>).</p>
 <pre><code class="hljs language-typescript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">tuple</span>&#x3C;<span class="hljs-title">T</span> <span class="hljs-title">extends</span> <span class="hljs-title">any</span>[]>(<span class="hljs-params">...args: T</span>): <span class="hljs-title">T</span> </span>{
     <span class="hljs-keyword">return</span> args;
 }
@@ -395,7 +394,7 @@ f(<span class="hljs-number">5</span>, <span class="hljs-string">''</span>, <span
 <span class="hljs-keyword">let</span> numberAll: <span class="hljs-built_in">number</span>[] = [<span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">2</span>];
 <span class="hljs-keyword">let</span> v0 = tuple(<span class="hljs-number">5</span>, <span class="hljs-string">''</span>, <span class="hljs-literal">true</span>);  <span class="hljs-comment">// let v0: [number, string, boolean]</span>
 <span class="hljs-keyword">let</span> v1 = tuple(<span class="hljs-number">5</span>, ...numberAll);  <span class="hljs-comment">// let v1: [number, ...number[]]</span></code></pre>
-<p>Но нужно быть внимательным, так как порядок передачи аргументов, содержащих расширяющий синтаксис, может привести к неочевидным результатам. Дело в том, что остаточный тип определяется не только типами самого массива, но и типами аргументов, переданных после него.</p>
+<p>Но нужно быть внимательным так как порядок передачи аргументов содержащих расширяющий синтаксис, может привести к неочевидным результатам. Дело в том, что остаточный тип определяется не только типами самого массива, но и типами аргументов, переданных после него.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">tuple</span>&#x3C;<span class="hljs-title">T</span> <span class="hljs-title">extends</span> <span class="hljs-title">any</span>[]>(<span class="hljs-params">...args: T</span>): <span class="hljs-title">T</span> </span>{
     <span class="hljs-keyword">return</span> args;
 }
