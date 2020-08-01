@@ -1,25 +1,26 @@
-<section id="Tipizaciya-Function-Types-vajno" name="Типизация (Function Types) — важно" class="subchapter">
+<h1>Совместимость функциональных типов (Compatible Function Types)</h1>
+<p>После объектных типов мир совместимости функциональных типов может показаться перевернутым с ног на голову. Он обладает множеством нюансов каждый из которых будет рассмотрен во всех деталях.</p><section id="vajno" name="важно" class="subchapter">
+
             <h2 class="subchapter-title">
-                <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="Tipizaciya-Function-Types-vajno" type="absolute-url">
+                <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="vajno" type="absolute-url">
                     <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                         <use href="#icon_link"/>
                     </svg>
                 </button>
-                Типизация (Function Types) — важно
+                важно
             </h2>
         
 <hr>
-<p>Важной частью работы с функциями является понимание совместимости функциональных типов. Одни правила совместимости функциональных типов являются более очевидными, нежели другие. При первом знакомстве с ними, может сложится неправильное впечатление из-за отрыва их от глобального замысла,</p>
-<p>Для того чтобы понять замысел создателей <em>TypeScript</em>, нужно детально разобрать каждый момент, но прежде стоит уточнить одну деталь. В примерах, которые будут обсуждаться в главе, посвященной типизации функциональных типов, будет использоваться уточняющий шаблон <code class="inline-code">: Target = Source</code>.</p>
-<p>Кроме того, объектные типы, указанные в сигнатуре функции, ведут себя также, как было описано в главе, посвященной совместимости объектных типов.</p>
-</section><section id="Tipizaciya-Function-Types-sovmestimost-parametrov" name="Типизация (Function Types) - совместимость параметров" class="subchapter">
+<p>Важной частью работы с функциями является понимание совместимости функциональных типов. Поверхостное понимание механизма совместимости функциональных типов может сложить ошибочное чувство их постежения, поскольку то что казаться очевидным, не всегда может являтся таковым.</p>
+<p>Для того чтобы понять замысел создателей <em>TypeScript</em>, нужно детально разобрать каждый момент. Но прежде стоит уточнить одну деталь. В примерах, которые будут обсуждаться в главе, посвященной типизации функциональных типов, будет использоваться уточняющий шаблон <code class="inline-code">: Target = Source</code>. Кроме того, объектные типы указанные в сигнатуре функции, ведут себя также, как было описано в главе посвященной совместимости объектных типов.</p>
+</section><section id="Sovmestimost-parametrov" name="Совместимость параметров" class="subchapter">
             <h2 class="subchapter-title">
-                <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="Tipizaciya-Function-Types-sovmestimost-parametrov" type="absolute-url">
+                <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="Sovmestimost-parametrov" type="absolute-url">
                     <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                         <use href="#icon_link"/>
                     </svg>
                 </button>
-                Типизация (Function Types) - совместимость параметров
+                Совместимость параметров
             </h2>
         
 <hr>
@@ -70,7 +71,7 @@
 <span class="hljs-keyword">let</span> v1: T0 = <span class="hljs-function">(<span class="hljs-params">p: <span class="hljs-built_in">number</span></span>) =></span> {}; <span class="hljs-comment">// Ok</span>
 <span class="hljs-keyword">let</span> v3: T1 = <span class="hljs-function">(<span class="hljs-params">p?: <span class="hljs-built_in">number</span></span>) =></span> {}; <span class="hljs-comment">// Ok -> необязательный параметр</span>
 <span class="hljs-keyword">let</span> v4: T1 = <span class="hljs-function">(<span class="hljs-params">p: <span class="hljs-built_in">number</span></span>) =></span> {}; <span class="hljs-comment">// Error -> обязательных параметров больше чем в типе T1</span></code></pre>
-<p>На данный момент уже известно, что два объектных типа (<code class="inline-code">:T = S</code>), на основании структурной типизации, считаются совместимыми, если в типе <code class="inline-code">S</code> присутствуют все признаки типа <code class="inline-code">T</code>. Помимо этого, тип <code class="inline-code">S</code> может быть более специфическим, чем тип <code class="inline-code">T</code>. Простыми словами, тип <code class="inline-code">S</code>, помимо всех признаков, присущих в типе <code class="inline-code">T</code>, также может иметь признаки, которые в типе <code class="inline-code">T</code> отсутствуют, но не наоборот. Простыми словами, больший тип совместим с меньшим типом данных. В случае с параметрами функциональных типов, все с точностью наоборот.</p>
+<p>На данный момент уже известно, что два объектных типа (<code class="inline-code">:T = S</code>), на основании структурной типизации, считаются совместимыми, если в типе <code class="inline-code">S</code> присутствуют все признаки типа <code class="inline-code">T</code>. Помимо этого, тип <code class="inline-code">S</code> может быть более спеецифичным, чем тип <code class="inline-code">T</code>. Простыми словами, тип <code class="inline-code">S</code>, помимо всех признаков, присущих в типе <code class="inline-code">T</code>, также может обладать признаками которые в типе <code class="inline-code">T</code> отсутствуют, но не наоборот. Простыми словами, больший тип совместим с меньшим типом данных. В случае с параметрами функциональных типов, все с точностью наоборот.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">type</span> T = <span class="hljs-function">(<span class="hljs-params">p0: <span class="hljs-built_in">number</span></span>) =></span> <span class="hljs-built_in">void</span>;
 
 <span class="hljs-keyword">let</span> v0: T = <span class="hljs-function">(<span class="hljs-params">p0</span>) =></span> {}; <span class="hljs-comment">// Ok, такое же количество параметров</span>
@@ -108,7 +109,7 @@ animals.forEach(<span class="hljs-function"><span class="hljs-params">value</spa
 
 <span class="hljs-keyword">let</span> v0: T0 = f1; <span class="hljs-comment">// Error</span>
 <span class="hljs-keyword">let</span> v1: T1 = f0; <span class="hljs-comment">// Ok</span></code></pre>
-<p>Также стоит знать, что параметры, принадлежащие к конкретным типам, совместимы с параметрами, которым в качестве типов указаны параметры типа, но не наоборот.</p>
+<p>Также стоит знать, что параметры принадлежащие к конкретным типам совместимы с параметрами, которым в качестве типов указаны параметры типа, но не наоборот.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">f0</span>&#x3C;<span class="hljs-title">T</span>>(<span class="hljs-params">p: T</span>): <span class="hljs-title">void</span> </span>{}
 <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">f1</span>(<span class="hljs-params">p: <span class="hljs-built_in">number</span></span>): <span class="hljs-title">void</span> </span>{}
 
@@ -117,7 +118,7 @@ animals.forEach(<span class="hljs-function"><span class="hljs-params">value</spa
 
 <span class="hljs-keyword">let</span> v0: T0 = f1; <span class="hljs-comment">// Error, параметр типа T не совместим с параметром типа number</span>
 <span class="hljs-keyword">let</span> v1: T1 = f0; <span class="hljs-comment">// Ok, параметр типа number совместим с параметром типа T</span></code></pre>
-<p>Помимо того, что две сигнатуры считаются совместимыми, в случаях, в которых участвующие в проверке параметры принадлежат к одному типу, они также считаются совместимыми, если параметры принадлежат к совместимым типам данных. С этим связана ещё одна неочевидность.</p>
+<p>Помимо того, что две сигнатуры считаются совместимыми если участвующие в проверке параметры принадлежат к одному типу, они также считаются совместимыми при совместимости типов этих параметров. Но с этим связана ещё одна неочевидность.</p>
 <p>Как известно, в контексте объектных типов, если тип <code class="inline-code">T1</code> не идентичен полностью типу <code class="inline-code">T2</code>, и при этом тип <code class="inline-code">T1</code> совместим с типом <code class="inline-code">T2</code>, то значит тип <code class="inline-code">T2</code> будет совместим с типом <code class="inline-code">T1</code> через операцию приведения типов.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">class</span> T0 { f0: <span class="hljs-built_in">number</span>; }
 <span class="hljs-keyword">class</span> T1 { f0: <span class="hljs-built_in">number</span>; f1: <span class="hljs-built_in">string</span>; }
@@ -151,18 +152,18 @@ animals.forEach(<span class="hljs-function"><span class="hljs-params">value</spa
 <span class="hljs-comment">// контрвариантное поведение</span>
 <span class="hljs-keyword">let</span> v0: FT0 = f1; <span class="hljs-comment">// Ok</span>
 <span class="hljs-keyword">let</span> v1: FT1 = f0; <span class="hljs-comment">// Error</span></code></pre>
-</section><section id="Tipizaciya-Function-Types-sovmestimost-vozvrashchaemogo-znacheniya" name="Типизация (Function Types) - совместимость возвращаемого значения" class="subchapter">
+</section><section id="Sovmestimost-vozvrashchaemogo-znacheniya" name="Совместимость возвращаемого значения" class="subchapter">
             <h2 class="subchapter-title">
-                <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="Tipizaciya-Function-Types-sovmestimost-vozvrashchaemogo-znacheniya" type="absolute-url">
+                <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="Sovmestimost-vozvrashchaemogo-znacheniya" type="absolute-url">
                     <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                         <use href="#icon_link"/>
                     </svg>
                 </button>
-                Типизация (Function Types) - совместимость возвращаемого значения
+                Совместимость возвращаемого значения
             </h2>
         
 <hr>
-<p>Первое, на что стоит обратить внимание, это ожидаемое поведение при проверке на совместимость возвращаемых типов данных. Другими словами, две сигнатуры считаются совместимыми, если их типы,  указанные в аннотации возвращаемого значения, совместимы по правилам структурной типизации, которой подчиняются все объекты в <em>TypeScript</em>.</p>
+<p>Первое, на что стоит обратить внимание, это ожидаемое поведение при проверке на совместимость возвращаемых типов. Другими словами, две сигнатуры считаются совместимыми, если их типы,  указанные в аннотации возвращаемого значения, совместимы по правилам структурной типизации, которой подчиняются все объекты в <em>TypeScript</em>.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">class</span> T0 { f0: <span class="hljs-built_in">number</span>; }
 <span class="hljs-keyword">class</span> T1 { f0: <span class="hljs-built_in">number</span>; f1: <span class="hljs-built_in">string</span>; }
 
@@ -171,7 +172,7 @@ animals.forEach(<span class="hljs-function"><span class="hljs-params">value</spa
 
 <span class="hljs-keyword">let</span> v0: FT0 = <span class="hljs-function"><span class="hljs-params">()</span> =></span> <span class="hljs-keyword">new</span> T1(); <span class="hljs-comment">// Ok</span>
 <span class="hljs-keyword">let</span> v1: FT1 = <span class="hljs-function"><span class="hljs-params">()</span> =></span> <span class="hljs-keyword">new</span> T0(); <span class="hljs-comment">// Error</span></code></pre>
-<p>Исключением из этого правила составляет примитивный тип данных <code class="inline-code">void</code>. Как стало известно из главы посвященной типу данных <code class="inline-code">void</code>, в обычном режиме он совместим только с типами <code class="inline-code">null</code> и <code class="inline-code">undefined</code>, так как они являются его подтипами. При активной опции <code class="inline-code">--strictNullChecks</code>, примитивный тип <code class="inline-code">void</code> совместим только с типом <code class="inline-code">undefined</code>.</p>
+<p>Исключением из этого правила составляет примитивный тип данных <code class="inline-code">void</code>. Как стало известно из главы посвященной типу данных <code class="inline-code">void</code>, в обычном режиме он совместим только с типами <code class="inline-code">null</code> и <code class="inline-code">undefined</code>, так как они являются его подтипами. При активной рекомендуемой опции <code class="inline-code">--strictNullChecks</code>, примитивный тип <code class="inline-code">void</code> совместим только с типом <code class="inline-code">undefined</code>.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">let</span> v0: <span class="hljs-built_in">void</span> = <span class="hljs-literal">null</span>; <span class="hljs-comment">// Ok and Error с включенным флагом strictNullChecks</span>
 <span class="hljs-keyword">let</span> v1: <span class="hljs-built_in">void</span> = <span class="hljs-literal">undefined</span>; <span class="hljs-comment">// Ok</span></code></pre>
 <p>Но это правило неверно, если тип <code class="inline-code">void</code> указан в аннотации возвращаемого из функции значения. В случаях, когда примитивный тип <code class="inline-code">void</code> указан в качестве возвращаемого из функции типа данных, он совместим со всеми типами данных, без исключения.</p>
@@ -181,8 +182,8 @@ animals.forEach(<span class="hljs-function"><span class="hljs-params">value</spa
 <span class="hljs-keyword">let</span> v1: T = <span class="hljs-function"><span class="hljs-params">()</span> =></span> <span class="hljs-string">''</span>; <span class="hljs-comment">// Ok</span>
 <span class="hljs-keyword">let</span> v2: T = <span class="hljs-function"><span class="hljs-params">()</span> =></span> <span class="hljs-literal">true</span>; <span class="hljs-comment">// Ok</span>
 <span class="hljs-keyword">let</span> v3: T = <span class="hljs-function"><span class="hljs-params">()</span> =></span> ({}); <span class="hljs-comment">// Ok</span></code></pre>
-<p>Причину, по которой поведение типа <code class="inline-code">void</code>, в случаях указания его в аннотации возвращаемого из функции значения, было изменено, лучше рассмотреть на примере работы с массивом, а точнее его методом <code class="inline-code">forEach</code>.</p>
-<p>Предположим, есть два массива. Первый массив состоит из элементов, принадлежащих к объектному типу, у которого определенно поле <code class="inline-code">name</code>. Второй массив предназначен для хранения строк, и имеет длину, равную <code class="inline-code">0</code>.</p>
+<p>Причину по которой поведение типа <code class="inline-code">void</code> при указании его в аннотации возвращаемого из функции значения было изменено лучше рассмотреть на примере работы с массивом, а точнее его методом <code class="inline-code">forEach</code>.</p>
+<p>Предположим есть два массива. Первый массив состоит из элементов принадлежащих к объектному типу у которого определенно поле <code class="inline-code">name</code>. Второй массив предназначен для хранения строк и имеет длину равную <code class="inline-code">0</code>.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">class</span> Animal { 
     name: <span class="hljs-built_in">string</span>;
 }
@@ -192,10 +193,10 @@ animals.forEach(<span class="hljs-function"><span class="hljs-params">value</spa
     <span class="hljs-keyword">new</span> Animal()
 ];</code></pre>
 <p>Задача заключается в получении имен объектов из первого массива с последующим сохранением их во второй массив.</p>
-<p>Для этого создадим callback-стрелочную функцию. Слева от стрелки будет расположен один параметр <code class="inline-code">value</code>, а справа — операция сохранения имени во второй массив с помощью метода <code class="inline-code">push</code>.</p>
-<p>Если обратится к декларации метода массива <code class="inline-code">forEach</code>, то можно убедится, что в качестве функции обратного вызова этот метод  принимает функцию, у которой отсутствует возвращаемое значение.</p>
+<p>Для этого потребуется определить стрелочную функцию обратного вызова (<em>callback</em>). Слева от стрелки будет расположен один параметр <code class="inline-code">value</code>, а справа — операция сохранения имени во второй массив с помощью метода <code class="inline-code">push</code>.</p>
+<p>Если обратится к декларации метода массива <code class="inline-code">forEach</code>, то можно убедится, что в качестве функции обратного вызова этот метод принимает функцию у которой отсутствует возвращаемое значение.</p>
 <pre><code class="hljs language-typescript">forEach(callbackfn: <span class="hljs-function">(<span class="hljs-params">value: T, index: <span class="hljs-built_in">number</span>, array: T[]</span>) =></span> <span class="hljs-built_in">void</span>, thisArg?: <span class="hljs-built_in">any</span>): <span class="hljs-built_in">void</span>;</code></pre>
-<p>Но в нашем случае, в теле функции обратного вызова происходит операция добавления элемента в массив. Результатом этой операции является значение длины массива. То есть, метод <code class="inline-code">push</code> возвращает значение, принадлежащий к типу <code class="inline-code">number</code>, которое в свою очередь возвращается из стрелочной функции обратного вызова, переданного в метод <code class="inline-code">forEach</code>, у которого этот параметр задекларирован как функция возвращающая тип <code class="inline-code">void</code>, что противоречит возвращенному типу <code class="inline-code">number</code>. В данном случае отсутствие ошибки объясняется совместимостью типа <code class="inline-code">void</code>, используемого в функциональных типах, со всеми остальными типами.</p>
+<p>Но в нашем случае в теле функции обратного вызова происходит операция добавления элемента в массив. Результатом этой операции является значение длины массива. То есть, метод <code class="inline-code">push</code> возвращает значение, принадлежащий к типу <code class="inline-code">number</code>, которое в свою очередь возвращается из стрелочной функции обратного вызова, переданного в метод <code class="inline-code">forEach</code>, у которого этот параметр задекларирован как функция возвращающая тип <code class="inline-code">void</code>, что противоречит возвращенному типу <code class="inline-code">number</code>. В данном случае отсутствие ошибки объясняется совместимостью типа <code class="inline-code">void</code>, используемого в функциональных типах, со всеми остальными типами.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">class</span> Animal { name: <span class="hljs-built_in">string</span>; }
 
 <span class="hljs-keyword">let</span> animals: Animal[] = [
@@ -205,13 +206,9 @@ animals.forEach(<span class="hljs-function"><span class="hljs-params">value</spa
 
 <span class="hljs-keyword">let</span> animalNameAll: <span class="hljs-built_in">string</span>[] = [];
 
-animalNameAll.forEach( <span class="hljs-function"><span class="hljs-params">animal</span> =></span> animalNameAll.push( animal.name ) ); <span class="hljs-comment">// forEach ожидает () => void, а получает () => number, так как стрелочная функция без тела неявно возвращает значение, возвращаемое методом push.</span>
-
-
-И напоследок стоит упомянуть, что две обобщенные функции считаются совместимы, если у них в аннотации возвращаемого значения указан параметр типа.
-
-~~~~~typescript
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">f0</span>&#x3C;<span class="hljs-title">T</span>>(<span class="hljs-params">p: T</span>): <span class="hljs-title">T</span> </span>{ <span class="hljs-keyword">return</span> p; }
+animalNameAll.forEach( <span class="hljs-function"><span class="hljs-params">animal</span> =></span> animalNameAll.push( animal.name ) ); <span class="hljs-comment">// forEach ожидает () => void, а получает () => number, так как стрелочная функция без тела неявно возвращает значение, возвращаемое методом push.</span></code></pre>
+<p>И напоследок стоит упомянуть, что две обобщенные функции считаются совместимы, если у них в аннотации возвращаемого значения указан параметр типа.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">f0</span>&#x3C;<span class="hljs-title">T</span>>(<span class="hljs-params">p: T</span>): <span class="hljs-title">T</span> </span>{ <span class="hljs-keyword">return</span> p; }
 <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">f1</span>&#x3C;<span class="hljs-title">S</span>>(<span class="hljs-params">p: S</span>): <span class="hljs-title">S</span> </span>{ <span class="hljs-keyword">return</span> p; }
 
 <span class="hljs-keyword">type</span> T0 = <span class="hljs-keyword">typeof</span> f0;
