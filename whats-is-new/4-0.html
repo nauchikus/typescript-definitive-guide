@@ -39,7 +39,7 @@
 
     <span class="hljs-keyword">return</span> rest;
 }</code></pre>
-<p>Но посколько обсуждаемые функции должны также работать и с кортажами (<code class="inline-code">Tuple</code>), то до текущей версии единственный выход заключался в описании множества перегрузок.</p>
+<p>Но посколько обсуждаемые функции должны также работать и с кортежами (<code class="inline-code">Tuple</code>), то до текущей версии единственный выход заключался в описании множества перегрузок.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">concat</span>&#x3C;<span class="hljs-title">A0</span>>(<span class="hljs-params">a: [A0], b: []</span>): [<span class="hljs-title">A0</span>]</span>;
 <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">concat</span>&#x3C;<span class="hljs-title">A0</span>, <span class="hljs-title">A1</span>>(<span class="hljs-params">a: [A0, A1], b: []</span>): [<span class="hljs-title">A0</span>, <span class="hljs-title">A1</span>]</span>;
 <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">concat</span>&#x3C;<span class="hljs-title">A0</span>, <span class="hljs-title">A1</span>, <span class="hljs-title">A2</span>>(<span class="hljs-params">a: [A0, A1, A2], b: []</span>): [<span class="hljs-title">A0</span>, <span class="hljs-title">A1</span>, <span class="hljs-title">A2</span>]</span>;
