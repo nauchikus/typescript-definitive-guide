@@ -1,17 +1,28 @@
-<section id="Annotaciya-Tipov" name="Аннотация Типов" class="subchapter">
+<h1>Аннотация Типов</h1>
+<p>Чтобы избавится от страха возникающего от слова <em>типизация</em> необходимо в самом начале увидеть все преобразования которые проделал <em>TypeScript</em> над своим фундаментом коим для него является, никого не оставляющий равнодушным <em>JavaScript</em>.</p><section id="Annotaciya-Tipov-obshchee" name="Аннотация Типов - общее" class="subchapter">
+
             <h2 class="subchapter-title">
-                <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="Annotaciya-Tipov" type="absolute-url">
+                <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="Annotaciya-Tipov-obshchee" type="absolute-url">
                     <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                         <use href="#icon_link"/>
                     </svg>
                 </button>
-                Аннотация Типов
+                Аннотация Типов - общее
             </h2>
         
 <hr>
-<p>Как уже было сказано ранее, <em>TypeScript</em> — это типизированная надстройка над <em>JavaScript</em>. Другими словами, <em>TypeScript</em> не добавляет никаких новых языковых конструкций (за исключением <code class="inline-code">Enum</code>, которая будет рассмотрена чуть позже), а лишь расширяет синтаксис <em>JavaScript</em> при помощи добавления в него типов. По этой причине в этой книге не будут затрагиваться темы, относящиеся к <em>JavaScript</em>, так как она рассчитана на тех, кто уже знаком с его основами. </p>
-<p>И прежде чем начать погружение в систему типов <em>TypeScript</em>, нужно рассмотреть такое важное понятие, как указание типа данных для всех существующих в <em>JavaScript</em> языковых конструкций.</p>
-<p>Идеология типизированных языков определяет правила, по которым указывать типы нужно везде, где это предусмотрено. В <em>TypeScript</em> аннотация типа или указание типа осуществляется с помощью оператора двоеточия <code class="inline-code">:</code>, после которого следует идентификатор типа данных. <em>TypeScript</em> является статически типизированным языком, поэтому, после того как идентификатор будет связан с типом, изменить тип будет невозможно.</p>
+<p>Как уже было сказано ранее, <em>TypeScript</em> — это типизированная надстройка над <em>JavaScript</em>. Другими словами <em>TypeScript</em> не добавляет никаких новых языковых конструкций (за исключением <code class="inline-code">Enum</code>, которая будет рассмотрена чуть позже), а лишь расширяет синтаксис <em>JavaScript</em> за счет добавления в него типов. По этой причине в этой книге не будут затрагиваться темы относящиеся к <em>JavaScript</em>, так как она рассчитана на тех, кто уже знаком с его основами. Именно поэтому погружение в типизированный мир <em>TypeScript</em> необходимо начать с рассмотрения того как типизация преобразила <em>JavaScript</em> конструкции.</p>
+</section><section id="Annotaciya-tipa" name="Аннотация типа" class="subchapter">
+            <h2 class="subchapter-title">
+                <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="Annotaciya-tipa" type="absolute-url">
+                    <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <use href="#icon_link"/>
+                    </svg>
+                </button>
+                Аннотация типа
+            </h2>
+        
+<p>В <em>TypeScript</em> аннотация типа или указание типа осуществляется с помощью оператора двоеточия <code class="inline-code">:</code>, после которого следует идентификатор типа. <em>TypeScript</em> является статически типизированным языком, поэтому после того как идентификатор будет связан с типом, изменить тип будет невозможно.</p>
 </section><section id="Sintaksicheskie-konstrukcii-var-let-const" name="Синтаксические конструкции var, let, const" class="subchapter">
             <h2 class="subchapter-title">
                 <button class="subchapter-title__button__copy-to-buffer copy-to-buffer" data="Sintaksicheskie-konstrukcii-var-let-const" type="absolute-url">
@@ -23,7 +34,7 @@
             </h2>
         
 <hr>
-<p>При объявлении синтаксических конструкций, объявляемых с помощью операторов <code class="inline-code">var</code>, <code class="inline-code">let</code> и <code class="inline-code">const</code>, тип данных указывается сразу после идентификатора.</p>
+<p>При объявлении синтаксических конструкций объявляемых с помощью операторов <code class="inline-code">var</code>, <code class="inline-code">let</code> и <code class="inline-code">const</code>, тип данных указывается сразу после идентификатора.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">var</span> identifier: Type = value;
 <span class="hljs-keyword">let</span> identifier: Type = value;
 <span class="hljs-keyword">const</span> IDENTIFIER: Type = value;</code></pre>
@@ -47,8 +58,8 @@
 <pre><code class="hljs language-typescript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">identifier</span> &#x3C;<span class="hljs-title">T</span>, <span class="hljs-title">U</span>>(<span class="hljs-params"></span>): <span class="hljs-title">ReturnedType</span> </span>{
 
 }</code></pre>
-<p><em>TypeScript</em> расширяет границы типизации функций и методов таким новым для <em>JavaScript</em> понятием, как перегрузка функций. С помощью перегрузки функций можно аннотировать функции с одинаковыми идентификаторами, но с различными сигнатурами.</p>
-<p>Для этого в первую очередь аннотируют сигнатуры функций, методов или конструкторов, которые не содержат тела. В последнюю очередь объявляют функцию, сигнатура которой совместима со всеми ранее аннотированными версиями. Более подробно эта тема будет освещена позднее.</p>
+<p>Кроме того <em>TypeScript</em> расширяет границы типизирования функций и методов с помощью незнакомого  <em>JavaScript</em> разработчикам механизма <em>перегрузки функций</em>. С помощью перегрузки функций можно аннотировать функции с одинаковыми идентификаторами, но с различными сигнатурами.</p>
+<p>Для этого перед определением функции, метода или функции-конструктора перечисляются совместимые объявления одних только сигнатур. Более подробно эта тема будет освещена позднее.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">identifier</span>(<span class="hljs-params">p1: T1, p2: T2</span>): <span class="hljs-title">T3</span></span>;
 <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">identifier</span>(<span class="hljs-params">p1: T4, p2: T5</span>): <span class="hljs-title">T6</span></span>;
 <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">identifier</span>(<span class="hljs-params">p1: T, p2: T</span>): <span class="hljs-title">T</span> </span>{
@@ -100,8 +111,8 @@ identifier(c, d); <span class="hljs-comment">// валидно</span>
             </h2>
         
 <hr>
-<p>Прежде чем продолжить рассмотрение изменений которые привнёс <em>TypeScript</em> в нетипизированный мир <em>JavaScript</em>, хотелось бы предупредить о том, что относительно классов будет использоваться терминология заимствованная из таких языков, как <em>Java</em> или <em>C#</em>, так как она добавляет большей ясности (тем более, что в спецификации <em>TypeScript</em> встречается подобная терминология). Так, <em>переменные экземпляра</em> и <em>переменные класса</em> (статические переменные) в этой книге обозначаются как <em>поля</em> (field). <em>Аксессоры</em> (get, set) обозначаются как <em>свойства</em> (property). А кроме того, поля, свойства, методы, <em>вычисляемые свойства</em> (computed property) и <em>индексируемые сигнатуры</em> (index signature) обозначаются как <em>члены</em> класса (member). </p>
-<p>При объявлении поля класса, как и в случае с переменными, тип данных указывается сразу после идентификатора (имени класса). Для методов класса действуют те же правила указания типов данных, что и для обычных функций.</p>
+<p>Прежде чем продолжить рассмотрение изменений которые привнёс <em>TypeScript</em> в нетипизированный мир <em>JavaScript</em>, хотелось бы предупредить о том, что относительно классов будет использоваться терминология заимствованная из таких языков, как <em>Java</em> или <em>C#</em>, так как она способствует большей ясности (тем более, что в спецификации <em>TypeScript</em> встречается аналогичная терминология). Так, <em>переменные экземпляра</em> и <em>переменные класса</em> (статические переменные) в этой книге обозначаются как <em>поля</em> (<em>field</em>). <em>Аксессоры</em> (<em>get</em>_set<em>) обозначаются как </em>свойства<em> (_property</em>). А кроме того, поля, свойства, методы, <em>вычисляемые свойства</em> (<em>computed property</em>) и <em>индексируемые сигнатуры</em> (<em>index signature</em>) обозначаются как <em>члены</em> класса (<em>member</em>). </p>
+<p>При объявлении поля класса, как и в случае с переменными, тип данных указывается сразу после идентификатора (имени класса). Для методов класса действуют те же правила указания типов что и для обычных функций.</p>
 <p>Для свойств, в частности для <code class="inline-code">get</code>, указывается тип данных возвращаемого значения. Для <code class="inline-code">set</code> указывается лишь тип единственного параметра, а возвращаемый им тип и вовсе запрещается указывать явно.</p>
 <p>Кроме того, классы в <em>TypeScript</em> также могут быть обобщенными. В случае объявления обобщенного класса, параметры типа, заключенные в треугольные скобки, указываются сразу после идентификатора класса.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">class</span> Identifier&#x3C;T> {
@@ -152,7 +163,7 @@ identifier(c, d); <span class="hljs-comment">// валидно</span>
             </h2>
         
 <hr>
-<p>Перед тем, как подвести итоги этой главы, не будет лишним собрать обсуждаемое здесь в одном <em>TypeScript</em> коде и сравнить его с аналогичным кодом, написанным на <em>JavaScript</em>.</p>
+<p>Перед тем, как подвести итоги этой главы, не будет лишним собрать все рассмотренные <em>TypeScript</em> конструкции и наглядно сравнить их со своими нетипизированными <em>JavaScript</em> аналогами.</p>
 <pre><code class="hljs language-typescript"><span class="hljs-comment">// .ts</span>
 <span class="hljs-keyword">var</span> identifier: Type = value;
 <span class="hljs-keyword">let</span> identifier: Type = value;
