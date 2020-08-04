@@ -7,7 +7,7 @@ www/public/
 www/dest/
 node_modules/
 package-lock.json
-chapters/
+#chapters/
 dest/
 public/
 src/
