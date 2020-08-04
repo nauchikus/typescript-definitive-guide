@@ -100,7 +100,7 @@ export const createPages: GatsbyCreatePages<IIndexCreatePageOptions> = async ( h
 
     let pageNavDataAll = bookTocToPageNav( toc );
     // let bookToc: IBookTocWithContentNode[] = toc.map( async (chapter,index) => {
-    let bookChapterPageContentPromiseAll = toc.filter((item,index)=>index<13).map( async (chapter,index) => {
+    let bookChapterPageContentPromiseAll = toc.filter((item,index)=>true).map( async (chapter,index) => {
         let chapterEscapedName = StringUtils.escapeString( chapter.title );
         let chapterEscapedPath = toPath( chapterEscapedName );
         let chapterGithubName = createBookChapterName( {

@@ -23,15 +23,15 @@ interface IRadioGroupProps {
 
 type State = Record<string, boolean>;
 
-export const RadioGroup: FC<IRadioGroupProps> = ( { name = generateStringId(), children } ) => {
+export const RadioGroup: FC<IRadioGroupProps> = ( { name , children } ) => {
   let [state, setState] = useState<State>( {} );
+
   let context: UseRadioGroup = {
-    name,
+    name: name ?? generateStringId(),
     setState: ( { id, checked } ) =>
-      setState( prevState => Object.keys( prevState ).reduce( ( nextState, key ) => ( {
-        ...nextState,
-        [ key ]: key === id ? checked ?? !prevState[ key ] : false
-      } ), {} as State ) ),
+      setState( () => Object.keys( state ).reduce( ( nextState, key ) => Object.assign(
+        nextState, {[ key ]: key === id ? (checked ?? !state[ key ]) : false}
+      ), {} as State ) ),
     getState: id => state[ id ]
   };
 

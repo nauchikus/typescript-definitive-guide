@@ -71,6 +71,11 @@ const pathTransformerAll = [
   // noWordToSpace,
   spaceToSymbol
 ];
+/**
+ *
+ * @param name {string}
+ * @returns {string}
+ */
 const toPath = name => pathTransformerAll
   .reduce((result,current)=>current(result),name);
 const generateStringId = ( ( length = 6, count = -1 ) => () =>

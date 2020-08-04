@@ -44,6 +44,7 @@ export const DynamicGatsbyImage:FC<IDynamicGatsbyImageProps> = ( { className,rel
   let imageEdge = graphqlResponse?.allFile?.edges
     .find( edge => edge.node.relativePath === relativePath );
 
+  console.log(relativePath);
 
   if ( !imageEdge ) {
     return null;
