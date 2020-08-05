@@ -134,6 +134,9 @@ export const createPages: GatsbyCreatePages<IIndexCreatePageOptions> = async ( h
         let fileOnGithubLink = createEditBookChapterFileOnGithubLink( { locale, chapterEscapedGithubName } );
 
 
+        console.log(`name: ${chapter.title}; path: ${toPath( chapter.title )};`);
+
+
         let basePageContentData = {
             title: chapter.title,
             section: chapter.section,

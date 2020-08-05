@@ -108,20 +108,20 @@ module.exports = {
     `gatsby-plugin-sass`,
     `gatsby-plugin-svg-sprite`,
     `gatsby-plugin-react-helmet`,
-    // {
-    //   resolve: `gatsby-source-filesystem`,
-    //   options: {
-    //     name: `images`,
-    //     path: ProjectPath.IMAGES_DIR,
-    //   },
-    // },
-    // {
-    //   resolve: `gatsby-source-filesystem`,
-    //   options: {
-    //     name: `icon__image`,
-    //     path: ProjectPath.ASSETS_DIR,
-    //   },
-    // },
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        name: `images`,
+        path: ProjectPath.IMAGES_DIR,
+      },
+    },
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        name: `icon__image`,
+        path: ProjectPath.ASSETS_DIR,
+      },
+    },
     {
       resolve: `gatsby-source-filesystem`,
       options: {

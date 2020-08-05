@@ -59,6 +59,7 @@ const spaceToSymbol = ( text, symbol = `-` ) => text.replace( /\s/g, "-" );
 // const normalizePath = ( path ) => [
 //   spaceToSymbol
 // ].reduce( ( result, current ) => current( result ), path );
+// const removeCommas = text => text.replace( /,/, `` );
 const toFirstCharUpperCase = ( text ) => text[ 0 ].toLocaleUpperCase() + text.substring( 1 );
 const generateIndex = ( index, length = 1, symbol = "0" ) => symbol
   .repeat( length - String( index ).length )
@@ -69,7 +70,8 @@ const pathTransformerAll = [
   normalizeSpace,
   path => path.trim().toLowerCase(),
   // noWordToSpace,
-  spaceToSymbol
+  spaceToSymbol,
+  encodeURI,
 ];
 /**
  *
