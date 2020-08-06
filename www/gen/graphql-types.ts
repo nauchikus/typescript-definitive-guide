@@ -1,4 +1,5 @@
 export type Maybe<T> = T | null;
+export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
   ID: string;
@@ -2281,8 +2282,10 @@ export type GitHub_AddPullRequestReviewThreadInput = {
   path: Scalars['String'];
   /** Body of the thread's first comment. */
   body: Scalars['String'];
+  /** The node ID of the pull request reviewing */
+  pullRequestId?: Maybe<Scalars['ID']>;
   /** The Node ID of the review to modify. */
-  pullRequestReviewId: Scalars['ID'];
+  pullRequestReviewId?: Maybe<Scalars['ID']>;
   /** The line of the blob to which the thread refers. The end of the line range for multi-line comments. */
   line: Scalars['Int'];
   /** The side of the diff on which the line resides. For multi-line comments, this is the side for the end of the line range. */
@@ -19054,6 +19057,7 @@ export type PageInfo = {
   itemCount: Scalars['Int'];
   pageCount: Scalars['Int'];
   perPage?: Maybe<Scalars['Int']>;
+  totalCount: Scalars['Int'];
 };
 
 export type Potrace = {
@@ -20707,6 +20711,11 @@ export type SitePageFieldsEnum =
   | 'pluginCreator___pluginOptions___theme_color'
   | 'pluginCreator___pluginOptions___display'
   | 'pluginCreator___pluginOptions___icon'
+  | 'pluginCreator___pluginOptions___cache_busting_mode'
+  | 'pluginCreator___pluginOptions___include_favicon'
+  | 'pluginCreator___pluginOptions___legacy'
+  | 'pluginCreator___pluginOptions___theme_color_in_head'
+  | 'pluginCreator___pluginOptions___cacheDigest'
   | 'pluginCreator___pluginOptions___typeName'
   | 'pluginCreator___pluginOptions___fieldName'
   | 'pluginCreator___pluginOptions___url'
@@ -20932,6 +20941,11 @@ export type SitePluginFieldsEnum =
   | 'pluginOptions___theme_color'
   | 'pluginOptions___display'
   | 'pluginOptions___icon'
+  | 'pluginOptions___cache_busting_mode'
+  | 'pluginOptions___include_favicon'
+  | 'pluginOptions___legacy'
+  | 'pluginOptions___theme_color_in_head'
+  | 'pluginOptions___cacheDigest'
   | 'pluginOptions___typeName'
   | 'pluginOptions___fieldName'
   | 'pluginOptions___url'
@@ -21072,6 +21086,11 @@ export type SitePluginPluginOptions = {
   theme_color?: Maybe<Scalars['String']>;
   display?: Maybe<Scalars['String']>;
   icon?: Maybe<Scalars['String']>;
+  cache_busting_mode?: Maybe<Scalars['String']>;
+  include_favicon?: Maybe<Scalars['Boolean']>;
+  legacy?: Maybe<Scalars['Boolean']>;
+  theme_color_in_head?: Maybe<Scalars['Boolean']>;
+  cacheDigest?: Maybe<Scalars['String']>;
   typeName?: Maybe<Scalars['String']>;
   fieldName?: Maybe<Scalars['String']>;
   url?: Maybe<Scalars['String']>;
@@ -21103,6 +21122,11 @@ export type SitePluginPluginOptionsFilterInput = {
   theme_color?: Maybe<StringQueryOperatorInput>;
   display?: Maybe<StringQueryOperatorInput>;
   icon?: Maybe<StringQueryOperatorInput>;
+  cache_busting_mode?: Maybe<StringQueryOperatorInput>;
+  include_favicon?: Maybe<BooleanQueryOperatorInput>;
+  legacy?: Maybe<BooleanQueryOperatorInput>;
+  theme_color_in_head?: Maybe<BooleanQueryOperatorInput>;
+  cacheDigest?: Maybe<StringQueryOperatorInput>;
   typeName?: Maybe<StringQueryOperatorInput>;
   fieldName?: Maybe<StringQueryOperatorInput>;
   url?: Maybe<StringQueryOperatorInput>;
