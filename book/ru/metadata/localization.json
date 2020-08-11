@@ -5,12 +5,12 @@
     "appNavigation": [
         {
             "id": "index",
-            "path": "/ru",
+            "path": "/",
             "name": "Главная"
         },
         {
             "id": "book-contents",
-            "path": "/ru/book/chapters",
+            "path": "/book/chapters",
             "name": "Оглавление"
         },
         {
