@@ -838,7 +838,6 @@ export type BookTocSource = Node & {
   children: Array<Node>;
   internal: Internal;
   toc?: Maybe<Array<Maybe<BookTocSourceToc>>>;
-  locale?: Maybe<Scalars['String']>;
   lang?: Maybe<Scalars['String']>;
 };
 
@@ -960,7 +959,6 @@ export type BookTocSourceFieldsEnum =
   | 'toc___section'
   | 'toc___title'
   | 'toc___subtitles'
-  | 'locale'
   | 'lang';
 
 export type BookTocSourceFilterInput = {
@@ -969,7 +967,6 @@ export type BookTocSourceFilterInput = {
   children?: Maybe<NodeFilterListInput>;
   internal?: Maybe<InternalFilterInput>;
   toc?: Maybe<BookTocSourceTocFilterListInput>;
-  locale?: Maybe<StringQueryOperatorInput>;
   lang?: Maybe<StringQueryOperatorInput>;
 };
 
@@ -19379,7 +19376,6 @@ export type QueryBookTocSourceArgs = {
   children?: Maybe<NodeFilterListInput>;
   internal?: Maybe<InternalFilterInput>;
   toc?: Maybe<BookTocSourceTocFilterListInput>;
-  locale?: Maybe<StringQueryOperatorInput>;
   lang?: Maybe<StringQueryOperatorInput>;
 };
 
@@ -19812,7 +19808,6 @@ export type SitePageConnectionGroupArgs = {
 };
 
 export type SitePageContext = {
-  locale?: Maybe<Scalars['String']>;
   localization?: Maybe<SitePageContextLocalization>;
   pageContentData?: Maybe<SitePageContextPageContentData>;
   pageNavDataAll?: Maybe<Array<Maybe<SitePageContextPageNavDataAll>>>;
@@ -19868,7 +19863,6 @@ export type SitePageContextBookTocTreeFilterListInput = {
 };
 
 export type SitePageContextFilterInput = {
-  locale?: Maybe<StringQueryOperatorInput>;
   localization?: Maybe<SitePageContextLocalizationFilterInput>;
   pageContentData?: Maybe<SitePageContextPageContentDataFilterInput>;
   pageNavDataAll?: Maybe<SitePageContextPageNavDataAllFilterListInput>;
@@ -20898,7 +20892,6 @@ export type SitePageFieldsEnum =
   | 'internal___owner'
   | 'internal___type'
   | 'isCreatedByStatefulCreatePages'
-  | 'context___locale'
   | 'context___localization___lang'
   | 'context___localization___title'
   | 'context___localization___description'
@@ -21033,7 +21026,6 @@ export type SitePageFieldsEnum =
   | 'pluginCreator___pluginOptions___classPrefix'
   | 'pluginCreator___pluginOptions___showLineNumbers'
   | 'pluginCreator___pluginOptions___noInlineHighlight'
-  | 'pluginCreator___pluginOptions___locale'
   | 'pluginCreator___pluginOptions___lang'
   | 'pluginCreator___pluginOptions___nodeId'
   | 'pluginCreator___pluginOptions___nodeType'
@@ -21234,7 +21226,6 @@ export type SitePluginFieldsEnum =
   | 'pluginOptions___plugins___pluginOptions___classPrefix'
   | 'pluginOptions___plugins___pluginOptions___showLineNumbers'
   | 'pluginOptions___plugins___pluginOptions___noInlineHighlight'
-  | 'pluginOptions___plugins___pluginOptions___locale'
   | 'pluginOptions___plugins___pluginOptions___lang'
   | 'pluginOptions___plugins___browserAPIs'
   | 'pluginOptions___plugins___pluginFilepath'
@@ -21265,7 +21256,6 @@ export type SitePluginFieldsEnum =
   | 'pluginOptions___classPrefix'
   | 'pluginOptions___showLineNumbers'
   | 'pluginOptions___noInlineHighlight'
-  | 'pluginOptions___locale'
   | 'pluginOptions___lang'
   | 'pluginOptions___nodeId'
   | 'pluginOptions___nodeType'
@@ -21411,7 +21401,6 @@ export type SitePluginPluginOptions = {
   classPrefix?: Maybe<Scalars['String']>;
   showLineNumbers?: Maybe<Scalars['Boolean']>;
   noInlineHighlight?: Maybe<Scalars['Boolean']>;
-  locale?: Maybe<Scalars['String']>;
   lang?: Maybe<Scalars['String']>;
   nodeId?: Maybe<Scalars['String']>;
   nodeType?: Maybe<Scalars['String']>;
@@ -21448,7 +21437,6 @@ export type SitePluginPluginOptionsFilterInput = {
   classPrefix?: Maybe<StringQueryOperatorInput>;
   showLineNumbers?: Maybe<BooleanQueryOperatorInput>;
   noInlineHighlight?: Maybe<BooleanQueryOperatorInput>;
-  locale?: Maybe<StringQueryOperatorInput>;
   lang?: Maybe<StringQueryOperatorInput>;
   nodeId?: Maybe<StringQueryOperatorInput>;
   nodeType?: Maybe<StringQueryOperatorInput>;
@@ -21493,7 +21481,6 @@ export type SitePluginPluginOptionsPluginsPluginOptions = {
   classPrefix?: Maybe<Scalars['String']>;
   showLineNumbers?: Maybe<Scalars['Boolean']>;
   noInlineHighlight?: Maybe<Scalars['Boolean']>;
-  locale?: Maybe<Scalars['String']>;
   lang?: Maybe<Scalars['String']>;
 };
 
@@ -21502,7 +21489,6 @@ export type SitePluginPluginOptionsPluginsPluginOptionsFilterInput = {
   classPrefix?: Maybe<StringQueryOperatorInput>;
   showLineNumbers?: Maybe<BooleanQueryOperatorInput>;
   noInlineHighlight?: Maybe<BooleanQueryOperatorInput>;
-  locale?: Maybe<StringQueryOperatorInput>;
   lang?: Maybe<StringQueryOperatorInput>;
 };
 
