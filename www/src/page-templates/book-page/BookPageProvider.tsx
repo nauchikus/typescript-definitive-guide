@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, {useEffect, useRef} from "react";
 import {FC} from "react"
 import { Locales } from "../../../plugins/types/locales";
 import SEO from "../../components/seo";
@@ -32,12 +32,19 @@ interface IBookPageProviderProps {
   location: Location;
 }
 
-const BookPageProvider: FC<IBookPageProviderProps> = ( { pageContext,location } ) => {
+const BookPageProvider:    FC<IBookPageProviderProps> = ( { pageContext,location } ) => {
   let { locale, pageContentData,pageNavDataAll,localization } = pageContext;
   let bcMobxRef = useRef<UseBookPageStores>( createBookChapterPageMobxEntry( {
+    locale,
     location,
     pageNavDataAll
   } ) );
+
+  let {router} = bcMobxRef.current;
+
+  useEffect( () => {
+    router.setLocation( location );
+  }, [location.hash] );
 
 
   return (

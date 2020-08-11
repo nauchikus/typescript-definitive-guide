@@ -1,4 +1,15 @@
+/**
+ *
+ * @param funcs {Function}
+ * @returns {*|(function(...[*]): *)}
+ */
+const compose = (...funcs) => {
+  if(funcs.length === 1){
+    return funcs[0];
+  }
 
+  return funcs.reduce((result, f) => (...params) => f(result(...params)));
+}
 
 function translitRusToEng ( str ) {
   // https://gist.github.com/diolavr/d2d50686cb5a472f5696
@@ -32,6 +43,11 @@ function translitRusToEng ( str ) {
               // .replace( /^-|-$/g, "" );
 }
 
+
+
+
+const normaliseString = text => text.trim().toLowerCase();
+
 const chapterHeadingToPath = ( chapterHeading ) => {
   return toPath( chapterHeading );
   // return fixedEncodeURIComponent( toPath( chapterHeading ) );
@@ -41,8 +57,66 @@ const chapterHeadingToPath = ( chapterHeading ) => {
  * @param {string} text
  * @returns {string}
  */
-const escapeString = ( text ) => text.replace( /[(){}\[\]|^$.*+!?]/g, `\\$&` );// eslint-disable-line no-useless-escape
-const normalizeSpace = ( text ) => text.replace( / {2,}/g, " " );
+const escapeString = ( text ) => text
+    .replace( /[(){}@\[\]<>|^$.*+!?=]/g, `\\$&` );// eslint-disable-line no-useless-escape
+const escapeStringForSelector = compose(
+    text => text
+        .replace(/\\/g, `\\\\`)
+        .replace(/[,]/g, `\\$&`),// eslint-disable-line no-useless-escape
+    escapeString,
+);// eslint-disable-line no-useless-escape
+/**
+ *
+ * @param {string} text
+ * @returns {string}
+ */
+const normalizeCommaSurroundedSpaces = (text) => text
+    .replace(/(\s+(?=(?:,)))/g, '')
+    .replace(/,\s+/g, `,`)
+    .replace(/,(?=,+)/g, ``);
+const normalizeРyphenSurroundedSpaces = (text) => text
+    .replace(/(\s+(?=(?:-)))/g, '')
+    .replace(/-\s+/g, `-`)
+    .replace(/,(?=-+)/g, ``);
+const normalizeMultiSpace = (text) => text
+    .replace(/ {2,}/g, " ")
+    .replace(/\s+(?=\()/g, ``);
+const normalizeSpace = compose(
+    normalizeMultiSpace,
+    normalizeCommaSurroundedSpaces,
+    normalizeРyphenSurroundedSpaces,
+)
+/**
+ *
+ * @param {string} text
+ * @returns {string}
+ */
+const normalizeSpaceForSelector = text => text
+    .replace(/\s/g, `_`);
+
+/**
+ *
+ * @param value {(text: string) => string}
+ * @returns {*|(function(...[*]): *)}
+ */
+const toSelector = compose(
+    normalizeSpaceForSelector,
+    // normalizeSpace,
+    normaliseString,
+    escapeStringForSelector,
+);
+const pathToSelector = compose(
+    normalizeSpaceForSelector,
+    // normalizeSpace,
+    normaliseString,
+    escapeString,
+);
+/**
+ *
+ * @param value {(text: string) => string}
+ * @returns {*|(function(...[*]): *)}
+ */
+
 // /**
 //  *
 //  * @param {string} text
@@ -65,21 +139,43 @@ const generateIndex = ( index, length = 1, symbol = "0" ) => symbol
   .repeat( length - String( index ).length )
   .concat( index );
 
-const pathTransformerAll = [
-  translitRusToEng,
-  normalizeSpace,
-  path => path.trim().toLowerCase(),
-  // noWordToSpace,
-  spaceToSymbol,
-  encodeURI,
-];
+
 /**
  *
  * @param name {string}
  * @returns {string}
  */
-const toPath = name => pathTransformerAll
-  .reduce((result,current)=>current(result),name);
+const toPath = compose(
+    translitRusToEng,
+    // normalizeSpace,
+    normaliseString,
+    // noWordToSpace,
+    // spaceToSymbol,
+    // encodeURIComponent
+);
+const toNativeElementAttributeValue = compose(
+    toPath,
+    normalizeSpaceForSelector,
+);
+const urlToNativeElementAttributeValue = compose(
+    decodeURIComponent,
+    toNativeElementAttributeValue,
+);
+const urlToPath = url => decodeURIComponent(url);
+const hadingToNativeElementAttributeValue = compose(
+    toPath,
+    normalizeSpaceForSelector,
+    text => text
+        .replace(`/\[\]<>=/g`, `//$&`)
+);
+const pathToNativeElementAttributeValue = hadingToNativeElementAttributeValue;
+// const
+const urlToSelector = compose(
+    decodeURIComponent,
+    toSelector,
+);
+// const toPath = name => pathTransformerAll
+//     .reduce((result, current) => current(result), name);
 const generateStringId = ( ( length = 6, count = -1 ) => () =>
     "0".repeat( length - ( count++ ).toString().length ).concat( count.toString() )
 )();
@@ -91,5 +187,12 @@ module.exports = {
   toFirstCharUpperCase,
   generateIndex,
   generateStringId,
+  toSelector,
+  hadingToNativeElementAttributeValue,
+  urlToSelector,
+  toNativeElementAttributeValue,
+  urlToNativeElementAttributeValue,
+  pathToNativeElementAttributeValue,
+  urlToPath,
 };
 

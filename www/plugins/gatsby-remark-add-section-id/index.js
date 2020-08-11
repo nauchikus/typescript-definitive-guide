@@ -34,21 +34,29 @@ module.exports = ( ...params ) => {
 
         const isText = node => node.type === TEXR_TAG_NAME;
 
+        const joinTextNodeValue = (result, node) => {
+            return result.concat(node.value);
+        }
+
 
         visit( ast, isSection, sectionNode => {
             let headingNode = sectionNode.children.find( isHeading );
-            let textNode = headingNode.children.find( isText );
+            // let textNode = headingNode.children.find( isText );
 
             if ( !NODE_DEPTHS.has( headingNode.depth ) ) {
                 return;
             }
 
-            let { value: heading } = textNode;
-            let path = ``;
+
+
+            let heading = headingNode.children
+                .filter(isText)
+                .reduce(joinTextNodeValue, ``);
+            let sectionId = ``;
 
 
             if ( isH2( headingNode ) ) {
-                path = StringUtils.chapterHeadingToPath( heading, locale );
+                sectionId = StringUtils.hadingToNativeElementAttributeValue(heading);
             }
 
 
@@ -56,7 +64,7 @@ module.exports = ( ...params ) => {
             sectionNode.data.hProperties || ( sectionNode.data.hProperties = {} );
 
             Object.assign( sectionNode.data.hProperties, {
-                id: path
+                id: sectionId
             } );
         } );
     }catch(error){

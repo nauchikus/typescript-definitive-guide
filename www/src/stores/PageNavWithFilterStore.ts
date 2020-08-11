@@ -48,7 +48,10 @@ export class PageNavWithFilterStore implements IPageNavStore<null,IVersionable> 
   get sectionItem () {
     let currentSection = ( this.pageItem.sections as Required<IPageNavSection<IVersionable>>[] )
       .filter( section => this.versionFilter.isCheckedByVersion( new Version( section.data.version ).preReleaseName ) )
-      .find( section => section.path === this.contentSection.currentSectionId );
+      // .find( section => section.path === this.contentSection.currentSectionId )
+      .find( section => {
+        return section.path === this.contentSection.currentSectionId
+      } )
 
 
     if ( this.contentSection.currentSectionId !== `` && !currentSection ) {

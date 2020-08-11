@@ -11,12 +11,13 @@ import { LocationPartial, RouterStore } from "./RouterStore";
 
 interface ICreateBookPageMobxEntryParams {
   // bookTocTree: TreeNode<BookTocNode>[];
+  locale: string;
   location:LocationPartial;
   pageNavDataAll:IBookChapterPageNavData[];
 }
 
-export const createBookChapterPageMobxEntry = ( { location,pageNavDataAll }: ICreateBookPageMobxEntryParams ) => {
-  let router = new RouterStore(location);
+export const createBookChapterPageMobxEntry = ( { locale,location,pageNavDataAll }: ICreateBookPageMobxEntryParams ) => {
+  let router = new RouterStore(location, locale);
   let contentIntersectionObserver = createIntersectionObserverStore( {
     containerSelector:`span.content__html-content-wrapper`,
     sectionSelector:`section.content__section`,

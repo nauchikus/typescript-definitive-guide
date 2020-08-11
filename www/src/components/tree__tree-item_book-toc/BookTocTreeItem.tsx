@@ -47,7 +47,7 @@ export const BookTocTreeItem: FC<IBookTocTreeItemProps> = observer( ( { bookTocT
                                section={section}
                                isCollapse={ isCollapse }
                                title={ title }
-                               path={ RouterUtils.bookRoutes.getBookRoute( { locale, chapterName: firstLevelPath } ) }
+                               path={ firstLevelPath }
                                relativePath={ firstLevelPath }
                                onCollapse={ onCollapse }
                                onCopyLinkToBuffer={ onCopyLinkToBuffer }>
@@ -58,10 +58,7 @@ export const BookTocTreeItem: FC<IBookTocTreeItemProps> = observer( ( { bookTocT
                                     locale={locale}
                                     index={ `${ firstLevelIndex }.${ secondLevelIndex }` }
                                     title={ subtitle }
-                                    path={ RouterUtils.bookRoutes.getBookRoute( {
-                                      locale,
-                                      chapterName: secondLevelPath
-                                    } ) }
+                                    path={ secondLevelPath }
                                     relativePath={ secondLevelPath }
                                     onCopyLinkToBuffer={ onCopyLinkToBuffer }/>
       ) ) }
@@ -114,7 +111,7 @@ export const BookTocFirstLevelTreeItem: FC<IBookTocFirstLevelTreeItemProps> = ob
         </div>
 
         <div className="toc__center-section">
-          <Link className="toc__gatsby-link" to={`/${path}`}>{title}</Link>
+          <Link className="toc__gatsby-link" to={RouterUtils.toRelativePath(path)}>{title}</Link>
         </div>
 
         <div className="toc__right-section">
@@ -185,7 +182,7 @@ export const BookTocSecondLevelTreeItem: FC<IBookTocSecondLevelTreeItemProps> = 
       </div>
 
       <div className="toc__center-section">
-        <Link className="toc__gatsby-link" to={`/${path}`}>{title}</Link>
+        <Link className="toc__gatsby-link" to={RouterUtils.toRelativePath(path)}>{title}</Link>
       </div>
 
       <div className="toc__right-section">

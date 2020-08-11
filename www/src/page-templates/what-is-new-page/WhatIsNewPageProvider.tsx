@@ -1,4 +1,4 @@
-import React, { useEffect, useLayoutEffect, useRef } from "react";
+import React, {useCallback, useEffect, useLayoutEffect, useRef} from "react";
 import {FC} from "react"
 import { Locales } from "../../../plugins/types/locales";
 import WhatIsNewPage from "./WhatIsNewPage";
@@ -26,6 +26,7 @@ import { ContentDownPanelStoreContext } from "../../mobx__mobx-shared-store__rea
 import { ContentNavStoreContext } from "../../mobx__mobx-shared-store__react-context/ContentNavStoreMobxContext";
 import { ContentIntersectionObserverStoreContext } from "../../react__context/ContentIntersectionObserverStoreContext";
 import { RouterStoreContext } from "../../stores/RouterStore";
+
 
 export interface IVersionable {
     version:string;

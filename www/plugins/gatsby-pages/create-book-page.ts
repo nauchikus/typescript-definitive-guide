@@ -5,7 +5,7 @@ import {RouterUtils} from '../../src/utils/router-utils';
 import * as StringUtils from '../../src/utils/string-utils';
 
 import { GatsbyCreatePages } from "../types/gatsby-create-pages";
-import { Locales } from "../types/locales";
+import { Locales,Langs } from "../types/locales";
 import { CustomGatsbyNodeType } from '../gatsby-node-types';
 import { AppLocalization } from "../../src/types/app-localizations";
 import {
@@ -25,16 +25,10 @@ import { BookChapterFileOnGithubCommitHistoryDataProvider } from "./data-provide
 import { IWhatIsNewToc } from "../../src/types/IWhatIsNewToc";
 import { Version } from "../../src/utils/Version";
 import { CommitHistoryToCommitInfoTransformer } from "./transformers/CommitHistoryToCommitInfoTransformer";
+import {IAppLocalizationGatsbyNode} from "../types/gatsby-node-types";
+import {ICreatePageSharedOptions} from "../types/ICreatePageSharedOptions";
 
 
-interface IIndexCreatePageOptions {
-    locale: Locales;
-}
-
-interface IAppLocalization {
-    locale: Locales;
-    localization: AppLocalization;
-}
 
 export interface IBookTocWithContentNode extends BookTocNode, IBookTocWithContent {
 
@@ -84,15 +78,15 @@ const createEditBookChapterFileOnGithubLink = ( { locale, chapterEscapedGithubNa
   `https://github.com/nauchikus/typescript-definitive-guide/blob/book/${locale}/${chapterEscapedGithubName}/content.md`
 );
 
-export const createPages: GatsbyCreatePages<IIndexCreatePageOptions> = async ( helpers, options ) => {
+export const createPages: GatsbyCreatePages<ICreatePageSharedOptions> = async ( helpers, options ) => {
     let { actions: { createPage }, getNodesByType, graphql } = helpers;
-    let { locale } = options;
+    let { locale, lang } = options;
 
 
-    let [{ localization }] = getNodesByType<IAppLocalization>( CustomGatsbyNodeType.AppLocalization )
-      .filter( node => node.locale === locale );
+    let [{ localization }] = getNodesByType<IAppLocalizationGatsbyNode>( CustomGatsbyNodeType.AppLocalization )
+      .filter( node => node.lang === lang );
     let [{ toc }] = getNodesByType<IBookSourceTocGatsbyNode>( CustomGatsbyNodeType.BookTocSource )
-      .filter( node => node.locale === locale );
+      .filter( node => node.lang === lang );
 
 
     let githubRepositoryInfoDataProvider = new GithubRepositoryInfoDataProvider( graphql );
@@ -102,7 +96,7 @@ export const createPages: GatsbyCreatePages<IIndexCreatePageOptions> = async ( h
     // let bookToc: IBookTocWithContentNode[] = toc.map( async (chapter,index) => {
     let bookChapterPageContentPromiseAll = toc.filter((item,index)=>true).map( async (chapter,index) => {
         let chapterEscapedName = StringUtils.escapeString( chapter.title );
-        let chapterEscapedPath = toPath( chapterEscapedName );
+        let chapterEscapedPath = StringUtils.toPath( chapter.title );
         let chapterGithubName = createBookChapterName( {
             index,
             sectionName: chapter.section,
@@ -113,7 +107,7 @@ export const createPages: GatsbyCreatePages<IIndexCreatePageOptions> = async ( h
 
         let bookChapterFileOnGithubHtmlContentDataProvider = new BookChapterFileOnGithubHtmlContentDataProvider( graphql )
         let { html:chapterContentHtml } = await bookChapterFileOnGithubHtmlContentDataProvider.getData( {
-            locale,
+            lang,
             chapterName:chapterGithubName,
             chapterEscapedGithubName,
         } );
@@ -121,7 +115,7 @@ export const createPages: GatsbyCreatePages<IIndexCreatePageOptions> = async ( h
         let bookChapterFileOnGithubCommitHistoryDataProvider = new BookChapterFileOnGithubCommitHistoryDataProvider( graphql )
         let { commitHistoryAll } = await bookChapterFileOnGithubCommitHistoryDataProvider.getData( {
             repository,
-            locale,
+            lang,
             chapterName:chapterGithubName
         } );
 
@@ -133,8 +127,6 @@ export const createPages: GatsbyCreatePages<IIndexCreatePageOptions> = async ( h
 
         let fileOnGithubLink = createEditBookChapterFileOnGithubLink( { locale, chapterEscapedGithubName } );
 
-
-        console.log(`name: ${chapter.title}; path: ${toPath( chapter.title )};`);
 
 
         let basePageContentData = {

@@ -2,11 +2,12 @@ import { navigate } from "gatsby";
 import { observable, autorun, decorate, computed, action } from "mobx";
 import { createContext, useContext } from "react";
 import * as StringUtils from "../utils/string-utils";
+import {Simulate} from "react-dom/test-utils";
 
 export type LocationPartial =Pick<Location,"pathname"|"hash"|"origin"|"search">;
 
 
-interface ILocation {
+export interface ILocation {
   pathname: string;
   hash: string;
   origin:string;
@@ -18,7 +19,9 @@ type CreateRouterStoreParams = {
 };
 
 
-export class RouterStore{
+export class RouterStore {
+  static readonly EMPTY_LOCALE = ``;
+
   static create({location}:CreateRouterStoreParams){
     return new RouterStore( location );
   }
@@ -26,6 +29,9 @@ export class RouterStore{
     return this.location.pathname==='/ru'
   }
 
+  get locale(){
+    return this._locale;
+  }
 
   /**
    * https://domain.com/ru/what-is-new/3.7#concrete-innovation
@@ -87,25 +93,32 @@ export class RouterStore{
   get search(){
     return new URLSearchParams( this.location.search );
   }
-  constructor ( public location:ILocation ) {
+  constructor ( public location:ILocation, private _locale: string = RouterStore.EMPTY_LOCALE) {
   }
 
   // goTo = ( path: string ) => navigate( path );
   goTo( path: string ) {
     navigate( path );
+    console.log(`goTo: ${path} [anchor: ${this.anchor}]`);
 
-    this.scrollToAnchor(  );
+    // setTimeout(() => this.scrollToAnchor());
   }
   setLocation ( location: Location ) {
+    console.log(`>>> change location [anchor: ${location.hash}]`);
     this.location = location;
+
+    this.scrollToAnchor(this.anchor)
   }
   scrollToAnchor(anchor?:string){
     if ( anchor || this.anchor ) {
+      let sectionId = StringUtils.urlToSelector(anchor ?? this.anchor);
+
+
       document
         .querySelector( `main` )
-        ?.querySelector( `section#${ StringUtils.escapeString(anchor ?? this.anchor) }` )
+        ?.querySelector( `section#${ sectionId }` )
         ?.scrollIntoView();
-    }
+    };
   }
 }
 

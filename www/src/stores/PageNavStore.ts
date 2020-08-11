@@ -3,6 +3,7 @@ import { RouterStore } from "./RouterStore";
 import { IContentSectionStore } from "./ContentSectionStore";
 import { IPageNavLeaf, IPageNavNode, IPageNavPage, IPageNavSection } from "../types/IPageNavData";
 import { computed, decorate, observable } from "mobx";
+import * as StringUtils from "../utils/string-utils";
 
 
 export interface IPageNavStoreParams<TNodeData=null,TLeafData=null> {
@@ -41,7 +42,10 @@ export class PageNavStore<TNodeData=null,TLeafData=null> implements IPageNavStor
   }
   get sectionItem () {
     let currentSection = ( this.pageItem.sections as Required<IPageNavSection<TLeafData>>[] )
-      .find( section => section.path === this.contentSection.currentSectionId );
+      // .find( section => StringUtils.toNativeElementAttributeValue(section.path) === this.contentSection.currentSectionId );
+      .find( section => {
+        return StringUtils.pathToNativeElementAttributeValue(section.path) === this.contentSection.currentSectionId
+      } );
 
 
     if ( this.contentSection.currentSectionId !== `` && !currentSection ) {

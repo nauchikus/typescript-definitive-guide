@@ -1,11 +1,14 @@
 import { Locales } from "../../plugins/types/locales";
 
 interface ILocaleRouter {
-    locale: Locales|string;
+    locale?: Locales|string;
 }
 
 interface IBookConcreteChapterRoute {
     chapterName:string;
+}
+interface IBookConcreteSubChapterRoute {
+    subchapterName?:string;
 }
 
 interface IWhatIsNewInnovationRoute {
@@ -13,14 +16,28 @@ interface IWhatIsNewInnovationRoute {
     innovation?:string;
 }
 
+const toRelativePath = (path: string) => `./${path}`;
+const toAnchor = (path: string) => `#${path}`;
+
+
+
+
+const localeDecorate = (path:string, locale?:string) =>
+    `${locale ? `/${locale}` : ``}${path}`;
+
+
+
 const appRoutes = {
-    getIndexRoute: ( { locale }:ILocaleRouter ) => `/${ locale }`
+    getIndexRoute: ( { locale }:ILocaleRouter ) => localeDecorate(`/`, locale)
 };
+
+type BookGetRouteParams = ILocaleRouter & IBookConcreteChapterRoute & IBookConcreteSubChapterRoute;
+
 const bookRoutes = {
-    getBookRoute: ( { locale, chapterName }: ILocaleRouter & IBookConcreteChapterRoute ) =>
-        `/${ locale }/book/chapters/${ chapterName }`,
-    getBookTocRoute: ( { locale }: ILocaleRouter ) =>
-        `/${ locale }/book/chapters`
+    getBookRoute: ({locale, chapterName, subchapterName}: BookGetRouteParams) =>
+        localeDecorate(`/book/chapters/${chapterName}${subchapterName ? `#${subchapterName}` : `` }`, locale),
+    getBookTocRoute: ({locale}: ILocaleRouter) =>
+        localeDecorate(`/book/chapters`, locale)
 };
 const whatIsNewRoutes = {
     getWhatIsNewTocRoute: (  ) =>
@@ -40,5 +57,7 @@ export const RouterUtils = {
     appRoutes,
     bookRoutes,
     whatIsNewRoutes,
-    notFoundRoutes
+    notFoundRoutes,
+    toRelativePath,
+    toAnchor,
 };

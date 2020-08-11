@@ -1,7 +1,8 @@
 import { computed, decorate } from "mobx";
 import { RouterStore } from "./RouterStore";
-import { ContentSectionStore, IContentSectionStore } from "./ContentSectionStore";
+import { IContentSectionStore } from "./ContentSectionStore";
 import { IPageNavStore } from "./PageNavStore";
+import {RouterUtils} from "../utils/router-utils";
 
 
 interface IContentNavStoreParams<TNodeData,TLeafData> {
@@ -46,11 +47,6 @@ export class ContentNavStore<TNodeData,TLeafData> {
   }
 
   goPrevPage () {
-    console.log(
-      JSON.stringify(this.pageNav.pageItem),
-      `${ this.router.basepath }/${ this.pageItem.prevPage?.path }`,
-      `${ this.router.basepath }/${ this.pageItem.nextPage?.path }`
-    );
     this.pageItem.prevPage && this.router.goTo(
       `${ this.router.basepath }/${ this.pageItem.prevPage.path }`
     );
@@ -77,8 +73,13 @@ export class ContentNavStore<TNodeData,TLeafData> {
   }
 
   goNextAnchor () {
+    console.log(`nextAnchor: ${ decodeURIComponent(this.router.pathname) }#${ this.pageNav.sectionItem?.nextAnchor?.path }`);
     this.pageNav.sectionItem?.nextAnchor && this.router.goTo(
-      `${ this.router.pathname }#${ this.pageNav.sectionItem.nextAnchor.path }`
+        // RouterUtils.toRelativePath(
+        //     RouterUtils.toAnchor(this.pageNav.sectionItem.nextAnchor.path)
+        // )
+      `${ decodeURIComponent(this.router.pathname) }#${ this.pageNav.sectionItem.nextAnchor.path }`
+      // `${ this.router.pathname }#${ this.pageNav.sectionItem.nextAnchor.path }`
     );
   }
 }

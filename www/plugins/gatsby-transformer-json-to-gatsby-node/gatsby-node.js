@@ -6,7 +6,7 @@ const isCurrentNodeIsWantedGatsbyNode = ( { name, node } ) =>
 module.exports.onCreateNode = async ( helpers, options ) => {
     let { node, actions, createNodeId, loadNodeContent, createContentDigest } = helpers;
     let { createNode } = actions;
-    let { name, locale,nodeId,nodeType,contentId } = options;
+    let { name, locale, lang,nodeId,nodeType,contentId } = options;
 
 
     if ( !isCurrentNodeIsWantedGatsbyNode( { name, node } ) ) {
@@ -22,6 +22,7 @@ module.exports.onCreateNode = async ( helpers, options ) => {
     const gatsbyNode = {
         [contentId]:JSON.parse(content),
         locale,
+        lang,
 
         id: GATSBY_NODE_ID,
         internal: {

@@ -2,6 +2,7 @@ import json from "../../book/ru/metadata/localization.json";
 
 export type AppLocalization = typeof json;
 
+export type LocaleLocalization = AppLocalization["lang"];
 export type AppNavigationLocalization = AppLocalization["appNavigation"];
 export type SharedLayoutLocalization = AppLocalization["layouts"]["shared"];
 export type InformersLocalization = AppLocalization["layouts"]["shared"]["informers"];
@@ -19,6 +20,7 @@ export type BehaviorNotificationLocalization = AppLocalization["notification"]["
 
 
 export const LocalizationPaths = {
+  LocaleLocalization: "locale",
   AppNavigation: "appNavigation",
   AppContent: "layouts.shared.appContent",
   SharedLayout: "layouts.shared",

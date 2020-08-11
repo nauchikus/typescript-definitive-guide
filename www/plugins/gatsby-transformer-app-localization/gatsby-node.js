@@ -9,7 +9,7 @@ const isCurrentAppLocalizationFileGatsbyNode = ( { name, node } ) =>
 module.exports.onCreateNode = async ( helpers, options ) => {
     let { node, actions, createNodeId, loadNodeContent, createContentDigest } = helpers;
     let { createNode } = actions;
-    let { name, locale } = options;
+    let { name, lang } = options;
 
 
 
@@ -23,11 +23,11 @@ module.exports.onCreateNode = async ( helpers, options ) => {
     let localization = JSON.parse( content );
 
 
-    const APP_LOCALIZATION_GATSBY_NODE_ID = createNodeId( `localisation_${ locale }` );
+    const APP_LOCALIZATION_GATSBY_NODE_ID = createNodeId( `localisation_${ lang }` );
 
     const appLocalizationGatsbyNode = {
         localization,
-        locale,
+        lang,
 
         id: APP_LOCALIZATION_GATSBY_NODE_ID,
         internal: {

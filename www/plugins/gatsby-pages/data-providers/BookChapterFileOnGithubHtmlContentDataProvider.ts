@@ -3,7 +3,7 @@ import { GraphQlResponse } from "../../types/gatsby-create-pages";
 import { BaseFileOnGithubHtmlContentDataProvider, ResultData } from "./BaseFileOnGithubHtmlContentDataProvider";
 
 export interface BookChapterFileOnGithubHtmlContentGetDataParams {
-  locale:string;
+  lang:string;
   chapterName:string;
   chapterEscapedGithubName:string;
 }
@@ -18,7 +18,7 @@ export class BookChapterFileOnGithubHtmlContentDataProvider extends BaseFileOnGi
     let response = await super.load(
       getWhatIsNewContentHtmlRequest(),
       this.createGraphQlRequest(
-        params.locale,
+        params.lang,
         params.chapterEscapedGithubName
       )
     );

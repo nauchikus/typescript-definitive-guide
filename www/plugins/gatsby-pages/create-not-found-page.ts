@@ -4,29 +4,21 @@ import {toPath} from '../../src/utils/string-utils';
 import {RouterUtils} from '../../src/utils/router-utils';
 
 import { GatsbyCreatePages } from "../types/gatsby-create-pages";
-import { Locales } from "../types/locales";
+import {Langs, Locales} from "../types/locales";
 import { CustomGatsbyNodeType } from '../gatsby-node-types';
 import { AppLocalization } from "../../src/types/app-localizations";
 import { IBookTocSource } from "../../src/types/IBookToc";
 import { BookTocNode, TreeNode } from "../../src/stores/BookTocTreeStore";
+import {IAppLocalizationGatsbyNode} from "../types/gatsby-node-types";
+import {ICreatePageSharedOptions} from "../types/ICreatePageSharedOptions";
 
 
-
-interface INotFoundCreatePageOptions {
-    locale: Locales;
-}
-
-interface IAppLocalization {
-    locale: Locales;
-    localization: AppLocalization;
-}
-
-export const createPages: GatsbyCreatePages<INotFoundCreatePageOptions> = async ( helpers, options ) => {
+export const createPages: GatsbyCreatePages<ICreatePageSharedOptions> = async ( helpers, options ) => {
     let { actions: { createPage }, getNodesByType, graphql } = helpers;
-    let { locale } = options;
+    let { locale, lang } = options;
 
-    let [{ localization }] = getNodesByType<IAppLocalization>( CustomGatsbyNodeType.AppLocalization )
-      .filter( node => node.locale === locale );
+    let [{ localization }] = getNodesByType<IAppLocalizationGatsbyNode>( CustomGatsbyNodeType.AppLocalization )
+      .filter( node => node.lang === lang );
 
 
     createPage( {

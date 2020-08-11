@@ -6,7 +6,7 @@ import { generateIndex } from "../../../src/utils/string-utils";
 
 export interface IBookChapterFileOnGithubCommitHistoryGetDataParams {
   repository:GithubRepositoryData;
-  locale:string;
+  lang:string;
   chapterName:string;
 }
 export interface IBookChapterCreateGraphQlRequestParams extends IBookChapterFileOnGithubCommitHistoryGetDataParams{
@@ -17,9 +17,9 @@ export class BookChapterFileOnGithubCommitHistoryDataProvider extends BaseFileOn
     `book/${locale}/chapters/${ chapterName }/content.md`
     // `${ generateIndex( index, 3 ) }.(${ sectionName }) ${ chapterName }`
   );
-  private createGraphQlRequest ( {repository,locale, chapterName}:IBookChapterCreateGraphQlRequestParams ) {
+  private createGraphQlRequest ( {repository,lang, chapterName}:IBookChapterCreateGraphQlRequestParams ) {
     return {
-      path: this.createBookChapterFileOnGithubPath( locale, chapterName ),
+      path: this.createBookChapterFileOnGithubPath( lang, chapterName ),
       owner:repository.owner,
       branch: repository.branch,
     };

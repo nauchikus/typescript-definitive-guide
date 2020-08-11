@@ -4,7 +4,7 @@ import * as StringUtils from "../../src/utils/string-utils";
 import {RouterUtils} from '../../src/utils/router-utils';
 
 import { GatsbyCreatePages } from "../types/gatsby-create-pages";
-import { Locales } from "../types/locales";
+import {Langs, Locales} from "../types/locales";
 import { CustomGatsbyNodeType } from '../gatsby-node-types';
 import { AppLocalization } from "../../src/types/app-localizations";
 import { IWhatIsNewTocGatsbyNode } from "./create-what-is-new-toc-page";
@@ -15,15 +15,8 @@ import { GithubRepositoryInfoDataProvider } from "./data-providers/GithubReposit
 import { CommitHistoryToCommitInfoTransformer } from "./transformers/CommitHistoryToCommitInfoTransformer";
 import { WinFileOnGithubHtmlContentDataProvider } from "./data-providers/WinFileOnGithubHtmlContentDataProvider";
 import { WinFileOnGithubCommitHistoryDataProvider } from "./data-providers/WinFileOnGithubCommitHistoryDataProvider";
-
-interface IIndexCreatePageOptions {
-    locale: Locales;
-}
-
-interface IAppLocalization {
-    locale: Locales;
-    localization: AppLocalization;
-}
+import {IAppLocalizationGatsbyNode} from "../types/gatsby-node-types";
+import {ICreatePageSharedOptions} from "../types/ICreatePageSharedOptions";
 
 
 
@@ -62,12 +55,12 @@ const createEditeWinFileOnGithubLink = ( { versionMMP, innovationName }: ICreate
 
 
 
-export const createPages: GatsbyCreatePages<IIndexCreatePageOptions> = async ( helpers, options ) => {
+export const createPages: GatsbyCreatePages<ICreatePageSharedOptions> = async ( helpers, options ) => {
     let { actions: { createPage }, getNodesByType, graphql } = helpers;
-    let { locale } = options;
+    let { locale, lang } = options;
 
-    let [{ localization }] = getNodesByType<IAppLocalization>( CustomGatsbyNodeType.AppLocalization )
-        .filter( node => node.locale === locale );
+    let [{ localization }] = getNodesByType<IAppLocalizationGatsbyNode>( CustomGatsbyNodeType.AppLocalization )
+        .filter( node => node.lang === lang );
     let [{ toc: winToc }] = getNodesByType<IWhatIsNewTocGatsbyNode>( CustomGatsbyNodeType.WhatIsNewToc );
 
     let winTocTree: TreeNode<IWhatIsNewToc>[] = winToc.map( ( node, index ) => ( {

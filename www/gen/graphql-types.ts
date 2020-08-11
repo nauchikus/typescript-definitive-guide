@@ -50,7 +50,7 @@ export type AppLocalization = Node & {
   children: Array<Node>;
   internal: Internal;
   localization?: Maybe<AppLocalizationLocalization>;
-  locale?: Maybe<Scalars['String']>;
+  lang?: Maybe<Scalars['String']>;
 };
 
 export type AppLocalizationConnection = {
@@ -175,7 +175,7 @@ export type AppLocalizationFieldsEnum =
   | 'localization___appNavigation___path'
   | 'localization___appNavigation___name'
   | 'localization___notification___behaviorNotification___copyLink'
-  | 'locale';
+  | 'lang';
 
 export type AppLocalizationFilterInput = {
   id?: Maybe<StringQueryOperatorInput>;
@@ -183,7 +183,7 @@ export type AppLocalizationFilterInput = {
   children?: Maybe<NodeFilterListInput>;
   internal?: Maybe<InternalFilterInput>;
   localization?: Maybe<AppLocalizationLocalizationFilterInput>;
-  locale?: Maybe<StringQueryOperatorInput>;
+  lang?: Maybe<StringQueryOperatorInput>;
 };
 
 export type AppLocalizationGroupConnection = {
@@ -839,6 +839,7 @@ export type BookTocSource = Node & {
   internal: Internal;
   toc?: Maybe<Array<Maybe<BookTocSourceToc>>>;
   locale?: Maybe<Scalars['String']>;
+  lang?: Maybe<Scalars['String']>;
 };
 
 export type BookTocSourceConnection = {
@@ -959,7 +960,8 @@ export type BookTocSourceFieldsEnum =
   | 'toc___section'
   | 'toc___title'
   | 'toc___subtitles'
-  | 'locale';
+  | 'locale'
+  | 'lang';
 
 export type BookTocSourceFilterInput = {
   id?: Maybe<StringQueryOperatorInput>;
@@ -968,6 +970,7 @@ export type BookTocSourceFilterInput = {
   internal?: Maybe<InternalFilterInput>;
   toc?: Maybe<BookTocSourceTocFilterListInput>;
   locale?: Maybe<StringQueryOperatorInput>;
+  lang?: Maybe<StringQueryOperatorInput>;
 };
 
 export type BookTocSourceGroupConnection = {
@@ -6017,12 +6020,30 @@ export type GitHub_ExternalIdentityEdge = {
 
 /** SAML attributes for the External Identity */
 export type GitHub_ExternalIdentitySamlAttributes = {
+  /** The emails associated with the SAML identity */
+  emails?: Maybe<Array<GitHub_UserEmailMetadata>>;
+  /** Family name of the SAML identity */
+  familyName?: Maybe<Scalars['String']>;
+  /** Given name of the SAML identity */
+  givenName?: Maybe<Scalars['String']>;
+  /** The groups linked to this identity in IDP */
+  groups?: Maybe<Array<Scalars['String']>>;
   /** The NameID of the SAML identity */
   nameId?: Maybe<Scalars['String']>;
+  /** The userName of the SAML identity */
+  username?: Maybe<Scalars['String']>;
 };
 
 /** SCIM attributes for the External Identity */
 export type GitHub_ExternalIdentityScimAttributes = {
+  /** The emails associated with the SCIM identity */
+  emails?: Maybe<Array<GitHub_UserEmailMetadata>>;
+  /** Family name of the SCIM identity */
+  familyName?: Maybe<Scalars['String']>;
+  /** Given name of the SCIM identity */
+  givenName?: Maybe<Scalars['String']>;
+  /** The groups linked to this identity in IDP */
+  groups?: Maybe<Array<Scalars['String']>>;
   /** The userName of the SCIM identity */
   username?: Maybe<Scalars['String']>;
 };
@@ -18018,6 +18039,16 @@ export type GitHub_UserEdge = {
   node?: Maybe<GitHub_User>;
 };
 
+/** Email attributes from External Identity */
+export type GitHub_UserEmailMetadata = {
+  /** Boolean to identify primary emails */
+  primary?: Maybe<Scalars['Boolean']>;
+  /** Type of email */
+  type?: Maybe<Scalars['String']>;
+  /** Email id */
+  value: Scalars['String'];
+};
+
 /** The user's description of what they're currently doing. */
 export type GitHub_UserStatus = GitHub_Node & {
   /** Identifies the date and time when the object was created. */
@@ -19349,6 +19380,7 @@ export type QueryBookTocSourceArgs = {
   internal?: Maybe<InternalFilterInput>;
   toc?: Maybe<BookTocSourceTocFilterListInput>;
   locale?: Maybe<StringQueryOperatorInput>;
+  lang?: Maybe<StringQueryOperatorInput>;
 };
 
 
@@ -19366,7 +19398,7 @@ export type QueryAppLocalizationArgs = {
   children?: Maybe<NodeFilterListInput>;
   internal?: Maybe<InternalFilterInput>;
   localization?: Maybe<AppLocalizationLocalizationFilterInput>;
-  locale?: Maybe<StringQueryOperatorInput>;
+  lang?: Maybe<StringQueryOperatorInput>;
 };
 
 
@@ -19628,9 +19660,6 @@ export type SiteFieldsEnum =
   | 'siteMetadata___title'
   | 'siteMetadata___description'
   | 'siteMetadata___author'
-  | 'siteMetadata___nav'
-  | 'siteMetadata___nav___path'
-  | 'siteMetadata___nav___name'
   | 'port'
   | 'host'
   | 'polyfill'
@@ -19787,6 +19816,55 @@ export type SitePageContext = {
   localization?: Maybe<SitePageContextLocalization>;
   pageContentData?: Maybe<SitePageContextPageContentData>;
   pageNavDataAll?: Maybe<Array<Maybe<SitePageContextPageNavDataAll>>>;
+  bookTocTree?: Maybe<Array<Maybe<SitePageContextBookTocTree>>>;
+  innovationData?: Maybe<SitePageContextInnovationData>;
+  winTocTree?: Maybe<Array<Maybe<SitePageContextWinTocTree>>>;
+};
+
+export type SitePageContextBookTocTree = {
+  id?: Maybe<Scalars['String']>;
+  isCollapse?: Maybe<Scalars['Boolean']>;
+  index?: Maybe<Scalars['Int']>;
+  data?: Maybe<SitePageContextBookTocTreeData>;
+};
+
+export type SitePageContextBookTocTreeData = {
+  title?: Maybe<Scalars['String']>;
+  section?: Maybe<Scalars['String']>;
+  path?: Maybe<Scalars['String']>;
+  subtitles?: Maybe<Array<Maybe<SitePageContextBookTocTreeDataSubtitles>>>;
+};
+
+export type SitePageContextBookTocTreeDataFilterInput = {
+  title?: Maybe<StringQueryOperatorInput>;
+  section?: Maybe<StringQueryOperatorInput>;
+  path?: Maybe<StringQueryOperatorInput>;
+  subtitles?: Maybe<SitePageContextBookTocTreeDataSubtitlesFilterListInput>;
+};
+
+export type SitePageContextBookTocTreeDataSubtitles = {
+  subtitle?: Maybe<Scalars['String']>;
+  path?: Maybe<Scalars['String']>;
+};
+
+export type SitePageContextBookTocTreeDataSubtitlesFilterInput = {
+  subtitle?: Maybe<StringQueryOperatorInput>;
+  path?: Maybe<StringQueryOperatorInput>;
+};
+
+export type SitePageContextBookTocTreeDataSubtitlesFilterListInput = {
+  elemMatch?: Maybe<SitePageContextBookTocTreeDataSubtitlesFilterInput>;
+};
+
+export type SitePageContextBookTocTreeFilterInput = {
+  id?: Maybe<StringQueryOperatorInput>;
+  isCollapse?: Maybe<BooleanQueryOperatorInput>;
+  index?: Maybe<IntQueryOperatorInput>;
+  data?: Maybe<SitePageContextBookTocTreeDataFilterInput>;
+};
+
+export type SitePageContextBookTocTreeFilterListInput = {
+  elemMatch?: Maybe<SitePageContextBookTocTreeFilterInput>;
 };
 
 export type SitePageContextFilterInput = {
@@ -19794,6 +19872,111 @@ export type SitePageContextFilterInput = {
   localization?: Maybe<SitePageContextLocalizationFilterInput>;
   pageContentData?: Maybe<SitePageContextPageContentDataFilterInput>;
   pageNavDataAll?: Maybe<SitePageContextPageNavDataAllFilterListInput>;
+  bookTocTree?: Maybe<SitePageContextBookTocTreeFilterListInput>;
+  innovationData?: Maybe<SitePageContextInnovationDataFilterInput>;
+  winTocTree?: Maybe<SitePageContextWinTocTreeFilterListInput>;
+};
+
+export type SitePageContextInnovationData = {
+  releaseHistory?: Maybe<Array<Maybe<SitePageContextInnovationDataReleaseHistory>>>;
+  lastVersionStatus?: Maybe<SitePageContextInnovationDataLastVersionStatus>;
+  mmp?: Maybe<Scalars['String']>;
+  innovations?: Maybe<Array<Maybe<SitePageContextInnovationDataInnovations>>>;
+};
+
+export type SitePageContextInnovationDataFilterInput = {
+  releaseHistory?: Maybe<SitePageContextInnovationDataReleaseHistoryFilterListInput>;
+  lastVersionStatus?: Maybe<SitePageContextInnovationDataLastVersionStatusFilterInput>;
+  mmp?: Maybe<StringQueryOperatorInput>;
+  innovations?: Maybe<SitePageContextInnovationDataInnovationsFilterListInput>;
+};
+
+export type SitePageContextInnovationDataInnovations = {
+  id?: Maybe<Scalars['String']>;
+  version?: Maybe<Scalars['String']>;
+  innovationName?: Maybe<Scalars['String']>;
+  dateRelease?: Maybe<Scalars['String']>;
+  datePublication?: Maybe<Scalars['String']>;
+  tags?: Maybe<Array<Maybe<Scalars['String']>>>;
+  path?: Maybe<Scalars['String']>;
+  html?: Maybe<Scalars['String']>;
+  commitInfoAll?: Maybe<Array<Maybe<SitePageContextInnovationDataInnovationsCommitInfoAll>>>;
+  fileOnGithubLink?: Maybe<Scalars['String']>;
+};
+
+export type SitePageContextInnovationDataInnovationsCommitInfoAll = {
+  committedDate?: Maybe<Scalars['Date']>;
+  message?: Maybe<Scalars['String']>;
+  messageHeadline?: Maybe<Scalars['String']>;
+  pushedDate?: Maybe<Scalars['Date']>;
+  authoredByCommitter?: Maybe<Scalars['Boolean']>;
+  committer?: Maybe<SitePageContextInnovationDataInnovationsCommitInfoAllCommitter>;
+};
+
+export type SitePageContextInnovationDataInnovationsCommitInfoAllCommitter = {
+  name?: Maybe<Scalars['String']>;
+  bio?: Maybe<Scalars['String']>;
+  avatarUrl?: Maybe<Scalars['String']>;
+};
+
+export type SitePageContextInnovationDataInnovationsCommitInfoAllCommitterFilterInput = {
+  name?: Maybe<StringQueryOperatorInput>;
+  bio?: Maybe<StringQueryOperatorInput>;
+  avatarUrl?: Maybe<StringQueryOperatorInput>;
+};
+
+export type SitePageContextInnovationDataInnovationsCommitInfoAllFilterInput = {
+  committedDate?: Maybe<DateQueryOperatorInput>;
+  message?: Maybe<StringQueryOperatorInput>;
+  messageHeadline?: Maybe<StringQueryOperatorInput>;
+  pushedDate?: Maybe<DateQueryOperatorInput>;
+  authoredByCommitter?: Maybe<BooleanQueryOperatorInput>;
+  committer?: Maybe<SitePageContextInnovationDataInnovationsCommitInfoAllCommitterFilterInput>;
+};
+
+export type SitePageContextInnovationDataInnovationsCommitInfoAllFilterListInput = {
+  elemMatch?: Maybe<SitePageContextInnovationDataInnovationsCommitInfoAllFilterInput>;
+};
+
+export type SitePageContextInnovationDataInnovationsFilterInput = {
+  id?: Maybe<StringQueryOperatorInput>;
+  version?: Maybe<StringQueryOperatorInput>;
+  innovationName?: Maybe<StringQueryOperatorInput>;
+  dateRelease?: Maybe<StringQueryOperatorInput>;
+  datePublication?: Maybe<StringQueryOperatorInput>;
+  tags?: Maybe<StringQueryOperatorInput>;
+  path?: Maybe<StringQueryOperatorInput>;
+  html?: Maybe<StringQueryOperatorInput>;
+  commitInfoAll?: Maybe<SitePageContextInnovationDataInnovationsCommitInfoAllFilterListInput>;
+  fileOnGithubLink?: Maybe<StringQueryOperatorInput>;
+};
+
+export type SitePageContextInnovationDataInnovationsFilterListInput = {
+  elemMatch?: Maybe<SitePageContextInnovationDataInnovationsFilterInput>;
+};
+
+export type SitePageContextInnovationDataLastVersionStatus = {
+  version?: Maybe<Scalars['String']>;
+  date?: Maybe<Scalars['String']>;
+};
+
+export type SitePageContextInnovationDataLastVersionStatusFilterInput = {
+  version?: Maybe<StringQueryOperatorInput>;
+  date?: Maybe<StringQueryOperatorInput>;
+};
+
+export type SitePageContextInnovationDataReleaseHistory = {
+  version?: Maybe<Scalars['String']>;
+  dateRelease?: Maybe<Scalars['String']>;
+};
+
+export type SitePageContextInnovationDataReleaseHistoryFilterInput = {
+  version?: Maybe<StringQueryOperatorInput>;
+  dateRelease?: Maybe<StringQueryOperatorInput>;
+};
+
+export type SitePageContextInnovationDataReleaseHistoryFilterListInput = {
+  elemMatch?: Maybe<SitePageContextInnovationDataReleaseHistoryFilterInput>;
 };
 
 export type SitePageContextLocalization = {
@@ -20515,15 +20698,105 @@ export type SitePageContextPageNavDataAllFilterListInput = {
 export type SitePageContextPageNavDataAllSections = {
   name?: Maybe<Scalars['String']>;
   path?: Maybe<Scalars['String']>;
+  data?: Maybe<SitePageContextPageNavDataAllSectionsData>;
+};
+
+export type SitePageContextPageNavDataAllSectionsData = {
+  version?: Maybe<Scalars['String']>;
+};
+
+export type SitePageContextPageNavDataAllSectionsDataFilterInput = {
+  version?: Maybe<StringQueryOperatorInput>;
 };
 
 export type SitePageContextPageNavDataAllSectionsFilterInput = {
   name?: Maybe<StringQueryOperatorInput>;
   path?: Maybe<StringQueryOperatorInput>;
+  data?: Maybe<SitePageContextPageNavDataAllSectionsDataFilterInput>;
 };
 
 export type SitePageContextPageNavDataAllSectionsFilterListInput = {
   elemMatch?: Maybe<SitePageContextPageNavDataAllSectionsFilterInput>;
+};
+
+export type SitePageContextWinTocTree = {
+  id?: Maybe<Scalars['String']>;
+  isCollapse?: Maybe<Scalars['Boolean']>;
+  index?: Maybe<Scalars['Int']>;
+  data?: Maybe<SitePageContextWinTocTreeData>;
+};
+
+export type SitePageContextWinTocTreeData = {
+  releaseHistory?: Maybe<Array<Maybe<SitePageContextWinTocTreeDataReleaseHistory>>>;
+  lastVersionStatus?: Maybe<SitePageContextWinTocTreeDataLastVersionStatus>;
+  mmp?: Maybe<Scalars['String']>;
+  innovations?: Maybe<Array<Maybe<SitePageContextWinTocTreeDataInnovations>>>;
+};
+
+export type SitePageContextWinTocTreeDataFilterInput = {
+  releaseHistory?: Maybe<SitePageContextWinTocTreeDataReleaseHistoryFilterListInput>;
+  lastVersionStatus?: Maybe<SitePageContextWinTocTreeDataLastVersionStatusFilterInput>;
+  mmp?: Maybe<StringQueryOperatorInput>;
+  innovations?: Maybe<SitePageContextWinTocTreeDataInnovationsFilterListInput>;
+};
+
+export type SitePageContextWinTocTreeDataInnovations = {
+  id?: Maybe<Scalars['String']>;
+  version?: Maybe<Scalars['String']>;
+  innovationName?: Maybe<Scalars['String']>;
+  dateRelease?: Maybe<Scalars['String']>;
+  datePublication?: Maybe<Scalars['String']>;
+  tags?: Maybe<Array<Maybe<Scalars['String']>>>;
+  path?: Maybe<Scalars['String']>;
+};
+
+export type SitePageContextWinTocTreeDataInnovationsFilterInput = {
+  id?: Maybe<StringQueryOperatorInput>;
+  version?: Maybe<StringQueryOperatorInput>;
+  innovationName?: Maybe<StringQueryOperatorInput>;
+  dateRelease?: Maybe<StringQueryOperatorInput>;
+  datePublication?: Maybe<StringQueryOperatorInput>;
+  tags?: Maybe<StringQueryOperatorInput>;
+  path?: Maybe<StringQueryOperatorInput>;
+};
+
+export type SitePageContextWinTocTreeDataInnovationsFilterListInput = {
+  elemMatch?: Maybe<SitePageContextWinTocTreeDataInnovationsFilterInput>;
+};
+
+export type SitePageContextWinTocTreeDataLastVersionStatus = {
+  version?: Maybe<Scalars['String']>;
+  date?: Maybe<Scalars['String']>;
+};
+
+export type SitePageContextWinTocTreeDataLastVersionStatusFilterInput = {
+  version?: Maybe<StringQueryOperatorInput>;
+  date?: Maybe<StringQueryOperatorInput>;
+};
+
+export type SitePageContextWinTocTreeDataReleaseHistory = {
+  version?: Maybe<Scalars['String']>;
+  dateRelease?: Maybe<Scalars['String']>;
+};
+
+export type SitePageContextWinTocTreeDataReleaseHistoryFilterInput = {
+  version?: Maybe<StringQueryOperatorInput>;
+  dateRelease?: Maybe<StringQueryOperatorInput>;
+};
+
+export type SitePageContextWinTocTreeDataReleaseHistoryFilterListInput = {
+  elemMatch?: Maybe<SitePageContextWinTocTreeDataReleaseHistoryFilterInput>;
+};
+
+export type SitePageContextWinTocTreeFilterInput = {
+  id?: Maybe<StringQueryOperatorInput>;
+  isCollapse?: Maybe<BooleanQueryOperatorInput>;
+  index?: Maybe<IntQueryOperatorInput>;
+  data?: Maybe<SitePageContextWinTocTreeDataFilterInput>;
+};
+
+export type SitePageContextWinTocTreeFilterListInput = {
+  elemMatch?: Maybe<SitePageContextWinTocTreeFilterInput>;
 };
 
 export type SitePageEdge = {
@@ -20653,6 +20926,38 @@ export type SitePageFieldsEnum =
   | 'context___pageNavDataAll___sections'
   | 'context___pageNavDataAll___sections___name'
   | 'context___pageNavDataAll___sections___path'
+  | 'context___bookTocTree'
+  | 'context___bookTocTree___id'
+  | 'context___bookTocTree___isCollapse'
+  | 'context___bookTocTree___index'
+  | 'context___bookTocTree___data___title'
+  | 'context___bookTocTree___data___section'
+  | 'context___bookTocTree___data___path'
+  | 'context___bookTocTree___data___subtitles'
+  | 'context___innovationData___releaseHistory'
+  | 'context___innovationData___releaseHistory___version'
+  | 'context___innovationData___releaseHistory___dateRelease'
+  | 'context___innovationData___lastVersionStatus___version'
+  | 'context___innovationData___lastVersionStatus___date'
+  | 'context___innovationData___mmp'
+  | 'context___innovationData___innovations'
+  | 'context___innovationData___innovations___id'
+  | 'context___innovationData___innovations___version'
+  | 'context___innovationData___innovations___innovationName'
+  | 'context___innovationData___innovations___dateRelease'
+  | 'context___innovationData___innovations___datePublication'
+  | 'context___innovationData___innovations___tags'
+  | 'context___innovationData___innovations___path'
+  | 'context___innovationData___innovations___html'
+  | 'context___innovationData___innovations___commitInfoAll'
+  | 'context___innovationData___innovations___fileOnGithubLink'
+  | 'context___winTocTree'
+  | 'context___winTocTree___id'
+  | 'context___winTocTree___isCollapse'
+  | 'context___winTocTree___index'
+  | 'context___winTocTree___data___releaseHistory'
+  | 'context___winTocTree___data___mmp'
+  | 'context___winTocTree___data___innovations'
   | 'pluginCreator___id'
   | 'pluginCreator___parent___id'
   | 'pluginCreator___parent___parent___id'
@@ -20729,6 +21034,7 @@ export type SitePageFieldsEnum =
   | 'pluginCreator___pluginOptions___showLineNumbers'
   | 'pluginCreator___pluginOptions___noInlineHighlight'
   | 'pluginCreator___pluginOptions___locale'
+  | 'pluginCreator___pluginOptions___lang'
   | 'pluginCreator___pluginOptions___nodeId'
   | 'pluginCreator___pluginOptions___nodeType'
   | 'pluginCreator___pluginOptions___contentId'
@@ -20929,6 +21235,7 @@ export type SitePluginFieldsEnum =
   | 'pluginOptions___plugins___pluginOptions___showLineNumbers'
   | 'pluginOptions___plugins___pluginOptions___noInlineHighlight'
   | 'pluginOptions___plugins___pluginOptions___locale'
+  | 'pluginOptions___plugins___pluginOptions___lang'
   | 'pluginOptions___plugins___browserAPIs'
   | 'pluginOptions___plugins___pluginFilepath'
   | 'pluginOptions___fileName'
@@ -20959,6 +21266,7 @@ export type SitePluginFieldsEnum =
   | 'pluginOptions___showLineNumbers'
   | 'pluginOptions___noInlineHighlight'
   | 'pluginOptions___locale'
+  | 'pluginOptions___lang'
   | 'pluginOptions___nodeId'
   | 'pluginOptions___nodeType'
   | 'pluginOptions___contentId'
@@ -21104,6 +21412,7 @@ export type SitePluginPluginOptions = {
   showLineNumbers?: Maybe<Scalars['Boolean']>;
   noInlineHighlight?: Maybe<Scalars['Boolean']>;
   locale?: Maybe<Scalars['String']>;
+  lang?: Maybe<Scalars['String']>;
   nodeId?: Maybe<Scalars['String']>;
   nodeType?: Maybe<Scalars['String']>;
   contentId?: Maybe<Scalars['String']>;
@@ -21140,6 +21449,7 @@ export type SitePluginPluginOptionsFilterInput = {
   showLineNumbers?: Maybe<BooleanQueryOperatorInput>;
   noInlineHighlight?: Maybe<BooleanQueryOperatorInput>;
   locale?: Maybe<StringQueryOperatorInput>;
+  lang?: Maybe<StringQueryOperatorInput>;
   nodeId?: Maybe<StringQueryOperatorInput>;
   nodeType?: Maybe<StringQueryOperatorInput>;
   contentId?: Maybe<StringQueryOperatorInput>;
@@ -21184,6 +21494,7 @@ export type SitePluginPluginOptionsPluginsPluginOptions = {
   showLineNumbers?: Maybe<Scalars['Boolean']>;
   noInlineHighlight?: Maybe<Scalars['Boolean']>;
   locale?: Maybe<Scalars['String']>;
+  lang?: Maybe<Scalars['String']>;
 };
 
 export type SitePluginPluginOptionsPluginsPluginOptionsFilterInput = {
@@ -21192,6 +21503,7 @@ export type SitePluginPluginOptionsPluginsPluginOptionsFilterInput = {
   showLineNumbers?: Maybe<BooleanQueryOperatorInput>;
   noInlineHighlight?: Maybe<BooleanQueryOperatorInput>;
   locale?: Maybe<StringQueryOperatorInput>;
+  lang?: Maybe<StringQueryOperatorInput>;
 };
 
 export type SitePluginSortInput = {
@@ -21204,7 +21516,6 @@ export type SiteSiteMetadata = {
   title?: Maybe<Scalars['String']>;
   description?: Maybe<Scalars['String']>;
   author?: Maybe<Scalars['String']>;
-  nav?: Maybe<Array<Maybe<SiteSiteMetadataNav>>>;
 };
 
 export type SiteSiteMetadataFilterInput = {
@@ -21212,21 +21523,6 @@ export type SiteSiteMetadataFilterInput = {
   title?: Maybe<StringQueryOperatorInput>;
   description?: Maybe<StringQueryOperatorInput>;
   author?: Maybe<StringQueryOperatorInput>;
-  nav?: Maybe<SiteSiteMetadataNavFilterListInput>;
-};
-
-export type SiteSiteMetadataNav = {
-  path?: Maybe<Scalars['String']>;
-  name?: Maybe<Scalars['String']>;
-};
-
-export type SiteSiteMetadataNavFilterInput = {
-  path?: Maybe<StringQueryOperatorInput>;
-  name?: Maybe<StringQueryOperatorInput>;
-};
-
-export type SiteSiteMetadataNavFilterListInput = {
-  elemMatch?: Maybe<SiteSiteMetadataNavFilterInput>;
 };
 
 export type SiteSiteMetadataRepository = {
