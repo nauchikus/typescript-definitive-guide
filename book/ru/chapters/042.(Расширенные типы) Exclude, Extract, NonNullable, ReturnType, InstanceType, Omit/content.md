@@ -1,212 +1,240 @@
 # Exclude, Extract, NonNullable, ReturnType, InstanceType, Omit
+
 ![Chapter Cover](./images/chapter-cover.png)
+
 ## Расширенные типы - Exclude, Extract, NonNullable, ReturnType, InstanceType, Omit
 
-
-Чтобы сэкономить время разработчиков, в систему типов *TypeScript* были включены несколько часто требующихся условных типов, которые подробно будут рассмотрены в этой главе.
-
+Чтобы сэкономить время разработчиков, в систему типов _TypeScript_ были включены несколько часто требующихся условных типов, которые подробно будут рассмотрены в этой главе.
 
 ## Exclude
 
+В результате разрешения условный тип `Exclude<T, U>`, будет представлять разницу типа `T` относительно типа `U`.
 
-В результате разрешения условный тип `Exclude<T, U>`, будет представлять разницу типа `T` относительно типа `U`. 
-
-~~~~~typescript
+```typescript
 type Exclude<T, U> = T extends U ? never : T;
-~~~~~
+```
 
 В случае, если оба аргумента типа принадлежат к одному и тому же типу данных, `Exclude<T, U>` будет представлять тип `never`.
 
-~~~~~typescript
-let v0 :Exclude< number|string, boolean|object >; // let v0: string|number
-let v1 :Exclude< number|string, number|string >; // let v1: never
-let v2 :Exclude< number|string, number|boolean >; // let v2: string
+```typescript
+let v0: Exclude<number | string, boolean | object>; // let v0: string|number
+let v1: Exclude<number | string, number | string>; // let v1: never
+let v2: Exclude<number | string, number | boolean>; // let v2: string
 
-interface IT0 { a: number; b: string; }
-interface IT1 { a: number; c: boolean; }
+interface IT0 {
+    a: number;
+    b: string;
+}
+interface IT1 {
+    a: number;
+    c: boolean;
+}
 
-let v3 :Exclude< keyof IT0, keyof IT1 >; // let v3: "b"
-~~~~~
+let v3: Exclude<keyof IT0, keyof IT1>; // let v3: "b"
+```
 
-Его реальную пользу лучше всего продемонстрировать на реализации функции, которая на входе получает два разных объекта, а на выходе возвращает новый объект, состоящий из членов, присутствующих в первом объекте, но отсутствующих во втором. Аналог функции `difference` из всеми известной в мире *frontend* библиотеки *lodash*.
+Его реальную пользу лучше всего продемонстрировать на реализации функции, которая на входе получает два разных объекта, а на выходе возвращает новый объект, состоящий из членов, присутствующих в первом объекте, но отсутствующих во втором. Аналог функции `difference` из всеми известной в мире _frontend_ библиотеки _lodash_.
 
-~~~~~typescript
-interface IA { a: number; b: string; }
-interface IB { a: number; c: boolean; }
+```typescript
+interface IA {
+    a: number;
+    b: string;
+}
+interface IB {
+    a: number;
+    c: boolean;
+}
 
-interface IDifference { b: string; }
+interface IDifference {
+    b: string;
+}
 
 function difference<T, U>(a: T, b: U): Pick<T, Exclude<keyof T, keyof U>> {
-  // ... code
+    // ... code
 }
 
 let a: IA = { a: 5, b: '' };
 let b: IB = { a: 10, c: true };
 
-
-let v0: IDifference = difference( a, b ); // Ok
-let v1: IA = difference( a, b ); // Error
-let v2: IB = difference( a, b ); // Error
-~~~~~
-
+let v0: IDifference = difference(a, b); // Ok
+let v1: IA = difference(a, b); // Error
+let v2: IB = difference(a, b); // Error
+```
 
 ## Extract
 
-
-
 В результате разрешения, условный тип `Extract<T, U>`,будет представлять пересечения типа `T` относительно типа `U`.
 
-~~~~~typescript
+```typescript
 type Extract<T, U> = T extends U ? T : never;
-~~~~~
+```
 
 Простыми словами, после разрешения `Extract<T, U>` будет принадлежать к типу, признаки которого присущи обоим аргументам типа. То есть, тип `Extract<T, U>` является противоположностью типа `Exclude<T, U>`. В случае, когда общие признаки отсутствуют, тип `Extract<T, U>` будет представлять тип `never`.
 
-~~~~~typescript
-let v0 :Extract< number|string, boolean|object >; // let v0: never
-let v1 :Extract< number|string, number|string >; // let v1: string | number
-let v2 :Extract< number|string, number|boolean >; // let v2: number
+```typescript
+let v0: Extract<number | string, boolean | object>; // let v0: never
+let v1: Extract<number | string, number | string>; // let v1: string | number
+let v2: Extract<number | string, number | boolean>; // let v2: number
 
-interface IT0 { a: number; b: string; }
-interface IT1 { a: number; c: boolean; }
+interface IT0 {
+    a: number;
+    b: string;
+}
+interface IT1 {
+    a: number;
+    c: boolean;
+}
 
-let v3 :Extract< keyof IT0, keyof IT1 >; // let v3: "a"
-~~~~~
+let v3: Extract<keyof IT0, keyof IT1>; // let v3: "a"
+```
 
 Условный тип `Extract<T, U>` стоит рассмотреть на примере реализации функции, на входе которая принимает два разных объекта, а на выходе возвращает новый объект, состоящий из членов первого объекта, которые также присутствуют и во втором объекте.
 
-~~~~~typescript
-interface IA { a: number; b: string; }
-interface IB { a: number; c: boolean; }
+```typescript
+interface IA {
+    a: number;
+    b: string;
+}
+interface IB {
+    a: number;
+    c: boolean;
+}
 
-interface IIntersection { a: number; }
+interface IIntersection {
+    a: number;
+}
 
 function intersection<T, U>(a: T, b: U): Pick<T, Extract<keyof T, keyof U>> {
-  // ... code
+    // ... code
 }
 
 let a: IA = { a: 5, b: '' };
 let b: IB = { a: 10, c: true };
 
-
-let v0: IIntersection = intersection( a, b ); // Ok
-let v1: IA = intersection( a, b ); // Error
-let v2: IB = intersection( a, b ); // Error
-~~~~~
-
+let v0: IIntersection = intersection(a, b); // Ok
+let v1: IA = intersection(a, b); // Error
+let v2: IB = intersection(a, b); // Error
+```
 
 ## NonNullable
 
-
-
 Условный тип `NonNullable<T>` служит для исключения из типа признаков типов `Null` и `Undefined`.
 
-~~~~~typescript
+```typescript
 type NonNullable<T> = T extends null | undefined ? never : T;
-~~~~~
+```
 
 В случае, когда тип, выступающий в роли единственного аргумента типа, принадлежит только к типам `Null` и\или `Undefined`, `NonNullable<T>` представляет тип `never`.
 
-~~~~~typescript
+```typescript
 let v0: NonNullable<string | undefined | null>; // let v0: string
 let v1: NonNullable<string | number | undefined | null>; // let v1: string|number
 let v2: NonNullable<undefined | null>; // let v2: never
-~~~~~
+```
 
 ## ReturnType
 
-
 Условный тип `ReturnType<T>` служит для установления возвращаемого из функции типа.
 
-~~~~~typescript
-type ReturnType<T extends (...args: any[]) => any> = T extends (...args: any[]) => infer R ? R : any;
-	
+```typescript
+type ReturnType<T extends (...args: any[]) => any> = T extends (
+    ...args: any[]
+) => infer R
+    ? R
+    : any;
 
-let v0: ReturnType< () => void >; // let v0: void
-let v1: ReturnType< () => number | string >; // let v1: string|number
-let v2: ReturnType< <T>() => T >; // let v2: {}
-let v3: ReturnType< <T extends U, U extends string[]>() => T >; // let v3: string[]
-let v4: ReturnType< any >; // let v4: any
-let v5: ReturnType< never >; // let v5: never
-let v6: ReturnType< Function >; // Error
-let v7: ReturnType< number >; // Error
-~~~~~
+let v0: ReturnType<() => void>; // let v0: void
+let v1: ReturnType<() => number | string>; // let v1: string|number
+let v2: ReturnType<<T>() => T>; // let v2: {}
+let v3: ReturnType<<T extends U, U extends string[]>() => T>; // let v3: string[]
+let v4: ReturnType<any>; // let v4: any
+let v5: ReturnType<never>; // let v5: never
+let v6: ReturnType<Function>; // Error
+let v7: ReturnType<number>; // Error
+```
 
 ## InstanceType
 
-
 Условный тип `InstanceType<T>` предназначен для установления тип экземпляра.
 
-~~~~~typescript
+```typescript
 class T {}
 
-interface IT { new(): T; }
+interface IT {
+    new (): T;
+}
 
-
-let v0: InstanceType< typeof T >; // let v0: T
-let v1: InstanceType< IT >; // let v1: never
-let v2: InstanceType< any >; // let v2: any
-let v3: InstanceType< never >; // let v3: never
-let v4: InstanceType< number >; // Error
-let v5: InstanceType< Function >; // Error
-~~~~~
+let v0: InstanceType<typeof T>; // let v0: T
+let v1: InstanceType<IT>; // let v1: never
+let v2: InstanceType<any>; // let v2: any
+let v3: InstanceType<never>; // let v3: never
+let v4: InstanceType<number>; // Error
+let v5: InstanceType<Function>; // Error
+```
 
 ## Parameters
 
-
 Расширенный тип `Parameters<T>` предназначен для получения типов указанных в аннотации параметров функции.
 
-`````typescript
-type Parameters<T extends (...args: any[]) => any> = T extends (...args: infer P) => any ? P : never;
-`````
+```typescript
+type Parameters<T extends (...args: any[]) => any> = T extends (
+    ...args: infer P
+) => any
+    ? P
+    : never;
+```
 
 `Parameters<T>` возвращает типы параметров в виде кортежа.
 
-`````typescript
-const f = <T>(p0:T, p1: number, p2: string, p3?: boolean, p4: object = {}) => ({}); 
+```typescript
+const f = <T>(
+    p0: T,
+    p1: number,
+    p2: string,
+    p3?: boolean,
+    p4: object = {}
+) => ({});
 
 type FunctionParams = Parameters<typeof f>; // type FunctionParams = [{}, number, string, boolean?, object?]
-`````
-
+```
 
 ## ConstructorParameters
 
-
-
 Расширенный тип `ConstructorParameters<T>` предназначен для получения типов указанных в аннотации параметров конструктора.
 
-`````typescript
-type ConstructorParameters<T extends new (...args: any[]) => any> = T extends new (...args: infer P) => any ? P : never;
-`````
+```typescript
+type ConstructorParameters<
+    T extends new (...args: any[]) => any
+> = T extends new (...args: infer P) => any ? P : never;
+```
 
 `ConstructorParameters<T>` возвращает типы параметров в виде кортежа.
 
-`````typescript
+```typescript
 class Class<T> {
-    constructor(p0:T, p1: number, p2: string, p3?: boolean, p4: object = {}){}
+    constructor(p0: T, p1: number, p2: string, p3?: boolean, p4: object = {}) {}
 }
 
 type ClassParams = ConstructorParameters<typeof Class>; // type ClassParams = [{}, number, string, boolean?, object?]
-`````
+```
 
 ## Тип Omit
 
-
 Расширенный тип `Omit<T, K>`предназначен для определения на основе существующего нового суженного типа.
 
-`````typescript
+```typescript
 // lib.d.ts
 
-type Omit<T, K extends string | number | symbol> = { 
+type Omit<T, K extends string | number | symbol> = {
     [P in Exclude<keyof T, K>]: T[P];
-}
-`````
+};
+```
 
 В качестве первого аргумента типа, тип `Omit<T, K>` ожидает тип данных, из которого будут исключены признаки связанные с ключами переданных в качестве втрого аргумента типа.
 
 Простыми словами, к помощи `Omit<T, K>` следует прибегать в тех случаях, когда появляется потребность в определении типа представляющего некоторую часть уже определенного в системе типов типа.
 
-`````typescript
+```typescript
 type Person = {
     firstName: string;
     lastName: string;
@@ -216,12 +244,11 @@ type Person = {
 
 /**
  * Тип PersonName представляет только часть типа Person
- * 
+ *
  * type PersonName = {
  *  firstName: string;
  *  lastName: string;
  * }
  */
 type PersonName = Omit<Person, 'age'>; // исключение признаков связанных с полем age из типа Person
-
-`````
+```

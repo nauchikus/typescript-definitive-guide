@@ -2,7 +2,7 @@
 
 Начиная с `v3.6` был реализован механизм позволяющий сливать воедино одноименные классы и функции находящиеся в одном окружающем контексте.
 
-~~~~~typescript
+```typescript
 declare class Point {
     x: number;
     y: number;
@@ -11,6 +11,6 @@ declare class Point {
 }
 
 declare function Point(x: number, y: number): Point;
-~~~~~
+```
 
 Начиная с `v3.7` компилятор будет прибегать к данной возможности при генерации `.d.ts` файлов из `JavaScript` кода.

@@ -21,7 +21,7 @@ function critical(message: string): never {
  * из-за непонимания этого вывод типов считает
  * что для функции validate забыли указать
  * возвращаемое значение.
- * 
+ *
  * (!) [ошибка в аннотации возвращаемого типа]
  * Function lacks ending return statement and
  * return type does not include 'undefined'.

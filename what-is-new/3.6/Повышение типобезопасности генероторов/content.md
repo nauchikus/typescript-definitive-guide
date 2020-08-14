@@ -2,11 +2,11 @@
 
 До текущей версии такие конструкции как генераторы (`generators`) имели недоработки косающиеся определения типа данных возвращаемых, как из, так и во внутрь генератора, значений.
 
-~~~~~typescript
-// пример со значением возвращающимся из генератора 
+```typescript
+// пример со значением возвращающимся из генератора
 
 // function generator(): IterableIterator<"Done" | 100>
-function* generator() { 
+function* generator() {
     yield 100;
 
     return `Done`;
@@ -20,21 +20,21 @@ let result = iterator.next(); // let result: IteratorResult<"Done" | 100>
  * значение result.value может принадлежать исключительно
  * к типу string ...
  */
-if ( result.done ) {
+if (result.done) {
     /**
      * ... тем не менее, вывод типов определеяет его
      * как тип объединение (Union) string | number
      */
     let value = result.value; // let value: string | number
 }
-~~~~~
+```
 
-~~~~~typescript
+```typescript
 // пример со значением возвращаемым в генератор
 
 type Greeter = {
-    greet():void;
-}
+    greet(): void;
+};
 
 // function generator(): IterableIterator<undefined>
 function* generator() {
@@ -42,7 +42,7 @@ function* generator() {
      * В строке - let greeter: Greeter = yield;
      * предполагается, что возвращенное извнешнего кода
      * значение будетпринадлежать к типу Greeter...
-     * 
+     *
      */
     let greeter: Greeter = yield;
     greeter.greet();
@@ -57,18 +57,18 @@ iterator.next();
  * в то время как ожидается тип Greeter.
  */
 iterator.next(123); // Error, runtime error
-~~~~~
+```
 
-Начиная с версии *TypeScript* `3.6` описанные выше недостатки были устранены.
+Начиная с версии _TypeScript_ `3.6` описанные выше недостатки были устранены.
 
-~~~~~typescript
-// пример со значением возвращающимся из генератора 
+```typescript
+// пример со значением возвращающимся из генератора
 
 /**
  *  <v3.6: function generator(): IterableIterator<"Done" | 100>
  * >=v3.6: function generator(): Generator<number, string, unknown>
  */
-function* generator() { 
+function* generator() {
     yield 100;
 
     return `Done`;
@@ -86,21 +86,21 @@ let iterator = generator();
  */
 let result = iterator.next();
 
-if ( result.done ) {
+if (result.done) {
     /**
      *  <v3.6: let value: string | number
      * >=v3.6: let value: string
      */
     let value = result.value;
 }
-~~~~~
+```
 
-~~~~~typescript
+```typescript
 // пример со значением возвращаемым в генератор
 
 type Greeter = {
-    greet():void;
-}
+    greet(): void;
+};
 
 /**
  *  <v3.6: function generator(): IterableIterator<undefined>
@@ -118,67 +118,83 @@ function* generator() {
 let iterator = generator();
 iterator.next();
 iterator.next(123); // Error! Argument of type '[123]' is not assignable to parameter of type '[] | [Greeter]'.
-~~~~~
+```
 
-Подобноестало возможно благодаря добавлению шести новых типов перечисленных ниже, которые вы также можете использовать при работе с генераторами. 
+Подобноестало возможно благодаря добавлению шести новых типов перечисленных ниже, которые вы также можете использовать при работе с генераторами.
 
-`````typescript
-interface Iterator<T, TReturn = any, TNext = undefined> {/** ... */}
-type IteratorResult<T, TReturn = any> = IteratorYieldResult<T> | IteratorReturnResult<TReturn>;
-interface IteratorReturnResult<TReturn> {/** ... */}
-interface IteratorYieldResult<TYield> {/** ... */}
+```typescript
+interface Iterator<T, TReturn = any, TNext = undefined> {
+    /** ... */
+}
+type IteratorResult<T, TReturn = any> =
+    | IteratorYieldResult<T>
+    | IteratorReturnResult<TReturn>;
+interface IteratorReturnResult<TReturn> {
+    /** ... */
+}
+interface IteratorYieldResult<TYield> {
+    /** ... */
+}
 
-interface Generator<T = unknown, TReturn = any, TNext = unknown> extends Iterator<T, TReturn, TNext> {/** ... */}
-interface GeneratorFunction {/** ... */}
-interface GeneratorFunctionConstructor {/** ... */}
-`````
+interface Generator<T = unknown, TReturn = any, TNext = unknown>
+    extends Iterator<T, TReturn, TNext> {
+    /** ... */
+}
+interface GeneratorFunction {
+    /** ... */
+}
+interface GeneratorFunctionConstructor {
+    /** ... */
+}
+```
 
 И напоследок будет не лишним ещё раз взглянуть на очень простой и информативный пример более эффективной работы с генераторами.
 
-~~~~~typescript
+```typescript
 /**
- * Generator<number, string, boolean> 
+ * Generator<number, string, boolean>
  * или по другому
  * Generator<
  *  возвращаемое с помощью оператора yield  значение,
  *  возвращаемое с помощью оператора return значение,
  *  передаваемое в метод next, то есть возвращаемое в генератор, значение
- * > 
+ * >
  */
 function* counter(): Generator<number, string, boolean> {
     let i = 0;
-    
+
     while (true) {
         if (yield i++) {
             console.log(
                 `[if]  Block if in counter generator.
                        Variable value "i": ${i}`
             );
-            
+
             break;
         }
     }
 
-    return "Done";
+    return 'Done';
 }
-
-
 
 let iterator = counter();
 let result = iterator.next();
 
-
-while ( !result.done ) {
+while (!result.done) {
     let returnedFromGeneratorValue = result.value;
     let passedToGeneratorValue = returnedFromGeneratorValue === 3;
-    
-    console.log( `[out] Returned from generator value: ${ returnedFromGeneratorValue }` );
-    console.log( `[in]  Passed to generator  value: ${ passedToGeneratorValue }` );
-    
+
+    console.log(
+        `[out] Returned from generator value: ${returnedFromGeneratorValue}`
+    );
+    console.log(`[in]  Passed to generator  value: ${passedToGeneratorValue}`);
+
     result = iterator.next(passedToGeneratorValue);
 }
 
-console.log(`[end] Return from generator resultant value: ${result.value.toUpperCase()}` );
+console.log(
+    `[end] Return from generator resultant value: ${result.value.toUpperCase()}`
+);
 
 /**
  * "[out] Returned from generator value: 0"
@@ -191,4 +207,4 @@ console.log(`[end] Return from generator resultant value: ${result.value.toUpper
           Variable value "i": 3"
  * "[end] Return from generator resultant value: DONE"
  */
-~~~~~
+```

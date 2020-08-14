@@ -11,13 +11,7 @@ type T = T; // Бесконечная рекурсия
 ```ts
 // TypeScript < v3.7
 
-type Json =
-    | string
-    | number
-    | boolean
-    | null
-    | JsonObject
-    | JsonArray;
+type Json = string | number | boolean | null | JsonObject | JsonArray;
 
 interface JsonObject {
     [property: string]: Json;

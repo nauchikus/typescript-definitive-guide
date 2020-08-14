@@ -1,64 +1,53 @@
 # Пространства имен (namespace) и модули (module)
+
 ![Chapter Cover](./images/chapter-cover.png)
+
 ## namespace и module - предназначение
 
-
-Начать рассмотрение такой темы, как пространства имен и модули, стоит с уточнение области применения обсуждаемых механизмов *TypeScript*. Механизмы, речь о которых пойдет далее, не предназначены для масштабных приложений, которые должны строится при помощи модулей и загружаться с применением модульных загрузчиков. Такие механизмы, как пространство имен и модули, в настоящее время, можно использовать при написании небольших скриптов, внедряемых непосредственно в *html* страницу при помощи тега `<script></script>`, либо в приложениях, которые по различным причинам, не могут использовать модульную систему.
-
+Начать рассмотрение такой темы, как пространства имен и модули, стоит с уточнение области применения обсуждаемых механизмов _TypeScript_. Механизмы, речь о которых пойдет далее, не предназначены для масштабных приложений, которые должны строится при помощи модулей и загружаться с применением модульных загрузчиков. Такие механизмы, как пространство имен и модули, в настоящее время, можно использовать при написании небольших скриптов, внедряемых непосредственно в _html_ страницу при помощи тега `<script></script>`, либо в приложениях, которые по различным причинам, не могут использовать модульную систему.
 
 ## namespace - определение
 
+Пространство имен это конструкция, которая объявляется при помощи ключевого слова namespace и которая представляется в коде обычным _JavaScript_ объектом.
 
-Пространство имен это конструкция, которая объявляется при помощи ключевого слова namespace и которая представляется в коде обычным *JavaScript* объектом. 
+```typescript
+namespace Identifier {}
+```
 
-~~~~~typescript
-namespace Identifier {
-
-}
-~~~~~
-
-Механизм пространства имен является решением такой проблемы, как коллизии в глобальном пространстве имен, дошедшего до наших дней из тех времён, когда ещё в спецификации *JavaScript* не было определено такое понятие, как модули. Простыми словами пространства имен, это совокупность обычной глобальной переменной и безымянного функционального выражения.
+Механизм пространства имен является решением такой проблемы, как коллизии в глобальном пространстве имен, дошедшего до наших дней из тех времён, когда ещё в спецификации _JavaScript_ не было определено такое понятие, как модули. Простыми словами пространства имен, это совокупность обычной глобальной переменной и безымянного функционального выражения.
 
 Конструкции объявленные внутри пространства имен, инкапсулируются в безымянном функциональном выражении. Те части, которые должны быть видны снаружи, записываются в объект, ссылка на который была сохранена в глобальную переменную, которая при вызове была передана в качестве аргумента. Что записывать в глобальный объект, а что нет, компилятору указывают при помощи ключевого слова `export`, о котором речь пойдет совсем скоро.
 
+_До компиляции_
 
-*До компиляции*
-
-~~~~~typescript
+```typescript
 namespace NamespaceIdentifier {
-  class PrivateClassIdentifier {}
-  export class PublicClassIdentifier{}
+    class PrivateClassIdentifier {}
+    export class PublicClassIdentifier {}
 }
-~~~~~
+```
 
-*После компиляции*
+_После компиляции_
 
-~~~~~typescript
+```typescript
 var NamespaceIdentifier;
 
 (function (NamespaceIdentifier) {
+    class PrivateClassIdentifier {}
+    class PublicClassIdentifier {}
 
-  class PrivateClassIdentifier {
-  }
-  class PublicClassIdentifier {
-  }
-
-  NamespaceIdentifier.PublicClassIdentifier = PublicClassIdentifier;
-
+    NamespaceIdentifier.PublicClassIdentifier = PublicClassIdentifier;
 })(NamespaceIdentifier || (NamespaceIdentifier = {}));
-~~~~~
+```
 
 Также стоит добавить, что namespace является глобальным объявлением. Это дословно означает, что пространство имен, объявленное, как глобальное, не нуждается в экспортировании и импортировании, а ссылка на него доступна в любой точке программы.
 
-
 ## модули (export\import) определение
 
+Модули в _TypeScript_ определяются с помощью ключевых слов `export` \ `import` и представляют механизм определения связей между модулями. Данный механизм являются внутренним для _TypeScript_ и не имеет никакого отношения к модулям `es2015`. В остальном они идентичны `es2015` модулям, за исключением определения модуля по умолчанию (_export default_).
 
-Модули в *TypeScript* определяются с помощью ключевых слов `export` \ `import` и представляют механизм определения связей между модулями. Данный механизм являются внутренним для *TypeScript* и не имеет никакого отношения к модулям `es2015`. В остальном они идентичны `es2015` модулям, за исключением определения модуля по умолчанию (*export default*).
-
-~~~~~typescript
+```typescript
 // Файл declaration.ts
-
 
 export type T1 = {};
 
@@ -67,61 +56,57 @@ export class T3 {}
 
 export interface IT4 {}
 
-export function f1(){}
+export function f1() {}
 
 export const v1 = 'v1';
 export let v2 = 'v2';
 export var v3 = 'v3';
-~~~~~
+```
 
-~~~~~typescript
+```typescript
 Файл index.ts
 
 
 import {T2} from './declaration';
 import * as declaratios from './declaration';
-~~~~~
+```
 
-Кроме того, объявить, с использованием ключевого слова export, можно даже namespace, что ограничит его глобальную область видимости и его использование, в других  файлах, становится возможным, только после явного импортирования.
+Кроме того, объявить, с использованием ключевого слова export, можно даже namespace, что ограничит его глобальную область видимости и его использование, в других файлах, становится возможным, только после явного импортирования.
 
-~~~~~typescript
+```typescript
 // Файл declaration.ts
 
-
 export namespace Bird {
-  export class Raven {}
-  export class Owl {}
+    export class Raven {}
+    export class Owl {}
 }
-~~~~~
+```
 
-~~~~~typescript
+```typescript
 // Файл index.ts
 
+import { Bird } from './declaration';
 
-import {Bird} from "./declaration";
+const birdAll = [Bird.Raven, Bird.Owl];
+```
 
-const birdAll = [ Bird.Raven, Bird.Owl ];
-~~~~~
+Стоит отметить что экспортировать namespace стоит только тогда, когда он объявлен в теле другого namespace и тем не менее до него нужно добрать из программы.
 
-Стоит отметить что экспортировать namespace стоит только тогда, когда он объявлен в теле другого namespace и тем не менее до него  нужно добрать из программы.
-
-~~~~~typescript
+```typescript
 namespace NS1 {
-  export namespace NS2 {
-      export class T1 {}
-  }
+    export namespace NS2 {
+        export class T1 {}
+    }
 }
-~~~~~
-
+```
 
 ## Конфигурирование проекта
 
+Для закрепления пройденного будет не лишним взглянуть на конфигурирование минимального проекта.
 
-Для закрепления пройденного будет не лишним взглянуть на  конфигурирование минимального проекта.
+_Структура проекта_
 
-*Структура проекта*
-
-~~~~~typescript
+```typescript
 * /
    * dest
    * src
@@ -130,40 +115,37 @@ namespace NS1 {
       * index.ts
    * package.json
    * tsconfig.json
-~~~~~
+```
 
-~~~~~typescript
+```typescript
 // Файл Raven.ts
 
-
 namespace Bird {
-  export class Owl {}
+    export class Owl {}
 }
-~~~~~
+```
 
-~~~~~typescript
+```typescript
 // Файл Owl.ts
 
-
 namespace Bird {
-  export class Raven {}
+    export class Raven {}
 }
-~~~~~
+```
 
-~~~~~typescript
+```typescript
 // Файл index.ts
 
-
 namespace App {
-  const {Raven, Owl} = Bird;
+    const { Raven, Owl } = Bird;
 
-  const birdAll = [Raven, Owl];
+    const birdAll = [Raven, Owl];
 
-  birdAll.forEach( item => console.log(item) );
+    birdAll.forEach((item) => console.log(item));
 }
-~~~~~
+```
 
-~~~~~typescript
+```typescript
 // Файл tsconfig.json
 
 
@@ -175,9 +157,9 @@ namespace App {
       "outFile": "./dest/index.bundle.js"
   }
 }
-~~~~~
+```
 
-~~~~~typescript
+```typescript
 // Файл package.json
 
 
@@ -196,41 +178,38 @@ namespace App {
   "typescript": "^2.5.2"
 }
 }
-~~~~~
+```
 
 Осталось собрать проект выполнив в консоли команду
 
-~~~~~typescript
+```typescript
 npm run build
-~~~~~
+```
 
-Если все было сделано правильно, то в директории *dest* должен появится файл *index.bundle.js*
+Если все было сделано правильно, то в директории _dest_ должен появится файл _index.bundle.js_
 
-~~~~~typescript
+```typescript
 // Файл index.bundle.js
-
 
 var Bird;
 
 (function (Bird) {
-  class Owl {
-  }
-  Bird.Owl = Owl;
+    class Owl {}
+    Bird.Owl = Owl;
 })(Bird || (Bird = {}));
 
 var Bird;
 
 (function (Bird) {
-  class Raven {
-  }
-  Bird.Raven = Raven;
+    class Raven {}
+    Bird.Raven = Raven;
 })(Bird || (Bird = {}));
 
 var App;
 
 (function (App) {
-  const { Raven, Owl } = Bird;
-  const birdAll = [Raven, Owl];
-  birdAll.forEach(item => console.log(item));
+    const { Raven, Owl } = Bird;
+    const birdAll = [Raven, Owl];
+    birdAll.forEach((item) => console.log(item));
 })(App || (App = {}));
-~~~~~
+```

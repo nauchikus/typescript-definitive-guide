@@ -5,25 +5,16 @@ import {RouterUtils} from '../../src/utils/router-utils';
 import * as StringUtils from '../../src/utils/string-utils';
 
 import { GatsbyCreatePages } from "../types/gatsby-create-pages";
-import { Locales,Langs } from "../types/locales";
 import { CustomGatsbyNodeType } from '../gatsby-node-types';
-import { AppLocalization } from "../../src/types/app-localizations";
-import {
-    getSiteMetadataRequest, ICommitInfo,
-    IGetSiteMetadataRequest
-} from "./graphql-querys";
+import {ICommitInfo, } from "./graphql-querys";
 import { BookTocNode } from "../../src/stores/BookTocTreeStore";
 import { toPath } from "../../src/utils/string-utils";
 import { IBookTocSource, IBookTocWithContent } from "../../src/types/IBookToc";
 import { IBookSourceTocGatsbyNode } from "./create-book-toc-page";
 import { generateIndex } from "../../src/utils/string-utils";
 import { GithubRepositoryInfoDataProvider } from "./data-providers/GithubRepositoryInfoDataProvider";
-import { WinFileOnGithubHtmlContentDataProvider } from "./data-providers/WinFileOnGithubHtmlContentDataProvider";
-import { WinFileOnGithubCommitHistoryDataProvider } from "./data-providers/WinFileOnGithubCommitHistoryDataProvider";
 import { BookChapterFileOnGithubHtmlContentDataProvider } from "./data-providers/BookChapterFileOnGithubHtmlContentDataProvider";
 import { BookChapterFileOnGithubCommitHistoryDataProvider } from "./data-providers/BookChapterFileOnGithubCommitHistoryDataProvider";
-import { IWhatIsNewToc } from "../../src/types/IWhatIsNewToc";
-import { Version } from "../../src/utils/Version";
 import { CommitHistoryToCommitInfoTransformer } from "./transformers/CommitHistoryToCommitInfoTransformer";
 import {IAppLocalizationGatsbyNode} from "../types/gatsby-node-types";
 import {ICreatePageSharedOptions} from "../types/ICreatePageSharedOptions";
@@ -79,7 +70,7 @@ const createEditBookChapterFileOnGithubLink = ( { locale, chapterEscapedGithubNa
 );
 
 export const createPages: GatsbyCreatePages<ICreatePageSharedOptions> = async ( helpers, options ) => {
-    let { actions: { createPage }, getNodesByType, graphql } = helpers;
+  let { actions: { createPage }, getNodesByType, graphql } = helpers;
     let { locale, lang } = options;
 
 

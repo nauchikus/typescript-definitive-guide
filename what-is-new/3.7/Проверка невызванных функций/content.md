@@ -1,24 +1,23 @@
 ##Проверка невызванных функций
 
-Случаются случаи, когда разработчики по невнимательности или из-за невнятно выбранных названий забывают вызывать функции, что может привести к трудновыявляемому багу. 
+Случаются случаи, когда разработчики по невнимательности или из-за невнятно выбранных названий забывают вызывать функции, что может привести к трудновыявляемому багу.
 
 ```ts
 interface IUser {
-    isAuthorized():boolean;
+    isAuthorized(): boolean;
 }
 
-
-function someAction (user:IUser) {
+function someAction(user: IUser) {
     /**
      * Разработчик подумал что isAuthorized
      * это поле или свойство объекта, но не метод.
-     * 
+     *
      * Учитывая многообразие языков программирования
      * с различными конвенциями именования, такая ошибка
      * не является надуманной для недавно пришедших в
      * ECMScript коммунити.
      */
-    if(user.isAuthorized){
+    if (user.isAuthorized) {
         /**
          * гость смог выполнить действия требующие
          * привелегии авторизованного пользователя.
@@ -31,22 +30,21 @@ function someAction (user:IUser) {
 
 ```ts
 interface IUser {
-    isAuthorized():boolean;
+    isAuthorized(): boolean;
 }
 
-
-function someAction (user:IUser) {
+function someAction(user: IUser) {
     /**
      * [TypeScript < v3.7]
      * > Ok! Трудно выявляемая ошибка,
-     * 
+     *
      * [TypeScript >= v3.7]
-     * > Error! 
+     * > Error!
      * This condition will always return true since the
      * function is always defined. Did you mean to call
      * it instead?
      */
-    if(user.isAuthorized){
+    if (user.isAuthorized) {
     }
 }
 ```
@@ -57,16 +55,15 @@ function someAction (user:IUser) {
 interface IUser {
     name: string;
 
-    isAuthorized():boolean;
+    isAuthorized(): boolean;
 }
 
-
-function someAction (user:IUser) {
+function someAction(user: IUser) {
     /**
      * [TypeScript >= v3.7]
      * > Error
      */
-    if(user.isAuthorized){
+    if (user.isAuthorized) {
     }
 
     /**
@@ -82,19 +79,18 @@ function someAction (user:IUser) {
 
 ```ts
 interface IUser {
-    isAuthorized ? ():boolean; // необязательный член
+    isAuthorized?(): boolean; // необязательный член
 }
 
-
-function someAction (user:IUser) {
+function someAction(user: IUser) {
     /**
      * [TypeScript < v3.7]
      * > Ok! Трудно выявляемая ошибка,
-     * 
+     *
      * [TypeScript >= v3.7]
      * > Ok! Трудно выявляемая ошибка,
      */
-    if(user.isAuthorized){
+    if (user.isAuthorized) {
     }
 }
 ```
@@ -103,33 +99,32 @@ function someAction (user:IUser) {
 
 ```ts
 interface IUser {
-    isAuthorized():boolean;
+    isAuthorized(): boolean;
 }
 
-
-function someAction (user:IUser) {
+function someAction(user: IUser) {
     // Error
-    if(user.isAuthorized){
+    if (user.isAuthorized) {
     }
 
     // Ok
-    if(user.isAuthorized){
+    if (user.isAuthorized) {
         user.isAuthorized();
     }
 
     // Ok!, ???
-    if(user.isAuthorized){
+    if (user.isAuthorized) {
         user.isAuthorized;
     }
 
     // Error
-    if(user.isAuthorized){
-    }else{
+    if (user.isAuthorized) {
+    } else {
         user.isAuthorized();
     }
 
     // Error
-    if(user.isAuthorized){
+    if (user.isAuthorized) {
     }
 
     user.isAuthorized();
@@ -140,22 +135,20 @@ function someAction (user:IUser) {
 
 ```ts
 interface IUser {
-    isAuthorized():boolean;
+    isAuthorized(): boolean;
 }
 
-
-function someAction (user:IUser) {
+function someAction(user: IUser) {
     // Ok
-    if(user.isAuthorized !== null){
+    if (user.isAuthorized !== null) {
     }
 
     // Ok
-    if(user.isAuthorized !== undefined){
+    if (user.isAuthorized !== undefined) {
     }
 
     // Ok
-    if(!!user.isAuthorized){
+    if (!!user.isAuthorized) {
     }
 }
 ```
-

@@ -12,9 +12,7 @@
     {
         "section": "Экскурс в типизацию",
         "title": "Вступление",
-        "subtitles": [
-            "Экскурс в типизацию - Вступление"
-        ]
+        "subtitles": ["Экскурс в типизацию - Вступление"]
     },
     {
         "section": "Экскурс в типизацию",
@@ -129,11 +127,7 @@
     {
         "section": "Типы",
         "title": "Базовый тип Any",
-        "subtitles": [
-            "Базовый Тип Any",
-            "Any (any) произвольный тип",
-            "Итог"
-        ]
+        "subtitles": ["Базовый Тип Any", "Any (any) произвольный тип", "Итог"]
     },
     {
         "section": "Типы",
@@ -277,23 +271,17 @@
     {
         "section": "Классы",
         "title": "Полиморфный тип this",
-        "subtitles": [
-            "Полиморфный тип this"
-        ]
+        "subtitles": ["Полиморфный тип this"]
     },
     {
         "section": "Классы",
         "title": "Модификатор readonly",
-        "subtitles": [
-            "Модификатор readonly (только для чтения)"
-        ]
+        "subtitles": ["Модификатор readonly (только для чтения)"]
     },
     {
         "section": "Классы",
         "title": "Definite Assignment Assertion Modifier",
-        "subtitles": [
-            "Классы - Definite Assignment Assertion Modifier"
-        ]
+        "subtitles": ["Классы - Definite Assignment Assertion Modifier"]
     },
     {
         "section": "Классы",
@@ -336,9 +324,7 @@
     {
         "section": "Типы",
         "title": "Tagged Union",
-        "subtitles": [
-            "Размеченные Объединения (Tagged Union)"
-        ]
+        "subtitles": ["Размеченные Объединения (Tagged Union)"]
     },
     {
         "section": "Типизация",
@@ -497,9 +483,7 @@
     {
         "section": "Сборка",
         "title": "Сборка с использованием ссылок на проекты",
-        "subtitles": [
-            "Ссылки на проекты"
-        ]
+        "subtitles": ["Ссылки на проекты"]
     },
     {
         "section": "Сборка",
@@ -520,9 +504,7 @@
     {
         "section": "Сборка",
         "title": "Публикация",
-        "subtitles": [
-            "Публикация"
-        ]
+        "subtitles": ["Публикация"]
     },
     {
         "section": "Компилятор",

@@ -6,14 +6,14 @@
 
 Начиная с _TypeScript_ `v3.7` это проблема устранена и теперь компилятор из-за всех сил будет пытаться описать структуру `JavaScript` кода с помощью типов, к тому же прибегая к помощи оставленной разработчиками при помощи _JSDoc_.
 
-
 ```js
 // [File: module.js]
 
 export const VALUE = 5;
 export const SUM = 5 + 5;
-export const toString = value => value.toString();
+export const toString = (value) => value.toString();
 ```
+
 ```ts
 // [File: module.d.ts]
 
@@ -28,12 +28,13 @@ export function toString(value: any): any;
 export const VALUE = 5;
 export const SUM = 5 + 5;
 /**
- * 
- * @param {string} value 
+ *
+ * @param {string} value
  * @returns {string}
  */
-export const toString = value => value.toString();
+export const toString = (value) => value.toString();
 ```
+
 ```ts
 // [File: module.d.ts]
 

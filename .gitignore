@@ -15,4 +15,5 @@ public/
 ./src/
 
 .env.development
+.env.github.development
 vue.config.js

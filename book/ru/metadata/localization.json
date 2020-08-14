@@ -68,31 +68,31 @@
             "appHeader": {
                 "navToggleButton": {
                     "tooltips": {
-                        "open":["Открыть боковое","меню"],
-                        "close": ["Закрыть боковое","меню"]
+                        "open": ["Открыть боковое", "меню"],
+                        "close": ["Закрыть боковое", "меню"]
                     }
                 },
                 "appMenu": {
                     "pdfButton": {
                         "href": "#",
-                        "tooltip": ["Скачать","PDF версию"],
+                        "tooltip": ["Скачать", "PDF версию"],
                         "label": "Скачать PDF версию"
                     },
                     "telegramButton": {
                         "href": "#",
-                        "tooltip": ["Следить за","изменениями в","Telegram"],
-                        "label": ["Следить за изменениями в","Telegram"]
+                        "tooltip": ["Следить за", "изменениями в", "Telegram"],
+                        "label": ["Следить за изменениями в", "Telegram"]
                     },
                     "githubButton": {
                         "href": "#",
-                        "tooltip": ["Посетить проект на","Github"],
-                        "label": ["Посетить проект на","Github"]
+                        "tooltip": ["Посетить проект на", "Github"],
+                        "label": ["Посетить проект на", "Github"]
                     }
                 },
                 "donateDropdown": {
                     "href": "#",
                     "toggleButton": {
-                        "label": ["Поддержать","финансово"]
+                        "label": ["Поддержать", "финансово"]
                     },
                     "content": {
                         "title": "Сделай контент для будующих поколений ещё качественей и доступней!",
@@ -110,13 +110,13 @@
             }
         }
     },
-    "pages":{
-        "index":{
-            "metadata":{
+    "pages": {
+        "index": {
+            "metadata": {
                 "title": "TypeScript - в деталях",
                 "description": "Подробное руководство по языку TypeScript, которое шаг за шагом раскрывает весь его потенциал не оставляя без внимания ни одной мелочи."
             },
-            "gui":{
+            "gui": {
                 "subtitleAll": [
                     "TypeScript в деталях",
                     "TypeScript крупным планом",
@@ -125,12 +125,12 @@
                 ]
             }
         },
-        "book__chapters":{
-            "metadata":{
+        "book__chapters": {
+            "metadata": {
                 "title": "TypeScript - в деталях",
                 "description": "Подробное руководство по языку TypeScript, которое шаг за шагом раскрывает весь его потенциал не оставляя без внимания ни одной мелочи."
             },
-            "gui":{
+            "gui": {
                 "tocItem": {
                     "copyLinkToBufferButton": {
                         "tooltip": "Скопировать ссылку в буффер обмена"
@@ -162,12 +162,12 @@
                 }
             }
         },
-        "book__chapter":{
-            "metadata":{
+        "book__chapter": {
+            "metadata": {
                 "title": "TypeScript - в деталях",
                 "description": "Подробное руководство по языку TypeScript, которое шаг за шагом раскрывает весь его потенциал не оставляя без внимания ни одной мелочи."
             },
-            "gui":{
+            "gui": {
                 "secondaryContentBar": {
                     "editOnGithubButton": {
                         "tooltip": "Редактировать на Github"
@@ -176,13 +176,13 @@
             }
         },
         "what-is-new__toc": {
-            "metadata":{
+            "metadata": {
                 "title": "TypeScript - в деталях",
                 "description": "Подробное руководство по языку TypeScript, которое шаг за шагом раскрывает весь его потенциал не оставляя без внимания ни одной мелочи."
             },
             "gui": {
                 "primaryContentBar": {
-                    "label":"История нововведений"
+                    "label": "История нововведений"
                 },
                 "tocItem": {
                     "copyLinkToBufferButton": {
@@ -192,7 +192,7 @@
             }
         },
         "not-found": {
-            "metadata":{
+            "metadata": {
                 "title": "TypeScript - в деталях",
                 "description": "Подробное руководство по языку TypeScript, которое шаг за шагом раскрывает весь его потенциал не оставляя без внимания ни одной мелочи."
             },

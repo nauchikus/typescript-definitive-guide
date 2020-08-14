@@ -1,147 +1,140 @@
 ##Привидение к константе (const assertion)
 
-Ни для кого не секрет, что с точки зрения *JavaScript*, а следовательно и *TypeScript*, все примитивные литеральные значения являются константными значениями. С точки зрения среды исполнения два эквивалентных литерала любого литерального типа являются единым значением. То есть, среда исполнения расценивает два строковых литерала `'text'` и `'text'`, как один литерал. Тоже самое справедливо и для остальных литералов к которым помимо типа `string` также относятся такие типы, как `number`, `boolean` и `symbol`. 
+Ни для кого не секрет, что с точки зрения _JavaScript_, а следовательно и _TypeScript_, все примитивные литеральные значения являются константными значениями. С точки зрения среды исполнения два эквивалентных литерала любого литерального типа являются единым значением. То есть, среда исполнения расценивает два строковых литерала `'text'` и `'text'`, как один литерал. Тоже самое справедливо и для остальных литералов к которым помимо типа `string` также относятся такие типы, как `number`, `boolean` и `symbol`.
 
+Тем не менее, сложно найти разработчика _TypeScript_, который при объявлении каких-либо конструкций, которым предстоит проверка на принадлжность к литеральному типу, не испытывал дискомфорта из-за вывода типов.
 
-Тем не менее, сложно найти разработчика *TypeScript*, который при объявлении каких-либо конструкций, которым предстоит проверка на принадлжность к литеральному типу, не испытывал дискомфорта из-за вывода типов.
-
-`````typescript
+```typescript
 type Status = 200 | 404;
-type Request = {status: Status}
+type Request = { status: Status };
 
 let status = 200;
 
-let reuest: Request = {status}; // Error, Type 'number' is not assignable to type 'Status'.ts(2322)
-`````
+let reuest: Request = { status }; // Error, Type 'number' is not assignable to type 'Status'.ts(2322)
+```
 
 В коде выше ошибка возникает по причине того, что вывод типов определяет принадлежность значения переменной `status` к типу `number`, а не литеральному числовому типу `200`.
 
-`````typescript
+```typescript
 // вывод типов видит как
-let status: number = 200
+let status: number = 200;
 
 // в то время как требуется так
 let status: 200 = 200;
-`````
+```
 
+До версии _TypeScript_ `v3.4` без явного указания типа или явного приведения к нему, существовал только один выход из сложившейся, в коде выше, ситуации. Он заключался в утверждении типа, спомощью оператора `as` либо угловых скобок `<>`, непосредственно самого значения нуждающегося в этом.
 
-До версии *TypeScript* `v3.4` без явного указания типа или явного приведения к нему, существовал только один выход из сложившейся, в коде выше, ситуации. Он заключался в утверждении типа, спомощью оператора `as` либо угловых скобок `<>`, непосредственно самого значения нуждающегося в этом.
-
-`````typescript
+```typescript
 type Status = 200 | 404;
-type Request = {status: Status}
+type Request = { status: Status };
 
 let status = 200;
 
 // утверждаем компилятору..
-let reuest: Request = {status: status as 200}; // …с помощью as оператора
-let reuest: Request = {status: <200>status}; // …с помощью угловых скобок
+let reuest: Request = { status: status as 200 }; // …с помощью as оператора
+let reuest: Request = { status: <200>status }; // …с помощью угловых скобок
 // …что должен рассматривать значение асоциированное со 'status', как значение принадлежащие к литеральному типу 'Status'
-`````
+```
 
-
-*TypeScript*, начиная с версии `v3.4`, вводит такое понятие, как `const assertion` (утверждение к константе или константное утверждение).
-
+_TypeScript_, начиная с версии `v3.4`, вводит такое понятие, как `const assertion` (утверждение к константе или константное утверждение).
 
 Константное утверждение это такое утверждение объявление которого производится с помощью опертора `as` либо угловых скобок `<>`.
 
-`````typescript
+```typescript
 type Status = 200 | 404;
-type Request = {status: Status}
+type Request = { status: Status };
 
 let status = 200;
 
-let reuest: Request = {status: status as const}; // Ok
-let reuest: Request = {status: <const>status}; // Ok
-`````
+let reuest: Request = { status: status as const }; // Ok
+let reuest: Request = { status: <const>status }; // Ok
+```
 
 По причине того, что компилятор получает инструкции заставляющие его расценивать значение как константное, вывод типов определяет его принадлежность к литеральному типу.
 
 Утверждение к константе заставляет вывод типов определять принадлежность массива к типу `readonly tuple`.
 
-`````typescript
+```typescript
 let a = [200, 404]; // let a: number[]
 
 let b = [200, 404] as const; // let b: readonly [200, 404]
 let c = <const>[200, 404]; // let c: readonly [200, 404]
-`````
+```
 
 В случае с объектным типом, утверждение к константе рекурсивно помечает все его поля как `readonly`. Кроме того, все его поля принадлежащие к примитивным типам расцениваются как литеральные типы.
 
-`````typescript
+```typescript
 type NotConstResponseType = {
     status: number;
     data: {
         role: string;
     };
-}
+};
 
 type ConstResponseType = {
     status: 200 | 404;
     data: {
         role: 'user' | 'admin';
     };
-}
+};
 
-let a = {status: 200, data: {role: 'user'}}; // NotConstResponseType
+let a = { status: 200, data: { role: 'user' } }; // NotConstResponseType
 
-let b = {status: 200, data: {role: 'user'}} as const; // ConstResponseType
-let c = <const>{status: 200, data: {role: 'user'}}; // ConstResponseType
-`````
+let b = { status: 200, data: { role: 'user' } } as const; // ConstResponseType
+let c = <const>{ status: 200, data: { role: 'user' } }; // ConstResponseType
+```
 
 Но стоит помнить, что утверждение к констранте, применимо исключительно к литералам `number`, `string`, `boolean`, `array` и `object`.
 
-`````typescript
+```typescript
 let a = 'value' as const; // Ok - 'value' является литералом, let a: "value"
 let b = 100 as const; // Ok - 100 является литералом, let b: 100
 let c = true as const; // Ok - true является литералом, let c: true
 
 let d = [] as const; // Ok - [] является литералом, let d: readonly []
-let e = {f: 100} as const; // Ok - {} является литералом, let e: {readonly f: 100;}
+let e = { f: 100 } as const; // Ok - {} является литералом, let e: {readonly f: 100;}
 
 let value = 'value';
 let array = [0, 1, 2]; // let array: number[]
-let object = {f: 100}; // let object: {f: number;}
+let object = { f: 100 }; // let object: {f: number;}
 
 let f = value as const; // Error - value это ссылка идентификатор хранящий литерал
 let g = array as const; // Error - array это ссылка на идентификатор хранящий ссылку на объект массива
 let h = object as const; // Error - object это ссылка иденитификатор хранящий ссылку на объект объекта
-`````
+```
 
-
-Но кроме того, все три рассмотренных случая утверждения к константе (примитивных, массивов и объектных типов) может создать впечатление, что в *TypeScript*, наконец, появились структуры, которые справедливо назвать теми самыми, неизменяемыми ни при каких условиях, константами. И это действительно так, но лишь от части. Дело в том, что на момент версии *TypeScript* `v3.4` принадлежность объектных и массивоподобных типов к константе зависит от значения с которыми они ассоциированы.
+Но кроме того, все три рассмотренных случая утверждения к константе (примитивных, массивов и объектных типов) может создать впечатление, что в _TypeScript_, наконец, появились структуры, которые справедливо назвать теми самыми, неизменяемыми ни при каких условиях, константами. И это действительно так, но лишь от части. Дело в том, что на момент версии _TypeScript_ `v3.4` принадлежность объектных и массивоподобных типов к константе зависит от значения с которыми они ассоциированы.
 
 В случае, когда литералы ссылочных типов (массивы и объекты) ассоциированны при помощи агрегационных отношений со значением также принадлежащим к ссылочному типу, то они представляются такими, какими были на момент ассоциации. Кроме того поведение механизма приведения к константе зависит от другого механизма – деструктуризации.
 
-`````typescript
-let defaultObject = {f: 100}; // let defaultObject: {f: number;}
-let constObject = {f: 100} as const; // let constObject: {readonly f: 100;}
+```typescript
+let defaultObject = { f: 100 }; // let defaultObject: {f: number;}
+let constObject = { f: 100 } as const; // let constObject: {readonly f: 100;}
 
 let defaultArray = [0, 1, 2]; // let defaultArray: number[]
 let constArray = [0, 1, 2] as const; // let constArray: readonly [0, 1, 2]
 
-
 // неожиданно - o0.f не имеет модификатора readonly! Однако ожидаемо, что o0.f.f иммутабельный (неизменяемый) объект
-let o0 = {f: {f: 100}} as const; // {f: {readonly f: 100;};}
+let o0 = { f: { f: 100 } } as const; // {f: {readonly f: 100;};}
 // ожидаемо - o1.f имеет модификатор readonly. Вполне ожидаемо: o1.f.f мутабельный (изменяемый) объект
-let o1 = {f: defaultObject} as const; // {readonly f: {f: number;};}
-// ожидаемо - o2 иммутабельный (неизменяемый) объект 
-let o2 = {...defaultObject} as const; // {readonly f: number;}
+let o1 = { f: defaultObject } as const; // {readonly f: {f: number;};}
+// ожидаемо - o2 иммутабельный (неизменяемый) объект
+let o2 = { ...defaultObject } as const; // {readonly f: number;}
 // неожиданно - o3.f не имеет модификатора readonly. ожиданно- o3.f.f иммутабельный (неизменяемый) объект
-let o3 = {f: {...defaultObject}} as const; // {f: {readonly f: number;};}
+let o3 = { f: { ...defaultObject } } as const; // {f: {readonly f: number;};}
 
 // ожиданно - o4.f и o4.f.f иммутабельные (неизменяемые) объекты
-let o4 = {f: constObject} as const; // let o4: {readonly f: {readonly f: 100;};}
+let o4 = { f: constObject } as const; // let o4: {readonly f: {readonly f: 100;};}
 // ожиданно - o5 иммутабельный (неизменяемый)  объект
-let o5 = {...constObject} as const; // let o5: {readonly f: 100;}
+let o5 = { ...constObject } as const; // let o5: {readonly f: 100;}
 // неожиданно - o6.f не имеет модификатора readonly. ожиданно- o6.f.f иммутабельный (неизменяемый) объект
-let o6 = {f: {...constObject}} as const; // {f: {readonly f: 100;};}
-`````
+let o6 = { f: { ...constObject } } as const; // {f: {readonly f: 100;};}
+```
 
 По причине того, что непримитивные (объектные) типы данных, хранящиеся в массиве, подчиняются правилам описанным выше, подробное рассмотрение процесса утверждения массива к константе будет опущено.
 
-
 И последнее о чем стоит упомянуть, утверждение к константе применимо только к простым выражениям.
 
-let a = (Math.round(Math.random() * 1) ? 'yes' : 'no') as const; // Error
-let b = Math.round(Math.random() * 1) ? 'yes' as const : 'no' as const; // Ok, let b: "yes" | "no"
+let a = (Math.round(Math.random() _ 1) ? 'yes' : 'no') as const; // Error
+let b = Math.round(Math.random() _ 1) ? 'yes' as const : 'no' as const; // Ok, let b: "yes" | "no"

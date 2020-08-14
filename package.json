@@ -4,7 +4,20 @@
   "description": "",
   "main": "vue.config.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "postinstall": "npm run github-token-configurator__init",
+    "predevelop": "npm run github-token-configurator__validate",
+    "postdevelop": "cd -",
+    "postbuild": "cd -",
+    "postformat": "cd -",
+    "posttest": "cd -",
+    "github-token-configurator__init": "node ./config/github-repository-token-configurator/github-repository-token-configurator__init.js",
+    "github-token-configurator__validate": "node ./config/github-repository-token-configurator/github-repository-token-configurator__validate.js",
+    "develop": "cd www && npm run develop",
+    "prettier:md:contents": "prettier --write -- ./{book,what-is-new}/**/*.{md,json}",
+    "lint": "eslint ./test.md  --fix",
+    "build": "cd www && npm run build",
+    "format": "cd www && npm run format",
+    "test": "cd www && npm run test"
   },
   "repository": {
     "type": "git",
@@ -14,7 +27,11 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "prettier": "^2.0.2"
+    "@types/nodegit": "^0.26.7",
+    "nodegit": "^0.27.0",
+    "prettier": "^2.0.2",
+    "react": "^16.13.1",
+    "typescript": "^3.9.7"
   },
   "dependencies": {}
 }
