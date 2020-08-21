@@ -1,20 +1,17 @@
-import React, { useRef } from "react";
+import React from "react";
 import {FC} from "react"
 import { Locales } from "../../../plugins/types/locales";
 import BookTocPage from "./BookTocPage";
 import SEO from "../../components/seo";
 import BaseLayout from "../../layouts/base-layout/BaseLayout";
 import { AppLocalization } from "../../localization";
-import {
-    createBookTocPageMobxEntry, MobxBookTocPageContext,
-    UseBookTocPageStores,
-    useBookTocPageStores
-} from "../../stores/mobx-entry__book_toc";
 import { BookTocNode, TreeNode } from "../../stores/BookTocTreeStore";
 import { BehaviorNotificationContext } from "../../react__context/BehaviorNotificationContext";
 import { IBookChapterPageContentData } from "../../../plugins/gatsby-pages/create-book-page";
 import { RouterStoreContext } from "../../stores/RouterStore";
 import {Localization} from "../../react__hooks/translator.hook";
+import { BookTocPageMobxEntry, MobxBookTocPageContext } from "../../stores/BookTocPageMobxEntry";
+import { useNativeLinkDisableDefaultBehavior } from "../../react__hooks/useNativeLinkDisableDefaultBehavior";
 
 
 interface IBookTocPageProviderProps {
@@ -29,17 +26,17 @@ interface IBookTocPageProviderProps {
 
 const BookTocPageProvider: FC<IBookTocPageProviderProps> = ( { pageContext },location ) => {
     let { bookTocTree, localization } = pageContext;
-    let bookTocStoresRef = useRef<UseBookTocPageStores>( createBookTocPageMobxEntry( {
-        bookTocTree,
-        location,
-    } ) );
+    let mobxEntry = BookTocPageMobxEntry.getInstance({ bookTocTree, location });
+
+
+    // useNativeLinkDisableDefaultBehavior(mobxEntry.router);
 
 
     return (
-        <MobxBookTocPageContext.Provider value={bookTocStoresRef.current}>
-            <BehaviorNotificationContext.Provider value={bookTocStoresRef.current.behaviorNotificationStore}>
+        <MobxBookTocPageContext.Provider value={mobxEntry}>
+            <BehaviorNotificationContext.Provider value={mobxEntry.behaviorNotificationStore}>
                 <Localization.Provider value={localization}>
-                    <RouterStoreContext.Provider value={bookTocStoresRef.current.router}>
+                    <RouterStoreContext.Provider value={mobxEntry.router}>
                         <BaseLayout>
                             <SEO/>
                             <BookTocPage/>

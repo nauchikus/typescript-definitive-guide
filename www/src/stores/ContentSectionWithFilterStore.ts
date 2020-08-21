@@ -42,25 +42,6 @@ export class ContentSectionWithFilterStore implements IContentSectionStore{
         this.contentSection.currentSectionId = ContentSectionWithFilterStore.DEFAULT_SECTION_ID;
       }
     } );
-    // computed( () => this.router.anchor ).observe( changes => {
-    //   this.contentSection.currentSectionId = changes.newValue;
-    // } );
-
-    // type ChangeData = IArrayChange<IIntersectionObserverEntryInfo> | IArraySplice<IIntersectionObserverEntryInfo>;
-    //
-    // ( this.contentIntersectionObserver.intersections as IObservableArray<IIntersectionObserverEntryInfo> ).observe( ( changes: ChangeData ) => {
-    //   let entry = changes.type === "update" ?
-    //     changes.newValue :
-    //     changes.added.find( item => item.isIntersecting );
-    //
-    //
-    //   if ( !entry || !entry.isIntersecting ) {
-    //     return;
-    //   }
-    //
-    //
-    //   this.contentSection.currentSectionId = entry.sectionId;
-    // } );
   }
 }
 

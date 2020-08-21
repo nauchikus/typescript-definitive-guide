@@ -12,7 +12,7 @@ import * as DateUtils from "../../utils/date-utils";
 import {Version} from "../../utils/Version";
 import { toLastReleaseInfo, toVersionInfo } from "../../utils/version-utils";
 import { ReleaseInfo } from "../../transformers/innovationDataToVersionInfoTransformer";
-import { useWhatIsNewTocPageStores } from "../../stores/mobx-entry__what-is-new_toc";
+import { useWhatIsNewTocPageStores } from "../../stores/WinTocPageMobxEntry";
 
 interface IWhatIsNewTocTreeItemProps {
   winTocTreeNodeId:string;
@@ -22,8 +22,8 @@ interface IWhatIsNewTocTreeItemProps {
 
 export const WhatIsNewTocTreeItem: FC<IWhatIsNewTocTreeItemProps> = ( { winTocTreeNodeId, onCopyLinkToBuffer } ) => {
   let [{ lang: locale }] = useTranslator<[AppLocalization]>();
-  let { winTocTreeStore } = useWhatIsNewTocPageStores();
-  let winTocTreeNode = winTocTreeStore.getNodeById( winTocTreeNodeId );
+  let { winTocCollapseStore } = useWhatIsNewTocPageStores();
+  let winTocTreeNode = winTocCollapseStore.getNodeById( winTocTreeNodeId );
 
   if ( !winTocTreeNode ) {
     throw new Error( `` );

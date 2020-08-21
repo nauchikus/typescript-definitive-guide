@@ -41,11 +41,11 @@ const bookRoutes = {
 };
 const whatIsNewRoutes = {
     getWhatIsNewTocRoute: (  ) =>
-        `/ru/what-is-new`,
+        `/what-is-new`,
     getWhatIsNewRoute: ( { version, innovation }: IWhatIsNewInnovationRoute ) =>
       innovation ?
-        `/ru/what-is-new/${ version }#${ innovation }` :
-        `/ru/what-is-new/${ version }`
+        `/what-is-new/${ version }#${ innovation }` :
+        `/what-is-new/${ version }`
 };
 const notFoundRoutes = {
     notFound: ({ locale }:ILocaleRouter ) =>

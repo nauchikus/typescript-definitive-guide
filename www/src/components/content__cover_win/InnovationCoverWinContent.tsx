@@ -13,7 +13,6 @@ export const InnovationCoverWinContent: FC<IInnovationCoverWinContentProps> = ( 
   let versionInfo = toLastReleaseInfo( winContentData );
   let version = toVersionInfo( versionInfo.version );
   let lastVersionReleaseDate = DateUtils.toAppDateFormat( versionInfo.dateRelease );
-  console.log( lastVersionReleaseDate, versionInfo.dateRelease ,versionInfo);
 
   let relativePath = `${ version.mmp }/metadata/cover.png`;
 

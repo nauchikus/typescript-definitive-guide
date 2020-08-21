@@ -77,6 +77,7 @@ module.exports = ( ...params ) => {
         } );
         ast.children.splice( 1, 0, tagBarNode );
 
+
     }catch ( error ) {
         console.error(error);
     }finally {

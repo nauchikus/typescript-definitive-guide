@@ -5,7 +5,6 @@ import {useTranslator} from "../../react__hooks/translator.hook";
 import {AppNavigationLocalization, LocaleLocalization, LocalizationPaths} from "../../localization";
 import {PageWithContentNavAppDriver} from "../app-driver__nav_page-with-content/PageWithContentNavAppDriver";
 import {FooterAppDriver} from "../app-driver__footer/FooterAppDriver";
-import {useBookChapterStores} from "../../stores/mobx-entry__book";
 import {IPageNavSection} from "../../types/IPageNavData";
 import {observer, useLocalStore} from "mobx-react-lite";
 import {useRouter} from "../../stores/RouterStore";
@@ -13,6 +12,7 @@ import {AppNavSectionAppDriver} from "../app-driver__nav-section_app-nav/AppNavS
 import {ContentNavSectionAppDriver} from "../app-driver__nav-section_page-nav/ContentNavSectionAppDriver";
 import {RouterUtils} from "../../utils/router-utils";
 import * as StringUtils from "../../utils/string-utils";
+import { useBookChapterStores } from "../../stores/BookPageMobxEntry";
 
 interface IBookChapterPageAppDriverProps {
 }

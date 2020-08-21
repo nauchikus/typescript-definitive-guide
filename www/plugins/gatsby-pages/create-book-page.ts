@@ -3,6 +3,7 @@ import * as path from 'path';
 
 import {RouterUtils} from '../../src/utils/router-utils';
 import * as StringUtils from '../../src/utils/string-utils';
+import * as EnvUtils from '../../src/utils/env-utils';
 
 import { GatsbyCreatePages } from "../types/gatsby-create-pages";
 import { CustomGatsbyNodeType } from '../gatsby-node-types';
@@ -31,8 +32,7 @@ export type CreateBookChapterNameParams={
     chapterName:string;
 }
 
-const bookTocToPageNav = ( toc: IBookTocSource[] ) =>
-  toc.map( ( { title, subtitles } ) => ( {
+const bookTocToPageNav = ( toc: IBookTocSource[] ) => toc.map( ( { title, subtitles } ) => ( {
     name: title,
     path: StringUtils.toPath( title ),
 
@@ -66,7 +66,7 @@ export interface IBookChapterPageContentData {
 }
 
 const createEditBookChapterFileOnGithubLink = ( { locale, chapterEscapedGithubName }: ICreateBookChapterFileOnGithubPathParams ) => (
-  `https://github.com/nauchikus/typescript-definitive-guide/blob/book/${locale}/${chapterEscapedGithubName}/content.md`
+  `https://github.com/${EnvUtils.getRepositoryOwner()}/${EnvUtils.getRepositoryName()}/blob/book/${locale}/${chapterEscapedGithubName}/content.md`
 );
 
 export const createPages: GatsbyCreatePages<ICreatePageSharedOptions> = async ( helpers, options ) => {

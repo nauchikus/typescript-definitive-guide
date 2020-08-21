@@ -32,9 +32,9 @@ export const useScaleControl = ( controlId: string ): IUseScaleControl | undefin
 export const useScaleBase = ( { controlId }: IUseScaleBaseParams ) => {
   let [status, setStatus] = useState( ScaleStatus.Off );
   let control = useRef<IUseInternalScaleControl>( {
-    on: () => {setStatus( ScaleStatus.On );console.log('controlId',controlId)},
-    off: () => {setStatus( ScaleStatus.Off );console.log('controlId',controlId)},
-    wait: () => {setStatus( ScaleStatus.Wait );console.log('controlId',controlId)}
+    on: () => {setStatus( ScaleStatus.On );},
+    off: () => {setStatus( ScaleStatus.Off );},
+    wait: () => {setStatus( ScaleStatus.Wait );}
   } );
 
 

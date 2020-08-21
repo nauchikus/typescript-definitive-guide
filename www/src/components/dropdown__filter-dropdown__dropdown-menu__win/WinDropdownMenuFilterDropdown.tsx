@@ -1,5 +1,4 @@
 import React, { FC } from "react";
-import { useVersionFilter } from "../../stores/mobx-entry__what-is-new";
 import { Checkbox, CheckedEvent } from "../ui__checkbox/Checkbox";
 import { Radio } from "../ui__radio/Radio";
 import { Label } from "../ui__label/Label";
@@ -8,6 +7,7 @@ import { CheckboxIconGroup } from "../ui__checkbox/CheckboxIconGroup";
 import { observer } from "mobx-react-lite";
 import { InputModel } from "../../stores/CheckboxStore";
 import { ReleaseInfo, VersionInfoMeta } from "../../transformers/innovationDataToVersionInfoTransformer";
+import { useVersionFilter } from "../../stores/WinPageMobxEntry";
 
 
 interface IWinDropdownMenuFilterDropdownProps {

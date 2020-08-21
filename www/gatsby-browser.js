@@ -11,22 +11,27 @@
 
 import "./src/styles/dev-utils.scss";
 
-import React from "react";
+import React  from 'react';
 import { MobxProvider } from "./src/mobx";
+import { SharedPage } from './src/shared-page';
 
-export const wrapRootElement = ({element}) => {
+export const wrapRootElement = ({ element, props, pluginOptions }) => {
+
   return (
-    <MobxProvider>{element}</MobxProvider>
+      <MobxProvider>{element}</MobxProvider>
+
+
   );
 };
 
-// export const wrapPageElement = ( { element, props } ) => {
-//   return (
-//     <Localization.Provider value={ props.pageContext.localization }>
-//       { element }
-//     </Localization.Provider>
-//   );
-// };
+
+export const wrapPageElement = ( { element, props } ) => {
+  return (
+      <SharedPage {...props}>
+          {element}
+      </SharedPage>
+  );
+};
 
 // export const onRouteUpdate = ( { location: { hash } } ) => {
 //

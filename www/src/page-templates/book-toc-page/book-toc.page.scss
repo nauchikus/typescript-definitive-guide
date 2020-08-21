@@ -31,8 +31,28 @@
 @import "../../components/dropdown__filter-dropdown/dropdown__filter-dropdown";
 @import "../../components/dropdown__filter-dropdown__book_toc/book-toc-ilter-dropdown";
 @import "../../components/ui__card/card";
-@import "../../components/tree__tree-section-label_book-toc/tree__tree-section-label";
 @import "../../components/tree__tree-close-decor_book-toc/book-toc-tree-close-decor";
+
+@import "../../components/tree/tree";
+@import "../../components/button__collapse/button__collapse";
+
+@import "../../components/collapse/collapse";
+@import "../../components/collapse__collapsed/collapse__collapsed";
+@import "../../components/collapse__toggle/collapse__toggle";
+@import "../../components/collapse__group/collapse__group";
+@import "../../components/collapse__group-toggle/collapse__group-toggle";
+
+@import "../../components/section-guide/section-guide";
+@import "../../components/section-guide-with-gap/section-guide-with-gap";
+
+@import "../../components/toc-menu__section/toc-menu__section";
+@import "../../components/toc-menu__section-label/toc-menu__section-label";
+@import "../../components/toc-menu__section-content/toc-menu__section-content";
+@import "../../components/toc-menu__label/toc-menu__label";
+@import "../../components/toc-menu__item/toc-menu__item";
+@import "../../components/toc-menu__item__index/toc-menu-item__index";
+@import "../../components/toc-menu__collapse-item-button/toc-menu__collapse-item-button";
+@import "../../components/toc-menu__copy-to-buffer-button/toc-menu__copy-to-buffer-button";
 
 
 @import "../../components/layer__book-toc__control-bar-layer/book-toc__control-bar-layer";

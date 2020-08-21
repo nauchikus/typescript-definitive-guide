@@ -4,14 +4,14 @@ import { useTranslator } from "../../react__hooks/translator.hook";
 import { LocalizationPaths, WhatIsNewTocGuiLocalization } from "../../localization";
 import * as NativeUtils from "../../utils/native-utils";
 import { useBehaviorNotificationAction } from "../../react__hooks/behavior-notification-action-hook";
-import { useWhatIsNewTocPageStores } from "../../stores/mobx-entry__what-is-new_toc";
+import { useWhatIsNewTocPageStores } from "../../stores/WinTocPageMobxEntry";
 
 interface IContentLayerWinTocProps {
 }
 
 export const ContentLayerWinToc: FC<IContentLayerWinTocProps> = ( {} ) => {
   let [t] = useTranslator<[WhatIsNewTocGuiLocalization]>( LocalizationPaths.WhatIsNewTocPageGui );
-  let { winTocTreeStore,router } = useWhatIsNewTocPageStores();
+  let { winTocCollapseStore,router } = useWhatIsNewTocPageStores();
   let behaviorNotificationActions = useBehaviorNotificationAction();
 
 
@@ -22,7 +22,7 @@ export const ContentLayerWinToc: FC<IContentLayerWinTocProps> = ( {} ) => {
     behaviorNotificationActions.copyLink();
   };
 
-  let winTocTree = winTocTreeStore.tree.reverse().map( tocTreeNode => (
+  let winTocTree = winTocCollapseStore.tree.reverse().map( tocTreeNode => (
     <WhatIsNewTocTreeItem key={tocTreeNode.id}
                           winTocTreeNodeId={ tocTreeNode.id }
                           onCopyLinkToBuffer={ onCopyLinkToBuffer }/>

@@ -1,5 +1,5 @@
 import { createContext, useContext } from "react";
-import { UseBookPageStores } from "../stores/mobx-entry__book";
+import { UseBookPageStores } from "../stores/BookPageMobxEntry";
 
 export type UseContentDownPanelStore = UseBookPageStores["contentDownPanelStore"];
 export const ContentDownPanelStoreContext = createContext<UseContentDownPanelStore | null>( null );

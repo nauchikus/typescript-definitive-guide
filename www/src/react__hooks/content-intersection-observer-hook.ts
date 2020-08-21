@@ -7,7 +7,7 @@ export const useContentIntersectionObserver = () => {
   let contentIntersectionObserver = useContentIntersectionObserverStore();
 
   useLayoutEffect( () => {
-    router.scrollToAnchor();
+    router.scrollToAnchor(router.anchor);
     contentIntersectionObserver.init();
 
     return () => contentIntersectionObserver.destroy();

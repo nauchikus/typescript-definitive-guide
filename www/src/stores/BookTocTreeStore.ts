@@ -55,8 +55,12 @@ export const createBookTocTree=<T extends ISection>(tree:TreeNode<T>[],isCollaps
     getNodeById ( id: string ) {
       return this.tree.find( node => node.id === id );
     },
-    collapseById ( id: string ) {
+    toggleById ( id: string ) {
       let node = this.tree.find( node => node.id === id );
+
+      if (!node) {
+        console.warn(`[store BookTocTree] TreeNode with id ${id} not found.`);
+      }
 
       if ( node ) {
         node.isCollapse = !node.isCollapse;

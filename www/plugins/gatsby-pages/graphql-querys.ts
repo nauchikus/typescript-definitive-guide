@@ -4,6 +4,7 @@ export interface IGetSiteMetadataRequest {
   site: {
     siteMetadata: {
       repository: {
+        name: string;
         owner: string;
         branch: string;
       }
@@ -16,6 +17,7 @@ query SiteMetadataQuery {
     site {
         siteMetadata {
             repository{
+                name
                 owner
                 branch
             }
@@ -64,9 +66,9 @@ type WhatIsNewNewAppFileList = {
   }
 }
 const getWhatIsNewNewAppFileListQuery:GraphQlQuery=()=>(`
-query GetWhatIsNewFileList {
+query GetWhatIsNewFileList($owner: String!, $repositoryName: String!) {
   github {
-    repository(owner: "nauchikus", name: "typescript-definitive-guide") {
+    repository(owner: $owner, name: $repositoryName) {
       object(expression: "new-app:what-is-new/") {
         ... on GitHub_Tree {
           directories: entries {
@@ -131,9 +133,9 @@ export interface IGetFileOnGithubHistoryInfoResponse {
   }
 }
 export const getGithubCommitHistoryQuery: GraphQlQuery = (  ) => ( `
-query GetGithubCommitHistory($path: String!, $owner: String!, $branch: String!) {
+query GetGithubCommitHistory($path: String!, $owner: String!, $repositoryName: String!, $branch: String!) {
   github {
-    repository(owner: $owner, name: "typescript-definitive-guide") {
+    repository(owner: $owner, name: $repositoryName) {
       ref(qualifiedName: $branch) {
         target {
           ... on GitHub_Commit {
@@ -157,9 +159,9 @@ query GetGithubCommitHistory($path: String!, $owner: String!, $branch: String!) 
 }
 ` );
 export const getFileOnGithubHistoryInfoQuery: GraphQlQuery = (  ) => ( `
-query GetWhatIsNewFileHistory($path: String!) {
+query GetWhatIsNewFileHistory($path: String!, $owner: String!, $repositoryName: String!) {
   github {
-    repository(owner: "nauchikus", name: "typescript-definitive-guide") {
+    repository(owner: $owner, name: $repositoryName) {
       ref(qualifiedName: "new-www") {
         target {
           ... on GitHub_Commit {

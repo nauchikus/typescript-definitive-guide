@@ -2,11 +2,12 @@ import { Version } from "../utils/Version";
 import { PageNavTreeCreator } from "./PageNavTreeCreator";
 import { RouterStore } from "./RouterStore";
 import { VersionFilterStore } from "./VersionFilterStore";
-import { ContentSectionStore, IContentSectionStore } from "./ContentSectionStore";
+import { IContentSectionStore } from "./ContentSectionStore";
 import { IVersionable, IWinPageNavData } from "../page-templates/what-is-new-page/WhatIsNewPageProvider";
 import { IPageNavPage, IPageNavSection } from "../types/IPageNavData";
 import { computed, decorate, observable } from "mobx";
 import { IPageNavStore } from "./PageNavStore";
+import * as StringUtils from "../utils/string-utils";
 
 
 export interface IPageNavWithFilterStoreParams {
@@ -16,11 +17,6 @@ export interface IPageNavWithFilterStoreParams {
   contentSection: IContentSectionStore;
 }
 
-// export interface IPageNavStore<TNodeData,TLeafData> {
-//   pageItem: IPageNavPage<TNodeData, TLeafData>;
-//   sectionItem: IPageNavSection<IVersionable> | null;
-//
-// }
 
 
 export class PageNavWithFilterStore implements IPageNavStore<null,IVersionable> {
@@ -35,7 +31,9 @@ export class PageNavWithFilterStore implements IPageNavStore<null,IVersionable> 
 
   get pageItem () {
     let currentPageItem = this.pageNavTree
-      .find( item => item.name === this.router.pageName );
+      .find( item => {
+        return item.name === this.router.pageName;
+      } );
 
 
     if ( !currentPageItem ) {
@@ -46,12 +44,12 @@ export class PageNavWithFilterStore implements IPageNavStore<null,IVersionable> 
     return currentPageItem;
   }
   get sectionItem () {
-    let currentSection = ( this.pageItem.sections as Required<IPageNavSection<IVersionable>>[] )
-      .filter( section => this.versionFilter.isCheckedByVersion( new Version( section.data.version ).preReleaseName ) )
+    let currentSection = (this.pageItem.sections as Required<IPageNavSection<IVersionable>>[])
+      .filter(section => this.versionFilter.isCheckedByVersion(new Version(section.data.version).preReleaseName))
       // .find( section => section.path === this.contentSection.currentSectionId )
-      .find( section => {
-        return section.path === this.contentSection.currentSectionId
-      } )
+      .find(section => {
+        return StringUtils.pathToNativeElementAttributeValue(section.path) === this.contentSection.currentSectionId;
+      });
 
 
     if ( this.contentSection.currentSectionId !== `` && !currentSection ) {

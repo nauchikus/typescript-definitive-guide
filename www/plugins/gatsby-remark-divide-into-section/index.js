@@ -48,6 +48,8 @@ module.exports = ( { markdownAST: ast, markdownNode } ) => {
                     }
                 }
             } );
+
+            // console.log(JSON.stringify(ast));
         } );
 
         if ( children.length ) {

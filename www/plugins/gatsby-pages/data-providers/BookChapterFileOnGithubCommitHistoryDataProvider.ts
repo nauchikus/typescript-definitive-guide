@@ -20,6 +20,7 @@ export class BookChapterFileOnGithubCommitHistoryDataProvider extends BaseFileOn
   private createGraphQlRequest ( {repository,lang, chapterName}:IBookChapterCreateGraphQlRequestParams ) {
     return {
       path: this.createBookChapterFileOnGithubPath( lang, chapterName ),
+      repositoryName:repository.name,
       owner:repository.owner,
       branch: repository.branch,
     };

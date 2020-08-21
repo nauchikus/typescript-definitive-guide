@@ -1,6 +1,7 @@
 import * as path from 'path';
 
 import * as StringUtils from "../../src/utils/string-utils";
+import * as EnvUtils from "../../src/utils/env-utils";
 import {RouterUtils} from '../../src/utils/router-utils';
 
 import { GatsbyCreatePages } from "../types/gatsby-create-pages";
@@ -50,7 +51,7 @@ const createWinFileOnGithubPath = ( { versionMMP, innovationName }: ICreateWinFi
   `what-is-new/${versionMMP}/${innovationName}/content.md`
 );
 const createEditeWinFileOnGithubLink = ( { versionMMP, innovationName }: ICreateWinFileOnGithubPathParams ) => (
-  `https://github.com/nauchikus/typescript-definitive-guide/blob/what-is-new/${versionMMP}/${innovationName}/content.md`
+  `https://github.com/${EnvUtils.getRepositoryOwner()}/${EnvUtils.getRepositoryName()}/blob/what-is-new/${versionMMP}/${innovationName}/content.md`
 );
 
 

@@ -5,7 +5,7 @@ import { AppLocalization } from "../../localization";
 import { default as cn } from "classnames";
 import { getClassNameWithBgColorAttrBySectionName } from "../../maps/book-chapter-section-type-to-style-color-map";
 import { BookTocNode, TreeNode } from "../../stores/BookTocTreeStore";
-import { useBookTocPageStores } from "../../stores/mobx-entry__book_toc";
+import { useBookTocPageStores } from "../../stores/BookTocPageMobxEntry";
 
 
 interface IBookTocTreeCloseDecorProps {
@@ -13,10 +13,10 @@ interface IBookTocTreeCloseDecorProps {
 
 export const BookTocTreeCloseDecor: FC<IBookTocTreeCloseDecorProps> = observer( (  ) => {
   let [{ lang: locale }] = useTranslator<[AppLocalization]>();
-  let { bookTocTreeStore } = useBookTocPageStores();
+  let { bookTocSectionStore } = useBookTocPageStores();
 
   let sectionName = (
-    bookTocTreeStore.treeFiltered[ bookTocTreeStore.treeFiltered.length - 1] as TreeNode<BookTocNode>
+    bookTocSectionStore.treeFiltered[ bookTocSectionStore.treeFiltered.length - 1] as TreeNode<BookTocNode>
   ).data.section;
   let classes = cn( `bt-tree_close-decor`, getClassNameWithBgColorAttrBySectionName( sectionName, locale ) );
 

@@ -5,7 +5,6 @@ www/.cache/
 www/node_modules/
 www/public/
 www/dest/
-www/package-lock.json
 www/gen/
 node_modules/
 package-lock.json

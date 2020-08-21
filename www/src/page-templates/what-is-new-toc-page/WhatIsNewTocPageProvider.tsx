@@ -8,13 +8,10 @@ import BaseLayout from "../../layouts/base-layout/BaseLayout";
 import { AppLocalization } from "../../localization";
 import { IWhatIsNewToc } from "../../types/IWhatIsNewToc";
 import { TreeNode } from "../../stores/WhatIsNewTocTreeStore";
-import {
-  createWhatIsNewTocPageMobxEntry,
-  MobxWhatIsNewTocPageContext,
-  UseWhatIsNewTocPageStores
-} from "../../stores/mobx-entry__what-is-new_toc";
 import { BehaviorNotificationContext } from "../../react__context/BehaviorNotificationContext";
 import { RouterStoreContext } from "../../stores/RouterStore";
+import { WinTocPageMobxEntry, MobxWhatIsNewTocPageContext } from "../../stores/WinTocPageMobxEntry";
+import { useNativeLinkDisableDefaultBehavior } from "../../react__hooks/useNativeLinkDisableDefaultBehavior";
 
 
 interface IWhatIsNewTocPageProviderProps {
@@ -28,15 +25,15 @@ interface IWhatIsNewTocPageProviderProps {
 
 const WhatIsNewTocPageProvider: FC<IWhatIsNewTocPageProviderProps> = ( { pageContext,location } ) => {
   let {localization,winTocTree} = pageContext;
-  let winTocStoresRef = useRef<UseWhatIsNewTocPageStores>( createWhatIsNewTocPageMobxEntry( {
-    winTocTree,
-    location
-  } ) );
+
+  let mobxEntry = WinTocPageMobxEntry.getInstance({ location, winTocTree });
+
+  // useNativeLinkDisableDefaultBehavior(mobxEntry.router);
 
   return (
-    <MobxWhatIsNewTocPageContext.Provider value={ winTocStoresRef.current }>
-      <BehaviorNotificationContext.Provider value={ winTocStoresRef.current.behaviorNotificationStore }>
-        <RouterStoreContext.Provider value={winTocStoresRef.current.router}>
+    <MobxWhatIsNewTocPageContext.Provider value={ mobxEntry }>
+      <BehaviorNotificationContext.Provider value={ mobxEntry.behaviorNotificationStore }>
+        <RouterStoreContext.Provider value={mobxEntry.router}>
           <Localization.Provider value={ localization }>
             <BaseLayout>
               <SEO/>

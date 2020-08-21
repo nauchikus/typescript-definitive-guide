@@ -1,4 +1,4 @@
-import React, { FC, ReactNode } from "react";
+import React, { FC } from "react";
 import { AppDriver } from "../app-driver/AppDriver";
 import { default as cn } from "classnames";
 import { FooterAppDriver } from "../app-driver__footer/FooterAppDriver";
@@ -8,7 +8,10 @@ import { observer } from "mobx-react-lite";
 import { useRouter } from "../../stores/RouterStore";
 import { AppNavSectionAppDriver } from "../app-driver__nav-section_app-nav/AppNavSectionAppDriver";
 import { ContentNavSectionAppDriver } from "../app-driver__nav-section_page-nav/ContentNavSectionAppDriver";
-import { useWhatIsNewPageStores } from "../../stores/mobx-entry__what-is-new";
+import { useWhatIsNewPageStores } from "../../stores/WinPageMobxEntry";
+import * as WinTocVersionUtils from "../../utils/win-toc-version-utils";
+import * as StringUtils from "../../utils/string-utils";
+import { RouterUtils } from "../../utils/router-utils";
 
 interface IWhatIsNewPageAppDriverProps {
 }
@@ -31,13 +34,19 @@ export const LinkAppDriver: FC<ILinkAppDriverProps> = ( { path, name, isActive, 
   } );
   let linkProps = { className: classes };
 
+  const onClickWrapper = (event: React.MouseEvent<HTMLAnchorElement>) => {
+    // event.preventDefault();
+    onClick && onClick();
+
+
+  }
 
   return (
     <div className="app-driver__list-item">
       <Link className="app-driver__list-item"
             to={ path }
             getProps={ () => linkProps }
-            onClick={onClick}>
+            onClick={onClickWrapper}>
         { name }
       </Link>
     </div>
@@ -47,16 +56,20 @@ export const LinkAppDriver: FC<ILinkAppDriverProps> = ( { path, name, isActive, 
 
 
 export const WhatIsNewPageAppDriver: FC<IWhatIsNewPageAppDriverProps> = observer( ( {} ) => {
-  let { winTocTreeStore } = useWhatIsNewPageStores();
+  let { winTocCollapseStore } = useWhatIsNewPageStores();
   let routerStore = useRouter();
   let { contentSection, versionFilter } = useWhatIsNewPageStores();
 
 
-  let innovationAll = winTocTreeStore.getInnovationAllByVersionMMP( routerStore.pageName );
+  let innovationAll = WinTocVersionUtils.getInnovationAllByVersionMMP(
+    routerStore.pageName,
+    winTocCollapseStore.tree,
+  );
 
 
-  const hasPageNavLinkActive = ( href: string, anchor: string ) =>
-    anchor === contentSection.currentSectionId;
+  const hasPageNavLinkActive = (currentSectionId: string, anchor: string) => {
+    return StringUtils.pathToNativeElementAttributeValue(anchor) === currentSectionId;
+  }
 
 
   if ( !innovationAll ) {
@@ -65,20 +78,25 @@ export const WhatIsNewPageAppDriver: FC<IWhatIsNewPageAppDriverProps> = observer
 
 
   let navItemAll = innovationAll.map( innovation => ( {
-    path: `${ routerStore.pathname }#${ innovation.path }`,
+    path: innovation.path,
     name: innovation.innovationName,
     anchor: innovation.path,
     version: new Version( innovation.version ).preReleaseName
   } ) );
 
 
+
   let contentNavLinkDataAll = navItemAll.map( ( { name, path, anchor, version }, index ) => ( {
     name,
-    path,
-    isActive: hasPageNavLinkActive( path, anchor ),
+    path: RouterUtils.whatIsNewRoutes.getWhatIsNewRoute({
+      version:routerStore.pageName,
+      innovation: anchor
+    }),
+    isActive: hasPageNavLinkActive( contentSection.currentSectionId, anchor ),
     disabled: !versionFilter.isCheckedByVersion( version ),
     activeClassName: "app-driver__link_page-nav-item_active"
   } ) );
+
 
 
   return (

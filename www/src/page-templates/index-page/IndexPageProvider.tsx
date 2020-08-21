@@ -7,7 +7,7 @@ import { Localization } from "../../react__hooks/translator.hook";
 import BaseLayout from "../../layouts/base-layout/BaseLayout";
 import { AppLocalization } from "../../localization";
 import { RouterStoreContext } from "../../stores/RouterStore";
-import { createIndexPageMobxEntry, UseIndexPageMobxStores } from "../../stores/mobx-entry__index";
+import { IndexPageMobxEntry } from "../../stores/IndexPageMobxEntry";
 
 
 interface IIndexPageProviderProps {
@@ -22,16 +22,15 @@ const IndexPageProvider: FC<IIndexPageProviderProps> = ( { pageContext,location 
     let { localization } = pageContext;
 
     let { pages,...appSharedLocalization } = localization;
-    let mobxRef = useRef<UseIndexPageMobxStores>( createIndexPageMobxEntry( {
-        location,
-    } ) );
+
+    let mobxEntry = IndexPageMobxEntry.getInstance({ location });
 
 
     return (
 
 
         <Localization.Provider value={localization}>
-            <RouterStoreContext.Provider value={mobxRef.current.router}>
+            <RouterStoreContext.Provider value={mobxEntry.router}>
                 <BaseLayout>
                     <SEO {...appSharedLocalization}/>
                     <IndexPage/>

@@ -62,7 +62,7 @@ export class RouterStore {
    *                                  |---|
    */
   get pageName(){
-    return this.pathname
+    return (this.pathname ?? ``)
       .replace( /\/$/i, "" )
       .replace( this.hash, "" )
       .replace( /.*\//, "" );
@@ -96,29 +96,39 @@ export class RouterStore {
   constructor ( public location:ILocation, private _locale: string = RouterStore.EMPTY_LOCALE) {
   }
 
-  // goTo = ( path: string ) => navigate( path );
   goTo( path: string ) {
     navigate( path );
-    console.log(`goTo: ${path} [anchor: ${this.anchor}]`);
-
-    // setTimeout(() => this.scrollToAnchor());
   }
   setLocation ( location: Location ) {
-    console.log(`>>> change location [anchor: ${location.hash}]`);
     this.location = location;
 
-    this.scrollToAnchor(this.anchor)
+    // this.scrollToAnchor(this.anchor)
+  }
+  updateLocationWhenHashChanged(location: Location){
+    this.location = location;
+    this.scrollToAnchor(this.anchor);
   }
   scrollToAnchor(anchor?:string){
-    if ( anchor || this.anchor ) {
-      let sectionId = StringUtils.urlToSelector(anchor ?? this.anchor);
+    if ( anchor ) {
+      let sectionId = StringUtils.urlToSelector(anchor);
 
+      let section = document
+        .querySelector(`main`)
+        ?.querySelector(`section#${sectionId}`);
 
-      document
-        .querySelector( `main` )
-        ?.querySelector( `section#${ sectionId }` )
-        ?.scrollIntoView();
+      if (section) {
+        window.scrollBy(0, section?.getBoundingClientRect().top);
+      }else{
+        throw new Error(`Section with id "${anchor}" not found.`)
+      }
     };
+  }
+
+  reset(){
+    this.location = {
+      ...this.location,
+      hash: ``
+    }
   }
 }
 
@@ -135,7 +145,9 @@ decorate( RouterStore, {
   location: observable,
 
   goTo: action,
+  reset: action,
   setLocation: action,
+  updateLocationWhenHashChanged: action,
   scrollToAnchor: action
 } );
 

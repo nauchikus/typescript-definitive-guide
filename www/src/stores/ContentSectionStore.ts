@@ -44,7 +44,7 @@ export class ContentSectionStore implements IContentSectionStore{
       }
 
 
-      this.currentSectionId = entry.sectionId;
+      this.currentSectionId = StringUtils.pathToNativeElementAttributeValue(entry.sectionId);
     } );
   }
 }

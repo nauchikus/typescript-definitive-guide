@@ -1,13 +1,10 @@
 import {
-  getGithubCommitHistoryQuery, getGithubUserQuery,
-  getWhatIsNewContentHtmlRequest, ICommitHistory, ICommitInfo,
-  IGetContentHtmlRequest,
-  IGetContentHtmlResponse,
-  IGetFileOnGithubHistoryInfoResponse,
-  IGetGithubCommitHistoryRequest, IGetGithubCommitHistoryResponse, IGetGithubUserResponse
+  getGithubUserQuery,
+  ICommitHistory,
+  ICommitInfo,
+  IGetGithubUserResponse
 } from "../graphql-querys";
-import { GraphQl, GraphQlResponse } from "../../types/gatsby-create-pages";
-import { GithubRepositoryData } from "../data-providers/GithubRepositoryInfoDataProvider";
+import { GraphQl } from "../../types/gatsby-create-pages";
 
 
 export class CommitHistoryToCommitInfoTransformer {

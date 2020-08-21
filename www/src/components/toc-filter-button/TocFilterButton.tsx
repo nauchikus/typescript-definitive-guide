@@ -6,7 +6,7 @@ import { observer } from "mobx-react-lite";
 import { Tooltip, TooltipPosition } from "../tooltip/Tooltip";
 import { useTranslator } from "../../react__hooks/translator.hook";
 import { BookTocGuiLocalization, LocalizationPaths } from "../../localization";
-import { useBookTocPageStores } from "../../stores/mobx-entry__book_toc";
+import { useBookTocPageStores } from "../../stores/BookTocPageMobxEntry";
 
 interface ITocFilterButtonProps {
   className?:string;

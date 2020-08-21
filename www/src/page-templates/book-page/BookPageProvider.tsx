@@ -1,10 +1,9 @@
-import React, {useEffect, useRef} from "react";
+import React, { useEffect, useLayoutEffect } from "react";
 import {FC} from "react"
 import { Locales } from "../../../plugins/types/locales";
 import SEO from "../../components/seo";
 import BaseLayout from "../../layouts/base-layout/BaseLayout";
 import { BehaviorNotificationContext } from "../../react__context/BehaviorNotificationContext";
-import { createBookChapterPageMobxEntry, UseBookPageStores, MobxBookChapterPageContext } from "../../stores/mobx-entry__book";
 import { IPageNavLeaf, IPageNavNode } from "../../types/IPageNavData";
 import { AppLocalization } from "../../localization";
 import { IBookChapterPageContentData } from "../../../plugins/gatsby-pages/create-book-page";
@@ -16,6 +15,8 @@ import { ContentNavStoreContext } from "../../mobx__mobx-shared-store__react-con
 import { BookChapterPageContentDataContext } from "../../react__context/BookChapterPageContentDataContext";
 import { ContentIntersectionObserverStoreContext } from "../../react__context/ContentIntersectionObserverStoreContext";
 import { RouterStoreContext } from "../../stores/RouterStore";
+import { BookPageMobxEntry, MobxBookChapterPageContext } from "../../stores/BookPageMobxEntry";
+import { useNativeLinkDisableDefaultBehavior } from "../../react__hooks/useNativeLinkDisableDefaultBehavior";
 
 
 export interface IBookChapterPageNavData extends IPageNavNode<IPageNavLeaf>{
@@ -32,31 +33,31 @@ interface IBookPageProviderProps {
   location: Location;
 }
 
-const BookPageProvider:    FC<IBookPageProviderProps> = ( { pageContext,location } ) => {
+const BookPageProvider: FC<IBookPageProviderProps> = ( { pageContext,location } ) => {
   let { locale, pageContentData,pageNavDataAll,localization } = pageContext;
-  let bcMobxRef = useRef<UseBookPageStores>( createBookChapterPageMobxEntry( {
-    locale,
-    location,
-    pageNavDataAll
-  } ) );
+  let mobxEntry = BookPageMobxEntry.getInstance({ locale, location, pageNavDataAll });
 
-  let {router} = bcMobxRef.current;
+  let {router} = mobxEntry;
 
-  useEffect( () => {
-    router.setLocation( location );
-  }, [location.hash] );
+  useNativeLinkDisableDefaultBehavior(router);
+
+  useLayoutEffect(() => {
+    router.updateLocationWhenHashChanged(location);
+
+    return () => router.reset();
+  }, [location.hash]);
 
 
   return (
-    <MobxBookChapterPageContext.Provider value={bcMobxRef.current}>
-      <BehaviorNotificationContext.Provider value={bcMobxRef.current.behaviorNotificationStore}>
+    <MobxBookChapterPageContext.Provider value={mobxEntry}>
+      <BehaviorNotificationContext.Provider value={mobxEntry.behaviorNotificationStore}>
         <Localization.Provider value={localization}>
-          <ContentNavStoreContext.Provider value={bcMobxRef.current.contentNav}>
-            <ContentDownPanelStoreContext.Provider value={bcMobxRef.current.contentDownPanelStore}>
-              <RouterStoreContext.Provider value={bcMobxRef.current.router}>
+          <ContentNavStoreContext.Provider value={mobxEntry.contentNav}>
+            <ContentDownPanelStoreContext.Provider value={mobxEntry.contentDownPanelStore}>
+              <RouterStoreContext.Provider value={mobxEntry.router}>
                 <BaseLayout>
                   <SEO/>
-                  <ContentIntersectionObserverStoreContext.Provider value={bcMobxRef.current.contentIntersectionObserver}>
+                  <ContentIntersectionObserverStoreContext.Provider value={mobxEntry.contentIntersectionObserver}>
                     <BookChapterPageContentDataContext.Provider value={pageContentData}>
                       <BookPage/>
                       <CustomNotification/>

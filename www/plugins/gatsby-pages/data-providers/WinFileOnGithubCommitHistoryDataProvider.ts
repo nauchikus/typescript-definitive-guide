@@ -18,6 +18,7 @@ export class WinFileOnGithubCommitHistoryDataProvider extends BaseFileOnGithubCo
   private createGraphQlRequest ( {repository,versionMMP, innovationName}:IWinCreateGraphQlRequestParams ) {
     return {
       path: this.createWinFileOnGithubPath( versionMMP, innovationName ),
+      repositoryName:repository.name,
       owner:repository.owner,
       branch: repository.branch,
     };

@@ -17,6 +17,7 @@ const { isRepoInfo } = require(`./src/utils/env-utils`);
 const {
   NODE_ENV,
   GITHUB_TOKEN,
+  REPOSITORY_NAME,
   REPOSITORY_OWNER,
   REPOSITORY_BRANCH,
 } = process.env
@@ -30,6 +31,9 @@ if(!isRepoInfo() && NODE_ENV === `development`){
 const githubNodeEnvValid = () => {
   if (!NODE_ENV && !GITHUB_TOKEN) {
     throw new Error("GITHUB_TOKEN must be specified")
+  }
+  if (!NODE_ENV && !REPOSITORY_NAME) {
+    throw new Error("REPOSITORY_NAME must be specified")
   }
   if (!NODE_ENV && !REPOSITORY_OWNER) {
     throw new Error("REPOSITORY_OWNER must be specified")
@@ -243,10 +247,6 @@ const getPlugins = ({ locale, lang }) => [
           resolve: 'gatsby-remark-add-classes',
           options: {}
         },
-        {
-          resolve: 'gatsby-remark-create-tag-bar',
-          options: {}
-        },
 
         {
           resolve: 'gatsby-remark-book-chapter-cover',
@@ -308,6 +308,7 @@ const getPlugins = ({ locale, lang }) => [
 module.exports = {
   siteMetadata: {
     repository: {
+      name: process.env.REPOSITORY_NAME,
       owner: process.env.REPOSITORY_OWNER,
       branch: process.env.REPOSITORY_BRANCH,
     },

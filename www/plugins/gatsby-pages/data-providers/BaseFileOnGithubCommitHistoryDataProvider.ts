@@ -1,13 +1,8 @@
 import {
-  getGithubCommitHistoryQuery,
-  getWhatIsNewContentHtmlRequest, ICommitInfo,
-  IGetContentHtmlRequest,
-  IGetContentHtmlResponse,
   IGetFileOnGithubHistoryInfoResponse,
-  IGetGithubCommitHistoryRequest, IGetGithubCommitHistoryResponse
+  IGetGithubCommitHistoryRequest
 } from "../graphql-querys";
 import { GraphQl, GraphQlResponse } from "../../types/gatsby-create-pages";
-import { GithubRepositoryData } from "./GithubRepositoryInfoDataProvider";
 
 
 

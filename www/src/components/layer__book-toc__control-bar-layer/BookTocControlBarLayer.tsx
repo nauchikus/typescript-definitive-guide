@@ -21,7 +21,7 @@ export const BookTocControlBarLayer: FC<IBookTocControlBarLayerProps> = () => {
             <BookTocFilterDropdown/>
           </div>
           <div className="book-toc-control-bar-layer__control-item">
-            <TocCollapseAllButton className="book-toc-control__item"/>
+            <TocCollapseAllButton className="book-toc-control__item" collapseGroupId="book-toc"/>
           </div>
         </div>
       </div>

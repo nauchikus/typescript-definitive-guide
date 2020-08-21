@@ -13675,10 +13675,16 @@ export type GitHub_Repository = GitHub_Node & GitHub_ProjectOwner & GitHub_Packa
   viewerCanSubscribe: Scalars['Boolean'];
   /** Indicates whether the viewer can update the topics of this repository. */
   viewerCanUpdateTopics: Scalars['Boolean'];
+  /** The last commit email for the viewer. */
+  viewerDefaultCommitEmail?: Maybe<Scalars['String']>;
+  /** The last used merge method by the viewer or the default for the repository. */
+  viewerDefaultMergeMethod: GitHub_PullRequestMergeMethod;
   /** Returns a boolean indicating whether the viewing user has starred this starrable. */
   viewerHasStarred: Scalars['Boolean'];
   /** The users permission level on the repository. Will return null if authenticated as an GitHub App. */
   viewerPermission?: Maybe<GitHub_RepositoryPermission>;
+  /** A list of emails this viewer can commit with. */
+  viewerPossibleCommitEmails?: Maybe<Array<Scalars['String']>>;
   /** Identifies if the viewer is watching, not watching, or ignoring the subscribable entity. */
   viewerSubscription?: Maybe<GitHub_SubscriptionState>;
   /** A list of vulnerability alerts that are on this repository. */
@@ -19651,6 +19657,7 @@ export type SiteEdge = {
 
 export type SiteFieldsEnum = 
   | 'buildTime'
+  | 'siteMetadata___repository___name'
   | 'siteMetadata___repository___owner'
   | 'siteMetadata___repository___branch'
   | 'siteMetadata___title'
@@ -19812,6 +19819,8 @@ export type SitePageContext = {
   pageContentData?: Maybe<SitePageContextPageContentData>;
   pageNavDataAll?: Maybe<Array<Maybe<SitePageContextPageNavDataAll>>>;
   bookTocTree?: Maybe<Array<Maybe<SitePageContextBookTocTree>>>;
+  innovationData?: Maybe<SitePageContextInnovationData>;
+  winTocTree?: Maybe<Array<Maybe<SitePageContextWinTocTree>>>;
 };
 
 export type SitePageContextBookTocTree = {
@@ -19865,6 +19874,110 @@ export type SitePageContextFilterInput = {
   pageContentData?: Maybe<SitePageContextPageContentDataFilterInput>;
   pageNavDataAll?: Maybe<SitePageContextPageNavDataAllFilterListInput>;
   bookTocTree?: Maybe<SitePageContextBookTocTreeFilterListInput>;
+  innovationData?: Maybe<SitePageContextInnovationDataFilterInput>;
+  winTocTree?: Maybe<SitePageContextWinTocTreeFilterListInput>;
+};
+
+export type SitePageContextInnovationData = {
+  releaseHistory?: Maybe<Array<Maybe<SitePageContextInnovationDataReleaseHistory>>>;
+  lastVersionStatus?: Maybe<SitePageContextInnovationDataLastVersionStatus>;
+  mmp?: Maybe<Scalars['String']>;
+  innovations?: Maybe<Array<Maybe<SitePageContextInnovationDataInnovations>>>;
+};
+
+export type SitePageContextInnovationDataFilterInput = {
+  releaseHistory?: Maybe<SitePageContextInnovationDataReleaseHistoryFilterListInput>;
+  lastVersionStatus?: Maybe<SitePageContextInnovationDataLastVersionStatusFilterInput>;
+  mmp?: Maybe<StringQueryOperatorInput>;
+  innovations?: Maybe<SitePageContextInnovationDataInnovationsFilterListInput>;
+};
+
+export type SitePageContextInnovationDataInnovations = {
+  id?: Maybe<Scalars['String']>;
+  version?: Maybe<Scalars['String']>;
+  innovationName?: Maybe<Scalars['String']>;
+  dateRelease?: Maybe<Scalars['String']>;
+  datePublication?: Maybe<Scalars['String']>;
+  tags?: Maybe<Array<Maybe<Scalars['String']>>>;
+  path?: Maybe<Scalars['String']>;
+  html?: Maybe<Scalars['String']>;
+  commitInfoAll?: Maybe<Array<Maybe<SitePageContextInnovationDataInnovationsCommitInfoAll>>>;
+  fileOnGithubLink?: Maybe<Scalars['String']>;
+};
+
+export type SitePageContextInnovationDataInnovationsCommitInfoAll = {
+  committedDate?: Maybe<Scalars['Date']>;
+  message?: Maybe<Scalars['String']>;
+  messageHeadline?: Maybe<Scalars['String']>;
+  pushedDate?: Maybe<Scalars['Date']>;
+  authoredByCommitter?: Maybe<Scalars['Boolean']>;
+  committer?: Maybe<SitePageContextInnovationDataInnovationsCommitInfoAllCommitter>;
+};
+
+export type SitePageContextInnovationDataInnovationsCommitInfoAllCommitter = {
+  name?: Maybe<Scalars['String']>;
+  bio?: Maybe<Scalars['String']>;
+  avatarUrl?: Maybe<Scalars['String']>;
+};
+
+export type SitePageContextInnovationDataInnovationsCommitInfoAllCommitterFilterInput = {
+  name?: Maybe<StringQueryOperatorInput>;
+  bio?: Maybe<StringQueryOperatorInput>;
+  avatarUrl?: Maybe<StringQueryOperatorInput>;
+};
+
+export type SitePageContextInnovationDataInnovationsCommitInfoAllFilterInput = {
+  committedDate?: Maybe<DateQueryOperatorInput>;
+  message?: Maybe<StringQueryOperatorInput>;
+  messageHeadline?: Maybe<StringQueryOperatorInput>;
+  pushedDate?: Maybe<DateQueryOperatorInput>;
+  authoredByCommitter?: Maybe<BooleanQueryOperatorInput>;
+  committer?: Maybe<SitePageContextInnovationDataInnovationsCommitInfoAllCommitterFilterInput>;
+};
+
+export type SitePageContextInnovationDataInnovationsCommitInfoAllFilterListInput = {
+  elemMatch?: Maybe<SitePageContextInnovationDataInnovationsCommitInfoAllFilterInput>;
+};
+
+export type SitePageContextInnovationDataInnovationsFilterInput = {
+  id?: Maybe<StringQueryOperatorInput>;
+  version?: Maybe<StringQueryOperatorInput>;
+  innovationName?: Maybe<StringQueryOperatorInput>;
+  dateRelease?: Maybe<StringQueryOperatorInput>;
+  datePublication?: Maybe<StringQueryOperatorInput>;
+  tags?: Maybe<StringQueryOperatorInput>;
+  path?: Maybe<StringQueryOperatorInput>;
+  html?: Maybe<StringQueryOperatorInput>;
+  commitInfoAll?: Maybe<SitePageContextInnovationDataInnovationsCommitInfoAllFilterListInput>;
+  fileOnGithubLink?: Maybe<StringQueryOperatorInput>;
+};
+
+export type SitePageContextInnovationDataInnovationsFilterListInput = {
+  elemMatch?: Maybe<SitePageContextInnovationDataInnovationsFilterInput>;
+};
+
+export type SitePageContextInnovationDataLastVersionStatus = {
+  version?: Maybe<Scalars['String']>;
+  date?: Maybe<Scalars['String']>;
+};
+
+export type SitePageContextInnovationDataLastVersionStatusFilterInput = {
+  version?: Maybe<StringQueryOperatorInput>;
+  date?: Maybe<StringQueryOperatorInput>;
+};
+
+export type SitePageContextInnovationDataReleaseHistory = {
+  version?: Maybe<Scalars['String']>;
+  dateRelease?: Maybe<Scalars['String']>;
+};
+
+export type SitePageContextInnovationDataReleaseHistoryFilterInput = {
+  version?: Maybe<StringQueryOperatorInput>;
+  dateRelease?: Maybe<StringQueryOperatorInput>;
+};
+
+export type SitePageContextInnovationDataReleaseHistoryFilterListInput = {
+  elemMatch?: Maybe<SitePageContextInnovationDataReleaseHistoryFilterInput>;
 };
 
 export type SitePageContextLocalization = {
@@ -20586,15 +20699,105 @@ export type SitePageContextPageNavDataAllFilterListInput = {
 export type SitePageContextPageNavDataAllSections = {
   name?: Maybe<Scalars['String']>;
   path?: Maybe<Scalars['String']>;
+  data?: Maybe<SitePageContextPageNavDataAllSectionsData>;
+};
+
+export type SitePageContextPageNavDataAllSectionsData = {
+  version?: Maybe<Scalars['String']>;
+};
+
+export type SitePageContextPageNavDataAllSectionsDataFilterInput = {
+  version?: Maybe<StringQueryOperatorInput>;
 };
 
 export type SitePageContextPageNavDataAllSectionsFilterInput = {
   name?: Maybe<StringQueryOperatorInput>;
   path?: Maybe<StringQueryOperatorInput>;
+  data?: Maybe<SitePageContextPageNavDataAllSectionsDataFilterInput>;
 };
 
 export type SitePageContextPageNavDataAllSectionsFilterListInput = {
   elemMatch?: Maybe<SitePageContextPageNavDataAllSectionsFilterInput>;
+};
+
+export type SitePageContextWinTocTree = {
+  id?: Maybe<Scalars['String']>;
+  isCollapse?: Maybe<Scalars['Boolean']>;
+  index?: Maybe<Scalars['Int']>;
+  data?: Maybe<SitePageContextWinTocTreeData>;
+};
+
+export type SitePageContextWinTocTreeData = {
+  releaseHistory?: Maybe<Array<Maybe<SitePageContextWinTocTreeDataReleaseHistory>>>;
+  lastVersionStatus?: Maybe<SitePageContextWinTocTreeDataLastVersionStatus>;
+  mmp?: Maybe<Scalars['String']>;
+  innovations?: Maybe<Array<Maybe<SitePageContextWinTocTreeDataInnovations>>>;
+};
+
+export type SitePageContextWinTocTreeDataFilterInput = {
+  releaseHistory?: Maybe<SitePageContextWinTocTreeDataReleaseHistoryFilterListInput>;
+  lastVersionStatus?: Maybe<SitePageContextWinTocTreeDataLastVersionStatusFilterInput>;
+  mmp?: Maybe<StringQueryOperatorInput>;
+  innovations?: Maybe<SitePageContextWinTocTreeDataInnovationsFilterListInput>;
+};
+
+export type SitePageContextWinTocTreeDataInnovations = {
+  id?: Maybe<Scalars['String']>;
+  version?: Maybe<Scalars['String']>;
+  innovationName?: Maybe<Scalars['String']>;
+  dateRelease?: Maybe<Scalars['String']>;
+  datePublication?: Maybe<Scalars['String']>;
+  tags?: Maybe<Array<Maybe<Scalars['String']>>>;
+  path?: Maybe<Scalars['String']>;
+};
+
+export type SitePageContextWinTocTreeDataInnovationsFilterInput = {
+  id?: Maybe<StringQueryOperatorInput>;
+  version?: Maybe<StringQueryOperatorInput>;
+  innovationName?: Maybe<StringQueryOperatorInput>;
+  dateRelease?: Maybe<StringQueryOperatorInput>;
+  datePublication?: Maybe<StringQueryOperatorInput>;
+  tags?: Maybe<StringQueryOperatorInput>;
+  path?: Maybe<StringQueryOperatorInput>;
+};
+
+export type SitePageContextWinTocTreeDataInnovationsFilterListInput = {
+  elemMatch?: Maybe<SitePageContextWinTocTreeDataInnovationsFilterInput>;
+};
+
+export type SitePageContextWinTocTreeDataLastVersionStatus = {
+  version?: Maybe<Scalars['String']>;
+  date?: Maybe<Scalars['String']>;
+};
+
+export type SitePageContextWinTocTreeDataLastVersionStatusFilterInput = {
+  version?: Maybe<StringQueryOperatorInput>;
+  date?: Maybe<StringQueryOperatorInput>;
+};
+
+export type SitePageContextWinTocTreeDataReleaseHistory = {
+  version?: Maybe<Scalars['String']>;
+  dateRelease?: Maybe<Scalars['String']>;
+};
+
+export type SitePageContextWinTocTreeDataReleaseHistoryFilterInput = {
+  version?: Maybe<StringQueryOperatorInput>;
+  dateRelease?: Maybe<StringQueryOperatorInput>;
+};
+
+export type SitePageContextWinTocTreeDataReleaseHistoryFilterListInput = {
+  elemMatch?: Maybe<SitePageContextWinTocTreeDataReleaseHistoryFilterInput>;
+};
+
+export type SitePageContextWinTocTreeFilterInput = {
+  id?: Maybe<StringQueryOperatorInput>;
+  isCollapse?: Maybe<BooleanQueryOperatorInput>;
+  index?: Maybe<IntQueryOperatorInput>;
+  data?: Maybe<SitePageContextWinTocTreeDataFilterInput>;
+};
+
+export type SitePageContextWinTocTreeFilterListInput = {
+  elemMatch?: Maybe<SitePageContextWinTocTreeFilterInput>;
 };
 
 export type SitePageEdge = {
@@ -20731,6 +20934,30 @@ export type SitePageFieldsEnum =
   | 'context___bookTocTree___data___section'
   | 'context___bookTocTree___data___path'
   | 'context___bookTocTree___data___subtitles'
+  | 'context___innovationData___releaseHistory'
+  | 'context___innovationData___releaseHistory___version'
+  | 'context___innovationData___releaseHistory___dateRelease'
+  | 'context___innovationData___lastVersionStatus___version'
+  | 'context___innovationData___lastVersionStatus___date'
+  | 'context___innovationData___mmp'
+  | 'context___innovationData___innovations'
+  | 'context___innovationData___innovations___id'
+  | 'context___innovationData___innovations___version'
+  | 'context___innovationData___innovations___innovationName'
+  | 'context___innovationData___innovations___dateRelease'
+  | 'context___innovationData___innovations___datePublication'
+  | 'context___innovationData___innovations___tags'
+  | 'context___innovationData___innovations___path'
+  | 'context___innovationData___innovations___html'
+  | 'context___innovationData___innovations___commitInfoAll'
+  | 'context___innovationData___innovations___fileOnGithubLink'
+  | 'context___winTocTree'
+  | 'context___winTocTree___id'
+  | 'context___winTocTree___isCollapse'
+  | 'context___winTocTree___index'
+  | 'context___winTocTree___data___releaseHistory'
+  | 'context___winTocTree___data___mmp'
+  | 'context___winTocTree___data___innovations'
   | 'pluginCreator___id'
   | 'pluginCreator___parent___id'
   | 'pluginCreator___parent___parent___id'
@@ -21292,11 +21519,13 @@ export type SiteSiteMetadataFilterInput = {
 };
 
 export type SiteSiteMetadataRepository = {
+  name?: Maybe<Scalars['String']>;
   owner?: Maybe<Scalars['String']>;
   branch?: Maybe<Scalars['String']>;
 };
 
 export type SiteSiteMetadataRepositoryFilterInput = {
+  name?: Maybe<StringQueryOperatorInput>;
   owner?: Maybe<StringQueryOperatorInput>;
   branch?: Maybe<StringQueryOperatorInput>;
 };

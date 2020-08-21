@@ -8,28 +8,29 @@ import { Tooltip, TooltipPosition } from "../tooltip/Tooltip";
 import { If } from "../if-operator/If";
 import { useTranslator } from "../../react__hooks/translator.hook";
 import { BookTocGuiLocalization, LocalizationPaths } from "../../localization";
-import { useBookTocPageStores } from "../../stores/mobx-entry__book_toc";
+import { useBookTocPageStores } from "../../stores/BookTocPageMobxEntry";
 
 interface ITocCollapseAllButtonProps {
+  collapseGroupId: string;
   className?:string;
 }
 
-export const TocCollapseAllButton: FC<ITocCollapseAllButtonProps> = observer( ( {className} ) => {
+export const TocCollapseAllButton: FC<ITocCollapseAllButtonProps> = observer( ( {className, collapseGroupId} ) => {
   let [t] = useTranslator<[BookTocGuiLocalization]>( LocalizationPaths.BookChaptersPageGui );
-  let { bookTocTreeStore } = useBookTocPageStores();
+  let { bookTocCollapseStore } = useBookTocPageStores();
 
   let classes = cn( "toc-collapse-all-button", className );
 
   return (
-    <IconButton className={classes} size={Size.SM} onClick={ () => bookTocTreeStore.collapseAll() }>
-      <RotateContainer isToggle={ !bookTocTreeStore.isCollapseAll }>
+    <IconButton className={classes} size={Size.SM} onClick={ () => bookTocCollapseStore.collapseAll() }>
+      <RotateContainer isToggle={ !bookTocCollapseStore.isCollapseAll }>
         <ArrowDownSvgIcon/>
       </RotateContainer>
       <Tooltip position={TooltipPosition.BottomCenter}>
-        <If condition={bookTocTreeStore.isCollapseAll}>
+        <If condition={bookTocCollapseStore.isCollapseAll}>
           {t.secondaryContentBar.tocCollapseAllButton.tooltip.openState}
         </If>
-        <If condition={!bookTocTreeStore.isCollapseAll}>
+        <If condition={!bookTocCollapseStore.isCollapseAll}>
           {t.secondaryContentBar.tocCollapseAllButton.tooltip.closeState}
         </If>
       </Tooltip>

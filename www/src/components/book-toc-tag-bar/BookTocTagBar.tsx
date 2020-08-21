@@ -4,7 +4,7 @@ import { Subject, merge, Observable } from "rxjs";
 import { auditTime, debounceTime, delay, takeUntil, tap, throttleTime } from "rxjs/operators";
 import { useTranslator } from "../../react__hooks/translator.hook";
 import { BookTocGuiLocalization, LocalizationPaths } from "../../localization";
-import { useBookTocPageStores } from "../../stores/mobx-entry__book_toc";
+import { useBookTocPageStores } from "../../stores/BookTocPageMobxEntry";
 
 
 interface IBookTocTagBarProps {
@@ -20,7 +20,7 @@ const SECONDARY_CONTENT_BAR_CLOSE_DELAY = 400;
 
 export const BookTocTagBar: FC<IBookTocTagBarProps> = ( {} ) => {
   let [t] = useTranslator<[BookTocGuiLocalization]>( LocalizationPaths.BookChaptersPageGui );
-  let { bookTocTreeStore, tocFilterStore } = useBookTocPageStores();
+  let { bookTocCollapseStore, bookTocSectionStore, tocFilterStore } = useBookTocPageStores();
   let filterSectionRef = useRef<FilterSectionUseRef>( {
     bookTocTree$: null,
     filterSection: null
@@ -36,12 +36,10 @@ export const BookTocTagBar: FC<IBookTocTagBarProps> = ( {} ) => {
         tocFilterStore.close();
 
         if ( sectionName === "" ) {
-          bookTocTreeStore.showAll();
-          console.log(`showAll`);
+          bookTocSectionStore.showAll();
         }else{
-          console.log(`show_only:${sectionName}`);
 
-          bookTocTreeStore.hideBySectionName( sectionName );
+          bookTocSectionStore.hideBySectionName( sectionName );
         }
       } )
     );
@@ -59,7 +57,7 @@ export const BookTocTagBar: FC<IBookTocTagBarProps> = ( {} ) => {
   const cleanFilter = () =>
     filterSectionRef.current.bookTocTree$?.next( "" );
 
-  let bookTocSectionSet = bookTocTreeStore.tree
+  let bookTocSectionSet = bookTocSectionStore.tree
     .reduce( ( result, current ) => result.add( current.data.section ), new Set<string>() );
   let bookTocSortSectionAll = Array.from( bookTocSectionSet )
     .sort( ( a, b ) => a.charCodeAt(0) - b.charCodeAt(0) );
@@ -69,7 +67,7 @@ export const BookTocTagBar: FC<IBookTocTagBarProps> = ( {} ) => {
   let bookTocTagAll = bookTocSortSectionAll.map( (sectionName,index) => (
     <BookTocTag key={index}
                 section={sectionName}
-                sectionMatchCount={bookTocTreeStore.getSectionMatchCount(sectionName)}
+                sectionMatchCount={bookTocSectionStore.getSectionMatchCount(sectionName)}
                 onClick={()=>filterBySectionName(sectionName)}>
       {sectionName}
     </BookTocTag>

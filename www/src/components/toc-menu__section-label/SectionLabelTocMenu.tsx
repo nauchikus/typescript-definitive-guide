@@ -4,13 +4,15 @@ import { getClassNameWithBgColorAttrBySectionName } from "../../maps/book-chapte
 import { useTranslator } from "../../react__hooks/translator.hook";
 import { AppLocalization } from "../../localization";
 
-interface IBookTocTreeSectionLabelProps {
+
+interface SectionLabelTocMenuProps {
   sectionName:string;
 }
 
-export const BookTocTreeSectionLabel: FC<IBookTocTreeSectionLabelProps> = ( { sectionName } ) => {
+
+export const SectionLabelTocMenu: FC<SectionLabelTocMenuProps> = ( { sectionName } ) => {
   let [{ lang: locale }] = useTranslator<[AppLocalization]>();
-  let classes = cn( `book-toc-tree__section-label`, getClassNameWithBgColorAttrBySectionName( sectionName, locale ) );
+  let classes = cn( `toc-menu__section-label`, getClassNameWithBgColorAttrBySectionName( sectionName, locale ) );
 
   return (
     <div className={classes}>

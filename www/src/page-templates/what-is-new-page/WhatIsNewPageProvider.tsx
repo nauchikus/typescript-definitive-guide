@@ -8,12 +8,6 @@ import BaseLayout from "../../layouts/base-layout/BaseLayout";
 import { AppLocalization } from "../../localization";
 import { IWinPageContentData, IWhatIsNewToc } from "../../types/IWhatIsNewToc";
 import { WinPageContentDataContext } from "../../react__hooks/win__page-content-data-hook";
-import {
-    createWhatIsNewPageMobxEntry,
-    MobxWhatIsNewPageContext,
-    UseWhatIsNewPageMobxEntry,
-    UseWhatIsNewPageStores
-} from "../../stores/mobx-entry__what-is-new";
 import { TreeNode } from "../../stores/WhatIsNewTocTreeStore";
 import { IPageNavLeaf, IPageNavNode } from "../../types/IPageNavData";
 import { WinPageNavDataContext } from "../../react__context/WinPageNavDataContext";
@@ -26,6 +20,8 @@ import { ContentDownPanelStoreContext } from "../../mobx__mobx-shared-store__rea
 import { ContentNavStoreContext } from "../../mobx__mobx-shared-store__react-context/ContentNavStoreMobxContext";
 import { ContentIntersectionObserverStoreContext } from "../../react__context/ContentIntersectionObserverStoreContext";
 import { RouterStoreContext } from "../../stores/RouterStore";
+import { WinPageMobxEntry, MobxWhatIsNewPageContext } from "../../stores/WinPageMobxEntry";
+import { useNativeLinkDisableDefaultBehavior } from "../../react__hooks/useNativeLinkDisableDefaultBehavior";
 
 
 export interface IVersionable {
@@ -53,7 +49,7 @@ type DisposerRefs={
 const WhatIsNewPageProvider: FC<IWhatIsNewPageProviderProps> = ( { pageContext,location } ) => {
     let { localization,innovationData,winTocTree,pageNavDataAll } = pageContext;
 
-    let winMobxRef = useRef<UseWhatIsNewPageMobxEntry>( createWhatIsNewPageMobxEntry( {
+    let mobxStores = WinPageMobxEntry.getInstance({
         winTocTree,
         innovationData,
         pageNavDataAll,
@@ -62,14 +58,17 @@ const WhatIsNewPageProvider: FC<IWhatIsNewPageProviderProps> = ( { pageContext,l
           new URLSearchParams( location.search ).get( `filter` )
         ),
         versionInfoAll: innovationDataToVersionInfoTransformer( innovationData )
-    } ) );
+    })
 
-    let { stores, validators } = winMobxRef.current;
+    let { stores, validators } = mobxStores;
     let { router } = stores;
 
 
+    // useNativeLinkDisableDefaultBehavior(router);
+
+
     useEffect( () => {
-        router.setLocation( location );
+        router.updateLocationWhenHashChanged( location );
     }, [location.hash] );
     useLayoutEffect( () => {
         let { versionFilter } = stores;
