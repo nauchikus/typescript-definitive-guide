@@ -303,6 +303,7 @@ const getPlugins = ({ locale, lang }) => [
 ].filter(Boolean);
 
 module.exports = {
+  pathPrefix: process.env.REPOSITORY_NAME,
   siteMetadata: {
     repository: {
       name: process.env.REPOSITORY_NAME,
