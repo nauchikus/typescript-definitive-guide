@@ -15,7 +15,6 @@ export const createPages: GatsbyCreatePages<ICreatePageSharedOptions> = async ( 
     let { actions: { createPage }, getNodesByType } = helpers;
     let { locale, lang } = options;
 
-    console.log(locale, `||` ,lang);
 
     let [{ localization }] = getNodesByType<IAppLocalizationGatsbyNode>( CustomGatsbyNodeType.AppLocalization )
         .filter( node => node.lang === lang );

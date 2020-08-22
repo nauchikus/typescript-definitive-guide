@@ -1,28 +1,41 @@
 import { observable } from "mobx";
+import * as AppUtils from "../utils/app-utils";
+
 
 export enum ToggleUiState{
   Open = 'open',
   Close = 'close',
 }
 
+const getDriverInitialBrowserState = () => {
+  let currentWidth = window.innerWidth;
+
+  let driverWidth = parseInt( getComputedStyle( document.documentElement )
+    .getPropertyValue( '--content-layout__left-layout_width' ) );
+  let contentWidth = parseInt( getComputedStyle( document.documentElement )
+    .getPropertyValue( '--content-layout__center-layout_width' ) );
+
+  let minWidth = driverWidth + contentWidth;
+
+  if ( currentWidth < minWidth ) {
+    return ToggleUiState.Close;
+  }
+
+
+  return ToggleUiState.Open;
+}
+
 export const getDriverInitialState = () => {
-  let currentWidth = window.innerWidth;
+  if (AppUtils.isBrowser()) {
+    return getDriverInitialBrowserState();
 
-  let driverWidth = parseInt( getComputedStyle( document.documentElement )
-    .getPropertyValue( '--content-layout__left-layout_width' ) );
-  let contentWidth = parseInt( getComputedStyle( document.documentElement )
-    .getPropertyValue( '--content-layout__center-layout_width' ) );
-
-  let minWidth = driverWidth + contentWidth;
-
-  if ( currentWidth < minWidth ) {
-    return ToggleUiState.Close;
   }
 
 
-  return ToggleUiState.Open;
+  return ToggleUiState.Close;
 };
-export const getMenuInitialState = () => {
+
+const getMenuInitialBrowserState = () => {
   let currentWidth = window.innerWidth;
 
   let driverWidth = parseInt( getComputedStyle( document.documentElement )
@@ -38,6 +51,13 @@ export const getMenuInitialState = () => {
 
 
   return ToggleUiState.Open;
+}
+export const getMenuInitialState = () => {
+  if (AppUtils.isBrowser()) {
+    return getMenuInitialBrowserState();
+  }
+
+  return ToggleUiState.Close;
 };
 
 export const createToggleState = ( initialState: ToggleUiState = ToggleUiState.Open ) => observable( {

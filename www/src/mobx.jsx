@@ -1,12 +1,12 @@
 import React, { createContext, useRef } from "react";
-import { createSharedStore } from "./stores/mobx-entry__shared-stores";
+import { SharedPageMobxEntry } from './stores/SharedPageMobxEntry';
 
 
 export const MobxSharedContext = createContext(  );
 
 
 export const MobxProvider = ( { children } ) => {
-  let mobxRef = useRef( createSharedStore() );
+  let mobxRef = useRef( SharedPageMobxEntry.getInstance() );
 
 
   return (

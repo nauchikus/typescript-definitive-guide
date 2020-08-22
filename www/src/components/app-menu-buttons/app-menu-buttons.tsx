@@ -9,7 +9,7 @@ import { If } from "../if-operator/If";
 import { observer } from "mobx-react-lite";
 import { useTranslator } from "../../react__hooks/translator.hook";
 import { LocalizationPaths, SharedLayoutLocalization } from "../../localization";
-import { useAppDriver } from "../../stores/mobx-entry__shared-stores";
+import { useAppDriver } from "../../stores/SharedPageMobxEntry";
 
 interface IAppMenuButtonProps {
 }

@@ -7,7 +7,7 @@ import { observer } from "mobx-react-lite";
 import { AppNavigationLocalization, IndexPageGuiLocalization, LocalizationPaths } from "../../localization";
 import { useTranslator } from "../../react__hooks/translator.hook";
 import { AppNavId } from "../../enums/AppNavId";
-import { useSubtitleIndex } from "../../react__hooks/subtitle-index-hook";
+import { useWelcomeDescriptionIndex } from "../../react__hooks/use-welcome-description-index";
 
 
 interface IIndexPageProps {
@@ -34,7 +34,7 @@ const IndexPage: FC<IIndexPageProps> = observer(( {  } ) => {
   ]>( LocalizationPaths.AppNavigation, LocalizationPaths.IndexPageGui );
 
   let indexNavAll = appToIndexPageNav( appNavigation );
-  let subtitleIndex = useSubtitleIndex( subtitleAll.length );
+  let subtitleIndex = useWelcomeDescriptionIndex( subtitleAll.length );
 
   indexNavAssert( indexNavAll );
 

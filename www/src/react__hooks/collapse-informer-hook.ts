@@ -1,3 +1,5 @@
+import * as AppUtils from "../utils/app-utils";
+
 export enum InformerRotatorVisibleState {
   VisibleMinimalisticBanner='minimalistic',
   VisibleMaximumBanner='maximum',
@@ -11,33 +13,73 @@ export enum InformerId {
 
 
 
-class InformerLocalStorageService {
+class InformerLocalStorageBrowserService {
   public static readonly APP_COLLAPSE_INFORMER_STORE_NAME = `appInformerRotatorState`;
 
   public static isLocalStorageNeededInInit = () => {
-    if ( !localStorage.hasOwnProperty( InformerLocalStorageService.APP_COLLAPSE_INFORMER_STORE_NAME ) ) {
+    if ( AppUtils.isBrowser() && !localStorage.hasOwnProperty( InformerLocalStorageBrowserService.APP_COLLAPSE_INFORMER_STORE_NAME ) ) {
       return true;
     }
 
     return false;
   };
   public static getInformerStorage = ():InformerLocalStorage => JSON.parse(
-    localStorage.getItem( InformerLocalStorageService.APP_COLLAPSE_INFORMER_STORE_NAME ) as string
+    localStorage.getItem( InformerLocalStorageBrowserService.APP_COLLAPSE_INFORMER_STORE_NAME ) as string
   );
-  public static getInformerAll = () => InformerLocalStorageService.getInformerStorage().informers;
+  public static getInformerAll = () => InformerLocalStorageBrowserService.getInformerStorage().informers;
 
   public static update = ( state: InformerLocalStorage ) => {
     localStorage.setItem(
-      InformerLocalStorageService.APP_COLLAPSE_INFORMER_STORE_NAME,
+      InformerLocalStorageBrowserService.APP_COLLAPSE_INFORMER_STORE_NAME,
       JSON.stringify( state )
     );
   };
   public static updateInformerAll=(informerAll:Informer[])=>{
-    InformerLocalStorageService.update( {
-      ...InformerLocalStorageService.getInformerStorage(),
+    InformerLocalStorageBrowserService.update( {
+      ...InformerLocalStorageBrowserService.getInformerStorage(),
       informers: informerAll
     } );
   }
+}
+
+class InformerLocalStorageServerService {
+  public static readonly DEFAULT_VERSION = NaN;
+  public static readonly APP_COLLAPSE_INFORMER_STORE_NAME = `appInformerRotatorState`;
+
+  public static isLocalStorageNeededInInit = () => {
+    return false;
+  };
+  public static getInformerStorage = ():InformerLocalStorage => ({
+    version: InformerLocalStorageServerService.DEFAULT_VERSION,
+    informers: []
+  });
+  public static getInformerAll = () =>
+    InformerLocalStorageServerService.getInformerStorage().informers;
+
+  public static update = ( state: InformerLocalStorage ) => {};
+  public static updateInformerAll=(informerAll:Informer[])=>{}
+}
+
+
+class InformerLocalStorageService {
+  private static concreteService = AppUtils.isBrowser() ?
+    InformerLocalStorageBrowserService :
+    InformerLocalStorageServerService;
+
+  public static readonly APP_COLLAPSE_INFORMER_STORE_NAME = `appInformerRotatorState`;
+
+  public static isLocalStorageNeededInInit = () => {
+    return InformerLocalStorageService.concreteService.isLocalStorageNeededInInit();
+  };
+  public static getInformerStorage = (): InformerLocalStorage =>
+    InformerLocalStorageService.concreteService.getInformerStorage();
+  public static getInformerAll = () =>
+    InformerLocalStorageService.concreteService.getInformerAll();
+
+  public static update = (state: InformerLocalStorage) =>
+    InformerLocalStorageService.concreteService.update(state);
+  public static updateInformerAll = (informerAll: Informer[]) =>
+    InformerLocalStorageService.concreteService.updateInformerAll(informerAll);
 }
 
 class InformerRotatorInitializator {
@@ -75,7 +117,7 @@ class InformerRotatorInitializator {
   };
 
   public static getActiveInformer = () => {
-    if ( InformerLocalStorageService.isLocalStorageNeededInInit() ) {
+    if ( AppUtils.isBrowser() && InformerLocalStorageService.isLocalStorageNeededInInit() ) {
       InformerLocalStorageService.update(
         InformerRotatorInitializator.getDefaultInformerLocalStorage()
       );

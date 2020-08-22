@@ -30,11 +30,13 @@ export class PageNavStore<TNodeData=null,TLeafData=null> implements IPageNavStor
 
   get pageItem () {
     let currentPageItem = this.pageNavTree
-      .find( item => encodeURI(item.path) === this.router.pageName );
+      .find( item => {
+        return item.path === decodeURIComponent(this.router.pageName)
+      } );
 
 
     if ( !currentPageItem ) {
-      throw new Error( `Page with name "${ decodeURI(this.router.pageName) }" not found.` );
+      throw new Error( `Page with name "${ decodeURIComponent(this.router.pageName) }" not found.` );
     }
 
 

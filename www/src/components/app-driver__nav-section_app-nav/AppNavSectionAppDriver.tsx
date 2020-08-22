@@ -4,7 +4,7 @@ import { ILinkAppDriverData, LinkAppDriver } from "../app-driver__what-is-new-pa
 import { useTranslator } from "../../react__hooks/translator.hook";
 import { AppNavigationLocalization, LocalizationPaths } from "../../localization";
 import { useRouter } from "../../stores/RouterStore";
-import { useAppDriver } from "../../stores/mobx-entry__shared-stores";
+import { useAppDriver } from "../../stores/SharedPageMobxEntry";
 
 interface IAppNavSectionAppDriverProps {
 }
@@ -38,7 +38,7 @@ export const AppNavSectionAppDriver:FC<IAppNavSectionAppDriverProps>=( )=>{
     isActive: hasAppNavLinkActive( path ),
     activeClassName: "app-driver__link_active"
   } ) );
-  
+
   let appNavLinkAll = appNavLinkDataAll.map( ( data, index ) => (
     <LinkAppDriver key={ index } {...data} onClick={appDriverAutoClose}/>
   ) );

@@ -7,7 +7,7 @@ import {
 } from "../app-menu-buttons/app-menu-buttons";
 import { AppBar } from "../app-bar/AppBar";
 import { useRouter } from "../../stores/RouterStore";
-import { useAppSearch } from "../../stores/mobx-entry__shared-stores";
+import { useAppSearch } from "../../stores/SharedPageMobxEntry";
 
 
 interface IAppHeaderProps {
