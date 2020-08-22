@@ -1,11 +1,9 @@
-import { fromEvent, merge, Subject, Subscription } from "rxjs";
-import { share, tap } from "rxjs/operators";
-import { IObservableArray, observable } from "mobx";
+import { Subscription } from "rxjs";
+import { observable } from "mobx";
 import { MutationObserverService } from "./MutationObserverService";
+import { GlobalObservables } from "../rxjs/global-observables";
 
 
-export const resizeGlobalObserver = fromEvent( window, `resize` ).pipe( share() );
-export const scrollGlobalObserver = fromEvent( window, `scroll` ).pipe( share() );
 
 const getAppContentSections = ({containerSelector,sectionSelector}:IContentSelector) => document
   ?.querySelector( containerSelector )
@@ -56,7 +54,7 @@ export const createIntersectionObserverStore = ({...selectors}:ICreateIntersecti
 
 
     if ( resizeSubscription === null ) {
-      resizeSubscription = resizeGlobalObserver.subscribe(
+      resizeSubscription = GlobalObservables.resizeGlobalObserver.subscribe(
         createIntersectionObserver
       );
     }

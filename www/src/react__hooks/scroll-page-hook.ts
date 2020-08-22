@@ -1,11 +1,10 @@
-import React, { createContext, useContext, useEffect, useLayoutEffect, useRef, useState } from "react";
-import { fromEvent, merge, Subject, Subscription } from "rxjs";
-import { share, tap } from "rxjs/operators";
+import React, { useLayoutEffect, useRef, useState } from "react";
 import { useRouter } from "../stores/RouterStore";
+import { GlobalObservables } from "../rxjs/global-observables";
 
 
-export const resizeGlobalObserver = fromEvent( window, `resize` ).pipe( share() );
-export const scrollGlobalObserver = fromEvent( window, `scroll` ).pipe( share() );
+// export const resizeGlobalObserver = fromEvent( window, `resize` ).pipe( share() );
+// export const scrollGlobalObserver = fromEvent( window, `scroll` ).pipe( share() );
 
 const getAppContentSections = () => document
   ?.querySelector( `main` )
@@ -183,7 +182,7 @@ export const useAppContentIntersectionObserver = () => {
     createIntersectionObserver();
 
 
-    let subscription = resizeGlobalObserver.subscribe(
+    let subscription = GlobalObservables.resizeGlobalObserver.subscribe(
       createIntersectionObserver
     );
 
