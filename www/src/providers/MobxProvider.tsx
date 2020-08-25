@@ -1,14 +1,19 @@
 import * as React from "react";
-import { FC, ReactNode } from "react";
+import { createContext, FC, ReactNode } from "react";
+import { MobxSharedContext } from "../react__context/MobxSharedContext";
+import { SharedPageMobxEntry } from "../stores/SharedPageMobxEntry";
 
 export interface MobxProviderProps<Stores> {
-  storeFactory: () => Stores;
   children: ReactNode | ReactNode[];
 }
 
-function MobxProvider<Stores>({storeFactory, children}: MobxProviderProps<Stores>) {
+function MobxProvider<Stores>({children}: MobxProviderProps<Stores>) {
 
-  return
+  return (
+    <MobxSharedContext.Provider value={ SharedPageMobxEntry.getInstance() }>
+      { children }
+    </MobxSharedContext.Provider>
+  )
 }
 
 export default MobxProvider;

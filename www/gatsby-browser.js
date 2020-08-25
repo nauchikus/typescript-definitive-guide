@@ -11,28 +11,39 @@
 
 import "./src/styles/dev-utils.scss";
 
-import React  from 'react';
-import { MobxProvider } from "./src/mobx";
+import React from 'react';
 import { SharedPage } from './src/shared-page';
+import { MobxSharedContext } from './src/react__context/MobxSharedContext';
+import { SharedPageMobxEntry } from './src/stores/SharedPageMobxEntry';
+
+
+
 
 export const wrapRootElement = ({ element, props, pluginOptions }) => {
-
-  return (
-      <MobxProvider>{element}</MobxProvider>
-
-
-  );
+    return (
+        <MobxSharedContext.Provider value={ SharedPageMobxEntry.getInstance() }>
+            { element }
+        </MobxSharedContext.Provider>
+    );
 };
 
-
-export const wrapPageElement = ( { element, props } ) => {
-  return (
-      <SharedPage {...props}>
-          {element}
-      </SharedPage>
-  );
-};
-
-// export const onRouteUpdate = ( { location: { hash } } ) => {
-//
+// export const wrapPageElement = ( { element, props } ) => {
+//   return (
+//       <SharedPage {...props}>
+//           {element}
+//       </SharedPage>
+//   );
 // };
+export const shouldUpdateScroll = ({routerProps:{location}}) => {
+    if (location.hash === ``) {
+        window.scrollTo(0, 0);
+    }
+
+    return false;
+};
+export const onRouteUpdate = ( { location: { hash } } ) => {
+};
+
+export const onPreRouteUpdate = ({ location: { hash } }) => {
+
+}

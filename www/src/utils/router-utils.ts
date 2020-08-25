@@ -1,4 +1,5 @@
 import { Locales } from "../../plugins/types/locales";
+import * as EnvUtils from "./env-utils";
 
 interface ILocaleRouter {
     locale?: Locales|string;
@@ -19,8 +20,16 @@ interface IWhatIsNewInnovationRoute {
 const toRelativePath = (path: string) => `./${path}`;
 const toAnchor = (path: string) => `#${path}`;
 
+const clearPathFromGhPagesDomain = (path: string) => {
+    let ghPagesPath = `/${EnvUtils.getGhPagesDomain()}`;
 
 
+    if (path.startsWith(ghPagesPath)) {
+        return path.substring(ghPagesPath.length);
+    }
+
+    return path;
+}
 
 const localeDecorate = (path:string, locale?:string) =>
     `${locale ? `/${locale}` : ``}${path}`;
@@ -60,4 +69,5 @@ export const RouterUtils = {
     notFoundRoutes,
     toRelativePath,
     toAnchor,
+    clearPathFromGhPagesDomain,
 };

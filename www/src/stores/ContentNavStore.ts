@@ -68,18 +68,13 @@ export class ContentNavStore<TNodeData,TLeafData> {
 
   goPrevAnchor () {
     this.pageNav.sectionItem?.prevAnchor && this.router.goTo(
-      `${ this.router.pathname }#${ this.pageNav.sectionItem.prevAnchor.path }`
+      `${ this.router.purePathName }#${ this.pageNav.sectionItem.prevAnchor.path }`
     );
   }
 
   goNextAnchor () {
-    console.log(`nextAnchor: ${ decodeURIComponent(this.router.pathname) }#${ this.pageNav.sectionItem?.nextAnchor?.path }`);
     this.pageNav.sectionItem?.nextAnchor && this.router.goTo(
-        // RouterUtils.toRelativePath(
-        //     RouterUtils.toAnchor(this.pageNav.sectionItem.nextAnchor.path)
-        // )
-      `${ decodeURIComponent(this.router.pathname) }#${ this.pageNav.sectionItem.nextAnchor.path }`
-      // `${ this.router.pathname }#${ this.pageNav.sectionItem.nextAnchor.path }`
+      `${ this.router.purePathName }#${ this.pageNav.sectionItem.nextAnchor.path }`
     );
   }
 }

@@ -3,8 +3,6 @@ import { useRouter } from "../stores/RouterStore";
 import { GlobalObservables } from "../rxjs/global-observables";
 
 
-// export const resizeGlobalObserver = fromEvent( window, `resize` ).pipe( share() );
-// export const scrollGlobalObserver = fromEvent( window, `scroll` ).pipe( share() );
 
 const getAppContentSections = () => document
   ?.querySelector( `main` )

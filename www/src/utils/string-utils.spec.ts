@@ -11,7 +11,7 @@ describe(`[StringUtils]`, () => {
         let path = StringUtils.toPath(CHAPTER_NAME);
         let url = encodeURIComponent(path);
 
-        test(`url must be convert to sectionId`, () => {
+        xtest(`url must be convert to sectionId`, () => {
             expect(StringUtils.urlToSelector(url)).toEqual(sectionId);
         })
     })

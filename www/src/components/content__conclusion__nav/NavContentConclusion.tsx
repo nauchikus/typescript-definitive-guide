@@ -6,15 +6,17 @@ import {
   LocalizationPaths
 } from "../../localization";
 import { useContentNavStore } from "../../mobx__mobx-shared-store__react-context/ContentNavStoreMobxContext";
+import { observer } from "mobx-react-lite";
 
 interface INavContentConclusionProps {
 }
 
-export const NavContentConclusion: FC<INavContentConclusionProps> = () => {
+export const NavContentConclusion: FC<INavContentConclusionProps> = observer(() => {
   let [appContent] = useTranslator<[AppContentLocalization]>(
     LocalizationPaths.AppContent
   );
   let contentNav = useContentNavStore();
+
 
   return (
     <nav className="content-conclusion__nav">
@@ -42,4 +44,4 @@ export const NavContentConclusion: FC<INavContentConclusionProps> = () => {
       </button>
     </nav>
   );
-};
+});

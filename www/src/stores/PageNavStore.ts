@@ -31,12 +31,12 @@ export class PageNavStore<TNodeData=null,TLeafData=null> implements IPageNavStor
   get pageItem () {
     let currentPageItem = this.pageNavTree
       .find( item => {
-        return item.path === decodeURIComponent(this.router.pageName)
+        return item.path === StringUtils.urlToPath(this.router.pageName)
       } );
 
 
     if ( !currentPageItem ) {
-      throw new Error( `Page with name "${ decodeURIComponent(this.router.pageName) }" not found.` );
+      throw new Error( `Page with name "${ StringUtils.urlToPath(this.router.pageName) }" not found.` );
     }
 
 
@@ -44,10 +44,10 @@ export class PageNavStore<TNodeData=null,TLeafData=null> implements IPageNavStor
   }
   get sectionItem () {
     let currentSection = ( this.pageItem.sections as Required<IPageNavSection<TLeafData>>[] )
-      // .find( section => StringUtils.toNativeElementAttributeValue(section.path) === this.contentSection.currentSectionId );
       .find( section => {
         return StringUtils.pathToNativeElementAttributeValue(section.path) === this.contentSection.currentSectionId
       } );
+
 
 
     if ( this.contentSection.currentSectionId !== `` && !currentSection ) {

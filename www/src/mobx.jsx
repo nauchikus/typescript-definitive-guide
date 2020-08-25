@@ -6,11 +6,8 @@ export const MobxSharedContext = createContext(  );
 
 
 export const MobxProvider = ( { children } ) => {
-  let mobxRef = useRef( SharedPageMobxEntry.getInstance() );
-
-
   return (
-    <MobxSharedContext.Provider value={ mobxRef.current }>
+    <MobxSharedContext.Provider value={ SharedPageMobxEntry.getInstance() }>
       { children }
     </MobxSharedContext.Provider>
   );

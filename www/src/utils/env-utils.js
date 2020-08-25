@@ -24,8 +24,14 @@ const isRepoInfo = () => {
 const getRepositoryName = () => process.env.REPOSITORY_NAME;
 const getRepositoryOwner = () => process.env.REPOSITORY_OWNER;
 
+
+const isBuildWIthGhPagesDomain = () => true;
+const getGhPagesDomain = () => getRepositoryName();
+
 module.exports = {
     isRepoInfo,
     getRepositoryName,
     getRepositoryOwner,
+    isBuildWIthGhPagesDomain,
+    getGhPagesDomain,
 };

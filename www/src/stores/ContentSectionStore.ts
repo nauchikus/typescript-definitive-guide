@@ -26,17 +26,27 @@ export class ContentSectionStore implements IContentSectionStore{
 
   constructor ( private router:RouterStore,
                 private contentIntersectionObserver:IntersectionObserverStore ) {
-    computed( () => this.router.anchor ).observe( changes => {
-      // console.log(`[ContentSectionStore] > ${StringUtils.urlToNativeElementAttributeValue(changes.newValue)}`)
-      this.currentSectionId = StringUtils.urlToNativeElementAttributeValue(changes.newValue);
-    } );
+    this.currentSectionId = StringUtils.urlToNativeElementAttributeValue(this.router.anchor);
+
+    computed(() => this.router.route).observe(changes => {
+      this.currentSectionId = StringUtils.urlToNativeElementAttributeValue(this.router.anchor);
+    });
 
     type ChangeData = IArrayChange<IIntersectionObserverEntryInfo> | IArraySplice<IIntersectionObserverEntryInfo>;
 
     ( this.contentIntersectionObserver.intersections as IObservableArray<IIntersectionObserverEntryInfo> ).observe( ( changes: ChangeData ) => {
-      let entry = changes.type === "update" ?
-        changes.newValue :
-        changes.added.find( item => item.isIntersecting );
+      let entry:IIntersectionObserverEntryInfo | undefined;
+
+      if(changes.type === "update"){
+        entry = changes.newValue;
+      }else{
+        entry = changes.added
+          .filter(item => item.isIntersecting)
+          .pop();
+      }
+
+
+
 
 
       if ( !entry || !entry.isIntersecting ) {
@@ -46,6 +56,10 @@ export class ContentSectionStore implements IContentSectionStore{
 
       this.currentSectionId = StringUtils.pathToNativeElementAttributeValue(entry.sectionId);
     } );
+  }
+
+  toString(){
+    return `[mobx ContentSectionStore]`;
   }
 }
 
