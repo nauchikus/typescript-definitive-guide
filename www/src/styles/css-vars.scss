@@ -26,6 +26,7 @@
   /*media*/
   --media_app-bar_xs:#{$app-bar_media_xs};
   --media_app_layout_right_show:#{$content-layout__right-layout_media_width_xl};
+  --media_content-nav_xs:#{$content__nav_down_media};
 
 
   /*colors*/
@@ -66,9 +67,12 @@
   /*app common*/
   --app-header_height: #{$app-header_height};
   --app-footer_height: 56px;
+  --app-footer_height: 56px;
   --app-driver__section-control_height:#{$app-driver__section-control_height};
   --app-content_width: #{$app-content_width};
   --app-content-bar_width:#{$app-content_width + $padding_48x2};
+
+  --content__nav-down_height: 64px;
 
   --content__aside-bar_width:#{$content__aside-bar_width};
 

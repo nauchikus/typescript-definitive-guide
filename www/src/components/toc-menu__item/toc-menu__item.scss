@@ -309,8 +309,10 @@ $toc__low-level_padding_left:32px;
 //}
 
 .toc-menu__section_left{
+  margin: 1px 0 0 0;
   display: flex;
   align-items: flex-start;
+  align-self: flex-start;
   flex-shrink: 1;
 
   position: relative;

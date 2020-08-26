@@ -15,6 +15,10 @@
           "footer";
 
   position: relative;
+
+  @media all and (max-width: $content__nav_down_media ) {
+    padding-bottom: var(--content__nav-down_height);
+  }
 }
 
 .app-grid-item__collapsed-informer{
@@ -48,4 +52,5 @@
   right: 0;
   bottom: 0;
 
+  z-index: 0;
 }

@@ -19,25 +19,27 @@ export const InnovationCoverWinContent: FC<IInnovationCoverWinContentProps> = ( 
 
 
   return (
-    <section className="content__section win-content__innovation-cover win-innovation-cover-grid">
+    <section className="content__section">
 
-      <div className="win-innovation-cover-grid-item__cover">
-        <DynamicGatsbyImage className="win-innovation-cover__cover" relativePath={relativePath} alt="cover"/>
-      </div>
+      <div className="main-presentation">
 
-      <div className="win-innovation-cover-grid-item__title">
-        <h1 className="win-innovation-cover__title">
-          {version.mmp}
-        </h1>
-        <span className="win-innovation-cover__subtitle">
+        <div className="main-meta">
+        <span className="main-meta-informer__version">
           {version.preReleaseName}
         </span>
-      </div>
+          <time className="main-meta-informer__date" dateTime={versionInfo.dateRelease}>
+            {lastVersionReleaseDate}
+          </time>
+        </div>
 
-      <div className="win-innovation-cover-grid-item__date">
-        <time className="win-innovation-cover__date" dateTime={versionInfo.dateRelease}>
-          {lastVersionReleaseDate}
-        </time>
+        <h1 className="main-title">
+          {version.mmp}
+        </h1>
+
+        <div className="main-cover">
+          <DynamicGatsbyImage className="win-innovation-cover__cover" relativePath={relativePath} alt="cover"/>
+        </div>
+
       </div>
 
     </section>

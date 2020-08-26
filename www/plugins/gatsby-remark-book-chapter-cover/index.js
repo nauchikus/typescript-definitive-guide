@@ -43,7 +43,7 @@ module.exports = ( ...params ) => {
 
       let h1Node = sectionNode.children[ 0 ];
 
-      Utils.addClassRemarkNode( h1Node, `bc-cover__title` );
+      Utils.addClassRemarkNode( h1Node, `main-title` );
 
 
       const createDiv = ( children, classes ) => ( {
@@ -72,27 +72,27 @@ module.exports = ( ...params ) => {
 
       if ( h1Node && h1Node.depth === H1_TAG_DEPTH ) {
         let paragraphNode = sectionNode.children[ 1 ];
-        let coverNodes = {
-          title:h1Node,
-          cover: paragraphNode.children[ 0 ],
-          index: createSpan( bookChapterInfo.index, `bc-cover__index` ),
-          section: createSpan( bookChapterInfo.sectionName, `bc-cover__section` )
-        };
 
-        let gridItems = {
-          title: createDiv( [coverNodes.title], `bc-cover-grid-item__title` ),
-          cover: createDiv( [coverNodes.cover], `bc-cover-grid-item__cover` ),
-          index: createDiv( [coverNodes.index], `bc-cover-grid-item__index` ),
-          section: createDiv( [coverNodes.section], `bc-cover-grid-item__section` )
-        };
-
-        let coverGrid = createDiv(
-          Object.values( gridItems ),
-          `bc-cover-grid`
+        let mainMeta = createDiv(
+            [
+              createSpan(bookChapterInfo.index, `main-meta-informer__index`),
+              createSpan(bookChapterInfo.sectionName, `main-meta-informer__section`)
+            ],
+            `main-meta`
         );
 
+        let mainPresentation = createDiv(
+            [
+              mainMeta,
+              h1Node,
+              createDiv([paragraphNode.children[0]], `main-cover`)
+            ],
+            `main-presentation`
+        )
 
-        sectionNode.children.splice( 0, 2, coverGrid );
+
+        sectionNode.children.splice( 0, 2, mainPresentation );
+        // sectionNode.children.splice( 0, 2, coverGrid );
       }
     }
   }catch(error){

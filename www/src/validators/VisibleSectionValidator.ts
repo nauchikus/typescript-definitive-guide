@@ -1,6 +1,7 @@
 import { IWinPageContentData } from "../types/IWhatIsNewToc";
 import { VersionFilterStore } from "../stores/VersionFilterStore";
 import { Version } from "../utils/Version";
+import * as StringUtils from "../utils/string-utils";
 
 
 interface IVisibleSectionValidatorParams {
@@ -25,7 +26,9 @@ export class VisibleSectionValidator {
 
 
     let currentInnovation = this.contentData.innovations
-      .find( innovation => innovation.path === id );
+      .find( innovation => StringUtils.pathToNativeElementAttributeValue(innovation.path) === id );
+
+    console.log(this.contentData.innovations,id);
 
     if ( !currentInnovation ) {
       throw new Error( `Innovation with id "${ id }" not found.` );

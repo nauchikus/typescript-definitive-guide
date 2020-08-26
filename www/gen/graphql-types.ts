@@ -302,7 +302,7 @@ export type AppLocalizationLocalizationLayoutsSharedAppHeaderAppMenuFilterInput 
 export type AppLocalizationLocalizationLayoutsSharedAppHeaderAppMenuGithubButton = {
   href?: Maybe<Scalars['String']>;
   tooltip?: Maybe<Array<Maybe<Scalars['String']>>>;
-  label?: Maybe<Array<Maybe<Scalars['String']>>>;
+  label?: Maybe<Scalars['String']>;
 };
 
 export type AppLocalizationLocalizationLayoutsSharedAppHeaderAppMenuGithubButtonFilterInput = {
@@ -326,7 +326,7 @@ export type AppLocalizationLocalizationLayoutsSharedAppHeaderAppMenuPdfButtonFil
 export type AppLocalizationLocalizationLayoutsSharedAppHeaderAppMenuTelegramButton = {
   href?: Maybe<Scalars['String']>;
   tooltip?: Maybe<Array<Maybe<Scalars['String']>>>;
-  label?: Maybe<Array<Maybe<Scalars['String']>>>;
+  label?: Maybe<Scalars['String']>;
 };
 
 export type AppLocalizationLocalizationLayoutsSharedAppHeaderAppMenuTelegramButtonFilterInput = {
@@ -20087,7 +20087,7 @@ export type SitePageContextLocalizationLayoutsSharedAppHeaderAppMenuFilterInput 
 export type SitePageContextLocalizationLayoutsSharedAppHeaderAppMenuGithubButton = {
   href?: Maybe<Scalars['String']>;
   tooltip?: Maybe<Array<Maybe<Scalars['String']>>>;
-  label?: Maybe<Array<Maybe<Scalars['String']>>>;
+  label?: Maybe<Scalars['String']>;
 };
 
 export type SitePageContextLocalizationLayoutsSharedAppHeaderAppMenuGithubButtonFilterInput = {
@@ -20111,7 +20111,7 @@ export type SitePageContextLocalizationLayoutsSharedAppHeaderAppMenuPdfButtonFil
 export type SitePageContextLocalizationLayoutsSharedAppHeaderAppMenuTelegramButton = {
   href?: Maybe<Scalars['String']>;
   tooltip?: Maybe<Array<Maybe<Scalars['String']>>>;
-  label?: Maybe<Array<Maybe<Scalars['String']>>>;
+  label?: Maybe<Scalars['String']>;
 };
 
 export type SitePageContextLocalizationLayoutsSharedAppHeaderAppMenuTelegramButtonFilterInput = {

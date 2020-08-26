@@ -22,6 +22,7 @@ import { ContentIntersectionObserverStoreContext } from "../../react__context/Co
 import { RouterStoreContext } from "../../stores/RouterStore";
 import { WinPageMobxEntry, MobxWhatIsNewPageContext } from "../../stores/WinPageMobxEntry";
 import { useNativeLinkDisableDefaultBehavior } from "../../react__hooks/useNativeLinkDisableDefaultBehavior";
+import { useRouterUpdater } from "../../react__hooks/useRouterUpdater";
 
 
 export interface IVersionable {
@@ -64,12 +65,9 @@ const WhatIsNewPageProvider: FC<IWhatIsNewPageProviderProps> = ( { pageContext,l
     let { router } = stores;
 
 
-    // useNativeLinkDisableDefaultBehavior(router);
+    useRouterUpdater(location, router);
 
 
-    useEffect( () => {
-        router.updateLocationWhenHashChanged( location );
-    }, [location.hash] );
     useLayoutEffect( () => {
         let { versionFilter } = stores;
 

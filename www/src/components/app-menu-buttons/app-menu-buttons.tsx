@@ -75,8 +75,7 @@ export const TelegramAppMenuButton: FC<IAppMenuButtonProps> = () => {
           <p>{telegramButton.tooltip[2]}</p>
         </Tooltip>
         <div className="adaptive-menu-button-link__label">
-          <span>{telegramButton.label[0]}</span>
-          <span>{telegramButton.label[1]}</span>
+          <span>{telegramButton.label}</span>
         </div>
       </AdaptiveMenuButtonLink>
     </ScaleContainerProvider>
@@ -97,8 +96,7 @@ export const GithubAppMenuButton: FC<IAppMenuButtonProps> = () => {
           <p>{githubButton.tooltip[1]}</p>
         </Tooltip>
         <div className="adaptive-menu-button-link__label">
-          <span>{githubButton.label[0]}</span>
-          <span>{githubButton.label[0]}</span>
+          <span>{githubButton.label}</span>
         </div>
       </AdaptiveMenuButtonLink>
     </ScaleContainerProvider>

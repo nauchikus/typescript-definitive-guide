@@ -31,7 +31,7 @@ main {
 
 
 
-h2 {
+h1, h2 {
   padding: var(--content__h2_padding-top) 0 var(--content__h2_padding-bottom) 0 !important;
 
   display: flex;
@@ -53,15 +53,15 @@ h2 {
   &:hover:before {
     content: "";
 
-    width: 32px;
+    width: 48px;
     height: 100%;
 
 
     position: absolute;
-    left: -32px;
+    left: -48px;
     top: 0;
 
-    //z-index:99999;
+    z-index:99999;
 
     @media all and (min-width: $content-layout__center-layout_width) {
       width: 40px;
@@ -173,6 +173,8 @@ button.content__button_copy-to-buffer {
   position: relative;
 
   cursor:pointer;
+
+  z-index: 99999;
 
   @media all and (min-width:$app-bar_media_xs){
     position:absolute;

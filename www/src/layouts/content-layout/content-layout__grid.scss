@@ -13,13 +13,16 @@
           "aside-bar_left main aside-bar_right";
 
   position: relative;
-  //@media all and (min-width: $content__nav_down_media){
-  //  grid-template-rows: auto 1fr;
-  //  grid-template-areas:
-  //          "control-bar control-bar control-bar"
-  //          "aside-bar_left main aside-bar_right";
-  //
-  //}
+
+
+  @media all and (max-width: $content__nav_down_media){
+    grid-template-rows: auto 1fr;
+    grid-template-areas:
+            "control-bar control-bar control-bar"
+            "main main main"
+            "aside-bar_down aside-bar_down aside-bar_down";
+
+  }
 
 }
 .content-layout-grid-item__control-bar {
@@ -37,7 +40,7 @@
 .content-layout-grid-item__aside-bar_left {
   grid-area: aside-bar_left;
 
-  z-index: 3;
+  z-index: 0;
 
 
   @media all and (min-width: $content__nav_down_media){
@@ -59,6 +62,11 @@
 
   }
 
+}
+.content-layout-grid-item__aside-bar_down {
+  grid-area: aside-bar_down;
+
+  z-index: 4;
 }
 .content-layout-grid-item__main {
   display: flex;

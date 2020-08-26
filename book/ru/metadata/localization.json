@@ -81,12 +81,12 @@
                     "telegramButton": {
                         "href": "#",
                         "tooltip": ["Следить за", "изменениями в", "Telegram"],
-                        "label": ["Следить за изменениями в", "Telegram"]
+                        "label": "Следить за изменениями в Telegram"
                     },
                     "githubButton": {
                         "href": "#",
                         "tooltip": ["Посетить проект на", "Github"],
-                        "label": ["Посетить проект на", "Github"]
+                        "label": "Посетить проект на Github"
                     }
                 },
                 "donateDropdown": {

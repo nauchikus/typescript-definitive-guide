@@ -122,7 +122,7 @@ export const BookTocContentLayout: FC<IBookTocContentLayoutProps> = observer( ( 
               {firstLevelItem}
             </Tree>
             <CollapsedCollapse>
-              <SectionGuide sectionName={item.section}/>
+              {/*<SectionGuide sectionName={item.section}/>*/}
               <Tree level={1}>
                 {secondLevelItemAll}
               </Tree>

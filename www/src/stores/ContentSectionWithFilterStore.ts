@@ -1,7 +1,6 @@
 import { RouterStore } from "./RouterStore";
-import { computed, decorate, IObservableArray } from "mobx";
-import { IArrayChange, IArraySplice } from "mobx/lib/types/observablearray";
-import { IIntersectionObserverEntryInfo, IntersectionObserverStore } from "./IntersectionObserverStore";
+import { computed, decorate } from "mobx";
+import { IntersectionObserverStore } from "./IntersectionObserverStore";
 import { VersionFilterStore } from "./VersionFilterStore";
 import { VisibleSectionValidator } from "../validators/VisibleSectionValidator";
 import { IContentSectionStore } from "./ContentSectionStore";
