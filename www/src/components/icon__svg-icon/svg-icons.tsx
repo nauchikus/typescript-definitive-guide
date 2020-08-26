@@ -1,5 +1,6 @@
 import React, { FC } from "react";
 
+import AppLogoNativeSvgIcon from '../../../assets/images/app-logos/app-logo.svg';
 import GithubNativeSvgIcon from '../../../assets/icon__svg/iconmonstr-github-1.svg';
 import TelegramNativeSvgIcon from '../../../assets/icon__svg/telegram.svg';
 import SearchNativeSvgIcon from '../../../assets/icon__svg/iconmonstr-magnifier-1.svg';
@@ -25,6 +26,12 @@ import CreditCardNativeSvgIcon from '../../../assets/icon__svg/iconmonstr-credit
 interface ISvgIconProps {
   className?:string;
 }
+
+export const AppLogoSvgIcon:FC<ISvgIconProps>=({className}) => (
+  <svg className={className?`svg-icon ${className}`:`svg-icon`} width={24} height={24} viewBox="0 0 24 24">
+    <use xlinkHref={ `#${ AppLogoNativeSvgIcon.id }` }/>
+  </svg>
+);
 
 export const GithubSvgIcon:FC<ISvgIconProps>=({className}) => (
     <svg className={className?`svg-icon ${className}`:`svg-icon`} width={24} height={24} viewBox="0 0 24 24">

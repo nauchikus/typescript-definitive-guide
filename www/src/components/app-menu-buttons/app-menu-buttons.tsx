@@ -65,7 +65,9 @@ export const TelegramAppMenuButton: FC<IAppMenuButtonProps> = () => {
 
   return (
     <ScaleContainerProvider>
-      <AdaptiveMenuButtonLink className="app-menu-item__item" href={telegramButton.href}>
+      <AdaptiveMenuButtonLink className="app-menu-item__item"
+                              href={telegramButton.href}
+                              target="_blank">
         <ScaleContainer>
           <TelegramSvgIcon/>
         </ScaleContainer>
@@ -87,7 +89,9 @@ export const GithubAppMenuButton: FC<IAppMenuButtonProps> = () => {
 
   return (
     <ScaleContainerProvider>
-      <AdaptiveMenuButtonLink className="app-menu-item__item" href={githubButton.href}>
+      <AdaptiveMenuButtonLink className="app-menu-item__item"
+                              href={githubButton.href}
+                              target="_blank">
         <ScaleContainer>
           <GithubSvgIcon/>
         </ScaleContainer>

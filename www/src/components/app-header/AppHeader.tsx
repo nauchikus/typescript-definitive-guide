@@ -8,6 +8,9 @@ import {
 import { AppBar } from "../app-bar/AppBar";
 import { useRouter } from "../../stores/RouterStore";
 import { useAppSearch } from "../../stores/SharedPageMobxEntry";
+import { AppLogoSvgIcon } from "../icon__svg-icon/svg-icons";
+import { Link } from "gatsby";
+import { RouterUtils } from "../../utils/router-utils";
 
 
 interface IAppHeaderProps {
@@ -26,7 +29,9 @@ export const AppHeader: FC<IAppHeaderProps> = observer(( {...props} ) => {
         </If>
       </div>
       <div className="app-header-grid-item__logo">
-        <div className="app-logo"></div>
+        <Link to={RouterUtils.appRoutes.getIndexRoute({})}>
+          <AppLogoSvgIcon className="app-logo__svg-icon" />
+        </Link>
       </div>
       <div className="app-header-grid-item__informer">
       </div>

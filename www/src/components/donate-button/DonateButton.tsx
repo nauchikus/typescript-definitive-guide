@@ -23,12 +23,12 @@ export const DonateButton: FC<IDonateButtonProps> = ( { className, children } ) 
 
 
   return (
-    <button className={ classes }>
+    <a className={ classes } href={donateDropdown.href} target="_blank">
       <RippleLayer/>
       <CreditCardSvgIcon className="donate-button__svg-icon"/>
       <span className="donate-button__label">
         { donateButtonLabel }
       </span>
-    </button>
+    </a>
   );
 };

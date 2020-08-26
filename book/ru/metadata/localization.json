@@ -79,18 +79,18 @@
                         "label": "Скачать PDF версию"
                     },
                     "telegramButton": {
-                        "href": "#",
+                        "href": "https://t.me/nauchikus",
                         "tooltip": ["Следить за", "изменениями в", "Telegram"],
                         "label": "Следить за изменениями в Telegram"
                     },
                     "githubButton": {
-                        "href": "#",
+                        "href": "https://github.com/nauchikus/typescript-definitive-guide",
                         "tooltip": ["Посетить проект на", "Github"],
                         "label": "Посетить проект на Github"
                     }
                 },
                 "donateDropdown": {
-                    "href": "#",
+                    "href": "https://yasobe.ru/na/typescript_definitive_guide",
                     "toggleButton": {
                         "label": ["Поддержать", "финансово"]
                     },
