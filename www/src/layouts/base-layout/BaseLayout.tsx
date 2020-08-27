@@ -9,6 +9,8 @@ import { createBaseLayoutStores, UseBaseLayoutStores } from "../../stores/base-l
 import { useLocalStore } from "mobx-react-lite";
 import { BaseLayoutMoxContext } from "../../mobx__react-content-provider/BaseLayoutMobxProvider";
 import { AppFooter } from "../../components/app-footer/AppFooter";
+import { Media } from "../../components/media/Media";
+import { MediaQuery } from "../../meadia/MediaQuery";
 
 
 interface IBaseLayoutProps {
@@ -33,12 +35,15 @@ const BaseLayout: FC<IBaseLayoutProps> = ( { children } ) => {
           { children }
         </div>
         <div className="app-grid-item__footer">
-          <AppFooter/>
+          <Media query={MediaQuery.XsUp}>
+            <AppFooter/>
+          </Media>
         </div>
       </div>
     </BaseLayoutMoxContext.Provider>
   );
 
 };
+
 
 export default BaseLayout;

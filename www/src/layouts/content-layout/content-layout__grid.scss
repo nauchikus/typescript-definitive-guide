@@ -7,11 +7,11 @@
   display: grid;
 
   grid-template-columns: auto 1fr auto;
-  grid-template-rows: auto 1fr;
+  grid-template-rows: auto 1fr 64px;
   grid-template-areas:
           "control-bar control-bar control-bar"
-          "aside-bar_left main aside-bar_right";
-
+          "aside-bar_left main aside-bar_right"
+          "app-footer app-footer app-footer";
   position: relative;
 
 
@@ -20,6 +20,7 @@
     grid-template-areas:
             "control-bar control-bar control-bar"
             "main main main"
+            "app-footer app-footer app-footer"
             "aside-bar_down aside-bar_down aside-bar_down";
 
   }
@@ -63,6 +64,12 @@
   }
 
 }
+.content-layout-grid-item__app-footer {
+  grid-area: app-footer;
+
+  z-index: 3;
+}
+
 .content-layout-grid-item__aside-bar_down {
   grid-area: aside-bar_down;
 
@@ -80,3 +87,20 @@
 
 }
 
+
+
+/// TODO: [refactoring][remove]
+.content-layout-grid-item__app-footer {
+  grid-area: app-footer;
+}
+.app-footer__placeholder {
+  width: 100%;
+  height: 100%;
+
+  background-color: #8BC34A;
+
+  padding: 16px;
+
+  display: flex;
+  justify-content: flex-end;
+}

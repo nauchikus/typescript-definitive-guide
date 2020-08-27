@@ -6,7 +6,7 @@ interface IMediaProps {
   children: ReactNode | ReactNode[];
 }
 
-export const Media: FC<IMediaProps> = ( { query, children } ) => {
+export const Media: FC<IMediaProps> = ({ query, children } ) => {
   let [isMatch, setMatch] = useState( false );
 
   const matchMediaHandler = ( event: MediaQueryListEvent ) => {

@@ -7,10 +7,7 @@ import { Tooltip, TooltipPosition } from "../tooltip/Tooltip";
 import { DropdownMenu } from "../dropdown/DropdownMenu";
 import { useTranslator } from "../../react__hooks/translator.hook";
 import { BookTocGuiLocalization, LocalizationPaths } from "../../localization";
-import { Media } from "../media/Media";
 import { BookTocTagBar } from "../book-toc-tag-bar/BookTocTagBar";
-import { useCssPropertyAsNumber } from "../../react__hooks/media-hook";
-import { CssPropertyName } from "../../CssPropertyName";
 
 
 interface IBookTocFilterDropdownProps {

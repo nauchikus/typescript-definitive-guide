@@ -8,10 +8,10 @@ import {
   LeftControlWinContentBar,
   RightControlWinContentBar
 } from "../content__aside-bar_win-control-all/ControlWinContentBar";
-import { useCssPropertyAsNumber } from "../../react__hooks/media-hook";
-import { CssPropertyName } from "../../CssPropertyName";
-import { Media } from "../media/Media";
 import { DownAsideBarContent } from "../content__aside-bar_down/DownAsideBarContent";
+import { MediaQuery } from "../../meadia/MediaQuery";
+import { Media } from "../media/Media";
+import { AppFooter } from "../app-footer/AppFooter";
 
 
 interface IContentWithNavLayerProps {
@@ -20,9 +20,10 @@ interface IContentWithNavLayerProps {
 
 
 export const ContentWithNavLayer: FC<IContentWithNavLayerProps> = ( { children } ) => {
-  let contentNavXsSize = useCssPropertyAsNumber( CssPropertyName.ContentNavXsMedia );
-  let hideSideContentNavXsMediaQuery = !isNaN( contentNavXsSize ) ? `(min-width:${ contentNavXsSize }px)` : ``;
-  let showDownContentNavXsMediaQuery = !isNaN( contentNavXsSize ) ? `(max-width:${ contentNavXsSize }px)` : ``;
+  let hideSideContentNavXsMediaQuery = MediaQuery.XsUp;
+  let showDownContentNavXsMediaQuery = MediaQuery.XsDown;
+
+
 
   return (
     <div className="content-layout-grid">
@@ -49,6 +50,11 @@ export const ContentWithNavLayer: FC<IContentWithNavLayerProps> = ( { children }
               <GoNextAnchorContentControlButton/>
             </RightControlWinContentBar>
           </AsideBarContent>
+        </div>
+      </Media>
+      <Media query={MediaQuery.XsDown}>
+        <div className="content-layout-grid-item__app-footer">
+          <AppFooter/>
         </div>
       </Media>
       <Media query={showDownContentNavXsMediaQuery}>
