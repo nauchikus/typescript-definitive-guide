@@ -31,6 +31,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.CUSTOM_GITHUB_TOKEN }}
           REPOSITORY_OWNER: nauchikus
+          REPOSITORY_NAME: ${{ secrets.GITHUB_REPOSITORY }}
           REPOSITORY_BRANCH: master
         working-directory: ./www
         run: |

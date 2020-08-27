@@ -28,7 +28,6 @@ export class VisibleSectionValidator {
     let currentInnovation = this.contentData.innovations
       .find( innovation => StringUtils.pathToNativeElementAttributeValue(innovation.path) === id );
 
-    console.log(this.contentData.innovations,id);
 
     if ( !currentInnovation ) {
       throw new Error( `Innovation with id "${ id }" not found.` );
