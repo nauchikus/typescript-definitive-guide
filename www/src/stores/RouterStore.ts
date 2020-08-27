@@ -52,7 +52,7 @@ export class RouterStore {
   }
 
   /**
-   * https://domain.com/gh=repo-name/ru/what-is-new/3.7#concrete-innovation
+   * https://domain.com/gh-repo-name/ru/what-is-new/3.7#concrete-innovation
    *                                |-----------------|
    */
   get purePathName(){
@@ -66,6 +66,14 @@ export class RouterStore {
   get basepath(){
     return this.location.pathname
       .substring( 0, this.location.pathname.lastIndexOf( `/` ) );
+  }
+
+  /**
+   * https://domain.com/gh-repo-name/ru/what-is-new/3.7#concrete-innovation
+   *                                |-------------|
+   */
+  get pureBasePath(){
+    return RouterUtils.clearPathFromGhPagesDomain(this.basepath);
   }
 
   /**

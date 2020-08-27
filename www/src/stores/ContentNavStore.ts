@@ -48,13 +48,13 @@ export class ContentNavStore<TNodeData,TLeafData> {
 
   goPrevPage () {
     this.pageItem.prevPage && this.router.goTo(
-      `${ this.router.basepath }/${ this.pageItem.prevPage.path }`
+      `${ this.router.pureBasePath }/${ this.pageItem.prevPage.path }`
     );
   }
 
   goNextPage () {
     this.pageItem.nextPage && this.router.goTo(
-      `${ this.router.basepath }/${ this.pageItem.nextPage.path }`
+      `${ this.router.pureBasePath }/${ this.pageItem.nextPage.path }`
     );
   }
 
