@@ -42,9 +42,12 @@ $grid-gap:$app-bar__grid_gap-column;
   grid-area: nav-toggle;
 }
 .app-header-grid-item__logo{
+  padding: 0 0 0 16px;
+
   display: flex;
   justify-content: center;
   align-items: center;
+  justify-content: flex-start;
 
   grid-area: logo;
 }

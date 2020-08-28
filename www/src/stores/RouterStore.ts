@@ -29,7 +29,7 @@ export class RouterStore {
     return new RouterStore( location );
   }
   get isIndexPage(){
-    return this.location.pathname==='/ru'
+    return this.location.pathname==='/'
   }
 
   get locale(){
@@ -117,6 +117,8 @@ export class RouterStore {
 
   goTo( path: string ) {
     navigate( path );
+
+    this.scrollToAnchor(this.anchor);
   }
   setLocation ( location: Location ) {
     this.location = location;

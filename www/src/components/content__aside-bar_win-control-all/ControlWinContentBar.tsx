@@ -9,6 +9,7 @@ import {
   ThreeDotsAnimatedCssIcon,
   ThreeDotsAnimatedCssIconPosition
 } from "../icon__css-icon__three-dots-animated-css-icon/ThreeDotsAnimatedCssIcon";
+import { useRouter } from "../../stores/RouterStore";
 
 interface IControlWinContentBarProps {
 }
@@ -59,8 +60,8 @@ export const GoPrevAnchorContentControlButton = observer(({}) => {
 
   return (
     <IconButton className="control-bar__button"
-                onClick={() => contentNav.goPrevAnchor()}
-                disabled={!contentNav.hasPrevAnchor()}>
+                onClick={()=>contentNav.goPrevAnchor()}
+                disabled={!contentNav.isPrevAnchor}>
       <ArrowUpSvgIcon className="control-bar__svg-icon"/>
       <Tooltip position={TooltipPosition.LeftCenter}>
         Предыдущий подраздел
@@ -74,8 +75,8 @@ export const GoNextAnchorContentControlButton = observer(() => {
 
   return (
     <IconButton className="control-bar__button"
-                onClick={()=>contentNav.goNextAnchor()}
-                disabled={!contentNav.hasNextAnchor()}>
+                onClick={() => contentNav.goNextAnchor()}
+                disabled={!contentNav.isNextAnchor}>
       <ArrowDownSvgIcon className="control-bar__svg-icon"/>
       <Tooltip position={ TooltipPosition.LeftCenter }>
         Следующий подраздел
@@ -91,7 +92,7 @@ export const GoPrevPageContentControlButton = observer(() => {
   return (
     <IconButton className="control-bar__button"
                 onClick={()=>contentNav.goPrevPage()}
-                disabled={!contentNav.hasPrevPage()}>
+                disabled={!contentNav.isPrevPage}>
       <ArrowBeforeSvgIcon className="control-bar__svg-icon"/>
       <Tooltip position={ TooltipPosition.RightCenter }>
         Предыдущая страница
@@ -106,7 +107,7 @@ export const GoNextPageContentControlButton = observer(() => {
   return (
     <IconButton className="control-bar__button control-bar__button_next-page"
                 onClick={()=>contentNav.goNextPage()}
-                disabled={!contentNav.hasNextPage()}>
+                disabled={!contentNav.isNextPage}>
       <ArrowNextSvgIcon className="control-bar__svg-icon"/>
       <Tooltip position={ TooltipPosition.LeftCenter }>
         Следующая страница

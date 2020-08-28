@@ -1,8 +1,9 @@
-import { computed, decorate } from "mobx";
+import { action, computed, decorate } from "mobx";
 import { RouterStore } from "./RouterStore";
 import { IContentSectionStore } from "./ContentSectionStore";
 import { IPageNavStore } from "./PageNavStore";
 import {RouterUtils} from "../utils/router-utils";
+import { log } from "util";
 
 
 interface IContentNavStoreParams<TNodeData,TLeafData> {
@@ -39,10 +40,10 @@ export class ContentNavStore<TNodeData,TLeafData> {
               private router:RouterStore,
               private contentSection:IContentSectionStore){}
 
-  hasPrevPage () {
+  get isPrevPage () {
     return this.pageItem.hasPrevPage;
   }
-  hasNextPage () {
+  get isNextPage () {
     return this.pageItem.hasNextPage;
   }
 
@@ -58,10 +59,10 @@ export class ContentNavStore<TNodeData,TLeafData> {
     );
   }
 
-  hasPrevAnchor () {
+  get isPrevAnchor () {
     return this.pageNav.sectionItem?.prevAnchor != null;
   }
-  hasNextAnchor () {
+  get isNextAnchor () {
     return this.pageNav.sectionItem?.nextAnchor != null;
   }
 
@@ -80,6 +81,12 @@ export class ContentNavStore<TNodeData,TLeafData> {
 }
 
 decorate( ContentNavStore, {
+  isPrevPage: computed,
+  isNextPage: computed,
+  isPrevAnchor: computed,
+  isNextAnchor: computed,
+
+
   currentSectionId: computed,
-  pageItem: computed
+  pageItem: computed,
 } );

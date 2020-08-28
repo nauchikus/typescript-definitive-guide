@@ -30,9 +30,9 @@ jobs:
       - name: Build app
         env:
           GITHUB_TOKEN: ${{ secrets.CUSTOM_GITHUB_TOKEN }}
-          REPOSITORY_OWNER: nauchikus
-          REPOSITORY_NAME: ${{ secrets.GITHUB_REPOSITORY }}
-          REPOSITORY_BRANCH: master
+          GATSBY_REPOSITORY_OWNER: nauchikus
+          GATSBY_REPOSITORY_NAME: ${{ GITHUB_REPOSITORY }}
+          GATSBY_REPOSITORY_BRANCH: master
         working-directory: ./www
         run: |
           npm ci

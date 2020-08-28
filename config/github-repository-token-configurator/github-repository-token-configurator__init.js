@@ -7,8 +7,8 @@ const ENV_FILE_PATH = path.join(process.cwd(), `.env.github.development`);
 
 const getEnvFileData = () => (`
 GITHUB_TOKEN=
-REPOSITORY_OWNER=
-REPOSITORY_BRANCH=
+GATSBY_REPOSITORY_OWNER=
+GATSBY_REPOSITORY_BRANCH=
 `).trim();
 
 const init = async () => {

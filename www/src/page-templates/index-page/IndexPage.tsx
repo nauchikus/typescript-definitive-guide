@@ -8,6 +8,7 @@ import { AppNavigationLocalization, IndexPageGuiLocalization, LocalizationPaths 
 import { useTranslator } from "../../react__hooks/translator.hook";
 import { AppNavId } from "../../enums/AppNavId";
 import { useWelcomeDescriptionIndex } from "../../react__hooks/use-welcome-description-index";
+import { useVersionInfo } from "../../react__hooks/useVersionInfo";
 
 
 interface IIndexPageProps {
@@ -28,6 +29,7 @@ function indexNavAssert(indexNavAll:Partial<AppNavigationLocalization>):asserts 
 }
 
 const IndexPage: FC<IIndexPageProps> = observer(( {  } ) => {
+  let versionInfo = useVersionInfo();
   let [appNavigation,{subtitleAll}] = useTranslator<[
     AppNavigationLocalization,
     IndexPageGuiLocalization
@@ -42,18 +44,25 @@ const IndexPage: FC<IIndexPageProps> = observer(( {  } ) => {
     <Link className="ip-nav-link" key={ navItem.path } to={ navItem.path }>{ navItem.name }</Link>
   ) );
 
+
+  console.log(`versionInfo`, versionInfo);
+
   return (
     <>
       <div className="page-without-driver__content-layout">
         <div className="ip-title_container">
-          <span className="ip-subtitle">{ subtitleAll[ subtitleIndex ] }</span>
+          <span className="ip-subtitle">{subtitleAll[subtitleIndex]}</span>
           <h1 className="ip-title">
-            <span className="ip-title_name">TypeScript Definitive Guide</span>
-            <span className="ip-title_version">{ "3.8" }</span>
+            <span className="ip-title_name">
+              <span>TypeScript</span>
+              <span>Definitive</span>
+              <span>Guide</span>
+            </span>
+            <span className="ip-title_version">{"3.8"}</span>
           </h1>
         </div>
         <nav className="ip-nav">
-          { nav }
+          {nav}
         </nav>
       </div>
     </>

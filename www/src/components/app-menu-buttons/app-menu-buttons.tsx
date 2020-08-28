@@ -10,6 +10,7 @@ import { observer } from "mobx-react-lite";
 import { useTranslator } from "../../react__hooks/translator.hook";
 import { LocalizationPaths, SharedLayoutLocalization } from "../../localization";
 import { useAppDriver } from "../../stores/SharedPageMobxEntry";
+import { useRouter } from "../../stores/RouterStore";
 
 interface IAppMenuButtonProps {
 }
@@ -17,12 +18,13 @@ interface IAppMenuButtonProps {
 export const NavToggleButton: FC<IAppMenuButtonProps> = observer(() => {
   let [shared] = useTranslator<[SharedLayoutLocalization]>( LocalizationPaths.SharedLayout );
   let appDriver = useAppDriver();
+  let router = useRouter();
 
   let { appHeader: { navToggleButton: { tooltips } } } = shared;
 
 
   return (
-    <IconButton onClick={ () => appDriver.toggle() }>
+    <IconButton onClick={ () => appDriver.toggle() } disabled={router.isIndexPage}>
       <MainNavAnimatedCssIcon state={ appDriver.invertState }/>
       <Tooltip className="tooltip_pdf" position={TooltipPosition.BottomLeft}>
         <If condition={appDriver.isClose}>

@@ -7,6 +7,7 @@ import { ContentSectionStore } from "./ContentSectionStore";
 import { createIntersectionObserverStore } from "./IntersectionObserverStore";
 import { PageNavStore } from "./PageNavStore";
 import { LocationPartial, RouterStore } from "./RouterStore";
+import { computed, observable } from "mobx";
 
 
 interface IBookPageMobxEntryParams {

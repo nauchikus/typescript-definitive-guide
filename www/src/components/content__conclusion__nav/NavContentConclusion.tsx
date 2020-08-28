@@ -22,7 +22,7 @@ export const NavContentConclusion: FC<INavContentConclusionProps> = observer(() 
     <nav className="content-conclusion__nav">
       <button className="conclusion-button conclusion-button_prev"
               onClick={ () => contentNav.goPrevPage() }
-              disabled={ !contentNav.hasPrevPage() }>
+              disabled={ !contentNav.isPrevPage }>
         <BackArrowSvgIcon className="conclusion-button__svg-icon"/>
         <span className="conclusion-label conclusion-label_prev">
           { contentNav.pageItem.prevPage?.name }
@@ -33,7 +33,7 @@ export const NavContentConclusion: FC<INavContentConclusionProps> = observer(() 
       </button>
       <button className="conclusion-button conclusion-button_next"
               onClick={ () => contentNav.goNextPage() }
-              disabled={ !contentNav.hasNextPage() }>
+              disabled={ !contentNav.isNextPage }>
           <span className="conclusion-label conclusion-label_next">
             { contentNav.pageItem.nextPage?.name }
           </span>

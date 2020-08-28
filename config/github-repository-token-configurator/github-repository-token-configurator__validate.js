@@ -5,9 +5,9 @@ const CONFIGURATOR_NAME = `GithubRepositoryInfoConfigurator`;
 const ENV_FILE_PATH = path.join(process.cwd(), `.env.github.development`);
 
 const isGithubFieldEnvSet = () => {
-    let { GITHUB_TOKEN, REPOSITORY_OWNER, REPOSITORY_BRANCH } = process.env;
+    let { GITHUB_TOKEN, GATSBY_REPOSITORY_OWNER, GATSBY_REPOSITORY_BRANCH } = process.env;
 
-    if (GITHUB_TOKEN && REPOSITORY_OWNER && REPOSITORY_BRANCH) {
+    if (GITHUB_TOKEN && GATSBY_REPOSITORY_OWNER && GATSBY_REPOSITORY_BRANCH) {
         return true;
     }
 

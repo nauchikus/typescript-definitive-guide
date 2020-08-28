@@ -9,20 +9,20 @@
 const isRepoInfo = () => {
     const {
         GITHUB_TOKEN,
-        REPOSITORY_NAME,
-        REPOSITORY_OWNER,
-        REPOSITORY_BRANCH
+        GATSBY_REPOSITORY_NAME,
+        GATSBY_REPOSITORY_OWNER,
+        GATSBY_REPOSITORY_BRANCH
     } = process.env;
 
 
     return GITHUB_TOKEN != `` &&
-        REPOSITORY_NAME != null &&
-        REPOSITORY_OWNER != null &&
-        REPOSITORY_BRANCH != null;
+        GATSBY_REPOSITORY_NAME != null &&
+        GATSBY_REPOSITORY_OWNER != null &&
+        GATSBY_REPOSITORY_BRANCH != null;
 }
 
-const getRepositoryName = () => process.env.REPOSITORY_NAME;
-const getRepositoryOwner = () => process.env.REPOSITORY_OWNER;
+const getRepositoryName = () => process.env.GATSBY_REPOSITORY_NAME;
+const getRepositoryOwner = () => process.env.GATSBY_REPOSITORY_OWNER;
 
 
 const isBuildWIthGhPagesDomain = () => true;

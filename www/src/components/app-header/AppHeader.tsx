@@ -24,9 +24,7 @@ export const AppHeader: FC<IAppHeaderProps> = observer(( {...props} ) => {
   return (
     <header className="app-header app-header-grid" app-search-toggle={appSearch.active.state}>
       <div className="app-header-grid-item__nav-toggle">
-        <If condition={ !router.isIndexPage }>
-          <NavToggleButton/>
-        </If>
+        <NavToggleButton/>
       </div>
       <div className="app-header-grid-item__logo">
         <Link to={RouterUtils.appRoutes.getIndexRoute({})}>

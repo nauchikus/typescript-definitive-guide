@@ -19273,6 +19273,8 @@ export type QueryAllSitePageArgs = {
 export type QuerySiteArgs = {
   buildTime?: Maybe<DateQueryOperatorInput>;
   siteMetadata?: Maybe<SiteSiteMetadataFilterInput>;
+  port?: Maybe<IntQueryOperatorInput>;
+  host?: Maybe<StringQueryOperatorInput>;
   pathPrefix?: Maybe<StringQueryOperatorInput>;
   polyfill?: Maybe<BooleanQueryOperatorInput>;
   id?: Maybe<StringQueryOperatorInput>;
@@ -19454,6 +19456,8 @@ export type QueryAllSitePluginArgs = {
 export type Site = Node & {
   buildTime?: Maybe<Scalars['Date']>;
   siteMetadata?: Maybe<SiteSiteMetadata>;
+  port?: Maybe<Scalars['Int']>;
+  host?: Maybe<Scalars['String']>;
   pathPrefix?: Maybe<Scalars['String']>;
   polyfill?: Maybe<Scalars['Boolean']>;
   id: Scalars['ID'];
@@ -19659,6 +19663,8 @@ export type SiteFieldsEnum =
   | 'siteMetadata___title'
   | 'siteMetadata___description'
   | 'siteMetadata___author'
+  | 'port'
+  | 'host'
   | 'pathPrefix'
   | 'polyfill'
   | 'id'
@@ -19751,6 +19757,8 @@ export type SiteFieldsEnum =
 export type SiteFilterInput = {
   buildTime?: Maybe<DateQueryOperatorInput>;
   siteMetadata?: Maybe<SiteSiteMetadataFilterInput>;
+  port?: Maybe<IntQueryOperatorInput>;
+  host?: Maybe<StringQueryOperatorInput>;
   pathPrefix?: Maybe<StringQueryOperatorInput>;
   polyfill?: Maybe<BooleanQueryOperatorInput>;
   id?: Maybe<StringQueryOperatorInput>;
@@ -19808,6 +19816,7 @@ export type SitePageConnectionGroupArgs = {
 
 export type SitePageContext = {
   localization?: Maybe<SitePageContextLocalization>;
+  versionInfo?: Maybe<SitePageContextVersionInfo>;
   pageContentData?: Maybe<SitePageContextPageContentData>;
   pageNavDataAll?: Maybe<Array<Maybe<SitePageContextPageNavDataAll>>>;
   bookTocTree?: Maybe<Array<Maybe<SitePageContextBookTocTree>>>;
@@ -19863,6 +19872,7 @@ export type SitePageContextBookTocTreeFilterListInput = {
 
 export type SitePageContextFilterInput = {
   localization?: Maybe<SitePageContextLocalizationFilterInput>;
+  versionInfo?: Maybe<SitePageContextVersionInfoFilterInput>;
   pageContentData?: Maybe<SitePageContextPageContentDataFilterInput>;
   pageNavDataAll?: Maybe<SitePageContextPageNavDataAllFilterListInput>;
   bookTocTree?: Maybe<SitePageContextBookTocTreeFilterListInput>;
@@ -20712,6 +20722,26 @@ export type SitePageContextPageNavDataAllSectionsFilterListInput = {
   elemMatch?: Maybe<SitePageContextPageNavDataAllSectionsFilterInput>;
 };
 
+export type SitePageContextVersionInfo = {
+  major?: Maybe<Scalars['String']>;
+  minor?: Maybe<Scalars['String']>;
+  patch?: Maybe<Scalars['String']>;
+  mmp?: Maybe<Scalars['String']>;
+  preReleaseName?: Maybe<Scalars['String']>;
+  preReleaseVersion?: Maybe<Scalars['String']>;
+  version?: Maybe<Scalars['String']>;
+};
+
+export type SitePageContextVersionInfoFilterInput = {
+  major?: Maybe<StringQueryOperatorInput>;
+  minor?: Maybe<StringQueryOperatorInput>;
+  patch?: Maybe<StringQueryOperatorInput>;
+  mmp?: Maybe<StringQueryOperatorInput>;
+  preReleaseName?: Maybe<StringQueryOperatorInput>;
+  preReleaseVersion?: Maybe<StringQueryOperatorInput>;
+  version?: Maybe<StringQueryOperatorInput>;
+};
+
 export type SitePageContextWinTocTree = {
   id?: Maybe<Scalars['String']>;
   isCollapse?: Maybe<Scalars['Boolean']>;
@@ -20898,6 +20928,13 @@ export type SitePageFieldsEnum =
   | 'context___localization___appNavigation___id'
   | 'context___localization___appNavigation___path'
   | 'context___localization___appNavigation___name'
+  | 'context___versionInfo___major'
+  | 'context___versionInfo___minor'
+  | 'context___versionInfo___patch'
+  | 'context___versionInfo___mmp'
+  | 'context___versionInfo___preReleaseName'
+  | 'context___versionInfo___preReleaseVersion'
+  | 'context___versionInfo___version'
   | 'context___pageContentData___title'
   | 'context___pageContentData___section'
   | 'context___pageContentData___path'

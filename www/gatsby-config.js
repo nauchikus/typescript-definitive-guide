@@ -17,9 +17,9 @@ const { isRepoInfo } = require(`./src/utils/env-utils`);
 const {
   NODE_ENV,
   GITHUB_TOKEN,
-  REPOSITORY_NAME,
-  REPOSITORY_OWNER,
-  REPOSITORY_BRANCH,
+  GATSBY_REPOSITORY_NAME,
+  GATSBY_REPOSITORY_OWNER,
+  GATSBY_REPOSITORY_BRANCH,
 } = process.env
 
 
@@ -32,14 +32,14 @@ const githubNodeEnvValid = () => {
   if (!NODE_ENV && !GITHUB_TOKEN) {
     throw new Error("GITHUB_TOKEN must be specified")
   }
-  if (!NODE_ENV && !REPOSITORY_NAME) {
-    throw new Error("REPOSITORY_NAME must be specified")
+  if (!NODE_ENV && !GATSBY_REPOSITORY_NAME) {
+    throw new Error("GATSBY_REPOSITORY_NAME must be specified")
   }
-  if (!NODE_ENV && !REPOSITORY_OWNER) {
-    throw new Error("REPOSITORY_OWNER must be specified")
+  if (!NODE_ENV && !GATSBY_REPOSITORY_OWNER) {
+    throw new Error("GATSBY_REPOSITORY_OWNER must be specified")
   }
-  if (!NODE_ENV && !REPOSITORY_BRANCH) {
-    throw new Error("REPOSITORY_BRANCH must be specified")
+  if (!NODE_ENV && !GATSBY_REPOSITORY_BRANCH) {
+    throw new Error("GATSBY_REPOSITORY_BRANCH must be specified")
   }
 };
 
@@ -303,12 +303,12 @@ const getPlugins = ({ locale, lang }) => [
 ].filter(Boolean);
 
 module.exports = {
-  pathPrefix: process.env.REPOSITORY_NAME,
+  pathPrefix: process.env.GATSBY_REPOSITORY_NAME,
   siteMetadata: {
     repository: {
-      name: process.env.REPOSITORY_NAME,
-      owner: process.env.REPOSITORY_OWNER,
-      branch: process.env.REPOSITORY_BRANCH,
+      name: process.env.GATSBY_REPOSITORY_NAME,
+      owner: process.env.GATSBY_REPOSITORY_OWNER,
+      branch: process.env.GATSBY_REPOSITORY_BRANCH,
     },
 
     title: "",
