@@ -20,8 +20,6 @@ export interface IWhatIsNewTocInnovation {
 }
 
 export interface IWhatIsNewToc {
-  // version:string;
-  lastVersionStatus:IWhatIsNewTocVersionStatus;
   releaseHistory:ReleaseInfo[];
   innovations: IWhatIsNewTocInnovation[];
 }

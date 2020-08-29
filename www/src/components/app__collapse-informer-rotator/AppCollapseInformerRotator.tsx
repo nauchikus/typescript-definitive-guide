@@ -12,8 +12,8 @@ interface IAppCollapseInformerRotatorProps {
 
 class InformerReactComponentFactory{
   private static readonly componentMap = new Map( [
-    [InformerId.DonateInformer, DonateInformer],
-    [InformerId.WinSearchCopywritersInformer, WinSearchCopywritesInformer]
+    // [InformerId.DonateInformer, DonateInformer],
+    // [InformerId.WinSearchCopywritersInformer, WinSearchCopywritesInformer]
   ] );
 
   public static readonly getInformerById = ( informerId: InformerId ) =>
@@ -30,10 +30,12 @@ export const AppCollapseInformerRotator: FC<IAppCollapseInformerRotatorProps> = 
     return null;
   }
 
+
   return (
     <If condition={ informerRotator.isInformerActive }>
       <aside className="app__collapse-informer-rotator">
         <CloseCollapseInformerButton/>
+        {/*@ts-ignore*/}
         <Informer/>
       </aside>
     </If>

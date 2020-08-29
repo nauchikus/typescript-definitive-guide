@@ -17,22 +17,30 @@
   align-items: flex-end;
 
 }
-.ip-title {
-  margin: 8px 0 8px 0;
-
-  display: flex;
-
+.ip-main-informer {
+  padding: 0 16px;
+  display: inline-flex;
 }
+
 .ip-title_name {
   color: var(--color_dark_10);
 
+  margin: 8px 0 8px 0;
 }
 .ip-title_version {
   color: tomato;
   font-weight: bold;
 
-  margin: 0 0 0 8px;
+  margin: 8px 0 8px 16px;
 
+  display: flex;
+  flex-direction: column;
+}
+.ip-title_version-mmp {
+  font-size: 32px;
+}
+.ip-title_version-release-name{
+  font-size: 14px;
 }
 
 .ip-subtitle {

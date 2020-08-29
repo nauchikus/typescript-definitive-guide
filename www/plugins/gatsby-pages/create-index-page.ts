@@ -3,9 +3,7 @@ import * as path from 'path';
 import {RouterUtils} from '../../src/utils/router-utils';
 
 import { GatsbyCreatePages } from "../types/gatsby-create-pages";
-import {Langs, Locales} from "../types/locales";
 import { CustomGatsbyNodeType } from '../gatsby-node-types';
-import { AppLocalization } from "../../src/types/app-localizations";
 import {IAppLocalizationGatsbyNode} from "../types/gatsby-node-types";
 import {ICreatePageSharedOptions} from "../types/ICreatePageSharedOptions";
 import { IWhatIsNewTocGatsbyNode } from "./create-what-is-new-toc-page";
@@ -22,7 +20,12 @@ export const createPages: GatsbyCreatePages<ICreatePageSharedOptions> = async ( 
         .filter( node => node.lang === lang );
     let [{ toc: winToc }] = getNodesByType<IWhatIsNewTocGatsbyNode>( CustomGatsbyNodeType.WhatIsNewToc );
 
-    let versionInfo = new Version(winToc[0].lastVersionStatus.version).toInfo();
+
+    let lastWinToc = winToc[winToc.length - 1];
+    let lastVersion = lastWinToc.releaseHistory[0];
+    let versionInfo = new Version(lastVersion.version).toInfo();
+
+    console.log(`last version info`, versionInfo);
 
     createPage( {
         path: RouterUtils.appRoutes.getIndexRoute( { locale } ),

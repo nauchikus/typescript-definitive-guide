@@ -19882,14 +19882,12 @@ export type SitePageContextFilterInput = {
 
 export type SitePageContextInnovationData = {
   releaseHistory?: Maybe<Array<Maybe<SitePageContextInnovationDataReleaseHistory>>>;
-  lastVersionStatus?: Maybe<SitePageContextInnovationDataLastVersionStatus>;
   mmp?: Maybe<Scalars['String']>;
   innovations?: Maybe<Array<Maybe<SitePageContextInnovationDataInnovations>>>;
 };
 
 export type SitePageContextInnovationDataFilterInput = {
   releaseHistory?: Maybe<SitePageContextInnovationDataReleaseHistoryFilterListInput>;
-  lastVersionStatus?: Maybe<SitePageContextInnovationDataLastVersionStatusFilterInput>;
   mmp?: Maybe<StringQueryOperatorInput>;
   innovations?: Maybe<SitePageContextInnovationDataInnovationsFilterListInput>;
 };
@@ -19956,16 +19954,6 @@ export type SitePageContextInnovationDataInnovationsFilterInput = {
 
 export type SitePageContextInnovationDataInnovationsFilterListInput = {
   elemMatch?: Maybe<SitePageContextInnovationDataInnovationsFilterInput>;
-};
-
-export type SitePageContextInnovationDataLastVersionStatus = {
-  version?: Maybe<Scalars['String']>;
-  date?: Maybe<Scalars['String']>;
-};
-
-export type SitePageContextInnovationDataLastVersionStatusFilterInput = {
-  version?: Maybe<StringQueryOperatorInput>;
-  date?: Maybe<StringQueryOperatorInput>;
 };
 
 export type SitePageContextInnovationDataReleaseHistory = {
@@ -20751,14 +20739,12 @@ export type SitePageContextWinTocTree = {
 
 export type SitePageContextWinTocTreeData = {
   releaseHistory?: Maybe<Array<Maybe<SitePageContextWinTocTreeDataReleaseHistory>>>;
-  lastVersionStatus?: Maybe<SitePageContextWinTocTreeDataLastVersionStatus>;
   mmp?: Maybe<Scalars['String']>;
   innovations?: Maybe<Array<Maybe<SitePageContextWinTocTreeDataInnovations>>>;
 };
 
 export type SitePageContextWinTocTreeDataFilterInput = {
   releaseHistory?: Maybe<SitePageContextWinTocTreeDataReleaseHistoryFilterListInput>;
-  lastVersionStatus?: Maybe<SitePageContextWinTocTreeDataLastVersionStatusFilterInput>;
   mmp?: Maybe<StringQueryOperatorInput>;
   innovations?: Maybe<SitePageContextWinTocTreeDataInnovationsFilterListInput>;
 };
@@ -20785,16 +20771,6 @@ export type SitePageContextWinTocTreeDataInnovationsFilterInput = {
 
 export type SitePageContextWinTocTreeDataInnovationsFilterListInput = {
   elemMatch?: Maybe<SitePageContextWinTocTreeDataInnovationsFilterInput>;
-};
-
-export type SitePageContextWinTocTreeDataLastVersionStatus = {
-  version?: Maybe<Scalars['String']>;
-  date?: Maybe<Scalars['String']>;
-};
-
-export type SitePageContextWinTocTreeDataLastVersionStatusFilterInput = {
-  version?: Maybe<StringQueryOperatorInput>;
-  date?: Maybe<StringQueryOperatorInput>;
 };
 
 export type SitePageContextWinTocTreeDataReleaseHistory = {
@@ -20966,8 +20942,6 @@ export type SitePageFieldsEnum =
   | 'context___innovationData___releaseHistory'
   | 'context___innovationData___releaseHistory___version'
   | 'context___innovationData___releaseHistory___dateRelease'
-  | 'context___innovationData___lastVersionStatus___version'
-  | 'context___innovationData___lastVersionStatus___date'
   | 'context___innovationData___mmp'
   | 'context___innovationData___innovations'
   | 'context___innovationData___innovations___id'
@@ -21703,8 +21677,6 @@ export type WhatIsNewTocFieldsEnum =
   | 'toc___releaseHistory'
   | 'toc___releaseHistory___version'
   | 'toc___releaseHistory___dateRelease'
-  | 'toc___lastVersionStatus___version'
-  | 'toc___lastVersionStatus___date'
   | 'toc___mmp'
   | 'toc___innovations'
   | 'toc___innovations___id'
@@ -21739,14 +21711,12 @@ export type WhatIsNewTocSortInput = {
 
 export type WhatIsNewTocToc = {
   releaseHistory?: Maybe<Array<Maybe<WhatIsNewTocTocReleaseHistory>>>;
-  lastVersionStatus?: Maybe<WhatIsNewTocTocLastVersionStatus>;
   mmp?: Maybe<Scalars['String']>;
   innovations?: Maybe<Array<Maybe<WhatIsNewTocTocInnovations>>>;
 };
 
 export type WhatIsNewTocTocFilterInput = {
   releaseHistory?: Maybe<WhatIsNewTocTocReleaseHistoryFilterListInput>;
-  lastVersionStatus?: Maybe<WhatIsNewTocTocLastVersionStatusFilterInput>;
   mmp?: Maybe<StringQueryOperatorInput>;
   innovations?: Maybe<WhatIsNewTocTocInnovationsFilterListInput>;
 };
@@ -21777,16 +21747,6 @@ export type WhatIsNewTocTocInnovationsFilterInput = {
 
 export type WhatIsNewTocTocInnovationsFilterListInput = {
   elemMatch?: Maybe<WhatIsNewTocTocInnovationsFilterInput>;
-};
-
-export type WhatIsNewTocTocLastVersionStatus = {
-  version?: Maybe<Scalars['String']>;
-  date?: Maybe<Scalars['String']>;
-};
-
-export type WhatIsNewTocTocLastVersionStatusFilterInput = {
-  version?: Maybe<StringQueryOperatorInput>;
-  date?: Maybe<StringQueryOperatorInput>;
 };
 
 export type WhatIsNewTocTocReleaseHistory = {

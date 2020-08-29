@@ -8,6 +8,10 @@ const commands = [
         validator: node => node.type === "list",
         action: node => addClassRemarkNode( node, "content__list" )
     },
+    {
+        validator: node => node.type === "heading",
+        action: node => addClassRemarkNode(node, `content__gheading_${node.depth}`)
+    },
 ];
 
 const validator = node => commands.some( command => command.validator( node ) );

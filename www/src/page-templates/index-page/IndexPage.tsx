@@ -41,25 +41,29 @@ const IndexPage: FC<IIndexPageProps> = observer(( {  } ) => {
   indexNavAssert( indexNavAll );
 
   let nav = indexNavAll.map( navItem => (
-    <Link className="ip-nav-link" key={ navItem.path } to={ navItem.path }>{ navItem.name }</Link>
+    <Link className="link ip-nav-link" key={ navItem.path } to={ navItem.path }>{ navItem.name }</Link>
   ) );
 
 
-  console.log(`versionInfo`, versionInfo);
 
   return (
     <>
       <div className="page-without-driver__content-layout">
         <div className="ip-title_container">
           <span className="ip-subtitle">{subtitleAll[subtitleIndex]}</span>
-          <h1 className="ip-title">
-            <span className="ip-title_name">
-              <span>TypeScript</span>
-              <span>Definitive</span>
-              <span>Guide</span>
-            </span>
-            <span className="ip-title_version">{"3.8"}</span>
-          </h1>
+          <div className="ip-main-informer">
+            <h1 className="ip-title_name">
+              TypeScript Definitive Guide
+            </h1>
+            <div className="ip-title_version">
+              <span className="ip-title_version-mmp">
+                {versionInfo.mmp}
+              </span>
+              <span className="ip-title_version-release-name">
+                {versionInfo.preReleaseName}
+              </span>
+            </div>
+          </div>
         </div>
         <nav className="ip-nav">
           {nav}
