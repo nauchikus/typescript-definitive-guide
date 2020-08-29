@@ -25,7 +25,7 @@ export const createPages: GatsbyCreatePages<ICreatePageSharedOptions> = async ( 
     let lastVersion = lastWinToc.releaseHistory[0];
     let versionInfo = new Version(lastVersion.version).toInfo();
 
-    console.log(`last version info`, versionInfo);
+
 
     createPage( {
         path: RouterUtils.appRoutes.getIndexRoute( { locale } ),

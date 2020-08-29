@@ -10,7 +10,7 @@ const commands = [
     },
     {
         validator: node => node.type === "heading",
-        action: node => addClassRemarkNode(node, `content__gheading_${node.depth}`)
+        action: node => addClassRemarkNode(node, `content__heading_${node.depth}`)
     },
 ];
 
