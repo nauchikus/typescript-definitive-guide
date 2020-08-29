@@ -52,11 +52,6 @@ export const ContentWithNavLayer: FC<IContentWithNavLayerProps> = ( { children }
           </AsideBarContent>
         </div>
       </Media>
-      <Media query={MediaQuery.XsDown}>
-        <div className="content-layout-grid-item__app-footer">
-          <AppFooter/>
-        </div>
-      </Media>
       <Media query={showDownContentNavXsMediaQuery}>
         <div className="content-layout-grid-item__aside-bar_down">
           <DownAsideBarContent/>
@@ -65,3 +60,4 @@ export const ContentWithNavLayer: FC<IContentWithNavLayerProps> = ( { children }
     </div>
   );
 };
+

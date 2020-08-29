@@ -35,15 +35,14 @@ const BaseLayout: FC<IBaseLayoutProps> = ( { children } ) => {
           { children }
         </div>
         <div className="app-grid-item__footer">
-          <Media query={MediaQuery.XsUp}>
-            <AppFooter/>
-          </Media>
+          <AppFooter/>
         </div>
       </div>
     </BaseLayoutMoxContext.Provider>
   );
 
 };
+
 
 
 export default BaseLayout;

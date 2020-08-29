@@ -73,7 +73,10 @@
 .content-layout-grid-item__aside-bar_down {
   grid-area: aside-bar_down;
 
-  z-index: 4;
+  position: sticky;
+  bottom: 0;
+
+  z-index: 1;
 }
 .content-layout-grid-item__main {
   display: flex;

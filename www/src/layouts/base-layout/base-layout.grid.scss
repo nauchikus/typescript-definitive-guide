@@ -7,7 +7,7 @@
   display:grid;
 
   grid-template-columns: 100%;
-  grid-template-rows: auto var(--app-header_height) 1fr auto;
+  grid-template-rows: auto var(--app-header_height) 1fr 64px;
   grid-template-areas:
           "collapse-informer"
           "header"
@@ -17,9 +17,10 @@
   position: relative;
 
   @media all and (max-width: $content__nav_down_media ) {
-    padding-bottom: var(--content__nav-down_height);
+    //padding-bottom: var(--content__nav-down_height);
   }
 }
+
 
 .app-grid-item__collapsed-informer{
   grid-area: collapse-informer;
@@ -47,10 +48,11 @@
 .app-grid-item__footer {
   grid-area: footer;
 
-  position: absolute;
+  position: relative;
   left: 0;
   right: 0;
   bottom: 0;
 
   z-index: 2;
 }
+

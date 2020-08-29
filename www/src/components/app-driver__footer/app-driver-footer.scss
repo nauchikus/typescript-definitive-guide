@@ -1,11 +1,13 @@
 .app-driver__footer {
   width: 100%;
+  height: 64px;
 
   background-color: var(--app_base-color);
 
   padding: 8px 28px;
 
   margin: auto 0 0 0;
+  display: flex;
 
   position: sticky;
   bottom: 0;

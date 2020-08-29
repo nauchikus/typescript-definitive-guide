@@ -20,7 +20,6 @@ export const DownAsideBarContent: FC<IDownAsideBarContentProps> = observer(({}) 
   let contentDownPanelStore = useContentDownPanelStore();
 
 
-
   return (
     <div className="content__aside-bar_down">
 
