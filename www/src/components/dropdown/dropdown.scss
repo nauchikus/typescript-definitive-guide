@@ -5,6 +5,8 @@
 
   z-index:999;
 
+
+
   &:hover{
     &>.dropdown__menu{
       @include menu-open();
@@ -13,6 +15,11 @@
 }
 .dropdown__menu{
   z-index: 999;
+
+  transition: all .1s ease;
+  transition-delay: .1s;
+
+  pointer-events: all;
 }
 
 .dropdown__menu_horizontal-align_end{
