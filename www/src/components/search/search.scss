@@ -82,7 +82,7 @@ $search_padding-y_open:4px;
     padding: $search_padding-y_open $search_padding-x_open;
     margin-top: -$search_padding-y_open;
 
-    box-shadow: var(--shadow_first);
+    //box-shadow: var(--shadow_first);
 
     transition: all $app-search_transition_duration ease 0s;
 
@@ -165,7 +165,7 @@ input[type="search"]::-webkit-search-cancel-button {
 .search__search-svg-icon{
   width: 16px;
   height: 16px;
-  
+
   fill:rgba(0,0,0,.5);
 
   pointer-events: none;
@@ -198,10 +198,12 @@ $wrapper_position_right_xs: $app-header_padding_right + $control-bar_xs + $grid-
 $wrapper_position_right_xl: $app-header_padding_right + $control-bar_xl + $grid-gap-column;
 
 .search_wrapper {
+  max-width: calc(100% - #{$wrapper_width_xs});
   display: flex;
   justify-content: center;
   align-items: baseline;
 
+  //position: absolute;
   position: absolute;
   right: $wrapper_position_right_xs;
 
@@ -209,7 +211,8 @@ $wrapper_position_right_xl: $app-header_padding_right + $control-bar_xl + $grid-
 
 
   &[toggle="true"] {
-    width: calc(100% - #{$wrapper_width_xs});
+    //width: calc(100% - #{$wrapper_width_xs});
+    width: $app-search__max-width_open-state;
   }
 
   &[toggle="false"] {
@@ -220,7 +223,7 @@ $wrapper_position_right_xl: $app-header_padding_right + $control-bar_xl + $grid-
     right: $wrapper_position_right_xl;
 
     &[toggle="true"] {
-      width: calc(100% - #{$wrapper_width_xl});
+      //width: calc(100% - #{$wrapper_width_xl});
 
     }
 
