@@ -29,8 +29,8 @@ const getOldChapterInfoAll = async ({ CHAPTERS_DIR }) => {
 const renameSourceChapters = async (oldChapterInfoAll) => {
     return await Promise.all(oldChapterInfoAll.map(async (oldChapterInfo) => {
         return git.mv(
-            oldChapterInfo.path,
-            path.join(oldChapterInfo.dir, `content.md`)
+            oldChapterInfo.chapterPath,
+            path.join(oldChapterInfo.chapterDir, `content.md`)
         );
     }));
 }
