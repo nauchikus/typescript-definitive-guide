@@ -22,4 +22,8 @@ vue.config.js
 /node_modules
 package-lock.json
 package.json
+<<<<<<< HEAD
+>>>>>>> old-to-new-book
+=======
+/www
 >>>>>>> old-to-new-book
