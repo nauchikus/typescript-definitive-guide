@@ -1,3 +1,4 @@
+# Примитивные типы — литеральные типы Number, String, Boolean, Unique Symbol, Enum
 ## Примитивные типы — литеральные типы Number, String, Boolean, Unique Symbol, Enum
 ________________
 

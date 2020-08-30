@@ -1,3 +1,4 @@
+# Типы - Примитивные типы Number, String, Boolean, Symbol, BigInt
 ## Важно
 ________________
 

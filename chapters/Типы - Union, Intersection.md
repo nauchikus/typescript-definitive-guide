@@ -1,3 +1,4 @@
+# Типы - Union, Intersection
 ## Тип Объединение (Union Types)
 ________________
 

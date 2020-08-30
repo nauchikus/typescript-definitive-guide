@@ -1,3 +1,4 @@
+# Расширенные типы - Массивоподобные readonly типы, ReadonlyArray, ReadonlyMap, ReadonlySet
 ## Массивоподобные readonly типы
 ________________
 
