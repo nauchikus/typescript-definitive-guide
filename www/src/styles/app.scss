@@ -5,3 +5,8 @@ body{
 .link {
   white-space: nowrap;
 }
+
+.disabled {
+  pointer-events: none;
+  cursor: default;
+}

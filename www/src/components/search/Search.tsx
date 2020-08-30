@@ -94,7 +94,7 @@ export const Search: FC<ISearchProps> = observer(( {} ) => {
                  onChange={onChange}
                  required/>
 
-          <ScaleButton className="search__submit-button-placeholder button-with-svg-icon" onClick={toggle}>
+          <ScaleButton className="search__submit-button-placeholder button-with-svg-icon" onClick={toggle} disabled={true}>
             <MagnifierSvgIcon className="search__search-svg-icon"/>
           </ScaleButton>
 

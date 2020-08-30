@@ -8,8 +8,7 @@ import React, {
   useLayoutEffect, useRef,
   useState
 } from "react";
-import { default as cn } from "classnames";
-import { RippleLayer } from "../ripple-layer/RippleLayer";
+import {default as cn}  from "classnames";
 
 enum ScaleStatus {
   On,
@@ -108,15 +107,20 @@ export const ScaleContainer: FC<IScaleContainerProps> = ( { children } ) => {
 interface IScaleContainerProviderProps {
   controlId?:string;
   children: ReactElement | ReactElement[];
+  className?: string;
 }
 
-export const ScaleContainerProvider: FC<IScaleContainerProviderProps> = ( { controlId,children } ) => {
+export const ScaleContainerProvider: FC<IScaleContainerProviderProps> = ( { className,controlId,children } ) => {
   let { status, onClick, onTransitionEnd } = useScaleBase( { controlId } );
 
+  let classes = cn(
+    `scale-container-provider`,
+    className
+  );
 
   return (
     <ScaleContext.Provider value={status}>
-      <div className="scale-container-provider"
+      <div className={classes}
            onClick={onClick}
            onTransitionEnd={onTransitionEnd}>
         {children}

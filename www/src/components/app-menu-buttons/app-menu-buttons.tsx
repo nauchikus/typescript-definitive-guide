@@ -45,7 +45,7 @@ export const PdfAppMenuButton: FC<IAppMenuButtonProps> = () => {
   let { appHeader: { appMenu:{pdfButton} } } = shared;
 
   return (
-    <ScaleContainerProvider>
+    <ScaleContainerProvider className="disabled">
       <AdaptiveMenuButtonLink className="app-menu-item__item" href={pdfButton.href}>
         <ScaleContainer>
           <PdfSvgIcon/>
