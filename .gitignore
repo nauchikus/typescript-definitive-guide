@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Created by .ignore support plugin (hsz.mobi)
 .idea/
 .vscode/
@@ -16,3 +17,9 @@ public/
 .env.development
 .env.github.development
 vue.config.js
+=======
+.idea
+/node_modules
+package-lock.json
+package.json
+>>>>>>> old-to-new-book

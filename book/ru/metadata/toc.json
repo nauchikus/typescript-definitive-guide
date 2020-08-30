@@ -1,0 +1,703 @@
+[
+  {
+    "section": "Общее",
+    "title": "Что такое и для чего нужен TypeScript",
+    "subtitles": [
+      "Что такое TypeScript",
+      "История TypeScript",
+      "Для чего нужен TypeScript",
+      "Зачем разработчику TypeScript"
+    ]
+  },
+  {
+    "section": "Экскурс в типизацию",
+    "title": "Вступление",
+    "subtitles": [
+      "Экскурс в типизацию — Вступление"
+    ]
+  },
+  {
+    "section": "Экскурс в типизацию",
+    "title": "Система типов, тип данных, значимые и ссылочные типы",
+    "subtitles": [
+      "Экскурс в типизацию — система типов, тип данных, значимые и ссылочные типы",
+      "Система Типов",
+      "Тип данных (тип)",
+      "Тип данных, передающийся по значению (примитивный тип)",
+      "Тип данных, передающийся по ссылке",
+      "Итоги"
+    ]
+  },
+  {
+    "section": "Экскурс в типизацию",
+    "title": "Связывание, типизация, вывод типов",
+    "subtitles": [
+      "Связывание (Binding)",
+      "Лексический анализ (токенизация - tokenizing)",
+      "Синтаксический анализ (разбор - parsing)",
+      "Семантический анализ",
+      "Типизация",
+      "Вывод Типов (type inference)",
+      "Итоги"
+    ]
+  },
+  {
+    "section": "Экскурс в типизацию",
+    "title": "Преобразование типов",
+    "subtitles": [
+      "Экскурс в типизацию — Преобразование типов",
+      "Неявные Преобразования",
+      "Явные Преобразования",
+      "Итоги"
+    ]
+  },
+  {
+    "section": "Экскурс в типизацию",
+    "title": "Типизированные и нетипизированные языки программирования",
+    "subtitles": [
+      "Экскурс в типизацию — Типизированные и нетипизированные языки программирования",
+      "Нетипизированные языки",
+      "Типизированные языки"
+    ]
+  },
+  {
+    "section": "Экскурс в типизацию",
+    "title": "Статическая и динамическая типизация",
+    "subtitles": [
+      "Экскурс в типизацию — статическая и динамическая типизация",
+      "Статическая типизация (Static Typing)",
+      "Динамическая Типизация (Dynamic Typing)",
+      "Итоги"
+    ]
+  },
+  {
+    "section": "Экскурс в типизацию",
+    "title": "Сильная и слабая типизация",
+    "subtitles": [
+      "Экскурс в типизацию — Сильная и слабая типизация",
+      "Сильная типизация (strongly typed)",
+      "Слабая типизация (weakly typed)",
+      "Итог"
+    ]
+  },
+  {
+    "section": "Экскурс в типизацию",
+    "title": "Явная и неявная типизация",
+    "subtitles": [
+      "Экскурс в типизацию — явная и неявная типизация",
+      "Явная типизация (explicit typing)",
+      "Неявная типизация (implicit typing)",
+      "Итог"
+    ]
+  },
+  {
+    "section": "Экскурс в типизацию",
+    "title": "Совместимость типов на основе вида типизации",
+    "subtitles": [
+      "Совместимость типов (Types Compatibility)",
+      "Номинативная Типизация (nominative typing)",
+      "Структурная Типизация (structural typing)",
+      "Утиная Типизация (Duck typing)",
+      "Итоги"
+    ]
+  },
+  {
+    "section": "Экскурс в типизацию",
+    "title": "Совместимость типов на основе вариантности",
+    "subtitles": [
+      "Совместимость типов на основе вариантности",
+      "Иерархия наследования",
+      "Ковариантность",
+      "Контравариантность",
+      "Инвариантность",
+      "Бивариантность"
+    ]
+  },
+  {
+    "section": "Синтаксические конструкции",
+    "title": "Аннотация Типов",
+    "subtitles": [
+      "Аннотация Типов - общее",
+      "Аннотация типа",
+      "Синтаксические конструкции var, let, const",
+      "Функции (function)",
+      "Стрелочные Функции (arrow function)",
+      "Классы (class)",
+      "Сравнение Синтаксиса TypeScript и JavaScript",
+      "Итог"
+    ]
+  },
+  {
+    "section": "Типы",
+    "title": "Базовый Тип Any",
+    "subtitles": [
+      "Базовый Тип Any",
+      "Any (any) произвольный тип",
+      "Итог"
+    ]
+  },
+  {
+    "section": "Типы",
+    "title": "Примитивные типы Number, String, Boolean, Symbol, BigInt",
+    "subtitles": [
+      "Важно",
+      "Number (number) примитивный числовой тип",
+      "String (string) примитивный строковый тип",
+      "Boolean (boolean) примитивный логический тип",
+      "Symbol (symbol) примитивный символьный тип",
+      "BigInt (bigint) примитивный числовой тип",
+      "Итог"
+    ]
+  },
+  {
+    "section": "Типы",
+    "title": "Примитивные типы Null, Undefined, Void, Never, Unknown",
+    "subtitles": [
+      "Важно",
+      "Null (null) примитивный null тип",
+      "Undefined (undefined) примитивный неопределенный тип",
+      "Void (void) отсутствие конкретного типа",
+      "Never (never) примитивный тип",
+      "Unknown (unknown)"
+    ]
+  },
+  {
+    "section": "Типы",
+    "title": "Примитивный Тип Enum",
+    "subtitles": [
+      "Примитивный Тип Enum",
+      "Enum (enum) примитивный перечисляемый тип",
+      "Перечисления с числовым значением",
+      "Перечисления со строковым значением",
+      "Смешанное перечисление (mixed enum)",
+      "Перечисление в качестве типа данных",
+      "Перечисление const с числовым и строковым значением",
+      "Итог"
+    ]
+  },
+  {
+    "section": "Типы",
+    "title": "Типы - Union, Intersection",
+    "subtitles": [
+      "Тип Объединение (Union Types)",
+      "Тип Пересечение (Intersection Type)",
+      "Итоги"
+    ]
+  },
+  {
+    "section": "Типы",
+    "title": "Type Queries (запросы типа), Alias (псевдонимы типа)",
+    "subtitles": [
+      "Запросы Типа (Type Queries)",
+      "Псевдонимы Типов (Type Aliases)",
+      "Итоги"
+    ]
+  },
+  {
+    "section": "Типы",
+    "title": "Примитивные литеральные типы Number, String, Boolean, Unique Symbol, Enum",
+    "subtitles": [
+      "Примитивные типы — литеральные типы Number, String, Boolean, Unique Symbol, Enum",
+      "Литеральный тип Number (Numeric Literal Types)",
+      "Литеральный тип String (String Literal Types)",
+      "Литеральный Тип Boolean (Boolean Literal Types)",
+      "Литеральный Тип Unique Symbol (unique symbol) уникальный символьный тип",
+      "Литеральный тип Enum (Enum Literal Types)",
+      "Итоги"
+    ]
+  },
+  {
+    "section": "Типы",
+    "title": "Object, Array, Tuple",
+    "subtitles": [
+      "Типы — Object, Array, Tuple",
+      "Object (object) — ссылочный объектный тип",
+      "Array (type[]) ссылочный массивоподобный тип",
+      "Tuple ([T0, T1, …, Tn]) тип кортеж",
+      "Итоги"
+    ]
+  },
+  {
+    "section": "Типы",
+    "title": "Function, Functional Types",
+    "subtitles": [
+      "Function, Functional Types",
+      "Function Types - тип функция",
+      "Functional Types - функциональный тип",
+      "this в сигнатуре функции",
+      "Итог"
+    ]
+  },
+  {
+    "section": "Типы",
+    "title": "Interfaces",
+    "subtitles": [
+      "Общая теория",
+      "Интерфейс в TypeScript",
+      "Объявление (declaration)",
+      "Конвенции именования интерфейсов",
+      "Реализация интерфейса (implements)",
+      "Декларация свойств get и set (accessors)",
+      "Указание интерфейса в качестве типа (interface types)",
+      "Расширение интерфейсов (extends interface)",
+      "Расширение интерфейсом класса (extends class)",
+      "Описание класса (функции-конструктора)",
+      "Описание функционального выражения",
+      "Описание индексных членов в объектных типов",
+      "Инлайн интерфейсы (Inline Interface)",
+      "Слияние интерфейсов"
+    ]
+  },
+  {
+    "section": "Типы",
+    "title": "Объектные типы с индексными членами (объектный тип с динамическими ключами)",
+    "subtitles": [
+      "Типы — Объектные типы с индексными членами (объектный тип с динамическими ключами)"
+    ]
+  },
+  {
+    "section": "Классы",
+    "title": "Модификаторы доступа (Access Modifiers)",
+    "subtitles": [
+      "Модификаторы доступа (Access Modifiers)",
+      "Модификатор доступа public (публичный)",
+      "Модификатор доступа private (закрытый или скрытый)",
+      "Модификатор доступа protected (защищенный)",
+      "Модификаторы доступа и конструкторы класса",
+      "Быстрое объявление полей"
+    ]
+  },
+  {
+    "section": "Классы",
+    "title": "Закрытые поля определенные спецификацией ECMAScript",
+    "subtitles": [
+      "Закрытые поля определенные спецификацией ECMAScript"
+    ]
+  },
+  {
+    "section": "Классы",
+    "title": "Абстрактные классы (abstract classes)",
+    "subtitles": [
+      "Абстрактные классы (abstract classes)",
+      "Общие характеристики",
+      "Теория"
+    ]
+  },
+  {
+    "section": "Классы",
+    "title": "Полиморфный тип this",
+    "subtitles": [
+      "Полиморфный тип this"
+    ]
+  },
+  {
+    "section": "Классы",
+    "title": "Модификатор readonly (только для чтения)",
+    "subtitles": [
+      "Модификатор readonly (только для чтения)"
+    ]
+  },
+  {
+    "section": "Классы",
+    "title": "Definite Assignment Assertion Modifier",
+    "subtitles": [
+      "Классы — Definite Assignment Assertion Modifier"
+    ]
+  },
+  {
+    "section": "Классы",
+    "title": "Классы — Тонкости",
+    "subtitles": [
+      "Классы — Тонкости",
+      "Классы - Тонкости implements",
+      "Частичное Слияние интерфейса с классом",
+      "Переопределение свойств полями и наоборот при наследовании"
+    ]
+  },
+  {
+    "section": "Тонкости TypeScript",
+    "title": "Различия var, let, const и модификатора readonly при неявном указании примитивных типов",
+    "subtitles": [
+      "Различия var, let, const и модификатора readonly при неявном указании примитивных типов",
+      "Итог"
+    ]
+  },
+  {
+    "section": "Работа с типами",
+    "title": "Optional, Not-Null, Not-Undefined, Definite Assignment Assertion",
+    "subtitles": [
+      "Операторы — Optional, Not-Null, Not-Undefined, Definite Assignment Assertion",
+      "Необязательные поля, параметры и методы (Optional Fields, Parameters and Methods)",
+      "Оператор ! (Non-Null and Non-Undefined Operator)",
+      "Оператор ! (Definite Assignment Assertion)",
+      "Итог"
+    ]
+  },
+  {
+    "section": "Типы",
+    "title": "Обобщения (Generics)",
+    "subtitles": [
+      "Обобщения - общие понятия",
+      "Обобщения в TypeScript",
+      "Параметры типа - extends (generic constraints)",
+      "Параметра типа - значение по умолчанию = (generic parameter defaults)",
+      "Параметры типа - как тип данных"
+    ]
+  },
+  {
+    "section": "Типы",
+    "title": "Дискриминантное Объединения (Discriminated Union)",
+    "subtitles": [
+      "Дискриминантное Объединения (Discriminated Union)"
+    ]
+  },
+  {
+    "section": "Работа с типами",
+    "title": "Импорт и экспорт только типа",
+    "subtitles": [
+      "Импорт и экспорт только типа"
+    ]
+  },
+  {
+    "section": "Типизация",
+    "title": "Утверждение Типов (Type Assertion)",
+    "subtitles": [
+      "Утверждение Типов - общее",
+      "Утверждение Типа `<Type>` синтаксис",
+      "Утверждение Типа с помощью оператора as",
+      "Приведение (утверждение) к константе (const assertion)",
+      "Утверждение в сигнатуре (Signature Assertion)",
+      "Итоги"
+    ]
+  },
+  {
+    "section": "Типизация",
+    "title": "Защитники типа",
+    "subtitles": [
+      "Защитники Типа - общее",
+      "Сужение диапазона множества типов на основе типа данных",
+      "Сужение диапазона множества типов на основе признаков присущих типу Tagged Union",
+      "Сужение диапазона множества типов на основе доступных членов объекта",
+      "Сужение диапазона множества типов на основе функции, определенной пользователем"
+    ]
+  },
+  {
+    "section": "Типизация",
+    "title": "Вывод типов",
+    "subtitles": [
+      "Вывод типов - общие сведения",
+      "Вывод примитивных типов",
+      "Вывод примитивных типов для констант (const) и полей только для чтения (readonly)",
+      "Вывод объектных типов",
+      "Вывод типа для полей класса на основе инициализации их в конструкторе",
+      "Вывод объединенных (Union) типов",
+      "Вывод пересечения (Intersection) с дискриминантными полями",
+      "Вывод типов кортеж (Tuple)"
+    ]
+  },
+  {
+    "section": "Типизация",
+    "title": "Совместимость объектных типов (Compatible Object Types)",
+    "subtitles": [
+      "Важно",
+      "Совместимость объектных типов в TypeScript"
+    ]
+  },
+  {
+    "section": "Типизация",
+    "title": "Совместимость функциональных типов (Compatible Function Types)",
+    "subtitles": [
+      "важно",
+      "Совместимость параметров",
+      "Совместимость возвращаемого значения"
+    ]
+  },
+  {
+    "section": "Типизация",
+    "title": "Совместимость объединений (Union Types)",
+    "subtitles": [
+      "Совместимость"
+    ]
+  },
+  {
+    "section": "Типизация",
+    "title": "Типизация в TypeScript",
+    "subtitles": [
+      "Общие сведения",
+      "Статическая типизация (static typing)",
+      "Сильная типизация (strongly typed)",
+      "Явно типизированный (explicit typing) с выводом типов (type inference)",
+      "Совместимость типов (Type Compatibility), структурная типизация (structural typing)",
+      "Вариантность (variance)",
+      "Наилучший общий тип (Best common type)",
+      "Контекстный тип (Contextual Type)",
+      "Итог"
+    ]
+  },
+  {
+    "section": "Работа с типами",
+    "title": "Оператор keyof, Lookup Types, Mapped Types, Mapped Types - префиксы + и -",
+    "subtitles": [
+      "Оператор keyof, Lookup Types, Mapped Types, Mapped Types - префиксы + и -",
+      "Запрос ключей keyof",
+      "Поиск типов (Lookup Types)",
+      "Сопоставление типов (Mapped Types)",
+      "Префиксы + и - в сопоставленных типах"
+    ]
+  },
+  {
+    "section": "Работа с типами",
+    "title": "Условные типы (Conditional Types)",
+    "subtitles": [
+      "Условные типы (Conditional Types)",
+      "Распределительные условные типы (Distributive Conditional Types)",
+      "Вывод типов в условном типе"
+    ]
+  },
+  {
+    "section": "Расширенные типы",
+    "title": "Readonly, Partial, Required, Pick, Record",
+    "subtitles": [
+      "Расширенные типы — Readonly, Partial, Required, Pick, Record",
+      "Readonly",
+      "Partial",
+      "Required",
+      "Pick",
+      "Record"
+    ]
+  },
+  {
+    "section": "Расширенные типы",
+    "title": "Exclude, Extract, NonNullable, ReturnType, InstanceType, Omit",
+    "subtitles": [
+      "Расширенные типы — Exclude, Extract, NonNullable, ReturnType, InstanceType, Omit",
+      "Exclude",
+      "Extract",
+      "NonNullable",
+      "ReturnType",
+      "InstanceType",
+      "Parameters",
+      "ConstructorParameters",
+      "Тип Omit"
+    ]
+  },
+  {
+    "section": "Расширенные типы",
+    "title": "Массивоподобные readonly типы, ReadonlyArray, ReadonlyMap, ReadonlySet",
+    "subtitles": [
+      "Массивоподобные readonly типы",
+      "ReadonlyArray",
+      "ReadonlyMap",
+      "ReadonlySet"
+    ]
+  },
+  {
+    "section": "Синтаксические конструкции",
+    "title": "Синтаксические конструкции и операторы",
+    "subtitles": [
+      "Операторы присваивания короткого замыкания (&&=, ||=, &&=)",
+      "Операнды для delete должны быть необязательными"
+    ]
+  },
+  {
+    "section": "React",
+    "title": "React - расширение .tsx",
+    "subtitles": [
+      "React — расширение .tsx"
+    ]
+  },
+  {
+    "section": "React",
+    "title": "Функциональные компоненты",
+    "subtitles": [
+      "Определение компонента как Function Declaration",
+      "Определение компонента как Function Expression"
+    ]
+  },
+  {
+    "section": "React",
+    "title": "Классовые компоненты",
+    "subtitles": [
+      "React — производные от Component",
+      "React - производные от PureComponent"
+    ]
+  },
+  {
+    "section": "React",
+    "title": "Универсальные компоненты",
+    "subtitles": [
+      "Обобщенные компоненты (Generics Component)"
+    ]
+  },
+  {
+    "section": "React",
+    "title": "Типизированные хуки",
+    "subtitles": [
+      "Предопределенные хуки",
+      "Пользовательский хук"
+    ]
+  },
+  {
+    "section": "React",
+    "title": "Контекст (Context)",
+    "subtitles": [
+      "Определение контекста"
+    ]
+  },
+  {
+    "section": "React",
+    "title": "HOC (Higher-Order Components)",
+    "subtitles": [
+      "Определение hoc",
+      "Определение hoc на основе функционального компонента",
+      "Определение hoc на основе классового компонента"
+    ]
+  },
+  {
+    "section": "Синтаксические конструкции",
+    "title": "Пространства имен (namespace) и модули (module)",
+    "subtitles": [
+      "Namespace и module — предназначение",
+      "Namespace - определение",
+      "Модули (export, import) — определение",
+      "Конфигурирование проекта"
+    ]
+  },
+  {
+    "section": "Сборка",
+    "title": "Настройка рабочего окружения",
+    "subtitles": [
+      "Настройка рабочего окружения",
+      "Сборка проекта с помощью tsc (TypeScript compiler)"
+    ]
+  },
+  {
+    "section": "Сборка",
+    "title": "Сборка с использованием ссылок на проекты",
+    "subtitles": [
+      "Ссылки на проекты"
+    ]
+  },
+  {
+    "section": "Сборка",
+    "title": "Декларации",
+    "subtitles": [
+      "Что такое декларация (Declaration)",
+      "Установка деклараций с помощью @types",
+      "Подготовка к созданию декларации",
+      "Разновидности деклараций",
+      "Декларации и область видимости",
+      "Декларации для библиотек с одной точкой входа",
+      "Декларации для библиотек с множеством точек входа",
+      "Создание деклараций вручную",
+      "Директива с тройным слешем (triple-slash directives)",
+      "Импортирование декларации (import)"
+    ]
+  },
+  {
+    "section": "Сборка",
+    "title": "Публикация",
+    "subtitles": [
+      "Публикация"
+    ]
+  },
+  {
+    "section": "Компилятор",
+    "title": "Опции компилятора",
+    "subtitles": [
+      "strict",
+      "suppressExcessPropertyErrors",
+      "suppressImplicitAnyIndexErrors",
+      "noImplicitAny",
+      "checkJs",
+      "JSX",
+      "jsxFactory",
+      "target (t)",
+      "extends",
+      "alwaysStrict",
+      "strictNullChecks",
+      "stripInternal",
+      "noImplicitThis",
+      "noImplicitUseStrict",
+      "baseUrl",
+      "paths",
+      "rootDir",
+      "rootDirs",
+      "traceResolution",
+      "lib",
+      "noLib",
+      "noResolve",
+      "noStrictGenericChecks",
+      "preserveConstEnums",
+      "removeComments",
+      "noUnusedLocals",
+      "noUnusedParameters",
+      "skipLibCheck",
+      "declarationDir",
+      "types",
+      "typeRoots",
+      "allowUnusedLabels",
+      "noImplicitReturns",
+      "noFallthroughCasesInSwitch",
+      "outFile",
+      "allowSyntheticDefaultImports",
+      "allowUnreachableCode",
+      "allowJs",
+      "reactNamespace",
+      "pretty",
+      "moduleResolution",
+      "exclude",
+      "noEmitHelpers",
+      "newLine",
+      "inlineSourceMap",
+      "inlineSources",
+      "noEmitOnError",
+      "noEmit",
+      "charset",
+      "diagnostics",
+      "declaration",
+      "downlevelIteration",
+      "emitBOM",
+      "emitDecoratorMetadata",
+      "forceConsistentCasingInFileNames",
+      "help (h)",
+      "importHelpers",
+      "isolatedModules",
+      "listEmittedFiles",
+      "listFiles",
+      "sourceRoot",
+      "mapRoot",
+      "maxNodeModuleJsDepth",
+      "project (p)",
+      "init",
+      "version (v)",
+      "watch (w)",
+      "preserveSymlinks",
+      "strictFunctionTypes",
+      "locale",
+      "strinctPropertyInitialization",
+      "esModuleInterop",
+      "emitDeclarationsOnly",
+      "resolveJsonModule",
+      "declarationMap",
+      "strictBindCallApply",
+      "showConfig",
+      "build",
+      "verbose",
+      "dry",
+      "clean",
+      "force",
+      "incremental",
+      "tsBuildInfoFile",
+      "allowUmdGlobalAccess",
+      "disableSourceOfProjectReferenceRedirect",
+      "useDefineForClassFields",
+      "importsNotUsedAsValues",
+      "assumeChangesOnlyAffectDirectDependencies",
+      "watchFile",
+      "watchDirectory",
+      "fallbackPolling",
+      "synchronousWatchDirectory"
+    ]
+  }
+]
