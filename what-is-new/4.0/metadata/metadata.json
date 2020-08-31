@@ -1,0 +1,106 @@
+{
+  "releaseHistory": [
+    {
+      "version": "4.0",
+      "dateRelease": "August 20, 2020"
+    }
+  ],
+  "innovations": [
+    {
+      "id": "",
+      "version": "4.0",
+      "innovationName": "Вариативный кортеж",
+      "dateRelease": "August 20, 2020",
+      "datePublication": "August 20, 2020",
+      "tags": []
+    },
+    {
+      "id": "",
+      "version": "4.0",
+      "innovationName": "Помечанные элементы кортежа",
+      "dateRelease": "August 20, 2020",
+      "datePublication": "August 20, 2020",
+      "tags": []
+    },
+    {
+      "id": "",
+      "version": "4.0",
+      "innovationName": "Операторы присваивания короткого замыкания",
+      "dateRelease": "August 20, 2020",
+      "datePublication": "August 20, 2020",
+      "tags": []
+    },
+    {
+      "id": "",
+      "version": "4.0",
+      "innovationName": "Вывод типов для полей класса по параметрам конструктора",
+      "dateRelease": "August 20, 2020",
+      "datePublication": "August 20, 2020",
+      "tags": []
+    },
+    {
+      "id": "",
+      "version": "4.0",
+      "innovationName": "unknown как тип исключения блока catch",
+      "dateRelease": "August 20, 2020",
+      "datePublication": "August 20, 2020",
+      "tags": []
+    },
+    {
+      "id": "",
+      "version": "4.0",
+      "innovationName": "--noEmit совмещенный с --incremental",
+      "dateRelease": "August 20, 2020",
+      "datePublication": "August 20, 2020",
+      "tags": []
+    },
+    {
+      "id": "",
+      "version": "4.0",
+      "innovationName": "Пользовательская фабрика jsx фрагментов",
+      "dateRelease": "August 20, 2020",
+      "datePublication": "August 20, 2020",
+      "tags": []
+    },
+    {
+      "id": "",
+      "version": "4.0",
+      "innovationName": "Добавление комментарной директивы @deprecated",
+      "dateRelease": "August 20, 2020",
+      "datePublication": "August 20, 2020",
+      "tags": []
+    },
+    {
+      "id": "",
+      "version": "4.0",
+      "innovationName": "[КРИТИЧЕСКОЕ ИЗМЕНЕНИЕ]  Изменение lib.d.ts",
+      "dateRelease": "August 20, 2020",
+      "datePublication": "August 20, 2020",
+      "tags": []
+    },
+    {
+      "id": "",
+      "version": "4.0",
+      "innovationName": "[КРИТИЧЕСКОЕ ИЗМЕНЕНИЕ]  Переопределение аксессоров полем и наоборот теперь является ошибкой",
+      "dateRelease": "August 20, 2020",
+      "datePublication": "August 20, 2020",
+      "tags": []
+    },
+    {
+      "id": "",
+      "version": "4.0",
+      "innovationName": "[КРИТИЧЕСКОЕ ИЗМЕНЕНИЕ]  Операнды для delete должны быть необязательными",
+      "dateRelease": "August 20, 2020",
+      "datePublication": "August 20, 2020",
+      "tags": []
+    },
+    {
+      "id": "",
+      "version": "4.0",
+      "innovationName": "[КРИТИЧЕСКОЕ ИЗМЕНЕНИЕ]  Изменение фабричного api Nodejs",
+      "dateRelease": "August 20, 2020",
+      "datePublication": "August 20, 2020",
+      "tags": []
+    }
+  ]
+}
