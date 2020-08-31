@@ -6,7 +6,7 @@ www/public/
 www/dest/
 www/gen/
 node_modules/
-package-lock.json
+/package-lock.json
 #chapters/
 dest/
 public/
