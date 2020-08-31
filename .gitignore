@@ -1,5 +1,4 @@
 .idea/
-<<<<<<< HEAD
 .vscode/
 www/.cache/
 www/node_modules/
@@ -14,6 +13,3 @@ public/
 
 .env.development
 .env.github.development
-=======
-
->>>>>>> new-win
