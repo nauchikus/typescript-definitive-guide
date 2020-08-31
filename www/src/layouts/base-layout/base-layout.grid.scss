@@ -39,7 +39,7 @@
 .app-grid-item__content {
   max-width: 100vw;
 
-  min-height: calc(100vh - var(--app-header_height));
+  min-height: calc(100vh - calc(var(--app-header_height) + var(--app-footer_height)));
 
   grid-area: content;
 

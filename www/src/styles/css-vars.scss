@@ -66,8 +66,7 @@
 
   /*app common*/
   --app-header_height: #{$app-header_height};
-  --app-footer_height: 56px;
-  --app-footer_height: 56px;
+  --app-footer_height: #{$app-footer_height};
   --app-driver__section-control_height:#{$app-driver__section-control_height};
   --app-content_width: #{$app-content_width};
   --app-content-bar_width:#{$app-content_width + $padding_48x2};
