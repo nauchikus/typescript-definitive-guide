@@ -1,0 +1,100 @@
+@import "../../styles/app-vars";
+
+$icon-button:$app-bar__icon-button_width;
+$logo:$app-bar__logo_width;
+$grid-gap:$app-bar__grid_gap-column;
+
+.app-header-grid {
+  max-width: 100vw;
+  height: var(--app-header_height);
+
+  display: grid;
+
+  grid-template-columns: $icon-button $logo 1fr $icon-button $icon-button;
+  grid-template-rows: auto;
+  grid-template-areas: "nav-toggle logo informer search menu";
+  grid-column-gap: 4px;
+
+  align-items: center;
+
+  position: relative;
+
+  &[app-search-toggle="close"] > .app-header-grid-item__search {
+    left: calc(100% - #{$icon-button});
+
+    transition: all $app-search__grid-item_transition_duration ease $app-search__grid-item_transition_delay;
+  }
+
+  &[app-search-toggle="open"] > .app-header-grid-item__search {
+    left: 0;
+
+    transition: all $app-search__grid-item_transition_duration ease;
+  }
+
+  @media all and (min-width: $app-bar_media_xs) {
+    grid-template-columns: $icon-button $logo 1fr $icon-button $icon-button*3;
+    grid-template-rows: inherit;
+    grid-template-areas: "nav-toggle logo informer search menu";
+  }
+}
+
+.app-header-grid-item__nav-toggle{
+  grid-area: nav-toggle;
+}
+.app-header-grid-item__logo{
+  padding: 0 0 0 16px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  justify-content: flex-start;
+
+  grid-area: logo;
+}
+.app-header-grid-item__informer{
+  grid-area: informer;
+}
+.app-header-grid-item__search{
+  width: auto;
+  height: 40px;
+
+  border-radius: var(--app_border-radius-default);
+
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+
+  grid-area: search;
+
+  z-index: 9999999;
+
+  &:after {
+    content: "";
+
+    width: auto;
+    height:72px;
+
+    background-color: tomato;
+  }
+  //transition: all .4s ease;
+}
+.app-header-grid-item__donate{
+  grid-area: donate;
+}
+.app-header-grid-item__menu-toggle{
+  display: flex;
+  justify-content: flex-end;
+
+  grid-area: menu-toggle;
+}
+.app-header-grid-item__menu {
+  display: flex;
+  justify-content: flex-end;
+
+  grid-area: menu;
+
+  z-index: 99999;
+}
+.app-header-grid-item__nav{
+  grid-area: nav;
+}

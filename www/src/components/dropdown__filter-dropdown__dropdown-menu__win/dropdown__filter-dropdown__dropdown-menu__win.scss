@@ -1,0 +1,148 @@
+@import "../../styles/app-vars";
+@import "../../styles/mixins/native-scrollbar";
+
+///TODO:[refactor][extract]
+.scroll-wrapper{
+  max-height: calc(
+    calc(100vh - #{$app-header_height + $content__control-bar_height}) -
+    #{$content__control-bar__dropdown-menu_padding_y + $content__control-bar__dropdown-menu__header_height + $content__control-bar__dropdown-menu__header_margin-bottom}
+  );
+
+  position: relative;
+
+  overflow-y: auto;
+
+  @include nativeScrollbarSmall();
+}
+.win-version-filter{
+  padding: 8px 0;
+}
+.win-version-filter__header {
+  color: var(--color_dark_10);
+
+  text-align: center;
+
+  height: #{$content__control-bar__dropdown-menu__header_height};
+
+  border-bottom: 1px solid var(--color_dark_80);
+
+  padding: 8px 0 12px 0;
+
+  margin: 0 0 #{$content__control-bar__dropdown-menu__header_margin-bottom} 0;
+}
+
+.win-filter-dropdown-menu__control-bar {
+  padding: 16px;
+
+  display: flex;
+  jusify-content: flex-end;
+
+}
+.win-filter-content-form {
+  padding: 16px;
+
+}
+.win-filter-content-form__list-item{
+  padding: 8px 0;
+}
+
+
+.win-filter-content-form__checkbox{
+  display:flex;
+  align-items:center;
+
+
+}
+
+
+.win-filter-content-form__label {
+  width: 100%;
+
+  padding-left: 0;
+
+  display: inline-flex;
+  align-items: center;
+
+}
+.win-filter-content-form__label_version {
+  color: var(--color_dark_20);
+  font-size: 1rem;
+
+  margin: 0 16px 0 0;
+
+  display:inline-block;
+
+
+  &:first-letter {
+    text-transform: uppercase;
+
+  }
+
+}
+.win-filter-content-form__label_date {
+  color: var(--color_dark_60);
+  font-size: .8rem;
+
+}
+.win-filter-content-form__label_count {
+  @extend .win-filter-content-form__label_date;
+
+  margin: 0 -8px 0 auto;
+}
+
+
+.fieldset_md {
+  width: 100%;
+
+  //margin: 24px 0 0 0;
+
+  position: relative;
+}
+.legend_md {
+  color:var(--color_dark_40);
+  font-size: .9rem;
+
+  margin: -24px 0 0 0;
+
+  position: relative;
+}
+.legend-with-meta {
+  width: 100%;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+
+}
+.legend_md_meta-info{
+  font-size: .8rem;
+}
+
+.win-filter-version__radio {
+  text-align: center;
+
+
+  width: 50%;
+
+  border: 1px solid var(--app_border_color-default);
+
+  display: inline-block;
+
+  cursor: pointer;
+
+  &:first-child {
+    border-top-left-radius: var(--button_border-radius);
+    border-bottom-left-radius: var(--button_border-radius);
+
+  }
+
+  &:last-child {
+    border-top-right-radius: var(--button_border-radius);
+    border-bottom-right-radius: var(--button_border-radius);
+
+  }
+
+}
+.win-filter-version__radio_checked{
+  background-color: var(--color_dark_lite);
+}

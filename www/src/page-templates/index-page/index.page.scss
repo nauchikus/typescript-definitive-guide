@@ -1,0 +1,15 @@
+@import "../../components/index__title/index__title";
+
+
+.page-without-driver__content-layout {
+  min-height: calc(100vh - calc(var(--app-header_height) + var(--app-footer_height)));
+
+  padding: 24px;
+
+  display: flex;
+
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+}

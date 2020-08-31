@@ -1,0 +1,52 @@
+@import "../../styles/app-vars";
+
+
+.content__aside-bar {
+  display: flex;
+  flex-direction: column;
+
+  position: fixed;
+  bottom: 0;
+
+
+  z-index: 1;
+
+
+
+  @media all and (min-width: $content__nav_down_media){
+    min-width: $content__aside-bar_width;
+
+    //background-color: tomato;
+
+    height: calc(100vh - calc(var(--content-layout__aside-bar_position_top) + var(--app-footer_height)));
+
+    justify-content: center;
+    align-items: center;
+    flex-grow: 1;
+    flex-shrink: 0;
+
+
+    position: sticky;
+    top: var(--content-layout__aside-bar_position_top);
+
+  }
+  @media all and (max-width:$content__nav_down_media){
+    z-index: 3;
+
+  }
+}
+
+.content__aside-bar_left{
+  @media all and (max-width: $content__nav_down_media){
+    left:8px;
+    bottom: 16px;
+
+  }
+}
+.content__aside-bar_right{
+  @media all and (max-width: $content__nav_down_media){
+    right:56px;
+    bottom: 16px;
+
+  }
+}

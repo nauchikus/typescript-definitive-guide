@@ -1,0 +1,18 @@
+@import "../../styles/app-vars";
+
+:root {
+  --app-bar_bg-color: white;
+}
+
+
+.app-header{
+  background-color: var(--app-bar_bg-color);
+
+  border-bottom: 1px solid grey;
+
+  padding:0 $app-header_padding_right 0 $app-header_padding_left;
+}
+
+.app-logo__svg-icon{
+  transform: scale(2);
+}

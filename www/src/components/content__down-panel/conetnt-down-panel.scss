@@ -1,0 +1,117 @@
+//@import "../../styles/breakpoints";
+//@import "../../styles/app-vars";
+//
+//
+//.content__panel_down{
+//  //background-color: pink;
+//
+//  padding: 8px 8px 16px 8px;
+//
+//  display: flex;
+//  justify-content: flex-end;
+//
+//  position:fixed;
+//
+//
+//  transition: all .2s ease .2s,background-color 0s linear .2s;
+//
+//  &:before {
+//    content: "";
+//
+//    height: 3px;
+//
+//    background-color: var(--color_darkmiddle_rgba);
+//
+//    position: absolute;
+//
+//    transition: all .2s ease .2s,opacity .2s ease 0s;
+//  }
+//
+//  &[toggle-state="close"]{
+//    left: calc(100% - 56px);
+//    right: 0;
+//    bottom: 0;
+//
+//    &:before {
+//      opacity: 0;
+//
+//      left: 100%;
+//      right: 0;
+//      top: 0;
+//    }
+//
+//    & > .content-panel-down__button_toggle-panel{
+//      box-shadow: 0px 5px 6px 4px rgba(204, 204, 204, 1);
+//    }
+//  }
+//  &[toggle-state="open"]{
+//    background-color: var(--app_base-color);
+//
+//    left:0;
+//    right:0;
+//    bottom:0;
+//
+//
+//    &:before {
+//      opacity: 1;
+//
+//      left: 0;
+//      right: 0;
+//      top: 0;
+//
+//
+//    }
+//
+//
+//    & > .content-panel-down__button_toggle-panel{
+//      box-shadow: none;
+//    }
+//  }
+//
+//  @media all and (min-width:$content__nav_down_media){
+//    display:none;
+//
+//  }
+//  @media all and (max-width:$content__nav_down_media){
+//    z-index: 2;
+//
+//  }
+//}
+//.content__panel-down_auxiliary-animated-layer{
+//  @media all and (max-width:$content__nav_down_media){
+//
+//    width: 40px;
+//    height: 40px;
+//
+//    background-color: var(--app_base-color);
+//
+//    border-radius: var(--button_border-radius);
+//
+//    position: absolute;
+//    right: 8px;
+//    bottom: 16px;
+//
+//    z-index:-1;
+//    transition:all .2s ease;
+//
+//
+//    &[toggle-state="open"]{
+//      width: 56px;
+//      height: 64px;
+//      border-radius: 0;
+//
+//      right: 0;
+//      bottom: 0;
+//
+//    }
+//    &[toggle-state="close"]{
+//      transition-delay: .2s;
+//
+//    }
+//  }
+//
+//}
+
+.down-content-nav {
+  display: flex;
+}

@@ -1,0 +1,74 @@
+{
+    "releaseHistory": [
+        {
+            "version": "3.5",
+            "dateRelease": "May 29, 2019"
+        }
+    ],
+    "innovations": [
+        {
+            "id": "",
+            "version": "3.5",
+            "innovationName": "Вспомогательный тип Omit",
+            "dateRelease": "May 29, 2019",
+            "datePublication": "May 29, 2019",
+            "tags": []
+        },
+        {
+            "id": "",
+            "version": "3.5",
+            "innovationName": "Улучшение механизма проверки избыточных полей в объедененных типах (Union types)",
+            "dateRelease": "May 29, 2019",
+            "datePublication": "May 29, 2019",
+            "tags": []
+        },
+        {
+            "id": "",
+            "version": "3.5",
+            "innovationName": "Введение нового флага --allowUmdGlobalAccess",
+            "dateRelease": "May 29, 2019",
+            "datePublication": "May 29, 2019",
+            "tags": []
+        },
+        {
+            "id": "",
+            "version": "3.5",
+            "innovationName": "Улучшение механизма проверки объединенных типов",
+            "dateRelease": "May 29, 2019",
+            "datePublication": "May 29, 2019",
+            "tags": []
+        },
+        {
+            "id": "",
+            "version": "3.5",
+            "innovationName": "Улучшение механизма вывода типа высшего порядка для обобщенных конструкторов",
+            "dateRelease": "May 29, 2019",
+            "datePublication": "May 29, 2019",
+            "tags": []
+        },
+        {
+            "id": "",
+            "version": "3.5",
+            "innovationName": "Неявное ограничение обобщенных параметров типом unknown",
+            "dateRelease": "May 29, 2019",
+            "datePublication": "May 29, 2019",
+            "tags": []
+        },
+        {
+            "id": "",
+            "version": "3.5",
+            "innovationName": "Изменение правил для типа unknown и индексной сигнатуре",
+            "dateRelease": "May 29, 2019",
+            "datePublication": "May 29, 2019",
+            "tags": []
+        },
+        {
+            "id": "",
+            "version": "3.5",
+            "innovationName": "Изменение логики для Object.keys для версии es5",
+            "dateRelease": "May 29, 2019",
+            "datePublication": "May 29, 2019",
+            "tags": []
+        }
+    ]
+}

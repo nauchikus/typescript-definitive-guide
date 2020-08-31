@@ -1,0 +1,73 @@
+.informer__watch-with-telegram {
+  font-size: 14px;
+
+  width: 100%;
+  height: 100%;
+
+  background-color:rgba(10, 43, 104,.8);
+
+  border-width: 1px;
+  border-style: solid;
+  border-color: var(--color_dark_80);
+  border-radius: var(--app_border-radius-default);
+
+  padding: 16px;
+
+  position: relative;
+}
+
+.wwt__bg-image {
+  position: absolute!important;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  z-index: -1;
+}
+
+.watch-with-telegram-informer__text_container {
+  text-align: center;
+  line-height: 115%;
+
+
+  margin-bottom: 16px;
+}
+.watch-with-telegram-informer__text_primary {
+  color: white;
+  font-weight: bold;
+
+  margin-bottom: 4px;
+}
+.watch-with-telegram-informer__text_secondary {
+  color: rgba(255, 255, 255, .9);
+
+}
+.wwt__text_telegram-name {
+  color: #ffb229;
+  font-weight: bold;
+
+}
+.watch-with-telegram-informer__subscribe-button_container {
+  display: flex;
+  justify-content: center;
+}
+.watch-with-telegram-informer__subscribe-button{
+  color: rgba(10, 43, 104,.8);
+
+  font-size:14px;
+  font-weight:bold;
+
+  background-color: white;
+
+  border-radius: var(--button_border-radius);
+
+  padding: 4px 8px;
+
+
+  transition: all .2s;
+
+  &:hover{
+    background-color: rgba(255, 255, 255,.9);
+  }
+}

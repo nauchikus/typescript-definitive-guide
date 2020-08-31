@@ -1,0 +1,60 @@
+{
+  "name": "typescript-definitive-guide",
+  "version": "1.0.0",
+  "description": "",
+  "main": "vue.config.js",
+  "config": {
+    "commitizen": {
+      "path": "node_modules/cz-customizable"
+    },
+    "cz-customizable": {
+      "config": "config/git/commitizen.js"
+    }
+  },
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS -g './config/git/commitlint.js'"
+    }
+  },
+  "scripts": {
+    "postrebook-reindex": "npm run book-toc-validate",
+    "book-reindex": "node ./config/old-to-new-book/reindex.js",
+    "book-toc-validate": "node ./config/old-to-new-book/toc-validator.js",
+    "postinstall": "npm run github-token-configurator__init",
+    "predevelop": "npm run github-token-configurator__validate",
+    "postdevelop": "cd -",
+    "postbuild": "cd -",
+    "postformat": "cd -",
+    "posttest": "cd -",
+    "github-token-configurator__init": "node ./config/github-repository-token-configurator/github-repository-token-configurator__init.js",
+    "github-token-configurator__validate": "node ./config/github-repository-token-configurator/github-repository-token-configurator__validate.js",
+    "develop": "cd www && npm run develop",
+    "prettier:md:contents": "prettier --write -- ./{book,what-is-new}/**/*.{md,json}",
+    "lint": "eslint ./test.md  --fix",
+    "build": "cd www && npm run build",
+    "format": "cd www && npm run format",
+    "test": "cd www && npm run test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github-nauchikus:nauchikus/typescript-definitive-guide.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@commitlint/cli": "^9.1.2",
+    "@types/nodegit": "^0.26.7",
+    "commitizen": "^4.2.1",
+    "cz-customizable": "^6.3.0",
+    "husky": "^4.2.5",
+    "lint-staged": "^10.2.13",
+    "nodegit": "^0.27.0",
+    "prettier": "^2.0.2",
+    "react": "^16.13.1",
+    "rm": "^0.1.8",
+    "simple-git": "^2.20.1",
+    "typescript": "^3.9.7"
+  },
+  "dependencies": {}
+}

@@ -1,0 +1,52 @@
+//body {
+//
+//
+//
+//  &::-webkit-scrollbar {
+//    width: var(--scrollbar_width);
+//  }
+//
+//  &::-webkit-scrollbar-track {
+//    background-color: var(--scrollbar__track_color);
+//  }
+//
+//  &::-webkit-scrollbar-thumb {
+//    max-height: 200px;
+//
+//    background-color: var(--scrollbar__thumb_color);
+//    border: var(--scrollbar_border-size) solid var(--scrollbar_border-color);
+//    border-radius: var(--scrollbar_border-radius);
+//
+//    opacity: .4;
+//
+//    position: relative;
+//    left: 2px;
+//
+//    :hover {
+//      cursor: pointer;
+//    }
+//  }
+//
+//  &::-webkit-scrollbar-corner {
+//  }
+//
+//  &::-webkit-scrollbar-button {
+//    width: var(--scrollbar_width);
+//    height: var(--scrollbar_width);
+//
+//
+//    background-color: var(--scrollbar__button_color);
+//    border: var(--scrollbar_border-size) solid var(--scrollbar_border-color);
+//    border-radius: var(--scrollbar_border-radius);
+//
+//
+//  }
+//
+//  &::-webkit-scrollbar-button:start:decrement {
+//
+//  }
+//
+//  &::-webkit-scrollbar-button:end:increment {
+//  }
+//}
+//

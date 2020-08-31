@@ -1,0 +1,43 @@
+@import "./app-menu-button__tooltip";
+
+.app-menu-item__item{
+  width: 100%;
+
+  //background-color: var(--button_bg_color-default);
+
+  align-items: center!important;
+
+  &:hover{
+    background-color: var(--button_color-default_hover);
+  }
+}
+
+.app-menu-item__pdf-item{
+  width: 100%;
+
+  background-color: var(--button_bg_color-default);
+
+  align-items: center!important;
+
+  &:hover{
+    background-color: var(--button_color-default_hover);
+  }
+}
+.app-menu-item__telegram-item{
+  width: 100%;
+
+  background-color: var(--telegram_default-color);
+
+  &:hover{
+    background-color: var(--telegram_default-color_hover);
+  }
+}
+.app-menu-item__github-item{
+  width: 100%;
+
+  background-color: var(--github_default-color);
+
+  &:hover{
+    background-color: var(--github_default-color_hover);
+  }
+}

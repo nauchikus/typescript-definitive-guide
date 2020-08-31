@@ -1,0 +1,98 @@
+{
+    "releaseHistory": [
+        {
+            "version": "3.6",
+            "dateRelease": "August 28, 2019"
+        }
+    ],
+    "innovations": [
+        {
+            "id": "",
+            "version": "3.6",
+            "innovationName": "Повышение типобезопасности генероторов",
+            "dateRelease": "August 28, 2019",
+            "datePublication": "August 28, 2019",
+            "tags": []
+        },
+        {
+            "id": "",
+            "version": "3.6",
+            "innovationName": "Добавление хелпера иметирующего механизм spread array при компиляции в ecmascript ниже версии 6 при неактивном флаге --downlevelIteration",
+            "dateRelease": "August 28, 2019",
+            "datePublication": "August 28, 2019",
+            "tags": []
+        },
+        {
+            "id": "",
+            "version": "3.6",
+            "innovationName": "Расширение системы типов типами представляющими структуры данных только для чтения",
+            "dateRelease": "August 28, 2019",
+            "datePublication": "August 28, 2019",
+            "tags": []
+        },
+        {
+            "id": "",
+            "version": "3.6",
+            "innovationName": "Строковой идентификатор функции-конструктора",
+            "dateRelease": "August 28, 2019",
+            "datePublication": "August 28, 2019",
+            "tags": []
+        },
+        {
+            "id": "",
+            "version": "3.6",
+            "innovationName": "Расширение вывода об ошибках при работе с Promise",
+            "dateRelease": "August 28, 2019",
+            "datePublication": "August 28, 2019",
+            "tags": []
+        },
+        {
+            "id": "",
+            "version": "3.6",
+            "innovationName": "Слияние одноименных классов и функций из окружающего контекста",
+            "dateRelease": "August 28, 2019",
+            "datePublication": "August 28, 2019",
+            "tags": []
+        },
+        {
+            "id": "",
+            "version": "3.6",
+            "innovationName": "Добавлена поддержка Unicode для идентификаторов",
+            "dateRelease": "August 28, 2019",
+            "datePublication": "August 28, 2019",
+            "tags": []
+        },
+        {
+            "id": "",
+            "version": "3.6",
+            "innovationName": "Поддержка import.meta для SystemJS",
+            "dateRelease": "August 28, 2019",
+            "datePublication": "August 28, 2019",
+            "tags": []
+        },
+        {
+            "id": "",
+            "version": "3.6",
+            "innovationName": "get и set в окружающем контексте",
+            "dateRelease": "August 28, 2019",
+            "datePublication": "August 28, 2019",
+            "tags": []
+        },
+        {
+            "id": "",
+            "version": "3.6",
+            "innovationName": "Api для поддержки --build и --incremental",
+            "dateRelease": "August 28, 2019",
+            "datePublication": "August 28, 2019",
+            "tags": []
+        },
+        {
+            "id": "",
+            "version": "3.6",
+            "innovationName": "Интеллектуальное определение синтаксиса авто-импорта",
+            "dateRelease": "August 28, 2019",
+            "datePublication": "August 28, 2019",
+            "tags": []
+        }
+    ]
+}

@@ -1,0 +1,101 @@
+@import "../../styles/breakpoints";
+@import "../../styles/app-vars";
+
+$control-bar_num-button:4;
+
+.content-bar__control{
+  display:flex;
+  flex-direction: row;
+  justify-content: center;
+
+
+
+  @media all and (max-width:$content__nav_down_media){
+    & > .control-bar__button{
+      visibility: collapse;
+      transition: visibility .1s linear;
+
+    }
+    &[toggle-state="open"]{
+      & > .control-bar__button{
+        visibility: visible;
+      }
+
+      @for $i from 1 through $control-bar_num-button {
+        & > .control-bar__button_fade-effect_#{$i}{
+          transition-delay: .3s + .1 * $i;
+        }
+      }
+      //& > .control-bar__button_fade-effect_1{
+      //  transition-delay: .1s;
+      //}
+      //& > .control-bar__button_fade-effect_2{
+      //  transition-delay: .2s;
+      //}
+      //& > .control-bar__button_fade-effect_3{
+      //  transition-delay: .3s;
+      //}
+      //& > .control-bar__button_fade-effect_4{
+      //  transition-delay: .4s;
+      //}
+    }
+
+  }
+  @media all and (min-width:$content__nav_down_media){
+    flex-direction: column;
+
+  }
+}
+//.content-bar__control_left{
+//  @media all and (max-width: $content__nav_down_media){
+//    &[toggle-state="open"]{
+//      &>.control-bar__button{
+//        visibility: visible;
+//      }
+//    }
+//    &[toggle-state="close"]{
+//      &>.control-bar__button{
+//        visibility: collapse;
+//      }
+//    }
+//
+//  }
+//}
+//
+//.content-bar__control_right{
+//  @media all and (max-width: $content__nav_down_media){
+//    &[toggle-state="open"]{
+//      &>.control-bar__button{
+//        visibility: visible;
+//      }
+//    }
+//    &[toggle-state="close"]{
+//      &>.control-bar__button{
+//        visibility: collapse;
+//      }
+//    }
+//
+//  }
+//}
+
+.control-bar__button {
+  &:not(:last-child){
+    @media all and (min-width:$content__nav_down_media){
+      margin:0 0 8px 0;
+
+    }
+  }
+
+}
+.control-bar__button_next-page{
+  @media all and (max-width:$content__nav_down_media){
+    order: 1;
+  }
+}
+.control-bar__svg-icon {
+  @media all and (min-width: $app-bar_media_xs) {
+    transform: scale(1.4);
+
+  }
+}
+

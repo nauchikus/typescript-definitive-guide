@@ -1,0 +1,17 @@
+@import "../../styles/app-vars";
+
+.tooltip_pdf,
+.tooltip_github,
+.tooltip_telegram{
+  white-space: nowrap;
+
+  text-align: center;
+
+  & > p {
+    margin: 0;
+  }
+
+  @media all and (max-width: $app-bar_media_xs){
+    display: none;
+  }
+}

@@ -1,0 +1,25 @@
+.app-footer{
+  min-height: var(--app-footer_height);
+  max-height: var(--app-footer_height);
+
+  padding: 8px;
+  display: flex;
+  justify-content: flex-end;
+
+  position: relative;
+
+  &:after {
+    content: "";
+
+    width: 100%;
+    height: 1px;
+
+    background-color: var(--color_dark_80);
+
+    position: absolute;
+    left: 0;
+    top: 0;
+
+  }
+}
+

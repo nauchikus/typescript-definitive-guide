@@ -1,0 +1,82 @@
+{
+  "releaseHistory": [
+    {
+      "version": "3.8",
+      "dateRelease": "February 20, 2020"
+    }
+  ],
+  "innovations": [
+    {
+      "id": "",
+      "version": "3.8",
+      "innovationName": "Импорт и экспорт только типа и флаг --importsNotUsedAsValues",
+      "dateRelease": "February 20, 2020",
+      "datePublication": "February 20, 2020",
+      "tags": []
+    },
+    {
+      "id": "",
+      "version": "3.8",
+      "innovationName": "Закрытые поля ECMAScript",
+      "dateRelease": "February 20, 2020",
+      "datePublication": "February 20, 2020",
+      "tags": []
+    },
+    {
+      "id": "",
+      "version": "3.8",
+      "innovationName": "await высшего уровня",
+      "dateRelease": "February 20, 2020",
+      "datePublication": "February 20, 2020",
+      "tags": []
+    },
+    {
+      "id": "",
+      "version": "3.8",
+      "innovationName": "Реализация новой формы ре-экспорта",
+      "dateRelease": "February 20, 2020",
+      "datePublication": "February 20, 2020",
+      "tags": []
+    },
+    {
+      "id": "",
+      "version": "3.8",
+      "innovationName": "Новая конфигурационная группа параметров watchOptions",
+      "dateRelease": "February 20, 2020",
+      "datePublication": "February 20, 2020",
+      "tags": []
+    },
+    {
+      "id": "",
+      "version": "3.8",
+      "innovationName": "Новый флаг --assumeChangesOnlyAffectDirectDependencies",
+      "dateRelease": "February 20, 2020",
+      "datePublication": "February 20, 2020",
+      "tags": []
+    },
+    {
+      "id": "",
+      "version": "3.8",
+      "innovationName": "Модификаторы JSDocs",
+      "dateRelease": "February 20, 2020",
+      "datePublication": "February 20, 2020",
+      "tags": []
+    },
+    {
+      "id": "",
+      "version": "3.8",
+      "innovationName": "[КРИТИЧЕСКОЕ ИЗМЕНЕНИЕ] Более строгие проверки объединений имеющих с индексной сигнатурой",
+      "dateRelease": "February 20, 2020",
+      "datePublication": "February 20, 2020",
+      "tags": []
+    },
+    {
+      "id": "",
+      "version": "3.8",
+      "innovationName": "[КРИТИЧЕСКОЕ ИЗМЕНЕНИЕ] Тип object в JSDoc при активном флаге --noImplicitAny больше не расценивается как any",
+      "dateRelease": "February 20, 2020",
+      "datePublication": "February 20, 2020",
+      "tags": []
+    }
+  ]
+}

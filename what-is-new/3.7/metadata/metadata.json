@@ -1,0 +1,86 @@
+{
+    "releaseHistory": [
+        {
+            "version": "3.7",
+            "dateRelease": "November 5, 2019"
+        },
+        {
+            "version": "3.7-rc",
+            "dateRelease": "November 4, 2019"
+        },
+        {
+            "version": "3.7-beta",
+            "dateRelease": "November 3, 2019"
+        },
+        {
+            "version": "3.7-alpha",
+            "dateRelease": "November 2, 2019"
+        }
+    ],
+    "innovations": [
+        {
+            "id": "",
+            "version": "3.7-rc",
+            "innovationName": "Оператор опциональной последовательности (?.)",
+            "dateRelease": "November 5, 2019",
+            "datePublication": "November 5, 2019",
+            "tags": ["исправление", "Критическое изменение", "Компилятор"]
+        },
+        {
+            "id": "",
+            "version": "3.7-rc",
+            "innovationName": "Оператор объединения со значением null (??)",
+            "dateRelease": "November 5, 2019",
+            "datePublication": "November 5, 2019",
+            "tags": ["высокая ожидаемость"]
+        },
+        {
+            "id": "",
+            "version": "3.7-rc",
+            "innovationName": "Утверждение в сигнатуре (Signature Assertion)",
+            "dateRelease": "November 5, 2019",
+            "datePublication": "November 5, 2019",
+            "tags": ["важно"]
+        },
+        {
+            "id": "",
+            "version": "3.7-rc",
+            "innovationName": "Улучшена поддержка для типа never возвращаемого из функций",
+            "dateRelease": "November 4, 2019",
+            "datePublication": "November 5, 2019",
+            "tags": ["изменение"]
+        },
+        {
+            "id": "",
+            "version": "3.7-beta",
+            "innovationName": "Проверка невызванных функций",
+            "dateRelease": "November 3, 2019",
+            "datePublication": "November 5, 2019",
+            "tags": ["баг"]
+        },
+        {
+            "id": "",
+            "version": "3.7-beta",
+            "innovationName": "Рекурсивность для псевдононимов типов",
+            "dateRelease": "November 3, 2019",
+            "datePublication": "November 5, 2019",
+            "tags": ["компилятор"]
+        },
+        {
+            "id": "",
+            "version": "3.7-alpha",
+            "innovationName": "Совместное использование флагов --declaration и --allowJs",
+            "dateRelease": "November 2, 2019",
+            "datePublication": "November 5, 2019",
+            "tags": ["директивы"]
+        },
+        {
+            "id": "",
+            "version": "3.7-alpha",
+            "innovationName": "@ts-nocheck в TypeScript файлах",
+            "dateRelease": "November 2, 2019",
+            "datePublication": "November 5, 2019",
+            "tags": ["общее"]
+        }
+    ]
+}

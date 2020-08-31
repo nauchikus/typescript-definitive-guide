@@ -1,0 +1,98 @@
+{
+  "releaseHistory": [
+    {
+      "version": "3.9",
+      "dateRelease": "May 12, 2020"
+    }
+  ],
+  "innovations": [
+    {
+      "id": "",
+      "version": "3.9",
+      "innovationName": "Улучшение вывода типа для Promise.all",
+      "dateRelease": "May 12, 2020",
+      "datePublication": "May 12, 2020",
+      "tags": []
+    },
+    {
+      "id": "",
+      "version": "3.9",
+      "innovationName": "Сокращение скорости компиляции",
+      "dateRelease": "May 12, 2020",
+      "datePublication": "May 12, 2020",
+      "tags": []
+    },
+    {
+      "id": "",
+      "version": "3.9",
+      "innovationName": "Комментарная директива @ts-expect-error",
+      "dateRelease": "May 12, 2020",
+      "datePublication": "May 12, 2020",
+      "tags": []
+    },
+    {
+      "id": "",
+      "version": "3.9",
+      "innovationName": "Проверка вызова функции в тернарном условном операторе",
+      "dateRelease": "May 12, 2020",
+      "datePublication": "May 12, 2020",
+      "tags": []
+    },
+    {
+      "id": "",
+      "version": "3.9",
+      "innovationName": "[КРИТИЧЕСКОЕ ИЗМЕНЕНИЕ] Изменение поведения для оператора Non-Null при совместном использовании с оператором опциональной цепочки",
+      "dateRelease": "May 12, 2020",
+      "datePublication": "May 12, 2020",
+      "tags": []
+    },
+    {
+      "id": "",
+      "version": "3.9",
+      "innovationName": "[КРИТИЧЕСКОЕ ИЗМЕНЕНИЕ] Возникновение ошибки при наличии в строке закрывающей фигурной или угловатой скобки в файлах с расширением TSX",
+      "dateRelease": "May 12, 2020",
+      "datePublication": "May 12, 2020",
+      "tags": []
+    },
+    {
+      "id": "",
+      "version": "3.9",
+      "innovationName": "[КРИТИЧЕСКОЕ ИЗМЕНЕНИЕ] Повышение уровня проверки необязательных полей для типов определяющих тип пересечение",
+      "dateRelease": "May 12, 2020",
+      "datePublication": "May 12, 2020",
+      "tags": []
+    },
+    {
+      "id": "",
+      "version": "3.9",
+      "innovationName": "[КРИТИЧЕСКОЕ ИЗМЕНЕНИЕ] Определение типа пересечения дескриминантными полями",
+      "dateRelease": "May 12, 2020",
+      "datePublication": "May 12, 2020",
+      "tags": []
+    },
+    {
+      "id": "",
+      "version": "3.9",
+      "innovationName": "[КРИТИЧЕСКОЕ ИЗМЕНЕНИЕ] Параметр типа расширяющий тип any больше не наследует его характеристики",
+      "dateRelease": "May 12, 2020",
+      "datePublication": "May 12, 2020",
+      "tags": []
+    },
+    {
+      "id": "",
+      "version": "3.9",
+      "innovationName": "[КРИТИЧЕСКОЕ ИЗМЕНЕНИЕ] get и set больше не перечисляемы",
+      "dateRelease": "May 12, 2020",
+      "datePublication": "May 12, 2020",
+      "tags": []
+    },
+    {
+      "id": "",
+      "version": "3.9",
+      "innovationName": "[КРИТИЧЕСКОЕ ИЗМЕНЕНИЕ] export * теперь всегда включается в сборку",
+      "dateRelease": "May 12, 2020",
+      "datePublication": "May 12, 2020",
+      "tags": []
+    }
+  ]
+}

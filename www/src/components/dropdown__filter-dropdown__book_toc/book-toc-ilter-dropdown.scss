@@ -1,0 +1,28 @@
+@import "../../styles/app-vars";
+@import "../../styles/native-scrollbars";
+
+
+.bt-filter-dropdown{
+  position:initial!important;
+}
+
+.bt-filter-dropdown__menu{
+  width: 100%!important;
+
+  right: 0;
+  //top: 40px;
+}
+
+///TODO:[refactor][extract]
+.scroll-wrapper{
+  max-height: calc(
+          calc(100vh - #{$app-header_height + $content__control-bar_height}) -
+          #{$content__control-bar__dropdown-menu_padding_y + $content__control-bar__dropdown-menu__header_height + $content__control-bar__dropdown-menu__header_margin-bottom}
+  );
+
+  position: relative;
+
+  overflow-y: auto;
+
+  @include nativeScrollbarSmall();
+}

@@ -1,0 +1,58 @@
+{
+    "releaseHistory": [
+        {
+            "version": "3.4",
+            "dateRelease": "March 29, 2019"
+        }
+    ],
+    "innovations": [
+        {
+            "id": "",
+            "version": "3.4",
+            "innovationName": "Опции компилятора --tsBuildInfoFile",
+            "dateRelease": "March 29, 2019",
+            "datePublication": "March 29, 2019",
+            "tags": []
+        },
+        {
+            "id": "",
+            "version": "3.4",
+            "innovationName": "Опции компилятора --incremental",
+            "dateRelease": "March 29, 2019",
+            "datePublication": "March 29, 2019",
+            "tags": []
+        },
+        {
+            "id": "",
+            "version": "3.4",
+            "innovationName": "Массивоподобные readonly типы",
+            "dateRelease": "March 29, 2019",
+            "datePublication": "March 29, 2019",
+            "tags": []
+        },
+        {
+            "id": "",
+            "version": "3.4",
+            "innovationName": "Расширенный тип ReadonlyArray",
+            "dateRelease": "March 29, 2019",
+            "datePublication": "March 29, 2019",
+            "tags": []
+        },
+        {
+            "id": "",
+            "version": "3.4",
+            "innovationName": "Привидение к константе (const assertion)",
+            "dateRelease": "March 29, 2019",
+            "datePublication": "March 29, 2019",
+            "tags": []
+        },
+        {
+            "id": "",
+            "version": "3.4",
+            "innovationName": "Проверка типов для globalThis",
+            "dateRelease": "March 29, 2019",
+            "datePublication": "March 29, 2019",
+            "tags": []
+        }
+    ]
+}

@@ -1,0 +1,9 @@
+@import "../../styles/app-vars";
+
+.collapse {
+  position: relative;
+
+  &[is-collapse="true"] > .collapse__collapsed {
+    display:none;
+  }
+}

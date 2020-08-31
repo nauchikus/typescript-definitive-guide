@@ -1,0 +1,58 @@
+
+// shared dependencies
+@import "../../styles/app-vars";
+@import "../../styles/main-scrollbar";
+
+.app-grid{
+  display:grid;
+
+  grid-template-columns: 100%;
+  grid-template-rows: auto var(--app-header_height) 1fr 64px;
+  grid-template-areas:
+          "collapse-informer"
+          "header"
+          "content"
+          "footer";
+
+  position: relative;
+
+  @media all and (max-width: $content__nav_down_media ) {
+    //padding-bottom: var(--content__nav-down_height);
+  }
+}
+
+
+.app-grid-item__collapsed-informer{
+  grid-area: collapse-informer;
+}
+.app-grid-item__header {
+  max-width: 100%;
+
+  grid-area: header;
+
+  position: sticky;
+  top: 0;
+
+  z-index: 100;
+
+}
+.app-grid-item__content {
+  max-width: 100vw;
+
+  min-height: calc(100vh - calc(var(--app-header_height) + var(--app-footer_height)));
+
+  grid-area: content;
+
+  z-index: 1;
+}
+.app-grid-item__footer {
+  grid-area: footer;
+
+  position: relative;
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  z-index: 2;
+}
+

@@ -1,0 +1,65 @@
+@import "../../styles/app-vars";
+
+$dropdown_transition-time:.4s;
+
+
+
+@mixin donate-dropdown_open-state{
+  &{
+    opacity: 1;
+    visibility: visible;
+
+    transform: translateY(0);
+
+    pointer-events: all;
+  }
+}
+@mixin donate-dropdown_close-state{
+  &{
+    opacity: 0;
+    visibility: collapse;
+
+    transform: translateY(30px);
+
+    pointer-events: none;
+  }
+}
+
+.donate-dropdown {
+  position: relative;
+
+  @media all and (min-width: $app-bar_media_xs) {
+    &:hover>.dropdown__menu{
+      @include donate-dropdown_open-state;
+    }
+  }
+
+
+}
+.donate-dropdown__menu_open{
+  @include donate-dropdown_open-state;
+}
+.donate-dropdown__menu_close{
+  @include donate-dropdown_close-state;
+}
+
+
+.donate-dropdown__menu {
+  position: absolute;
+
+
+  transition:
+          visibility $dropdown_transition-time,
+          opacity $dropdown_transition-time,
+          transform $dropdown_transition-time;
+  transition-delay: .4s;
+
+  @media all and (max-width: $donate-dropdown-menu__media_xs){
+    position: fixed;
+
+    right: initial;
+    left: 50%;
+
+    transform:translateX(-50%);
+  }
+}

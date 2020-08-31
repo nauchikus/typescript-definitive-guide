@@ -1,0 +1,6 @@
+@import "mixins/native-scrollbar";
+
+.native-scrollbar_small{
+  z-index:999999999;
+  @include nativeScrollbarSmall();
+}

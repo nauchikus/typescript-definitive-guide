@@ -1,0 +1,17 @@
+.main-presentation {
+  display: flex;
+  flex-direction: column;
+}
+
+.main-meta {
+  display: flex;
+  justify-content: space-between;
+}
+
+.main-meta-informer__index,
+.main-meta-informer__section,
+.main-meta-informer__version,
+.main-meta-informer__date {
+  color: var(--color_dark_30);
+
+}
