@@ -73,6 +73,10 @@ module.exports = ( ...params ) => {
       if ( h1Node && h1Node.depth === H1_TAG_DEPTH ) {
         let paragraphNode = sectionNode.children[ 1 ];
 
+        if (! paragraphNode || paragraphNode.type !== `image`) {
+          return ast;
+        }
+
         let mainMeta = createDiv(
             [
               createSpan(bookChapterInfo.index, `main-meta-informer__index`),
