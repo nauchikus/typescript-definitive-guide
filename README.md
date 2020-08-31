@@ -1,2 +1,0 @@
-# typescript-definitive-guide
-book

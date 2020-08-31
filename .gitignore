@@ -1,11 +1,1 @@
-# Created by .ignore support plugin (hsz.mobi)
-.idea/
-.vscode/
-node_modules/
-dest/
-examples/
-public/
-temporary/
-www/
-notes/
-package-lock.json
+.idea
