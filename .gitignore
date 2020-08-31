@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # Created by .ignore support plugin (hsz.mobi)
 .idea/
 .vscode/
@@ -12,18 +11,6 @@ package-lock.json
 #chapters/
 dest/
 public/
-./src/
 
 .env.development
 .env.github.development
-vue.config.js
-=======
-.idea
-/node_modules
-package-lock.json
-package.json
-<<<<<<< HEAD
->>>>>>> old-to-new-book
-=======
-/www
->>>>>>> old-to-new-book

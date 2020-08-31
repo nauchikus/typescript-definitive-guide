@@ -45,10 +45,10 @@ const reindex = async ({ CHAPTERS_DIR }) => {
         CHAPTERS_DIR,
         chapterDirNameAll
     });
-    await addNewIndex({
-        CHAPTERS_DIR,
-        toc
-    });
+    // await addNewIndex({
+    //     CHAPTERS_DIR,
+    //     toc
+    // });
 };
 
 

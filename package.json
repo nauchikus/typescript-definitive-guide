@@ -34,6 +34,7 @@
     "nodegit": "^0.27.0",
     "prettier": "^2.0.2",
     "react": "^16.13.1",
+    "simple-git": "^2.20.1",
     "typescript": "^3.9.7"
   },
   "dependencies": {}
