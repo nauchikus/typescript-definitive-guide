@@ -81,7 +81,7 @@
     {
       "id": "",
       "version": "3.9",
-      "innovationName": "[КРИТИЧЕСКОЕ ИЗМЕНЕНИЕ] get\\set больше не перечисляемы",
+      "innovationName": "[КРИТИЧЕСКОЕ ИЗМЕНЕНИЕ] get и set больше не перечисляемы",
       "dateRelease": "May 12, 2020",
       "datePublication": "May 12, 2020",
       "tags": []
