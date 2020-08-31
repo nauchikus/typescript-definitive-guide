@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # Created by .ignore support plugin (hsz.mobi)
 .idea/
 .vscode/
@@ -15,6 +14,3 @@ public/
 
 .env.development
 .env.github.development
-=======
-.idea
->>>>>>> old-to-new-win
