@@ -3,6 +3,19 @@
   "version": "1.0.0",
   "description": "",
   "main": "vue.config.js",
+  "config": {
+    "commitizen": {
+      "path": "node_modules/cz-customizable"
+    },
+    "cz-customizable": {
+      "config": "config/git/commitizen.js"
+    }
+  },
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS -g './config/git/commitlint.js'"
+    }
+  },
   "scripts": {
     "postrebook-reindex": "npm run book-toc-validate",
     "book-reindex": "node ./config/old-to-new-book/reindex.js",
@@ -30,7 +43,12 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@commitlint/cli": "^9.1.2",
     "@types/nodegit": "^0.26.7",
+    "commitizen": "^4.2.1",
+    "cz-customizable": "^6.3.0",
+    "husky": "^4.2.5",
+    "lint-staged": "^10.2.13",
     "nodegit": "^0.27.0",
     "prettier": "^2.0.2",
     "react": "^16.13.1",

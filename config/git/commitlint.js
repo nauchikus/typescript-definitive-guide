@@ -31,16 +31,10 @@ module.exports = {
       2,
       "always",
       [
-        "build",
-        "ci",
-        "docs",
-        "feat",
-        "fix",
-        "perf",
-        "refactor",
-        "revert",
-        "style",
-        "test"
+        "book",
+        "what-is-new",
+        "www",
+        "ci"
       ]
     ]
   }
