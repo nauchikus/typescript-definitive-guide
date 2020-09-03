@@ -58,7 +58,7 @@ const whatIsNewRoutes = {
 };
 const notFoundRoutes = {
     notFound: ({ locale }:ILocaleRouter ) =>
-      `/404/index.html`
+      `/404/`
 };
 
 
