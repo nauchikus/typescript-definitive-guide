@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+Sitemap: https://nauchikus.github.io/sitemap.xml
+Host: https://nauchikus.github.io
