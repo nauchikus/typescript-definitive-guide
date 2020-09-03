@@ -8,9 +8,7 @@ import {
   LocalizationPaths,
   NotFoundPageGuiLocalization
 } from "../../localization";
-import { Link } from "gatsby";
 import { useRouter } from "../../stores/RouterStore";
-import { If } from "../../components/if-operator/If";
 
 interface INotFoundPageProps {
 }
@@ -22,9 +20,6 @@ export const NotFoundPage: FC<INotFoundPageProps> = ( {} ) => {
   ]>( LocalizationPaths.AppNavigation, LocalizationPaths.NotFoundPageGui );
   let router = useRouter();
 
-  let backButtonClasses = cn({
-    [`back-button_disabled`]: router.isBack
-  })
 
   return (
     <div className="not-found-page">
