@@ -319,6 +319,10 @@ module.exports = {
   plugins: [
     {
       resolve: `gatsby-plugin-robots-txt`,
+      options: {
+        host: 'https://nauchikus.github.io/typescript-definitive-guide',
+        sitemap: 'https://nauchikus.github.io/typescript-definitive-guide/sitemap.xml',
+      }
     },
     ...getPlugins({
       locale: undefined,
