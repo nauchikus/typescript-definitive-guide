@@ -33,6 +33,7 @@
     "@types/react-helmet": "^6.1.0",
     "dotenv": "^8.2.0",
     "gatsby-plugin-graphql-codegen": "^2.7.1",
+    "gatsby-plugin-robots-txt": "^1.5.1",
     "gatsby-plugin-sass": "^2.3.12",
     "gatsby-plugin-svg-sprite": "^2.0.1",
     "gatsby-plugin-ts": "^2.7.1",

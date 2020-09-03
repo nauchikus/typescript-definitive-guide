@@ -311,12 +311,20 @@ module.exports = {
       branch: process.env.GATSBY_REPOSITORY_BRANCH,
     },
 
+    siteUrl: `https://nauchikus.github.io/typescript-definitive-guide/`,
     title: "",
     description: "",
     author: "nauchikus",
   },
-  plugins: getPlugins({
-    locale: undefined,
-    lang: "ru",
-  }),
+  plugins: [
+    {
+      resolve: `gatsby-plugin-robots-txt`,
+    },
+    ...getPlugins({
+      locale: undefined,
+      lang: "ru",
+    })
+
+  ]
+
 }
