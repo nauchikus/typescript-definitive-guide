@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
-Sitemap: https://nauchikus.github.io/sitemap.xml
+Sitemap: https://nauchikus.github.io/typescript-definitive-guide/sitemap.xml
 Host: https://nauchikus.github.io
