@@ -23,6 +23,6 @@ export const createPages: GatsbyCreatePages<ICreatePagesOptions> = async (...par
     await WhatIsNewPageCreator.createPages( ...params );
     await WhatIsNewTocPageCreator.createPages( ...params );
 
-    // await NotFoundPageCreator.createPages( ...params );
+    await NotFoundPageCreator.createPages( ...params );
     // await RedirectCreator.createRedirects( ...params );
 };
