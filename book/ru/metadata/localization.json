@@ -21,7 +21,7 @@
     ],
     "notification": {
         "behaviorNotification": {
-            "copyLink": "Ссылка скопированна!"
+            "copyLink": "Ссылка скопирована!"
         }
     },
     "layouts": {
@@ -104,7 +104,7 @@
                 "appSearch": {
                     "inputPlaceholder": "Я ищу...",
                     "submitButton": {
-                        "ariaLabel": "Щтправить"
+                        "ariaLabel": "Отправить"
                     }
                 }
             }
@@ -133,7 +133,7 @@
             "gui": {
                 "tocItem": {
                     "copyLinkToBufferButton": {
-                        "tooltip": "Скопировать ссылку в буффер обмена"
+                        "tooltip": "Скопировать ссылку в буфер обмена"
                     },
                     "collapseTocButton": {
                         "tooltip": {
@@ -149,7 +149,7 @@
                     },
                     "tocCollapseAllButton": {
                         "tooltip": {
-                            "openState": "Расскрыть все",
+                            "openState": "Раскрыть все",
                             "closeState": "Закрыть все"
                         }
                     }
@@ -186,7 +186,7 @@
                 },
                 "tocItem": {
                     "copyLinkToBufferButton": {
-                        "tooltip": "Скопировать ссылку в буффер обмена"
+                        "tooltip": "Скопировать ссылку в буфер обмена"
                     }
                 }
             }
