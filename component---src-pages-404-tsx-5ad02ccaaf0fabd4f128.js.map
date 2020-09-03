@@ -1,1 +1,0 @@
-{"version":3,"sources":["webpack:///./src/pages/404.tsx"],"names":["createElement"],"mappings":"8FAAA,gCACgB,qBACd,OAAoB,IAAMA,cAAc,KAAM,KAAM","file":"component---src-pages-404-tsx-5ad02ccaaf0fabd4f128.js","sourcesContent":["import React from \"react\";\nexport default (function () {\n  return /*#__PURE__*/React.createElement(\"h1\", null, \"404\");\n});"],"sourceRoot":""}
