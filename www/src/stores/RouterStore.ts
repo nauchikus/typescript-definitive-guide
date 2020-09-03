@@ -3,9 +3,8 @@ import { observable, autorun, decorate, computed, action } from "mobx";
 import { createContext, useContext } from "react";
 import * as StringUtils from "../utils/string-utils";
 import { RouterUtils } from "../utils/router-utils";
-import { MobxSharedContext } from "../react__context/MobxSharedContext";
-import { UseSharedMobxEntry } from "./SharedPageMobxEntry";
-import { Simulate } from "react-dom/test-utils";
+import { History } from "@reach/router";
+
 
 export type LocationPartial =Pick<Location,"pathname"|"hash"|"origin"|"search">;
 
@@ -28,6 +27,14 @@ export class RouterStore {
   static create({location}:CreateRouterStoreParams){
     return new RouterStore( location );
   }
+
+  get indexRoute(){
+    return `/`;
+  }
+  get isBack(){
+    return window && window.history.length > 2;
+  }
+
   get isIndexPage(){
     return this.location.pathname==='/'
   }
@@ -119,6 +126,12 @@ export class RouterStore {
     navigate( path );
 
     this.scrollToAnchor(this.anchor);
+  }
+  goHome(){
+    navigate(this.indexRoute);
+  }
+  goBack(){
+    this.goTo(`-1`);
   }
   setLocation ( location: Location ) {
     this.location = location;

@@ -8,6 +8,7 @@ import { AppLocalization } from "../../localization";
 import { NotFoundPage } from "./NotFoundPage";
 import { RouterStoreContext } from "../../stores/RouterStore";
 import { createNotFoundPageMobxEntry, UseNotFoundPageMobxStores } from "../../stores/mobx-entry__not-found";
+import { NotFoundPageMobxEntry } from "../../stores/NotFoundPageMobxEntry";
 
 
 interface INotFoundPageProviderProps {
@@ -19,17 +20,13 @@ interface INotFoundPageProviderProps {
 }
 
 const NotFoundPageProvider: FC<INotFoundPageProviderProps> = ( { pageContext,location } ) => {
-  let { localization } = pageContext;
+  let { locale, localization } = pageContext;
   let { pages,...appSharedLocalization } = localization;
-  let mobxRef = useRef<UseNotFoundPageMobxStores>( createNotFoundPageMobxEntry( {
-    location
-  } ) );
+  let mobxRef = NotFoundPageMobxEntry.getInstance({ locale, location });
 
   return (
-
-
     <Localization.Provider value={ localization }>
-      <RouterStoreContext.Provider value={mobxRef.current.router}>
+      <RouterStoreContext.Provider value={mobxRef.router}>
         <BaseLayout>
           <SEO {...appSharedLocalization}/>
           <NotFoundPage/>

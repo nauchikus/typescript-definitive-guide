@@ -41,6 +41,8 @@
 
   min-height: calc(100vh - calc(var(--app-header_height) + var(--app-footer_height)));
 
+  display: flex;
+
   grid-area: content;
 
   z-index: 1;
