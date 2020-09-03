@@ -35,6 +35,7 @@
     "gatsby-plugin-graphql-codegen": "^2.7.1",
     "gatsby-plugin-robots-txt": "^1.5.1",
     "gatsby-plugin-sass": "^2.3.12",
+    "gatsby-plugin-sitemap": "^2.4.12",
     "gatsby-plugin-svg-sprite": "^2.0.1",
     "gatsby-plugin-ts": "^2.7.1",
     "gatsby-remark-prismjs": "^3.5.10",

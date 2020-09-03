@@ -324,6 +324,9 @@ module.exports = {
         sitemap: 'https://nauchikus.github.io/typescript-definitive-guide/sitemap.xml',
       }
     },
+    {
+      resolve: `gatsby-plugin-sitemap`,
+    },
     ...getPlugins({
       locale: undefined,
       lang: "ru",
