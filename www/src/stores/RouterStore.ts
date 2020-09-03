@@ -3,7 +3,7 @@ import { observable, autorun, decorate, computed, action } from "mobx";
 import { createContext, useContext } from "react";
 import * as StringUtils from "../utils/string-utils";
 import { RouterUtils } from "../utils/router-utils";
-import { History } from "@reach/router";
+import * as AppUtils from "../utils/app-utils";
 
 
 export type LocationPartial =Pick<Location,"pathname"|"hash"|"origin"|"search">;
@@ -32,7 +32,7 @@ export class RouterStore {
     return `/`;
   }
   get isBack(){
-    return window && window.history.length > 2;
+    return AppUtils.isBrowser() && window && window.history.length > 2;
   }
 
   get isIndexPage(){
