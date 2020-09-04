@@ -341,7 +341,7 @@ module.exports = {
         afterBody: true,
         // Use `defer` attribute of metrika script. If set to `false` - script will be loaded with `async` attribute.
         // Async enables earlier loading of the metrika but it can negatively affect page loading speed. The default value is `false`.
-        defer: false,
+        defer: true,
       },
     },
     ...getPlugins({
