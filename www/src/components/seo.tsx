@@ -84,6 +84,7 @@ const SEO: FC<SeoProps> = ( { description = "", lang = "", meta = [], title = ""
         ...meta
       ] }
     >
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,700;1,400&display=swap"/>
       <script async src="https://yastatic.net/es5-shims/0.0.2/es5-shims.min.js"></script>
       <script async src="https://yastatic.net/share2/share.js"></script>
       <noscript>
