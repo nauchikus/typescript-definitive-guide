@@ -8,7 +8,6 @@
 import React, { FC, useLayoutEffect } from "react";
 import { useStaticQuery, graphql } from "gatsby"
 import { Helmet, HelmetProps } from "react-helmet";
-// import { useYandexMetrika } from "../react__hooks/useYandexMetrika";
 
 
 // type MetaProps = JSX.IntrinsicElements["meta"];
@@ -39,7 +38,6 @@ const SEO: FC<SeoProps> = ( { description = "", lang = "", meta = [], title = ""
 
   const metaDescription = description || site.siteMetadata.description || "";
 
-  // useYandexMetrika();
 
   return (
     <Helmet
@@ -87,9 +85,6 @@ const SEO: FC<SeoProps> = ( { description = "", lang = "", meta = [], title = ""
       <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,700;1,400&display=swap"/>
       <script async src="https://yastatic.net/es5-shims/0.0.2/es5-shims.min.js"></script>
       <script async src="https://yastatic.net/share2/share.js"></script>
-      <noscript>
-        {`<div><img src="https://mc.yandex.ru/watch/51846272" style="position:absolute; left:-9999px;" alt="" /></div>`}
-      </noscript>
     </Helmet>
   );
 };
