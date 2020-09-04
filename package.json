@@ -13,7 +13,7 @@
   },
   "husky": {
     "hooks": {
-      "book-chapter-heading-validation": "npm run book0heading-validate",
+      "pre-push": "npm run book0heading-validate",
       "commit-msg": "commitlint -E HUSKY_GIT_PARAMS -g './config/git/commitlint.js'"
 
     }
