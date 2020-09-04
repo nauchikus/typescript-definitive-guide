@@ -8,7 +8,7 @@
 import React, { FC, useLayoutEffect } from "react";
 import { useStaticQuery, graphql } from "gatsby"
 import { Helmet, HelmetProps } from "react-helmet";
-import { useYandexMetrika } from "../react__hooks/useYandexMetrika";
+// import { useYandexMetrika } from "../react__hooks/useYandexMetrika";
 
 
 // type MetaProps = JSX.IntrinsicElements["meta"];
@@ -39,7 +39,7 @@ const SEO: FC<SeoProps> = ( { description = "", lang = "", meta = [], title = ""
 
   const metaDescription = description || site.siteMetadata.description || "";
 
-  useYandexMetrika();
+  // useYandexMetrika();
 
   return (
     <Helmet

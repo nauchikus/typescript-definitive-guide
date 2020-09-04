@@ -38,6 +38,7 @@
     "gatsby-plugin-sitemap": "^2.4.12",
     "gatsby-plugin-svg-sprite": "^2.0.1",
     "gatsby-plugin-ts": "^2.7.1",
+    "gatsby-plugin-yandex-metrika": "^2.5.0",
     "gatsby-remark-prismjs": "^3.5.10",
     "gatsby-source-graphql": "^2.7.1",
     "gatsby-transformer-remark": "^2.8.28",
