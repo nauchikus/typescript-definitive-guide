@@ -1,4 +1,4 @@
-# Типы - Примитивные типы Null, Undefined, Void, Never, Unknown
+# Примитивные типы Null, Undefined, Void, Never, Unknown
 ## Важно
 ________________
 

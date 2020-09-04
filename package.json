@@ -13,10 +13,13 @@
   },
   "husky": {
     "hooks": {
+      "book-chapter-heading-validation": "npm run book0heading-validate",
       "commit-msg": "commitlint -E HUSKY_GIT_PARAMS -g './config/git/commitlint.js'"
+
     }
   },
   "scripts": {
+    "book-heading-validate": "node ./config/book-heading-validator/heading-with-toc-validate.js",
     "postrebook-reindex": "npm run book-toc-validate",
     "book-reindex": "node ./config/old-to-new-book/reindex.js",
     "book-toc-validate": "node ./config/old-to-new-book/toc-validator.js",
@@ -24,6 +27,7 @@
     "predevelop": "npm run github-token-configurator__validate",
     "postdevelop": "cd -",
     "postbuild": "cd -",
+    "prebuild": "npm run book-heading-validate",
     "postformat": "cd -",
     "posttest": "cd -",
     "github-token-configurator__init": "node ./config/github-repository-token-configurator/github-repository-token-configurator__init.js",

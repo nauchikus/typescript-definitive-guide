@@ -1,4 +1,4 @@
-# Классы — Definite Assignment Assertion Modifier
+# Definite Assignment Assertion Modifier
 ## Классы — Definite Assignment Assertion Modifier
 ________________
 

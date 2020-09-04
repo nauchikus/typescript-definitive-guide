@@ -1,4 +1,4 @@
-# Расширенные типы — Readonly, Partial, Required, Pick, Record
+# Readonly, Partial, Required, Pick, Record
 ## Расширенные типы — Readonly, Partial, Required, Pick, Record
 ________________
 

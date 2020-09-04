@@ -4,11 +4,18 @@ const toChapterName = (index, section, title) =>
     `${toIndex(index)}.(${section}) ${title}`;
 const bookChapterNameRemoveIndex = chapterName => chapterName.replace(/^\d{3}\./, '');
 const bookChapterNameAddOnlyIndex = (index, chapterName) => `${toIndex(index)}.${chapterName}`;
+const bookChapterDirToChapterName = chapterDir => chapterDir.replace(/^\d{3}\.\(.*?\)\s+/, '');
+
+const getHeading = content => Array.from(content.matchAll(/^(?:#{1,2})\s(.+)\s*$/gm))
+    .map(([, heading]) => heading.trim());
+
 
 module.exports = {
     toIndex,
     toChapterName,
     bookChapterNameRemoveIndex,
     bookChapterNameAddOnlyIndex,
+    bookChapterDirToChapterName,
+    getHeading,
 };
 
