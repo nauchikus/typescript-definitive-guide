@@ -5,10 +5,10 @@
  * See: https://www.gatsbyjs.org/docs/use-static-query/
  */
 
-import React, { FC } from "react"
-// import Helmet, { HelmetProps } from "react-helmet";
+import React, { FC, useLayoutEffect } from "react";
 import { useStaticQuery, graphql } from "gatsby"
 import { Helmet, HelmetProps } from "react-helmet";
+import { useYandexMetrika } from "../react__hooks/useYandexMetrika";
 
 
 // type MetaProps = JSX.IntrinsicElements["meta"];
@@ -20,6 +20,7 @@ interface SeoProps {
   meta?:MetaProps;
   title?:string;
 }
+
 
 const SEO: FC<SeoProps> = ( { description = "", lang = "", meta = [], title = "" } ) => {
   const { site } = useStaticQuery(
@@ -37,6 +38,8 @@ const SEO: FC<SeoProps> = ( { description = "", lang = "", meta = [], title = ""
   );
 
   const metaDescription = description || site.siteMetadata.description || "";
+
+  useYandexMetrika();
 
   return (
     <Helmet
@@ -83,22 +86,13 @@ const SEO: FC<SeoProps> = ( { description = "", lang = "", meta = [], title = ""
     >
       <script async src="https://yastatic.net/es5-shims/0.0.2/es5-shims.min.js"></script>
       <script async src="https://yastatic.net/share2/share.js"></script>
+      <noscript>
+        {`<div><img src="https://mc.yandex.ru/watch/51846272" style="position:absolute; left:-9999px;" alt="" /></div>`}
+      </noscript>
     </Helmet>
   );
 };
 
 
-// SEO.defaultProps = {
-//   lang: `en`,
-//   meta: [],
-//   description: ``,
-// }
-//
-// SEO.propTypes = {
-//   description: PropTypes.string,
-//   lang: PropTypes.string,
-//   meta: PropTypes.arrayOf(PropTypes.object),
-//   title: PropTypes.string.isRequired,
-// }
 
 export default SEO

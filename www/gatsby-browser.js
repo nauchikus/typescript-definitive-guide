@@ -6,13 +6,11 @@
 
 // You can delete this file if you're not using it
 
-//TODO:[refactor][dev]del
 // require( './src/styles/main-scrollbar.scss' );
 
-import "./src/styles/dev-utils.scss";
+import "./src/styles_entries/global.scss";
 
 import React from 'react';
-import { SharedPage } from './src/shared-page';
 import { MobxSharedContext } from './src/react__context/MobxSharedContext';
 import { SharedPageMobxEntry } from './src/stores/SharedPageMobxEntry';
 

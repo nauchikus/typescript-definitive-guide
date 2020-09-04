@@ -30,7 +30,7 @@ function indexNavAssert(indexNavAll:Partial<AppNavigationLocalization>):asserts 
 
 const IndexPage: FC<IIndexPageProps> = observer(( {  } ) => {
   let versionInfo = useVersionInfo();
-  let [appNavigation,{subtitleAll}] = useTranslator<[
+  let [appNavigation,{appDescription,subtitleAll}] = useTranslator<[
     AppNavigationLocalization,
     IndexPageGuiLocalization
   ]>( LocalizationPaths.AppNavigation, LocalizationPaths.IndexPageGui );
@@ -65,6 +65,9 @@ const IndexPage: FC<IIndexPageProps> = observer(( {  } ) => {
             </div>
           </div>
         </div>
+        <p className="ip-app-description">
+          {appDescription}
+        </p>
         <nav className="ip-nav">
           {nav}
         </nav>
