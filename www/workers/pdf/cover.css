@@ -1,0 +1,13 @@
+.book-cover__container {
+    width: 100%;
+    height: 100%;
+}
+.book-cover {
+    width: 100%;
+    height: auto;
+
+    display: block;
+
+    position: relative;
+    transform: scale(1.1);
+}

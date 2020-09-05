@@ -1,0 +1,18 @@
+@page :blank {
+    @top-center { content: "This page is intentionally left blank." }
+    @bottom-left {content: "Ol"}
+}
+
+
+
+
+
+ul{
+    margin: var(--content__ul_margin-top) 0 var(--content__ul_margin-bottom) var(--content__ul_margin-left)!important;
+
+    list-style: disc;
+}
+ul > li {
+    padding: 8px 0;
+}
+

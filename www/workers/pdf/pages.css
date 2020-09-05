@@ -1,0 +1,10 @@
+
+
+.page {
+    page-break-after: always;
+}
+
+.page_title {
+    padding: 30% 0 0 0;
+    /*flex-direction: column;*/
+}

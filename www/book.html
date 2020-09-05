@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name=author content="https://github.com/nauchikus/typescript-definitive-guide">
+    <meta name=description content="undefined">
+    <meta name=keywords content="TypeScript">
+    <meta name=generator content="https://weasyprint.org">
+    <meta name=dcterms.created content="9/5/2020">
+    <meta name=dcterms.modified content="9/5/2020">
+    
+    <link rel="stylesheet" href="workers/pdf/prism-vs.theme.css">
+    <link rel="stylesheet" href="workers/pdf/prism-custom.theme.css">
+    <link rel="stylesheet" href="workers/pdf/style.css">
+    <link rel="stylesheet" href="workers/pdf/pages.css">
+    <link rel="stylesheet" href="workers/pdf/cover.css">
+    <link rel="stylesheet" href="workers/pdf/title.css">
+    <link rel="stylesheet" href="workers/pdf/headings.css">
+    <link rel="stylesheet" href="workers/pdf/content.css">
+    
+    <title>TypeScript: Подробное Руководство</title>
+    
+    <style>
+        @page :blank {
+            @top-center { content: "This page is intentionally left blank." }
+            @bottom-left {content: "Ol"}
+        }
+        @page:right{
+          @bottom-right {
+            content: counter(page);
+          }
+        }
+        .remark-highlight {
+        page-break-after: avoid;
+        }
+        
+        
+    </style>
+    
+</head>
+<body>
+<div class="page"><p class="book-cover__container">
+    <img class="book-cover" src="/home/ivan/Projects/typescript-definitive-guide/book/ru/metadata/cover.jpg" alt="book-cover"/>
+</p></div><div class="page page_title"><div class="main-title_container">
+    <p class="main-title">TypeScript</p>
+    <p class="main-title">Подробное Руководство</p>
+</div>
+<p class="main-description">Книга и документация в одном</p>
+<p class="main-date">Дата последнего обновления: <time>9/5/2020</time></p></div><div class="page"><h2><p class="chapter-heading__chapter-index">Глава 11</p><p class="chapter-heading__dot">. </p><p class="chapter-heading__chapter-title">Аннотация Типов</p></h2>
+<p>Чтобы избавится от страха возникающего от слова <em>типизация</em> необходимо в самом начале увидеть все преобразования которые проделал <em>TypeScript</em> над своим фундаментом коим для него является, никого не оставляющий равнодушным <em>JavaScript</em>.</p>
+<h3>Аннотация Типов - общее</h3>
+<hr>
+<p>Как уже было сказано ранее, <em>TypeScript</em> — это типизированная надстройка над <em>JavaScript</em>. Другими словами <em>TypeScript</em> не добавляет никаких новых языковых конструкций (за исключением <code>Enum</code>, которая будет рассмотрена чуть позже), а лишь расширяет синтаксис <em>JavaScript</em> за счет добавления в него типов. По этой причине в этой книге не будут затрагиваться темы относящиеся к <em>JavaScript</em>, так как она рассчитана на тех, кто уже знаком с его основами. Именно поэтому погружение в типизированный мир <em>TypeScript</em> необходимо начать с рассмотрения того как типизация преобразила <em>JavaScript</em> конструкции.</p>
+<h3>Аннотация типа</h3>
+<p>В <em>TypeScript</em> аннотация типа или указание типа осуществляется с помощью оператора двоеточия <code>:</code>, после которого следует идентификатор типа. <em>TypeScript</em> является статически типизированным языком, поэтому после того как идентификатор будет связан с типом, изменить тип будет невозможно.</p>
+<h3>Синтаксические конструкции var, let, const</h3>
+<hr>
+<p>При объявлении синтаксических конструкций объявляемых с помощью операторов <code>var</code>, <code>let</code> и <code>const</code>, тип данных указывается сразу после идентификатора.</p>
+<div class="remark-highlight"><pre class="language-typescript"><code><span class="token keyword">var</span> identifier<span class="token operator">:</span> Type <span class="token operator">=</span> value<span class="token punctuation">;</span>
+<span class="token keyword">let</span> identifier<span class="token operator">:</span> Type <span class="token operator">=</span> value<span class="token punctuation">;</span>
+<span class="token keyword">const</span> <span class="token constant">IDENTIFIER</span><span class="token operator">:</span> Type <span class="token operator">=</span> value<span class="token punctuation">;</span>
+</code></pre></div>
+<h3>Функции (function)</h3>
+<hr>
+<p>При объявлении функции тип возвращаемого ею значения указывается между её параметрами и телом. При наличии параметров, тип данных указывается и для них.</p>
+<div class="remark-highlight"><pre class="language-typescript"><code><span class="token keyword">function</span> <span class="token function">identifier</span><span class="token punctuation">(</span>param1<span class="token operator">:</span> Type<span class="token punctuation">,</span> param2<span class="token operator">:</span> Type<span class="token punctuation">)</span><span class="token operator">:</span> ReturnedType <span class="token punctuation">{</span>
+
+<span class="token punctuation">}</span>
+</code></pre></div>
+<p>Не будет лишним напомнить, что, в отличие от <em>JavaScript</em>, в <em>TypeScript</em> в сигнатуру функции помимо её имени и параметров также входит и возвращаемое значение.</p>
+<p>Помимо этого, в <em>TypeScript</em> можно объявлять параметризированные функции. Функции, имеющие параметры типа, называются обобщенными (подробнее о них речь пойдет в главе <a href="https://nauchikus.github.io/typescript-definitive-guide/book/contents/Tipy-Obobshcheniya-Generics">“Типы - Обобщения (Generics)”</a>. Параметры типа заключаются в угловые скобки <code>&#x3C;></code> и располагаются перед круглыми скобками <code>()</code>, в которые заключены параметры функции.</p>
+<div class="remark-highlight"><pre class="language-typescript"><code><span class="token keyword">function</span> <span class="token generic-function"><span class="token function">identifier</span> <span class="token generic class-name"><span class="token operator">&lt;</span><span class="token constant">T</span><span class="token punctuation">,</span> <span class="token constant">U</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">:</span> ReturnedType <span class="token punctuation">{</span>
+
+<span class="token punctuation">}</span>
+</code></pre></div>
+<p>Кроме того <em>TypeScript</em> расширяет границы типизирования функций и методов с помощью незнакомого  <em>JavaScript</em> разработчикам механизма <em>перегрузки функций</em>. С помощью перегрузки функций можно аннотировать функции с одинаковыми идентификаторами, но с различными сигнатурами.</p>
+<p>Для этого перед определением функции, метода или функции-конструктора перечисляются совместимые объявления одних только сигнатур. Более подробно эта тема будет освещена позднее.</p>
+<div class="remark-highlight"><pre class="language-typescript"><code><span class="token keyword">function</span> <span class="token function">identifier</span><span class="token punctuation">(</span>p1<span class="token operator">:</span> <span class="token constant">T1</span><span class="token punctuation">,</span> p2<span class="token operator">:</span> <span class="token constant">T2</span><span class="token punctuation">)</span><span class="token operator">:</span> <span class="token constant">T3</span><span class="token punctuation">;</span>
+<span class="token keyword">function</span> <span class="token function">identifier</span><span class="token punctuation">(</span>p1<span class="token operator">:</span> <span class="token constant">T4</span><span class="token punctuation">,</span> p2<span class="token operator">:</span> <span class="token constant">T5</span><span class="token punctuation">)</span><span class="token operator">:</span> <span class="token constant">T6</span><span class="token punctuation">;</span>
+<span class="token keyword">function</span> <span class="token function">identifier</span><span class="token punctuation">(</span>p1<span class="token operator">:</span> <span class="token constant">T</span><span class="token punctuation">,</span> p2<span class="token operator">:</span> <span class="token constant">T</span><span class="token punctuation">)</span><span class="token operator">:</span> <span class="token constant">T</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> <span class="token string">'value'</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">const</span> a<span class="token operator">:</span> <span class="token constant">T1</span> <span class="token operator">=</span> <span class="token string">'value'</span><span class="token punctuation">;</span>
+<span class="token keyword">const</span> b<span class="token operator">:</span> <span class="token constant">T2</span> <span class="token operator">=</span> <span class="token string">'value'</span><span class="token punctuation">;</span>
+<span class="token keyword">const</span> c<span class="token operator">:</span> <span class="token constant">T4</span> <span class="token operator">=</span> <span class="token string">'value'</span><span class="token punctuation">;</span>
+<span class="token keyword">const</span> d<span class="token operator">:</span> <span class="token constant">T5</span> <span class="token operator">=</span> <span class="token string">'value'</span><span class="token punctuation">;</span>
+
+<span class="token function">identifier</span><span class="token punctuation">(</span>a<span class="token punctuation">,</span> b<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// валидно</span>
+<span class="token function">identifier</span><span class="token punctuation">(</span>c<span class="token punctuation">,</span> d<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// валидно</span>
+
+<span class="token keyword">class</span> <span class="token class-name">Identifier</span> <span class="token punctuation">{</span>
+    <span class="token keyword">constructor</span><span class="token punctuation">(</span>p1<span class="token operator">:</span> <span class="token constant">T1</span><span class="token punctuation">,</span> p2<span class="token operator">:</span> <span class="token constant">T2</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">constructor</span><span class="token punctuation">(</span>p1<span class="token operator">:</span> <span class="token constant">T3</span><span class="token punctuation">,</span> p2<span class="token operator">:</span> <span class="token constant">T4</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">constructor</span><span class="token punctuation">(</span>p1<span class="token operator">:</span> <span class="token constant">T</span><span class="token punctuation">,</span> p2<span class="token operator">:</span> <span class="token constant">T</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    
+    <span class="token punctuation">}</span>
+    
+    <span class="token function">identifier</span><span class="token punctuation">(</span>p1<span class="token operator">:</span> <span class="token constant">T1</span><span class="token punctuation">,</span> p2<span class="token operator">:</span> <span class="token constant">T2</span><span class="token punctuation">)</span><span class="token operator">:</span> <span class="token constant">T3</span><span class="token punctuation">;</span>
+    <span class="token function">identifier</span><span class="token punctuation">(</span>p1<span class="token operator">:</span> <span class="token constant">T4</span><span class="token punctuation">,</span> p2<span class="token operator">:</span> <span class="token constant">T5</span><span class="token punctuation">)</span><span class="token operator">:</span> <span class="token constant">T6</span><span class="token punctuation">;</span>
+    <span class="token function">identifier</span><span class="token punctuation">(</span>p1<span class="token operator">:</span> <span class="token constant">T</span><span class="token punctuation">,</span> p2<span class="token operator">:</span> <span class="token constant">T</span><span class="token punctuation">)</span><span class="token operator">:</span> <span class="token constant">T</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token string">'value'</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre></div>
+<h3>Стрелочные Функции (arrow function)</h3>
+<hr>
+<p>К стрелочным функциям применимы те же правила указания типов данных, что и для обычных функций, за исключением того, что возвращаемый ими тип указывается между параметрами и стрелкой.</p>
+<div class="remark-highlight"><pre class="language-typescript"><code><span class="token operator">&lt;</span><span class="token constant">T</span><span class="token punctuation">,</span> <span class="token constant">U</span><span class="token operator">&gt;</span><span class="token punctuation">(</span>param<span class="token operator">:</span> Type<span class="token punctuation">,</span> param2<span class="token operator">:</span> Type<span class="token punctuation">)</span><span class="token operator">:</span> Type <span class="token operator">=&gt;</span> value<span class="token punctuation">;</span>
+</code></pre></div>
+<h3>Классы (class)</h3>
+<hr>
+<p>Прежде чем продолжить рассмотрение изменений которые привнёс <em>TypeScript</em> в нетипизированный мир <em>JavaScript</em>, хотелось бы предупредить о том, что относительно классов будет использоваться терминология заимствованная из таких языков, как <em>Java</em> или <em>C#</em>, так как она способствует большей ясности (тем более, что в спецификации <em>TypeScript</em> встречается аналогичная терминология). Так, <em>переменные экземпляра</em> и <em>переменные класса</em> (статические переменные) в этой книге обозначаются как <em>поля</em> (<em>field</em>). <em>Аксессоры</em> (<em>get</em>_set<em>) обозначаются как </em>свойства<em> (_property</em>). А кроме того, поля, свойства, методы, <em>вычисляемые свойства</em> (<em>computed property</em>) и <em>индексируемые сигнатуры</em> (<em>index signature</em>) обозначаются как <em>члены</em> класса (<em>member</em>). </p>
+<p>При объявлении поля класса, как и в случае с переменными, тип данных указывается сразу после идентификатора (имени класса). Для методов класса действуют те же правила указания типов что и для обычных функций.</p>
+<p>Для свойств, в частности для <code>get</code>, указывается тип данных возвращаемого значения. Для <code>set</code> указывается лишь тип единственного параметра, а возвращаемый им тип и вовсе запрещается указывать явно.</p>
+<p>Кроме того, классы в <em>TypeScript</em> также могут быть обобщенными. В случае объявления обобщенного класса, параметры типа, заключенные в треугольные скобки, указываются сразу после идентификатора класса.</p>
+<div class="remark-highlight"><pre class="language-typescript"><code><span class="token keyword">class</span> <span class="token class-name">Identifier<span class="token operator">&lt;</span><span class="token constant">T</span><span class="token operator">&gt;</span></span> <span class="token punctuation">{</span>
+    <span class="token keyword">static</span> staticField<span class="token operator">:</span> Type <span class="token operator">=</span> value<span class="token punctuation">;</span> <span class="token comment">// член класса</span>
+    
+    <span class="token keyword">static</span> <span class="token keyword">get</span> <span class="token function">staticProperty</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">:</span> Type <span class="token punctuation">{</span> <span class="token comment">// член класса</span>
+        <span class="token keyword">return</span> value<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    
+    <span class="token keyword">static</span> <span class="token keyword">set</span> <span class="token function">staticProperty</span><span class="token punctuation">(</span>value<span class="token operator">:</span> Type<span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token comment">// член класса</span>
+     
+    <span class="token punctuation">}</span>
+    
+    <span class="token keyword">static</span> <span class="token generic-function"><span class="token function">staticMethod</span> <span class="token generic class-name"><span class="token operator">&lt;</span><span class="token constant">T</span><span class="token punctuation">,</span> <span class="token constant">U</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">(</span>param0<span class="token operator">:</span> Type<span class="token punctuation">,</span> param1<span class="token operator">:</span> Type<span class="token punctuation">)</span><span class="token operator">:</span> Type <span class="token punctuation">{</span> <span class="token comment">// член класса</span>
+    
+    <span class="token punctuation">}</span>
+
+    <span class="token punctuation">[</span>indexSignature<span class="token operator">:</span> Type<span class="token punctuation">]</span><span class="token operator">:</span> Type<span class="token punctuation">;</span> <span class="token comment">// член класса</span>
+    
+    <span class="token punctuation">[</span>computedProp<span class="token punctuation">]</span><span class="token operator">:</span> Type <span class="token operator">=</span> value<span class="token punctuation">;</span> <span class="token comment">// член класса</span>
+    
+    field<span class="token operator">:</span> Type <span class="token operator">=</span> value<span class="token punctuation">;</span> <span class="token comment">// член класса</span>
+    
+    <span class="token keyword">get</span> <span class="token function">property</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">:</span> Type <span class="token punctuation">{</span> <span class="token comment">// член класса</span>
+        <span class="token keyword">return</span> value<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">set</span> <span class="token function">property</span><span class="token punctuation">(</span>value<span class="token operator">:</span> Type<span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token comment">// член класса</span>
+     
+    <span class="token punctuation">}</span>
+    
+    <span class="token keyword">constructor</span><span class="token punctuation">(</span>param0<span class="token operator">:</span> Type<span class="token punctuation">,</span> param1<span class="token operator">:</span> Type<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    
+    <span class="token punctuation">}</span>
+    
+    <span class="token generic-function"><span class="token function">method</span> <span class="token generic class-name"><span class="token operator">&lt;</span><span class="token constant">T</span><span class="token punctuation">,</span> <span class="token constant">U</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">(</span>param0<span class="token operator">:</span> Type<span class="token punctuation">,</span> param1<span class="token operator">:</span> Type<span class="token punctuation">)</span><span class="token operator">:</span> Type <span class="token punctuation">{</span> <span class="token comment">// член класса</span>
+    
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre></div>
+<h3>Сравнение Синтаксиса TypeScript и JavaScript</h3>
+<hr>
+<p>Перед тем, как подвести итоги этой главы, не будет лишним собрать все рассмотренные <em>TypeScript</em> конструкции и наглядно сравнить их со своими нетипизированными <em>JavaScript</em> аналогами.</p>
+<div class="remark-highlight"><pre class="language-typescript"><code><span class="token comment">// .ts</span>
+<span class="token keyword">var</span> identifier<span class="token operator">:</span> Type <span class="token operator">=</span> value<span class="token punctuation">;</span>
+<span class="token keyword">let</span> identifier<span class="token operator">:</span> Type <span class="token operator">=</span> value<span class="token punctuation">;</span>
+<span class="token keyword">const</span> <span class="token constant">IDENTIFIER</span><span class="token operator">:</span> Type <span class="token operator">=</span> value<span class="token punctuation">;</span>
+<span class="token comment">//  .js</span>
+<span class="token keyword">var</span> identifier <span class="token operator">=</span> value<span class="token punctuation">;</span>
+<span class="token keyword">let</span> identifier <span class="token operator">=</span> value<span class="token punctuation">;</span>
+<span class="token keyword">const</span> <span class="token constant">IDENTIFIER</span> <span class="token operator">=</span> value<span class="token punctuation">;</span>
+
+<span class="token comment">// .ts</span>
+<span class="token keyword">function</span> <span class="token function">identifier</span><span class="token punctuation">(</span>param1<span class="token operator">:</span> Type<span class="token punctuation">,</span> param2<span class="token operator">:</span> Type<span class="token punctuation">)</span><span class="token operator">:</span> ReturnedType <span class="token punctuation">{</span>
+
+<span class="token punctuation">}</span>
+
+<span class="token comment">// .js</span>
+<span class="token keyword">function</span> <span class="token function">identifier</span><span class="token punctuation">(</span>param1<span class="token punctuation">,</span> param2<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+
+<span class="token punctuation">}</span>
+
+<span class="token comment">// .ts</span>
+<span class="token keyword">class</span> <span class="token class-name">Identifier<span class="token operator">&lt;</span><span class="token constant">T</span><span class="token operator">&gt;</span></span> <span class="token punctuation">{</span>
+    <span class="token keyword">static</span> staticField<span class="token operator">:</span> Type <span class="token operator">=</span> value<span class="token punctuation">;</span> 
+    
+    <span class="token keyword">static</span> <span class="token keyword">get</span> <span class="token function">staticProperty</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">:</span> Type <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> value<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    
+    <span class="token keyword">static</span> <span class="token keyword">set</span> <span class="token function">staticProperty</span><span class="token punctuation">(</span>value<span class="token operator">:</span> Type<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+     
+    <span class="token punctuation">}</span>
+    
+    <span class="token keyword">static</span> <span class="token generic-function"><span class="token function">staticMethod</span> <span class="token generic class-name"><span class="token operator">&lt;</span><span class="token constant">T</span><span class="token punctuation">,</span> <span class="token constant">U</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">(</span>param0<span class="token operator">:</span> Type<span class="token punctuation">,</span> param1<span class="token operator">:</span> Type<span class="token punctuation">)</span><span class="token operator">:</span> Type <span class="token punctuation">{</span>
+    
+    <span class="token punctuation">}</span>
+    
+    <span class="token punctuation">[</span>indexSignature<span class="token operator">:</span> Type<span class="token punctuation">]</span><span class="token operator">:</span> Type<span class="token punctuation">;</span> 
+    
+    <span class="token punctuation">[</span>computedProp<span class="token punctuation">]</span><span class="token operator">:</span> Type <span class="token operator">=</span> value<span class="token punctuation">;</span> 
+    
+    field<span class="token operator">:</span> Type <span class="token operator">=</span> value<span class="token punctuation">;</span>
+    
+    <span class="token keyword">get</span> <span class="token function">property</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">:</span> Type <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> value<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">set</span> <span class="token function">property</span><span class="token punctuation">(</span>value<span class="token operator">:</span> Type<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+     
+    <span class="token punctuation">}</span>
+    
+    <span class="token keyword">constructor</span><span class="token punctuation">(</span>param0<span class="token operator">:</span> Type<span class="token punctuation">,</span> param1<span class="token operator">:</span> Type<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    
+    <span class="token punctuation">}</span>
+    
+    <span class="token generic-function"><span class="token function">method</span> <span class="token generic class-name"><span class="token operator">&lt;</span><span class="token constant">T</span><span class="token punctuation">,</span> <span class="token constant">U</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">(</span>param0<span class="token operator">:</span> Type<span class="token punctuation">,</span> param1<span class="token operator">:</span> Type<span class="token punctuation">)</span><span class="token operator">:</span> Type <span class="token punctuation">{</span>
+    
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment">// .js</span>
+<span class="token keyword">class</span> <span class="token class-name">Identifier</span> <span class="token punctuation">{</span>
+    <span class="token keyword">static</span> staticField <span class="token operator">=</span> value<span class="token punctuation">;</span> 
+    
+    <span class="token keyword">static</span> <span class="token keyword">get</span> <span class="token function">staticProperty</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> value<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    
+    <span class="token keyword">static</span> <span class="token keyword">set</span> <span class="token function">staticProperty</span><span class="token punctuation">(</span>value<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+     
+    <span class="token punctuation">}</span>
+    
+    <span class="token keyword">static</span> <span class="token function">staticMethod</span> <span class="token punctuation">(</span>param<span class="token punctuation">,</span> param<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    
+    <span class="token punctuation">}</span>
+    
+    <span class="token punctuation">[</span>computedProp<span class="token punctuation">]</span> <span class="token operator">=</span> value<span class="token punctuation">;</span> 
+    
+    field <span class="token operator">=</span> value<span class="token punctuation">;</span>
+    
+    <span class="token keyword">get</span> <span class="token function">property</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> value<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    
+    <span class="token keyword">set</span> <span class="token function">property</span><span class="token punctuation">(</span>value<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+     
+    <span class="token punctuation">}</span>
+    
+    <span class="token keyword">constructor</span><span class="token punctuation">(</span>param0<span class="token punctuation">,</span> param1<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    
+    <span class="token punctuation">}</span>
+    
+    <span class="token function">method</span> <span class="token punctuation">(</span>param0<span class="token punctuation">,</span> param1<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre></div>
+<h3>Итог</h3>
+<ul>
+<li>Аннотация типа устанавливается оператором двоеточия <code>:</code>, после которого следует указание типа данных.</li>
+<li>При объявлении переменных тип данных указывается сразу после идентификатора.</li>
+<li>У функций и методов класса возвращаемый тип данных указывается между параметрами и телом.</li>
+<li>У стрелочных функций возвращаемый тип данных указывается между параметрами и стрелкой.</li>
+<li>У функций, стрелочных функций и методов класса, параметрам также указывается тип данных.</li>
+<li>При необходимости функциям, стрелочным функциям и методам класса можно указать параметры типа, которые заключаются в угловые скобки и указываются перед круглыми скобками, в которых размещаются параметры функции.</li>
+<li>В <em>TypeScript</em> аннотирование типов у функций, методов и конструкторов расширено при помощи перегрузки функций.</li>
+<li>Для полей класса тип данных указывается сразу после идентификатора-имени.</li>
+<li>Для геттеров (getters) указывается возвращаемый тип данных.</li>
+<li>Для сеттеров (setters) указывается тип единственного параметра и вовсе не указывается возвращаемый тип.</li>
+</ul>
+</div><div class="page"><h2><p class="chapter-heading__chapter-index">Глава 12</p><p class="chapter-heading__dot">. </p><p class="chapter-heading__chapter-title">Базовый Тип Any</p></h2>
+<h3>Базовый Тип Any</h3>
+<hr>
+<p>То что <em>TypeScript</em> является типизированной надстройкой над <em>JavaScript</em>, от которой после компиляции не остаётся и следа, означает, что первый перенял от второго всю его идеологию. Одним из таких моментов является разделение типов данных на типы значения (примитивные) и ссылочные типы.</p>
+<p>В <em>JavaScript</em> все не объектные типы по своей природе иммутабельные. Иммутабельность означает, что значения нельзя модифицировать, а можно лишь полностью перезаписать новым значением. Из-за этого типы значения были прозваны примитивными типами.</p>
+<h3>Any (any) произвольный тип</h3>
+<hr>
+<p>Все типы в <em>TypeScript</em> являются подтипами <code>any</code>, который указывается с помощью ключевого слова <code>any</code>. Это означает, что он совместим в обе стороны с любым типом данных и с точки зрения системы типов является <em>высшим типом</em> (top type). </p>
+<div class="remark-highlight"><pre class="language-typescript"><code><span class="token keyword">let</span> apple<span class="token operator">:</span> <span class="token builtin">any</span> <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+apple <span class="token operator">=</span> <span class="token string">""</span><span class="token punctuation">;</span>
+apple <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+</code></pre></div>
+<p>Тип <code>any</code> в аннотации рекомендуется применять только в самых крайних случаях. К примеру объявление неинициализированной переменной, с заранее неизвестным типом, что является допустимым сценарием на ранних стадиях применения техники <code>TDD</code> при создании программы. В остальных случаях настоятельно рекомендуется прежде всего рассматривать кандидатуру обобщенных типов, которые будут рассматриваться позднее.</p>
+<p>Тип <code>any</code> позволяет работать со значением динамически, что не вызывает ошибок при обращении к членам не описанных в типе данных (незадекларированных), о которых анализатор <em>TypeScript</em> ничего не знает.</p>
+<p>Примером этого может служить сервис, который работает с сервером посредством <em>API</em>. Полученные и сериализованные данные могут храниться как тип <code>any</code> прежде чем они будут и преобразованы к конкретному типу.</p>
+<div class="remark-highlight"><pre class="language-typescript"><code><span class="token keyword">let</span> data<span class="token operator">:</span> <span class="token builtin">any</span> <span class="token operator">=</span> <span class="token constant">JSON</span><span class="token punctuation">.</span><span class="token function">parse</span><span class="token punctuation">(</span><span class="token string">'{"id": "abc"}'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">let</span> id <span class="token operator">=</span> data<span class="token punctuation">.</span>id<span class="token punctuation">;</span> <span class="token comment">// ок</span>
+</code></pre></div>
+<p>Если при объявлении переменных <code>var</code> и <code>let</code> и полей, объявленных в теле класса, не было присвоено значение, компилятором будет выведен тип данных <code>any</code>.</p>
+<div class="remark-highlight"><pre class="language-typescript"><code><span class="token keyword">var</span> apple<span class="token punctuation">;</span> <span class="token comment">// apple: any</span>
+<span class="token keyword">let</span> lemon<span class="token punctuation">;</span> <span class="token comment">// lemon: any</span>
+
+<span class="token keyword">class</span> <span class="token class-name">Fruit</span> <span class="token punctuation">{</span>
+    name<span class="token punctuation">;</span> <span class="token comment">// name: any</span>
+<span class="token punctuation">}</span>
+</code></pre></div>
+<p>То же правило касается и параметров функций.</p>
+<div class="remark-highlight"><pre class="language-typescript"><code><span class="token keyword">function</span> <span class="token function">weight</span><span class="token punctuation">(</span>fruit<span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token comment">// fruit: any</span>
+
+<span class="token punctuation">}</span>
+</code></pre></div>
+<p>Кроме того, если функция возвращает значение, принадлежащее к типу, который компилятор не в состоянии вывести, то возвращаемый этой функцией тип данных будет также будет выведен как тип <code>any</code>.</p>
+<div class="remark-highlight"><pre class="language-typescript"><code><span class="token keyword">function</span> <span class="token function">sum</span><span class="token punctuation">(</span>a<span class="token punctuation">,</span> b<span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token comment">// function sum(a: any, b: any): any</span>
+    <span class="token keyword">return</span> a <span class="token operator">+</span> b<span class="token punctuation">;</span> 
+<span class="token punctuation">}</span>
+</code></pre></div>
+<p>Тип <code>any</code> является уникальным для <em>TypeScript</em>, в <em>JavaScript</em> подобного типа не существует.</p>
+<h3>Итог</h3>
+<ul>
+<li>Тип данных <code>any</code> является супертипом для всех типов в <em>TypeScript</em> и указывается с помощью ключевого слова <code>any</code>.</li>
+<li>Тип данных <code>any</code> указывается тогда, когда тип данных заранее неизвестен.</li>
+<li>Тип данных <code>any</code> указывается только в самых крайних случаях.</li>
+<li>Тип данных <code>any</code> позволяет обращаться к незадекларированным членам объектов, имитируя динамическое поведение, тем самым перекладывая ответственность за проверку реализации интерфейса на разработчика.</li>
+</ul>
+</div>
+</body>
+</html>

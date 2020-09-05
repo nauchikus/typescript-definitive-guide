@@ -1,0 +1,25 @@
+
+.main-title{
+    font-size: 52px;
+    font-weight: bold;
+
+    text-align: center;
+    white-space: nowrap;
+
+}
+.main-description {
+    color: rgba(0,0,0,.8);
+    font-size: 32px;
+    text-align: center;
+    white-space: nowrap;
+
+    margin: 24px 0;
+}
+.main-date {
+    color: rgba(0,0,0,.5);
+    font-size: 18px;
+    text-align: center;
+    white-space: nowrap;
+
+    margin: 48px 0 0 0;
+}

@@ -48,11 +48,16 @@
     "npm-upgrade": "^2.0.4",
     "prettier": "^2.0.5",
     "prismjs": "^1.21.0",
+    "puppeteer": "^5.2.1",
+    "remark": "^12.0.1",
+    "remark-html": "^12.0.0",
+    "remark-prism": "^1.1.9",
     "ts-jest": "^26.2.0",
     "ts-node": "^8.10.2",
     "typescript": "^4.0.2",
     "unist-util-find-after": "^3.0.0",
-    "unist-util-visit": "^2.0.3"
+    "unist-util-visit": "^2.0.3",
+    "weasyprint-wrapper": "^0.1.2"
   },
   "keywords": [
     "gatsby"
