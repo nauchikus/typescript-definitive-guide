@@ -7,6 +7,7 @@ import { Version } from "../../utils/Version";
 import { useContentIntersectionObserver } from "../../react__hooks/content-intersection-observer-hook";
 import { useWhatIsNewPageStores } from "../../stores/WinPageMobxEntry";
 import * as StringUtils from "../../utils/string-utils";
+import { useHtmlLink } from "../../react__hooks/useHtmlLink";
 
 interface IInnovationListWinContentProps {
 
@@ -15,6 +16,7 @@ interface IInnovationListWinContentProps {
 export const InnovationListWinContent: FC<IInnovationListWinContentProps> = observer(( {  } ) => {
   useCopyToBufferButtonFromNativeMarkup();
   useContentIntersectionObserver();
+  useHtmlLink();
 
 
   let {
@@ -33,7 +35,7 @@ export const InnovationListWinContent: FC<IInnovationListWinContentProps> = obse
                className="content__section win-content__innovation-list-item">
         <SectionInformerContent commitInfoAll={ innovation.commitInfoAll }
                                 contentOnGithubLink={ innovation.fileOnGithubLink }/>
-        <span dangerouslySetInnerHTML={ { __html: innovation.html } }></span>
+        <span className="content__html-content-wrapper" dangerouslySetInnerHTML={ { __html: innovation.html } }></span>
       </section>
     ) );
 

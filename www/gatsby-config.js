@@ -1,9 +1,10 @@
 const path = require('path');
 
 const dotenv = require('dotenv');
-// dotenv.config({
-//   path: `.env.${process.env.NODE_ENV}`
-// });
+dotenv.config({
+  path: `.env.${process.env.NODE_ENV}`
+});
+
 dotenv.config({
   path: path.join(
       path.resolve(process.cwd(), `../`),
@@ -210,6 +211,13 @@ const getPlugins = ({ locale, lang }) => [
         //   options: {  },
         // },
 
+        {
+          resolve: 'gatsby-remark-transform-link',
+          options: {
+            locale,
+            lang
+          }
+        },
         {
           resolve: 'gatsby-remark-formatting-content-link',
           options: {

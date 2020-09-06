@@ -5,7 +5,9 @@ const visit=require('unist-util-visit');
 
 const NAME_VALID_LANG=[
   'ts',
+  'typescript',
   'js',
+  'javascript',
   'json',
 ];
 const META_VALID_FIELDS = [

@@ -4,6 +4,7 @@ import { useAppContentIntersectionObserver } from "../../react__hooks/scroll-pag
 import { useRouter } from "../../stores/RouterStore";
 import { useContentIntersectionObserver } from "../../react__hooks/content-intersection-observer-hook";
 import { useCopyToBufferButtonFromNativeMarkup } from "../../react__hooks/copy-to-buffer-button-from-native-markup-hook";
+import { useHtmlLink } from "../../react__hooks/useHtmlLink";
 
 
 interface IContentBookChapterProps {
@@ -12,10 +13,11 @@ interface IContentBookChapterProps {
 export const ContentBookChapter:FC<IContentBookChapterProps>=()=>{
   useCopyToBufferButtonFromNativeMarkup();
   useContentIntersectionObserver();
+  useHtmlLink();
 
   let bookChapterContent = useContentDataBookChapter();
 
-  
+
   return (
     <span className="content__html-content-wrapper" dangerouslySetInnerHTML={{ __html: bookChapterContent.html}}></span>
   );
