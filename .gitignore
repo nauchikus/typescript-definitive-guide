@@ -11,5 +11,4 @@ node_modules/
 dest/
 public/
 
-.env.development
 .env.github.development

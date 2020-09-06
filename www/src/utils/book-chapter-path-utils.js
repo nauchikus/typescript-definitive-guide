@@ -1,6 +1,3 @@
-/// TODO: [refactoring][remove after merge with src/utils/book-chapter-path-utils.js]
-
-
 const toIndex = (index, length = 3, symbol = `0`) =>
     symbol.repeat(length - index.toString().length).concat(index.toString());
 const toChapterName = (index, section, title) =>
