@@ -30,7 +30,7 @@ docsearch({
 const getHeadComponentAll = () => ([
     <link key="algolia_css"
           rel="stylesheet"
-          href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.csshttps://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css"/>
+          href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css"/>
 
 ]);
 const getBodyEndComponentAll = () => ([
