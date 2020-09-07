@@ -88,13 +88,13 @@ export const Search: FC<ISearchProps> = observer(( {} ) => {
           <input ref={inputRef}
                  className="search__query-input"
                  type="search"
-                 id="search-input"
+                 id="algolia-search"
                  name="app-search-query"
                  placeholder={appSearchTranslation.inputPlaceholder}
                  onChange={onChange}
                  required/>
 
-          <ScaleButton className="search__submit-button-placeholder button-with-svg-icon" onClick={toggle} disabled={true}>
+          <ScaleButton className="search__submit-button-placeholder button-with-svg-icon" onClick={toggle} disabled={false}>
             <MagnifierSvgIcon className="search__search-svg-icon"/>
           </ScaleButton>
 
