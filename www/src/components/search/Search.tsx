@@ -82,7 +82,7 @@ export const Search: FC<ISearchProps> = observer(( {} ) => {
             action="#"
             toggle-state={appSearch.active.state}
             is-match={appSearch.match.isToggle.toString()}
-            onKeyDown={onKeyDown}
+            // onKeyDown={onKeyDown}
             onSubmit={onSubmit}>
         <div className="search__input-section">
           <input ref={inputRef}
@@ -91,7 +91,7 @@ export const Search: FC<ISearchProps> = observer(( {} ) => {
                  id="algolia-search"
                  name="app-search-query"
                  placeholder={appSearchTranslation.inputPlaceholder}
-                 onChange={onChange}
+                 // onChange={onChange}
                  required/>
 
           <ScaleButton className="search__submit-button-placeholder button-with-svg-icon" onClick={toggle} disabled={false}>
