@@ -26,7 +26,7 @@ docsearch({
     inputSelector: '#algolia-search',
     debug: true // Set debug to true if you want to inspect the dropdown
 })
-console.log('ALGOLIA INLINE SCRIPT');
+console.log('ALGOLIA INLINE SCRIPT', document.querySelector('#algolia-search'));
 `)
 const getHeadComponentAll = () => ([
     <link key="algolia_css"
