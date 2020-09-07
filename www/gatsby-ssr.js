@@ -24,8 +24,9 @@ docsearch({
     apiKey: '0260af6591f616d3300bc3b89d75cfd1',
     indexName: 'nauchikus_typescript-definitive-guide',
     inputSelector: '#algolia-search',
-    debug: false // Set debug to true if you want to inspect the dropdown
+    debug: true // Set debug to true if you want to inspect the dropdown
 })
+console.log('ALGOLIA INLINE SCRIPT');
 `)
 const getHeadComponentAll = () => ([
     <link key="algolia_css"
