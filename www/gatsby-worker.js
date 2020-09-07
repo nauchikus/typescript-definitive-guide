@@ -13,6 +13,9 @@ const weasyprint = require(`weasyprint-wrapper`);
 
 const headingDownlevel = require(`./workers/pdf/heading-downlevel`)
 const headingAddAnchor = require(`./workers/pdf/heading-add-anchor`)
+const blockCodeCollectInfoBeforeParsePrism = require(`./workers/pdf/block-code-collect-info-before-parse-prism`)
+const remarkPrismWrapper = require(`./workers/pdf/remark/remark-prism-wrapper`)
+const blocCodeDecorate = require(`./workers/pdf/block-code-decorate`)
 const headingAddDecor = require(`./workers/pdf/heading-add-decor`)
 const HtmlTemplates = require(`./workers/pdf/templates`)
 
@@ -57,7 +60,10 @@ async function Pdf ({ inputPaths, outputDir, args: { toc, bookInfo, bookCoverPat
     let processor = remark()
         .use(headingDownlevel)
         .use(headingAddDecor, {toc})
-        .use(remarkPrism)
+        .use(blockCodeCollectInfoBeforeParsePrism)
+        .use(remarkPrismWrapper)
+        // .use(remarkPrism)
+        .use(blocCodeDecorate)
         .use(remarkHtml);
 
     let htmlAll = await Promise.all(

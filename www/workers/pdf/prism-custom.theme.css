@@ -1,7 +1,7 @@
 .remark-highlight{
     word-break: break-word;
 
-    margin: 56px 0 72px 0;
+    /*margin: 56px 0 72px 0;*/
 }
 
 pre[class*="language-"],
@@ -14,7 +14,7 @@ pre {
     background-color: var(--content__code_background-color);
 
     padding: 16px;
-    margin: 0;
+    margin: 0!important;
 
 }
 pre > code {

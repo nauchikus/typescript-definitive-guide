@@ -51,6 +51,7 @@ const Html = ({content, description, root}) => (`
     <link rel="stylesheet" href="${toPath(root, `./title.css`)}">
     <link rel="stylesheet" href="${toPath(root, `./headings.css`)}">
     <link rel="stylesheet" href="${toPath(root, `./content.css`)}">
+    <link rel="stylesheet" href="${toPath(root, `./code-block.css`)}">
     
     <title>TypeScript: Подробное Руководство</title>
     

@@ -207,7 +207,8 @@
   /*common vars*/
   //--app_border_color-default: rgba(0, 0, 0, .2);
   --app_border_color-default: #{$border__color_darklite};
-  --app_border-radius-default: 5px;--app_base-color: white;
+  --app_border-radius-default: 5px;
+  --app_base-color: white;
   --app_base_darklite-color: #{$color_darklite};
   --app_base_darkmiddle-color: rgba(0, 0, 0, .7);
 
