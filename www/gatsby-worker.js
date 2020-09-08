@@ -11,14 +11,213 @@ const puppeteer = require(`puppeteer`)
 const weasyprint = require(`weasyprint-wrapper`);
 
 
-const headingDownlevel = require(`./workers/pdf/heading-downlevel`)
-const headingAddAnchor = require(`./workers/pdf/heading-add-anchor`)
-const blockCodeCollectInfoBeforeParsePrism = require(`./workers/pdf/block-code-collect-info-before-parse-prism`)
+const headingDownlevel = require(`./workers/pdf/remark/heading-downlevel`)
+const transformLink = require(`./workers/pdf/remark/transform-link`)
+const blockCodeCollectInfoBeforeParsePrism = require(`./workers/pdf/remark/block-code-collect-info-before-parse-prism`)
 const remarkPrismWrapper = require(`./workers/pdf/remark/remark-prism-wrapper`)
-const blocCodeDecorate = require(`./workers/pdf/block-code-decorate`)
-const headingAddDecor = require(`./workers/pdf/heading-add-decor`)
+const blocCodeDecorate = require(`./workers/pdf/remark/block-code-decorate`)
+const headingAddId = require(`./workers/pdf/remark/heading-add-id`)
+const h1AddDecor = require(`./workers/pdf/remark/h1-add-decor`)
+const h2AddDecor = require(`./workers/pdf/remark/h2-add-decor`)
+const imagePathResolve = require(`./workers/pdf/remark/image-path-resolve`)
 const HtmlTemplates = require(`./workers/pdf/templates`)
 
+
+const getContent = ({first,second,third}) => HtmlTemplates.Html({
+    root: `./workers/pdf`,
+    content: `
+<h2 id="${first}">First</h2>
+<p>content</p>
+<p>content</p>
+<p>content</p>
+<p>content</p>
+<p>
+<a href="#${second}">Second</a>
+</p>
+<p>content</p>
+<p>content</p>
+<p>content</p>
+<p>content</p>
+<p>content</p>
+<p>content</p>
+<p>content</p>
+<p>content</p>
+<p>content</p>
+<p>content</p>
+<p>content</p>
+<p>content</p>
+<p>content</p>
+<p>content</p>
+<p>content</p>
+<p>content</p>
+<p>content</p>
+<p>content</p>
+<p>content</p>
+<p>content</p>
+<p>content</p>
+<p>content</p>
+<p>content</p>
+<p>content</p>
+<p>content</p>
+<p>content</p>
+<p>content</p>
+<p>content</p>
+<p>content</p>
+<p>content</p>
+<p>content</p>
+<p>content</p>
+<p>content</p>
+<p>content</p>
+<p>content</p>
+<p>content</p>
+<p>content</p>
+<p>content</p>
+<p>content</p>
+<p>content</p>
+<p>content</p>
+<p>content</p>
+<p>content</p>
+<p>content</p>
+<p>content</p>
+<p>content</p>
+<p>content</p>
+<p>content</p>
+<p>content</p>
+<p>content</p>
+<p>content</p>
+<p>content</p>
+<p>content</p>
+<p>content</p>
+<h2 id="${second}">Second</h2>
+<p>content</p>
+<p>content</p>
+<p>content</p>
+<p>content</p>
+<p>content</p>
+<p>content</p>
+<p>
+<a href="#${third}">Third</a>
+</p>
+<p>content</p>
+<p>content</p>
+<p>content</p>
+<p>content</p>
+<p>content</p>
+<p>content</p>
+<p>content</p>
+<p>content</p>
+<p>content</p>
+<p>content</p>
+<p>content</p>
+<p>content</p>
+<p>content</p>
+<p>content</p>
+<p>content</p>
+<p>content</p>
+<p>content</p>
+<p>content</p>
+<p>content</p>
+<p>content</p>
+<p>content</p>
+<p>content</p>
+<p>content</p>
+<p>content</p>
+<p>content</p>
+<p>content</p>
+<p>content</p>
+<p>content</p>
+<p>content</p>
+<p>content</p>
+<p>content</p>
+<p>content</p>
+<p>content</p>
+<p>content</p>
+<p>content</p>
+<p>content</p>
+<p>content</p>
+<p>content</p>
+<p>content</p>
+<p>content</p>
+<p>content</p>
+<p>content</p>
+<p>content</p>
+<p>content</p>
+<p>content</p>
+<p>content</p>
+<p>content</p>
+<p>content</p>
+<p>content</p>
+<p>content</p>
+<p>content</p>
+<p>content</p>
+<p>content</p>
+<p>content</p>
+<h2 id="${third}">Third</h2>
+<p>content</p>
+<p>content</p>
+<p>content</p>
+<p>content</p>
+<p>content</p>
+<p>content</p>
+<p>
+<a href="#${first}">First</a>
+</p>
+<p>content</p>
+<p>content</p>
+<p>content</p>
+<p>content</p>
+<p>content</p>
+<p>content</p>
+<p>content</p>
+<p>content</p>
+<p>content</p>
+<p>content</p>
+<p>content</p>
+<p>content</p>
+<p>content</p>
+<p>content</p>
+<p>content</p>
+<p>content</p>
+<p>content</p>
+<p>content</p>
+<p>content</p>
+<p>content</p>
+<p>content</p>
+<p>content</p>
+<p>content</p>
+<p>content</p>
+<p>content</p>
+<p>content</p>
+<p>content</p>
+<p>content</p>
+<p>content</p>
+<p>content</p>
+<p>content</p>
+<p>content</p>
+<p>content</p>
+<p>content</p>
+<p>content</p>
+<p>content</p>
+<p>content</p>
+<p>content</p>
+<p>content</p>
+<p>content</p>
+<p>content</p>
+<p>content</p>
+<p>content</p>
+<p>content</p>
+<p>content</p>
+<p>content</p>
+<p>content</p>
+<p>content</p>
+<p>content</p>
+<p>content</p>
+<p>content</p>
+<p>content</p>
+<p>content</p>
+<p>content</p>
+    `.trim()
+})
 
 async function generateCover(){
     // const browser = await puppeteer.launch({
@@ -54,16 +253,29 @@ async function generateCover(){
     await browser.close();
 }
 
+
+
 async function Pdf ({ inputPaths, outputDir, args: { toc, bookInfo, bookCoverPath } }) {
     console.time(`Generation Book Pdf`);
 
+    let imagePathResolveOptions = {
+        processRoot: process.cwd(),
+        bookRoot: path.relative(process.cwd(), `../book/ru/chapters`),
+        toc,
+    }
+
+
     let processor = remark()
         .use(headingDownlevel)
-        .use(headingAddDecor, {toc})
+        .use(imagePathResolve, imagePathResolveOptions)
+        .use(headingAddId, {toc})
+        .use(h2AddDecor, {toc})
+        .use(h1AddDecor, {toc})
         .use(blockCodeCollectInfoBeforeParsePrism)
         .use(remarkPrismWrapper)
-        // .use(remarkPrism)
         .use(blocCodeDecorate)
+        .use(transformLink)
+
         .use(remarkHtml);
 
     let htmlAll = await Promise.all(
@@ -89,9 +301,12 @@ async function Pdf ({ inputPaths, outputDir, args: { toc, bookInfo, bookCoverPat
         stream.on(`error`, reject);
     });
 
+
     await createPdf(content, `./book.pdf`);
+    // await createPdf(getContent(getId()), `./book.pdf`);
 
     await fsp.writeFile(`./book.html`, content)
+    // await fsp.writeFile(`./book.html`, getContent(getId()))
 
     console.timeEnd(`Generation Book Pdf`);
 
@@ -113,7 +328,7 @@ Pdf({
         bookCoverPath: `/home/ivan/Projects/typescript-definitive-guide/book/ru/metadata/cover.jpg`,
         bookInfo: [
             {
-                path: `/home/ivan/Projects/typescript-definitive-guide/book/ru/chapters/011.(Синтаксические конструкции) Аннотация Типов/content.md`,
+                path: `/home/ivan/Projects/typescript-definitive-guide/book/ru/chapters/010.(Экскурс в типизацию) Совместимость типов на основе вариантности/content.md`,
                 index: 0,
                 section: `Section A`,
                 title: `TypeScript Definitive Guide`
@@ -123,6 +338,15 @@ Pdf({
                 index: 1,
                 section: `Section B`,
                 title: `TypeScript Definitive Guide`
-            }        ]
+            }
+
+            ,
+            {
+                path: `/home/ivan/Projects/typescript-definitive-guide/book/ru/chapters/032.(Типы) Обобщения (Generics)/content.md`,
+                index: 32,
+                section: `Section C`,
+                title: `TypeScript Definitive Guide`
+            }
+        ]
     }
 })

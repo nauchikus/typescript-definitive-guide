@@ -5,7 +5,12 @@
 
 
 
+img {
+    width: 100%;
+    height: auto;
 
+    margin: 48px 0 72px 0;
+}
 
 ul{
     margin: var(--content__ul_margin-top) 0 var(--content__ul_margin-bottom) var(--content__ul_margin-left)!important;

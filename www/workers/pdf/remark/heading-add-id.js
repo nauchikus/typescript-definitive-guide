@@ -1,0 +1,47 @@
+const visit=require('unist-util-visit');
+
+const Utils = require(`./utils`);
+const StringUtils=require('../../../src/utils/string-utils');
+
+module.exports = ({toc}) => ast => {
+
+
+
+    try{
+        visit( ast, `heading`, headingNode => {
+            if (headingNode.depth === 1) {
+                return;
+            }
+
+            let id = ``;
+
+            if (headingNode.depth > 2) {
+                let h1Node = Utils.getH1(ast)
+                let value = Utils.toValue(h1Node);
+
+                id += `${value}#`;
+            }
+
+            let value = Utils.toValue(headingNode);
+
+            id += value;
+            id = StringUtils.hadingToNativeElementAttributeValue(id);
+
+
+            headingNode.data || ( headingNode.data = {} );
+            headingNode.data.hProperties || ( headingNode.data.hProperties = {} );
+
+
+            Object.assign( headingNode.data.hProperties, {
+                id: StringUtils.toCharCodeId(id)
+            } );
+        } );
+    }catch(error){
+        console.error(error);
+    }finally{
+        return ast;
+    }
+
+
+    return ast;
+};

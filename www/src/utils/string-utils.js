@@ -166,7 +166,7 @@ const hadingToNativeElementAttributeValue = compose(
     toPath,
     normalizeSpaceForSelector,
     text => text
-        .replace(`/\[\]<>=/g`, `//$&`)
+        .replace(`/\[\]<>\(\)=/g`, `//$&`)
 );
 const pathToNativeElementAttributeValue = hadingToNativeElementAttributeValue;
 // const
@@ -179,6 +179,9 @@ const urlToSelector = compose(
 const generateStringId = ( ( length = 6, count = -1 ) => () =>
     "0".repeat( length - ( count++ ).toString().length ).concat( count.toString() )
 )();
+
+const toCharCodeId = name => [...name].map(char => char.charCodeAt()).join(``);
+
 module.exports = {
   translitRusToEng,
   chapterHeadingToPath,
@@ -194,5 +197,6 @@ module.exports = {
   urlToNativeElementAttributeValue,
   pathToNativeElementAttributeValue,
   urlToPath,
+  toCharCodeId,
 };
 

@@ -78,6 +78,8 @@ ${content}
 </body>
 </html>
 `).trim();
+
+
 const BookTitlePage = path => (`
 <div class="main-title_container">
     <p class="main-title">TypeScript</p>
@@ -87,9 +89,12 @@ const BookTitlePage = path => (`
 <p class="main-date">Дата последнего обновления: <time>${new Date().toLocaleDateString()}</time></p>
 `).trim();
 
+
+
 const Page = (content, ...classes)  => (`
 <div class="${[`page`, ...classes].join(` `)}">${content}</div>
 `).trim();
+
 
 
 // const Header = ({styles}) => (`<div class="header" style="padding: 0 !important; margin: 0; -webkit-print-color-adjust: exact; background-color: red; color: white; width: 100%; text-align: left; font-size: 12px;">header of Juan<br /> Page <span class="pageNumber"></span> of <span class="totalPages"></span></div>`).trim();

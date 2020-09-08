@@ -1,5 +1,5 @@
 const visit = require('unist-util-visit');
-const StringUtils = require('../../src/utils/string-utils');
+const StringUtils = require('../../../src/utils/string-utils');
 
 
 module.exports = options => ast => {
@@ -11,7 +11,8 @@ module.exports = options => ast => {
         headingNode.data.hProperties || ( headingNode.data.hProperties = {} );
 
         Object.assign( headingNode.data.hProperties, {
-            id: anchor
+            id: anchor,
+            target: `__blank`
         } );
     });
 

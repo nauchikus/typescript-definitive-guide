@@ -1,41 +1,45 @@
 const visit = require('unist-util-visit');
-const StringUtils = require('../../src/utils/string-utils');
+const StringUtils = require('../../../src/utils/string-utils');
+const Utils = require(`./utils`);
 
 
 module.exports = ({ toc }) => ast => {
-
-    const toValue = node => node.children.reduce((result, { value }) => result.concat(value), ``);
-
-    const isChapterHeading = node => node.type === `heading` && node.depth === 2;
+    const isChapterHeading = node => node.type === `heading` && node.depth === 3;
 
 
-    visit(ast, isChapterHeading, chapterHeadingNode => {
-        let title = toValue(chapterHeadingNode);
-        let tocItem = toc.find(item => item.title === title);
+    visit(ast, isChapterHeading, h2Node => {
+        let h1Node = Utils.getH1(ast);
+        let h1Title = Utils.toValue(h1Node);
+
+        let h2Title = Utils.toValue(h2Node);
+
+        let tocItem = toc.find(item => item.title === h1Title);
 
         if (!tocItem) {
-            throw new Error(`Book toc item with title "${title}" not found in toc.`);
+            throw new Error(`Book toc item with title "${h1Title}" not found in toc.`);
         }
 
         let chapterIndex = toc.indexOf(tocItem);
+        let subchapterIndex = tocItem.subtitles.indexOf(h2Title);
 
-        chapterHeadingNode.children = [
+
+        h2Node.children = [
             {
-                type: 'paragraph',
+                type: 'span',
                 children: [
                     {
                         type: 'text',
-                        value: `Глава ${StringUtils.generateIndex(chapterIndex, 2)}`,
+                        value: `${StringUtils.generateIndex(chapterIndex, 2)}.${subchapterIndex}`,
                     }
                 ],
                 data: {
                     hProperties: {
-                        className: [`chapter-heading__chapter-index`]
+                        className: [`h2__chapter-index`]
                     }
                 }
             },
             {
-                type: 'paragraph',
+                type: 'span',
                 children: [
                     {
                         type: 'text',
@@ -44,21 +48,21 @@ module.exports = ({ toc }) => ast => {
                 ],
                 data: {
                     hProperties: {
-                        className: [`chapter-heading__dot`]
+                        className: [`h2__dot`]
                     }
                 }
             },
             {
-                type: 'paragraph',
+                type: 'span',
                 children: [
                     {
                         type: 'text',
-                        value: title
+                        value: h2Title
                     }
                 ],
                 data: {
                     hProperties: {
-                        className: [`chapter-heading__chapter-title`]
+                        className: [`h2__chapter-title`]
                     }
                 }
             }

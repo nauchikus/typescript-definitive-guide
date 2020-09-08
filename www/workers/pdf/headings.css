@@ -4,20 +4,61 @@ h1, h2, h3, h4, h5 {
 h2, h3, h4, h5 {
     padding: 64px 0 64px 0;
 }
-h3 {
-    font-size: 28px;
-}
-.chapter-heading__chapter-index {
+
+.h1__chapter-index {
     color: tomato;
     font-size: 32px;
 
     margin: 0 0 12px 0;
 }
-.chapter-heading__dot{
+.h1__dot{
     height: 0;
     opacity: 0;
 }
-.chapter-heading__chapter-title {
+.h1__title {
     font-size: 40px;
 }
 
+
+h3 {
+    font-size: 28px;
+
+    display: flex;
+    align-items: flex-start;
+}
+.h2__chapter-index {
+    color: rgba(0, 0, 0, .5);
+
+    flex-shrink: 0;
+    /*margin: 4px 0 0 0;*/
+
+    padding: 0 8px;
+
+    display: block;
+
+    position: relative;
+}
+.h2__chapter-index:before {
+    content: "[";
+
+    display: block;
+
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+.h2__chapter-index:after {
+    content: "]";
+
+    display: block;
+
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+.h2__dot{
+    height: 0;
+    opacity: 0;
+}
+.h2__chapter-title {
+}
