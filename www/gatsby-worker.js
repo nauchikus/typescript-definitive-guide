@@ -327,20 +327,20 @@ Pdf({
         toc,
         bookCoverPath: `/home/ivan/Projects/typescript-definitive-guide/book/ru/metadata/cover.jpg`,
         bookInfo: [
-            {
-                path: `/home/ivan/Projects/typescript-definitive-guide/book/ru/chapters/010.(Экскурс в типизацию) Совместимость типов на основе вариантности/content.md`,
-                index: 0,
-                section: `Section A`,
-                title: `TypeScript Definitive Guide`
-            },
-            {
-                path: `/home/ivan/Projects/typescript-definitive-guide/book/ru/chapters/012.(Типы) Базовый Тип Any/content.md`,
-                index: 1,
-                section: `Section B`,
-                title: `TypeScript Definitive Guide`
-            }
-
-            ,
+            // {
+            //     path: `/home/ivan/Projects/typescript-definitive-guide/book/ru/chapters/010.(Экскурс в типизацию) Совместимость типов на основе вариантности/content.md`,
+            //     index: 0,
+            //     section: `Section A`,
+            //     title: `TypeScript Definitive Guide`
+            // },
+            // {
+            //     path: `/home/ivan/Projects/typescript-definitive-guide/book/ru/chapters/012.(Типы) Базовый Тип Any/content.md`,
+            //     index: 1,
+            //     section: `Section B`,
+            //     title: `TypeScript Definitive Guide`
+            // }
+            //
+            // ,
             {
                 path: `/home/ivan/Projects/typescript-definitive-guide/book/ru/chapters/032.(Типы) Обобщения (Generics)/content.md`,
                 index: 32,
