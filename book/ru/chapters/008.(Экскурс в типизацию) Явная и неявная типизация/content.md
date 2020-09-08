@@ -18,7 +18,7 @@
 
 Рассмотрим пример кода демонстрирующего явную типизацию.
 
-~~~~~typescript
+`````ts
 class Controller {
     public check(eggs: IEgg[]): boolean {
         const isValid: boolean = Validator.valid(eggs);
@@ -26,7 +26,7 @@ class Controller {
         return isValid;
     }
 }
-~~~~~
+`````
 
 Класс `Controller` содержит метод `check`, который имеет один обязательный параметр `eggs` c типом `IEgg[ ]` и возвращающий тип `boolean`. Если бы не явно указанные типы параметров, то разработчикам пришлось бы только гадать с чем  именно им предстоит работать. Это же относится и к возвращаемому типу.
 
@@ -44,7 +44,7 @@ class Controller {
 
 За основу примера неявной типизации возьмем код из предыдущего примера и лишим его всей атрибутики, связанной с явной типизации.
 
-~~~~~typescript
+`````ts
 class Controller {
     check(eggs) {
         const isValid = Validator.valid(eggs);
@@ -52,7 +52,7 @@ class Controller {
         return isValid;
     }
 }
-~~~~~
+`````
 
 Этот код стал занимать меньше места, что является одним из нескольких доводов, которые можно услышать в пользу языков с неявной типизацией. Но на самом деле это не так.
 
@@ -60,7 +60,7 @@ class Controller {
 
 Те же рассуждения, в процессе которых происходит рождение более информационного названия, приводят к более детальному осмыслению кода.
 
-~~~~~typescript
+`````ts
 class EggController {
    checkEgg(eggAll) {
        const isEggValid = EggValidator.qualityEggValid(eggAll);
@@ -68,13 +68,13 @@ class EggController {
        return isEggValid;
    }
 }
-~~~~~
+`````
 
 Именно по этой причине правило именования распространяется и на языки с явной типизацией.
 
 А тот факт, что неявная типизация позволяет реализовывать несложные алгоритмы с меньшими временными затратами, разбивается о возможность всех современных языков с явной типизацией с помощью вывода типов указывать тип неявно.
 
-~~~~~typescript
+`````ts
 class EggController {
    public checkEgg(eggAll: IEgg[]): boolean {
        const isEggValid: boolean = EggValidator.qualityEggValid(eggAll);
@@ -82,7 +82,7 @@ class EggController {
        return isEggValid;
    }
 }
-~~~~~
+`````
 
 К языкам с неявной типизацией относятся такие языки, как *JavaScript*, *PHP* и другие.
 

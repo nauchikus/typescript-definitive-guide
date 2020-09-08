@@ -4,14 +4,14 @@
 
 Для того чтобы объявить `readonly` массив или кортеж достаточно указать в сигнатуре типа модификатор `readonly`.
 
-```typescript
+`````ts
 let array: readonly string[] = ['Kent', 'Clark']; // Массив
 let tuple: readonly [string, string] = ['Kent', 'Clark']; // Кортеж
 ```
 
 В случаи, объявления `readonly` массива, становится невозможно изменить его элементы с помощью индексной сигнатуры (`array[...]`)
 
-```typescript
+`````ts
 let array: readonly string[] = ['Kent', 'Clark'];
 array[0] = 'Wayne'; // Error, Index signature in type 'readonly number[]' only permits reading.ts(2542)
 array[array.length] = 'Batman'; // Error, Index signature in type 'readonly number[]' only permits reading.ts(2542)
@@ -19,7 +19,7 @@ array[array.length] = 'Batman'; // Error, Index signature in type 'readonly numb
 
 Помимо этого, у `readonly` массива отсутствуют методы с помощью которым можно изменить элементы массива.
 
-```typescript
+`````ts
 let array: readonly string[] = ['Kent', 'Clark'];
 array.push('Batman'); // Error, Property 'push' does not exist on type 'readonly number[]'.ts(2339)
 array.shift(); // Error, Property 'shift' does not exist on type 'readonly number[]'.ts(2339)
@@ -32,7 +32,7 @@ array.map((item) => item); // Ok
 
 Помимо того, что невозможно изменить или удалить слоты кортежа, он также теряет признаки массива, которые способны привести кего изменению.
 
-```typescript
+`````ts
 let tuple: readonly [string, string] = ['Kent', 'Clark'];
 tuple[0] = 'Wayne'; // Error, Cannot assign to '0' because it is a read-only property.ts(2540)
 
@@ -47,7 +47,7 @@ tuple.map((item) => item); // Ok
 
 До версии `v3.4` поведение типа `Readonly<T>` полноценно распростронялось только на объекты.
 
-```typescript
+`````ts
 // Ok, { readonly a: string, readonly b: number }
 type A = Readonly<{ a: string; b: number }>;
 
@@ -61,7 +61,7 @@ type C = Readonly<[string, boolean]>;
 ,fdktyyj
 Но начиная с версии `v3.4` поведение для типа `Readonly<T>` дополняется поведением массивоподобных `readonly` структур.
 
-```typescript
+`````ts
 // Ok, { readonly a: string, readonly b: number }
 type A = Readonly<{ a: string; b: number }>;
 

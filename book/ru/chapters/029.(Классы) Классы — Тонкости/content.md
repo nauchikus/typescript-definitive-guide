@@ -10,7 +10,7 @@
 
 Кроме того, что класс может реализовать (`implements`) интерфейсы (`interface`), он также может реализовать другой класс.
 
-~~~~~typescript
+`````ts
 interface IAnimal {
     name: string;
 }
@@ -25,11 +25,11 @@ class Bird implements IAnimal { // Ok
 class Fish implements Animal { // Ok
     public name: string;
 }
-~~~~~
+`````
 
 Как уже можно было догадаться, при реализации классом другого класса действуют те же правила, что и при расширении класса интерфейсом. То есть класс, у которого все члены объявлены как публичные (`public`), может реализовать любой другой класс. В то время как класс, имеющий члены с такими модификаторами доступа, как закрытые (`private`) или защищенные (`protected`), может реализовать только этот же класс или его потомки.
 
-~~~~~typescript
+`````ts
 class Animal {
     public name: string;
 }
@@ -61,7 +61,7 @@ class Shark implements Fish { // Error
 class Barracuda extends Fish implements Fish { // Ok
     public name: string;
 }
-~~~~~
+`````
 
 
 ## Частичное Слияние интерфейса с классом
@@ -69,7 +69,7 @@ class Barracuda extends Fish implements Fish { // Ok
 
 На текущий момент известно, что два интерфейса, объявленные в одной области видимости, сливаются вместе. Кроме того, если интерфейс объявлен в одной области видимости с одноимённым классом, то компилятор считает, что класс реализовал одноимённый интерфейс.
 
-~~~~~typescript
+`````ts
 interface Animal {
     id: string;
     age: number;
@@ -85,13 +85,13 @@ animal.age = 0; // Ok
 const { id, age } = animal; // Ok -> id: string and age: number
 
 console.log(id, age); // 'animal', 0
-~~~~~
+`````
 
 ## Переопределение свойств полями и наоборот при наследовании
 
 В _JavaScript_ при использовании механизма наследования (`extends`) производный класс в состоянии переопределить свойство объявленное в базовом классе полем и наоборот, поле свойством.
 
-`````javascript
+`````js
 class Base {
     get value(){
         return 'base'
@@ -122,7 +122,7 @@ console.log(derived.value); // 'new derived'
 
 Но во избежание казусов сопряженных с подобным поведением, _TypeScript_ запрещает подобные переопределения при наследовании.
 
-`````typescript
+`````ts
 class Base {
     get value() {
         return 'value';
@@ -143,7 +143,7 @@ class Derived extends Base {
     value = 'value';
 }
 `````
-`````typescript
+`````ts
 class Base {
      value = 'value';
 }

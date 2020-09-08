@@ -6,7 +6,7 @@
 
 Доступ к защищенному полю класса ограничивается областью видимости класса в котором оно объявлено, а при обращении к нему необходимо также указывать символ решетки. 
 
-`````typescript
+`````ts
 class Animal {
     #isLife: boolean = true; // защищенное поле класса
 
@@ -21,7 +21,7 @@ console.log(animal.isLife); // обращение к аксессору, а не
 
 Поскольку доступ ограничивается областью видимости класса, потомки не могут обращаться к защищенным полям своих предков.
 
-`````typescript
+`````ts
 class Animal {
     #isLife: boolean = true; // защищенное поле класса
 }
@@ -45,7 +45,7 @@ class Bird extends Animal {
 
 Сценарий с модификатором доступа private:
 
-`````typescript
+`````ts
 class Animal {
     private _isLife: boolean = true;
 }
@@ -63,7 +63,7 @@ class Bird extends Animal {
 
 Сценарий с защищенными полями предусмотренными спецификацией ECMAScript:
 
-`````typescript
+`````ts
 class Animal {
     #isLife: boolean = true;
 }
@@ -78,7 +78,7 @@ class Bird extends Animal {
 
 И в заключение, стоит упомянуть что существует несколько нюансов — один из них заключается в том, что закрытые поля нельзя объявлять непосредственно в конструкторе.
 
-`````typescript
+`````ts
 class Animal {
     // Parameter declaration expected.ts(1138)
     constructor(#isLife = true) {}

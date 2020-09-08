@@ -9,35 +9,35 @@
 
 Простейшим примером является операция получения элемента из dom-дерева при помощи метода `querySelector()`, который в обычном *нерекомендуемом* режиме (с неактивной опцией `--strictNullChecks`) возвращает значение совместимое с типом `Element`.
 
-~~~~~typescript
+`````ts
 const stage: Element = document.querySelector('#stage');
-~~~~~
+`````
 
 Но в строгом *рекомендуемом* режиме (с активной опцией `--strictNullChecks`) метод `querySelector()` возвращает объединенный тип `Element | null`, поскольку искомое значение может попросту не существовать.
 
-~~~~~typescript
+`````ts
 const stage: Element | null = document.querySelector('#stage');
 
 function stage_clickHandler(event: MouseEvent): void {}
-~~~~~
+`````
 
 Не будет лишним напомнить, что на самом деле метод `querySelector` возвращает тип `Element | null` независимо от режима. Дело в том, что в обычном режиме тип `null` совместим с любыми типами. То есть, в случае отсутствия элемента в dom-дереве операция присваивания значения `null` переменной с типом `Element` не приведет к возникновению ошибки.
 
-~~~~~typescript
+`````ts
 // lib.es6.d.ts
 interface NodeSelector {
     querySelector(selectors: string): Element | null;
 }
-~~~~~
+`````
 
 Возвращаясь к примеру с получением элемента из dom-дерева стоит сказать, что если раскомментировать строчку кода в которой происходит подписка элемента на событие, то даже в том случае, если элемент существует, на этапе компиляции все равно возникнет ошибка. Все дело в том что компилятор _TypeScript_ не позволит вызвать метод `addEventListener` по той причине, что для него объект на который ссылается переменная, принадлежит к типу `Element` ровно настолько же, насколько он принадлежит к типу `null`.
 
-~~~~~typescript
+`````ts
 const stage: Element | null = document.querySelector('#stage');
 stage.addEventListener('click', stage_clickHandler); // тип переменной stage Element или Null?
 
 function stage_clickHandler(event: MouseEvent): void {}
-~~~~~
+`````
 
 Именно из-за этой особенности или другими словами, неоднозначности, которую вызывает тип `Union`, в _TypeScript_ появился механизм называемый _защитниками типа_ (`Type Guards`).
 
@@ -49,7 +49,7 @@ function stage_clickHandler(event: MouseEvent): void {}
 
 В теле этой функции без труда получится выполнить операцию вызова метода `voice` у её параметра, так как этот метод объявлен и в типе `Bird`, и в типе `Fish`. Но при попытке вызвать метод `fly` или `swim` возникает ошибка, так как эти методы не являются общими для обоих типов. Компилятор попросту находится в подвешенном состоянии и не способен самостоятельно определится.
 
-~~~~~typescript
+`````ts
 class Bird {
     public fly(): void {}
     public voice(): void {}
@@ -66,7 +66,7 @@ function move(animal: Bird | Fish): void {
     animal.fly(); // Error
     animal.swim(); // Error
 }
-~~~~~
+`````
 
 Для того чтобы облегчить работу компилятору, _TypeScript_ предлагает процесс сужения множества типов составляющих тип `Union` до заданного диапазона, а затем закрепляет его за конкретной областью видимости в коде. Но прежде чем диапазон типов будет вычислен и ассоциирован с областью, разработчику необходимо составить условия, включающие в себя признаки которые недвусмысленно указывают на принадлежность к нужным типам.
 
@@ -87,7 +87,7 @@ function move(animal: Bird | Fish): void {
 Как уже было сказано, с помощью операторов `typeof` и `instanceof` составляется условие, по которому компилятор может вычислить к какому конкретно типу или диапазону типов будет относится значение в определяемой условием области.
 
 
-~~~~~typescript
+`````ts
 // Пример для оператора typeof
 
 
@@ -114,10 +114,10 @@ function identifier(param: ParamType): void {
 
     param; // param: number | string | boolean | object | Function | symbol | undefined
 }
-~~~~~
+`````
 
 
-~~~~~typescript
+`````ts
 // Пример для оператора instenceof
 
 
@@ -143,12 +143,12 @@ function f(param: Animal | Bird | Fish | Insect): void {
 
     param; // param: Animal | Bird | Fish | Insect
 }
-~~~~~
+`````
 
 В случае, когда значение принадлежит к типу `Union`, а выражение состоит из двух операторов, `if` и `else`, значение находящиеся в операторе `else` будет принадлежать к диапазону типов не участвующих в условии `if`.
 
 
-~~~~~typescript
+`````ts
 // Пример для оператора typeof
 
 
@@ -175,9 +175,9 @@ function f1(param: number | string | boolean): void {
 
     param; // param: number | string | boolean
 }
-~~~~~
+`````
 
-~~~~~typescript
+`````ts
 // Пример для оператора instanceof
 
 
@@ -216,7 +216,7 @@ function f1(param: Animal | Bird | Fish | Insect | Bug): void {
 
     param; // param: Animal | Bird | Fish | Insect | Bug
 }
-~~~~~
+`````
 
 Кроме того, условия можно поместить в тернарный оператор. В этом случае область на которую распространяется сужение диапазона типов ограничивается областью, в которой выполняется соответствующие условию выражение.
 
@@ -227,7 +227,7 @@ function f1(param: Animal | Bird | Fish | Insect | Bug): void {
 Создав условие в котором значение проверяется на принадлежность к типу отличному от типа `T`, разработчик укажет компилятору, что при выполнении условия тип параметра будет ограничен типом `Function`, тем самым создав возможность вызвать параметр как функцию. Иначе значение хранимое в параметре принадлежит к типу `T`.
 
 
-~~~~~typescript
+`````ts
 // Пример для оператора typeof
 
 
@@ -238,9 +238,9 @@ function f(param: string | (() => string)): void {
 
   param; // param: string | (() => string)
 }
-~~~~~
+`````
 
-~~~~~typescript
+`````ts
 // Пример для оператора instanceof
 
 
@@ -255,7 +255,7 @@ function identifier(param: Animal | (() => Animal)): void {
 
     param; // param: Animal | (() => Animal)
 }
-~~~~~
+`````
 
 Так как оператор `switch` логически похож на оператор `if`/`else`, то может показаться, что механизм рассмотренныq в этой главе будет применим и к нему. Но это не так. Вывод типов не умеет различать условия составленные при помощи операторов `typeof` и `instanceof` в конструкции `switch`.
 
@@ -267,7 +267,7 @@ function identifier(param: Animal | (() => Animal)): void {
 
 Условия составленные на основе идентификаторов варианта можно использовать во всех условных операторах включая `switch`.
 
-~~~~~typescript
+`````ts
 // Пример для оператора if\esle
 
 
@@ -304,9 +304,9 @@ function move(param: Bird | Fish): void {
 
     param; // param: Bird | Fish
 }
-~~~~~
+`````
 
-~~~~~typescript
+`````ts
 // Пример для тернарного оператора (?:)
 
 
@@ -317,9 +317,9 @@ function move(param: Bird | Fish): void {
 
     param; // param: Bird | Fish
 }
-~~~~~
+`````
 
-~~~~~typescript
+`````ts
 // Пример для оператора switch
 
 
@@ -360,14 +360,14 @@ function move(param: Bird | Fish): void {
 
     param; // param: Bird | Fish
 }
-~~~~~
+`````
 
 В случаях, когда множество типа `Union` составляют тип `null` и/или `undefined`, а также только один конкретный тип, выводу типов будет достаточно условия подтверждающего существование значения отличного от `null` и/или `undefined`.
 
 Это очень распространенный случай при активной опции `--strictNullChecks`. Условие с помощью которого вывод типов сможет установить принадлежность значения к типам, отличными от `null` и/или `undefined`, может использоваться совместно с любыми условными операторами.
 
 
-~~~~~typescript
+`````ts
 // Пример с оператором if\else
 
 
@@ -386,9 +386,9 @@ function f(param: number | null | undefined): void {
 
     param; // param: number | null | undefined
 }
-~~~~~
+`````
 
-~~~~~typescript
+`````ts
 // Пример с тернарным оператором (?:)
 
 
@@ -400,9 +400,9 @@ function f(param: number | null | undefined): void {
 
     param; // param: number | null | undefined
 }
-~~~~~
+`````
 
-~~~~~typescript
+`````ts
 // Пример с оператором switch
 
 
@@ -425,11 +425,11 @@ function identifier(param: number | null | undefined): void {
 
     param; // param: number | null | undefined
 }
-~~~~~
+`````
 
 Кроме этого, при активной опции `--strictNullChecks`, в случаях со значением принадлежащем к объектному типу, вывод типов может заменить оператор `Not-Null Not-Undefined`. Для этого нужно составить условие в котором будет проверяться обращение к членам в случае отсутствия которых может возникнуть ошибка.
 
-~~~~~typescript
+`````ts
 // Пример с Not-Null Not-Undefined (с учетом активной опции --strictNullChecks)
 
 
@@ -447,9 +447,9 @@ function move(animal: Bird | null | undefined): void {
     animal!.ability.fly(); // Error, Object is possibly 'null' or 'undefined'
     animal!.ability!.fly(); // Ok
 }
-~~~~~
+`````
 
-~~~~~typescript
+`````ts
 // Пример с защитником типа (с учетом активной опции --strictNullChecks)
 
 
@@ -466,7 +466,7 @@ function move(animal: Bird | null | undefined): void {
         animal.ability.fly(); // Ok
     }
 }
-~~~~~
+`````
 
 
 ## Сужение диапазона множества типов на основе доступных членов объекта
@@ -474,7 +474,7 @@ function move(animal: Bird | null | undefined): void {
 
 Сужение диапазона типов также возможно на основе доступных (`public`) членов, присущих типам составляющим диапазон (`Union`). Сделать это можно с помощью оператора `in`.
 
-~~~~~typescript
+`````ts
 class A { public a: number = 10; }
 class B { public b: string = 'text'; }
 class C extends A {}
@@ -495,7 +495,7 @@ function f1(p: B | C) {
 
     return p.b;  // p: B
 }
-~~~~~
+`````
 
 
 ## Сужение диапазона множества типов на основе функции, определенной пользователем
@@ -512,7 +512,7 @@ function f1(p: B | C) {
 Стоит отдельно упомянуть, что ключевое слово `this` можно указать только в сигнатуре метода, который либо определяется в классе, либо описывается в интерфейсе. При попытке указать ключевое слово `this` в предикате функционального выражения не получится избежать ошибки если это выражение определяется непосредственно в `prototype`, функции конструкторе, либо методе объекта созданного с помощью литерала.
 
 
-~~~~~typescript
+`````ts
 // Пример с функцией конструктором
 
 
@@ -521,9 +521,9 @@ function Constructor() {}
 Constructor.prototype.validator = function(): this is Object { // Error
     return true;
 };
-~~~~~
+`````
 
-~~~~~typescript
+`````ts
 // Пример с литералом объекта
 
 
@@ -542,14 +542,14 @@ var object: {validator(): this is Object} = { // Error
         return this;
     }
 };
-~~~~~
+`````
 
 Ко второму члену выражения относится ключевое слово `is` которое служит в качестве утверждения.
 
 В качестве третьего члена выражения может выступать любой тип данных.
 
 
-~~~~~typescript
+`````ts
 // Пример предиката функции (function)
 
 
@@ -562,9 +562,9 @@ function identifier(p1: T1 | T2 | T3): void {
         p1; // p1: T1
     }
 }
-~~~~~
+`````
 
-~~~~~typescript
+`````ts
 // Пример предиката функционального выражения (functional expression)
 
 
@@ -575,9 +575,9 @@ function identifier(p1: T1 | T2 | T3): void {
         p1; // p1: T2
     }
 }
-~~~~~
+`````
 
-~~~~~typescript
+`````ts
 // Пример предиката метода класса (static method)
 
 
@@ -592,11 +592,11 @@ function identifier(p1: T1 | T2 | T3): void {
         p1; // p1: T3
     }
 }
-~~~~~
+`````
 
 Условие, на основании которого разработчик определяет принадлежность одного из параметров к конкретному типу данных не ограничено никакими конкретными правилами. Исходя из результата выполнения условия `true` или `false`, вывод типов сможет установить принадлежность указанного параметра к указанному типу данных.
 
-~~~~~typescript
+`````ts
 class Animal {}
 class Bird extends Animal {
     public fly(): void {}
@@ -636,11 +636,11 @@ function move(animal: Animal): void {
         animal.crawl();
     }
 }
-~~~~~
+`````
 
 Последнее, о чем осталось упомянуть, что в случае когда по условию значение не подходит ни по одному из признаков, вывод типов установит его принадлежность к типу `never`.
 
-~~~~~typescript
+`````ts
 class Animal {
     constructor(public type: string) {}
 }
@@ -657,4 +657,4 @@ function move(animal: Bird | Fish): void {
         animal; // animal: never
     }
 }
-~~~~~
+`````

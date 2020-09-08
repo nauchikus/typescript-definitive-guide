@@ -8,7 +8,7 @@
 
 _TypeScript_ решил эту проблему за счет подключения к проекту деклараций, заранее сгенерированных им или создаваемых вручную разработчиками. Декларации размещаются в файлах с расширением _.d.ts_ и состоят только из объявлений типов полностью повторяющих программу до момента компиляции при которой она была лишина всех признаков типизации.
 
-~~~~~typescript
+`````ts
 Файл Animal.ts
 
 
@@ -17,9 +17,9 @@ export default class Animal {
 
    public voice(): void {}
 }
-~~~~~
+`````
 
-~~~~~typescript
+`````ts
 Файл Animal.d.ts
 
 
@@ -29,7 +29,7 @@ declare module "Animal" {
        voice(): void;
    }
 }
-~~~~~
+`````
 
 Еще не забыты дни, когда для часто используемых библиотек приходилось писать декларации самим разработчикам на _TypeScript_, вручную. При этом очень часто в них присутствовали ошибки. Кроме того, декларации не успевали обновляться под постоянно развивающиеся библиотеки.
 
@@ -44,50 +44,50 @@ declare module "Animal" {
 
 Для того чтобы установить нужную декларацию в терминале необходимо выполнить команду часть которой состоит их директивы `@types` полсе которой через косую черту `/`  следует имя библиотеки.
 
-~~~~~typescript
+`````ts
 npm i -D @types/name
-~~~~~
+`````
 
 Чтобы сразу перейти к рассмотрению воспользуемся проектом, который был создан в теме посвященной настройки рабочего окружения и для демонстрации работы установим библиотеку _React_.
 
 Первым делом установим саму библиотеку _React_ выполнив в терминале запущенной из под директории проекта следующую команду.
 
-~~~~~typescript
+`````ts
 npm i -D react
-~~~~~
+`````
 
 Открыв директорию _/node_modules/_ можно убедиться, что библиотека _React_ успешно установлена, поэтому сразу же попытаемся импортировать её в расположенный в директории _src_ файл _index.ts_, предварительно изменив его расширение на требуемое для работы с _React_ — _.tsx_.
 
-~~~~~typescript
+`````ts
 // Файл src/index.tsx
 
 
 import React, {Component} from 'react'; // Error
-~~~~~
+`````
 
 Несмотря на установленную на предыдущем шаге библиотеку _React_, при попытке импортировать её модули возникла ошибка. Возникла она потому, что компилятору _TypeScript_ ничего не известно о библиотеке _React_, поскольку декларация поставляется отдельно т неё. Поэтому чтобы _tsc_ понял что от него хотят, нужно дополнительно установить декларацию при посощи команды `@types` пакетного менеджера `npm`.
 
-~~~~~typescript
+`````ts
 npm i -D @types/react
-~~~~~
+`````
 
 Ошибка, возникающая при импорте модулей _React_ исчезла, а если заглянуть в директорию _/node_modules/_, то можно увидеть новую примечательную поддиректорию _@types_ предназначенную для хранения устанавливаемых с помощью опции `@types` декларации.
 
 Но для полноты картины и этого недостаточно. Для того чтобы добавить наш компонент в dom-дерево, нужно установить `ReactDOM`, который уже давно развивается отдельной библиотекой.
 
-~~~~~typescript
+`````ts
 npm i -D react-dom
-~~~~~
+`````
 
 Кроме того, нужно установить необходимую для работы с ним декларацию.
 
-~~~~~typescript
+`````ts
 npm i -D @types/react-dom
-~~~~~
+`````
 
 Осталось только активировать опцию `--jsx` в _tsconfig.json_ и скомпилировать проект, как это было показано ранее.
 
-~~~~~typescript
+`````ts
 import React, {Component} from 'react'; // Ok
 import * as ReactDOM from 'react-dom'; // Ok
 
@@ -98,7 +98,7 @@ ReactDOM.render(
   <HelloReact />,
   document.querySelector('#root')
 );
-~~~~~
+`````
 
 ## Подготовка к созданию декларации
 
@@ -112,35 +112,35 @@ ReactDOM.render(
 
 Кроме того, точкой входа самого компилятора служит конфигурационный файл, который ему был установлен при запуске. Это означает, что если проект находится в директории _src_, то в декларации путь будет указан как _“src/libname”_ вместо требуемого _“lib”_.
 
-~~~~~typescript
+`````ts
 // Ожидается
 
 declare module "libname" {
   //...
 }
-~~~~~
+`````
 
-~~~~~typescript
+`````ts
 // Есть
 
 declare module "src/libname" {
   //...
 }
-~~~~~
+`````
 
 Это в свою очередь означает, что при импорте модулей придется учитывать лишнюю директорию.
 
-~~~~~typescript
+`````ts
 // Ожидается
 
 import {libname} from 'libname';
-~~~~~
+`````
 
-~~~~~typescript
+`````ts
 // Есть
 
 import {libname} from 'src/libname';
-~~~~~
+`````
 
 Это проблему можно решить, разместив конфигурационный файл в директории исходного кода, в нашем случае это директория _src_. Кто-то не придаст этому значение, кому-то это может показаться не эстетичным. Поэтому при рассмотрении генерации деклараций с помощью _tsc_, конфигурационный файл будет лежать непосредственно в директории _src_. Но при рассмотрении генерации деклараций с помощью сторонних библиотек, будет освещен альтернативный вариант.
 
@@ -172,7 +172,7 @@ _Tree Shaking_ — это механизм позволяющий включат
 
 Важным моментом при создании деклараций для библиотек является понимание того, как их трактует компилятор. Дело в том, что все доступные компилятору декларации находятся в общей для всех области видимости. Это означает, что они также как переменные, функции и классы способны затенять или другими словами, перекрывать друг друга. Кроме того, идентификатор файла не играет никакой роли, поскольку компилятор рассматривает только определение деклараций с помощью ключевого слова `declare`. Проще говоря, два файла имеющие отличные идентификаторы, но идентичные объявления, будут затенять друг друга.
 
-~~~~~typescript
+`````ts
 // Файл ./types/petanimal.d.ts
 
 
@@ -186,9 +186,9 @@ declare module "petanimal" { // Ok
   export { default as Pig } from "Pig";
   export { default as Goat } from "Goat";
 }
-~~~~~
+`````
 
-~~~~~typescript
+`````ts
 // Файл ./types/wildanimal.d.ts
 
 
@@ -202,14 +202,14 @@ declare module "wildanimal" { // Ok
   export { default as Pig } from "Pig";
   export { default as Goat } from "Goat";
 }
-~~~~~
+`````
 
-~~~~~typescript
+`````ts
 // Файл index.ts
 
 
 import Pig from ‘Pig’; // From which library should import module?
-~~~~~
+`````
 
 Погружение в область видлимости стоит начать с понимание процесса компилятора стоящего за  установлением принадлежности к декларации в случаях, когда она распространяется не через менеждер `@types`. Прежде всего компилятор ищет в файле _package.json_ свойство `types` и при его отсутствии или пустом значении `“”` переходит к поиску файла _index.d.ts_ в корне директории. Если свойство `types` ссылается на конкретную декларацию, то точкой входа считается она. В противном случае файл _index.d.ts_. Стоит учесть что при разработке можно будет взаимодействовать только с теми модулями которые подключены в точку входа.
 
@@ -229,7 +229,7 @@ import Pig from ‘Pig’; // From which library should import module?
 
 Кроме того создайте два файла: _IAnimal.ts_ и _Zoo.ts_. Также в директории _src_ создайте директорию _animal_, в которой будут размещены два файла: _Bird.ts_ и _Fish.ts_. В итоге должна получится следующая структура:
 
-~~~~~typescript
+`````ts
 * /
    * src
       * utils
@@ -242,27 +242,27 @@ import Pig from ‘Pig’; // From which library should import module?
       * index.ts
       * index.lib.ts
       * tsconfig.prod.ts
-~~~~~
+`````
 
-~~~~~typescript
+`````ts
 // Файл IAnimal.ts
 
 
 export interface IAnimal {
  name: string;
 }
-~~~~~
+`````
 
-~~~~~typescript
+`````ts
 // Файл utils/string-util.ts
 
 
 export function toString( text: string ): string {
   return `[object ${ text }]`;
 }
-~~~~~
+`````
 
-~~~~~typescript
+`````ts
 // Файл animals/Bird.ts
 
 
@@ -276,9 +276,9 @@ export default class Bird implements IAnimal {
       return StringUtil.toString(this.constructor.name);
   }
 }
-~~~~~
+`````
 
-~~~~~typescript
+`````ts
 // Файл animals/Fish.ts
 
 
@@ -292,9 +292,9 @@ export default class Fish implements IAnimal {
       return StringUtil.toString(this.constructor.name);
   }
 }
-~~~~~
+`````
 
-~~~~~typescript
+`````ts
 // Файл Zoo.ts
 
 
@@ -314,9 +314,9 @@ export default class Zoo {
      return this.animalAll[index];
  }
 }
-~~~~~
+`````
 
-~~~~~typescript
+`````ts
 // Файл index.ts
 
 
@@ -334,9 +334,9 @@ zoo.add( new Fish('shark') );
 for( let i = 0; i < zoo.length; i++ ){
  console.log( `Animal name: ${ zoo.getAnimalByIndex(i).name }.` );
 }
-~~~~~
+`````
 
-~~~~~typescript
+`````ts
 // Файл index.lib.ts
 
 
@@ -355,13 +355,13 @@ export {default as Fish} from './animals/Fish'; // type
 export {default as Zoo} from './Zoo'; // type
 
 export const zoo: Zoo = new Zoo(); // instance
-~~~~~
+`````
 
 В коде нет ничего необычного, поэтому комментариев не будет. Если же кому-то содержимое файла _index.lib.ts*_ показалось необычным, то стоит отметить, что это обычный ре-экспорт модулей _JavaScript_, который никакого отношения к _TypeScript_ не имеет. Повторю, файл _index.lib.ts_ является точкой входа создаваемой библиотеки, поэтому он должен экспортировать все то, что может потребоваться при работе с ней. Конкретно в этом случае экспортировать _utils_ наружу не предполагается, поэтому они не были реэкспортированы.
 
 Также стоит обратить внимание на конфигурационные файлы _TypeScript_, которые взаимно добавляют точки входа друг друга в исключение. Кроме того, конфигурационный файл _dev-сборки_ исключает также конфигурационный файл _prod*-сборки_.
 
-~~~~~typescript
+`````ts
 // Файл /src/tsconfig.prod.json
 
 
@@ -377,9 +377,9 @@ export const zoo: Zoo = new Zoo(); // instance
      "./index.ts"
    ]
  }
-~~~~~
+`````
 
-~~~~~typescript
+`````ts
 //  Файл /tsconfig.json
 
 
@@ -395,9 +395,9 @@ export const zoo: Zoo = new Zoo(); // instance
   "./src/tsconfig.prod.json"
 ]
 }
-~~~~~
+`````
 
-~~~~~typescript
+`````ts
 // Файл package.json
 
 
@@ -416,27 +416,27 @@ export const zoo: Zoo = new Zoo(); // instance
   "typescript": "^2.5.2"
 }
 }
-~~~~~
+`````
 
 Осталось только запустить _prod*-сборку_ и если все было сделанно правильно, в директории _dist_ появятся скомпилированные файлы с расширением _.js_ (конечный код) и _.d.ts_ (представляющие декларации необходимые для работы как самого компилятора _TypeScript_, так и автодополнения _ide_).
 
-~~~~~typescript
+`````ts
 // Файл IAnimal.d.ts
 
 
 export interface IAnimal {
   name: string;
 }
-~~~~~
+`````
 
-~~~~~typescript
+`````ts
 // Файл utils/string-util.d.ts
 
 
 export declare function toString(text: string): string;
-~~~~~
+`````
 
-~~~~~typescript
+`````ts
 // Файл animals/Bird.d.ts
 
 
@@ -446,9 +446,9 @@ export default class Bird implements IAnimal {
   constructor(name: string);
   toString(): string;
 }
-~~~~~
+`````
 
-~~~~~typescript
+`````ts
 // Файл animals/Fish.d.ts
 
 
@@ -458,9 +458,9 @@ export default class Fish implements IAnimal {
   constructor(name: string);
   toString(): string;
 }
-~~~~~
+`````
 
-~~~~~typescript
+`````ts
 // Файл Zoo.d.ts
 
 
@@ -471,9 +471,9 @@ export default class Zoo {
   add(animal: IAnimal): void;
   getAnimalByIndex(index: number): IAnimal;
 }
-~~~~~
+`````
 
-~~~~~typescript
+`````ts
 // Файл index.d.ts
 
 
@@ -485,11 +485,11 @@ export { default as Fish } from './animals/Fish';
 export { default as Zoo } from './Zoo';
 /** exports */
 export declare const zoo: Zoo;
-~~~~~
+`````
 
 Также стоит сказать, что сгенерированная декларация не может рассматриваться как единоверная. Очень часто можно увидеть декларации собранные в одном файле и сгруппированные по логическим признакам с помощью `namespace` или так называемых `ghost module`.
 
-~~~~~typescript
+`````ts
 /**ghost module */
 
 declare module Zoo {
@@ -517,15 +517,15 @@ declare module Zoo {
 
   const zoo: Zoo;
 }
-~~~~~
+`````
 
-~~~~~typescript
+`````ts
 /** module */
 
 declare module "zoo" {
   export = Zoo;
 }
-~~~~~
+`````
 
 Судить, какой из этих вариантов лучше, я не возьмусь, так как на мой взгляд, в данный момент, они оба не являются конечными. Возможно в будущем появятся новые правила для создания деклараций или редакторы будут по другому обрабатывать эти. Ну а пока остается отталкиваться от того что есть. Кроме того, мне не известны генераторы деклараций, которые бы смогли собрать декларацию подобным образом. Наверняка создатели подобных деклараций самостоятельно пишут сборщики, или же по старинке редактируют их руками. Множество генераторов деклараций, которые мне доводилось использовать в некоторых случаях, могут быть менее предпочтительны чем встроенный в _tsc_ генератор. В случае организации кода в стиле _es6_ модулей, который на мой взгляд предпочтительней, они могут сделать доступными глобально большее число модулей, что, как было рассмотрено в главе посвященной области видимости деклараций, нежелательно.
 
@@ -539,35 +539,35 @@ declare module "zoo" {
 
 Для этого рассмотрим проект состоящий из самодостаточного модуля _bird.ts_, который делает ре-экспорт модуля _Raven.ts_, а также самодостаточного модуля _fish.ts_ реэкспортирующего модуль _Shark.ts_. Кроме этого оба модуля доступны в точке входа _index.lib.ts_.
 
-~~~~~typescript
+`````ts
 * /
    * src/
       * to-string-decorate.ts
       * to-error-decarate.ts
       * index.lib.ts
-~~~~~
+`````
 
 Стоит сказать что конфигурационные файлы ничем не отличаются от рассмотренных в теме создания деклараций для библиотек с одной точкой входа, поэтому их описание будет опущено.
 
-~~~~~typescript
+`````ts
 // Файл to-string-decorate.ts
 
 
 export function toStringDecorate( type: string ): string {
   return `[object ${ type }]`;
 }
-~~~~~
+`````
 
-~~~~~typescript
+`````ts
 //Файл to-error-decorate.ts
 
 
 export function toErrorDecarate( message: string, id: number = 0 ): string {
   return `error:${ id === 0 ? '' : id }, ${ message }.`;
 }
-~~~~~
+`````
 
-~~~~~typescript
+`````ts
 // Файл index.lib.ts
 
 
@@ -575,25 +575,25 @@ export function toErrorDecarate( message: string, id: number = 0 ): string {
 
 export {toStringDecorate} from './to-string-decorate';
 export {toErrorDecorate} from './to-error-decorate';
-~~~~~
+`````
 
 После компиляции проекта в директорию _dist_ сгенерируются следующие файлы -
 
-~~~~~typescript
+`````ts
 // Файл to-string-decorate.d.ts
 
 
 export declare function toStringDecorate(type: string): string;
-~~~~~
+`````
 
-~~~~~typescript
+`````ts
 // Файл to-error-decorate.d.ts
 
 
 export declare function toErrorDecorate(message: string, id?: number): string;
-~~~~~
+`````
 
-~~~~~typescript
+`````ts
 // Файл index.d.ts
 
 
@@ -601,29 +601,29 @@ export declare function toErrorDecorate(message: string, id?: number): string;
 
 export {toStringDecorate} from './to-string-decorate';
 export {toErrorDecorate} from './to-error-decorate';
-~~~~~
+`````
 
 Сразу следует сказать что с подобным описанием декларация не будет правильно функционировать, поэтому её придется подправить руками до следующего вида.
 
-~~~~~typescript
+`````ts
 // Файл to-string-decorate.d.ts
 
 
 export declare function toStringDecorate(type: string): string;
 
 export as namespace stringDecorate;
-~~~~~
+`````
 
-~~~~~typescript
+`````ts
 // Файл to-error-decorate.d.ts
 
 
 export declare function toErrorDecorate(message: string, id?: number): string;
 
 export as namespace errorDecorate;
-~~~~~
+`````
 
-~~~~~typescript
+`````ts
 // Файл index.d.ts
 
 
@@ -633,13 +633,13 @@ export as namespace errorDecorate;
 declare module "zoo" {
   export default {stringDecorate, errorDecorate};
 }
-~~~~~
+`````
 
 Обычно, как отдельную часть принято экспортировать только самодостаточные модули, такие как функции или классы. Но кроме того могут потребоваться объекты содержащие константы или что-то незначительное, без чего отдельный модуль не сможет функционировать. Если такие объекты используются всеми самостоятельными модулями, то их можно также вынести в отдельный самостоятельный модуль. В случае, когда самодостаточному модулю для полноценной работы требуются зависимости, которые больше никем не используются, то такой модуль нужно оформлять также как обычную точку входа. Другими словами он должен содержать ре-экспорт всего необходимого. А кроме того экспортировать все как глобальный `namespace` с помощью синтаксиса:
 
-~~~~~typescript
+`````ts
 export as namespace identifier
-~~~~~
+`````
 
 Данный синтаксис объединяет все объявленные экспорты в глобальное пространство имен с указанным идентификатором. Затем объявленные пространства имен нужно импортировать в точку входа с помощью директивы с тройным слешем `/// <reference path=””/>`, после чего экспортировать из объявленного модуля.
 
@@ -653,7 +653,7 @@ export as namespace identifier
 
 Самостоятельно объявление деклараций начинается с создания директории предназначенной для их хранения. В нашем случае это будет директория _types_ расположенная в корне проекта. Декларации можно складывать прямо в неё, но будет правильно считается создавать под каждую декларацию отдельную поддиректорию носящую имя модуля нуждающегося в ней. Поэтому создадим поддиректорию с именем _css_, а уже в ней создадим файл _index.d.ts_. Откроем этот файл и напишем в нем декларацию? определяющую расширение _.css_.
 
-~~~~~typescript
+`````ts
 // Файл ./types/css/index.d.ts
 
 
@@ -661,17 +661,17 @@ declare module "*.css" {
   const content: any;
   export default content;
 }
-~~~~~
+`````
 
 В тех случаях, когда модуль определяет тип `any`, более уместно использовать при объявлении сокращенный вариант, который предполагает тип `any`.
 
-~~~~~typescript
+`````ts
 declare module "*.css";
-~~~~~
+`````
 
 Осталось только подключить декларацию в конфигурационном файле и ошибок при импорте расширения _.css_ не возникнет.
 
-~~~~~typescript
+`````ts
 // Файл tsconfig.json
 
 
@@ -688,7 +688,7 @@ declare module "*.css";
       "./node_modules"
   ]
 }
-~~~~~
+`````
 
 Будет не лишним упомянуть, что самостоятельное создание деклараций, помимо нестандартных  расширений, также часто требуется при необходимости расширения типов описывающих внешнии библиотеки. Например, если при работе с библиотекой _React_ возникнет необходимость в использовании пользовательских свойств определенных спецификацией _html_, то придется расширять объявляемый в её модуле тип `HTMLAttributes`.
 
@@ -698,15 +698,15 @@ declare module "*.css";
 
 До этого момента было рассмотрено создание библиотек предлставленных одним или больше количеством самостоятельных модулей. Укцент в этом предложении необходимо сделать на слове _самостоятельных_, поскольку они не были зависимы от каких-либо других модулей (деклараций). Если разрабатываемая библиотека представляет из себя множество зависящих друг от друга модулей или она зависит от деклараций устанавливаемых с помощью директивы `@types`, то генерируемые декларации также будут нуждатся в зависимостях. Для этих случаев существует директива `/// <reference types=””/>`. которую необходимо указывать в начале файла  предназначенная для подключения деклараций. Данная директива указывается в начале файла и предназначена для подключения деклараций путь до которых указывается с помощью атрибута `types`.
 
-~~~~~typescript
+`````ts
 /// <reference types="react" />
-~~~~~
+`````
 
 Кроме того с помощью данной директивы можно указать версию используемой библиотеки.
 
-~~~~~typescript
+`````ts
 /// <reference lib="es2015" />
-~~~~~
+`````
 
 Подобный функционал может быть полезен разработчикам деклараций _.d.ts_, которые зависят от конкретной версии _ECMAScript_.
 
@@ -717,15 +717,15 @@ declare module "*.css";
 
 Помимо типов, описанных в глобальных декларациях, в аннотациях типов также можно использовать типы из деклараций импортированных с помощью директивы `import`.
 
-~~~~~typescript
+`````ts
 // file declaration-excluded-from-global-scope/animal.d.ts
 
 export declare interface IAnimal {
   type: string;
 }
-~~~~~
+`````
 
-~~~~~typescript
+`````ts
 // file src/index.ts
 
 import * as DTS from "declaration-excluded-from-global-scope/animal";
@@ -740,19 +740,19 @@ let v1: DTS.IAnimal = { type: 5 }; // Error
 
 let v2: import('declaration-excluded-from-global-scope/animal').IAnimal = { type: '' }; // Ok
 let v3: import('declaration-excluded-from-global-scope/animal').IAnimal = { type: 5 }; // Error
-~~~~~
+`````
 
 Этот механизм также позволяет указывать аннотацию типов непосредственно в файлах с расширением _.js_.
 
-~~~~~typescript
+`````ts
 // file declaration-excluded-from-global-scope/animal.d.ts
 
 export declare interface IAnimal {
   type: string;
 }
-~~~~~
+`````
 
-~~~~~typescript
+`````ts
 // file lib/index.js
 
 /**
@@ -760,9 +760,9 @@ export declare interface IAnimal {
 * @param {import("./declaration-excluded-from-global-scope/animal").IAnimal} animal
 */
 export function printAnimalInfo(animal){ animal.type; // autocomplete }
-~~~~~
+`````
 
-~~~~~typescript
+`````ts
 // file src/index.ts
 
 import * as AnimalUtils from "lib/index.js";
@@ -770,4 +770,4 @@ import * as AnimalUtils from "lib/index.js";
 
 AnimalUtils.printAnimalInfo( { type: '' } ); // Ok
 AnimalUtils.printAnimalInfo( { type: 5 } ); // Error
-~~~~~
+`````

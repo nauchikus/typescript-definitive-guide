@@ -12,12 +12,12 @@
 
 Возвращаясь к методу `querySelector()`, стоит уточнить, что результатом его вызова может стать любой элемент, находящийся в dom-дереве. Если бы в качестве типа возвращаемого значения был указан тип `HTMLElement`, то операция получения элемента `<script>` или `<link>` завершилась бы неудачей, так как они не принадлежат к этому типу. Именно поэтому методу `querySelector()` в качестве типа возвращаемого значения указан более базовый тип `Element`.
 
-~~~~~typescript
+`````ts
 // <canvas id="stage" data-unactive="false"></canvas>
 
 const element: Element = document.querySelector('#stage');
 const stage: HTMLElement = element // Error, Element is not assignable to type HTMLElement
-~~~~~
+`````
 
 Но при попытке обратится к свойству `dataset` объекта, полученного с помощью `querySelector()`, возникнет ошибка, так как у типа `Element` отсутствует данное свойство.
 
@@ -38,24 +38,24 @@ _Попросить_ - дословно означает что разработ
 
 Одним из способов указать компилятору на принадлежность значения к заданному типу является механизм утверждения типа при помощи угловых скообок `<ConcreteType>` заключающих в себе конкретный тип, к которому и будет выполняться преобразование. Утверждение типа располагается строго перед выражением результатом выполнения которого будет преобразуемый тип.
 
-~~~~~typescript
+`````ts
 <ToType>FromType
-~~~~~
+`````
 
 Перепишем предыдущий код и исправим в нем ошибку, связанную с несоответствием типов.
 
-~~~~~typescript
+`````ts
 // <canvas id="stage" data-unactive="false"></canvas>
 
 const element: Element = document.querySelector('#stage');
 
 const stage: HTMLElement = <HTMLElement>element // Ok
 stage.dataset.unactive = 'true';
-~~~~~
+`````
 
 Если тип данных, к которому разработчик просит преобразовать компилятор, не совместим с преобразуемым типом, то в процессе утверждения возникнет ошибка.
 
-~~~~~typescript
+`````ts
 class Bird {
     public fly(): void {}
 }
@@ -66,21 +66,21 @@ class Fish {
 
 let bird: Bird = new Bird();
 let fish: Fish = <Fish>bird; // Ошибка, 'Bird' не может быть преобразован в 'Fish'
-~~~~~
+`````
 
 Кроме того, существуют ситуации, в которых возникает необходимость множественного последовательного преобразования. Ярким примером являются значения полученные от _dom_ элементов, которые воспринимаются разработчиком как числовые или логические, но по факту принадлежат к строковому типу.
 
-~~~~~typescript
+`````ts
 // <div id="#container"></div>
 
 let element = document.querySelector('#container') as HTMLElement;
 let { width, height } = element.style;
 let area: number = width * height; // ошибка -> width и height типа 'string'
-~~~~~
+`````
 
 Дело в том, что в _TypeScript_ невозможно привести тип `string` к типу `number`.
 
-~~~~~typescript
+`````ts
 // <div id="#container"></div>
 
 let element = document.querySelector('#container') as HTMLElement;
@@ -88,11 +88,11 @@ let { width: widthString, height: heightString } = element.style;
 
 let width: number = <number>widthString; // Ошибка -> тип 'string' не может быть преобразован  в 'number'
 let height: number = <number>heightString; // Ошибка -> тип 'string' не может быть преобразован  в 'number'
-~~~~~
+`````
 
 Но осуществить задуманное можно преобразовав тип `string` сначала в тип `any`, а уже затем — в тип `number`.
 
-~~~~~typescript
+`````ts
 // <div id="#container"></div>
 
 let element = document.querySelector('#container') as HTMLElement;
@@ -102,7 +102,7 @@ let width: number = <number><any>widthString; // Ok
 let height: number = <number><any>heightString; // Ok
 
 let area: number = width * height; // Ok
-~~~~~
+`````
 
 Стоит также заметить, что данный способ утверждения типа, кроме синтаксиса, больше ничем не отличается от указания с помощью оператора `as`.
 
@@ -112,15 +112,15 @@ let area: number = width * height; // Ok
 
 В отличии от синтаксиса угловых скобок, которые указываются перед преобразуемым типом, оператор `as` указывается между преобразуемым и типом и типом к которому требуется преобразовать.
 
-~~~~~typescript
+`````ts
 FromType as ToType
-~~~~~
+`````
 
 Для демонстрации оператора `as` рассмотрим ещё один часто встречающийся случай требующий утверждения типов.
 
 Обычное дело: при помощи метода `querySelector()` получить объект принадлежащий к типу `HTMLElement`, и подписать его на событие `click`. Задача заключается в том, что при возникновении события, нужно изменить значение поля `dataset`, объявленного в типе `HTMLElement`. Было бы нерационально снова получать ссылку на объект при помощи метода `querySelector()`, ведь нужный объект хранится в свойстве объекта события `target`. Но дело в том что свойство `target` имеет тип `EventTarget`, который не находится в иерархической зависимости с типом `HTMLElement` имеющим нужное свойство `dataset`.
 
-~~~~~typescript
+`````ts
 // <span id="counter"></span>
 
 let element = document.querySelector('#counter') as HTMLElement;
@@ -129,11 +129,11 @@ element.dataset.count = (0).toString();
 element.addEventListener('click', ({target}) => {
     let count: number = target.dataset.count; // Error -> Property 'dataset' does not exist on type 'EventTarget'
 });
-~~~~~
+`````
 
 Но эту проблему легко решить с помощью оператора утверждения типа `as`. Кроме того, с помощью этого же оператора можно привести тип `string`, к которому принадлежат все свойства находящиеся в `dataset`, к типу `any`, а уже затем к типу `number`.
 
-~~~~~typescript
+`````ts
 let element = document.querySelector('#counter') as HTMLElement;
 element.dataset.count = (0).toString();
 
@@ -143,11 +143,11 @@ element.addEventListener('click', ({ target }) => {
 
     element.dataset.count = (++count).toString();
 });
-~~~~~
+`````
 
 В случае несовместимости типов возникнет ошибка.
 
-~~~~~typescript
+`````ts
 class Bird {
     public fly(): void {}
 }
@@ -158,7 +158,7 @@ class Fish {
 
 let bird: Bird = new Bird();
 let fish: Fish = bird as Fish; // Ошибка, 'Bird' не может быть преобразован в 'Fish'
-~~~~~
+`````
 
 Ещё одна острая необходимость требующая утверждения типа возникает тогда, когда разработчику приходится работать с объектом ссылка на который ограничена более общим типом, как например `any`.
 
@@ -166,7 +166,7 @@ let fish: Fish = bird as Fish; // Ошибка, 'Bird' не может быть 
 
 В случаях, когда разработчику известно к какому типу принадлежит значение, можно попросить компилятор изменить мнение о принадлежности значения к его типу с помощью механизма утверждения типов.
 
-~~~~~typescript
+`````ts
 class DataProvider {
     constructor(readonly data: any) {}
 }
@@ -179,7 +179,7 @@ var charAll: string[] = (provider.data as string).split(''); // Ок
 
 let dataString: string = provider.data as string;
 var charAll: string[] = dataString.split(''); // Ок
-~~~~~
+`````
 
 Напоследок, стоит сказать что выражения требующие указание типа при работе с _dom api_ — это неизбежность. Кроме того, для работы с методом `document.querySelector()`, который был использован в примерах к этой главе, вместо приведения типов с помощью операторов `<Type>` или `as` предпочтительней конкретизировать тип с помощью обобщения, которые рассматриваются в главе [“Типы - Обобщения (Generics)”](../032.(Типы)%20Обобщения%20(Generics)). Но в случае, если утверждение требуется для кода написанного самим разработчиком, то скорее всего, это следствие плохо продуманной архитектуры.
 
@@ -191,7 +191,7 @@ var charAll: string[] = dataString.split(''); // Ок
 
 Тем не менее сложно найти разработчика _TypeScript_, который при определении конструкций, которым предстоит проверка на принадлежность к литеральному типу, не испытывал дискомфорта создаваемого выводом типов.
 
-`````typescript
+`````ts
 type Status = 200 | 404;
 type Request = { status: Status }
 
@@ -202,7 +202,7 @@ let request: Request = { status }; // Error, Type 'number' is not assignable to 
 
 В коде выше ошибка возникает по причине того, что вывод типов определяет принадлежность значения переменной `status` к типу `number`, а не литеральному числовому типу `200`.
 
-`````typescript
+`````ts
 // вывод типов видит как
 let status: number = 200
 
@@ -212,7 +212,7 @@ let port: 200 = 200;
 
 Прежде всего не будет лишним упомянуть что данную проблему можно решить с помощью механизма утверждения при помощи таких операторов как `as` и угловых скобок `<>`.
 
-`````typescript
+`````ts
 type Status = 200 | 404;
 type Request = { status: Status }
 
@@ -228,7 +228,7 @@ let request: Request = { status: <200>status }; // ...с помощью угло
 
 Константное утверждение производится с помощью опертора `as` или угловых скобок `<>` и говорит компилятору, что значение является константным.
 
-`````typescript
+`````ts
 type Status = 200 | 404;
 type Request = { status: Status }
 
@@ -242,7 +242,7 @@ let request: Request = {status}; // Ok
 
 Утверждение к константе массива заставляет вывод типов определять его принадлежность к типу `readonly tuple`.
 
-`````typescript
+`````ts
 let a = [200, 404]; // let a: number[]
 
 let b = [200, 404] as const; // let b: readonly [200, 404]
@@ -251,7 +251,7 @@ let c = <const>[200, 404]; // let c: readonly [200, 404]
 
 В случае с объектным типом, утверждение к константе рекурсивно помечает все его поля как `readonly`. Кроме того, все его поля принадлежащие к примитивным типам расцениваются как литеральные типы.
 
-`````typescript
+`````ts
 type NotConstResponseType = {
     status: number;
     data: {
@@ -274,7 +274,7 @@ let c = <const>{ status: 200, data: { role: 'user' }}; // ConstResponseType
 
 Но стоит помнить, что утверждение к константе применимо исключительно к `number`, `string`, `boolean`, `array` и `object` литералам.
 
-`````typescript
+`````ts
 let a = 'value' as const; // Ok - 'value' является литералом, let a: "value"
 let b = 100 as const; // Ok - 100 является литералом, let b: 100
 let c = true as const; // Ok - true является литералом, let c: true
@@ -295,7 +295,7 @@ let h = object as const; // Ошибка - object это ссылка идент
 
 В случае, когда литералы ссылочных типов (массивы и объекты) ассоциированны при помощи агрегационных отношений со значением, также принадлежащим к ссылочному типу, то они представляются такими, какими были на момент ассоциации. Кроме того, поведение механизма приведения к константе зависит от другого механизма — деструктуризации.
 
-`````typescript
+`````ts
 let defaultObject = { f: 100 }; // let defaultObject: {f: number;}
 let constObject = { f: 100 } as const; // let constObject: {readonly f: 100;}
 
@@ -323,7 +323,7 @@ let o6 = {f: {...constObject}} as const; // {f: {readonly f: 100;};}
 
 И последнее, о чем стоит упомянуть — утверждение к константе применимо только к простым выражениям.
 
-`````typescript
+`````ts
 let a = (Math.round(Math.random() * 1) ? 'yes' : 'no') as const; // Ошибка
 let b = Math.round(Math.random() * 1) ? 'yes' as const : 'no' as const; // Ok, let b: "yes" | "no"
 `````
@@ -336,7 +336,7 @@ let b = Math.round(Math.random() * 1) ? 'yes' as const : 'no' as const; // Ok, l
 
 Для того чтобы объявить утверждающую функцию, в её сигнатуре (там где располагается возвращаемое значение) следует указать ключевое слово `asserts`, а затем параметр принимаемого на вход условия.
 
-```typescript
+`````ts
 function identifier(condition: any): asserts condition {
     if (!condition) {
         throw new Error('');
@@ -348,7 +348,7 @@ function identifier(condition: any): asserts condition {
 
 Если принадленость значения к указанному типу подтверждается, то далее по коду компилятор будет рассматривать его в роли этого типа. Иначе выбрасывается исключение.
 
-```typescript
+`````ts
 // утверждение в сигнатуре
 function isStringAssert(condition: any): asserts condition {
     if (!condition) {
@@ -374,7 +374,7 @@ const testScope = (text: any) => {
 
 При использовании механизма _утверждения в сигнатуре_ с механизмом _утверждения типа_, условие из вызова утверждающей функции можно перенести в её тело.
 
-```typescript
+`````ts
 function isStringAsserts(value: any): asserts value is string {
     if (typeof value !== "string") {
         throw new Error(``);
@@ -392,7 +392,7 @@ const testScope= (text: any) => {
 
 Стоит обратить внимания на то, что механизм утверждения типа не будет работать в случае переноса условного выражения в тело утверждающей функции, сигнатура которой, лишена _утверждения типов_ и содержит исключительно _утверждения в сигнатуре_.
 
-```typescript
+`````ts
 function isStringAsserts(value: any): asserts value /** is string */ {
     if (typeof value !== "string") {
         throw new Error(``);

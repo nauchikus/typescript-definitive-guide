@@ -1,6 +1,6 @@
 ##Улучшение механизма проверки объединенных типов
 
-```typescript
+`````ts
 type Source = { done: boolean; value: number };
 type Target = { done: false; value: number } | { done: true; value: number };
 

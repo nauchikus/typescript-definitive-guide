@@ -2,7 +2,7 @@
 
 До текущей версии тип `object` указанный в _JSDoc_ при активном флаге `--noImplicitAny` рассценивался _TypeScript_ как тип `any`. Нчиная с текщей версии поведение типа `object` синхронизированно с поведением реализуемым _TypeScript_.
 
-`````javascript
+`````js
 /**
  * @param p0 {Object}
  * @param p1 {object}
@@ -10,7 +10,7 @@
 export function f(p0, p1){}
 `````
 
-`````typescript
+`````ts
 // --noImplicitAny: true
 
 import {f} from "./jsdocs";

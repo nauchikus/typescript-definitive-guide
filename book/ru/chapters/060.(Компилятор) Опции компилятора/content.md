@@ -4,14 +4,14 @@
 
 `--strict` - активирует все флаги, сопутствующие строгости проверки типов. На данный момент флаг `strict` активирует следующие опции компилятора: `--strictNullChecks`, `--noImplicitAny`, `--noImplicitThis`, `--alwaysStrict`, `--strictFunctionTypes`, `--strictPropertyInitialization` и `--strictBindCallApply`. Несмотря на то, что флаг `strict` активирует сразу все указанные флаги, при желании конкретные флаги можно отключить.
 
-~~~~~typescript
+`````ts
 {
   "compilerOptions": {
       "strict": false,
       "strictNullChecks": false
   }
 }
-~~~~~
+`````
 
 **type**: `boolean`
 **default**: `false`
@@ -23,13 +23,13 @@
 
 `--suppressExcessPropertyErrors` - если данная опция активна, то компилятор перестает проверять литералы объекта на излишние члены.
 
-~~~~~typescript
+`````ts
 {
   "compilerOptions": {
       "suppressExcessPropertyErrors": false
   }
 }
-~~~~~
+`````
 
 **type**: `boolean`
 **default**: `false`
@@ -38,26 +38,26 @@
 
 *Пример*
 
-~~~~~typescript
+`````ts
 interface T1 {
   f1: number;
 }
 
 let v1: T1 = {f1: 0, f2: ''}; // suppressExcessPropertyErrors === false ? Error : Ok
-~~~~~
+`````
 
 ## suppressImplicitAnyIndexErrors
 
 
 `--suppressImplicitAnyIndexErrors` - при активной опции `--noImplicitAny` подавляет ошибки, связанные с добавлением динамических свойств в объекты, у которых отсутствует индексное определение.
 
-~~~~~typescript
+`````ts
 {
   "compilerOptions": {
       "suppressImplicitAnyIndexErrors": false
   }
 }
-~~~~~
+`````
 
 **type**: `boolean`
 **default**: `false`
@@ -66,7 +66,7 @@ let v1: T1 = {f1: 0, f2: ''}; // suppressExcessPropertyErrors === false ? Error 
 
 *Пример для неактивной опции*
 
-~~~~~typescript
+`````ts
 // tsconfig.json
 
 {
@@ -75,9 +75,9 @@ let v1: T1 = {f1: 0, f2: ''}; // suppressExcessPropertyErrors === false ? Error 
       "suppressImplicitAnyIndexErrors": false
   }
 }
-~~~~~
+`````
 
-~~~~~typescript
+`````ts
 // index.ts
 
 interface Member {
@@ -93,11 +93,11 @@ memberObject['name'] = 'object'; // Error
 
 let indexMemeberObject: IndexMember = {};
 indexMemeberObject['name'] = 'object'; // Ok
-~~~~~
+`````
 
 *Пример для активной опции*
 
-~~~~~typescript
+`````ts
 // tsconfig.json
 
 {
@@ -106,9 +106,9 @@ indexMemeberObject['name'] = 'object'; // Ok
       "suppressImplicitAnyIndexErrors": false
   }
 }
-~~~~~
+`````
 
-~~~~~typescript
+`````ts
 // index.ts
 
 interface Member {
@@ -124,7 +124,7 @@ memberObject['name'] = 'object'; // Ok
 
 let indexMemeberObject: IndexMember = {};
 indexMemeberObject['name'] = 'object'; // Ok
-~~~~~
+`````
 
 
 ## noImplicitAny
@@ -132,13 +132,13 @@ indexMemeberObject['name'] = 'object'; // Ok
 
 `--noImplicitAny` - при активной опции выводит ошибку, если вывод типов установил принадлежность типа члена к типу `any`.
 
-~~~~~typescript
+`````ts
 {
   "compilerOptions": {
       "noImplicitAny": false
   }
 }
-~~~~~
+`````
 
 **type**: `boolean`
 **default**: `false`
@@ -147,7 +147,7 @@ indexMemeberObject['name'] = 'object'; // Ok
 
 *Пример с неактивной опцией*
 
-~~~~~typescript
+`````ts
 let v1; // Ok
 
 function f1(p1) { // Ok
@@ -165,11 +165,11 @@ interface IT1 {
 class T1 {
   public f1; // Ok
 }
-~~~~~
+`````
 
 *Пример с активной опцией*
 
-~~~~~typescript
+`````ts
 let v1; // Ok
 
 function f1(p1) { // Parameter 'p1' implicitly has an 'any' type.
@@ -187,7 +187,7 @@ interface IT1 {
 class T1 {
   public f1; // Member 'f1' implicitly has an 'any' type
 }
-~~~~~
+`````
 
 
 
@@ -197,13 +197,13 @@ class T1 {
 
 `--checkJs` - данная опция говорит компилятору, что код, который находится в файлах с расширением *.js*, также нужно проверять на ошибки. При этом можно исключить определенные файлы из проверки, добавив им строку `// @ts-nocheck`. Или наоборот, можно попросить компилятор проверять только помеченные как `// @ts-check` файлы без активации опции `--checkJs`. К тому же можно игнорировать ошибки на конкретных строках, указав `// @ts-ignore: error message` предыдущей строке.
 
-~~~~~typescript
+`````ts
 {
   "compilerOptions": {
       "checkJs": false
   }
 }
-~~~~~
+`````
 
 **type**: `boolean`
 **default**: `false`
@@ -213,41 +213,41 @@ class T1 {
 
 При использовании *JavaScript* в *TypeScript* коде нарушается типобезопасность программы.
 
-~~~~~typescript
+`````ts
 // file sum.js
 
 export function sum(a ,b){
   return a + b;
 }
-~~~~~
+`````
 
-~~~~~typescript
+`````ts
 // file index.ts
 
 import {sum} from "./sum.js";
 
 let n = sum('5', 5); // len n: any, кроме того результаты выполнения функции будет неверным
-~~~~~
+`````
 
 Но это можно исправить с помощью специальной аннотации, которая располагается в *JavaScript* коде.
 
-~~~~~typescript
+`````ts
 // file sum.js
 
 /** @type {(a:number,b:number) => number)} */
 export function sum( a ,b){
   return a + b;
 }
-~~~~~
+`````
 
-~~~~~typescript
+`````ts
 // file index.ts
 
 import {sum} from "./sum.js";
 
 let n0 = sum('5', 5); // Error
 let n1 = sum(5, 5); // Ok, let n1: number
-~~~~~
+`````
 
 ## JSX
 
@@ -256,13 +256,13 @@ let n1 = sum(5, 5); // Ok, let n1: number
 
 При указании `"react"` в качестве значения опции `--jsx` компилятор преобразует *.tsx* в *.jsx* файлы, которые затем компилируются в *.js*. Если в качестве значения будет указано `"preserve"`, то компилятор преобразует *.tsx* в *.jsx*, которые сохраняют *XML*-подобный синтаксис. Если указать значение `"react-native"`, то компилятор преобразует файлы *.tsx* в требующийся *.js*.
 
-~~~~~typescript
+`````ts
 {
   "compilerOptions": {
       "jsx": "react" | "react-native" | "preserve"
   }
 }
-~~~~~
+`````
 
 **type**: `string`
 **default**: `preserve`
@@ -275,7 +275,7 @@ let n1 = sum(5, 5); // Ok, let n1: number
 
 `--jsxFactory` - данная опция позволяет при трансляции файлов *.tsx* в *.js* переопределить фабрику рендера.
 
-~~~~~typescript
+`````ts
 // default
 
 // from file .tsx
@@ -283,20 +283,20 @@ let n1 = sum(5, 5); // Ok, let n1: number
 import * as React from "react";
 
 <h1>Ok</h1>
-~~~~~
+`````
 
-~~~~~typescript
+`````ts
 // to file .js
 
 "use strict";
 exports.__esModule = true;
 var React = require("react");
 React.createElement("h1", null, "Ok");
-~~~~~
+`````
 
 Установив желаемое значение текущей опции появляется возможность переопределить функцию рендера *React* на любую другую.
 
-~~~~~typescript
+`````ts
 // set options jsxFactory to dom
 
 // from file .tsx
@@ -304,9 +304,9 @@ React.createElement("h1", null, "Ok");
 import dom from "dom";
 
 <h1>Ok</h1>
-~~~~~
+`````
 
-~~~~~typescript
+`````ts
 // set options jsxFactory to dom
 
 // to file .js
@@ -316,11 +316,11 @@ import dom from "dom";
 exports.__esModule = true;
 var dom = require("dom");
 dom["default"]("h1", null, "Ok");
-~~~~~
+`````
 
 Кроме того, подобного поведения можно добиться при помощи нотации `/** @jsx identifier */`, которая указывается в начале файла, а вместо *identifier* вписывается имя функции рендера.
 
-~~~~~typescript
+`````ts
 // from file .tsx
 
 /** @jsx renderer */
@@ -328,9 +328,9 @@ dom["default"]("h1", null, "Ok");
 import renderer from "renderer";
 
 <h1>Ok</h1>
-~~~~~
+`````
 
-~~~~~typescript
+`````ts
 // to file .js
 
 "use strict";
@@ -338,17 +338,17 @@ import renderer from "renderer";
 exports.__esModule = true;
 var renderer = require("renderer");
 renderer["default"]("h1", null, "Ok");
-~~~~~
+`````
 
 Кроме того, аннотация `/** jsx identifier */` позволяет переопределить функцию рендера, переопределенную с помощью опции `--jsxFactory`.
 
-~~~~~typescript
+`````ts
 {
   "compilerOptions": {
       "jsxFactory": "React.createElement"
   }
 }
-~~~~~
+`````
 
 **type**: `string`
 **default**: `React.createElement`
@@ -360,13 +360,13 @@ renderer["default"]("h1", null, "Ok");
 
 `--target`, или `-t` - указывает компилятору, с какой версией спецификации должен быть совместим генерируемый *JavaScript* код. По умолчанию установлена совместимость с `ES3`. Кроме того можно указывать совместимость с `ES5`, `ES2015` (она же `ES6`), `ES2016`, `ES2017`, `ESNext`. Стоит добавить, что `ESNext` равноценно *latest version*.
 
-~~~~~typescript
+`````ts
 {
   "compilerOptions": {
         "target": "es3"
   }
 }
-~~~~~
+`````
 
 **type**: `string`
 **default**: `es3`
@@ -377,7 +377,7 @@ renderer["default"]("h1", null, "Ok");
 
 `extends` - с помощью этого свойства можно расширять конфигурацию *tsconfig.json*.
 
-~~~~~typescript
+`````ts
 // tsconfig.base.json
 
 {
@@ -385,15 +385,15 @@ renderer["default"]("h1", null, "Ok");
       "target": "es2015"
   }
 }
-~~~~~
+`````
 
-~~~~~typescript
+`````ts
 // tsconfig.json
 
 {
   "extends": "./tsconfig.base.json"
 }
-~~~~~
+`````
 
 **type**: `string`
 **default**: `""`
@@ -401,7 +401,7 @@ renderer["default"]("h1", null, "Ok");
 
 Кроме того, при использовании механизма расширения (`extends`) поиск файла конфигурации `taconfig.json` может осуществляться по пакетам (`packages`) `NodeJS` модулей, находящихся в директории `node_modules`.
 
-~~~~~typescript
+`````ts
 // tsconfig.json
 
 {
@@ -413,11 +413,11 @@ renderer["default"]("h1", null, "Ok");
 {
   "extends": "some-npm-module/some-tsconfig.json"
 }
-~~~~~
+`````
 
 Алгоритм разрешения аналогичен алгоритму поиска модулей самого `NodeJS`. Проще говоря, если путь, указанный в качестве значения атрибута `extends` не будет найден в директории `node_modules`, находящейся в текущей директории, то поиск продолжится в директории `node_modules` вверх по дереву. Но есть одна особенность, которая заключается в том, что при разрешении пути компилятор `tsc`, зайдя в директорию `node_modules`, сначала  проверяет `package.json` на наличие атрибута `tsconfig`, которому в качестве значения указывают путь до конфигурационного файла `TypeScript`. Если атрибут `tsconfig` найден, то конфигурация, на которую он ссылается, будет установлена в качестве расширяемой. Если `package.json` не содержит атрибут `tsconfig`, то в качестве расширяемого конфигурационного файла будет выбран файл `tsconfig.json`, находящийся в корне директории. Если в корне директории файла `tsconfig.json` найдено не будет, то поиск продолжится вверх по дереву.
 
-~~~~~typescript
+`````ts
 /project
     /node_modules
         /some-module
@@ -427,8 +427,8 @@ renderer["default"]("h1", null, "Ok");
     tsconfig.json // "extends": "some-module"
 
 // в этом случае в качестве расширяемого конфигурационного файла будет выбран файл находящийся по пути /node_modules/some-module/tsconfig.custom.json
-~~~~~
-~~~~~typescript
+`````
+`````ts
 /project
     /node_modules
         /some-module
@@ -438,8 +438,8 @@ renderer["default"]("h1", null, "Ok");
     tsconfig.json // "extends": "some-module"
 
 // в этом случае в качестве расширяемого конфигурационного файла будет выбран файл находящийся по пути /node_modules/some-module/tsconfig.json
-~~~~~
-~~~~~typescript
+`````
+`````ts
 /project
     /node_modules
         /some-module
@@ -449,7 +449,7 @@ renderer["default"]("h1", null, "Ok");
     tsconfig.json // "extends": "some-module/tsconfig.custom.json"
 
 // в этом случае в качестве расширяемого конфигурационного файла будет вбран файл находящийся по пути /node_modules/some-module/tsconfig.custom.json
-~~~~~
+`````
 
 
 ## alwaysStrict
@@ -458,13 +458,13 @@ renderer["default"]("h1", null, "Ok");
 
 `--alwaysStrict` - данная опция говорит компилятору, что рассматривать и генерировать код нужно с учетом строгого режима `“use strict”`.
 
-~~~~~typescript
+`````ts
 {
   "compilerOptions": {
       "alwaysStrict": false
   }
 }
-~~~~~
+`````
 
 
 **type**: `boolean`
@@ -477,13 +477,13 @@ renderer["default"]("h1", null, "Ok");
 
 `--strictNullChecks` - активировав эту опцию, компилятор не позволяет указывать в качестве значения типы `Null` и `Undefined`, если они не были указаны в аннотации.
 
-~~~~~typescript
+`````ts
 {
   "compilerOptions": {
       "strictNullChecks": false
   }
 }
-~~~~~
+`````
 
 **type**: `boolean`
 **default**: `false`
@@ -495,13 +495,13 @@ renderer["default"]("h1", null, "Ok");
 
 `--stripInternal` - когда данная опция активна, компилятор не создает деклараций *.d.ts* для файлов, помеченных как `/** @internal */`
 
-~~~~~typescript
+`````ts
 {
   "compilerOptions": {
       "stripInternal": false
   }
 }
-~~~~~
+`````
 
 **type**: `boolean`
 **default**: `false`
@@ -513,13 +513,13 @@ renderer["default"]("h1", null, "Ok");
 
 `--noImplicitThis` - в активном состоянии запрещает использование `this` в местах, не предусмотренных контекстом.
 
-~~~~~typescript
+`````ts
 {
   "compilerOptions": {
       "noImplicitThis": false
   }
 }
-~~~~~
+`````
 
 **type**: `boolean`
 **default**: `false`
@@ -528,7 +528,7 @@ renderer["default"]("h1", null, "Ok");
 
 *Пример с неактивной опцией*
 
-~~~~~typescript
+`````ts
 function f1(){
   this.name = 'newname'; // Ok -> context T1 window
 }
@@ -545,12 +545,12 @@ class T1 {
       this.name = name; // Ok -> context T1
   }
 }
-~~~~~
+`````
 
 
 *Пример с активной опцией*
 
-~~~~~typescript
+`````ts
 function f1(){
   this.name = 'newname'; // Error -> context T1 window
 }
@@ -567,7 +567,7 @@ class T1 {
       this.name = name; // Ok -> context T1
   }
 }
-~~~~~
+`````
 
 
 ## noImplicitUseStrict
@@ -575,13 +575,13 @@ class T1 {
 
 `--noImplicitUseStrict` - при активной опции будут выводится ошибки в случаях, когда в поток компиляции попадут файлы, содержащие `‘use strict’`. Кроме того, скомпилированные файлы также не будут содержать указание `‘use strict’`.
 
-~~~~~typescript
+`````ts
 {
   "compilerOptions": {
       "noImplicitUseStrict": false
   }
 }
-~~~~~
+`````
 
 **type**: `boolean`
 **default**: `false`
@@ -594,19 +594,19 @@ class T1 {
 
 `--baseUrl` - указывает базовый путь, относительно которого будет производится поиск модулей.
 
-~~~~~typescript
+`````ts
 {
   "compilerOptions": {
       "baseUrl": ""
   }
 }
-~~~~~
+`````
 
 **type**: `string`
 **default**: `""`
 **values**: `base path`
 
-~~~~~typescript
+`````ts
 // m1 module ./node_modules/m1
 
 // tsconfig.jsson  "baseUrl": "./node_modules"
@@ -614,7 +614,7 @@ class T1 {
 // index.ts
 
 import M1 from 'm1';
-~~~~~
+`````
 
 
 ## paths
@@ -623,7 +623,7 @@ import M1 from 'm1';
 
 `--paths` - с помощью этой опции создаются псевдонимы для используемых в программе модулей.
 
-~~~~~typescript
+`````ts
 {
   "compilerOptions": {
       "paths": {
@@ -631,7 +631,7 @@ import M1 from 'm1';
       }
   }
 }
-~~~~~
+`````
 
 **type**: `object`
 **default**: `null`
@@ -640,7 +640,7 @@ import M1 from 'm1';
 
 *Пример*
 
-~~~~~typescript
+`````ts
 // tsconfig.json
 {
   "compilerOptions": {
@@ -677,7 +677,7 @@ import jquery from 'jquery';
 }
 
 import jquery from 'jQ';
-~~~~~
+`````
 
 
 ## rootDir
@@ -686,13 +686,13 @@ import jquery from 'jQ';
 
 `--rootDir` - с помощью этой опции можно ограничить область выборки файлов для компиляции. В качестве значения выступает строка — путь до конкретной директории или файла.
 
-~~~~~typescript
+`````ts
 {
   "compilerOptions": {
       "rootDir": ""
   }
 }
-~~~~~
+`````
 
 
 **type**: `string`
@@ -705,7 +705,7 @@ import jquery from 'jQ';
 
 `--rootDirs` - с помощью этой опции можно ограничить область выборки файлов для компиляции. В качестве значения принимается массив с путями до директорий и файлов.
 
-~~~~~typescript
+`````ts
 {
   "compilerOptions": {
       "rootDirs": [
@@ -713,7 +713,7 @@ import jquery from 'jQ';
       ]
   }
 }
-~~~~~
+`````
 
 
 **type**: `array[ ]`
@@ -726,13 +726,13 @@ import jquery from 'jQ';
 `--traceResolution` - в случае активной опции, при компиляции будет выводиться информация о собираемых модулях.
 
 
-~~~~~typescript
+`````ts
 {
   "compilerOptions": {
       "traceResolution": false
   }
 }
-~~~~~
+`````
 
 **type**: `boolean`
 **default**: `false`
@@ -746,7 +746,7 @@ import jquery from 'jQ';
 `--lib` - с помощью этой опции можно управлять конструкциями, которые включены в ту или иную версию *ES*.
 
 
-~~~~~typescript
+`````ts
 {
   "compilerOptions": {
       "lib": [
@@ -754,7 +754,7 @@ import jquery from 'jQ';
       ]
   }
 }
-~~~~~
+`````
 
 **type**: `string[ ]`
 **default**: for es5 `[dom, es5, ScriptHost]`, for es6 `[dom, es6, dom.Iterable, ScriptHost]`
@@ -767,13 +767,13 @@ import jquery from 'jQ';
 
 `--noLib` - не использует декларацию *lib.d.ts* по умолчанию.
 
-~~~~~typescript
+`````ts
 {
   "compilerOptions": {
       "noLib": false
   }
 }
-~~~~~
+`````
 
 **type**: `boolean`
 **default**: `false`
@@ -786,18 +786,18 @@ import jquery from 'jQ';
 
 `--noResolve` - данная опция говорит компилятору не компилировать файлы, которые не были указаны в командной строке.
 
-~~~~~typescript
+`````ts
 // terminal
 
 tsc index.ts T1 --noResolve
-~~~~~
+`````
 
-~~~~~typescript
+`````ts
 // index.ts
 
 import T1 from './T1'; // Ok
 import T2 from './T2'; // Error
-~~~~~
+`````
 
 
 ## noStrictGenericChecks
@@ -805,13 +805,13 @@ import T2 from './T2'; // Error
 
 `--noStrictGenericChecks` - отключает строгую проверку параметров типа для функциональных типов.
 
-~~~~~typescript
+`````ts
 {
   "compilerOptions": {
       "noStrictGenericChecks": false
   }
 }
-~~~~~
+`````
 
 **type**: `boolean`
 **default**: `false`
@@ -824,13 +824,13 @@ import T2 from './T2'; // Error
 
 `--preserveConstEnums` - говорит компилятору не удалять из исходного кода перечисления (`enum`), объявленные как `const`.
 
-~~~~~typescript
+`````ts
 {
   "compilerOptions": {
       "preserveConstEnums": false
   }
 }
-~~~~~
+`````
 
 **type**: `boolean`
 **default**: `false`
@@ -839,7 +839,7 @@ import T2 from './T2'; // Error
 
 *Пример с неактивной опцией*
 
-~~~~~typescript
+`````ts
 // .ts
 
 const enum Animal {
@@ -848,18 +848,18 @@ const enum Animal {
 }
 
 let greeting: string = `Hello ${ Animal.Bird }!`;
-~~~~~
+`````
 
-~~~~~typescript
+`````ts
 // .js
 
 let greeting = `Hello ${"bird" /* Bird */}!`;
-~~~~~
+`````
 
 
 *Пример с активной опцией*
 
-~~~~~typescript
+`````ts
 // .ts
 
 const enum Animal {
@@ -868,9 +868,9 @@ const enum Animal {
 }
 
 let greeting: string = `Hello ${ Animal.Bird }!`;
-~~~~~
+`````
 
-~~~~~typescript
+`````ts
 // .js
 
 var Animal;
@@ -879,7 +879,7 @@ var Animal;
   Animal["Fish"] = "fish";
 })(Animal || (Animal = {}));
 let greeting = `Hello ${"bird" /* Bird */}!`;
-~~~~~
+`````
 
 
 ## removeComments
@@ -888,13 +888,13 @@ let greeting = `Hello ${"bird" /* Bird */}!`;
 
 `--removeComments` - удаляет комментарии из сгенерированного *.js*.
 
-~~~~~typescript
+`````ts
 {
   "compilerOptions": {
       "removeComments": false
   }
 }
-~~~~~
+`````
 
 
 **type**: `boolean`
@@ -907,13 +907,13 @@ let greeting = `Hello ${"bird" /* Bird */}!`;
 
 `--noUnusedLocals` - активная опция заставляет компилятор выводить сообщения о неиспользуемых элементах кода. Простыми словами, если в коде что-то объявлено, но не используется, будет возникать ошибка.
 
-~~~~~typescript
+`````ts
 {
   "compilerOptions": {
       "noUnusedLocals": false
   }
 }
-~~~~~
+`````
 
 
 **type**: `boolean`
@@ -923,7 +923,7 @@ let greeting = `Hello ${"bird" /* Bird */}!`;
 
 *Пример*
 
-~~~~~typescript
+`````ts
 import T1 from "./T1"; // Error
 
 let v0: number; // Warning
@@ -952,7 +952,7 @@ class C /**Error */ {
       this.m1();
   }
 }
-~~~~~
+`````
 
 
 ## noUnusedParameters
@@ -960,13 +960,13 @@ class C /**Error */ {
 
 `--noUnusedParameters` - данная опция заставляет компилятор выводить ошибки, если в коде будут найдены функции, чьи параметры не используются (за исключением параметров, чьи идентификаторы начинаются с нижней черты, например, `_prop`).
 
-~~~~~typescript
+`````ts
 {
   "compilerOptions": {
       "noUnusedParameters": false
   }
 }
-~~~~~
+`````
 
 
 **type**: `boolean`
@@ -976,7 +976,7 @@ class C /**Error */ {
 
 *Пример*
 
-~~~~~typescript
+`````ts
 function f ( p0: number /** Warning */,
           p1: number /** Warning */,
           p2: number = 0 /** Warning */ ){
@@ -994,7 +994,7 @@ class C {
           p1 = 0;
       }
 }
-~~~~~
+`````
 
 
 ## skipLibCheck
@@ -1003,13 +1003,13 @@ class C {
 
 `--skipLibCheck` - при активной опции, компилятор перестает проверять типы в файлах библиотеках с расширением *.d.ts*, что экономит время, но может привести к редким ошибкам, связанным с типами.
 
-~~~~~typescript
+`````ts
 {
   "compilerOptions": {
       "skipLibCheck": false
   }
 }
-~~~~~
+`````
 
 
 **type**: `boolean`
@@ -1022,13 +1022,13 @@ class C {
 
 `--declarationDir` - указывает директорию, откуда будут подключаться или в которую будут создаваться файлы декларации `.d.ts`.
 
-~~~~~typescript
+`````ts
 {
   "compilerOptions": {
       "declarationDir": ""
   }
 }
-~~~~~
+`````
 
 
 **type**: `string`
@@ -1042,13 +1042,13 @@ class C {
 `--types` - декларации, которые размещены в */node_modules/@types/* и чьи идентификаторы перечислены в массиве, будут доступны глобально. В случае указания пустого массива, глобальный доступ к декларациям будет запрещен. К декларациям, которые запрещены глобально, можно получить доступ только путем импортирования модуля описываемого декларацией.
 
 
-~~~~~typescript
+`````ts
 {
   "compilerOptions": {
       "types": [ "node", "express", "rxjs" ]
   }
 }
-~~~~~
+`````
 
 
 **type**: `string[ ]`
@@ -1061,7 +1061,7 @@ class C {
 
 *Пример с отключенной опцией*
 
-~~~~~typescript
+`````ts
 // tsconfig.json
 
 {
@@ -1069,9 +1069,9 @@ class C {
 
   }
 }
-~~~~~
+`````
 
-~~~~~typescript
+`````ts
 // index.ts
 
 class T1 extends React.Component {} // Ok -> global
@@ -1080,11 +1080,11 @@ class T1 extends React.Component {} // Ok -> global
 import {Component} from 'react';
 
 class T2 extends Component {} // Ok -> import
-~~~~~
+`````
 
 *Пример с пустым массивом*
 
-~~~~~typescript
+`````ts
 // tsconfig.json
 
 {
@@ -1094,9 +1094,9 @@ class T2 extends Component {} // Ok -> import
       ]
   }
 }
-~~~~~
+`````
 
-~~~~~typescript
+`````ts
 // index.ts
 
 class T1 extends React.Component {} // Error -> global
@@ -1105,11 +1105,11 @@ class T1 extends React.Component {} // Error -> global
 import {Component} from 'react';
 
 class T2 extends Component {} // Ok -> import
-~~~~~
+`````
 
 *Пример с установленным значением*
 
-~~~~~typescript
+`````ts
 // tsconfig.json
 
 {
@@ -1117,9 +1117,9 @@ class T2 extends Component {} // Ok -> import
       "types": [ "react" ]
   }
 }
-~~~~~
+`````
 
-~~~~~typescript
+`````ts
 // index.ts
 
 class T1 extends React.Component {} // Ok -> global
@@ -1128,7 +1128,7 @@ class T1 extends React.Component {} // Ok -> global
 import {Component} from 'react';
 
 class T2 extends Component {} // Ok -> import
-~~~~~
+`````
 
 
 ## typeRoots
@@ -1138,13 +1138,13 @@ class T2 extends Component {} // Ok -> import
 `--typeRoots` - ожидает массив путей до директорий с декларациями.
 
 
-~~~~~typescript
+`````ts
 {
   "compilerOptions": {
       "typeRoots": [ "./types" ]
   }
 }
-~~~~~
+`````
 
 **type**: `string[ ]`
 **default**: `null`
@@ -1157,13 +1157,13 @@ class T2 extends Component {} // Ok -> import
 `--allowUnusedLabels` - в случае, если флаг `--allowUnusedLabels` не активен, при выявлении неиспользуемых `label` возникают ошибки.
 
 
-~~~~~typescript
+`````ts
 {
   "compilerOptions": {
       "allowUnusedLabels": false
   }
 }
-~~~~~
+`````
 
 
 **type**: `boolean`
@@ -1177,13 +1177,13 @@ class T2 extends Component {} // Ok -> import
 
 `--noImplicitReturns` - функции, имеющие возвращаемый тип, отличный от типа `void`, фактически могут не возвращать значение явно. Другими словами, чтобы удовлетворять условиям данной опции, в теле функции должен присутствовать лишь оператор `return`. Но при активной текущей опции, функции будут обязаны возвращать значение явно.
 
-~~~~~typescript
+`````ts
 {
   "compilerOptions": {
       "noImplicitReturns": false
   }
 }
-~~~~~
+`````
 
 
 **type**: `boolean`
@@ -1193,7 +1193,7 @@ class T2 extends Component {} // Ok -> import
 
 *Пример*
 
-~~~~~typescript
+`````ts
 // noImplicitReturns === false
 
 function f(value: number): number{
@@ -1203,9 +1203,9 @@ function f(value: number): number{
 
  // Ok
 }
-~~~~~
+`````
 
-~~~~~typescript
+`````ts
 // noImplicitReturns === true
 
 function f(value: number): number{
@@ -1213,9 +1213,9 @@ function f(value: number): number{
    return; // Erorr
  }
 }
-~~~~~
+`````
 
-~~~~~typescript
+`````ts
 // noImplicitReturns === true
 
 function f(value: number): number{
@@ -1225,9 +1225,9 @@ function f(value: number): number{
 
  // Error
 }
-~~~~~
+`````
 
-~~~~~typescript
+`````ts
 // noImplicitReturns === true
 
 function f(value: number): number{
@@ -1237,9 +1237,9 @@ function f(value: number): number{
 
  return; // Error
 }
-~~~~~
+`````
 
-~~~~~typescript
+`````ts
 // noImplicitReturns === true
 
 function f(value: number): number{
@@ -1249,7 +1249,7 @@ function f(value: number): number{
 
  return 0; // Ok
 }
-~~~~~
+`````
 
 
 ## noFallthroughCasesInSwitch
@@ -1258,13 +1258,13 @@ function f(value: number): number{
 
 `--noFallthroughCasesInSwitch` - при активной опции в случае, если блок кода `case` имеет код, при этом не имеет выхода из него (`break` или `return`), возникнет ошибка.
 
-~~~~~typescript
+`````ts
 {
   "compilerOptions": {
       "noFallthroughCasesInSwitch": false
   }
 }
-~~~~~
+`````
 
 **type**: `boolean`
 **default**: `false`
@@ -1273,7 +1273,7 @@ function f(value: number): number{
 
 *Пример*
 
-~~~~~typescript
+`````ts
 function isAdmin( value: string ){
   switch (value) {
       case 'user': // If noFallthroughCasesInSwitch === false then Ok
@@ -1298,7 +1298,7 @@ function isAdmin( value: string ){
           return true;
   }
 }
-~~~~~
+`````
 
 
 ## outFile
@@ -1307,13 +1307,13 @@ function isAdmin( value: string ){
 
 `--outFile` - компилятор, при условии, что в качестве модулей указанно `amd` или `system`, будет сохранять все скомпилированные модули в один файл, указанный в качестве значения опции.
 
-~~~~~typescript
+`````ts
 {
   "compilerOptions": {
       "outFile": ""
   }
 }
-~~~~~
+`````
 
 
 **type**: `string`
@@ -1323,7 +1323,7 @@ function isAdmin( value: string ){
 
 *до компиляции*
 
-~~~~~typescript
+`````ts
 // T1.ts
 
 export default class T1 {}
@@ -1339,12 +1339,12 @@ export default class T2 extends T1 {}
 import T2 from './T2';
 
 const v1: T2 = new T2();
-~~~~~
+`````
 
 
 *после компиляции*
 
-~~~~~typescript
+`````ts
 define("T1", ["require", "exports"], function (require, exports) {
   "use strict";
   Object.defineProperty(exports, "__esModule", { value: true });
@@ -1364,7 +1364,7 @@ define("index", ["require", "exports", "T2"], function (require, exports, T2_1) 
   Object.defineProperty(exports, "__esModule", { value: true });
   const v1 = new T2_1.default();
 });
-~~~~~
+`````
 
 
 ## allowSyntheticDefaultImports
@@ -1372,13 +1372,13 @@ define("index", ["require", "exports", "T2"], function (require, exports, T2_1) 
 
 `--allowSyntheticDefaultImports` - позволяет предотвращать ошибки, которые возникают во время сборки по причине несовместимости *SystemJS* и *CommonJS*. Дело в том, что в *ES6* синтаксисе есть возможность экспорта по умолчанию (`export default`), после компиляции которого *CommonJS* испытывает трудности, так как не знает, что такое `default`. Чаще всего проблема возникает в тех случая, когда разработка ведется с применением одних модулей, а подключаемые библиотеки используют другие.
 
-~~~~~typescript
+`````ts
 {
   "compilerOptions": {
       "allowSyntheticDefaultImports": false
   }
 }
-~~~~~
+`````
 
 
 **type**: `boolean`
@@ -1391,13 +1391,13 @@ define("index", ["require", "exports", "T2"], function (require, exports, T2_1) 
 
 `--allowUnreachableCode` - если значение данной опции выставлено в `true`, то при обнаружении кода, который никогда не будет вызван, будет выводится сообщение об ошибке.
 
-~~~~~typescript
+`````ts
 {
   "compilerOptions": {
       "allowUnreachableCode": false
   }
 }
-~~~~~
+`````
 
 
 **type**: `boolean`
@@ -1407,7 +1407,7 @@ define("index", ["require", "exports", "T2"], function (require, exports, T2_1) 
 
 *Пример*
 
-~~~~~typescript
+`````ts
 function f1(value: number): void {
   throw new Error('');
 
@@ -1420,7 +1420,7 @@ function f2() {
       value: '' // Error - Unreachable code detected
   }
 }
-~~~~~
+`````
 
 
 ## allowJs
@@ -1428,13 +1428,13 @@ function f2() {
 
 `--allowJs` - в случае, когда код, одна часть которого написана на *TypeScript*, а другая на *JavaScript*, требуется собрать в общий файл, достаточно активировать текущую опцию.
 
-~~~~~typescript
+`````ts
 {
   "compilerOptions": {
       "allowJs": false
   }
 }
-~~~~~
+`````
 
 
 **type**: `boolean`
@@ -1444,7 +1444,7 @@ function f2() {
 
 *Пример*
 
-~~~~~typescript
+`````ts
 // sun.js
 
 export default function sum(a, b){
@@ -1456,7 +1456,7 @@ export default function sum(a, b){
 import sum from './sum';
 
 let result: number = sum(1, 1);
-~~~~~
+`````
 
 
 ## reactNamespace
@@ -1465,13 +1465,13 @@ let result: number = sum(1, 1);
 
 `--reactNamespace` - позволяет установить фабрику рендера *.jsx* синтаксиса.
 
-~~~~~typescript
+`````ts
 {
   "compilerOptions": {
       "reactNamespace": ""
   }
 }
-~~~~~
+`````
 
 
 **type**: `string`
@@ -1481,7 +1481,7 @@ let result: number = sum(1, 1);
 
 *Пример*
 
-~~~~~typescript
+`````ts
 // index.tsx
 
 import {jsxFactory} from "jsxFactory";
@@ -1493,7 +1493,7 @@ const div = <div>Hello JSX!</div>;
 "use strict";
 var jsxFactory_1 = require("jsxFactory");
 var div = jsxFactory_1.jsxFactory.createElement("div", null, "Hello JSX!");
-~~~~~
+`````
 
 
 ## pretty
@@ -1501,13 +1501,13 @@ var div = jsxFactory_1.jsxFactory.createElement("div", null, "Hello JSX!");
 
 `--pretty` - раскрашивает в разные цвета выводимые в консоль сообщения, делая их более понятными.
 
-~~~~~typescript
+`````ts
 {
   "compilerOptions": {
       "pretty": true
   }
 }
-~~~~~
+`````
 
 **type**: `boolean`
 **default**: `true`
@@ -1519,13 +1519,13 @@ var div = jsxFactory_1.jsxFactory.createElement("div", null, "Hello JSX!");
 
 `--moduleResolution` - позволяет конкретизировать поведение модулей.
 
-~~~~~typescript
+`````ts
 {
   "compilerOptions": {
       "moduleResolution": "node"
   }
 }
-~~~~~
+`````
 
 
 **type**: `string`
@@ -1538,13 +1538,13 @@ var div = jsxFactory_1.jsxFactory.createElement("div", null, "Hello JSX!");
 
 `exclude` - в обычной ситуации под компиляцию рекурсивно попадают все файлы, которые включает в себя директория, содержащая *tsconfig.json*. Решением этой проблемы является свойство `exclude`, определенное в корне конфигурационного  файла. В качестве его значения выступает массив с путями к файлам или директориям, которые следует исключить из компиляции.
 
-~~~~~typescript
+`````ts
 {
   "exclude": [
 
   ]
 }
-~~~~~
+`````
 
 
 **type**: `string[ ]`
@@ -1557,13 +1557,13 @@ var div = jsxFactory_1.jsxFactory.createElement("div", null, "Hello JSX!");
 
 `--noEmitHelpers` - после компиляции файлов с расширением *.ts* каждый скомпилированный файл *.js* (модуль) содержит, если в этом есть необходимость, вспомогательный код (проще говоря, helpers), который помогает решить проблему совместимости версий *ES*. В большей степени этот код, находящийся в разных файлах (модулях), идентичный. Простыми словами, helpers повторяются от файла к файлу. Компилятор вынужден добавлять повторяющийся код, чтобы гарантировать работу каждого модуля по отдельности. Но если модули собираются в одну общую сборку, активация текущего флага укажет компилятору, что helpers нужно вынести в отдельный модуль, который будет доступен в тех частях кода, которые от него зависят. Это поможет избавиться от дублирования кода и сократит размер собранного файла.
 
-~~~~~typescript
+`````ts
 {
   "compilerOptions": {
       "noEmitHelpers": false
   }
 }
-~~~~~
+`````
 
 
 **type**: `boolean`
@@ -1576,13 +1576,13 @@ var div = jsxFactory_1.jsxFactory.createElement("div", null, "Hello JSX!");
 
 `--newLine` - по умолчанию, новая строка обозначается `\r\n` на *Windows* и `\r` на **nix* системах. Для переопределения поведения используется данная опция.
 
-~~~~~typescript
+`````ts
 {
   "compilerOptions": {
       "newLine": "LF"
   }
 }
-~~~~~
+`````
 
 **type**: `string`
 **default**: `platform specific`
@@ -1594,13 +1594,13 @@ var div = jsxFactory_1.jsxFactory.createElement("div", null, "Hello JSX!");
 
 `--inlineSourceMap` - активная опция приводит к тому, что *source maps* записываются *inline* в *.js* файлы, а не выносятся в отдельные файлы *.map.js*.
 
-~~~~~typescript
+`````ts
 {
   "compilerOptions": {
       "inlineSourceMap": false
   }
 }
-~~~~~
+`````
 
 **type**: `boolean`
 **default**: `false`
@@ -1612,13 +1612,13 @@ var div = jsxFactory_1.jsxFactory.createElement("div", null, "Hello JSX!");
 
 `--inlineSources` - при активной опции, источник *source map* включается в файл вместе c *source map*. Работает в паре с опцией `--inlineSourceMap`.
 
-~~~~~typescript
+`````ts
 {
   "compilerOptions": {
       "inlineSources": false
   }
 }
-~~~~~
+`````
 
 **type**: `boolean`
 **default**: `false`
@@ -1630,13 +1630,13 @@ var div = jsxFactory_1.jsxFactory.createElement("div", null, "Hello JSX!");
 
 `--noEmitOnError` -  несмотря на ошибки в *TypeScript* коде, компилятор все равно генерирует *.js* файлы. Для того чтобы компилятор генерировал файлы  *.js* только в случае успешной компиляции, нужно активировать данную опцию.
 
-~~~~~typescript
+`````ts
 {
   "compilerOptions": {
       "noEmitOnError": false
   }
 }
-~~~~~
+`````
 
 **type**: `boolean`
 **default**: `false`
@@ -1648,13 +1648,13 @@ var div = jsxFactory_1.jsxFactory.createElement("div", null, "Hello JSX!");
 
 `--noEmit` - при активной  опции перестаёт выводится информация о компиляции.
 
-~~~~~typescript
+`````ts
 {
   "compilerOptions": {
       "noEmit": false
   }
 }
-~~~~~
+`````
 
 **type**: `boolean`
 **default**: `false`
@@ -1666,13 +1666,13 @@ var div = jsxFactory_1.jsxFactory.createElement("div", null, "Hello JSX!");
 
 `--charset` - устанавливает формат входных файлов.
 
-~~~~~typescript
+`````ts
 {
   "compilerOptions": {
       "charset": ""
   }
 }
-~~~~~
+`````
 
 **type**: `string`
 **default**: `utf8`
@@ -1684,13 +1684,13 @@ var div = jsxFactory_1.jsxFactory.createElement("div", null, "Hello JSX!");
 
 `--diagnostics` - выводит диагностическую информацию.
 
-~~~~~typescript
+`````ts
 {
   "compilerOptions": {
       "diagnostics": false
   }
 }
-~~~~~
+`````
 
 **type**: `boolean`
 **default**: `false`
@@ -1701,13 +1701,13 @@ var div = jsxFactory_1.jsxFactory.createElement("div", null, "Hello JSX!");
 
 `--declaration` - генерирует файлы декларации `.d.ts` из `.ts` файлов.
 
-~~~~~typescript
+`````ts
 {
   "compilerOptions": {
       "declaration": false
   }
 }
-~~~~~
+`````
 
 **type**: `boolean`
 **default**: `false`
@@ -1719,13 +1719,13 @@ var div = jsxFactory_1.jsxFactory.createElement("div", null, "Hello JSX!");
 
 `--downlevelIteration` - при активной опции становится возможно использовать итераторы при компиляции в версии ниже  `ES6`. Помимо самих итераторов, становятся доступны и нововведения (`for...of`, `Array Destructuring`, `Spread` и т.д.), которые построены с их использованием.
 
-~~~~~typescript
+`````ts
 {
   "compilerOptions": {
       "downlevelIteration": false
   }
 }
-~~~~~
+`````
 
 **type**: `boolean`
 **default**: `false`
@@ -1737,13 +1737,13 @@ var div = jsxFactory_1.jsxFactory.createElement("div", null, "Hello JSX!");
 
 `--emitBOM` - Извлекает *маркер последовательности байтов* *UTF-8* (BOM) в начале выходных файлов.
 
-~~~~~typescript
+`````ts
 {
   "compilerOptions": {
       "emitBOM": false
   }
 }
-~~~~~
+`````
 
 **type**: `boolean`
 **default**: `false`
@@ -1755,13 +1755,13 @@ var div = jsxFactory_1.jsxFactory.createElement("div", null, "Hello JSX!");
 
 `--emitDecoratorMetadata` - ...
 
-~~~~~typescript
+`````ts
 {
   "compilerOptions": {
       "emitDecoratorMetadata": false
   }
 }
-~~~~~
+`````
 
 **type**: `boolean`
 **default**: `false`
@@ -1773,13 +1773,13 @@ var div = jsxFactory_1.jsxFactory.createElement("div", null, "Hello JSX!");
 
 `--forceConsistentCasingInFileNames` - запрещает несогласованные ссылки на один и тот же файл.
 
-~~~~~typescript
+`````ts
 {
   "compilerOptions": {
       "forceConsistentCasingInFileNames": false
   }
 }
-~~~~~
+`````
 
 **type**: `boolean`
 **default**: `false`
@@ -1791,10 +1791,10 @@ var div = jsxFactory_1.jsxFactory.createElement("div", null, "Hello JSX!");
 
 `--help` или `-h` - выводит список доступных опций.
 
-~~~~~typescript
+`````ts
 tsc --help
 tsc -h
-~~~~~
+`````
 
 
 ## importHelpers
@@ -1802,13 +1802,13 @@ tsc -h
 
 `--importHelpers` - импортирует таких помощников (helpers), как `__extends`, `__rest` и т.д.
 
-~~~~~typescript
+`````ts
 {
   "compilerOptions": {
       "importHelpers": false
   }
 }
-~~~~~
+`````
 
 **type**: `boolean`
 **default**: `false`
@@ -1820,13 +1820,13 @@ tsc -h
 
 `--isolatedModules` - транслирует каждый файл, как отдельный модуль.
 
-~~~~~typescript
+`````ts
 {
   "compilerOptions": {
       "isolatedModules": false
   }
 }
-~~~~~
+`````
 
 **type**: `boolean`
 **default**: `false`
@@ -1838,13 +1838,13 @@ tsc -h
 
 `--listEmittedFiles` - выводит список сгенерированных файлов.
 
-~~~~~typescript
+`````ts
 {
   "compilerOptions": {
       "listEmittedFiles": false
   }
 }
-~~~~~
+`````
 
 **type**: `boolean`
 **default**: `false`
@@ -1856,13 +1856,13 @@ tsc -h
 
 `--listFiles` - выводит список участвующих в компиляции файлов.
 
-~~~~~typescript
+`````ts
 {
   "compilerOptions": {
       "listFiles": false
   }
 }
-~~~~~
+`````
 
 **type**: `boolean`
 **default**: `false`
@@ -1874,13 +1874,13 @@ tsc -h
 
 `--sourceRoot` - в качестве значения принимает базовый путь до директории, в которой лежат исходники *.ts*, необходимые для ассоциации с *source map*.
 
-~~~~~typescript
+`````ts
 {
   "compilerOptions": {
       "sourceRoot": ""
   }
 }
-~~~~~
+`````
 
 **type**: `string`
 **default**: `""`
@@ -1892,13 +1892,13 @@ tsc -h
 
 `--mapRoot` - место, откуда будут браться файлы *.map.js*.
 
-~~~~~typescript
+`````ts
 {
   "compilerOptions": {
       "mapRoot": ""
   }
 }
-~~~~~
+`````
 
 **type**: `string`
 **default**: `""`
@@ -1910,13 +1910,13 @@ tsc -h
 
 `--maxNodeModuleJsDepth` - максимальная глубина поиска зависимостей в *node_modules* и загрузки файлов *.js*. Работает только с активной опцией `--allowJs`.
 
-~~~~~typescript
+`````ts
 {
   "compilerOptions": {
       "maxNodeModuleJsDepth": 0
   }
 }
-~~~~~
+`````
 
 **type**: `number`
 **default**: `0`
@@ -1928,10 +1928,10 @@ tsc -h
 
 `--project` или `-p` - с помощью этого флага можно указать как путь до директории, которая содержит `tsconfig.json`, так и на конкретный `tsconfig.json` файл.
 
-~~~~~typescript
+`````ts
 tsc --project
 tsc -p ./configs/tsconfig.es6.json
-~~~~~
+`````
 
 **type**: `string`
 **default**: ``
@@ -1943,9 +1943,9 @@ tsc -p ./configs/tsconfig.es6.json
 
 `--init` - создает новый *tsconfig.json* со всеми доступными опциями, большинство из которых закомментировано, дабы создать оптимальную конфигурацию.
 
-~~~~~typescript
+`````ts
 tsc --init
-~~~~~
+`````
 
 
 ## version (v)
@@ -1953,10 +1953,10 @@ tsc --init
 
 `--version` или `-v` - выводит информацию о текущей версии *TypeScript*.
 
-~~~~~typescript
+`````ts
 tsc --version
 tsc -v
-~~~~~
+`````
 
 
 ## watch (w)
@@ -1964,10 +1964,10 @@ tsc -v
 
 `--watch` или `-w` - запускает компилятор в режиме наблюдения за изменением файлов. При каждом изменении отслеживаемых  файлов компиляция будет запущена автоматически.
 
-~~~~~typescript
+`````ts
 tsc --watch
 tsc -w
-~~~~~
+`````
 
 
 ## preserveSymlinks
@@ -1975,13 +1975,13 @@ tsc -w
 
 `--preserveSymlinks` - текущая опция демонстрирует поведение, идентичное реализуемому в *NodeJS* с активным флагом `--preserve-symlinks`. При активной опции символические ссылки на модели (modules) и пакеты (packages) разрешаются относительно файла символической ссылки, а не относительно пути, к которому разрешается символическая ссылка. Кроме того, поведение при активной текущей опции противоположно поведению, предоставляемому *Webpack* с помощью флага со схожим по смыслу названием `resolve.symlinks`.
 
-~~~~~typescript
+`````ts
 {
   "compilerOptions": {
       "preserveSymlinks": false
   }
 }
-~~~~~
+`````
 
 **type**: `boolean`
 **default**: `false`
@@ -1993,13 +1993,13 @@ tsc -w
 
 `--strictFunctionTypes` - при активной опции параметры функций начинают сравниваться по контрвариантным правилам, в то время, как при не активной опции, сравнения производятся по бивариантным правилам.
 
-~~~~~typescript
+`````ts
 {
   "compilerOptions": {
       "strictFunctionTypes": false
   }
 }
-~~~~~
+`````
 
 **type**: `boolean`
 **default**: `false`
@@ -2011,13 +2011,13 @@ tsc -w
 
 `--locale` - позволяет указать один из заданных языков для вывода диагностических сообщений.
 
-~~~~~typescript
+`````ts
 {
   "compilerOptions": {
       "locale": "en" | "cs" | "de" | "es" | "fr" | "it" | "ja" | "ko" | "pl" | "pt-BR" | "ru" | "tr" | "zh-CN" | "zh-TW" |
   }
 }
-~~~~~
+`````
 
 
 
@@ -2031,19 +2031,19 @@ tsc -w
 
 `--strictPropertyInitialization` - при активной опции в случае, когда в классе присутствуют поля, не инициализированные в момент создания или в конструкторе, возникает ошибка. Более подробно данная тема раскрыта в главе [“Классы - Definite Assignment Assertion Modifier”](../028.(Классы)%20Definite%20Assignment%20Assertion%20Modifier).
 
-~~~~~typescript
+`````ts
 {
   "compilerOptions": {
       "strictPropertyInitialization": false
   }
 }
-~~~~~
+`````
 
 **type**: `boolean`
 **default**: `false`
 **values**: `true`, `false`
 
-~~~~~typescript
+`````ts
 class Identifier {
   public a: number = 0; // Ok, инициализация при объявлении
   public b: number; // Ok, инициализация в конструкторе
@@ -2053,7 +2053,7 @@ class Identifier {
       this.b = 0;
   }
 }
-~~~~~
+`````
 
 
 ## esModuleInterop
@@ -2061,13 +2061,13 @@ class Identifier {
 
 `--esModuleInterop` - с активной опцией сгенерированный код таких модулей формата *CommonJS*/*AMD*/*UMD* больше походит на код, сгенерированный *Babel*.
 
-~~~~~typescript
+`````ts
 {
   "compilerOptions": {
       "esModuleInterop": false
   }
 }
-~~~~~
+`````
 
 **type**: `boolean`
 **default**: `false`
@@ -2079,13 +2079,13 @@ class Identifier {
 
 `--emitDeclarationsOnly` - данная опция указывает компилятору, что нужно генерировать только файлы декларации с расширением *.d.ts* и пропускать файлы с расширением *.js* и *.jsx*. Такое поведение может быть полезно, если код, помимо компилятора *TypeScript*, компилируется ещё и с помощью *Babel*.
 
-~~~~~typescript
+`````ts
 {
   "compilerOptions": {
       "emitDeclarationsOnly": false
   }
 }
-~~~~~
+`````
 
 **type**: `boolean`
 **default**: `false`
@@ -2098,20 +2098,20 @@ class Identifier {
 `--resolveJsonModule` - данная опция, при активной опции `--esModuleInterop`
 и опции `--module`, установленной в `commonjs`, позволяет в среде *NodeJS* полноценно взаимодействовать с *json*.
 
-~~~~~typescript
+`````ts
 {
   "compilerOptions": {
       "resolveJsonModule": false
   }
 }
-~~~~~
+`````
 
 **type**: `boolean`
 **default**: `false`
 **values**: `true`, `false`
 
 
-~~~~~typescript
+`````ts
 // file config.json
 
 {
@@ -2138,7 +2138,7 @@ config.name = 0; // Error
        "esModuleInterop": true
    }
 }
-~~~~~
+`````
 
 
 ## declarationMap
@@ -2146,13 +2146,13 @@ config.name = 0; // Error
 
 `--declarationMap` - при совместном использовании с активной опцией `--declaration` заставляет компилятор, помимо *.d.ts*, также генерировать *.d.ts.map*, которые позволяют при переходе к определению (go to definition) направлять в файл *.ts*, а не *.d.ts*.
 
-~~~~~typescript
+`````ts
 {
   "compilerOptions": {
       "declarationMap": false
   }
 }
-~~~~~
+`````
 
 **type**: `boolean`
 **default**: `false`
@@ -2164,20 +2164,20 @@ config.name = 0; // Error
 
 `--strictBindCallApply` - текущий флаг, входящий в группировку `--strict`, активирует проверку вызова таких методов, как `apply`, `call` и `bind`. Это стало возможным благодаря добавлению двух новых типов, `CallableFunction` и `NewableFunction`, которые содержат обобщенное описание методов `apply`, `call` и `bind`, как для обычных функций, так и для функций конструкторов соответственно.
 
-~~~~~typescript
+`````ts
 {
   "compilerOptions": {
       "strictBindCallApply": false
   }
 }
-~~~~~
+`````
 
 **type**: `boolean`
 **default**: `false`
 **values**: `true`, `false`
 
 
-~~~~~typescript
+`````ts
 function f(p0: number, p1: string){}
 
 
@@ -2195,7 +2195,7 @@ f.bind(null, 0, ''); // ok
 f.bind(null, 0, 0); // error
 f.bind(null, 0); // ok
 f.bind(null, 0, '', 0); // ok
-~~~~~
+`````
 
 
 ## showConfig
@@ -2203,13 +2203,13 @@ f.bind(null, 0, '', 0); // ok
 
 `--showConfig` - при активном текущем флаге компилятор `tsc` во время компиляции выведет в консоль содержимое конфигурационного файла `tsconfig.json`, разрешенного с учетом механизма расширения (`extends`), если таковой механизм имеет место быть. Этот функционал может быть очень полезным при отладке.
 
-~~~~~typescript
+`````ts
 {
   "compilerOptions": {
       "showConfig": false
   }
 }
-~~~~~
+`````
 
 **type**: `boolean`
 **default**: `false`
@@ -2257,7 +2257,7 @@ f.bind(null, 0, '', 0); // ok
 
 `--incremental` - флаг, при активации которого, после первой компиляции проекта, в заданной атирибутом `outDir` директории создается файл `.tsbuildinf`, который хранит метаинформацию об изменении файлов, что позволяет производить ускоренные инкрементальные сборки при всех последующих запусках компилятора.
 
-`````typescript
+`````ts
 {
     "compilerOptions": {
         "incremental": true,
@@ -2272,7 +2272,7 @@ f.bind(null, 0, '', 0); // ok
 
 Кроме того, с помощью флага `--tsBuildInfoFile` можно задать место сохранения файла `.tsbuildinf`.
 
-`````typescript
+`````ts
 {
     "compilerOptions": {
         "incremental": true,
@@ -2288,7 +2288,7 @@ f.bind(null, 0, '', 0); // ok
 `--tsBuildInfoFile` - флаг, с помощью которого указывается место сохранения файла `.tsbuildinf`, генерирующегося при активной опции `--incremental` и служущего для хранения метаинформации, призванной ускорить последующие сборки.
 
 
-`````typescript
+`````ts
 {
     "compilerOptions": {
         "incremental": true,
@@ -2303,7 +2303,7 @@ f.bind(null, 0, '', 0); // ok
 `--allowUmdGlobalAccess` - при активном текущем флаге становится возможным обращение к глобальным определениям из модулей.
 
 
-`````typescript
+`````ts
 {
     "compilerOptions": {
         "allowUmdGlobalAccess": false,
@@ -2316,7 +2316,7 @@ f.bind(null, 0, '', 0); // ok
 **values**: `true`, `false`
 
 
-`````typescript
+`````ts
 // allowUmdGlobalAccess === false
 
 import * as Rx from 'rxjs';
@@ -2324,7 +2324,7 @@ import * as Rx from 'rxjs';
 const ref = React.createRef(); // Error, обращение к глобальным переменным в модулях недопустимо
 `````
 
-`````typescript
+`````ts
 // allowUmdGlobalAccess === true
 
 import * as Rx from 'rxjs';
@@ -2338,7 +2338,7 @@ const ref = React.createRef(); // Ok, доступ к глобальному о�
 `--disableSourceOfProjectReferenceRedirect` - при использовании механизма ссылок на проекты активация данного флага говорит компилятору, что в качестве информации о типах следует использовать файлы декларации `.d.ts`, а не исходные файлы проекта. Активация данного флага способна повысить производительность сборки, но вносит некоторую специфику, поэтому уместна лишь на больших проектах. Более подробно читайте об этом в главе, посвященной использованию ссылок на проекты.
 
 
-`````typescript
+`````ts
 {
     "compilerOptions": {
         "disableSourceOfProjectReferenceRedirect": false,
@@ -2359,7 +2359,7 @@ const ref = React.createRef(); // Ok, доступ к глобальному о�
 [Важно] Начиная с версии `4.0` логика компилятора _TypeScript_ подразумевает непереопределяемое поведение равнозначное поведению при активном текущем флаге.
 
 
-`````typescript
+`````ts
 {
     "compilerOptions": {
         "useDefineForClassFields": false,
@@ -2377,7 +2377,7 @@ const ref = React.createRef(); // Ok, доступ к глобальному о�
 `--importsNotUsedAsValues` - задает стратегию используемую компилятором для разрешения зависимостей модуля путем уточнения формы импорта и экспорта. Более подрбно о текущем флаге можно прочесть в главе "Импорт и экспорт только типа и флаг --importsNotUsedAsValues".
 
 
-`````typescript
+`````ts
 {
     "compilerOptions": {
         "importsNotUsedAsValues": "remove",

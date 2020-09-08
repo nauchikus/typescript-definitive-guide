@@ -2,7 +2,7 @@
 
 Начиная с версии `v3.6`, система типов `Typescript` пополнилась новыми вспомогательными типами представляющими структуры данных _только для чтения_ (`readonly`). Такими типами стали `ReadonlyMap<K, V>` и `ReadonlySet<T>` и в отличии от своих прототипов они не имеют методов способных их изменить.
 
-```typescript
+`````ts
 let map: ReadonlyMap<string, number> = new Map([['key', 0]]);
 let set: ReadonlySet<number> = new Set([0, 1, 2]);
 ```

@@ -12,13 +12,13 @@
 
 Тип `Null` указывается с помощью ключевого слова `null` (не путать с единственным литеральным значением типа `Null` `null`, которое присваивается в качестве значения).
 
-~~~~~typescript
+`````ts
 let identifier: null = null; // null, указанный после оператора двоеточия, это имеющийся только в TypeScript псевдоним (alias) для глобального типа Null. В то время как null, указанный после оператора присваивания, это единственное значение типа Null.
-~~~~~
+`````
 
 Тип `Null` является подтипом всех типов, за исключением типа `Undefined`, поэтому его единственное значение `null` совместимо со всеми остальными типами данных.
 
-~~~~~typescript
+`````ts
 class TypeSystem {
     static any: any = null; // Ok
     static number: number = null; // Ok
@@ -26,27 +26,27 @@ class TypeSystem {
     static boolean: boolean = null; // Ok
     static null: null = null; // Ok
 }
-~~~~~
+`````
 
 В то время как тип `Null` совместим со всеми типами, помимо него самого, с ним самим совместим лишь тип `Undefined` и `Any`.
 
-~~~~~typescript
+`````ts
 TypeSystem.null = TypeSystem.any; // Ok
 TypeSystem.null = TypeSystem.number; // Error
 TypeSystem.null = TypeSystem.string; // Error
 TypeSystem.null = TypeSystem.boolean; // Error
 TypeSystem.null = TypeSystem.null; // Ok
-~~~~~
+`````
 
 Тогда, когда тип данных указывается не явно, а в качестве значения используется значение `null`, вывод типов определяет принадлежность к типу `Any`.
 
-~~~~~typescript
+`````ts
 let identifier = null; // identifier: any
-~~~~~
+`````
 
 Создатели *TypeScript* во избежание ошибок, возникающих при операциях, в которых вместо ожидаемого значения фигурирует значение `null`, рекомендуют вести разработку с активным флагом `--strictNullChecks`. При активном флаге `--strictNullChecks` тип `Null` является подтипом только одного типа `Any`. Это в свою очередь означает, что значение `null` может быть совместимо только с типами `Any` и `Null`. Простыми словами, значение `null` не получится присвоить типам отличным от `Any` и `Null`.
 
-~~~~~typescript
+`````ts
 class TypeSystem {
     static any: any = null; // Ok
     static number: number = null; // Error
@@ -60,13 +60,13 @@ TypeSystem.null = TypeSystem.number; // Error
 TypeSystem.null = TypeSystem.string; // Error
 TypeSystem.null = TypeSystem.boolean; // Error
 TypeSystem.null = TypeSystem.undefined; // Ok
-~~~~~
+`````
 
 При активном флаге `--strictNullChecks`, при условии что в качестве значения выступает значение `null`, вывод типов определяет принадлежность к типу `Null`.
 
-~~~~~typescript
+`````ts
 let identifier = null; // identifier: null
-~~~~~
+`````
 
 Тип `Null` идентичен по своей работе с одноимённым типом из *JavaScript*.
 
@@ -76,16 +76,16 @@ let identifier = null; // identifier: null
 
 Примитивный тип `Undefined` указывает на то, что значение не определено. Тип данных `Undefined` указывается с помощью ключевого слова `undefined` (не путать со свойством глобального объекта, которое представляет единственное значение типа `Undefined` `undefined`). 
 
-~~~~~typescript
+`````ts
 let identifier: undefined = undefined; // undefined, указанный после оператора двоеточия, это имеющийся только в TypeScript псевдоним (alias) для глобального типа Undefined. В то время как undefined, указанный после оператора присваивания, это единственное значение типа Undefined.
-~~~~~
+`````
 
 Во время выполнения объявленные, но не инициализированные переменные, поля и свойства класса, а также параметры имеют значение `undefined`. Также значение `undefined` является результатом вызова методов или функций, которые не возвращают значения.
 
 
 Тип `Undefined` является подтипом всех типов, что делает его совместимым со всеми остальными типами.
 
-~~~~~typescript
+`````ts
 class TypeSystem {
     static any: any = undefined; // Ok
     static number: number = undefined; // Ok
@@ -94,29 +94,29 @@ class TypeSystem {
     static null: null = undefined; // Ok
     static undefined: undefined = undefined; // Ok
 }
-~~~~~
+`````
 
 Может возникнуть вопрос, почему тип `Null`, который не имеет непосредственного отношения к типу `Undefined`, совместим с ним? На данный момент, этот вопрос остается единственным, на который автор не смог найти однозначного ответа.
 
 В то время как тип данных `Undefined` совместим со всеми типами, помимо него самого, с ним совместимы лишь `Null` и `Any`.
 
-~~~~~typescript
+`````ts
 TypeSystem.undefined = TypeSystem.any; // Ok
 TypeSystem.undefined = TypeSystem.number; // Error
 TypeSystem.undefined = TypeSystem.string; // Error
 TypeSystem.undefined = TypeSystem.boolean; // Error
 TypeSystem.undefined = TypeSystem.null; // Ok
-~~~~~
+`````
 
 Тогда, когда тип данных `Undefined` указывается не явно, компилятор устанавливает тип `Any`.
 
-~~~~~typescript
+`````ts
 let identifier = undefined; // identifier: any
-~~~~~
+`````
 
 При активном флаге `--strictNullChecks`, тип `Undefined` является подтипом только одного типа `Any`. Поэтому его и ему в качестве значения, помимо самого себя, можно присвоить только тип `Any`.
 
-~~~~~typescript
+`````ts
 class TypeSystem {
     static any: any = undefined; // Ok
     static number: number = undefined; // Error
@@ -131,13 +131,13 @@ TypeSystem.undefined = TypeSystem.number; // Error
 TypeSystem.undefined = TypeSystem.string; // Error
 TypeSystem.undefined = TypeSystem.boolean; // Error
 TypeSystem.undefined = TypeSystem.null; // Error
-~~~~~
+`````
 
 При активном флаге `--strictNullChecks`, при условии что в качестве значения выступает значение `undefined`, вывод типов определяет принадлежность к типу `Undefined`.
 
-~~~~~typescript
+`````ts
 let identifier = undefined; // identifier: undefined
-~~~~~
+`````
 
 Тип `Undefined` идентичен по своей работе с одноимённым типом из *JavaScript*.
 
@@ -151,7 +151,7 @@ let identifier = undefined; // identifier: undefined
 
 Тип `Void` является подтипом `Any` и супертипом для `Null` и `Undefined`.
 
-~~~~~typescript
+`````ts
 function action(): void {
 
 }
@@ -173,11 +173,11 @@ TypeSystem.void = TypeSystem.boolean; // Error
 TypeSystem.void = TypeSystem.null; // Ok
 TypeSystem.void = TypeSystem.undefined; // Ok
 TypeSystem.void = TypeSystem.void; // Ok
-~~~~~
+`````
 
 Однако с активным флагом `--strictNullChecks`, тип данных `Void` совместим лишь с `Any` и `Undefined`.
 
-~~~~~typescript
+`````ts
 function action(): void {
 
 }
@@ -199,12 +199,12 @@ TypeSystem.void = TypeSystem.boolean; // Error
 TypeSystem.void = TypeSystem.null; // Error
 TypeSystem.void = TypeSystem.undefined; // Ok
 TypeSystem.void = TypeSystem.void; // Ok
-~~~~~
+`````
 
 Кому-то может показаться, что примеры чересчур излишни, или что примеры, в которых результат вызова функции не имеющей возвращаемого значения, присваивается полям с различными типами, не имеет никакого отношения к реальности. Да, это так. Но целью данных примеров является научить думать как компилятор *TypeScript*.
 Когда функции в качестве возвращаемого типа указан тип `Void`, может показаться, что, возвращая различные значения с помощью оператора return, компилятор выбрасывает ошибки лишь потому что он понимает, что функция помечена как ничего не возвращающая. Но это не так. Ошибка возникает по причине несовместимости типов.
 
-~~~~~typescript
+`````ts
 function a(): void {
     let result: number = 5;
 
@@ -222,25 +222,25 @@ function c(): void {
     
     return result; // Ok
 }
-~~~~~
+`````
 
 Нельзя не упомянуть, что для функций и методов, которые ничего не возвращают и у которых отсутствует аннотация типа возвращаемого значения, вывод типов определяет принадлежность к типу `Void`.
 
-~~~~~typescript
+`````ts
 function action() { // function action(): void
 
 }
-~~~~~
+`````
 
 В отличие от `Null` и `Undefined`, тип данных `Void` не имеет ни одного значения, которое могло бы явно продемонстрировать присвоение. Однако компилятор понимает что имеет дело с типом `Void` при вызове функции или метода, которые не возвращают значение. Этот становится ещё нагляднее, когда вывод типов устанавливает тип полученный при вызове функции или метода, которые ничего не возвращают.
 
-~~~~~typescript
+`````ts
 function action(): void {
 
 }
 
 let identifier = action(); // identifier: void
-~~~~~
+`````
 
 Тип `Void` является уникальным для *TypeScript*. В *JavaScript* подобного типа не существует.
 
@@ -254,7 +254,7 @@ let identifier = action(); // identifier: void
 
 Тип данных `Never` является подтипом всех типов, что делает его совместим со всеми остальными типами.
 
-~~~~~typescript
+`````ts
 function action(): never {
     throw new Error();
 };
@@ -278,13 +278,13 @@ TypeSystem.never = TypeSystem.null; // Error
 TypeSystem.never = TypeSystem.undefined; // Error
 TypeSystem.never = TypeSystem.void; // Error
 TypeSystem.never = TypeSystem.never; // Ok
-~~~~~
+`````
 
 Так как типу Never нельзя присвоить значение, отличное от самого типа `Never`, единственным местом, в котором его может использовать разработчик, является аннотация возвращаемого из функции или метода значения, с одной оговоркой. Тип `Never` можно указать только той функции, из которой программа действительно никогда не сможет выйти. 
 
 Такой сценарий может выражаться в виде функции, вызов которой приведет к однозначному исключению или в которой будет находится бесконечный цикл.
 
-~~~~~typescript
+`````ts
 function error(message: string): never {
     throw new Error(message);
 }
@@ -294,11 +294,11 @@ function loop(): never {
         
     }
 }
-~~~~~
+`````
 
 Вывод типов укажет принадлежность типа возвращаемого функцией значения только в том случае, если она будет возвращать результат вызова функции у которой тип возвращаемого значения указан как `Never`.
 
-~~~~~typescript
+`````ts
 function error(message: string): never {
     throw new Error(message);
 }
@@ -309,11 +309,11 @@ function action() { // function action(): never
 
 let identifier = error(); // let identifier: never
 let identifier = action(); // let identifier: never
-~~~~~
+`````
 
 Стоит заметить, что без явного указания типа `Never` вывод типов определит принадлежность возвращаемого значения к типу `Void`.
 
-~~~~~typescript
+`````ts
 function error(message: string) { // function error(): void 
     throw new Error(message);
 }
@@ -323,7 +323,7 @@ function loop() { // function loop(): void
         
     }
 }
-~~~~~
+`````
 
 Тип `Never` является уникальным для `TypeScript`, в `JavaScript` подобного типа не существует.
 
@@ -333,7 +333,7 @@ function loop() { // function loop(): void
 
 Тип `Unknown` является типобезопасным аналогом типа `any` и представлен в виде литерала `unknown`. Все типы совместимы с типом `unknown`, в то время как сам тип `unknown` совместим только с самим собой и типом `any`.
 
-~~~~~typescript
+`````ts
 class TypeSystem {
     static unknown: unknown;
     
@@ -355,11 +355,11 @@ TypeSystem.unknown = TypeSystem.null; // Ok
 TypeSystem.unknown = TypeSystem.undefined; // Ok
 TypeSystem.unknown = TypeSystem.void; // Ok
 TypeSystem.unknown = TypeSystem.unknown; // Ok
-~~~~~
+`````
 
 Кроме того, над типом `unknown` запрещено выполнение каких-либо операций.
 
-~~~~~typescript
+`````ts
 let v0: any;
 v0.a = 5; // Ok
 v0.a = ''; // Ok
@@ -370,11 +370,11 @@ let v1: unknown = v0; // Ok
 v1.a = 5; // Error
 v1.a = ''; // Error
 v1(); // Error
-~~~~~
+`````
 
 Если тип `unknown` составляет тип пересечение (`intersection`), то он будет перекрыт всеми типами.
 
-~~~~~typescript
+`````ts
 type T0 = any & unknown; // type T0 = any
 type T1 = number & unknown; // type T1 = number
 type T2 = string & unknown; // type T2 = string
@@ -385,11 +385,11 @@ type T6 = void & unknown; // type T6 = void
 type T7 = never & unknown; // type T7 = never
 type T8<T> = T & unknown; // type T8 = T
 type T9 = unknown & unknown; // type T9 = unknown
-~~~~~
+`````
 
 Если тип `unknown` составляет тип объединение (`union`), то он перекроет все типы, за исключением типа `any`.
 
-~~~~~typescript
+`````ts
 type T0 = any | unknown; // type T0 = any
 type T1 = number | unknown; // type T1 = unknown
 type T2 = string | unknown; // type T2 = unknown
@@ -400,19 +400,19 @@ type T6 = void | unknown; // type T6 = unknown
 type T7 = never | unknown; // type T7 = unknown
 type T8<T> = T | unknown; // type T8 = unknown
 type T9 = unknown | unknown; // type T9 = unknown
-~~~~~
+`````
 
 Помимо этого, запрос ключей (`keyof`) для типа `unknown` возвращает тип `never`.
 
-~~~~~typescript
+`````ts
 type T0 = keyof number; // type T0 = "toString" | "toFixed" | "toExponential" | "toPrecision" | "valueOf" | "toLocaleString"
 type T1 = keyof any; // type T1 = string | number | symbol
 type T2 = keyof unknown; // type T2 = never
-~~~~~
+`````
 
 Тип `unknown` позволяется использовать только в операциях равенства `===`, `==`, `!==` и `!=` и в операциях с логическими операторами `&&`, `||` и `!`.
 
-~~~~~typescript
+`````ts
 let v0: unknown = 5;
 
 let v1 = 5 === v0; // Ok
@@ -433,11 +433,11 @@ let v14 = 5 && v0; // Ok, let v14: unknown
 let v15 = 5 || v0; // Ok, let v15: number
 let v16 = v0 || 5; // Ok, let v16: unknown
 let v17 = !v0; // Ok, let v17: boolean
-~~~~~
+`````
 
 Также стоит упомянуть, что функция, у которой возвращаемый тип принадлежит к типу `unknown`, может не возвращать значение явно.
 
-~~~~~typescript
+`````ts
 function f0(): unknown {
     return; // Ok
 }
@@ -447,21 +447,21 @@ function f1(): number {
 }
 
 let v = f0(); // Ok, let v: unknown
-~~~~~
+`````
 
 Кроме того, при активной опции `--strictPropertyInitialization` принадлежащие к типу `unknown` поля не нуждаются в инициализации.
 
-~~~~~typescript
+`````ts
 class T {
     f0: unknown; // Ok
     f1: number; // Error
     f2: number = 5; // Ok
 }
-~~~~~
+`````
 
 Если в определении типа данных участвует сопоставленный тип (`Mapped Type`) которому в качестве аргумента типа передается тип `unknown`, то такой сопоставленный тип будет выведен как объектный тип `{}`. Поскольку сопоставленные типы (`Mapped Types`), псевдонимы типов (`types`), а также обобщения (`Generics<>`) будут рассмотрены позднее, то стоит просто помнить об этом факте и повторно прочесть написанное при необходимости.
 
-~~~~~typescript
+`````ts
 type MappedType<T> = {
     [K in keyof T]: T;
 }
@@ -469,4 +469,4 @@ type MappedType<T> = {
 type T0 =  MappedType<number>; // type T0 = number
 type T1 =  MappedType<any>; // type T1 = { [x: string]: any; }
 type T2 =  MappedType<unknown>; // type T2 = {}
-~~~~~
+`````

@@ -2,7 +2,7 @@
 
 До версии `3.9` при генерации кода для аксессоров определенных в теле класса под `es5` \ `es2015` поле `enumerable` устанавливалось в значение `true`, в то время как спецификация _ESMAScript_ предполагает `false`.
 
-`````typescript
+`````ts
 class T {
     set accessor(value: string){
 
@@ -12,7 +12,7 @@ class T {
     }
 }
 `````
-`````javascript
+`````js
 "use strict";
 var T = /** @class */ (function () {
     function T() {

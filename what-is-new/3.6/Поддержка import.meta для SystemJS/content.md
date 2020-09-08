@@ -2,7 +2,7 @@
 
 В _TypeScript_ `v3.6` была добавлена возможность трансформации `import.meta` в `context.meta` что является необходимым функционалом при работе с такой модульной системой, как _SystemJS_ (`--module system`).
 
-```typescript
+`````ts
 // этот код .ts ...
 console.log(import.meta);
 

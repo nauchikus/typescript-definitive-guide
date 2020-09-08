@@ -10,11 +10,11 @@
 
 Пространство имен — это конструкция, которая объявляется при помощи ключевого слова `namespace` и представляется в коде обычным *JavaScript* объектом. 
 
-~~~~~typescript
+`````ts
 namespace Identifier {
 
 }
-~~~~~
+`````
 
 Механизм пространства имен является решением такой проблемы, как коллизии в глобальном пространстве имен, дошедшего до наших дней из тех времён, когда ещё в спецификации *JavaScript* не было определено такое понятие, как модули. Простыми словами пространства имен — это совокупность обычной глобальной переменной и безымянного функционального выражения.
 
@@ -23,16 +23,16 @@ namespace Identifier {
 
 *До компиляции*
 
-~~~~~typescript
+`````ts
 namespace NamespaceIdentifier {
   class PrivateClassIdentifier {}
   export class PublicClassIdentifier{}
 }
-~~~~~
+`````
 
 *После компиляции*
 
-~~~~~typescript
+`````ts
 var NamespaceIdentifier;
 
 (function (NamespaceIdentifier) {
@@ -45,7 +45,7 @@ var NamespaceIdentifier;
   NamespaceIdentifier.PublicClassIdentifier = PublicClassIdentifier;
 
 })(NamespaceIdentifier || (NamespaceIdentifier = {}));
-~~~~~
+`````
 
 Также стоит добавить, что `namespace` является глобальным объявлением. Это дословно означает, что пространство имен, объявленное как глобальное, не нуждается в экспортировании и импортировании, а ссылка на него доступна в любой точке программы.
 
@@ -55,7 +55,7 @@ var NamespaceIdentifier;
 
 Модули в *TypeScript* определяются с помощью ключевых слов `export`/`import` и представляют механизм определения связей между модулями. Данный механизм является внутренним для *TypeScript* и не имеет никакого отношения к модулям `es2015`. В остальном они идентичны `es2015` модулям, за исключением определения модуля по умолчанию (*export default*).
 
-~~~~~typescript
+`````ts
 // Файл declaration.ts
 
 
@@ -71,19 +71,19 @@ export function f1(){}
 export const v1 = 'v1';
 export let v2 = 'v2';
 export var v3 = 'v3';
-~~~~~
+`````
 
-~~~~~typescript
+`````ts
 Файл index.ts
 
 
 import {T2} from './declaration';
 import * as declaratios from './declaration';
-~~~~~
+`````
 
 Кроме того, объявить с использованием ключевого слова `export` можно даже `namespace`. Это ограничит его глобальную область видимости и его использование в других файлах станет возможным только после явного импортирования.
 
-~~~~~typescript
+`````ts
 // Файл declaration.ts
 
 
@@ -91,26 +91,26 @@ export namespace Bird {
   export class Raven {}
   export class Owl {}
 }
-~~~~~
+`````
 
-~~~~~typescript
+`````ts
 // Файл index.ts
 
 
 import {Bird} from "./declaration";
 
 const birdAll = [ Bird.Raven, Bird.Owl ];
-~~~~~
+`````
 
 Стоит отметить, что экспортировать `namespace` стоит только тогда, когда он объявлен в теле другого `namespace`, но при этом до него нужно добраться из программы.
 
-~~~~~typescript
+`````ts
 namespace NS1 {
   export namespace NS2 {
       export class T1 {}
   }
 }
-~~~~~
+`````
 
 
 ## Конфигурирование проекта
@@ -120,7 +120,7 @@ namespace NS1 {
 
 *Структура проекта*
 
-~~~~~typescript
+`````ts
 * /
    * dest
    * src
@@ -129,27 +129,27 @@ namespace NS1 {
       * index.ts
    * package.json
    * tsconfig.json
-~~~~~
+`````
 
-~~~~~typescript
+`````ts
 // Файл Raven.ts
 
 
 namespace Bird {
   export class Owl {}
 }
-~~~~~
+`````
 
-~~~~~typescript
+`````ts
 // Файл Owl.ts
 
 
 namespace Bird {
   export class Raven {}
 }
-~~~~~
+`````
 
-~~~~~typescript
+`````ts
 // Файл index.ts
 
 
@@ -160,9 +160,9 @@ namespace App {
 
   birdAll.forEach( item => console.log(item) );
 }
-~~~~~
+`````
 
-~~~~~typescript
+`````ts
 // Файл tsconfig.json
 
 
@@ -174,9 +174,9 @@ namespace App {
       "outFile": "./dest/index.bundle.js"
   }
 }
-~~~~~
+`````
 
-~~~~~typescript
+`````ts
 // Файл package.json
 
 
@@ -195,17 +195,17 @@ namespace App {
   "typescript": "^2.5.2"
 }
 }
-~~~~~
+`````
 
 Осталось собрать проект, выполнив в консоли следующую команду:
 
-~~~~~typescript
+`````ts
 npm run build
-~~~~~
+`````
 
 Если все было сделано правильно, то в директории *dest* должен появится файл *index.bundle.js*
 
-~~~~~typescript
+`````ts
 // Файл index.bundle.js
 
 
@@ -232,4 +232,4 @@ var App;
   const birdAll = [Raven, Owl];
   birdAll.forEach(item => console.log(item));
 })(App || (App = {}));
-~~~~~
+`````
