@@ -19,6 +19,16 @@ module.exports = ({ toc }) => ast => {
 
         let chapterIndex = toc.indexOf(tocItem);
 
+
+        chapterHeadingNode.data || ( chapterHeadingNode.data = {} );
+        chapterHeadingNode.data.hProperties || ( chapterHeadingNode.data.hProperties = {} );
+
+
+        Object.assign( chapterHeadingNode.data.hProperties, {
+            title: tocItem.title,
+            section: tocItem.section,
+        } );
+
         chapterHeadingNode.children = [
             {
                 type: 'paragraph',

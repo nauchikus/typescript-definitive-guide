@@ -1,9 +1,51 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,700;1,400;1,700&display=swap');
 
-@page  {
-    format: A4;
-    margin: 64px 56px;
+
+h2 {
+    string-set: heading content(), section attr(section);
 }
+
+
+@page  {
+    size: A4;
+    margin: 96px 56px;
+}
+@page {
+
+}
+@page:nth(odd){
+    @top-left {
+        content: string(section);
+
+        color: #333;
+
+        margin: 24px 0 24px 0;
+        display: inline-block;
+    }
+
+    @bottom-right {
+        content: counter(page) "/" counter(pages);
+    }
+}
+@page:first {
+    @bottom-right {
+        content: "";
+    }
+}
+@page :nth(even) {
+    @top-right {
+        content: string(heading);
+        color: #333;
+
+        padding: 24px 0 24px 0;
+        display: inline-block;
+
+    }
+    @bottom-right {
+        content: counter(page) "/" counter(pages);
+    }
+}
+
 
 * {
     padding: 0;

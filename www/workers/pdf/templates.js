@@ -25,10 +25,13 @@ const styles = {
 
 
 
+// const BookCover = path => (`
+// <div class="book-cover__container">
+//     <img class="book-cover" src="${path}" alt="book-cover"/>
+// </div>
+// `).trim();
 const BookCover = path => (`
-<p class="book-cover__container">
-    <img class="book-cover" src="${path}" alt="book-cover"/>
-</p>
+<img class="book-cover" src="${path}" alt="book-cover"/>
 `).trim();
 
 const Html = ({content, description, root}) => (`
@@ -92,7 +95,7 @@ const BookTitlePage = path => (`
 
 
 const Page = (content, ...classes)  => (`
-<div class="${[`page`, ...classes].join(` `)}">${content}</div>
+<div chapter="Super Pupper" class="${[`page`, ...classes].join(` `)}">${content}</div>
 `).trim();
 
 

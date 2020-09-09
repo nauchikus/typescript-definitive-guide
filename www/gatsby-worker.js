@@ -23,201 +23,6 @@ const imagePathResolve = require(`./workers/pdf/remark/image-path-resolve`)
 const HtmlTemplates = require(`./workers/pdf/templates`)
 
 
-const getContent = ({first,second,third}) => HtmlTemplates.Html({
-    root: `./workers/pdf`,
-    content: `
-<h2 id="${first}">First</h2>
-<p>content</p>
-<p>content</p>
-<p>content</p>
-<p>content</p>
-<p>
-<a href="#${second}">Second</a>
-</p>
-<p>content</p>
-<p>content</p>
-<p>content</p>
-<p>content</p>
-<p>content</p>
-<p>content</p>
-<p>content</p>
-<p>content</p>
-<p>content</p>
-<p>content</p>
-<p>content</p>
-<p>content</p>
-<p>content</p>
-<p>content</p>
-<p>content</p>
-<p>content</p>
-<p>content</p>
-<p>content</p>
-<p>content</p>
-<p>content</p>
-<p>content</p>
-<p>content</p>
-<p>content</p>
-<p>content</p>
-<p>content</p>
-<p>content</p>
-<p>content</p>
-<p>content</p>
-<p>content</p>
-<p>content</p>
-<p>content</p>
-<p>content</p>
-<p>content</p>
-<p>content</p>
-<p>content</p>
-<p>content</p>
-<p>content</p>
-<p>content</p>
-<p>content</p>
-<p>content</p>
-<p>content</p>
-<p>content</p>
-<p>content</p>
-<p>content</p>
-<p>content</p>
-<p>content</p>
-<p>content</p>
-<p>content</p>
-<p>content</p>
-<p>content</p>
-<p>content</p>
-<p>content</p>
-<p>content</p>
-<p>content</p>
-<h2 id="${second}">Second</h2>
-<p>content</p>
-<p>content</p>
-<p>content</p>
-<p>content</p>
-<p>content</p>
-<p>content</p>
-<p>
-<a href="#${third}">Third</a>
-</p>
-<p>content</p>
-<p>content</p>
-<p>content</p>
-<p>content</p>
-<p>content</p>
-<p>content</p>
-<p>content</p>
-<p>content</p>
-<p>content</p>
-<p>content</p>
-<p>content</p>
-<p>content</p>
-<p>content</p>
-<p>content</p>
-<p>content</p>
-<p>content</p>
-<p>content</p>
-<p>content</p>
-<p>content</p>
-<p>content</p>
-<p>content</p>
-<p>content</p>
-<p>content</p>
-<p>content</p>
-<p>content</p>
-<p>content</p>
-<p>content</p>
-<p>content</p>
-<p>content</p>
-<p>content</p>
-<p>content</p>
-<p>content</p>
-<p>content</p>
-<p>content</p>
-<p>content</p>
-<p>content</p>
-<p>content</p>
-<p>content</p>
-<p>content</p>
-<p>content</p>
-<p>content</p>
-<p>content</p>
-<p>content</p>
-<p>content</p>
-<p>content</p>
-<p>content</p>
-<p>content</p>
-<p>content</p>
-<p>content</p>
-<p>content</p>
-<p>content</p>
-<p>content</p>
-<p>content</p>
-<p>content</p>
-<h2 id="${third}">Third</h2>
-<p>content</p>
-<p>content</p>
-<p>content</p>
-<p>content</p>
-<p>content</p>
-<p>content</p>
-<p>
-<a href="#${first}">First</a>
-</p>
-<p>content</p>
-<p>content</p>
-<p>content</p>
-<p>content</p>
-<p>content</p>
-<p>content</p>
-<p>content</p>
-<p>content</p>
-<p>content</p>
-<p>content</p>
-<p>content</p>
-<p>content</p>
-<p>content</p>
-<p>content</p>
-<p>content</p>
-<p>content</p>
-<p>content</p>
-<p>content</p>
-<p>content</p>
-<p>content</p>
-<p>content</p>
-<p>content</p>
-<p>content</p>
-<p>content</p>
-<p>content</p>
-<p>content</p>
-<p>content</p>
-<p>content</p>
-<p>content</p>
-<p>content</p>
-<p>content</p>
-<p>content</p>
-<p>content</p>
-<p>content</p>
-<p>content</p>
-<p>content</p>
-<p>content</p>
-<p>content</p>
-<p>content</p>
-<p>content</p>
-<p>content</p>
-<p>content</p>
-<p>content</p>
-<p>content</p>
-<p>content</p>
-<p>content</p>
-<p>content</p>
-<p>content</p>
-<p>content</p>
-<p>content</p>
-<p>content</p>
-<p>content</p>
-<p>content</p>
-<p>content</p>
-    `.trim()
-})
 
 async function generateCover(){
     // const browser = await puppeteer.launch({
@@ -328,26 +133,26 @@ Pdf({
         // bookCoverPath: `/home/ivan/Projects/typescript-definitive-guide/book/ru/metadata/cover.jpg`,
         bookCoverPath: `/home/ivan/Projects/typescript-definitive-guide/www/workers/pdf/a4-placeholder.png`,
         bookInfo: [
-            // {
-            //     path: `/home/ivan/Projects/typescript-definitive-guide/book/ru/chapters/010.(Экскурс в типизацию) Совместимость типов на основе вариантности/content.md`,
-            //     index: 0,
-            //     section: `Section A`,
-            //     title: `TypeScript Definitive Guide`
-            // },
-            // {
-            //     path: `/home/ivan/Projects/typescript-definitive-guide/book/ru/chapters/012.(Типы) Базовый Тип Any/content.md`,
-            //     index: 1,
-            //     section: `Section B`,
-            //     title: `TypeScript Definitive Guide`
-            // }
-            //
-            // ,
             {
-                path: `/home/ivan/Projects/typescript-definitive-guide/book/ru/chapters/032.(Типы) Обобщения (Generics)/content.md`,
-                index: 32,
-                section: `Section C`,
+                path: `/home/ivan/Projects/typescript-definitive-guide/book/ru/chapters/010.(Экскурс в типизацию) Совместимость типов на основе вариантности/content.md`,
+                index: 0,
+                section: `Section A`,
+                title: `TypeScript Definitive Guide`
+            },
+            {
+                path: `/home/ivan/Projects/typescript-definitive-guide/book/ru/chapters/012.(Типы) Базовый Тип Any/content.md`,
+                index: 1,
+                section: `Section B`,
                 title: `TypeScript Definitive Guide`
             }
+            //
+            // ,
+            // {
+            //     path: `/home/ivan/Projects/typescript-definitive-guide/book/ru/chapters/032.(Типы) Обобщения (Generics)/content.md`,
+            //     index: 32,
+            //     section: `Section C`,
+            //     title: `TypeScript Definitive Guide`
+            // }
         ]
     }
 })
