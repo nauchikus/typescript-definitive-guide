@@ -23,6 +23,7 @@ button:focus,
 button:focus-within,
 button:active{
   outline: none;
+  border: none;
 }
 button:disabled{
   opacity: .3;

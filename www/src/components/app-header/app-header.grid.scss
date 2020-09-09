@@ -61,7 +61,7 @@ $grid-gap:$app-bar__grid_gap-column;
   border-radius: var(--app_border-radius-default);
 
   display: flex;
-  justify-content: center;
+  justify-content: flex-end;
   align-items: flex-start;
 
   grid-area: search;
