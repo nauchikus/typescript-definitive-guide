@@ -325,7 +325,8 @@ Pdf({
     ],
     args: {
         toc,
-        bookCoverPath: `/home/ivan/Projects/typescript-definitive-guide/book/ru/metadata/cover.jpg`,
+        // bookCoverPath: `/home/ivan/Projects/typescript-definitive-guide/book/ru/metadata/cover.jpg`,
+        bookCoverPath: `/home/ivan/Projects/typescript-definitive-guide/www/workers/pdf/a4-placeholder.png`,
         bookInfo: [
             // {
             //     path: `/home/ivan/Projects/typescript-definitive-guide/book/ru/chapters/010.(Экскурс в типизацию) Совместимость типов на основе вариантности/content.md`,

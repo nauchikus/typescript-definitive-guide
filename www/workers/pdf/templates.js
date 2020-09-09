@@ -66,7 +66,7 @@ const Html = ({content, description, root}) => (`
           }
         }
         .remark-highlight {
-        page-break-after: avoid;
+            page-break-after: avoid;
         }
         
         
