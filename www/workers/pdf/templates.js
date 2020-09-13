@@ -3,6 +3,19 @@ const path = require(`path`);
 const toPath = (...paths) => path.join(...paths);
 const toStyle = style => Object.entries(style)
     .reduce((result, [key, value]) => result.concat(`${key}: ${value};`), ``);
+const cutHtml = html => {
+    let openBodyTag = `<body>`;
+    let closeBodyTag = `</body>`;
+
+    let firstIndex = html.indexOf(openBodyTag) + openBodyTag.length;
+    let secondIndex = html.indexOf(closeBodyTag);
+
+    return [
+        html.substring(0, firstIndex),
+        html.substring(secondIndex),
+    ];
+}
+
 
 const styles = {
     header: toStyle({
@@ -114,7 +127,6 @@ const PageFooter = ({styles}) => (`
 const header = `<div class="header" style="padding: 0 !important; margin: 0; -webkit-print-color-adjust: exact; background-color: red; color: white; width: 100%; text-align: left; font-size: 12px;">header of Juan<br /> Page <span class="pageNumber"></span> of <span class="totalPages"></span></div>`;
 const footer = '<div class="footer" style="padding: 0 !important; margin: 0; -webkit-print-color-adjust: exact; background-color: blue; color: white; width: 100%; text-align: right; font-size: 12px;">footer of Juan<br /> Page <span class="pageNumber"></span> of <span class="totalPages"></span></div>';
 
-console.log(styles.header);
 
 module.exports = {
     Html,
@@ -129,4 +141,6 @@ module.exports = {
     footer,
 
     styles,
+
+    cutHtml,
 }

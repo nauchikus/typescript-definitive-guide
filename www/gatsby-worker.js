@@ -2,157 +2,128 @@ const fs = require(`fs`)
 const fsp = require(`fs/promises`)
 const path = require(`path`)
 
-const remark = require(`remark`)
-const remarkPrism = require(`remark-prism`)
-const remarkHtml = require(`remark-html`)
 
-const puppeteer = require(`puppeteer`)
-
-const weasyprint = require(`weasyprint-wrapper`);
+const BookCoverGenerator = require(`./workers/book-cover/book-cover-generator`);
+const BookPdfGenerator = require(`./workers/pdf/book-pdf-generator`);
 
 
-const headingDownlevel = require(`./workers/pdf/remark/heading-downlevel`)
-const transformLink = require(`./workers/pdf/remark/transform-link`)
-const blockCodeCollectInfoBeforeParsePrism = require(`./workers/pdf/remark/block-code-collect-info-before-parse-prism`)
-const remarkPrismWrapper = require(`./workers/pdf/remark/remark-prism-wrapper`)
-const blocCodeDecorate = require(`./workers/pdf/remark/block-code-decorate`)
-const headingAddId = require(`./workers/pdf/remark/heading-add-id`)
-const h1AddDecor = require(`./workers/pdf/remark/h1-add-decor`)
-const h2AddDecor = require(`./workers/pdf/remark/h2-add-decor`)
-const imagePathResolve = require(`./workers/pdf/remark/image-path-resolve`)
-const HtmlTemplates = require(`./workers/pdf/templates`)
+async function BOOK_COVER_WORKER({ inputPaths, outputDir, args: { filenames, versionInfo } }){
+    const BOOK_COVER_DEFAULT_COLORS = {
+        [`--color_light`]: `#fff`,
+        [`--color_middle-lite`]: `#93ABCF`,
+        [`--color_accent`]: `#F9B233`,
+        [`--color_ambient`]: `#2D5AA1`
+    };
 
+    let bookCoverOptions = {
+        version: versionInfo.mmp,
+        versionStage: versionInfo.preReleaseName,
+        colors: BOOK_COVER_DEFAULT_COLORS
+    };
+    let bookCoverForSocialMediaOptions = {
+        version: versionInfo.mmp,
+        versionStage: versionInfo.preReleaseName,
+        colors: BOOK_COVER_DEFAULT_COLORS
+    };
 
+    let [{ path: bookCoverSourcePath }] = inputPaths;
 
-async function generateCover(){
-    // const browser = await puppeteer.launch({
-    //     headless: true
-    // });
-    //
-    // const page = await browser.newPage();
-    // await page.setContent(HtmlTemplates.Html({ content }));
-    //
-    //
-    //
-    // await page.addStyleTag({ path: path.join(process.cwd(), `./workers/pdf/style.css`) });
-    // await page.addStyleTag({ path: path.join(process.cwd(), `./workers/pdf/prism-vs.theme.css`) });
-    // await page.addStyleTag({ path: path.join(process.cwd(), `./workers/pdf/prism-custom.theme.css`) });
-    // await page.addStyleTag({ path: path.join(process.cwd(), `./workers/pdf/content.css`) });
-    // // await page.setDefaultNavigationTimeout(0);
-    // // await page.goto(`data:text/html,${content}`, { waitUntil: 'networkidle2', timeout: 0 });
-    // const buffer = await page.pdf({
-    //     path: `./book.pdf`,
-    //     format: 'A4',
-    //     printBackground: true,
-    //     preferCSSPageSize: true,
-    //     displayHeaderFooter: true,
-    //     footerTemplate: HtmlTemplates.PageHeader({styles: HtmlTemplates.styles.header}),
-    //     // footerTemplate: `<div class="header" hidden>Ok</div>`,
-    //     margin: {
-    //         left: '56px',
-    //         top: '64px',
-    //         right: '64px',
-    //         bottom: '96px'
-    //     }
-    // });
-    await browser.close();
+    return await BookCoverGenerator.generateBookCovers({
+        bookCoverOptions: {
+            inputPath: bookCoverSourcePath,
+            outputPath: path.join(outputDir, filenames.bookCover),
+            coverOptions: bookCoverOptions
+        },
+        bookCoverForSocialMediaOptions: {
+            inputPath: bookCoverSourcePath,
+            outputPath: path.join(outputDir, filenames.bookCoverForSocialMedia),
+            coverOptions: bookCoverForSocialMediaOptions
+        },
+    })
 }
 
+async function BOOK_PDF_WORKER ({ inputPaths, outputDir, args: { bookToc, bookCoverPath, versionInfo } }) {
+    let bookChapterPathAll = inputPaths.map(info => info.path);
 
-
-async function Pdf ({ inputPaths, outputDir, args: { toc, bookInfo, bookCoverPath } }) {
-    console.time(`Generation Book Pdf`);
-
-    let imagePathResolveOptions = {
-        processRoot: process.cwd(),
-        bookRoot: path.relative(process.cwd(), `../book/ru/chapters`),
-        toc,
-    }
-
-
-    let processor = remark()
-        .use(headingDownlevel)
-        .use(imagePathResolve, imagePathResolveOptions)
-        .use(headingAddId, {toc})
-        .use(h2AddDecor, {toc})
-        .use(h1AddDecor, {toc})
-        .use(blockCodeCollectInfoBeforeParsePrism)
-        .use(remarkPrismWrapper)
-        .use(blocCodeDecorate)
-        .use(transformLink)
-
-        .use(remarkHtml);
-
-    let htmlAll = await Promise.all(
-        bookInfo.map(async info => {
-            let markdown = await fsp.readFile(info.path, { encoding: `utf-8` });
-            let html = await processor.process(markdown);
-
-            return HtmlTemplates.Page(html);
-        })
-    );
-
-    let bookCover = HtmlTemplates.Page(HtmlTemplates.BookCover(bookCoverPath));
-    let bookTitlePage = HtmlTemplates.Page(HtmlTemplates.BookTitlePage(), `page_title`);
-    let content = HtmlTemplates.Html({
-        root: `./workers/pdf`,
-        content: [bookCover, bookTitlePage, ...htmlAll].join(``)
+    await BookPdfGenerator.generateBookPdf({
+        outputPath: path.join(outputDir, `TypeScript Подробное Руководство.pdf`),
+        bookCoverPath,
+        bookChapterPathAll,
+        toc: bookToc
     });
-
-    const createPdf = (content, outputPath) => new Promise((resolve, reject) => {
-        let stream = weasyprint(content)
-            .pipe(fs.createWriteStream(outputPath));
-        stream.on(`finish`, resolve);
-        stream.on(`error`, reject);
-    });
-
-
-    await createPdf(content, `./book.pdf`);
-    // await createPdf(getContent(getId()), `./book.pdf`);
-
-    await fsp.writeFile(`./book.html`, content)
-    // await fsp.writeFile(`./book.html`, getContent(getId()))
-
-    console.timeEnd(`Generation Book Pdf`);
-
-
-    return Promise.resolve();
 }
 
-exports = { Pdf };
+module.exports = { BOOK_COVER_WORKER, BOOK_PDF_WORKER };
 
-const toc = require(`../book/ru/metadata/toc.json`)
+// BOOK_COVER_JOB({
+//     inputPaths: [{path: `/home/ivan/Projects/typescript-definitive-guide/www/workers/book-cover/tdg.svg`}],
+//     outputDir: ``,
+//     args: {
+//         filenames: {
+//             bookCover: `book-cover.png`,
+//             bookCoverForSocialMedia: `book-cover-for-social-media.png`,
+//         },
+//         versionInfo: {
+//             mmp: `4.0`,
+//             preReleaseName: `rc`
+//         }
+//     }
+// })
 
-Pdf({
-    inputPaths: [
-        {path:`/home/ivan/Projects/typescript-definitive-guide/book/ru/chapters/011.(Синтаксические конструкции) Аннотация Типов/content.md`},
-        {path: `/home/ivan/Projects/typescript-definitive-guide/book/ru/chapters/012.(Типы) Базовый Тип Any/content.md`}
-    ],
-    args: {
-        toc,
-        // bookCoverPath: `/home/ivan/Projects/typescript-definitive-guide/book/ru/metadata/cover.jpg`,
-        bookCoverPath: `/home/ivan/Projects/typescript-definitive-guide/www/workers/pdf/a4-placeholder.png`,
-        bookInfo: [
-            {
-                path: `/home/ivan/Projects/typescript-definitive-guide/book/ru/chapters/010.(Экскурс в типизацию) Совместимость типов на основе вариантности/content.md`,
-                index: 0,
-                section: `Section A`,
-                title: `TypeScript Definitive Guide`
-            },
-            {
-                path: `/home/ivan/Projects/typescript-definitive-guide/book/ru/chapters/012.(Типы) Базовый Тип Any/content.md`,
-                index: 1,
-                section: `Section B`,
-                title: `TypeScript Definitive Guide`
-            }
-            //
-            // ,
-            // {
-            //     path: `/home/ivan/Projects/typescript-definitive-guide/book/ru/chapters/032.(Типы) Обобщения (Generics)/content.md`,
-            //     index: 32,
-            //     section: `Section C`,
-            //     title: `TypeScript Definitive Guide`
-            // }
-        ]
-    }
-})
+const bookToc = require(`../book/ru/metadata/toc.json`);
+
+async function run(){
+    let filenameAll = await fsp.readdir(path.join(process.cwd(), `../book/ru/chapters`));
+    let filepathAll = filenameAll.map(filename => path.join(process.cwd(), `../book/ru/chapters`, filename, `content.md`));
+    // let inputPaths = filepathAll.map(filepath=>({ path: filepath}))
+
+    let inputPaths = [
+        // {path: `/home/ivan/Projects/typescript-definitive-guide/book/ru/chapters/043.(Работа с типами) Условные типы (Conditional Types)/content.md`},
+        {path: `/home/ivan/Projects/typescript-definitive-guide/book/ru/chapters/044.(Расширенные типы) Readonly, Partial, Required, Pick, Record/content.md`},
+    ]
+    console.time(`[GENERATE PDF]`);
+    await BOOK_PDF_WORKER({
+        inputPaths,
+        outputDir: `./`,
+        args: {
+            bookToc,
+            bookCoverPath: path.join(process.cwd(), `./public/assets/book_covers/book_cover.png`)
+        }
+    })
+    console.timeEnd(`[GENERATE PDF]`);
+}
+
+run();
+// BOOK_PDF_WORKER({
+//     inputPaths: [
+//         {path:`/home/ivan/Projects/typescript-definitive-guide/book/ru/chapters/010.(Экскурс в типизацию) Совместимость типов на основе вариантности/content.md`},
+//         {path: `/home/ivan/Projects/typescript-definitive-guide/book/ru/chapters/012.(Типы) Базовый Тип Any/content.md`}
+//     ],
+//     args: {
+//         bookToc,
+//         // bookCoverPath: `/home/ivan/Projects/typescript-definitive-guide/book/ru/metadata/cover.jpg`,
+//         bookCoverPath: `/home/ivan/Projects/typescript-definitive-guide/www/workers/pdf/a4-placeholder.png`,
+//         bookInfo: [
+//             {
+//                 path: `/home/ivan/Projects/typescript-definitive-guide/book/ru/chapters/010.(Экскурс в типизацию) Совместимость типов на основе вариантности/content.md`,
+//                 // index: 0,
+//                 // section: `Section A`,
+//                 // title: `TypeScript Definitive Guide`
+//             },
+//             {
+//                 path: `/home/ivan/Projects/typescript-definitive-guide/book/ru/chapters/012.(Типы) Базовый Тип Any/content.md`,
+//                 index: 1,
+//                 section: `Section B`,
+//                 title: `TypeScript Definitive Guide`
+//             }
+//             //
+//             // ,
+//             // {
+//             //     path: `/home/ivan/Projects/typescript-definitive-guide/book/ru/chapters/032.(Типы) Обобщения (Generics)/content.md`,
+//             //     index: 32,
+//             //     section: `Section C`,
+//             //     title: `TypeScript Definitive Guide`
+//             // }
+//         ]
+//     }
+// })
