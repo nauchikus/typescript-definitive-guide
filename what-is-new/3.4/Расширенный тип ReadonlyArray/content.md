@@ -2,7 +2,7 @@
 
 Расширенный тип `ReadonlyArray<T>` предназначен для создания неизменяемых массивов. `ReadonlyArray<T>` запрещает изменять значения массива использую индексную сигнатуру `array[...]`.
 
-```typescript
+`````ts
 let array: ReadonlyArray<number> = [0, 1, 2];
 
 array[0] = 1; // Error, Index signature in type 'readonly number[]' only permits reading.ts(2542)
@@ -11,7 +11,7 @@ array[array.length] = 3; // Error, Index signature in type 'readonly number[]' o
 
 Кроме того, тип `ReadonlyArray<T>` не сождержит методы, способные изменить, удалить существующие или добавить новые элементы.
 
-```typescript
+`````ts
 let array: ReadonlyArray<number> = [0, 1, 2];
 
 array.push(3); // Error, Property 'push' does not exist on type 'readonly number[]'.ts(2339)

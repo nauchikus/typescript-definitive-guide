@@ -82,19 +82,19 @@ export const Search: FC<ISearchProps> = observer(( {} ) => {
             action="#"
             toggle-state={appSearch.active.state}
             is-match={appSearch.match.isToggle.toString()}
-            onKeyDown={onKeyDown}
+            // onKeyDown={onKeyDown}
             onSubmit={onSubmit}>
         <div className="search__input-section">
           <input ref={inputRef}
                  className="search__query-input"
                  type="search"
-                 id="search-input"
+                 id="algolia-search"
                  name="app-search-query"
                  placeholder={appSearchTranslation.inputPlaceholder}
-                 onChange={onChange}
+                 // onChange={onChange}
                  required/>
 
-          <ScaleButton className="search__submit-button-placeholder button-with-svg-icon" onClick={toggle} disabled={true}>
+          <ScaleButton className="search__submit-button-placeholder button-with-svg-icon" onClick={toggle} disabled={false}>
             <MagnifierSvgIcon className="search__search-svg-icon"/>
           </ScaleButton>
 

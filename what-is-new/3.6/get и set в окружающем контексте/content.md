@@ -2,7 +2,7 @@
 
 Начаиная с версии `v3.6`, `TypeScript` получил возможность объявлять `get/set` в окружающем контексте (`declare class ID {}` или в файлах декларациях `.d.ts`).
 
-```typescript
+`````ts
 // Начиная с v3.6 - Ok
 declare class T {
     get field(): string;

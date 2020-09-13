@@ -2,7 +2,7 @@
 
 Начиная с версии `3.7` был введен флаг `useDefineForClassFields` активация которого запрещала переопределение аксессоров полями и полей аксессорами при реализации механизма наследования (`extends`). Начиная с текущей версии поведение равное активируемому флагом `useDefineForClassFields` становится неотключаемым.
 
-`````typescript
+`````ts
 class Base {
     get value() {
         return 'value';
@@ -23,7 +23,7 @@ class Derived extends Base {
     value = 'value';
 }
 `````
-`````typescript
+`````ts
 class Base {
      value = 'value';
 }

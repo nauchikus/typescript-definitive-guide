@@ -2,14 +2,14 @@
 
 Механизм уточнения импорта и экспорта (`import\export`) выступает в качестве указаний компилятору что данную конструкцию следует воспринимать исключительно как тип. Форма уточняющего импорта и экспорта включает в себя ключевое слово `type` идущее следом за ключевым словом `import` либо `export`.
 
-`````typescript
+`````ts
 import type {Type} from "./type";
 export type {Type};
 `````
 
 Уточнению могут подвергаться только конструкции расцениваемые исключительно как типы (`interface`, `type alias` и `class`). 
 
-`````typescript
+`````ts
 // @file types.ts
 
 export class ClassType {}
@@ -17,7 +17,7 @@ export interface IInterfaceType{}
 export type AliasType = {};
 `````
 
-`````typescript
+`````ts
 // @file index.ts
 
 import type {ClassType, IInterfaceType, AliasType} from "./types";
@@ -26,7 +26,7 @@ export type {ClassType, IInterfaceType, AliasType};
 
 Значения к которым можно отнести как экземпляры объектов, так и функции (`function expression` и `function declaration`) уточнятся, как в отдельности так и в одной форме с типами, не могут.
 
-`````typescript
+`````ts
 // @file types.ts
 
 export class ClassType {}
@@ -40,7 +40,7 @@ export const fe = ()=>{};
 export function fd(){}
 `````
 
-`````typescript
+`````ts
 // @file index.ts
 
 // import type {o, fe, fd} from "./types"; // Error! Type-only import must reference a type, but 'o' is a value.ts(1361)
@@ -55,14 +55,14 @@ export {o, fe, fd}; // Ok!
 
 Кроме того уточненая форма импорта и экспорта не может одновременно содержать импорт\экспорт поумолчанию и не поумолчанию.
 
-`````typescript
+`````ts
 // @file types.ts
 
 export default class DefaultExportType {}
 export class ExportType {}
 `````
 
-`````typescript
+`````ts
 // @file index.ts
 
 /**
@@ -75,13 +75,13 @@ import type DefaultType, {ExportType} from "./types";
 
 Также не будет лишним оговорить, что классы экспортированные как уточненные само собой разумеется не могут участвовать в механизме наследования.
 
-`````typescript
+`````ts
 // @file Base.ts
 
 export class Base {}
 `````
 
-`````typescript
+`````ts
 // @file index.ts
 
 import type {Base} from "./Base";
@@ -96,7 +96,7 @@ class Derivied extends Base{}; // 'Base' only refers to a type, but is being use
 
 Представьте ситуацию при которой один модуль импортирует необходимый ему тип представленный такой конструкцией как `interface`.
 
-`````typescript
+`````ts
 // @file IPerson.ts
 
 export interface IPerson {
@@ -104,7 +104,7 @@ export interface IPerson {
 }
 `````
 
-`````typescript
+`````ts
 
 // @file action.ts
 
@@ -117,7 +117,7 @@ function action(person:IPerson){
 
 Поскольку интерфейс является конструкцией присущей исключительно _TypeScript_ то не удивительно что после компиляции от неё не останется и следа.
 
-`````javascript
+`````js
 // после компиляции @file action.js
 
 function action(person){
@@ -127,7 +127,7 @@ function action(person){
 
 Теперь представьте что один модуль импортирует конструкцию представленную классом, который задействован в логике уже знакомой нам функции `action()`.
 
-`````typescript
+`````ts
 // @file IPerson.ts
 
 export interface IPerson {
@@ -144,7 +144,7 @@ export class Person {
 
 `````
 
-`````typescript
+`````ts
 // @file action.ts
 
 import {IPerson} from "./IPerson";
@@ -157,7 +157,7 @@ function action(person:IPerson){
 
 `````
 
-`````javascript
+`````js
 // после компиляции @file action.js
 
 import {Person} from "./Person";
@@ -173,7 +173,7 @@ function action(person){
 
 А теперь представьте ситуацию когда класс `Person` задействован в том же модуле `action.ts`, но исключительно в качестве типа. Другими словами он не задействован в логике работы модуля.
 
-`````typescript
+`````ts
 // @file Person.ts
 
 export class Person {
@@ -185,7 +185,7 @@ export class Person {
 }
 `````
 
-`````typescript
+`````ts
 
 // @file action.ts
 
@@ -199,7 +199,7 @@ function action(person:Person){
 
 Подумайте, что должна включать в себя итоговая сборка? Если вы выбрали вариант идентичный первому то вы совершенно правы! Поскольку класс `Person` используется в качестве типа то нет смысла включать его в результатирующий файл.
 
-`````javascript
+`````js
 // после компиляции @file action.js
 
 
@@ -212,13 +212,13 @@ function action(person){
 
 Механизм уточнения способен разрешить возникающие перед _import-elision_ трудности при ре-экспорте модулей предотвращению которых способствует установленный в значение `true` флаг `--isolatedModules`.
 
-`````typescript
+`````ts
 // @file module.ts
 export interface IActionParams{}
 export function action(params:IActionParams){}
 `````
 
-`````typescript
+`````ts
 // @file re-export.ts
 
 import {IActionParams, action} from "./module";
@@ -248,7 +248,7 @@ export {IActionParams, action};
 
 Рассмотренный выше случай можно разрешить с помощью явного уточнения формы импорта\экспорта.
 
-`````typescript
+`````ts
 // @file re-export.ts
 
 import {IActionParams, action} from "./module";
@@ -267,7 +267,7 @@ export {action};
 Значение `remove` активирует или другими словами оставляет поведение реализуемое до версии `3.8`.
 Значения `preserve` способно разрешить проблему возникающую при экспорте так называемых сайд-эффектов.
 
-`````typescript
+`````ts
 // @file module-with-side-effects.ts
 
 function incrementVisitCounterLocalStorage(){
@@ -279,7 +279,7 @@ export interface IDataFromModuleWithSideEffects{};
 incrementVisitCounterLocalStorage(); // ожидается что вызов произойдет в момент подключения модуля
 `````
 
-`````typescript
+`````ts
 // @file index.ts
 
 import {IDataFromModuleWithSideEffects} from "./module";
@@ -298,7 +298,7 @@ let data:IDataFromModuleWithSideEffects = {};
  */
 
 `````
-`````javascript
+`````js
 // после компиляции @file index.js
 
 let data = {};
@@ -311,14 +311,14 @@ let data = {};
 
 Решение из ситуации описанной выше заключается в повторном указании импорта всего модуля. Но не всем такое решение кажется очевидным.
 
-`````typescript
+`````ts
 import {IDataFromModuleWithSideEffects} from "./module-with-side-effects";
 import "./module-with-side-effects"; // импорт всего модуля
 
 let data:IDataFromModuleWithSideEffects = {};
 `````
 
-`````javascript
+`````js
 // после компиляции @file index.js
 
 import "./module-with-side-effects.js";
@@ -334,14 +334,14 @@ let data = {};
 
 Поэтому прежде всего начиная с версии `3.8` сама `ide` укажит на возможность уточнения импорта исключительно типов, что в свою очередь должно подтолкнуть на размышление о удалении импорта при компиляции.
 
-`````typescript
+`````ts
 import {IDataFromModuleWithSideEffects} from "./module-with-side-effects"; //This import may be converted to a type-only import.ts(1372)
 `````
 
 Кроме того флаг `preserve` в отсутствие уточнения поможет избавится от повторного указания импорта. Простыми словами значение `preserve` указывает компилятору импортировать все модули полностью.
 
 
-`````typescript
+`````ts
 // @file module-with-side-effects.ts
 
 function incrementVisitCounterLocalStorage(){
@@ -352,12 +352,12 @@ export interface IDataFromModuleWithSideEffects{};
 
 incrementVisitCounterLocalStorage(); 
 `````
-`````typescript
+`````ts
 // @file module-without-side-effects.ts
 
 export interface IDataFromModuleWithoutSideEffects{};
 `````
-`````typescript
+`````ts
 // @file index.ts
 
 
@@ -370,7 +370,7 @@ let dataFromModuleWithSideEffects:IDataFromModuleWithSideEffects = {};
 let dataFromModuleWithoutSideEffects:IDataFromModuleWithoutSideEffects = {};
 `````
 
-`````javascript
+`````js
 // после компиляции @file index.js
 
 import "./module-with-side-effects";
@@ -389,7 +389,7 @@ let dataFromModuleWithoutSideEffects = {};
 
 В случае уточнения поведение при компиляции останется прежднем. То есть в импорты в скомпилированный файл включены не будут.
  
-`````typescript
+`````ts
 // @file index.ts
 
 
@@ -402,7 +402,7 @@ let dataFromModuleWithSideEffects:IDataFromModuleWithSideEffects = {};
 let dataFromModuleWithoutSideEffects:IDataFromModuleWithoutSideEffects = {};
 `````
 
-`````javascript
+`````js
 // после компиляции @file index.js
 
 let dataFromModuleWithSideEffects = {};
@@ -416,7 +416,7 @@ let dataFromModuleWithoutSideEffects = {};
 
 Если же флагу `--importsNotUsedAsValues` задано значение `error`, то при импортировании типов без явного уточнения будет считаться ошибочным поведением.
 
-`````typescript
+`````ts
 // @file index.ts
 
 /**

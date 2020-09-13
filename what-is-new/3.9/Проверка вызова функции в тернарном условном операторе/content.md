@@ -2,7 +2,7 @@
 
 В версии `3.7` была добавлена проверка обязательного вызова функций учавствующих в условном выражении `if`.
 
-`````typescript
+`````ts
 declare function isValid(): boolean;
 
 function action(){
@@ -27,7 +27,7 @@ function action(){
 
 Начиная с версии `3.9` подобное поведение было реализованно и для тернарного условного оператора.
 
-`````typescript
+`````ts
 declare function isValid(): boolean;
 
 function action(){

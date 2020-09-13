@@ -1,12 +1,12 @@
 # Definite Assignment Assertion Modifier
 ## Классы — Definite Assignment Assertion Modifier
-________________
+
 
 Для того, чтобы повысить типобезопасность программы, рекомендуется вести разработку с активной опцией `--strict` (глава [“Опции компилятора”](../060.(Компилятор)%20Опции%20компилятора)), которая активирует множество других опций, изменяющих поведение компилятора, заставляя разработчиков писать код, сводящий к минимуму ошибки на этапе выполнения. 
 
 Это привело к созданию опции `--strictPropertyInitialization`, которая при активной опции `--strictNullChecks`, запрещает классу иметь поля, типам которых явно не указана принадлежность к `Undefined` и которые не были инициализированы в момент его создания. Таким образом предотвращается обращение к полям, которые могут иметь значение `undefined`.
 
-~~~~~typescript
+`````ts
 class Identifier {
     public a: number = 0; // Ok, инициализация при объявлении
     public b: number; // Ok, инициализация в конструкторе
@@ -17,19 +17,19 @@ class Identifier {
         this.b = 0;
     }
 }
-~~~~~
+`````
 
 Но бывают случаи, при которых условия, устанавливаемые опцией `--strictPropertyInitialization`, не могут быть удовлетворены в полной мере. К самым распространенным случаям можно отнести установку значений полей с помощью *DI* (dependency injection), инициализация, вынесенная в методы так называемого жизненного цикла, а также методы инициализации, выполняемые из конструктора класса. 
 
-~~~~~typescript
+`````ts
 // инициализация с помощью DI
 class A {
     @Inject(Symbol.for('key'))
     public field: number; // Error
 }
-~~~~~
+`````
 
-~~~~~typescript
+`````ts
 // метод жизненного цикла из Angular
 class B {
     private field: number; // Error
@@ -38,9 +38,9 @@ class B {
         this.field = 0;
     }
 }
-~~~~~
+`````
 
-~~~~~typescript
+`````ts
 // инициализация вне конструктора
 class C {
     private field: number; // Error
@@ -53,11 +53,11 @@ class C {
         this.field = 0;
     }
 }
-~~~~~
+`````
 
 Для таких случаев синтаксис *TypeScript* содержит модификатор *definite assignment assertion modifier*, который указывается с помощью символа восклицательного знака (`!`), располагаемого после идентификатора поля или переменной.
 
-~~~~~typescript
+`````ts
 class Identifier {
     public identifier!: Type;
 }
@@ -65,19 +65,19 @@ class Identifier {
 // или
 
 const identifier!: Type;
-~~~~~
+`````
 
 Применяя модификатор *definite assignment assertion modifier* разработчик сообщает компилятору, что берет ответственность за инициализацию поля на себя.
 
-~~~~~typescript
+`````ts
 // инициализация с помощью DI
 class A {
     @Inject(Symbol.for('key'))
     public field!: number; // Ok
 }
-~~~~~
+`````
 
-~~~~~typescript
+`````ts
 // метод жизненного цикла из Angular
 class B {
     private field!: number; // Ok
@@ -86,9 +86,9 @@ class B {
         this.field = 0;
     }
 }
-~~~~~
+`````
 
-~~~~~typescript
+`````ts
 // инициализация вне конструктора
 class C {
     private field!: number; // Ok
@@ -102,4 +102,4 @@ class C {
         this.field = 0;
     }
 }
-~~~~~
+`````

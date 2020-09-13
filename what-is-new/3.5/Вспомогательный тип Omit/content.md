@@ -2,7 +2,7 @@
 
 В повседневной разработке очень часто требуется определить новый тип описывающий некоторую часть существующего. До версии _TypeScript_ `3.5` подобное можно было реализовать при помощи типов `Exclude<T, U>` и `Pick<T, K>`.
 
-```typescript
+`````ts
 type Person = {
     firstName: string;
     lastName: string;
@@ -35,7 +35,7 @@ type PersonName = Pick<Person, RemainingKeys>;
 
 По этой причине разработчики `TypeScript` расширили стандартную библиотеку `lib.d.ts` новым вспомогательным типом `Omit<T, K>`, который стандартизирует, обсуждаемую на протяжении главы, логику.
 
-```typescript
+`````ts
 type Person = {
     firstName: string;
     lastName: string;

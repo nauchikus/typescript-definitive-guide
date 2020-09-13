@@ -2,7 +2,7 @@
 
 В последних версиях _TypeScript_ (начиная с версии `3.7`) были обновлены декларации для таких методов как `Promise.all` и `Promise.race`. Но к сожалению это привело к неожиданным результатам в работе вывода типа, что более всего стало очевидно если в выводе учавствуют `null` или `undefined`.
 
-`````typescript
+`````ts
 interface Foodstuff{
     isExpirationDate():boolean;
 }
@@ -35,7 +35,7 @@ async function factory(milkOrder: Promise<Milk>, coffeeOrder: Promise<Coffee | u
 
 Поскольку данное поведение ошибочно, начиная с версии `3.9` оно было исправленно должным образом.
 
-`````typescript
+`````ts
 // ...
 
 async function factory(milkOrder: Promise<Milk>, coffeeOrder: Promise<Coffee | undefined>) {

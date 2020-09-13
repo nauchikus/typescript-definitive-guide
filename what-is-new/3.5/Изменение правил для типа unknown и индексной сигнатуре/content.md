@@ -2,7 +2,7 @@
 
 В _TypeScript_ тип представленный индексной сигнатурой ассоциированной с типом `any`, совместим с любым объектным типом.
 
-```typescript
+`````ts
 type Dictionary = { [key: string]: any };
 
 let dictionary: Dictionary;
@@ -21,7 +21,7 @@ dictionary = Boolean; // Ok
 
 До версии `v3.5` тип `unknown` в индексной сигнатуре вел себя аналогичным образом.
 
-```typescript
+`````ts
 // <v3.5
 
 type Dictionary = { [key: string]: unknown };
@@ -42,7 +42,7 @@ dictionary = Boolean; // Ok
 
 Начиная с версии `v3.5` поведение для типа `unknown` в индексной сигнатуре было изменено. Теперь он совместим лишь с типами представляемыми литералами объектов и типом `any`.
 
-```typescript
+`````ts
 // >= 3.5
 
 type Dictionary = { [key: string]: unknown };
