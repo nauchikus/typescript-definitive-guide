@@ -7,7 +7,7 @@ import { CheckboxIconGroup } from "../ui__checkbox/CheckboxIconGroup";
 import { observer } from "mobx-react-lite";
 import { InputModel } from "../../stores/CheckboxStore";
 import { ReleaseInfo, VersionInfoMeta } from "../../transformers/innovationDataToVersionInfoTransformer";
-import { useVersionFilter } from "../../stores/WinPageMobxEntry";
+import { useVersionFilter } from "../../mobx__entry/WinPageMobxEntry";
 
 
 interface IWinDropdownMenuFilterDropdownProps {

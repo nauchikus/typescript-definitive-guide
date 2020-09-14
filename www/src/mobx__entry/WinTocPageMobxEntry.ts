@@ -1,14 +1,14 @@
 import { IWhatIsNewToc } from "../types/IWhatIsNewToc";
-import { createWhatIsNewTocTree,TreeNode } from "./WhatIsNewTocTreeStore";
-import { RouterStore } from "./RouterStore";
-import { createBehaviorNotification } from "./behavior-notificaion-store";
+import { createWhatIsNewTocTree,TreeNode } from "../stores/WhatIsNewTocTreeStore";
+import { RouterStore } from "../stores/RouterStore";
+import { createBehaviorNotification } from "../stores/behavior-notificaion-store";
 import { createContext, useContext } from "react";
-import { createIntersectionObserverStore } from "./IntersectionObserverStore";
-import { ContentSectionStore } from "./ContentSectionStore";
-import { PageNavStore } from "./PageNavStore";
-import { ContentNavStore } from "./ContentNavStore";
-import { createToggleState, ToggleUiState } from "./AppStateService";
-import { CollapseTreeMobxStore } from "./CollapseTreeMobxStore";
+import { createIntersectionObserverStore } from "../stores/IntersectionObserverStore";
+import { ContentSectionStore } from "../stores/ContentSectionStore";
+import { PageNavStore } from "../stores/PageNavStore";
+import { ContentNavStore } from "../stores/ContentNavStore";
+import { createToggleState, ToggleUiState } from "../stores/AppStateService";
+import { CollapseTreeMobxStore } from "../stores/CollapseTreeMobxStore";
 
 
 

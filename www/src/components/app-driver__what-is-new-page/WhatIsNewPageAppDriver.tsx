@@ -8,7 +8,7 @@ import { observer } from "mobx-react-lite";
 import { useRouter } from "../../stores/RouterStore";
 import { AppNavSectionAppDriver } from "../app-driver__nav-section_app-nav/AppNavSectionAppDriver";
 import { ContentNavSectionAppDriver } from "../app-driver__nav-section_page-nav/ContentNavSectionAppDriver";
-import { useWhatIsNewPageStores } from "../../stores/WinPageMobxEntry";
+import { useWhatIsNewPageStores } from "../../mobx__entry/WinPageMobxEntry";
 import * as WinTocVersionUtils from "../../utils/win-toc-version-utils";
 import * as StringUtils from "../../utils/string-utils";
 import { RouterUtils } from "../../utils/router-utils";

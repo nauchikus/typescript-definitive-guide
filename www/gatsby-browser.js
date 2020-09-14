@@ -12,14 +12,29 @@ import "./src/styles_entries/global.scss";
 
 import React from 'react';
 import { MobxSharedContext } from './src/react__context/MobxSharedContext';
-import { SharedPageMobxEntry } from './src/stores/SharedPageMobxEntry';
+import { SharedPageMobxEntry } from './src/mobx__entry/SharedPageMobxEntry';
+import { AppDriverInitializationStateType } from './src/consts/AppDriverInitializationStateType';
+
+/// TODO: [WARNING][ERROR WITH MULTI LANGUAGE]
+/// TODO: [refactoring][extract to utils]
+const isIndexPage = () => {
+    let pathname = window.location.pathname;
+
+    return pathname === `/typescript-definitive-guide/` || pathname === `/`;
+}
 
 
 
+export const wrapRootElement = ({ element }) => {
+    let sharedMobxParams = {
+        appDriverComputedInitialStateType: isIndexPage() ?
+            AppDriverInitializationStateType.Close :
+            AppDriverInitializationStateType.Auto
+    };
 
-export const wrapRootElement = ({ element, props, pluginOptions }) => {
+
     return (
-        <MobxSharedContext.Provider value={ SharedPageMobxEntry.getInstance() }>
+        <MobxSharedContext.Provider value={ SharedPageMobxEntry.getInstance(sharedMobxParams) }>
             { element }
         </MobxSharedContext.Provider>
     );

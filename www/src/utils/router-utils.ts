@@ -37,7 +37,8 @@ const localeDecorate = (path:string, locale?:string) =>
 
 
 const appRoutes = {
-    getIndexRoute: ( { locale }:ILocaleRouter ) => localeDecorate(`/`, locale)
+    getIndexRoute: ( { locale }:ILocaleRouter ) => localeDecorate(`/`, locale),
+    getPdfRoute: ( { locale }:ILocaleRouter ) => localeDecorate(`/pdf`, locale),
 };
 
 type BookGetRouteParams = ILocaleRouter & IBookConcreteChapterRoute & IBookConcreteSubChapterRoute;

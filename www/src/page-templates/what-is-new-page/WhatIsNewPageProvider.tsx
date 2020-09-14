@@ -20,7 +20,7 @@ import { ContentDownPanelStoreContext } from "../../mobx__mobx-shared-store__rea
 import { ContentNavStoreContext } from "../../mobx__mobx-shared-store__react-context/ContentNavStoreMobxContext";
 import { ContentIntersectionObserverStoreContext } from "../../react__context/ContentIntersectionObserverStoreContext";
 import { RouterStoreContext } from "../../stores/RouterStore";
-import { WinPageMobxEntry, MobxWhatIsNewPageContext } from "../../stores/WinPageMobxEntry";
+import { WinPageMobxEntry, MobxWhatIsNewPageContext } from "../../mobx__entry/WinPageMobxEntry";
 import { useNativeLinkDisableDefaultBehavior } from "../../react__hooks/useNativeLinkDisableDefaultBehavior";
 import { useRouterUpdater } from "../../react__hooks/useRouterUpdater";
 

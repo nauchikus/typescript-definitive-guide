@@ -10,7 +10,7 @@ import { BehaviorNotificationContext } from "../../react__context/BehaviorNotifi
 import { IBookChapterPageContentData } from "../../../plugins/gatsby-pages/create-book-page";
 import { RouterStoreContext } from "../../stores/RouterStore";
 import {Localization} from "../../react__hooks/translator.hook";
-import { BookTocPageMobxEntry, MobxBookTocPageContext } from "../../stores/BookTocPageMobxEntry";
+import { BookTocPageMobxEntry, MobxBookTocPageContext } from "../../mobx__entry/BookTocPageMobxEntry";
 import { useNativeLinkDisableDefaultBehavior } from "../../react__hooks/useNativeLinkDisableDefaultBehavior";
 
 

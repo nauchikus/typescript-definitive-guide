@@ -4,7 +4,7 @@ import { ILinkAppDriverData, LinkAppDriver } from "../app-driver__what-is-new-pa
 import { useTranslator } from "../../react__hooks/translator.hook";
 import { AppNavigationLocalization, LocalizationPaths } from "../../localization";
 import { useRouter } from "../../stores/RouterStore";
-import { useAppDriver } from "../../stores/SharedPageMobxEntry";
+import { useAppDriver } from "../../mobx__entry/SharedPageMobxEntry";
 
 interface IAppNavSectionAppDriverProps {
 }

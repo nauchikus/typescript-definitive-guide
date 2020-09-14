@@ -2,7 +2,7 @@ import React, { FC } from "react";
 import { If } from "../if-operator/If";
 import { observer } from "mobx-react-lite";
 import { EmptyContentPlaceholder } from "../content__placeholder_empty/EmptyContentPlaceholder";
-import { useWhatIsNewPageStores } from "../../stores/WinPageMobxEntry";
+import { useWhatIsNewPageStores } from "../../mobx__entry/WinPageMobxEntry";
 
 interface IContentPlaceholderAutodetectProps {
 }

@@ -6,7 +6,7 @@ import { Dropdown } from "../dropdown/Dropdown";
 import { DropdownMenu } from "../dropdown/DropdownMenu";
 import { ThreeDotsAnimatedCssIcon } from "../icon__css-icon__three-dots-animated-css-icon/ThreeDotsAnimatedCssIcon";
 import { observer } from "mobx-react-lite";
-import { useAppMenuToggle } from "../../stores/SharedPageMobxEntry";
+import { useAppMenuToggle } from "../../mobx__entry/SharedPageMobxEntry";
 
 interface IAppBarProps {
 }

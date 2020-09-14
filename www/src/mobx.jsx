@@ -1,5 +1,5 @@
 import React, { createContext, useRef } from "react";
-import { SharedPageMobxEntry } from './stores/SharedPageMobxEntry';
+import { SharedPageMobxEntry } from './mobx__entry/SharedPageMobxEntry';
 
 
 export const MobxSharedContext = createContext(  );

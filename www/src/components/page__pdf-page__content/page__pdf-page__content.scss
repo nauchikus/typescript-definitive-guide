@@ -1,0 +1,55 @@
+.pdf__content-layout {
+  padding: 24px 0 0 0;
+}
+
+@keyframes dots {
+  0% {
+    content: "";
+  }
+  30% {
+    content: ".";
+  }
+  60% {
+    content: "..";
+  }
+  90% {
+    content: "...";
+  }
+}
+
+.pdf__load-donate {
+  position: absolute;
+
+  &:after {
+    content: "";
+    width: 24px;
+    display: inline-block;
+    animation: dots 1s cubic-bezier(0.5, 0, 1, 0.5) infinite;
+  }
+}
+
+
+.pdf__iframe_donate-form {
+  z-index: 1;
+}
+.pdf__card_download-pdf{
+  max-width: 464px;
+  width: 100%;
+
+  border: 1px solid var(--color_dark_80);
+  border-radius: var(--button_border-radius);
+  padding: 24px 32px 48px 32px;
+}
+.pdf__title{
+  text-align: center;
+}
+.pdf__donate {
+  width: 100%;
+
+  margin: 48px 0 24px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  position: relative;
+}

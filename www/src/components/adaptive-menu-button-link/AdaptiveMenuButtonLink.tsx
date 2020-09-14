@@ -1,6 +1,7 @@
 import React, { AnchorHTMLAttributes, FC, ReactElement } from "react";
 import { default as cn } from "classnames";
 import { RippleLayer } from "../ripple-layer/RippleLayer";
+import { Link } from "gatsby";
 
 
 interface IAdaptiveMenuButtonLinkProps extends AnchorHTMLAttributes<HTMLAnchorElement>{
@@ -14,9 +15,9 @@ export const AdaptiveMenuButtonLink: FC<IAdaptiveMenuButtonLinkProps> = ( { href
 
 
   return (
-    <a className={ classes } href={href} {...props}>
+    <Link className={ classes } to={href} {...props}>
       <RippleLayer/>
       { children }
-    </a>
+    </Link>
   );
 };

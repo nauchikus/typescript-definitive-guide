@@ -1,10 +1,10 @@
-import { BookTocNode, createBookTocTree, TreeNode } from "./BookTocTreeStore";
-import { createToggleState, ToggleUiState } from "./AppStateService";
-import { createBehaviorNotification } from "./behavior-notificaion-store";
-import { RouterStore } from "./RouterStore";
+import { BookTocNode, createBookTocTree, TreeNode } from "../stores/BookTocTreeStore";
+import { createToggleState, ToggleUiState } from "../stores/AppStateService";
+import { createBehaviorNotification } from "../stores/behavior-notificaion-store";
+import { RouterStore } from "../stores/RouterStore";
 import { createContext, useContext } from "react";
-import { CollapseTreeMobxStore } from "./CollapseTreeMobxStore";
-import { TocTreeWithSectionMobxStore } from "./TocTreeWithSectionMobxStore";
+import { CollapseTreeMobxStore } from "../stores/CollapseTreeMobxStore";
+import { TocTreeWithSectionMobxStore } from "../stores/TocTreeWithSectionMobxStore";
 
 
 interface IBookTocPageMobxEntryParams {

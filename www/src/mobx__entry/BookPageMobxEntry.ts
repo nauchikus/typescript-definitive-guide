@@ -1,12 +1,12 @@
-import { createToggleState, ToggleUiState } from "./AppStateService";
-import { createBehaviorNotification } from "./behavior-notificaion-store";
+import { createToggleState, ToggleUiState } from "../stores/AppStateService";
+import { createBehaviorNotification } from "../stores/behavior-notificaion-store";
 import { createContext, useContext } from "react";
 import { IBookChapterPageNavData } from "../page-templates/book-page/BookPageProvider";
-import { ContentNavStore } from "./ContentNavStore";
-import { ContentSectionStore } from "./ContentSectionStore";
-import { createIntersectionObserverStore } from "./IntersectionObserverStore";
-import { PageNavStore } from "./PageNavStore";
-import { LocationPartial, RouterStore } from "./RouterStore";
+import { ContentNavStore } from "../stores/ContentNavStore";
+import { ContentSectionStore } from "../stores/ContentSectionStore";
+import { createIntersectionObserverStore } from "../stores/IntersectionObserverStore";
+import { PageNavStore } from "../stores/PageNavStore";
+import { LocationPartial, RouterStore } from "../stores/RouterStore";
 import { computed, observable } from "mobx";
 
 

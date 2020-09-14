@@ -8,7 +8,7 @@ import { AppLocalization } from "../../localization";
 import { NotFoundPage } from "./NotFoundPage";
 import { RouterStoreContext } from "../../stores/RouterStore";
 import { createNotFoundPageMobxEntry, UseNotFoundPageMobxStores } from "../../stores/mobx-entry__not-found";
-import { NotFoundPageMobxEntry } from "../../stores/NotFoundPageMobxEntry";
+import { NotFoundPageMobxEntry } from "../../mobx__entry/NotFoundPageMobxEntry";
 
 
 interface INotFoundPageProviderProps {

@@ -2,7 +2,7 @@ import React, { FC } from "react";
 import { CollapseContext } from "./collpase-context";
 import { CollapseService } from "../../stores/Toggle";
 import { useCollapseGroup } from "../collapse__group/collpase-group-context";
-import { useBookTocPageStores } from "../../stores/BookTocPageMobxEntry";
+import { useBookTocPageStores } from "../../mobx__entry/BookTocPageMobxEntry";
 import { observer } from "mobx-react-lite";
 
 

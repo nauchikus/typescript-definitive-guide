@@ -1,19 +1,19 @@
-import { createToggleState, ToggleUiState } from "./AppStateService";
-import { createWhatIsNewTocTree, TreeNode } from "./WhatIsNewTocTreeStore";
+import { createToggleState, ToggleUiState } from "../stores/AppStateService";
+import { createWhatIsNewTocTree, TreeNode } from "../stores/WhatIsNewTocTreeStore";
 import { IWinPageContentData, IWhatIsNewToc } from "../types/IWhatIsNewToc";
-import { VersionFilterStore } from "./VersionFilterStore";
-import { createIntersectionObserverStore } from "./IntersectionObserverStore";
-import { ContentSectionStore } from "./ContentSectionStore";
+import { VersionFilterStore } from "../stores/VersionFilterStore";
+import { createIntersectionObserverStore } from "../stores/IntersectionObserverStore";
+import { ContentSectionStore } from "../stores/ContentSectionStore";
 import { VisibleSectionValidator } from "../validators/VisibleSectionValidator";
 import { VersionInfoMeta } from "../transformers/innovationDataToVersionInfoTransformer";
-import { PageNavWithFilterStore } from "./PageNavWithFilterStore";
-import { createBehaviorNotification } from "./behavior-notificaion-store";
+import { PageNavWithFilterStore } from "../stores/PageNavWithFilterStore";
+import { createBehaviorNotification } from "../stores/behavior-notificaion-store";
 import { IWinPageNavData } from "../page-templates/what-is-new-page/WhatIsNewPageProvider";
-import { ContentNavStore } from "./ContentNavStore";
-import { ContentSectionWithFilterStore } from "./ContentSectionWithFilterStore";
-import { LocationPartial, RouterStore } from "./RouterStore";
+import { ContentNavStore } from "../stores/ContentNavStore";
+import { ContentSectionWithFilterStore } from "../stores/ContentSectionWithFilterStore";
+import { LocationPartial, RouterStore } from "../stores/RouterStore";
 import { createContext, useContext } from "react";
-import { CollapseTreeMobxStore } from "./CollapseTreeMobxStore";
+import { CollapseTreeMobxStore } from "../stores/CollapseTreeMobxStore";
 
 
 interface IWhatIsNewPageStoresParams {

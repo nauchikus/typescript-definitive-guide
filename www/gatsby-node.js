@@ -46,11 +46,11 @@ exports.onPostBootstrap = async ({ actions: {createJobV2}, getNodesByType }) => 
 
     let versionInfo = getLastVersionInfo(winToc);
 
-    // if (process.env.NODE_ENV !== `production`) {
-    //     console.info(`Running jobs is missed `);
-    //
-    //     return Promise.resolve();
-    // }
+    if (process.env.NODE_ENV !== `production`) {
+        console.info(`Running jobs is missed `);
+
+        return Promise.resolve();
+    }
 
 
     console.time(`[GENERATED BOOK COVERS]`);

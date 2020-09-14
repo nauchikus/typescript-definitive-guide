@@ -1,6 +1,6 @@
 import { createContext, useContext } from "react";
 import { IBookChapterPageNavData } from "../page-templates/book-page/BookPageProvider";
-import { LocationPartial, RouterStore } from "./RouterStore";
+import { LocationPartial, RouterStore } from "../stores/RouterStore";
 
 
 interface INotFoundPageMobxEntryParams {

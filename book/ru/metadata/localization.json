@@ -17,6 +17,11 @@
             "id": "what-is-new-contents",
             "path": "/what-is-new",
             "name": "Что нового?"
+        },
+        {
+            "id": "pdf",
+            "path": "/pdf",
+            "name": "PDF Версия"
         }
     ],
     "notification": {
@@ -107,6 +112,13 @@
                         "ariaLabel": "Отправить"
                     }
                 }
+            },
+            "pdf": {
+                "downloadPdfBookButton": {
+                    "title": "Скачать PDF Версию",
+                    "href": "pdf/TypeScript Подробное Руководство.pdf"
+                }
+
             }
         }
     },
@@ -203,6 +215,17 @@
                     "title": "Страница не найдена :("
                 }
             }
+        },
+        "pdf": {
+            "metadata": {
+                "title": "TypeScript - в деталях",
+                "description": "Подробное руководство по языку TypeScript, которое шаг за шагом раскрывает весь его потенциал не оставляя без внимания ни одной мелочи."
+            },
+            "gui": {
+                "title": "TypeScript Подробное Руководство",
+                "subtitle": "PDF Версия"
+            }
+
         }
     }
 }

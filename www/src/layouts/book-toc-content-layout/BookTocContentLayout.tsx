@@ -19,7 +19,7 @@ import { Link } from "gatsby";
 import { CopyToBufferButtonTocMenu } from "../../components/toc-menu__copy-to-buffer-button/CopyToBufferButtonTocMenu";
 import { CollapseItemButtonTocMenu } from "../../components/toc-menu__collapse-item-button/CollapseItemButtonTocMenu";
 import { GroupCollapse } from "../../components/collapse__group/GroupCollapse";
-import { useBookTocPageStores } from "../../stores/BookTocPageMobxEntry";
+import { useBookTocPageStores } from "../../mobx__entry/BookTocPageMobxEntry";
 
 
 interface IBookTocContentLayoutProps {

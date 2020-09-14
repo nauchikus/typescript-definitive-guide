@@ -8,8 +8,8 @@ import { IconButton } from "../icon-button/IconButton";
 import { If } from "../if-operator/If";
 import { observer } from "mobx-react-lite";
 import { useTranslator } from "../../react__hooks/translator.hook";
-import { LocalizationPaths, SharedLayoutLocalization } from "../../localization";
-import { useAppDriver } from "../../stores/SharedPageMobxEntry";
+import { AppNavigationLocalization, LocalizationPaths, SharedLayoutLocalization } from "../../localization";
+import { useAppDriver } from "../../mobx__entry/SharedPageMobxEntry";
 import { useRouter } from "../../stores/RouterStore";
 
 interface IAppMenuButtonProps {
@@ -41,12 +41,22 @@ export const NavToggleButton: FC<IAppMenuButtonProps> = observer(() => {
 });
 
 export const PdfAppMenuButton: FC<IAppMenuButtonProps> = () => {
-  let [shared] = useTranslator<[SharedLayoutLocalization]>( LocalizationPaths.SharedLayout );
+  let [shared, appNavigationAll] = useTranslator<[SharedLayoutLocalization, AppNavigationLocalization]>(
+    LocalizationPaths.SharedLayout,
+    LocalizationPaths.AppNavigation
+  );
+
   let { appHeader: { appMenu:{pdfButton} } } = shared;
+  let pdfNavItem = appNavigationAll.find(navItem => navItem.id === `pdf`);
+
+  if (!pdfNavItem) {
+    throw new Error(`Pdf nav item for "pdf" route not found`);
+  }
+
 
   return (
-    <ScaleContainerProvider className="disabled">
-      <AdaptiveMenuButtonLink className="app-menu-item__item" href={pdfButton.href}>
+    <ScaleContainerProvider>
+      <AdaptiveMenuButtonLink className="app-menu-item__item" href={pdfNavItem.path}>
         <ScaleContainer>
           <PdfSvgIcon/>
         </ScaleContainer>

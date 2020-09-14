@@ -7,7 +7,7 @@ import {
 } from "../app-menu-buttons/app-menu-buttons";
 import { AppBar } from "../app-bar/AppBar";
 import { useRouter } from "../../stores/RouterStore";
-import { useAppSearch } from "../../stores/SharedPageMobxEntry";
+import { useAppSearch } from "../../mobx__entry/SharedPageMobxEntry";
 import { AppLogoSvgIcon } from "../icon__svg-icon/svg-icons";
 import { Link } from "gatsby";
 import { RouterUtils } from "../../utils/router-utils";

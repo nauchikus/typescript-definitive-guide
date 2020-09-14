@@ -12,7 +12,7 @@ import {AppNavSectionAppDriver} from "../app-driver__nav-section_app-nav/AppNavS
 import {ContentNavSectionAppDriver} from "../app-driver__nav-section_page-nav/ContentNavSectionAppDriver";
 import {RouterUtils} from "../../utils/router-utils";
 import * as StringUtils from "../../utils/string-utils";
-import { useBookChapterStores } from "../../stores/BookPageMobxEntry";
+import { useBookChapterStores } from "../../mobx__entry/BookPageMobxEntry";
 
 interface IBookChapterPageAppDriverProps {
 }

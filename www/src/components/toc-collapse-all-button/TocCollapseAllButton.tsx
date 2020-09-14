@@ -8,7 +8,7 @@ import { Tooltip, TooltipPosition } from "../tooltip/Tooltip";
 import { If } from "../if-operator/If";
 import { useTranslator } from "../../react__hooks/translator.hook";
 import { BookTocGuiLocalization, LocalizationPaths } from "../../localization";
-import { useBookTocPageStores } from "../../stores/BookTocPageMobxEntry";
+import { useBookTocPageStores } from "../../mobx__entry/BookTocPageMobxEntry";
 
 interface ITocCollapseAllButtonProps {
   collapseGroupId: string;

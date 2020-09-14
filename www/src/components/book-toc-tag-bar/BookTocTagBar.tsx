@@ -4,7 +4,7 @@ import { Subject, merge, Observable } from "rxjs";
 import { auditTime, debounceTime, delay, takeUntil, tap, throttleTime } from "rxjs/operators";
 import { useTranslator } from "../../react__hooks/translator.hook";
 import { BookTocGuiLocalization, LocalizationPaths } from "../../localization";
-import { useBookTocPageStores } from "../../stores/BookTocPageMobxEntry";
+import { useBookTocPageStores } from "../../mobx__entry/BookTocPageMobxEntry";
 
 
 interface IBookTocTagBarProps {

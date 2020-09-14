@@ -7,7 +7,7 @@ import { useScale, useScaleControl } from "../transform__scale-container/ScaleCo
 import { useTranslator } from "../../react__hooks/translator.hook";
 import { LocalizationPaths, SharedLayoutLocalization } from "../../localization";
 import { If } from "../if-operator/If";
-import { useAppSearch } from "../../stores/SharedPageMobxEntry";
+import { useAppSearch } from "../../mobx__entry/SharedPageMobxEntry";
 
 interface ISearchProps {
 }

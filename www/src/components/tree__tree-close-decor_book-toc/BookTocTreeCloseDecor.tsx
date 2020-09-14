@@ -5,7 +5,7 @@ import { AppLocalization } from "../../localization";
 import { default as cn } from "classnames";
 import { getClassNameWithBgColorAttrBySectionName } from "../../maps/book-chapter-section-type-to-style-color-map";
 import { BookTocNode, TreeNode } from "../../stores/BookTocTreeStore";
-import { useBookTocPageStores } from "../../stores/BookTocPageMobxEntry";
+import { useBookTocPageStores } from "../../mobx__entry/BookTocPageMobxEntry";
 
 
 interface IBookTocTreeCloseDecorProps {

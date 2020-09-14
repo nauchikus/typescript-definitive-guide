@@ -1,6 +1,6 @@
 import React, { FC, ReactNode } from "react";
 import { observer } from "mobx-react-lite";
-import { useBookTocPageStores } from "../../stores/BookTocPageMobxEntry";
+import { useBookTocPageStores } from "../../mobx__entry/BookTocPageMobxEntry";
 
 interface ISecondaryContentBarProps {
   children:ReactNode|ReactNode[];

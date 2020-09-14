@@ -10,7 +10,7 @@ import { IWhatIsNewToc } from "../../types/IWhatIsNewToc";
 import { TreeNode } from "../../stores/WhatIsNewTocTreeStore";
 import { BehaviorNotificationContext } from "../../react__context/BehaviorNotificationContext";
 import { RouterStoreContext } from "../../stores/RouterStore";
-import { WinTocPageMobxEntry, MobxWhatIsNewTocPageContext } from "../../stores/WinTocPageMobxEntry";
+import { WinTocPageMobxEntry, MobxWhatIsNewTocPageContext } from "../../mobx__entry/WinTocPageMobxEntry";
 import { useNativeLinkDisableDefaultBehavior } from "../../react__hooks/useNativeLinkDisableDefaultBehavior";
 
 

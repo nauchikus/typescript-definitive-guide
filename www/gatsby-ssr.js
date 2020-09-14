@@ -1,6 +1,6 @@
 import React from 'react';
 import { MobxSharedContext } from './src/react__context/MobxSharedContext';
-import { SharedPageMobxEntry } from './src/stores/SharedPageMobxEntry';
+import { SharedPageMobxEntry } from './src/mobx__entry/SharedPageMobxEntry';
 
 /**
  * Implement Gatsby's SSR (Server Side Rendering) APIs in this file.

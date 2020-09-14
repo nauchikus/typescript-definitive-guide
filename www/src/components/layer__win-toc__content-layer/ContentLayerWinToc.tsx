@@ -4,7 +4,7 @@ import { useTranslator } from "../../react__hooks/translator.hook";
 import { LocalizationPaths, WhatIsNewTocGuiLocalization } from "../../localization";
 import * as NativeUtils from "../../utils/native-utils";
 import { useBehaviorNotificationAction } from "../../react__hooks/behavior-notification-action-hook";
-import { useWhatIsNewTocPageStores } from "../../stores/WinTocPageMobxEntry";
+import { useWhatIsNewTocPageStores } from "../../mobx__entry/WinTocPageMobxEntry";
 
 interface IContentLayerWinTocProps {
 }

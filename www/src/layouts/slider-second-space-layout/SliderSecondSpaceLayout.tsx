@@ -6,7 +6,7 @@ import { Media } from "../../components/media/Media";
 import { If } from "../../components/if-operator/If";
 import { useCssPropertyAsNumber } from "../../react__hooks/media-hook";
 import { CssPropertyName } from "../../CssPropertyName";
-import { useAppDriver } from "../../stores/SharedPageMobxEntry";
+import { useAppDriver } from "../../mobx__entry/SharedPageMobxEntry";
 
 interface HTMLDivElement{
   toggle:boolean;

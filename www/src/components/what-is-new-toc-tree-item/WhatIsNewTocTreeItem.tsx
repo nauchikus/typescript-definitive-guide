@@ -12,7 +12,7 @@ import * as DateUtils from "../../utils/date-utils";
 import {Version} from "../../utils/Version";
 import { toLastReleaseInfo, toVersionInfo } from "../../utils/version-utils";
 import { ReleaseInfo } from "../../transformers/innovationDataToVersionInfoTransformer";
-import { useWhatIsNewTocPageStores } from "../../stores/WinTocPageMobxEntry";
+import { useWhatIsNewTocPageStores } from "../../mobx__entry/WinTocPageMobxEntry";
 
 interface IWhatIsNewTocTreeItemProps {
   winTocTreeNodeId:string;

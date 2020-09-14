@@ -1,5 +1,5 @@
 import { createContext, useContext } from "react";
-import { LocationPartial, RouterStore } from "./RouterStore";
+import { LocationPartial, RouterStore } from "../stores/RouterStore";
 
 
 interface IIndexPageMobxEntryParams {

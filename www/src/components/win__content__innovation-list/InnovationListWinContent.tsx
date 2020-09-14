@@ -5,7 +5,7 @@ import { SectionInformerContent } from "../content__section-informer/SectionInfo
 import { useCopyToBufferButtonFromNativeMarkup } from "../../react__hooks/copy-to-buffer-button-from-native-markup-hook";
 import { Version } from "../../utils/Version";
 import { useContentIntersectionObserver } from "../../react__hooks/content-intersection-observer-hook";
-import { useWhatIsNewPageStores } from "../../stores/WinPageMobxEntry";
+import { useWhatIsNewPageStores } from "../../mobx__entry/WinPageMobxEntry";
 import * as StringUtils from "../../utils/string-utils";
 import { useHtmlLink } from "../../react__hooks/useHtmlLink";
 

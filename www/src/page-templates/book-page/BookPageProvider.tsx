@@ -15,7 +15,7 @@ import { ContentNavStoreContext } from "../../mobx__mobx-shared-store__react-con
 import { BookChapterPageContentDataContext } from "../../react__context/BookChapterPageContentDataContext";
 import { ContentIntersectionObserverStoreContext } from "../../react__context/ContentIntersectionObserverStoreContext";
 import { RouterStoreContext, useRouter } from "../../stores/RouterStore";
-import { BookPageMobxEntry, MobxBookChapterPageContext } from "../../stores/BookPageMobxEntry";
+import { BookPageMobxEntry, MobxBookChapterPageContext } from "../../mobx__entry/BookPageMobxEntry";
 import { useNativeLinkDisableDefaultBehavior } from "../../react__hooks/useNativeLinkDisableDefaultBehavior";
 import ErrorBoundary from "../../components/error-boundary/ErrorBoundary";
 import { useLocalStore } from "mobx-react-lite";
