@@ -17,6 +17,7 @@ interface IIndexPageContentProps {
 const appToIndexPageNav = ( appNav: AppNavigationLocalization ) => [
   appNav.find( i => i.id === AppNavId.BookContents ),
   appNav.find( i => i.id === AppNavId.WhatIsNewContents ),
+  appNav.find( i => i.id === AppNavId.Pdf ),
 ];
 
 function indexNavAssert(indexNavAll:Partial<AppNavigationLocalization>):asserts indexNavAll is Required<AppNavigationLocalization>{
