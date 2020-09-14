@@ -28,7 +28,7 @@ export const AppBar: FC<IAppBarProps> = observer(( {} ) => {
                     closeClassName="app-bar-dropdown__menu_close">
         <div className="app-bar">
           <div className="app-bar__section">
-            <PdfAppMenuButton/>
+            {/*<PdfAppMenuButton/>*/}
             <TelegramAppMenuButton/>
             <GithubAppMenuButton/>
           </div>

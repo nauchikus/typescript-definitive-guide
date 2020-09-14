@@ -32,7 +32,7 @@ $grid-gap:$app-bar__grid_gap-column;
   }
 
   @media all and (min-width: $app-bar_media_xs) {
-    grid-template-columns: $icon-button $logo 1fr $icon-button $icon-button*3;
+    grid-template-columns: $icon-button $logo 1fr $icon-button $icon-button*2;
     grid-template-rows: inherit;
     grid-template-areas: "nav-toggle logo informer search menu";
   }
