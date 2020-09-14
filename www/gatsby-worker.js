@@ -31,7 +31,7 @@ async function BOOK_COVER_WORKER({ inputPaths, outputDir, args: { filenames, ver
     return await BookCoverGenerator.generateBookCovers({
         bookCoverOptions: {
             inputPath: bookCoverSourcePath,
-            outputPath: path.join(outputDir, filenames.bookCover),
+            outputPath: path.join(process.cwd(), `workers`, `pdf`, filenames.bookCover),
             coverOptions: bookCoverOptions
         },
         bookCoverForSocialMediaOptions: {
@@ -42,11 +42,11 @@ async function BOOK_COVER_WORKER({ inputPaths, outputDir, args: { filenames, ver
     })
 }
 
-async function BOOK_PDF_WORKER ({ inputPaths, outputDir, args: { bookToc, bookCoverPath, versionInfo } }) {
+async function BOOK_PDF_WORKER ({ inputPaths, outputDir, args: { bookToc, bookCoverPath, versionInfo, bookPdfOutputPath } }) {
     let bookChapterPathAll = inputPaths.map(info => info.path);
 
     await BookPdfGenerator.generateBookPdf({
-        outputPath: path.join(outputDir, `TypeScript Подробное Руководство.pdf`),
+        outputPath: bookPdfOutputPath,
         bookCoverPath,
         bookChapterPathAll,
         toc: bookToc
@@ -55,7 +55,8 @@ async function BOOK_PDF_WORKER ({ inputPaths, outputDir, args: { bookToc, bookCo
 
 module.exports = { BOOK_COVER_WORKER, BOOK_PDF_WORKER };
 
-// BOOK_COVER_JOB({
+
+// BOOK_COVER_WORKER({
 //     inputPaths: [{path: `/home/ivan/Projects/typescript-definitive-guide/www/workers/book-cover/tdg.svg`}],
 //     outputDir: ``,
 //     args: {
@@ -69,61 +70,45 @@ module.exports = { BOOK_COVER_WORKER, BOOK_PDF_WORKER };
 //         }
 //     }
 // })
-
-const bookToc = require(`../book/ru/metadata/toc.json`);
-
-async function run(){
-    let filenameAll = await fsp.readdir(path.join(process.cwd(), `../book/ru/chapters`));
-    let filepathAll = filenameAll.map(filename => path.join(process.cwd(), `../book/ru/chapters`, filename, `content.md`));
-    // let inputPaths = filepathAll.map(filepath=>({ path: filepath}))
-
-    let inputPaths = [
-        // {path: `/home/ivan/Projects/typescript-definitive-guide/book/ru/chapters/043.(Работа с типами) Условные типы (Conditional Types)/content.md`},
-        {path: `/home/ivan/Projects/typescript-definitive-guide/book/ru/chapters/044.(Расширенные типы) Readonly, Partial, Required, Pick, Record/content.md`},
-    ]
-    console.time(`[GENERATE PDF]`);
-    await BOOK_PDF_WORKER({
-        inputPaths,
-        outputDir: `./`,
-        args: {
-            bookToc,
-            bookCoverPath: path.join(process.cwd(), `./public/assets/book_covers/book_cover.png`)
-        }
-    })
-    console.timeEnd(`[GENERATE PDF]`);
-}
-
-run();
-// BOOK_PDF_WORKER({
-//     inputPaths: [
-//         {path:`/home/ivan/Projects/typescript-definitive-guide/book/ru/chapters/010.(Экскурс в типизацию) Совместимость типов на основе вариантности/content.md`},
-//         {path: `/home/ivan/Projects/typescript-definitive-guide/book/ru/chapters/012.(Типы) Базовый Тип Any/content.md`}
-//     ],
-//     args: {
-//         bookToc,
-//         // bookCoverPath: `/home/ivan/Projects/typescript-definitive-guide/book/ru/metadata/cover.jpg`,
-//         bookCoverPath: `/home/ivan/Projects/typescript-definitive-guide/www/workers/pdf/a4-placeholder.png`,
-//         bookInfo: [
-//             {
-//                 path: `/home/ivan/Projects/typescript-definitive-guide/book/ru/chapters/010.(Экскурс в типизацию) Совместимость типов на основе вариантности/content.md`,
-//                 // index: 0,
-//                 // section: `Section A`,
-//                 // title: `TypeScript Definitive Guide`
+//
+//
+// const bookToc = require(`../book/ru/metadata/toc.json`);
+//
+// async function run(){
+//     await BOOK_COVER_WORKER({
+//         inputPaths: [{path: `/home/ivan/Projects/typescript-definitive-guide/www/workers/book-cover/tdg.svg`}],
+//         outputDir: ``,
+//         args: {
+//             filenames: {
+//                 bookCover: `book-cover.png`,
+//                 bookCoverForSocialMedia: `book-cover-for-social-media.png`,
 //             },
-//             {
-//                 path: `/home/ivan/Projects/typescript-definitive-guide/book/ru/chapters/012.(Типы) Базовый Тип Any/content.md`,
-//                 index: 1,
-//                 section: `Section B`,
-//                 title: `TypeScript Definitive Guide`
+//             versionInfo: {
+//                 mmp: `4.0`,
+//                 preReleaseName: `rc`
 //             }
-//             //
-//             // ,
-//             // {
-//             //     path: `/home/ivan/Projects/typescript-definitive-guide/book/ru/chapters/032.(Типы) Обобщения (Generics)/content.md`,
-//             //     index: 32,
-//             //     section: `Section C`,
-//             //     title: `TypeScript Definitive Guide`
-//             // }
-//         ]
-//     }
-// })
+//         }
+//     })
+//
+//     let filenameAll = await fsp.readdir(path.join(process.cwd(), `../book/ru/chapters`));
+//     let filepathAll = filenameAll.map(filename => path.join(process.cwd(), `../book/ru/chapters`, filename, `content.md`));
+//     let inputPaths = filepathAll.map(filepath=>({ path: filepath}))
+//
+//     // let inputPaths = [
+//     //     {path: `/home/ivan/Projects/typescript-definitive-guide/book/ru/chapters/043.(Работа с типами) Условные типы (Conditional Types)/content.md`},
+//     //     {path: `/home/ivan/Projects/typescript-definitive-guide/book/ru/chapters/044.(Расширенные типы) Readonly, Partial, Required, Pick, Record/content.md`},
+//     //     {path: `/home/ivan/Projects/typescript-definitive-guide/book/ru/chapters/045.(Расширенные типы) Exclude, Extract, NonNullable, ReturnType, InstanceType, Omit/content.md`},
+//     // ]
+//     console.time(`[GENERATE PDF]`);
+//     await BOOK_PDF_WORKER({
+//         inputPaths,
+//         outputDir: path.join(process.cwd(), `./public`),
+//         args: {
+//             bookToc,
+//             bookCoverPath: path.join(process.cwd(), `./public/assets/book_covers/book_cover.png`)
+//         }
+//     })
+//     console.timeEnd(`[GENERATE PDF]`);
+// }
+//
+// run();

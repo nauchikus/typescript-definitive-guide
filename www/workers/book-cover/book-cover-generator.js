@@ -46,6 +46,8 @@ async function generateBookCover(page, outputPath, options){
             .forEach(([key, value]) => svg.style.setProperty(key, value));
 
     }, options);
+
+    await page.waitFor(1000);
     await page.screenshot({ path: outputPath });
 }
 

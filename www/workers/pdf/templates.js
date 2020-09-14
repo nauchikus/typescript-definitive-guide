@@ -1,5 +1,8 @@
 const path = require(`path`);
 
+const StringUtils = require(`../../src/utils/string-utils`);
+const Utils = require(`./remark/utils`);
+
 const toPath = (...paths) => path.join(...paths);
 const toStyle = style => Object.entries(style)
     .reduce((result, [key, value]) => result.concat(`${key}: ${value};`), ``);
@@ -44,7 +47,7 @@ const styles = {
 // </div>
 // `).trim();
 const BookCover = path => (`
-<img class="book-cover" src="${path}" alt="book-cover"/>
+<article id="cover"></article>
 `).trim();
 
 const Html = ({content, description, root}) => (`
@@ -62,32 +65,16 @@ const Html = ({content, description, root}) => (`
     <link rel="stylesheet" href="${toPath(root, `./prism-vs.theme.css`)}">
     <link rel="stylesheet" href="${toPath(root, `./prism-custom.theme.css`)}">
     <link rel="stylesheet" href="${toPath(root, `./style.css`)}">
+    <link rel="stylesheet" href="${toPath(root, `./toc.css`)}">
     <link rel="stylesheet" href="${toPath(root, `./pages.css`)}">
     <link rel="stylesheet" href="${toPath(root, `./cover.css`)}">
     <link rel="stylesheet" href="${toPath(root, `./title.css`)}">
+    <link rel="stylesheet" href="${toPath(root, `./end.css`)}">
     <link rel="stylesheet" href="${toPath(root, `./headings.css`)}">
     <link rel="stylesheet" href="${toPath(root, `./content.css`)}">
     <link rel="stylesheet" href="${toPath(root, `./code-block.css`)}">
     
     <title>TypeScript: Подробное Руководство</title>
-    
-    <style>
-        @page :blank {
-            @top-center { content: "This page is intentionally left blank." }
-            @bottom-left {content: "Ol"}
-        }
-        @page:right{
-          @bottom-right {
-            content: counter(page);
-          }
-        }
-        .remark-highlight {
-            page-break-after: avoid;
-        }
-        
-        
-    </style>
-    
 </head>
 <body>
 ${content}
@@ -105,42 +92,73 @@ const BookTitlePage = path => (`
 <p class="main-date">Дата последнего обновления: <time>${new Date().toLocaleDateString()}</time></p>
 `).trim();
 
+const createTocItem = ({href, level}) => (`
+<li class="toc-nav__tree-item tree-item_level-${level}">
+    <a class="toc__link" href="${href}">
+        <span href="${href}" class="toc__link_title"></span>
+        <span class="toc__link_dots"></span>
+        <span href="${href}" class="toc__link_index"></span>
+    </a>
+</li>
+`).trim()
+const BookTocFirstLevelItem = ({title, index}) => {
+    let href = Utils.toBookPdfHref(
+        StringUtils.hadingToNativeElementAttributeValue(title)
+    );
 
 
-const Page = (content, ...classes)  => (`
-<div chapter="Super Pupper" class="${[`page`, ...classes].join(` `)}">${content}</div>
-`).trim();
+    return createTocItem({href, level: 0});
+}
+const BookTocSecondLevelItem = ({title, subtitle,  index}) => {
+    let href = Utils.toBookPdfHref(
+        StringUtils.hadingToNativeElementAttributeValue(`${title}#${subtitle}`)
+    );
 
 
+    return createTocItem({href, level: 1});
+}
+const buildTocItems = toc => {
+    return toc.reduce((result, tocItem, firstLevelIndex) => {
+        let firstLevelTocItem = BookTocFirstLevelItem({
+            title: tocItem.title,
+            index: firstLevelIndex
+        });
+        let secondLevelTocItems = tocItem.subtitles
+            .reduce((result, subtitle, secondLevelIndex) => result + BookTocSecondLevelItem({
+                title: tocItem.title,
+                subtitle,
+                index: secondLevelIndex
+            }), ``);
 
-// const Header = ({styles}) => (`<div class="header" style="padding: 0 !important; margin: 0; -webkit-print-color-adjust: exact; background-color: red; color: white; width: 100%; text-align: left; font-size: 12px;">header of Juan<br /> Page <span class="pageNumber"></span> of <span class="totalPages"></span></div>`).trim();
-const PageHeader = ({styles}) => (`
-<div class="header" style="${styles}">
-    <span class="pageNumber"></span>/<span class="totalPages"></span>
-</div>`).trim();
-const PageFooter = ({styles}) => (`
-<div class="footer" style="${styles}">
-    <span class="pageNumber"></span>/<span class="totalPages"></span>
-</div>`).trim();
-// const Footer = '<div class="footer" style="padding: 0 !important; margin: 0; -webkit-print-color-adjust: exact; background-color: blue; color: white; width: 100%; text-align: right; font-size: 12px;">footer of Juan<br /> Page <span class="pageNumber"></span> of <span class="totalPages"></span></div>';
+        return result + firstLevelTocItem + secondLevelTocItems;
+    }, ``);
+}
+const BookToc = toc => (`
+<aside id="toc">
+    <h2 class="toc__title">Содержание</h2>
+    <nav class="toc__nav">
+      <ol class="toc-nav__tree">
+        ${ buildTocItems(toc)  }
+      </ol>
+    </nav>
+</aside>
+`)
 
-const header = `<div class="header" style="padding: 0 !important; margin: 0; -webkit-print-color-adjust: exact; background-color: red; color: white; width: 100%; text-align: left; font-size: 12px;">header of Juan<br /> Page <span class="pageNumber"></span> of <span class="totalPages"></span></div>`;
-const footer = '<div class="footer" style="padding: 0 !important; margin: 0; -webkit-print-color-adjust: exact; background-color: blue; color: white; width: 100%; text-align: right; font-size: 12px;">footer of Juan<br /> Page <span class="pageNumber"></span> of <span class="totalPages"></span></div>';
-
+const BookEndPage = () => (`
+<aside id="end">
+    <p class="end__title">Конец!</p>
+</aside>
+`)
 
 module.exports = {
     Html,
-    Page,
-    PageHeader,
-    PageFooter,
 
     BookCover,
     BookTitlePage,
-
-    header,
-    footer,
+    BookToc,
 
     styles,
 
     cutHtml,
+    BookEndPage,
 }

@@ -16,12 +16,13 @@ const { Version } = require(`./src/utils/Version`);
 
 
 class FileNames {
-    static BOOK_COVER = `book_cover.png`;
-    static BOOK_COVER_FOR_SOCIAL_MEDIA = `book_cover_for_social_media.png`;
+    static BOOK_COVER = `book-cover.png`;
+    static BOOK_COVER_FOR_SOCIAL_MEDIA = `book-cover-for-social-media.png`;
 }
 class Paths {
     static BOOK_COVER_SOURCE = path.join(process.cwd(), `workers`, `book-cover`, `tdg.svg`);
-    static BOOK_COVERS_OUTPUT_DIR = path.join(process.cwd(), `public`, `assets`, `book_covers`);
+    static BOOK_PDF_OUTPUT_DIR = path.join(process.cwd(), `public`, `pdf`);
+    static BOOK_COVERS_OUTPUT_DIR = path.join(process.cwd(), `workers`, `pdf`);
     static BOOK_COVER = path.join(Paths.BOOK_COVERS_OUTPUT_DIR, FileNames.BOOK_COVER);
 }
 
@@ -45,7 +46,11 @@ exports.onPostBootstrap = async ({ actions: {createJobV2}, getNodesByType }) => 
 
     let versionInfo = getLastVersionInfo(winToc);
 
-
+    // if (process.env.NODE_ENV !== `production`) {
+    //     console.info(`Running jobs is missed `);
+    //
+    //     return Promise.resolve();
+    // }
 
 
     console.time(`[GENERATED BOOK COVERS]`);
@@ -76,10 +81,11 @@ exports.onPostBootstrap = async ({ actions: {createJobV2}, getNodesByType }) => 
     await createJobV2({
         name: `BOOK_PDF_WORKER`,
         inputPaths,
-        outputDir: path.join(process.cwd(), `public`, `assets`, `pdf`),
+        outputDir: Paths.BOOK_PDF_OUTPUT_DIR,
         args: {
             bookName: `TypeScript Подробное Руководство`,
             bookCoverPath: Paths.BOOK_COVER,
+            bookPdfOutputPath: path.join(Paths.BOOK_PDF_OUTPUT_DIR, `TypeScript Подробное Руководство.pdf`),
             bookToc,
             versionInfo
         }

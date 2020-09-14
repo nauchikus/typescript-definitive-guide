@@ -1,5 +1,6 @@
 const visit = require('unist-util-visit');
 const StringUtils = require('../../../src/utils/string-utils');
+const Utils = require('./utils');
 
 
 module.exports = ({ toc }) => ast => {
@@ -35,7 +36,7 @@ module.exports = ({ toc }) => ast => {
                 children: [
                     {
                         type: 'text',
-                        value: `Глава ${StringUtils.generateIndex(chapterIndex, 2)}`,
+                        value: Utils.headingIndex(chapterIndex),
                     }
                 ],
                 data: {

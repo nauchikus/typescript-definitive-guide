@@ -1,7 +1,7 @@
 const visit=require('unist-util-visit');
 
 const StringUtils = require(`../../../src/utils/string-utils`);
-// const RouterUtils = require(`../../src/utils/routerjs-utils`);
+const Utils = require(`./utils`);
 const BookChapterPathUtils = require(`../../../src/utils/book-chapter-path-utils`);
 
 
@@ -114,7 +114,8 @@ module.exports = options => ast => {
       );
 
 
-      linkNode.url = `#` + StringUtils.toCharCodeId(bookLink);
+      linkNode.url = Utils.toBookPdfHref(bookLink);
+
 
       linkNode.data || ( linkNode.data = {} );
       linkNode.data.hProperties || ( linkNode.data.hProperties = {} );

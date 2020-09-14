@@ -31,6 +31,8 @@ module.exports = ({toc}) => ast => {
             headingNode.data || ( headingNode.data = {} );
             headingNode.data.hProperties || ( headingNode.data.hProperties = {} );
 
+            // console.log(id);
+            // console.log(StringUtils.toCharCodeId(id));
 
             Object.assign( headingNode.data.hProperties, {
                 id: StringUtils.toCharCodeId(id)

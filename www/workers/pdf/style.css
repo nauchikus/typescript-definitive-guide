@@ -3,6 +3,19 @@
 
 h2 {
     string-set: heading content(), section attr(section);
+    page-break-before: always;
+    page-break-after: always;
+}
+
+@page no-chapter {
+    margin: 0;
+
+    @top-right {
+        content: none;
+    }
+    @bottom-right {
+        content: none;
+    }
 }
 
 
@@ -45,7 +58,14 @@ h2 {
         content: counter(page) "/" counter(pages);
     }
 }
+@page:nth(2) {
+    page-break-before: always;
+    page-break-after: always;
 
+    padding: 20% 0 0 0;
+    display: flex;
+    text-align: center;
+}
 
 * {
     padding: 0;

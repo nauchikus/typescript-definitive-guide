@@ -1,15 +1,16 @@
 const visit = require('unist-util-visit');
 
 const getCodeLanguage = html => {
-    let [, language] = html.match(/^<div class="remark-highlight"><pre class="language-(.*)">/);
+    let [,,lang] = html.match(/^(<div class="remark-highlight"><pre class="language-)(.*?)(">)/);
 
-    return language;
+    return lang.trim();
 }
+
 
 const valueWrapper = ({lang,metadata,innerHTML}) => ( `
 <div class="content__code">
     <div class="content__code-panel_top content__code-panel_lang_${lang}">
-        <span class="content_code-label_filepath">${ metadata.filepath }</span>
+        <span class="content_code-label_filepath">${ metadata.filepath || `` }</span>
         <span class="content_code-label_lang">${lang}</span>
     </div>
     ${innerHTML}
@@ -28,7 +29,7 @@ const blockCodeDecorate = options => {
                 codeNode.value = valueWrapper({
                     lang,
                     metadata: {},
-                    innerHtml: codeNode.value
+                    innerHTML: codeNode.value
                 });
             }catch (error){
                 console.log(codeNode);
