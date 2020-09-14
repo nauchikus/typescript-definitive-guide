@@ -16,7 +16,7 @@ export const DownloadPdfButton:FC<IDownloadPdfButtonProps>=({})=>{
 
 
   return(
-    <a className="download-pdf-button" href={pdfShared.downloadPdfBookButton.href}
+    <a id="download-pdf-button" className="download-pdf-button" href={pdfShared.downloadPdfBookButton.href}
        download={true}>
       <PdfSvgIcon className="download-pdf-button__svg-icon"/>
       <span className="download-pdf-button__label">{pdfShared.downloadPdfBookButton.title}</span>
