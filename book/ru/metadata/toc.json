@@ -178,13 +178,11 @@
     "section": "Типы",
     "title": "Примитивные литеральные типы Number, String, Boolean, Unique Symbol, Enum",
     "subtitles": [
-      "Примитивные типы — литеральные типы Number, String, Boolean, Unique Symbol, Enum",
       "Литеральный тип Number (Numeric Literal Types)",
       "Литеральный тип String (String Literal Types)",
       "Литеральный Тип Boolean (Boolean Literal Types)",
       "Литеральный Тип Unique Symbol (unique symbol) уникальный символьный тип",
-      "Литеральный тип Enum (Enum Literal Types)",
-      "Итоги"
+      "Литеральный тип Enum (Enum Literal Types)"
     ]
   },
   {
