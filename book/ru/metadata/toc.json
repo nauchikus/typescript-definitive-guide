@@ -198,11 +198,9 @@
     "section": "Типы",
     "title": "Function, Functional Types",
     "subtitles": [
-      "Function, Functional Types",
       "Function Types - тип функция",
       "Functional Types - функциональный тип",
-      "this в сигнатуре функции",
-      "Итог"
+      "this в сигнатуре функции"
     ]
   },
   {
