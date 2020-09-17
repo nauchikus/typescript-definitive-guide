@@ -189,11 +189,9 @@
     "section": "Типы",
     "title": "Object, Array, Tuple",
     "subtitles": [
-      "Типы — Object, Array, Tuple",
       "Object (object) — ссылочный объектный тип",
       "Array (type[]) ссылочный массивоподобный тип",
-      "Tuple ([T0, T1, …, Tn]) тип кортеж",
-      "Итоги"
+      "Tuple ([T0, T1, …, Tn]) тип кортеж"
     ]
   },
   {
