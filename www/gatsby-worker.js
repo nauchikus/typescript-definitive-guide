@@ -20,26 +20,35 @@ async function BOOK_COVER_WORKER({ inputPaths, outputDir, args: { filenames, ver
         versionStage: versionInfo.preReleaseName,
         colors: BOOK_COVER_DEFAULT_COLORS
     };
-    let bookCoverForSocialMediaOptions = {
-        version: versionInfo.mmp,
-        versionStage: versionInfo.preReleaseName,
-        colors: BOOK_COVER_DEFAULT_COLORS
-    };
+    // let bookCoverForSocialMediaOptions = {
+    //     version: versionInfo.mmp,
+    //     versionStage: versionInfo.preReleaseName,
+    //     colors: BOOK_COVER_DEFAULT_COLORS
+    // };
 
     let [{ path: bookCoverSourcePath }] = inputPaths;
 
-    return await BookCoverGenerator.generateBookCovers({
-        bookCoverOptions: {
-            inputPath: bookCoverSourcePath,
+    // let bookCoverOptions = {
+    //     inputPath: bookCoverSourcePath,
+    //     outputPath: path.join(process.cwd(), `workers`, `pdf`, filenames.bookCover),
+    //     coverOptions: bookCoverOptions
+    // };
+    // let bookCoverForSocialMediaOptions = {
+    //     inputPath: bookCoverSourcePath,
+    //     outputPath: path.join(outputDir, filenames.bookCoverForSocialMedia),
+    //     coverOptions: bookCoverForSocialMediaOptions
+    // };
+
+    let optionsAll = [
+        {
             outputPath: path.join(process.cwd(), `workers`, `pdf`, filenames.bookCover),
             coverOptions: bookCoverOptions
-        },
-        bookCoverForSocialMediaOptions: {
-            inputPath: bookCoverSourcePath,
-            outputPath: path.join(outputDir, filenames.bookCoverForSocialMedia),
-            coverOptions: bookCoverForSocialMediaOptions
-        },
-    })
+        }
+    ]
+    return await BookCoverGenerator.generateBookCovers(
+        bookCoverSourcePath,
+        ...[bookCoverOptions]
+    );
 }
 
 async function BOOK_PDF_WORKER ({ inputPaths, outputDir, args: { bookToc, bookCoverPath, versionInfo, bookPdfOutputPath } }) {

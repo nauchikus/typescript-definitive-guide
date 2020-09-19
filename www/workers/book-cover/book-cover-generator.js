@@ -54,7 +54,7 @@ async function generateBookCover(page, outputPath, options){
 /**
  *
  * @param bookCoverSourcePath {string}
- * @param options {...{version: string; versionState: string; colors: string[]}[]}
+ * @param options {...{version: string; versionState: string; colors?: string[]}[]}
  * @returns {Promise<void>}
  */
 async function generateBookCovers (bookCoverSourcePath, ...options ) {
