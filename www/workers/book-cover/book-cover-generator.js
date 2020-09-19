@@ -54,7 +54,7 @@ async function generateBookCover(page, outputPath, options){
 /**
  *
  * @param bookCoverSourcePath {string}
- * @param options {...{version: string; versionState: string; colors?: string[]}[]}
+ * @param options {...{version: string; versionStage: string; colors: string[]}[]}
  * @returns {Promise<void>}
  */
 async function generateBookCovers (bookCoverSourcePath, ...options ) {
@@ -72,10 +72,10 @@ async function generateBookCovers (bookCoverSourcePath, ...options ) {
         height: 841
     });
 
-    await Promise.all(options.map(options => generateBookCover(
+    await Promise.all(options.map(currentOptions => generateBookCover(
         page,
-        options.outputPath,
-        options.coverOptions
+        currentOptions.outputPath,
+        currentOptions.coverOptions
         ))
     );
 

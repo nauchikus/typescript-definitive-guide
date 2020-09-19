@@ -47,7 +47,7 @@ async function BOOK_COVER_WORKER({ inputPaths, outputDir, args: { filenames, ver
     ]
     return await BookCoverGenerator.generateBookCovers(
         bookCoverSourcePath,
-        ...[bookCoverOptions]
+        ...optionsAll
     );
 }
 
