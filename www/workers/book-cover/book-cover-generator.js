@@ -51,8 +51,14 @@ async function generateBookCover(page, outputPath, options){
     await page.screenshot({ path: outputPath });
 }
 
-async function generateBookCovers ({ bookCoverOptions, bookCoverForSocialMediaOptions }) {
-    let html = await getHtml({ bookCoverSourcePath: bookCoverOptions.inputPath });
+/**
+ *
+ * @param bookCoverSourcePath {string}
+ * @param options {...{version: string; versionState: string; colors: string[]}[]}
+ * @returns {Promise<void>}
+ */
+async function generateBookCovers (bookCoverSourcePath, ...options ) {
+    let html = await getHtml({ bookCoverSourcePath });
 
     const browser = await puppeteer.launch({
         headless: true
@@ -66,18 +72,12 @@ async function generateBookCovers ({ bookCoverOptions, bookCoverForSocialMediaOp
         height: 841
     });
 
-    await Promise.all([
-        generateBookCover(
-            page,
-            bookCoverOptions.outputPath,
-            bookCoverOptions.coverOptions
-        ),
-        generateBookCover(
-            page,
-            bookCoverForSocialMediaOptions.outputPath,
-            bookCoverForSocialMediaOptions.coverOptions
-        )
-    ]);
+    await Promise.all(options.map(options => generateBookCover(
+        page,
+        options.outputPath,
+        options.coverOptions
+        ))
+    );
 
 
     await browser.close();

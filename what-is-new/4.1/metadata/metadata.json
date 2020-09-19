@@ -5,6 +5,12 @@
       "dateRelease": "September 18, 2020"
     }
   ],
+  "colors": {
+    "--color_light": "#fff",
+    "--color_middle-lite": "#93cf94",
+    "--color_accent": "#aff933",
+    "--color_ambient": "#a12d2d"
+  },
   "innovations": [
     {
       "id": "",

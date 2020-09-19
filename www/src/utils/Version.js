@@ -9,7 +9,7 @@ class Version {
   static parse ( version ) {
     let [, mmp = ``, preRelease = ``] = /([\w|.]*)(?:-?)?(.*)/gi.exec( version ) || [];
     let [major, minor = ``, patch = ``] = mmp.split( "." );
-    let [, preReleaseName = ``, preReleaseVersion = ``] = /([^\d]+)(\d+)?/gi.exec( preRelease ) || [undefined, `release`, ``];
+    let [, preReleaseName = ``, preReleaseVersion = ``] = /([^\d]+)(\d+)?/gi.exec( preRelease.substring(1) ) || [undefined, `release`, ``];
 
 
     return {

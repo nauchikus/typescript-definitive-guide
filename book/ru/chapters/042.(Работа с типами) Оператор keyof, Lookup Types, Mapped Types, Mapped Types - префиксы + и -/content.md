@@ -330,6 +330,38 @@ type AliasType<T, U> = {
 
 К тому же в *TypeScript* существует несколько готовых типов, таких как `Readonly<T>`, `Partial<T>`, `Record<K, T>` и `Pick<T, K>` (глава [“Расширенные типы - Readonly, Partial, Required, Pick, Record”](../044.(Расширенные%20типы)%20Readonly,%20Partial,%20Required,%20Pick,%20Record)).
 
+
+Кроме того сопоставленные типы вместе с _шаблонными литеральными строковыми типами_ способны переопределить исходные ключи при помощи ключевого слова `as` указываемого после строкового перечисления.
+
+`````ts
+type T = {
+    [K in STRING_VALUES as NEW_KEY]: K // K преобразованный
+}
+`````
+
+Таким образом совмещая данный механизм с _шаблонными литеральными строковыми типами_ можно добиться переопределения исходных ключей.
+
+`````ts
+type ToGetter<T> = `get${capitalize T}`;
+type Getters<T> = {
+    [K in keyof T as ToGetter<K>]: () => T[K];
+}
+
+type Person = {
+    name: string;
+    age: number;
+}
+
+/**
+ * type T = {
+ *  getName: () => string;
+ *  getAge: () => number;
+ * }
+ */
+type T = Getters<Person>
+````` 
+
+
 ## Префиксы + и - в сопоставленных типах
 
 

@@ -1,4 +1,4 @@
-# Примитивные литеральные типы Number, String, Boolean, Unique Symbol, Enum
+# Примитивные литеральные типы Number, String, Template String, Boolean, Unique Symbol, Enum
 
 Помимо обычных примитивных типов перешедших их _JavaScript_, в _TypeScript_ существуют так называемые _литеральные типы_, которые, как можно понять из названия, представляют литералы обычных примитивных типов. Число `5`, строка `“apple”`, логическое значение `true` или константа перечисления `Fruits.Apple` может выступать в качестве самостоятельно типа. Не сложно догадаться, что в качестве значений в таком случае могут выступать только литеральные эквиваленты самих типов, а также `null` и `undefined` (при `--strictNullChecks` со значением `false`).
 
@@ -86,6 +86,57 @@ animate('ease-in-out'); // Error
 
 Примитивный литеральный тип `string` является уникальным для _TypeScript_, в _JavaScript_ подобного типа не существует.
 
+## Шаблонный литеральный тип String (Template String Literal Types)
+
+_Шаблонный литеральный строковой тип_ - это тип, позволяющий на основе литеральных строковых типах динамически определять новый литеральный строковой тип. Простыми словами, это известный по _JavaScript_ механизм создания шаблонных строк только для типов.
+
+`````ts
+type Type = "Type";
+type Script = "Script";
+
+/**
+ * type Messge = "I ❤️ TypeScript"
+ */
+type Messge = `I ❤️ ${Type}${Script}`;
+`````
+
+Но вся мощь данного типа раскрывается в момент определение нового типа на основе объединения (`union`). В подобных случаях новый тип будет также представлять объединение элементы которого представляют все возможные варианты полученные на основе исходного объединения. 
+
+`````ts
+type Sides = "top" | "right" | "bottom" | "left";
+
+/**
+ * type PaddingSides = "padding-top" | "padding-right" | "padding-bottom" | "padding-left"
+ */
+type PaddingSides = `padding-${Sides}`;
+`````
+
+Аналогичное поведение будет справедливо и для нескольких типов объединения.
+
+`````ts
+type AxisX = "top" | "bottom";
+type AxisY = "left" | "right";
+
+
+/**
+ * type Sides = "top-left" | "top-right" | "bottom-left" | "bottom-right"
+ */
+type Sides = `${AxisX}-${AxisY}`;
+
+/**
+ * type BorderRadius = "border-top-left-radius" | "border-top-right-radius" | "border-bottom-left-radius" | "border-bottom-right-radius"
+ */
+type BorderRadius = `border-${Sides}-radius`;
+`````
+
+Поскольку с высокой долей вероятности в подобных операциях потребуется трансформация регистра строк, создателями данного механизма также были добавлены новые операторы преобразования `uppercase`, `lowercase`, `capitalize` и `uncapitalize`. Данные операторы применяются непосредственно к литеральному строковому типу который указывается справа от него.
+
+`````ts
+type A = `${uppercase "AbCd"}`; // type A = "ABCD"
+type B = `${lowercase "AbCd"}`; // type B = "abcd"
+type C = `${capitalize "abcd"}`; // type C = "Abcd"
+type D = `${uncapitalize "Abcd"}`; // type D = "abcd"
+`````
 
 ## Литеральный Тип Boolean (Boolean Literal Types)
 

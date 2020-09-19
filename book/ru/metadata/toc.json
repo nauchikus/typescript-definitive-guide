@@ -180,6 +180,7 @@
     "subtitles": [
       "Литеральный тип Number (Numeric Literal Types)",
       "Литеральный тип String (String Literal Types)",
+      "Шаблонный литеральный тип String (Template String Literal Types)",
       "Литеральный Тип Boolean (Boolean Literal Types)",
       "Литеральный Тип Unique Symbol (unique symbol) уникальный символьный тип",
       "Литеральный тип Enum (Enum Literal Types)"
