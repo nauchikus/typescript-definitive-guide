@@ -1,0 +1,82 @@
+{
+  "releaseHistory": [
+    {
+      "version": "4.1@beta",
+      "dateRelease": "September 18, 2020"
+    }
+  ],
+  "innovations": [
+    {
+      "id": "",
+      "version": "4.1@beta",
+      "innovationName": "Шаблонный литеральный строковой тип",
+      "dateRelease": "September 18, 2020",
+      "datePublication": "September 18, 2020",
+      "tags": []
+    },
+    {
+      "id": "",
+      "version": "4.1@beta",
+      "innovationName": "Переопределение ключей в сопоставленных типах",
+      "dateRelease": "September 18, 2020",
+      "datePublication": "September 18, 2020",
+      "tags": []
+    },
+    {
+      "id": "",
+      "version": "4.1@beta",
+      "innovationName": "Рекурсивные условные типы",
+      "dateRelease": "September 18, 2020",
+      "datePublication": "September 18, 2020",
+      "tags": []
+    },
+    {
+      "id": "",
+      "version": "4.1@beta",
+      "innovationName": "paths без baseUrl",
+      "dateRelease": "September 18, 2020",
+      "datePublication": "September 18, 2020",
+      "tags": []
+    },
+    {
+      "id": "",
+      "version": "4.1@beta",
+      "innovationName": "checkJs не требует активации allowJs",
+      "dateRelease": "September 18, 2020",
+      "datePublication": "September 18, 2020",
+      "tags": []
+    },
+    {
+      "id": "",
+      "version": "4.1@beta",
+      "innovationName": "[КРИТИЧЕСКОЕ ИЗМЕНЕНИЕ] abstract больше не совместим с async",
+      "dateRelease": "September 18, 2020",
+      "datePublication": "September 18, 2020",
+      "tags": []
+    },
+    {
+      "id": "",
+      "version": "4.1@beta",
+      "innovationName": "[КРИТИЧЕСКОЕ ИЗМЕНЕНИЕ] any и unknown доминируют в ложных позициях",
+      "dateRelease": "September 18, 2020",
+      "datePublication": "September 18, 2020",
+      "tags": []
+    },
+    {
+      "id": "",
+      "version": "4.1@beta",
+      "innovationName": "[КРИТИЧЕСКОЕ ИЗМЕНЕНИЕ] --declaration и --outFile требуют имя корневого пакета",
+      "dateRelease": "September 18, 2020",
+      "datePublication": "September 18, 2020",
+      "tags": []
+    },
+    {
+      "id": "",
+      "version": "4.1@beta",
+      "innovationName": "[КРИТИЧЕСКОЕ ИЗМЕНЕНИЕ] параметры resolve теперь обязательные",
+      "dateRelease": "September 18, 2020",
+      "datePublication": "September 18, 2020",
+      "tags": []
+    }
+  ]
+}

@@ -15,7 +15,6 @@
     "hooks": {
       "pre-push": "npm run book-heading-validate",
       "commit-msg": "commitlint -E HUSKY_GIT_PARAMS -g './config/git/commitlint.js'"
-
     }
   },
   "scripts": {

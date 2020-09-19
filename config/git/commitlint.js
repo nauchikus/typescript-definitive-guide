@@ -34,7 +34,8 @@ module.exports = {
         "book",
         "what-is-new",
         "www",
-        "ci"
+        "ci",
+        "other",
       ]
     ]
   }
