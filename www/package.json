@@ -67,7 +67,7 @@
   "scripts": {
     "predevelop": "npm run clean",
     "prebuild": "npm run clean",
-    "build": "gatsby build --prefix-paths",
+    "build": "gatsby build",
     "develop": "gatsby develop",
     "clean": "gatsby clean",
     "format": "prettier --write \"**/*.{js,jsx,json,md}\"",

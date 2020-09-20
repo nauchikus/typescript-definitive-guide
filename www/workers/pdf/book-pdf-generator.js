@@ -59,7 +59,7 @@ async function generateBookPdf({outputPath, bookCoverPath, bookChapterPathAll, t
     let tocPageHtml = HtmlTemplates.BookToc(toc);
     let endPageHtml = HtmlTemplates.BookEndPage();
     let html = HtmlTemplates.Html({
-        root: __dirname,
+        root: path.join(__dirname, `styles`),
         content: [
             coverPageHtml,
             titlePageHtml,
