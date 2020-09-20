@@ -315,7 +315,7 @@ module.exports = {
       branch: process.env.GATSBY_REPOSITORY_BRANCH,
     },
 
-    siteUrl: `https://nauchikus.github.io/typescript-definitive-guide/`,
+    siteUrl: `https://typescript-definitive-guide.ru/`,
     title: "",
     description: "",
     author: "nauchikus",
