@@ -16,16 +16,16 @@ interface ICreatePagesOptions {
 }
 
 export const createPages: GatsbyCreatePages<ICreatePagesOptions> = async (...params) => {
-    // await IndexPageCreator.createPages( ...params );
-    //
-    // await BookPageCreator.createPages( ...params );
+    await IndexPageCreator.createPages( ...params );
+
+    await BookPageCreator.createPages( ...params );
     await BookTocPageCreator.createPages( ...params );
 
-    // await WhatIsNewPageCreator.createPages( ...params );
-    // await WhatIsNewTocPageCreator.createPages( ...params );
-    //
-    // await PdfPageCreator.createPages( ...params );
-    //
-    // await NotFoundPageCreator.createPages( ...params );
+    await WhatIsNewPageCreator.createPages( ...params );
+    await WhatIsNewTocPageCreator.createPages( ...params );
+
+    await PdfPageCreator.createPages( ...params );
+
+    await NotFoundPageCreator.createPages( ...params );
     // await RedirectCreator.createRedirects( ...params );
 };
