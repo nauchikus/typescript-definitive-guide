@@ -117,7 +117,7 @@ export const BookTocContentLayout: FC<IBookTocContentLayoutProps> = observer( ( 
 
         return (
           <Collapse key={firstLevelIndex} id={firstLevelIndex.toString()}>
-            <SectionGuideWithGap sectionName={item.section}/>
+            {/*<SectionGuideWithGap sectionName={item.section}/>*/}
             <Tree level={0}>
               {firstLevelItem}
             </Tree>
@@ -132,10 +132,11 @@ export const BookTocContentLayout: FC<IBookTocContentLayoutProps> = observer( ( 
       });
 
 
+
       return(
         <SectionTocMenu key={sectionKey}>
           <SectionLabelTocMenu sectionName={ item.section }/>
-          <SectionContentTocMenu>
+          <SectionContentTocMenu sectionName={item.section}>
             {items}
           </SectionContentTocMenu>
         </SectionTocMenu>

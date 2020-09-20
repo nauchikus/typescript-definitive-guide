@@ -34,11 +34,11 @@ $toc__low-level_padding_left:32px;
 
   border-radius: var(--app_border-radius-default);
 
-  padding: $toc_padding_top $toc_padding_right $toc_padding_bottom $toc_padding_left;
+  padding: 4px 0;
   //margin: 0 0 8px 0;
 
   display: flex;
-  align-items: center;
+  align-items: flex-start;
 
   position: relative;
 
