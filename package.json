@@ -18,7 +18,7 @@
     }
   },
   "scripts": {
-    "commit": "cz",
+    "cz": "cz",
     "book-cover-generate": "node ./config/generator-book-cover-for-social-media/generator-book-cover-for-social-media.js",
     "book-heading-validate": "node ./config/book-heading-validator/heading-with-toc-validate.js",
     "postrebook-reindex": "npm run book-toc-validate",
