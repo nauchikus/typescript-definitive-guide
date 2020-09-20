@@ -9,6 +9,10 @@ const commands = [
         action: node => addClassRemarkNode( node, "content__list" )
     },
     {
+        validator: node => node.type === "paragraph",
+        action: node => addClassRemarkNode( node, "content__paragraph" )
+    },
+    {
         validator: node => node.type === "heading",
         action: node => addClassRemarkNode(node, `content__heading_${node.depth}`)
     },
