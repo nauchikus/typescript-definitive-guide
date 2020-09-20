@@ -322,6 +322,9 @@ module.exports = {
   },
   plugins: [
     {
+      resolve: `gatsby-plugin-cname`
+    },
+    {
       resolve: `gatsby-plugin-robots-txt`,
       options: {
         host: 'https://nauchikus.github.io/typescript-definitive-guide',
