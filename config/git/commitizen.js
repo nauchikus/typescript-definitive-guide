@@ -3,23 +3,23 @@ module.exports = {
   types: [
     {
       value: 'book',
-      name: 'book:      Изменение книги'
+      name: 'book:     Изменение книги'
     },
     {
-      value: 'what-is-new',
-      name: `what-is-new:      Изменение раздела "Что нового?"`
+      value: 'win',
+      name: `win:      Изменение раздела Что нового?`
     },
     {
       value: 'www',
-      name: 'www:     Изменение приложения'
+      name: 'www:      Изменение приложения'
     },
     {
       value: 'ci',
-      name: 'ci:        Настройка CI и конфигурации'
+      name: 'ci:       Настройка CI и конфигурации'
     },
     {
       value: 'other',
-      name: 'other:        Другое'
+      name: 'other:    Другое'
     },
   ],
 
@@ -49,7 +49,7 @@ module.exports = {
       {name: `технические изменения (link, md, т.п.)`},
       {name: 'другое'},
     ],
-    [`what-is-new`]: [
+    win: [
       {name: 'исправление'},
       {name: 'изменение'},
       {name: 'добавление'},

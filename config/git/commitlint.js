@@ -32,7 +32,7 @@ module.exports = {
       "always",
       [
         "book",
-        "what-is-new",
+        "win",
         "www",
         "ci",
         "other",
