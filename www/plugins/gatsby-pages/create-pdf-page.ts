@@ -29,7 +29,7 @@ export const createPages: GatsbyCreatePages<ICreatePageSharedOptions> = async ( 
 
     createPage( {
         path: RouterUtils.appRoutes.getPdfRoute( { locale } ),
-        component: path.resolve( __dirname, '../../src/page-templates/pdf-page/PdfPageProvider.tsx' ),
+        component: path.resolve( __dirname, '../../src/page-templates/what-is-new-toc-page/WhatIsNewTocPageProvider.tsx' ),
         context: {
             locale,
             localization,

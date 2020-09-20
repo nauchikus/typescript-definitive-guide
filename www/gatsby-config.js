@@ -185,10 +185,6 @@ const getPlugins = ({ locale, lang }) => [
         // {
         //   resolve: `gatsby-remark-decorate-what-is-new-heading-h1`,
         // },
-        {
-          resolve: 'gatsby-remark-collect-info-for-block-code-before-prismjs',
-          options: {}
-        },
 
         {
           resolve: 'gatsby-remark-prismjs',

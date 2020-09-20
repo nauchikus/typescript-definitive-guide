@@ -12,7 +12,7 @@ const weasyprint = require(`weasyprint-wrapper`);
 
 const headingDownlevel = require(`./remark/heading-downlevel`)
 const transformLink = require(`./remark/transform-link`)
-const blockCodeDecorate = require(`./remark/block-code-decorator`)
+const blockCodeDecorator  = require(`./remark/block-code-decorator`)
 const headingAddId = require(`./remark/heading-add-id`)
 const h1AddDecor = require(`./remark/h1-add-decor`)
 const h2AddDecor = require(`./remark/h2-add-decor`)
@@ -35,7 +35,7 @@ async function generateBookPdf({outputPath, bookCoverPath, bookChapterPathAll, t
         .use(h2AddDecor, {toc})
         .use(h1AddDecor, {toc})
         .use(remarkPrism)
-        .use(blockCodeDecorate)
+        .use(blockCodeDecorator)
         .use(transformLink)
         .use(remarkHtml);
 
