@@ -18,7 +18,7 @@
       "innovationName": "Шаблонный литеральный строковой тип",
       "dateRelease": "September 18, 2020",
       "datePublication": "September 18, 2020",
-      "tags": []
+      "tags": ["Нововведение"]
     },
     {
       "id": "",
@@ -26,7 +26,7 @@
       "innovationName": "Переопределение ключей в сопоставленных типах",
       "dateRelease": "September 18, 2020",
       "datePublication": "September 18, 2020",
-      "tags": []
+      "tags": ["Нововведение"]
     },
     {
       "id": "",
@@ -34,7 +34,7 @@
       "innovationName": "Рекурсивные условные типы",
       "dateRelease": "September 18, 2020",
       "datePublication": "September 18, 2020",
-      "tags": []
+      "tags": ["Изменение"]
     },
     {
       "id": "",
@@ -42,7 +42,7 @@
       "innovationName": "paths без baseUrl",
       "dateRelease": "September 18, 2020",
       "datePublication": "September 18, 2020",
-      "tags": []
+      "tags": ["Изменение"]
     },
     {
       "id": "",
@@ -50,7 +50,7 @@
       "innovationName": "checkJs не требует активации allowJs",
       "dateRelease": "September 18, 2020",
       "datePublication": "September 18, 2020",
-      "tags": []
+      "tags": ["Изменение"]
     },
     {
       "id": "",
@@ -58,7 +58,7 @@
       "innovationName": "[КРИТИЧЕСКОЕ ИЗМЕНЕНИЕ] abstract больше не совместим с async",
       "dateRelease": "September 18, 2020",
       "datePublication": "September 18, 2020",
-      "tags": []
+      "tags": ["Критическое изменение"]
     },
     {
       "id": "",
@@ -66,7 +66,7 @@
       "innovationName": "[КРИТИЧЕСКОЕ ИЗМЕНЕНИЕ] any и unknown доминируют в ложных позициях",
       "dateRelease": "September 18, 2020",
       "datePublication": "September 18, 2020",
-      "tags": []
+      "tags": ["Критическое изменение"]
     },
     {
       "id": "",
@@ -74,7 +74,7 @@
       "innovationName": "[КРИТИЧЕСКОЕ ИЗМЕНЕНИЕ] --declaration и --outFile требуют имя корневого пакета",
       "dateRelease": "September 18, 2020",
       "datePublication": "September 18, 2020",
-      "tags": []
+      "tags": ["Критическое изменение"]
     },
     {
       "id": "",
@@ -82,7 +82,7 @@
       "innovationName": "[КРИТИЧЕСКОЕ ИЗМЕНЕНИЕ] параметры resolve теперь обязательные",
       "dateRelease": "September 18, 2020",
       "datePublication": "September 18, 2020",
-      "tags": []
+      "tags": ["Критическое изменение"]
     }
   ]
 }
