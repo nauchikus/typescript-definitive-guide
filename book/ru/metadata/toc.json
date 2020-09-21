@@ -296,13 +296,11 @@
   },
   {
     "section": "Работа с типами",
-    "title": "Optional, Not-Null, Not-Undefined, Definite Assignment Assertion",
+    "title": "Операторы - Optional, Not-Null Not-Undefined, Definite Assignment Assertion",
     "subtitles": [
-      "Операторы — Optional, Not-Null, Not-Undefined, Definite Assignment Assertion",
       "Необязательные поля, параметры и методы (Optional Fields, Parameters and Methods)",
       "Оператор ! (Non-Null and Non-Undefined Operator)",
-      "Оператор ! (Definite Assignment Assertion)",
-      "Итог"
+      "Оператор ! (Definite Assignment Assertion)"
     ]
   },
   {
