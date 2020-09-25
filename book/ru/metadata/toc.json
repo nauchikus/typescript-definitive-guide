@@ -333,11 +333,11 @@
   },
   {
     "section": "Типизация",
-    "title": "Утверждение Типов (Type Assertion)",
+    "title": "Утверждение типов (Type Assertion)",
     "subtitles": [
-      "Утверждение Типов - общее",
-      "Утверждение Типа `<Type>` синтаксис",
-      "Утверждение Типа с помощью оператора as",
+      "Утверждение типов - общее",
+      "Утверждение типа <Type> синтаксис",
+      "Утверждение типа с помощью оператора as",
       "Приведение (утверждение) к константе (const assertion)",
       "Утверждение в сигнатуре (Signature Assertion)"
     ]
@@ -439,7 +439,7 @@
   },
   {
     "section": "Расширенные типы",
-    "title": "Расширенные типы - Exclude, Extract, NonNullable, ReturnType, InstanceType, Omit",
+    "title": "Exclude, Extract, NonNullable, ReturnType, InstanceType, Omit",
     "subtitles": [
       "Exclude (исключает из T признаки присущие U)",
       "Extract (общие для двух типов признаки)",
