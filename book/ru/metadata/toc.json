@@ -439,17 +439,16 @@
   },
   {
     "section": "Расширенные типы",
-    "title": "Exclude, Extract, NonNullable, ReturnType, InstanceType, Omit",
+    "title": "Расширенные типы - Exclude, Extract, NonNullable, ReturnType, InstanceType, Omit",
     "subtitles": [
-      "Расширенные типы — Exclude, Extract, NonNullable, ReturnType, InstanceType, Omit",
-      "Exclude",
-      "Extract",
-      "NonNullable",
-      "ReturnType",
-      "InstanceType",
-      "Parameters",
-      "ConstructorParameters",
-      "Тип Omit"
+      "Exclude (исключает из T признаки присущие U)",
+      "Extract (общие для двух типов признаки)",
+      "NonNullable (удаляет типы null и undefined)",
+      "ReturnType (получить тип значения возвращаемого функцией)",
+      "InstanceType (получить через тип класса тип его экземпляра)",
+      "Parameters (получить тип размеченного кортежа описывающий параметры функционального типа)",
+      "ConstructorParameters (получить через тип класса размеченный кортеж описывающий параметры его конструктора)",
+      "Тип Omit (исключить из T признаки ассоциированными с ключами перечисленных множеством K)"
     ]
   },
   {
