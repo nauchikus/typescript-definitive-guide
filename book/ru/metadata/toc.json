@@ -409,7 +409,6 @@
     "section": "Работа с типами",
     "title": "Оператор keyof, Lookup Types, Mapped Types, Mapped Types - префиксы + и -",
     "subtitles": [
-      "Оператор keyof, Lookup Types, Mapped Types, Mapped Types - префиксы + и -",
       "Запрос ключей keyof",
       "Поиск типов (Lookup Types)",
       "Сопоставление типов (Mapped Types)",
