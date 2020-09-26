@@ -1,5 +1,6 @@
 const visit=require('unist-util-visit');
 
+const Utils=require('../utils');
 const StringUtils=require('../../src/utils/string-utils');
 const Validators=require('../gatsby-node-validators');
 
@@ -49,9 +50,7 @@ module.exports = ( ...params ) => {
 
 
 
-            let heading = headingNode.children
-                .filter(isText)
-                .reduce(joinTextNodeValue, ``);
+            let heading = Utils.reduceChildrenValue(headingNode);
             let sectionId = ``;
 
 

@@ -1,6 +1,7 @@
 const visit=require('unist-util-visit');
 
 const StringUtils=require('../../src/utils/string-utils');
+const Utils=require('../utils');
 
 module.exports = ( ...params ) => {
   let [{ markdownAST: ast, markdownNode, getNodes }, { locale }] = params;
@@ -38,13 +39,10 @@ module.exports = ( ...params ) => {
     </button>
   ` );
 
-  const getChildrenValue = node =>
-      node.children.reduce((result, current) =>
-              result.concat(Array.isArray(current.children) ? getChildrenValue(current) : current.value),
-          ``);
+
 
   visit( ast, isHeading, ( headingNode, index, tier ) => {
-    let heading = getChildrenValue(headingNode);
+    let heading = Utils.reduceChildrenValue(headingNode);
 
 
     let path = "";

@@ -5,8 +5,12 @@ const addClassRemarkNode = ( remarkNode, ...classes ) => {
 
   classes.forEach( className => remarkNode.data.hProperties.className.push( className ) );
 };
-
+const reduceChildrenValue = node =>
+    node.children.reduce((result, current) =>
+            result.concat(Array.isArray(current.children) ? reduceChildrenValue(current) : current.value),
+        ``);
 
 module.exports = {
-  addClassRemarkNode
+  addClassRemarkNode,
+  reduceChildrenValue,
 };
