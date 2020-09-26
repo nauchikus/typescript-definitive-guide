@@ -38,8 +38,13 @@ module.exports = ( ...params ) => {
     </button>
   ` );
 
+  const getChildrenValue = node =>
+      node.children.reduce((result, current) =>
+              result.concat(Array.isArray(current.children) ? getChildrenValue(current) : current.value),
+          ``);
+
   visit( ast, isHeading, ( headingNode, index, tier ) => {
-    let heading = headingNode.children.reduce((result, current) => result + current.value, ``)
+    let heading = getChildrenValue(headingNode);
 
 
     let path = "";
