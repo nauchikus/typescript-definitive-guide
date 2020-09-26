@@ -19,7 +19,8 @@ module.exports = ( ...params ) => {
   const NODE_DEPTHS = new Set( [H1_TAG_DEPTH, H2_TAG_DEPTH] );
   const isHeadingTag = node => node.type === HEADING_TAG_NAME;
   const isDepth = node => NODE_DEPTHS.has( node.depth );
-  const isHeading = node => isHeadingTag( node ) && isDepth( node );
+  // const isHeading = node => isHeadingTag( node ) && isDepth( node );
+  const isHeading = node => node.type === `heading`;
   const isH1 = node => node.depth === H1_TAG_DEPTH;
   const isH2 = node => node.depth === H2_TAG_DEPTH;
 
@@ -38,8 +39,8 @@ module.exports = ( ...params ) => {
   ` );
 
   visit( ast, isHeading, ( headingNode, index, tier ) => {
-    let headingTextNode = headingNode.children.find( isText );
-    let { value: heading } = headingTextNode;
+    let heading = headingNode.children.reduce((result, current) => result + current.value, ``)
+
 
     let path = "";
 
