@@ -1,30 +1,33 @@
 # Массивоподобные readonly типы, ReadonlyArray, ReadonlyMap, ReadonlySet
-## Массивоподобные readonly типы
+
+Чем меньше шансов случайного изменения значений определенных в объектных типах, тем больше программа защищена от ошибок во время выполнения. Очередным шагоv в этом направлении стали неизменяемые массивоподобные типы `ReadonlyArray<T>`, `ReadonlyMap<K, V>`, `ReadonlySet<T>`, а также механизм указания модификатора `readonly` в аннотации типа.
 
 
-Начиная с версии `3.4`, в *TypeScript* появилась возможность объявлять `Массивоподобные readonly структуры`: типы, к которым относятся массивы (`Array`) и кортежи (`Tuples`). Данный механизм призван защитить элементы массивоподобных структур от изменения и тем самым повысить типобезопасность разрабатываемых на *TypeScript* программ. Элементы массивоподобных структур, объявленных как `readonly`, невозможно заменить или удалить. Кроме того, в подобные структуры невозможно добавить новые элементы.
+## Массивоподобные readonly типы (модифицировать непосредственно в аннотации типа)
 
-Для того чтобы объявить `readonly` массив или кортеж, достаточно указать в сигнатуре типа модификатор `readonly`.
+_TypeScript_ реализует механизм позволяющий определять массивы и кортежи, как неизменяемые структуры данных. Для этого к типу указанному в аннотации типа добавляется модификатор `readonly`.
 
 `````ts
 let array: readonly string[] = ['Kent', 'Clark']; // Массив
 let tuple: readonly [string, string] = ['Kent', 'Clark']; // Кортеж
 `````
 
+Элементы массивоподобных структур, определенных как `readonly`, невозможно заменить или удалить. Кроме того, в подобные структуры невозможно добавить новые элементы. Иными словами, у массивоподобных `readonly` типов отсутствуют признаки предназначенные для изменения их содержимого. 
+
 В случае объявления `readonly` массива становится невозможно изменить его элементы с помощью индексной сигнатуры (`array[...]`) 
 
 `````ts
-let array: readonly string[] = ['Kent', 'Clark'];
-array[0] = 'Wayne'; // Error, Index signature in type 'readonly number[]' only permits reading.ts(2542)
-array[array.length] = 'Batman'; // Error, Index signature in type 'readonly number[]' only permits reading.ts(2542)
+let array: readonly string[] = ['Kent', 'Clark']; // Массив
+array[0] = 'Wayne'; // Error, -> Index signature in type 'readonly string[]' only permits reading.
+array[array.length] = 'Batman'; // Error ->  Index signature in type 'readonly string[]' only permits reading.
 `````
 
 Помимо этого, у `readonly` массива отсутствуют методы, с помощью которых можно изменить элементы массива.
 
 `````ts
 let array: readonly string[] = ['Kent', 'Clark'];
-array.push('Batman'); // Error, Property 'push' does not exist on type 'readonly number[]'.ts(2339)
-array.shift(); // Error, Property 'shift' does not exist on type 'readonly number[]'.ts(2339)
+array.push('Batman'); // Error ->  Property 'push' does not exist on type 'readonly string[]'.
+array.shift(); // Error -> Property 'shift' does not exist on type 'readonly string[]'.
 
 array.indexOf('Kent'); // Ok
 array.map(item => item); // Ok
@@ -34,44 +37,27 @@ array.map(item => item); // Ok
 
 `````ts
 let tuple: readonly [string, string] = ['Kent', 'Clark'];
-tuple[0] = 'Wayne'; // Error, Cannot assign to '0' because it is a read-only property.ts(2540)
+tuple[0] = 'Wayne'; // Error -> Cannot assign to '0' because it is a read-only property.
 
-tuple.push('Batman'); // Error, Property 'push' does not exist on type 'readonly [string, string]'.ts(2339)
-tuple.shift(); // Error, Property 'shift' does not exist on type 'readonly [string, string]'.ts(2339)
+tuple.push('Batman'); // Error -> Property 'push' does not exist on type 'readonly [string, string]'.
+tuple.shift(); // Error -> Property 'shift' does not exist on type 'readonly [string, string]'.
 
 tuple.indexOf('Kent'); // Ok
 tuple.map(item => item); // Ok
 `````
 
-Кроме того механизм массивоподобных `readonly` структур, начиная с версии *TypeScript* `3.4`, повлиял на поведение такого расширенного типа, как `Readonly<T>`. 
 
-До версии `3.4` поведение типа `Readonly<T>` полноценно распространялось только на объекты.
-
-`````ts
-// Ok, { readonly a: string, readonly b: number }
-type A = Readonly<{ a: string, b: number }>;
-
-// Bad, number[]
-type B = Readonly<number[]>;
-
-// Bad, [string, boolean]
-type C = Readonly<[string, boolean]>;
-`````
-
-Но, начиная с версии `3.4`, поведение для типа `Readonly<T>` дополняется поведением массивоподобных `readonly` структур.
+Также не будет лишним упомянуть, что массив или кортеж указанный в аннотации с помощью расширенного типа `Readonly<T>`, расценивается выводом типов как помечанный модификатором `readonly`.
 
 `````ts
-// Ok, { readonly a: string, readonly b: number }
-type A = Readonly<{ a: string, b: number }>;
+// type A = readonly number[];
+type A = Readonly<number[]>;
 
-// Ok, readonly number[]
-type B = Readonly<number[]>;
-
-// Ok, readonly [string, boolean]
-type C = Readonly<[string, boolean]>;
+// type B = readonly [string, boolean];
+type B = Readonly<[string, boolean]>;
 `````
 
-Благодаря данному механизму в сочетании с механизмом множественного распростронения (`spread`) становится возможным типизирование сложных сценариев одним из которых является реализация известной всем функции `concat` способной объединить не только массивы, но и кортежи.
+Благодаря данному механизму в сочетании с механизмом множественного распространения (`spread`), становится возможным типизировать сложные сценарии, одним из которых является реализация известной всем функции `concat` способной объединить не только массивы, но и кортежи.
  
 `````ts
 type A = readonly unknown[];
@@ -93,19 +79,18 @@ let v2 = concat([0, 1] as const, [2, 3]);
 let v3 = concat([0, 1], [2, 3] as const);
 `````
 
-Напоследок стоит упомянуть, что, используя механизм массивоподобных `readonly` структур, по своей сути компилятор расценивает эти структуры как принадлежащие к  добавленному в версии `3.4` интерфейсу `ReadonlyArray<T>`, речь о котором пойдет далее.
+Напоследок стоит упомянуть, что вывод типов расценивает `readonly` массив как принадлежащий к интерфейсу `ReadonlyArray<T>`, речь о котором пойдет далее.
 
 
-## ReadonlyArray
+## ReadonlyArray<T> (неизменяемый массив)
 
-
-Расширенный тип `ReadonlyArray<T>` предназначен для создания неизменяемых массивов. `ReadonlyArray<T>` запрещает изменять значения массива, используя индексную сигнатуру `array[...]`.
+Расширенный тип `ReadonlyArray<T>` предназначен для создания неизменяемых массивов. `ReadonlyArray<T>` запрещает изменять значения массива, используя индексную сигнатуру `array[n]`.
 
 `````ts
 let array: ReadonlyArray<number> = [0, 1, 2];
 
-array[0] = 1; // Error, Index signature in type 'readonly number[]' only permits reading.ts(2542)
-array[array.length] = 3; // Error, Index signature in type 'readonly number[]' only permits reading.ts(2542)
+array[0] = 1; // Error -> Index signature in type 'readonly number[]' only permits reading.
+array[array.length] = 3; // Error -> Index signature in type 'readonly number[]' only permits reading.
 `````
 
 Кроме того, тип `ReadonlyArray<T>` не содержит методы, способные изменить, удалить или добавить элементы.
@@ -113,14 +98,14 @@ array[array.length] = 3; // Error, Index signature in type 'readonly number[]' o
 `````ts
 let array: ReadonlyArray<number> = [0, 1, 2];
 
-array.push(3); // Error, Property 'push' does not exist on type 'readonly number[]'.ts(2339)
-array.shift(); // Error, Property 'shift' does not exist on type 'readonly number[]'.ts(2339)
+array.push(3); // Error -> Property 'push' does not exist on type 'readonly number[]'.
+array.shift(); // Error -> Property 'shift' does not exist on type 'readonly number[]'.
 
 array.indexOf(0); // Ok 
 `````
 
-## ReadonlyMap
 
+## ReadonlyMap<K, V> (неизменяемая карта)
 
 Расширенный тип `ReadonlyMap<K, V>`, в отличие от своего полноценного прототипа, не имеет методов, способных его изменить.
 
@@ -128,10 +113,9 @@ array.indexOf(0); // Ok
 let map: ReadonlyMap<string, number> = new Map([["key", 0]]);
 `````
 
-## ReadonlySet
+## ReadonlySet<T> (неизменяемое множество)
 
-
-Аналогично расширенный тип `ReadonlySet<T>` не имеет методов, способных его изменить.
+Аналогично другим структурам данных предназначенных только для чтения, расширенный тип `ReadonlySet<T>` не имеет методов, способных его изменить.
 
 `````ts
 let set: ReadonlySet<number> = new Set([0, 1, 2]);

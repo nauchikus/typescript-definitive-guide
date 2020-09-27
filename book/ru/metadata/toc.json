@@ -453,10 +453,10 @@
     "section": "Расширенные типы",
     "title": "Массивоподобные readonly типы, ReadonlyArray, ReadonlyMap, ReadonlySet",
     "subtitles": [
-      "Массивоподобные readonly типы",
-      "ReadonlyArray",
-      "ReadonlyMap",
-      "ReadonlySet"
+      "Массивоподобные readonly типы (модифицировать непосредственно в аннотации типа)",
+      "ReadonlyArray<T> (неизменяемый массив)",
+      "ReadonlyMap<K, V> (неизменяемая карта)",
+      "ReadonlySet<T> (неизменяемое множество)"
     ]
   },
   {
