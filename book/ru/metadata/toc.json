@@ -428,12 +428,11 @@
     "section": "Расширенные типы",
     "title": "Readonly, Partial, Required, Pick, Record",
     "subtitles": [
-      "Расширенные типы — Readonly, Partial, Required, Pick, Record",
-      "Readonly",
-      "Partial",
-      "Required",
-      "Pick",
-      "Record"
+      "Readonly<T> (сделать члены объекта только для чтения)",
+      "Partial<T> (сделать все члены объекта необязательными)",
+      "Required<T> (сделать все необязательные члены обязательными)",
+      "Pick (отфильтровать объектный тип)",
+      "Record<K, T> (динамически определить поле в объектном типе)"
     ]
   },
   {
