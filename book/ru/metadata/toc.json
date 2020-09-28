@@ -486,8 +486,8 @@
     "section": "React",
     "title": "Классовые компоненты",
     "subtitles": [
-      "React — производные от Component",
-      "React - производные от PureComponent"
+      "Производные от Component<P, S, SS>",
+      "Производные от PureComponent<Props, State, Snapshot>"
     ]
   },
   {
