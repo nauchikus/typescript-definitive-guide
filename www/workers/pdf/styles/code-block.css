@@ -25,6 +25,9 @@
 .content__code-panel_lang_json {
     background-color: #9E9E9E;
 }
+.content__code-panel_lang_sh {
+    background-color: #404040;
+}
 
 .content__code-panel_bottom{
     border-bottom-left-radius: 5px;
