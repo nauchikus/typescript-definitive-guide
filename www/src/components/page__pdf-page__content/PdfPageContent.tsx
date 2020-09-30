@@ -63,7 +63,7 @@ export const PdfPageContent: FC<IIndexPageContentProps> = observer( ({} ) => {
             width="100%"
             height="250"
             frameBorder="0"
-            allowTransparency={true}
+            allowtransparency="true"
             scrolling="no"
             onLoad={()=> setIsPlaceholder(false)}></iframe>
         </div>

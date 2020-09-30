@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useLayoutEffect } from "react";
 import {FC} from "react"
 import { Locales } from "../../../plugins/types/locales";
 import BookTocPage from "./BookTocPage";
@@ -12,6 +12,7 @@ import { RouterStoreContext } from "../../stores/RouterStore";
 import {Localization} from "../../react__hooks/translator.hook";
 import { BookTocPageMobxEntry, MobxBookTocPageContext } from "../../mobx__entry/BookTocPageMobxEntry";
 import { useNativeLinkDisableDefaultBehavior } from "../../react__hooks/useNativeLinkDisableDefaultBehavior";
+import { useRouterUpdater } from "../../react__hooks/useRouterUpdater";
 
 
 interface IBookTocPageProviderProps {
@@ -24,11 +25,17 @@ interface IBookTocPageProviderProps {
     location: Location;
 }
 
-const BookTocPageProvider: FC<IBookTocPageProviderProps> = ( { pageContext },location ) => {
+const BookTocPageProvider: FC<IBookTocPageProviderProps> = ( { pageContext, location} ) => {
     let { bookTocTree, localization } = pageContext;
     let mobxEntry = BookTocPageMobxEntry.getInstance({ bookTocTree, location });
 
 
+    let {router} = mobxEntry;
+
+    useLayoutEffect(() => {
+        console.log(location);
+        router.setLocation(location);
+    }, []);
     // useNativeLinkDisableDefaultBehavior(mobxEntry.router);
 
 

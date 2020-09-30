@@ -54,9 +54,9 @@ export const shouldUpdateScroll = ({routerProps:{location}}) => {
 
     return false;
 };
-export const onRouteUpdate = ( { location: { hash } } ) => {
-};
-
-export const onPreRouteUpdate = ({ location: { hash } }) => {
-
-}
+// export const onRouteUpdate = ( { location: { hash } } ) => {
+// };
+//
+// export const onPreRouteUpdate = ({ location: { hash } }) => {
+//
+// }

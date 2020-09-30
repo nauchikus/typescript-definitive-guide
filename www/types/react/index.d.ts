@@ -10,5 +10,6 @@ declare module 'react' {
         [`is-match`]?: string;
         [`is-collapse`]?: string;
         [`item-index`]?: number;
+        allowtransparency?: "true"|"false";
     }
 }

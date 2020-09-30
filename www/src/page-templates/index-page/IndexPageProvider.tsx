@@ -27,7 +27,9 @@ const IndexPageProvider: FC<IIndexPageProviderProps> = ( { pageContext,location 
     let { pages,...appSharedLocalization } = localization;
 
     let mobxEntry = IndexPageMobxEntry.getInstance({ location });
-
+    let meta = [
+        { name: `yandex-verification`, content: `d7555ce264b8a099` }
+    ];
 
     return (
 
@@ -36,7 +38,7 @@ const IndexPageProvider: FC<IIndexPageProviderProps> = ( { pageContext,location 
             <VersionInfoContext.Provider value={versionInfo}>
                 <RouterStoreContext.Provider value={mobxEntry.router}>
                     <BaseLayout>
-                        <SEO {...appSharedLocalization}/>
+                        <SEO {...{...appSharedLocalization, meta}}/>
                         <IndexPage/>
                     </BaseLayout>
                 </RouterStoreContext.Provider>

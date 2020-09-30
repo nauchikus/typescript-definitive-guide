@@ -14,8 +14,12 @@ export const AppNavSectionAppDriver:FC<IAppNavSectionAppDriverProps>=( )=>{
   let router = useRouter();
   let appDriver = useAppDriver();
 
-  const hasAppNavLinkActive = ( href: string ) =>
-    router.pathname === href;
+  const hasAppNavLinkActive = ( href: string ) => {
+    let isMatch = router.pathname === href;
+
+    console.log(isMatch, router.pathname, href);
+    return isMatch;
+  }
 
   const appDriverAutoClose = () => {
     const APP_DRIVER_AUTO_CLOSE_MIN_WIDTH = parseInt(
@@ -42,6 +46,7 @@ export const AppNavSectionAppDriver:FC<IAppNavSectionAppDriverProps>=( )=>{
   let appNavLinkAll = appNavLinkDataAll.map( ( data, index ) => (
     <LinkAppDriver key={ index } {...data} onClick={appDriverAutoClose}/>
   ) );
+
 
 
   return (
