@@ -1,77 +1,77 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:news="http://www.google.com/schemas/sitemap-news/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:mobile="http://www.google.com/schemas/sitemap-mobile/1.0" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
 <url> <loc>https://typescript-definitive-guide.ru/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
-<url> <loc>https://typescript-definitive-guide.ru/book/chapters/annotaciya tipov</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://typescript-definitive-guide.ru/book/chapters/chto takoe i dlya chego nujen typescript</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://typescript-definitive-guide.ru/book/chapters/silnaya i slabaya tipizaciya</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://typescript-definitive-guide.ru/book/chapters/polimorfnyi tip this</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://typescript-definitive-guide.ru/book/chapters/primitivnye literalnye tipy number, string, template string, boolean, unique symbol, enum</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://typescript-definitive-guide.ru/book/chapters/bazovyi tip any</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://typescript-definitive-guide.ru/book/chapters/tipizaciya v typescript</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://typescript-definitive-guide.ru/book/chapters/yavnaya i neyavnaya tipizaciya</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://typescript-definitive-guide.ru/book/chapters/primitivnyi tip enum</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://typescript-definitive-guide.ru/book/chapters/operatory - optional, not-null not-undefined, definite assignment assertion</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://typescript-definitive-guide.ru/book/chapters/diskriminantnoe obedinenie (discriminated union)</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://typescript-definitive-guide.ru/book/chapters/tipy - union, intersection</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://typescript-definitive-guide.ru/book/chapters/primitivnye tipy null, undefined, void, never, unknown</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
-<url> <loc>https://typescript-definitive-guide.ru/book/chapters/staticheskaya i dinamicheskaya tipizaciya</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
-<url> <loc>https://typescript-definitive-guide.ru/book/chapters/silnaya i slabaya tipizaciya</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
-<url> <loc>https://typescript-definitive-guide.ru/book/chapters/obektnye tipy s indeksnymi chlenami (obektnyi tip s dinamicheskimi kluchami)</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
-<url> <loc>https://typescript-definitive-guide.ru/book/chapters/primitivnye tipy number, string, boolean, symbol, bigint</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
-<url> <loc>https://typescript-definitive-guide.ru/book/chapters/obobshcheniya (generics)</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
-<url> <loc>https://typescript-definitive-guide.ru/book/chapters/klassy — tonkosti</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
-<url> <loc>https://typescript-definitive-guide.ru/book/chapters/function, functional types</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
-<url> <loc>https://typescript-definitive-guide.ru/book/chapters/import i eksport tolko tipa</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
-<url> <loc>https://typescript-definitive-guide.ru/book/chapters/vyvod tipov</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
-<url> <loc>https://typescript-definitive-guide.ru/book/chapters/yavnaya i neyavnaya tipizaciya</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
-<url> <loc>https://typescript-definitive-guide.ru/book/chapters/definite assignment assertion modifier</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
-<url> <loc>https://typescript-definitive-guide.ru/book/chapters/object, array, tuple</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
-<url> <loc>https://typescript-definitive-guide.ru/book/chapters/sovmestimost funkcionalnyh tipov (compatible function types)</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
-<url> <loc>https://typescript-definitive-guide.ru/book/chapters/polimorfnyi tip this</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
-<url> <loc>https://typescript-definitive-guide.ru/book/chapters/operator keyof, lookup types, mapped types, mapped types - prefiksy + i -</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
-<url> <loc>https://typescript-definitive-guide.ru/book/chapters/zashchitniki tipa</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
-<url> <loc>https://typescript-definitive-guide.ru/book/chapters/primitivnyi tip enum</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
-<url> <loc>https://typescript-definitive-guide.ru/book/chapters/sovmestimost obektnyh tipov (compatible object types)</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
-<url> <loc>https://typescript-definitive-guide.ru/book/chapters/tipizaciya v typescript</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
-<url> <loc>https://typescript-definitive-guide.ru/book/chapters/massivopodobnye readonly tipy, readonlyarray, readonlymap, readonlyset</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
-<url> <loc>https://typescript-definitive-guide.ru/book/chapters/sborka s ispolzovaniem ssylok na proekty</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
-<url> <loc>https://typescript-definitive-guide.ru/book/chapters/deklaracii</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
-<url> <loc>https://typescript-definitive-guide.ru/book/chapters/hoc (higher-order components)</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
-<url> <loc>https://typescript-definitive-guide.ru/book/chapters/opcii kompilyatora</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
-<url> <loc>https://typescript-definitive-guide.ru/book/chapters/klassovye komponenty</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
-<url> <loc>https://typescript-definitive-guide.ru/book/chapters/exclude, extract, nonnullable, returntype, instancetype, omit</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
-<url> <loc>https://typescript-definitive-guide.ru/book/chapters/sovmestimost obedinenii (union types)</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
-<url> <loc>https://typescript-definitive-guide.ru/book/chapters/tipizirovannyi react</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
-<url> <loc>https://typescript-definitive-guide.ru/book/chapters/prostranstva imen (namespace) i moduli (module)</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
-<url> <loc>https://typescript-definitive-guide.ru/book/chapters/chto takoe i dlya chego nujen typescript</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
-<url> <loc>https://typescript-definitive-guide.ru/book/chapters/funkcionalnye komponenty</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
-<url> <loc>https://typescript-definitive-guide.ru/book/chapters/nastroika rabochego okrujeniya</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
-<url> <loc>https://typescript-definitive-guide.ru/book/chapters/readonly, partial, required, pick, record</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
-<url> <loc>https://typescript-definitive-guide.ru/book/chapters/sintaksicheskie konstrukcii i operatory</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
-<url> <loc>https://typescript-definitive-guide.ru/book/chapters/tipizirovannye huki</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
-<url> <loc>https://typescript-definitive-guide.ru/book/chapters/zakrytye polya opredelennye specifikaciei ecmascript</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
-<url> <loc>https://typescript-definitive-guide.ru/book/chapters/modifikator readonly (tolko dlya chteniya)</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
-<url> <loc>https://typescript-definitive-guide.ru/book/chapters/type queries (zaprosy tipa), alias (psevdonimy tipa)</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
-<url> <loc>https://typescript-definitive-guide.ru/book/chapters/primitivnye literalnye tipy number, string, template string, boolean, unique symbol, enum</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
-<url> <loc>https://typescript-definitive-guide.ru/book/chapters/vstuplenie</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
-<url> <loc>https://typescript-definitive-guide.ru/book/chapters/tipizirovannye i netipizirovannye yazyki programmirovaniya</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://typescript-definitive-guide.ru/book/chapters/interfaces</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://typescript-definitive-guide.ru/book/chapters/razlichiya var, let, const i modifikatora readonly pri neyavnom ukazanii primitivnyh tipov</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
-<url> <loc>https://typescript-definitive-guide.ru/book/chapters/utverjdenie tipov (type assertion)</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
-<url> <loc>https://typescript-definitive-guide.ru/book/chapters/diskriminantnoe obedinenie (discriminated union)</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
-<url> <loc>https://typescript-definitive-guide.ru/book/chapters/abstraktnye klassy (abstract classes)</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
-<url> <loc>https://typescript-definitive-guide.ru/book/chapters/svyazyvanie, tipizaciya, vyvod tipov</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
-<url> <loc>https://typescript-definitive-guide.ru/book/chapters/universalnye komponenty</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
-<url> <loc>https://typescript-definitive-guide.ru/book/chapters/operatory - optional, not-null not-undefined, definite assignment assertion</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
-<url> <loc>https://typescript-definitive-guide.ru/book/chapters/modifikatory dostupa (access modifiers)</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
-<url> <loc>https://typescript-definitive-guide.ru/book/chapters/publikaciya typescript</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
-<url> <loc>https://typescript-definitive-guide.ru/book/chapters/uslovnye tipy (conditional types)</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://typescript-definitive-guide.ru/book/chapters/function, functional types</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://typescript-definitive-guide.ru/book/chapters/sborka s ispolzovaniem ssylok na proekty</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://typescript-definitive-guide.ru/book/chapters/zakrytye polya opredelennye specifikaciei ecmascript</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://typescript-definitive-guide.ru/book/chapters/kontekst (context)</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://typescript-definitive-guide.ru/book/chapters/annotaciya tipov</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://typescript-definitive-guide.ru/book/chapters/primitivnye tipy number, string, boolean, symbol, bigint</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://typescript-definitive-guide.ru/book/chapters/obektnye tipy s indeksnymi chlenami (obektnyi tip s dinamicheskimi kluchami)</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://typescript-definitive-guide.ru/book/chapters/abstraktnye klassy (abstract classes)</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://typescript-definitive-guide.ru/book/chapters/funkcionalnye komponenty</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://typescript-definitive-guide.ru/book/chapters/tipizirovannye huki</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://typescript-definitive-guide.ru/book/chapters/obobshcheniya (generics)</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://typescript-definitive-guide.ru/book/chapters/definite assignment assertion modifier</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://typescript-definitive-guide.ru/book/chapters/vstuplenie</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://typescript-definitive-guide.ru/book/chapters/publikaciya typescript</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://typescript-definitive-guide.ru/book/chapters/deklaracii</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://typescript-definitive-guide.ru/book/chapters/operator keyof, lookup types, mapped types, mapped types - prefiksy + i -</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://typescript-definitive-guide.ru/book/chapters/prostranstva imen (namespace) i moduli (module)</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://typescript-definitive-guide.ru/book/chapters/modifikator readonly (tolko dlya chteniya)</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://typescript-definitive-guide.ru/book/chapters/zashchitniki tipa</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://typescript-definitive-guide.ru/book/chapters/klassy — tonkosti</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://typescript-definitive-guide.ru/book/chapters/import i eksport tolko tipa</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://typescript-definitive-guide.ru/book/chapters/modifikatory dostupa (access modifiers)</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://typescript-definitive-guide.ru/book/chapters/staticheskaya i dinamicheskaya tipizaciya</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://typescript-definitive-guide.ru/book/chapters/massivopodobnye readonly tipy, readonlyarray, readonlymap, readonlyset</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://typescript-definitive-guide.ru/book/chapters/exclude, extract, nonnullable, returntype, instancetype, omit</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://typescript-definitive-guide.ru/book/chapters/sintaksicheskie konstrukcii i operatory</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://typescript-definitive-guide.ru/book/chapters/readonly, partial, required, pick, record</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://typescript-definitive-guide.ru/book/chapters/opcii kompilyatora</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://typescript-definitive-guide.ru/book/chapters/tipizirovannye i netipizirovannye yazyki programmirovaniya</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://typescript-definitive-guide.ru/book/chapters/universalnye komponenty</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://typescript-definitive-guide.ru/book/chapters/utverjdenie tipov (type assertion)</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://typescript-definitive-guide.ru/book/chapters/vyvod tipov</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://typescript-definitive-guide.ru/book/chapters/sovmestimost obektnyh tipov (compatible object types)</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://typescript-definitive-guide.ru/book/chapters/nastroika rabochego okrujeniya</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://typescript-definitive-guide.ru/book/chapters/uslovnye tipy (conditional types)</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://typescript-definitive-guide.ru/book/chapters/svyazyvanie, tipizaciya, vyvod tipov</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://typescript-definitive-guide.ru/book/chapters/sovmestimost obedinenii (union types)</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://typescript-definitive-guide.ru/book/chapters/hoc (higher-order components)</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://typescript-definitive-guide.ru/book/chapters/type queries (zaprosy tipa), alias (psevdonimy tipa)</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://typescript-definitive-guide.ru/book/chapters/object, array, tuple</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://typescript-definitive-guide.ru/book/chapters/tipizirovannyi react</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://typescript-definitive-guide.ru/book/chapters/sovmestimost funkcionalnyh tipov (compatible function types)</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://typescript-definitive-guide.ru/book/chapters/klassovye komponenty</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://typescript-definitive-guide.ru/book/chapters/sovmestimost tipov na osnove variantnosti</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://typescript-definitive-guide.ru/book/chapters/sistema tipov, tip dannyh, znachimye i ssylochnye tipy</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://typescript-definitive-guide.ru/book/chapters/preobrazovanie tipov</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://typescript-definitive-guide.ru/book/chapters/sovmestimost tipov na osnove vida tipizacii</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
-<url> <loc>https://typescript-definitive-guide.ru/book/chapters/sovmestimost tipov na osnove variantnosti</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://typescript-definitive-guide.ru/book/chapters</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
-<url> <loc>https://typescript-definitive-guide.ru/what-is-new/3.4</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
-<url> <loc>https://typescript-definitive-guide.ru/what-is-new/3.8</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
-<url> <loc>https://typescript-definitive-guide.ru/what-is-new/3.7</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://typescript-definitive-guide.ru/what-is-new/3.5</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
-<url> <loc>https://typescript-definitive-guide.ru/what-is-new/3.9</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://typescript-definitive-guide.ru/what-is-new/3.3</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
-<url> <loc>https://typescript-definitive-guide.ru/what-is-new/3.6</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
-<url> <loc>https://typescript-definitive-guide.ru/what-is-new/4.1</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://typescript-definitive-guide.ru/what-is-new/3.4</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://typescript-definitive-guide.ru/what-is-new/3.7</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://typescript-definitive-guide.ru/what-is-new/4.0</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://typescript-definitive-guide.ru/what-is-new/3.9</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://typescript-definitive-guide.ru/what-is-new/4.1</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://typescript-definitive-guide.ru/what-is-new/3.6</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://typescript-definitive-guide.ru/what-is-new/3.8</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://typescript-definitive-guide.ru/what-is-new</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://typescript-definitive-guide.ru/pdf</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 </urlset>
