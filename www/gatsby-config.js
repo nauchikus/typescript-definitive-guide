@@ -327,8 +327,8 @@ module.exports = {
     {
       resolve: `gatsby-plugin-robots-txt`,
       options: {
-        host: 'https://nauchikus.github.io/typescript-definitive-guide',
-        sitemap: 'https://nauchikus.github.io/typescript-definitive-guide/sitemap.xml',
+        host: 'https://typescript-definitive-guide.ru/',
+        sitemap: 'https://typescript-definitive-guide.ru/sitemap.xml',
       }
     },
     {
