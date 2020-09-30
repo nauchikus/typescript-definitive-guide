@@ -36,7 +36,7 @@ export class RouterStore {
   }
 
   get isIndexPage(){
-    return this.location.pathname==='/'
+    return this.location.pathname === "/";
   }
 
   get locale(){
@@ -165,6 +165,7 @@ export class RouterStore {
 }
 
 decorate( RouterStore, {
+  isIndexPage: computed,
   origin: computed,
   pathname: computed,
   basepath: computed,

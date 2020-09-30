@@ -5,53 +5,52 @@ import { useTranslator } from "../../react__hooks/translator.hook";
 import { AppNavigationLocalization, LocalizationPaths } from "../../localization";
 import { useRouter } from "../../stores/RouterStore";
 import { useAppDriver } from "../../mobx__entry/SharedPageMobxEntry";
+import { observer } from "mobx-react-lite";
 
 interface IAppNavSectionAppDriverProps {
 }
 
-export const AppNavSectionAppDriver:FC<IAppNavSectionAppDriverProps>=( )=>{
-  let [appNavigationAll] = useTranslator<[AppNavigationLocalization]>( LocalizationPaths.AppNavigation );
+export const AppNavSectionAppDriver: FC<IAppNavSectionAppDriverProps> = observer(() => {
+  let [appNavigationAll] = useTranslator<[AppNavigationLocalization]>(LocalizationPaths.AppNavigation);
   let router = useRouter();
-  let appDriver = useAppDriver();
 
-  const hasAppNavLinkActive = ( href: string ) => {
+  const hasAppNavLinkActive = (href: string) => {
     let isMatch = router.pathname === href;
 
     return isMatch;
-  }
+  };
 
   const appDriverAutoClose = () => {
     const APP_DRIVER_AUTO_CLOSE_MIN_WIDTH = parseInt(
-      window.getComputedStyle( document.documentElement )
-        .getPropertyValue( `--content-layout__driver-and-content_min-width` )
+      window.getComputedStyle(document.documentElement)
+        .getPropertyValue(`--content-layout__driver-and-content_min-width`)
     );
 
     let currentWidth = document.documentElement.clientWidth;
 
 
-    if ( currentWidth < APP_DRIVER_AUTO_CLOSE_MIN_WIDTH ) {
+    if (currentWidth < APP_DRIVER_AUTO_CLOSE_MIN_WIDTH) {
       // appDriver.close();
     }
   };
 
 
-  let appNavLinkDataAll = appNavigationAll.map( ( { name, path }, index ) => ( {
+  let appNavLinkDataAll = appNavigationAll.map(({ name, path }, index) => ({
     name,
     path,
-    isActive: hasAppNavLinkActive( path ),
+    isActive: hasAppNavLinkActive(path),
     activeClassName: "app-driver__link_active"
-  } ) );
+  }));
 
-  let appNavLinkAll = appNavLinkDataAll.map( ( data, index ) => (
-    <LinkAppDriver key={ index } {...data} onClick={appDriverAutoClose}/>
-  ) );
-
+  let appNavLinkAll = appNavLinkDataAll.map((data, index) => (
+    <LinkAppDriver key={index} {...data} onClick={appDriverAutoClose}/>
+  ));
 
 
   return (
-    <NavSectionAppDriver itemLabel={ "Навигация" }
-                         itemIndex={ 0 }>
-      { appNavLinkAll }
+    <NavSectionAppDriver itemLabel={"Навигация"}
+                         itemIndex={0}>
+      {appNavLinkAll}
     </NavSectionAppDriver>
   );
-}
+});

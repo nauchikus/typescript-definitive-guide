@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useLayoutEffect, useRef } from "react";
 import {FC} from "react"
 import { Locales } from "../../../plugins/types/locales";
 import IndexPage from "./IndexPage";
@@ -30,6 +30,14 @@ const IndexPageProvider: FC<IIndexPageProviderProps> = ( { pageContext,location 
     let meta = [
         { name: `yandex-verification`, content: `d7555ce264b8a099` }
     ];
+
+
+    let {router} = mobxEntry;
+
+    useLayoutEffect(() => {
+        router.setLocation(location);
+    }, []);
+
 
     return (
 

@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useLayoutEffect, useRef } from "react";
 import {FC} from "react"
 import { Locales } from "../../../plugins/types/locales";
 import PdfPage from "./PdfPage";
@@ -29,9 +29,14 @@ const PdfPageProvider: FC<IIndexPageProviderProps> = ({ pageContext,location } )
     let mobxEntry = IndexPageMobxEntry.getInstance({ location });
 
 
+    let {router} = mobxEntry;
+
+    useLayoutEffect(() => {
+        router.setLocation(location);
+    }, []);
+
+
     return (
-
-
         <Localization.Provider value={localization}>
             <VersionInfoContext.Provider value={versionInfo}>
                 <RouterStoreContext.Provider value={mobxEntry.router}>
