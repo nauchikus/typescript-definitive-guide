@@ -14,9 +14,12 @@ export class SharedPageMobxEntry {
   private static instance: ReturnType<typeof SharedPageMobxEntry.create>;
 
   static create = ( params ?: ISharedPageMobxEntryParams) => {
-    let appDriverState = params?.appDriverComputedInitialStateType === AppDriverInitializationStateType.Auto ?
-      getDriverInitialState() :
-      ToggleUiState.Close;
+    // let appDriverState = params?.appDriverComputedInitialStateType === AppDriverInitializationStateType.Auto ?
+      // getDriverInitialState() :
+      // ToggleUiState.Close;
+
+
+    let appDriverState = getDriverInitialState();
 
 
     return {

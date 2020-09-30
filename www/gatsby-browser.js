@@ -34,7 +34,7 @@ export const wrapRootElement = ({ element }) => {
 
 
     return (
-        <MobxSharedContext.Provider value={ SharedPageMobxEntry.getInstance(sharedMobxParams) }>
+        <MobxSharedContext.Provider value={ SharedPageMobxEntry.getInstance() }>
             { element }
         </MobxSharedContext.Provider>
     );

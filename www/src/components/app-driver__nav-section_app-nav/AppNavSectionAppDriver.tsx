@@ -17,7 +17,6 @@ export const AppNavSectionAppDriver:FC<IAppNavSectionAppDriverProps>=( )=>{
   const hasAppNavLinkActive = ( href: string ) => {
     let isMatch = router.pathname === href;
 
-    console.log(isMatch, router.pathname, href);
     return isMatch;
   }
 

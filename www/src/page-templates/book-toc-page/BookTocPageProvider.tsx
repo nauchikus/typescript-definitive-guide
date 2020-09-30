@@ -33,7 +33,6 @@ const BookTocPageProvider: FC<IBookTocPageProviderProps> = ( { pageContext, loca
     let {router} = mobxEntry;
 
     useLayoutEffect(() => {
-        console.log(location);
         router.setLocation(location);
     }, []);
     // useNativeLinkDisableDefaultBehavior(mobxEntry.router);
