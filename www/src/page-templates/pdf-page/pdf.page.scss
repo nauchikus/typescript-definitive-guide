@@ -8,7 +8,7 @@
 
 
 .page-without-driver__content-layout {
-  min-height: calc(100vh - calc(var(--app-header_height) + var(--app-footer_height)));
+  min-height: calc(100vh - var(--app-header_height));
 
   width: 100%;
 
