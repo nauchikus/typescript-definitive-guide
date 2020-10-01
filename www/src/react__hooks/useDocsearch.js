@@ -35,7 +35,8 @@ export const useDocsearch = () => {
 
                     url = url.replace(origin, ``);
 
-                    navigate(url);
+                    console.log(url);
+                    navigate(encodeURIComponent(url));
                 }
             }
         });
@@ -54,3 +55,6 @@ export const useDocsearch = () => {
         };
     });
 }
+
+//https://typescript-definitive-guide.ru/book/chapters/readonly,%20partial,%20required,%20pick,%20record#required%3Ct%3E%20(sdelat%20vse%20neobyazatelnye%20chleny%20obyazatelnymi)
+//https://typescript-definitive-guide.ru/book/chapters/readonly,%20partial,%20required,%20pick,%20record/#required<t>_(sdelat_vse_neobyazatelnye_chleny_obyazatelnymi)

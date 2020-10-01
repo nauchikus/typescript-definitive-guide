@@ -123,6 +123,7 @@ export class RouterStore {
   }
 
   goTo( path: string ) {
+    console.log(path);
     navigate( path );
 
     this.scrollToAnchor(this.anchor);
