@@ -35,7 +35,7 @@ export const useDocsearch = () => {
 
                     url = url.replace(origin, ``);
 
-                    console.log(url);
+                    console.log(encodeURIComponent(url));
                     navigate(encodeURIComponent(url));
                 }
             }
@@ -55,6 +55,8 @@ export const useDocsearch = () => {
         };
     });
 }
+
+//http://localhost:8000/book/chapters/readonly,%20partial,%20required,%20pick,%20record#readonly%3Ct%3E%20(sdelat%20chleny%20obekta%20tolko%20dlya%20chteniya)
 
 //https://typescript-definitive-guide.ru/book/chapters/readonly,%20partial,%20required,%20pick,%20record#required%3Ct%3E%20(sdelat%20vse%20neobyazatelnye%20chleny%20obyazatelnymi)
 //https://typescript-definitive-guide.ru/book/chapters/readonly,%20partial,%20required,%20pick,%20record/#required<t>_(sdelat_vse_neobyazatelnye_chleny_obyazatelnymi)
