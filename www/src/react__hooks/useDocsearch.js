@@ -20,10 +20,20 @@ export const useDocsearch = () => {
                         url = url.substring(0, url.length - pattern.length);
                     }
 
-                    if (process.env.NODE_ENV === `development`) {
-                        url = url.replace(`https://typescript-definitive-guide.ru`, `http://localhost:8000`);
+                    let origin = `https://typescript-definitive-guide.ru`;
 
+
+                    if (process.env.NODE_ENV === `development`) {
+                        origin = `http://localhost:8000`;
+
+                        url = url.replace(
+                            `https://typescript-definitive-guide.ru`,
+                            origin
+                        );
                     }
+
+
+                    url = url.replace(origin, ``);
 
                     navigate(url);
                 }

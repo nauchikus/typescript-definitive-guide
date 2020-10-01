@@ -64,7 +64,6 @@ export const Search: FC<ISearchProps> = observer(( {} ) => {
 
 
 
-
   return (
     <form className="search"
           autoComplete="off"
