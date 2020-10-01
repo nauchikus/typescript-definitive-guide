@@ -19,15 +19,7 @@ export const wrapRootElement = ({ element, props, pluginOptions }) => {
 };
 
 
-const getJsCodeAsString = () => (`
-docsearch({
-    apiKey: '0260af6591f616d3300bc3b89d75cfd1',
-    indexName: 'nauchikus_typescript-definitive-guide',
-    inputSelector: '#algolia-search',
-    debug: true // Set debug to true if you want to inspect the dropdown
-})
-console.log('ALGOLIA INLINE SCRIPT', document.querySelector('#algolia-search'));
-`)
+
 const getHeadComponentAll = () => ([
     <link key="algolia_css"
           rel="stylesheet"
@@ -38,9 +30,6 @@ const getBodyEndComponentAll = () => ([
     <script key="algolia_script"
             type="text/javascript"
             src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>,
-    <script key="algolia_script-inline"
-            type="text/javascript"
-            dangerouslySetInnerHTML={{__html: getJsCodeAsString()}}></script>
 ])
 
 export const onRenderBody = ({setHeadComponents, setPostBodyComponents}) => {

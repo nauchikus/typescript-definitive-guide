@@ -1,7 +1,6 @@
 import React, { FC, ReactElement } from "react";
 import { Search } from "../search/Search";
 import { observer } from "mobx-react-lite";
-import { If } from "../if-operator/If";
 import {
   NavToggleButton,
 } from "../app-menu-buttons/app-menu-buttons";
@@ -11,7 +10,7 @@ import { useAppSearch } from "../../mobx__entry/SharedPageMobxEntry";
 import { AppLogoSvgIcon } from "../icon__svg-icon/svg-icons";
 import { Link } from "gatsby";
 import { RouterUtils } from "../../utils/router-utils";
-import { TemporarySearch } from "../search__temporary/TemporarySearch";
+import { useDocsearch } from "../../react__hooks/useDocsearch";
 
 
 interface IAppHeaderProps {
@@ -19,7 +18,8 @@ interface IAppHeaderProps {
 
 export const AppHeader: FC<IAppHeaderProps> = observer(( {...props} ) => {
   let appSearch = useAppSearch();
-  let router = useRouter();
+
+  useDocsearch();
 
 
   return (
@@ -35,7 +35,7 @@ export const AppHeader: FC<IAppHeaderProps> = observer(( {...props} ) => {
       <div className="app-header-grid-item__informer">
       </div>
       <div className="app-header-grid-item__search">
-        <TemporarySearch/>
+        <Search key="app-search" />
       </div>
       <div className="app-header-grid-item__menu">
         <AppBar/>

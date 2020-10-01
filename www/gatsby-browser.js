@@ -10,10 +10,11 @@
 
 import "./src/styles_entries/global.scss";
 
-import React from 'react';
+import React, {useLayoutEffect} from 'react';
 import { MobxSharedContext } from './src/react__context/MobxSharedContext';
 import { SharedPageMobxEntry } from './src/mobx__entry/SharedPageMobxEntry';
 import { AppDriverInitializationStateType } from './src/consts/AppDriverInitializationStateType';
+import { navigate } from 'gatsby';
 
 /// TODO: [WARNING][ERROR WITH MULTI LANGUAGE]
 /// TODO: [refactoring][extract to utils]
@@ -31,6 +32,7 @@ export const wrapRootElement = ({ element }) => {
             AppDriverInitializationStateType.Close :
             AppDriverInitializationStateType.Auto
     };
+
 
 
     return (
@@ -59,4 +61,7 @@ export const shouldUpdateScroll = ({routerProps:{location}}) => {
 //
 // export const onPreRouteUpdate = ({ location: { hash } }) => {
 //
+// }
+
+// export const onInitialClientRender = () => {
 // }

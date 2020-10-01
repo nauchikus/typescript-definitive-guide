@@ -61,7 +61,7 @@ const BookPageProvider: FC<IBookPageProviderProps> = ( { pageContext,location } 
             <ContentNavStoreContext.Provider value={mobxEntry.contentNav}>
               <ContentDownPanelStoreContext.Provider value={mobxEntry.contentDownPanelStore}>
                 <RouterStoreContext.Provider value={router}>
-                  <BaseLayout>
+                  <BaseLayout key="base-layout">
                     <SEO/>
                     <ContentIntersectionObserverStoreContext.Provider value={mobxEntry.contentIntersectionObserver}>
                       <BookChapterPageContentDataContext.Provider value={pageContentData}>

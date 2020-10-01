@@ -22,6 +22,7 @@ const BaseLayout: FC<IBaseLayoutProps> = ( { children } ) => {
   let baseLayoutMobxStores = useLocalStore( () => contextRef.current );
 
 
+
   return (
     <BaseLayoutMoxContext.Provider value={baseLayoutMobxStores}>
       <div className="app-grid">

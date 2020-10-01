@@ -1,5 +1,6 @@
 @import "../../styles/app-vars";
 @import "../../styles/mixins/user-activity";
+@import "../../styles/mixins/native-scrollbar";
 
 
 $app-bar__nav-toggle_width:40px;
@@ -42,12 +43,68 @@ $search_padding-x_open:4px;
 $search_padding-y_open:4px;
 
 
+.ds-suggestions {
+  max-height: calc(100vh - 256px)!important;
+  overflow: auto!important;
+
+  @include nativeScrollbarSmall();
+}
+
+
+.algolia-autocomplete .algolia-docsearch-suggestion--title {
+  //color: white;
+}
+.algolia-autocomplete {
+  & .ds-suggestions {
+    :not(:first-child) {
+      & .algolia-docsearch-suggestion--category-header {
+        margin-top: 0;
+      }
+    }
+  }
+  & .algolia-docsearch-suggestion--category-header {
+    background-color: var(--color_base_50);
+
+    border-radius: 2px;
+
+    padding-left: 8px!important;
+    padding-right: 8px;
+
+    margin-left: -8px;
+
+    & .algolia-docsearch-suggestion--highlight {
+      font-weight: bold;
+      box-shadow: inset 0 -2px 0 0 rgb(255,255,255)!important;
+    }
+
+    & > span {
+      color: white;
+    }
+
+  }
+
+
+
+  & .algolia-docsearch-suggestion--subcategory-column {
+    width: calc(30% + 7px);
+    background-color: var(--color_dark_95);
+    //background-color: red;
+
+    padding-top: 13px;
+    padding-bottom: 8px;
+
+    margin-top: -9px;
+    margin-left: -7px;
+
+    & .algolia-docsearch-suggestion--subcategory-column-text {
+      color: var(--color_dark_40);
+    }
+  }
+}
+
 .search{
   max-width: $app-search__max-width_open-state;
-  //max-height: $app-search__max-height_open-state;
-  width: 100%;
 
-  //background: rgba(0,0,0,.1);
   background: var(--app-search_background_color);
 
   border-radius: var(--app-search_border-radius);
@@ -55,13 +112,17 @@ $search_padding-y_open:4px;
   font-size: 1.1rem;
   color: var(--app-search__query-input_color);
 
-  //margin: 16px 0 0 0;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex-direction: row;
+
 
   position: relative;
 
   transition: all $app-search_transition_duration ease $app-search_transition_delay;
 
-  overflow: hidden;
+  //overflow: hidden;
   z-index: 0;
 
 
@@ -94,9 +155,7 @@ $search_padding-y_open:4px;
   width: 100%;
   height: 100%;
 
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
+
 }
 .search__output-section{
   max-height: var($app-search__match-output_max-height);
@@ -108,17 +167,24 @@ $search_padding-y_open:4px;
 }
 
 .search__query-input{
-  width: calc(100% - 56px);
+  width: 0;
 
   color: inherit;
 
+  outline: none;
+  border: none;
   display: inline-flex;
 
   user-focus: text;
 
   position:relative;
 
+  transition: all $app-search_transition_duration ease 0s;
 
+
+  &:focus-within{
+    width: 200px;
+  }
   &::-webkit-search-results-button{
     display: none;
   }

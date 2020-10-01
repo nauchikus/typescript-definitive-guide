@@ -1,4 +1,4 @@
-import React, { FC, FormEvent, useRef } from "react";
+import React, { FC, FormEvent, useCallback, useImperativeHandle, useRef } from "react";
 import { MagnifierSvgIcon, SearchSvgIcon } from "../icon__svg-icon/svg-icons";
 import { observer } from "mobx-react-lite";
 import { OutsideClick } from "../outside-click/OutsideClick";
@@ -28,17 +28,6 @@ export const Search: FC<ISearchProps> = observer(( {} ) => {
 
     return isStringEmpty(value) ? true : false;
   };
-  const toggle = () => {
-    appSearch.active.toggle();
-
-    if ( appSearch.active.isClose && !isInputEmpty() ) {
-      cleanInput();
-    }
-
-    if ( appSearch.match.isOn ) {
-      appSearch.match.off();
-    }
-  };
   const cleanInput = () => {
     let { current: input } = inputRef;
 
@@ -56,8 +45,6 @@ export const Search: FC<ISearchProps> = observer(( {} ) => {
   const formSubmit = ( event: React.FormEvent | React.KeyboardEvent ) => {
     event.preventDefault();
 
-    control?.on();
-
     setTimeout( () => inputRef.current?.focus(), 10 );
   };
 
@@ -70,53 +57,32 @@ export const Search: FC<ISearchProps> = observer(( {} ) => {
     }
   };
 
+  const input_blurHandler = useCallback((event: FormEvent<HTMLInputElement>) => {
+    // (event.target as HTMLInputElement).
+    console.log('blur');
+  }, []);
 
 
-  /*appSearch.active.state*/
+
 
   return (
-    <div className="search_wrapper" toggle={appSearch.active.isToggle.toString() as "true"|"false"}>
-      <OutsideClick isToggle={appSearch.active.isToggle} onOutsideClick={toggle}/>
-      <form className="search"
-            autoComplete="off"
-            action="#"
-            toggle-state={appSearch.active.state}
-            is-match={appSearch.match.isToggle.toString()}
-            // onKeyDown={onKeyDown}
-            onSubmit={onSubmit}>
-        <div className="search__input-section">
-          <input ref={inputRef}
-                 className="search__query-input"
-                 type="search"
-                 id="algolia-search"
-                 name="app-search-query"
-                 placeholder={appSearchTranslation.inputPlaceholder}
-                 // onChange={onChange}
-                 required/>
-
-          <ScaleButton className="search__submit-button-placeholder button-with-svg-icon" onClick={toggle} disabled={false}>
-            <MagnifierSvgIcon className="search__search-svg-icon"/>
-          </ScaleButton>
-
-          <ScaleButton className="search__submit-button button-with-svg-icon"
-                       scaleControlId={SCALE_CONTROL_ID}
-                       type="submit"
-                       aria-hidden="true"
-                       aria-label={appSearchTranslation.submitButton.ariaLabel}>
-            <MagnifierSvgIcon className="search__search-svg-icon"/>
-          </ScaleButton>
-        </div>
-
-
-
-        <If condition={appSearch.match.isToggle && appSearch.active.isOpen}>
-          <div className="divide_x"></div>
-          <div className="search__output-section">
-
-          </div>
-        </If>
-      </form>
-    </div>
+    <form className="search"
+          autoComplete="off"
+          action="#"
+      // onKeyDown={onKeyDown}
+          onSubmit={onSubmit}>
+      <ScaleButton className="search__submit-button-placeholder button-with-svg-icon">
+        <MagnifierSvgIcon className="search__search-svg-icon"/>
+      </ScaleButton>
+      <input ref={inputRef}
+             className="search__query-input"
+             type="search"
+             id="algolia-search"
+             name="app-search-query"
+             // onBlur={input_blurHandler}
+             placeholder={appSearchTranslation.inputPlaceholder}
+             required/>
+    </form>
 
   );
 });
