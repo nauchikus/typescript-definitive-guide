@@ -44,9 +44,28 @@ const isChapterHeadingValid = (chapterDir, chapterHeadingAll, tocHeadingAll) => 
     }
 }
 
+const CHAR_VALIDATORS = [
+    [heading => !/[^\\][\[\]]/g.test(heading), `Square brackets must be escaped. Bad: "[]", Ok: "\\[\\]".`],
+    [heading => !/\s{2,}/g.test(heading), `There should be no more than one space. Bad: "a  b", Ok: "a b"`],
+];
 
+const isHeadingCharValid = (chapterDir, chapterHeadingAll) => {
+    return chapterHeadingAll.reduce((errors, heading) => {
+        return CHAR_VALIDATORS.reduce((errors, [validator, errorMessage]) => {
+            if (!validator(heading)) {
+                errors.push(`Error in ${chapterDir} for heading ${heading}. ${errorMessage}`);
+            }
+
+            return errors;
+        }, [])
+            .filter(array => array.length > 0)
+            .flat()
+            .join(`\n`);
+    });
+}
 
 module.exports = {
     isChapterNameValid,
     isChapterHeadingValid,
+    isHeadingCharValid,
 }

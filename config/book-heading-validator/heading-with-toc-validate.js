@@ -33,6 +33,11 @@ const validate = async ({BOOK_CHAPTERS_DIR, BOOK_TOC_PATH}) => {
             chapterHeadingAll,
             tocHeadingAll,
         );
+
+        HeadingValidators.isHeadingCharValid(
+            chapterDir,
+            chapterHeadingAll
+        );
     }));
 }
 
