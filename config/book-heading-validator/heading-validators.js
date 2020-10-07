@@ -1,23 +1,35 @@
 const isChapterNameValid = (chapterName, toc) => {
-    let isMatch = toc.some(item => item.title === chapterName);
+    let isMatch = toc.some(item => {
+        return item.title === chapterName;
+    });
 
     if (!isMatch) {
         throw new Error(`Chapter with name "${chapterName}" not found in toc.`);
     }
 }
 
+
+const replaceMap = new Map([
+    [`\\[`, `[`],
+    [`\\]`, `]`],
+])
+const normalize = name => name.replace(/(\\\[|\\\])/g, match => {
+    return replaceMap.get(match);
+})
+
 const isChapterHeadingValid = (chapterDir, chapterHeadingAll, tocHeadingAll) => {
     if(chapterHeadingAll.length !== tocHeadingAll.length){
         throw new Error(`Num heading (${chapterHeadingAll.length}) for chapter with name "${chapterDir}" must be equal toc (${tocHeadingAll.length}).`);
     }
 
-    let nameEqualInfos = chapterHeadingAll.reduce((result, chapterName, index) => {
+    let nameEqualInfos = chapterHeadingAll.reduce((errors, chapterName, index) => {
         let tocName = tocHeadingAll[index];
 
-        return result.add({
+
+        return errors.add({
             chapterName,
             tocName,
-            isEqual: chapterName === tocName
+            isEqual: normalize(chapterName) === tocName
         });
     }, new Set());
 
