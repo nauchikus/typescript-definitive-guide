@@ -9,4 +9,4 @@
 При изменении названия директории содержащей файл _content.md_ также необходимо произвести изменения в файле _metadata.json_.
 
 ## Стиль
-Стиль для what-is-new полностью аналогичен стилю для [book]().
+Стиль для what-is-new полностью аналогичен стилю для [book](https://github.com/nauchikus/typescript-definitive-guide/blob/master/CONTRIBUTING_BOOK.md#%D1%81%D1%82%D0%B8%D0%BB%D1%8C).

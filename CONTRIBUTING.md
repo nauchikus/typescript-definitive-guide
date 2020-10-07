@@ -2,7 +2,9 @@
 ## General rules
  - коммиты создаются с помощью утилиты _commitizen_ поэтому вместо команды `git commit` необходимо выполнять `npm run cz` и следовать дальнейшим указаниям выводимым в терминал.
 ## Contributing for book
+[Правила для редактирования раздела "Книга"](https://github.com/nauchikus/typescript-definitive-guide/blob/master/CONTRIBUTING_BOOK.md)
 ## Contributing for what-is-new
+[Правила для редактирования раздела "Что нового?"](https://github.com/nauchikus/typescript-definitive-guide/blob/master/CONTRIBUTING_WHAT_IS_NEW.md)
 ## Contributing for www (web application)
 Для того чтобы запустить приложение в _dev_ режиме необходимо соблюсти несколько условий -
 1. Сделать _fork_ репозитория
