@@ -79,6 +79,8 @@ export const BookTocContentLayout: FC<IBookTocContentLayoutProps> = observer( ( 
         let { index: firstLevelIndex, data } = bookTocTreeNode;
         let { title, path: firstLevelPath, subtitles } = data;
 
+
+
         let firstLevelItem = (
           <ItemTocMenu>
             <div className="toc-menu__section_left">

@@ -68,7 +68,7 @@ export const WhatIsNewPageAppDriver: FC<IWhatIsNewPageAppDriverProps> = observer
 
 
   const hasPageNavLinkActive = (currentSectionId: string, anchor: string) => {
-    return StringUtils.pathToNativeElementAttributeValue(anchor) === currentSectionId;
+    return anchor === currentSectionId;
   }
 
 

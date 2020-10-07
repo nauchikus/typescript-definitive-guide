@@ -2,44 +2,13 @@ const fs = require(`fs/promises`);
 const path = require(`path`);
 
 const Utils = require(`../old-to-new-book/utils`);
+const HeadingValidators = require(`./heading-validators`);
 
 const BOOK_DIR = path.join(process.cwd(), `book`, `ru`);
 const BOOK_CHAPTERS_DIR = path.join(BOOK_DIR, `chapters`);
 const BOOK_TOC_PATH = path.join(BOOK_DIR, `metadata`, `toc.json`);
 
-const isChapterNameValid = (chapterName, toc) => {
-    let isMatch = toc.some(item => item.title === chapterName);
 
-    if (!isMatch) {
-        throw new Error(`Chapter with name "${chapterName}" not found in toc.`);
-    }
-}
-
-const isChapterHeadingValid = (chapterDir, chapterHeadingAll, tocHeadingAll) => {
-    if(chapterHeadingAll.length !== tocHeadingAll.length){
-        throw new Error(`Num heading (${chapterHeadingAll.length}) for chapter with name "${chapterDir}" must be equal toc (${tocHeadingAll.length}).`);
-    }
-
-    let nameEqualInfos = chapterHeadingAll.reduce((result, chapterName, index) => {
-        let tocName = tocHeadingAll[index];
-
-        return result.add({
-            chapterName,
-            tocName,
-            isEqual: chapterName === tocName
-        });
-    }, new Set());
-
-    let isAllHeadingExistsValid = Array.from(nameEqualInfos).every(info => info.isEqual);
-
-    if (!isAllHeadingExistsValid) {
-        let errorMessage = Array.from(nameEqualInfos).reduce((result, { chapterName, tocName, isEqual }) => {
-            return result.concat(`[${isEqual ? `Ok` : `Error`}] chapter "${chapterName}" to be equal toc "${tocName}"\n`);
-        }, `Names must be equal for chapter "${chapterDir}". Stat -\n`);
-
-        throw new Error(errorMessage);
-    }
-}
 
 const validate = async ({BOOK_CHAPTERS_DIR, BOOK_TOC_PATH}) => {
     let tocJson = await fs.readFile(BOOK_TOC_PATH, `utf-8`);
@@ -52,14 +21,14 @@ const validate = async ({BOOK_CHAPTERS_DIR, BOOK_TOC_PATH}) => {
 
         let chapterName = Utils.bookChapterDirToChapterName(chapterDir);
 
-        isChapterNameValid(chapterName, toc);
+        HeadingValidators.isChapterNameValid(chapterName, toc);
 
 
         let currentTocItem = toc.find(item => item.title === chapterName);
         let chapterHeadingAll = headingAll;
         let tocHeadingAll = [currentTocItem.title, ...currentTocItem.subtitles]
 
-        isChapterHeadingValid(
+        HeadingValidators.isChapterHeadingValid(
             chapterDir,
             chapterHeadingAll,
             tocHeadingAll,

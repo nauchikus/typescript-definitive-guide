@@ -27,6 +27,7 @@ interface IBookTocPageProviderProps {
 
 const BookTocPageProvider: FC<IBookTocPageProviderProps> = ( { pageContext, location} ) => {
     let { bookTocTree, localization } = pageContext;
+    console.log(bookTocTree);
     let mobxEntry = BookTocPageMobxEntry.getInstance({ bookTocTree, location });
 
 

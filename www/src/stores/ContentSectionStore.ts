@@ -26,10 +26,10 @@ export class ContentSectionStore implements IContentSectionStore{
 
   constructor ( private router:RouterStore,
                 private contentIntersectionObserver:IntersectionObserverStore ) {
-    this.currentSectionId = StringUtils.urlToNativeElementAttributeValue(this.router.anchor);
+    this.currentSectionId = decodeURIComponent(this.router.anchor);
 
     computed(() => this.router.route).observe(changes => {
-      this.currentSectionId = StringUtils.urlToNativeElementAttributeValue(this.router.anchor);
+      this.currentSectionId = decodeURIComponent(this.router.anchor);
     });
 
     type ChangeData = IArrayChange<IIntersectionObserverEntryInfo> | IArraySplice<IIntersectionObserverEntryInfo>;
@@ -54,7 +54,7 @@ export class ContentSectionStore implements IContentSectionStore{
       }
 
 
-      this.currentSectionId = StringUtils.pathToNativeElementAttributeValue(entry.sectionId);
+      this.currentSectionId = entry.sectionId;
     } );
   }
 

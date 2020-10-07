@@ -1,5 +1,5 @@
 {
-  "name": "gatsby-transformer-what-is-new-metadata",
+  "name": "gatsby-transformer-what-is-new-toc",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",

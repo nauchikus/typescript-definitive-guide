@@ -19,6 +19,7 @@
   },
   "scripts": {
     "cz": "cz",
+    "www-link-validator": "node ./config/www-link-validator/www-link-validator.js",
     "book-cover-generate": "node ./config/generator-book-cover-for-social-media/generator-book-cover-for-social-media.js",
     "book-heading-validate": "node ./config/book-heading-validator/heading-with-toc-validate.js",
     "postrebook-reindex": "npm run book-toc-validate",
@@ -50,6 +51,7 @@
   "devDependencies": {
     "@commitlint/cli": "^9.1.2",
     "@types/nodegit": "^0.26.7",
+    "@types/puppeteer": "^3.0.2",
     "commitizen": "^4.2.1",
     "cz-customizable": "^6.3.0",
     "husky": "^4.2.5",
@@ -58,8 +60,7 @@
     "prettier": "^2.0.2",
     "react": "^16.13.1",
     "rm": "^0.1.8",
-    "simple-git": "^2.20.1",
-    "typescript": "^3.9.7"
+    "simple-git": "^2.20.1"
   },
   "dependencies": {}
 }

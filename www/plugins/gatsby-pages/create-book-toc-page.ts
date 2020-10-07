@@ -1,6 +1,6 @@
 import * as path from 'path';
 
-import {toPath} from '../../src/utils/string-utils';
+import * as ConverterPathUtils from '../../src/utils/converter-path-utils';
 import {RouterUtils} from '../../src/utils/router-utils';
 
 import { GatsbyCreatePages } from "../types/gatsby-create-pages";
@@ -33,10 +33,10 @@ export const createPages: GatsbyCreatePages<ICreatePageSharedOptions> = async ( 
     let bookToc: BookTocNode[] = toc.map( chapter => ( {
         title: chapter.title,
         section: chapter.section,
-        path: toPath( chapter.title ),
+        path: chapter.title,
         subtitles: chapter.subtitles.map( subchapter => ( {
             subtitle: subchapter,
-            path: `${toPath(chapter.title)}#${toPath(subchapter)}`
+            path: `${chapter.title}#${subchapter}`
         } ) )
     } ) );
     let bookTocTree: TreeNode<BookTocNode>[] = bookToc.map( ( node, index ) => ( {

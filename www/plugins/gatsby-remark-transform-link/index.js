@@ -1,6 +1,7 @@
 const visit=require('unist-util-visit');
 
 const StringUtils = require(`../../src/utils/string-utils`);
+const ConverterPathUtils = require(`../../src/utils/converter-path-utils`);
 const RouterUtils = require(`../../src/utils/routerjs-utils`);
 const BookChapterPathUtils = require(`../../src/utils/book-chapter-path-utils`);
 
@@ -48,7 +49,7 @@ let parseBookLink = link => {
   }
 
   let names = parseName(link).map(path => BookChapterPathUtils.bookChapterDirToChapterName(path));
-  let paths = names.map(path => StringUtils.toPath(path))
+  let paths = names.map(path => path)
 
   let linkInfo = {
     type: LinkType.BookLinkType,
@@ -67,7 +68,7 @@ const parseWinLink = link => {
 
   let names = parseName(link);
   let name = names.join(`#`);
-  let paths = names.map(path => StringUtils.toPath(path));
+  let paths = names.map(path => path);
   let type = isLocalPath(link) ? LinkType.WinLinkType : LinkType.BookLinkType;
 
   let linkInfo = {

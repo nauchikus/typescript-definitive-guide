@@ -1,7 +1,7 @@
 import { navigate } from "gatsby";
 import { observable, autorun, decorate, computed, action } from "mobx";
 import { createContext, useContext } from "react";
-import * as StringUtils from "../utils/string-utils";
+import * as ConverterPathUtils from "../utils/converter-path-utils";
 import { RouterUtils } from "../utils/router-utils";
 import * as AppUtils from "../utils/app-utils";
 
@@ -123,8 +123,7 @@ export class RouterStore {
   }
 
   goTo( path: string ) {
-    console.log(path);
-    navigate( path );
+    navigate( ConverterPathUtils.pathToUrl(path) );
 
     this.scrollToAnchor(this.anchor);
   }
@@ -142,17 +141,21 @@ export class RouterStore {
   }
   scrollToAnchor(anchor?:string){
     if ( anchor ) {
-      let sectionId = StringUtils.urlToSelector(anchor);
+      let sectionId = decodeURIComponent(anchor);
+
+
 
       let section = document
         .querySelector(`main`)
-        ?.querySelector(`section#${sectionId}`);
+        ?.querySelector(`section[id="${sectionId}"]`);
 
+
+      // console.log(sectionId);
 
       if (section) {
         window.scrollBy(0, section.getBoundingClientRect().top);
       }else{
-        throw new Error(`Section with id "${StringUtils.urlToNativeElementAttributeValue(anchor)}" not found.`)
+        throw new Error(`Section with id "${sectionId}" not found.`)
       }
     }
   }

@@ -2,6 +2,7 @@ const visit=require('unist-util-visit');
 
 const Utils=require('../utils');
 const StringUtils=require('../../src/utils/string-utils');
+const ConverterPathUtils=require('../../src/utils/converter-path-utils');
 const Validators=require('../gatsby-node-validators');
 
 module.exports = ( ...params ) => {
@@ -55,7 +56,7 @@ module.exports = ( ...params ) => {
 
 
             if ( isH2( headingNode ) ) {
-                sectionId = StringUtils.hadingToNativeElementAttributeValue(heading);
+                sectionId = heading;
             }
 
 

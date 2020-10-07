@@ -24,7 +24,7 @@ export const BookChapterPageAppDriver: FC<IBookChapterPageAppDriverProps> = obse
 
 
     const hasPageNavLinkActive = (currentSectionId: string, anchor: string) => {
-        return StringUtils.pathToNativeElementAttributeValue(anchor) === currentSectionId;
+        return anchor === currentSectionId;
     }
 
 

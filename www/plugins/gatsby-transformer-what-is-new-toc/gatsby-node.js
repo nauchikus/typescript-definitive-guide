@@ -1,4 +1,5 @@
 const StringUtils = require( "../../src/utils/string-utils" );
+const ConverterPathUtils = require( "../../src/utils/converter-path-utils" );
 const {CustomGatsbyNodeType} = require( "../gatsby-node-types" );
 const {CustomGatsbyNodeId} = require( "../gatsby-node-ids" );
 const {FilesystemSourceName} = require( "../filesystem-gatsby-node-types" );
@@ -81,7 +82,7 @@ const metadataToToc = metadata => {
     mmp: toMMP( getLastVersionInfo( metadata ).version ),
     innovations: innovations.map( innovation =>
       Object.assign( innovation, {
-        path: StringUtils.toPath( innovation.innovationName )
+        path: innovation.innovationName
       } ) )
   };
 

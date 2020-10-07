@@ -8,7 +8,7 @@ describe(`[StringUtils]`, () => {
 
 
         let sectionId = StringUtils.hadingToNativeElementAttributeValue(CHAPTER_NAME);
-        let path = StringUtils.toPath(CHAPTER_NAME);
+        let path = ConverterPathUtils.toPath(CHAPTER_NAME);
         let url = encodeURIComponent(path);
 
         xtest(`url must be convert to sectionId`, () => {

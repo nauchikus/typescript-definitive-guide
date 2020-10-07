@@ -8,7 +8,7 @@ describe(`[StringUtils]`, () => {
             const RESULT_VALUE = `itogi`;
 
             const HADING = SOURCE_VALUE;
-            const PATH = StringUtils.toPath(HADING);
+            const PATH = ConverterPathUtils.toPath(HADING);
             const URL = encodeURIComponent(PATH);
             const ATTRIBUTE = StringUtils.hadingToNativeElementAttributeValue(HADING);
 

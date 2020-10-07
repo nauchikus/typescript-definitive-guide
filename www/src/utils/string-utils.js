@@ -1,15 +1,4 @@
-/**
- *
- * @param funcs {Function}
- * @returns {*|(function(...[*]): *)}
- */
-const compose = (...funcs) => {
-  if(funcs.length === 1){
-    return funcs[0];
-  }
-
-  return funcs.reduce((result, f) => (...params) => f(result(...params)));
-}
+const { compose } = require('./utils');
 
 function translitRusToEng ( str ) {
   // https://gist.github.com/diolavr/d2d50686cb5a472f5696
@@ -65,27 +54,53 @@ const escapeStringForSelector = compose(
         .replace(/[,]/g, `\\$&`),// eslint-disable-line no-useless-escape
     escapeString,
 );// eslint-disable-line no-useless-escape
-/**
- *
- * @param {string} text
- * @returns {string}
- */
+
+
+
+
+const SPEC_CHARS = `| ^`;
+let map = new Map([
+  ...Array.from(SPEC_CHARS).map(item => [item, encodeURIComponent(item)])
+]);
+let regexp = new RegExp(`[${Array.from(map.keys()).join(``)}]`, `g`);
+
+const escapeUrl = path => decodeURIComponent(path)
+    .replace(regexp, char => {
+      if (!map.has(char)) {
+        console.error(char);
+      }
+
+      return map.get(char);
+    });
+
+
+
+
 const normalizeCommaSurroundedSpaces = (text) => text
     .replace(/(\s+(?=(?:,)))/g, '')
     .replace(/,\s+/g, `,`)
     .replace(/,(?=,+)/g, ``);
-const normalizeРyphenSurroundedSpaces = (text) => text
-    .replace(/(\s+(?=(?:-)))/g, '')
-    .replace(/-\s+/g, `-`)
-    .replace(/,(?=-+)/g, ``);
+const normalizeHyphenSurroundedSpaces = (text) => text
+    .replace(/(.*?)\s{2,}(-)/g, `$1 $2`)
+    .replace(/(-)\s{2,}(.*?)/g, `$1 $2`)
 const normalizeMultiSpace = (text) => text
-    .replace(/ {2,}/g, " ")
-    .replace(/\s+(?=\()/g, ``);
-const normalizeSpace = compose(
-    normalizeMultiSpace,
+    .replace(/\s{2,}/g, " ");
+const normalizeBracketSpace = (text) => text
+    .replace(/([\[\(<])\s*(.*?)\s([\]\)>])/g, `$1$2$3`);
+
+
+const normalizePath = compose(
     normalizeCommaSurroundedSpaces,
-    normalizeРyphenSurroundedSpaces,
-)
+    normalizeHyphenSurroundedSpaces,
+    normalizeMultiSpace,
+    normalizeBracketSpace,
+);
+
+const replaceSpace = (text, symbol = `_`) => text
+    .replace(/\s/g, symbol);
+const toLowerCase = text => text.toLowerCase();
+
+
 /**
  *
  * @param {string} text
@@ -99,12 +114,12 @@ const normalizeSpaceForSelector = text => text
  * @param value {(text: string) => string}
  * @returns {*|(function(...[*]): *)}
  */
-const toSelector = compose(
-    normalizeSpaceForSelector,
-    // normalizeSpace,
-    normaliseString,
-    escapeStringForSelector,
-);
+// const toSelector = compose(
+//     normalizeSpaceForSelector,
+//     // normalizeSpace,
+//     normaliseString,
+//     escapeStringForSelector,
+// );
 const pathToSelector = compose(
     normalizeSpaceForSelector,
     // normalizeSpace,
@@ -153,27 +168,27 @@ const toPath = compose(
     // spaceToSymbol,
     // encodeURIComponent
 );
-const toNativeElementAttributeValue = compose(
-    toPath,
-    normalizeSpaceForSelector,
-);
-const urlToNativeElementAttributeValue = compose(
-    decodeURIComponent,
-    toNativeElementAttributeValue,
-);
-const urlToPath = url => decodeURIComponent(url);
-const hadingToNativeElementAttributeValue = compose(
-    toPath,
-    normalizeSpaceForSelector,
-    text => text
-        .replace(`/\[\]<>\(\)=/g`, `//$&`)
-);
-const pathToNativeElementAttributeValue = hadingToNativeElementAttributeValue;
+// const toNativeElementAttributeValue = compose(
+//     toPath,
+//     normalizeSpaceForSelector,
+// );
+// const urlToNativeElementAttributeValue = compose(
+//     decodeURIComponent,
+//     toNativeElementAttributeValue,
+// );
+// const urlToPath = url => decodeURIComponent(url);
+// const hadingToNativeElementAttributeValue = compose(
+//     toPath,
+//     normalizeSpaceForSelector,
+//     text => text
+//         .replace(`/\[\]<>\(\)=/g`, `//$&`)
+// );
+// const pathToNativeElementAttributeValue = hadingToNativeElementAttributeValue;
 // const
-const urlToSelector = compose(
-    decodeURIComponent,
-    toSelector,
-);
+// const urlToSelector = compose(
+//     decodeURIComponent,
+//     toSelector,
+// );
 // const toPath = name => pathTransformerAll
 //     .reduce((result, current) => current(result), name);
 const generateStringId = ( ( length = 6, count = -1 ) => () =>
@@ -190,13 +205,17 @@ module.exports = {
   toFirstCharUpperCase,
   generateIndex,
   generateStringId,
-  toSelector,
-  hadingToNativeElementAttributeValue,
-  urlToSelector,
-  toNativeElementAttributeValue,
-  urlToNativeElementAttributeValue,
-  pathToNativeElementAttributeValue,
-  urlToPath,
+  normalizePath,
+  toLowerCase,
+  replaceSpace,
+  escapeUrl,
+  // toSelector,
+  // hadingToNativeElementAttributeValue,
+  // urlToSelector,
+  // toNativeElementAttributeValue,
+  // urlToNativeElementAttributeValue,
+  // pathToNativeElementAttributeValue,
+  // urlToPath,
   toCharCodeId,
 };
 

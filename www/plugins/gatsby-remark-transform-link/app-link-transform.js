@@ -57,7 +57,7 @@ const WWW_LINK = `http`
 //     }
 //
 //     let names = parseName(link).map(path => BookChapterPathUtils.bookChapterDirToChapterName(path));
-//     let paths = names.map(path => StringUtils.toPath(path))
+//     let paths = names.map(path => ConverterPathUtils.toPath(path))
 //
 //     let linkInfo = {
 //         type: LinkType.BookLinkType,
@@ -82,7 +82,7 @@ const WWW_LINK = `http`
 //
 //     let names = parseName(link);
 //     let name = names.join(`#`);
-//     let paths = names.map(path => StringUtils.toPath(path));
+//     let paths = names.map(path => ConverterPathUtils.toPath(path));
 //     let type = isLocalPath(link) ? LinkType.WinLinkType ? LinkType.BookLinkType;
 //
 //     let linkInfo = {

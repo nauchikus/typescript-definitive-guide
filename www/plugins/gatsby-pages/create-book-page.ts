@@ -2,6 +2,7 @@ import * as path from 'path';
 
 
 import {RouterUtils} from '../../src/utils/router-utils';
+import * as ConverterPathUtils from '../../src/utils/converter-path-utils';
 import * as StringUtils from '../../src/utils/string-utils';
 import * as EnvUtils from '../../src/utils/env-utils';
 
@@ -34,12 +35,12 @@ export type CreateBookChapterNameParams={
 
 const bookTocToPageNav = ( toc: IBookTocSource[] ) => toc.map( ( { title, subtitles } ) => ( {
     name: title,
-    path: StringUtils.toPath( title ),
+    path: title,
 
     sections: subtitles
       .map( subtitle => ( {
         name: subtitle,
-        path: StringUtils.toPath( subtitle )
+        path: subtitle
       } ) )
   } ) );
 
@@ -87,7 +88,7 @@ export const createPages: GatsbyCreatePages<ICreatePageSharedOptions> = async ( 
     // let bookToc: IBookTocWithContentNode[] = toc.map( async (chapter,index) => {
     let bookChapterPageContentPromiseAll = toc.filter((item,index)=>true).map( async (chapter,index) => {
         let chapterEscapedName = StringUtils.escapeString( chapter.title );
-        let chapterEscapedPath = StringUtils.toPath( chapter.title );
+        let chapterEscapedPath = chapter.title;
         let chapterGithubName = createBookChapterName( {
             index,
             sectionName: chapter.section,

@@ -1,6 +1,7 @@
 const path = require(`path`);
 
 const StringUtils = require(`../../src/utils/string-utils`);
+const ConverterPathUtils = require(`../../src/utils/converter-path-utils`);
 const Utils = require(`./remark/utils`);
 
 const toPath = (...paths) => path.join(...paths);
@@ -102,17 +103,13 @@ const createTocItem = ({href, level}) => (`
 </li>
 `).trim()
 const BookTocFirstLevelItem = ({title, index}) => {
-    let href = Utils.toBookPdfHref(
-        StringUtils.hadingToNativeElementAttributeValue(title)
-    );
+    let href = Utils.toBookPdfHref(title);
 
 
     return createTocItem({href, level: 0});
 }
 const BookTocSecondLevelItem = ({title, subtitle,  index}) => {
-    let href = Utils.toBookPdfHref(
-        StringUtils.hadingToNativeElementAttributeValue(`${title}#${subtitle}`)
-    );
+    let href = Utils.toBookPdfHref(`${title}#${subtitle}`);
 
 
     return createTocItem({href, level: 1});

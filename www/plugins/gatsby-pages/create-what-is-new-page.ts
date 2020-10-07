@@ -1,6 +1,7 @@
 import * as path from 'path';
 
 import * as StringUtils from "../../src/utils/string-utils";
+import * as ConverterPathUtils from "../../src/utils/converter-path-utils";
 import * as EnvUtils from "../../src/utils/env-utils";
 import {RouterUtils} from '../../src/utils/router-utils';
 
@@ -28,7 +29,7 @@ const winTocToPageNav = ( winToc: IWhatIsNewToc[] ) =>
 
       return {
           name: version.mmp,
-          path: StringUtils.toPath( version.mmp ),
+          path: version.mmp,
 
           sections: winTocItem.innovations
             .map( innovation => ( {

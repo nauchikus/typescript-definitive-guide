@@ -4,6 +4,7 @@ import { IContentSectionStore } from "./ContentSectionStore";
 import { IPageNavLeaf, IPageNavNode, IPageNavPage, IPageNavSection } from "../types/IPageNavData";
 import { computed, decorate, observable } from "mobx";
 import * as StringUtils from "../utils/string-utils";
+import * as ConverterPathUtils from "../utils/converter-path-utils";
 
 
 export interface IPageNavStoreParams<TNodeData=null,TLeafData=null> {
@@ -31,12 +32,12 @@ export class PageNavStore<TNodeData=null,TLeafData=null> implements IPageNavStor
   get pageItem () {
     let currentPageItem = this.pageNavTree
       .find( item => {
-        return item.path === StringUtils.urlToPath(this.router.pageName)
+        return item.path === decodeURIComponent(this.router.pageName)
       } );
 
 
     if ( !currentPageItem ) {
-      throw new Error( `Page with name "${ StringUtils.urlToPath(this.router.pageName) }" not found.` );
+      throw new Error( `Page with name "${ this.router.pageName }" not found.` );
     }
 
 
@@ -45,7 +46,8 @@ export class PageNavStore<TNodeData=null,TLeafData=null> implements IPageNavStor
   get sectionItem () {
     let currentSection = ( this.pageItem.sections as Required<IPageNavSection<TLeafData>>[] )
       .find( section => {
-        return StringUtils.pathToNativeElementAttributeValue(section.path) === this.contentSection.currentSectionId
+        console.log(section.path, this.contentSection.currentSectionId);
+        return section.path === this.contentSection.currentSectionId;
       } );
 
 

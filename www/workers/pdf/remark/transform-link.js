@@ -1,6 +1,7 @@
 const visit=require('unist-util-visit');
 
 const StringUtils = require(`../../../src/utils/string-utils`);
+const ConverterPathUtils = require(`../../../src/utils/converter-path-utils`);
 const Utils = require(`./utils`);
 const BookChapterPathUtils = require(`../../../src/utils/book-chapter-path-utils`);
 
@@ -48,7 +49,7 @@ let parseBookLink = link => {
   }
 
   let names = parseName(link).map(path => BookChapterPathUtils.bookChapterDirToChapterName(path));
-  let paths = names.map(path => StringUtils.toPath(path))
+  let paths = names.map(path => path)
 
   let linkInfo = {
     type: LinkType.BookLinkType,
@@ -75,7 +76,7 @@ const getWinVersionFromFileAbsolutePath = path => {
 }
 
 const wwwLinkToBookLink = link => {
-  return StringUtils.urlToPath(link.substring(link.lastIndexOf(`/`) + 1));
+  return link.substring(link.lastIndexOf(`/`) + 1);
 }
 const localLinkToBookLink = link => {
   let dirName = decodeURIComponent(link.substring(link.lastIndexOf(`/`) + 1));
@@ -84,14 +85,10 @@ const localLinkToBookLink = link => {
   return chapterName;
 }
 
-let local = `../028.(Классы)%20Definite%20Assignment%20Assertion%20Modifier`;
-let url = `https://nauchikus.github.io/typescript-definitive-guide/book/chapters/chto%20takoe%20i%20dlya%20chego%20nujen%20typescript`;
 
 const toValue = node => node.children.reduce((result, current) => result + current.value, ``);
 
 
-// console.log(wwwLinkToBookLink(url));
-// console.log(localLinkToBookLink(local));
 module.exports = options => ast => {
   const isLink = node => node.type === `link`;
 
@@ -109,9 +106,7 @@ module.exports = options => ast => {
         link = wwwLinkToBookLink(link)
       }
 
-      let bookLink = StringUtils.hadingToNativeElementAttributeValue(
-          localLinkToBookLink(link)
-      );
+      let bookLink = localLinkToBookLink(link);
 
 
       linkNode.url = Utils.toBookPdfHref(bookLink);

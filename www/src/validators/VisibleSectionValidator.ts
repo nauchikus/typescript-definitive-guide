@@ -26,7 +26,7 @@ export class VisibleSectionValidator {
 
 
     let currentInnovation = this.contentData.innovations
-      .find( innovation => StringUtils.pathToNativeElementAttributeValue(innovation.path) === id );
+      .find( innovation => innovation.path === id );
 
 
     if ( !currentInnovation ) {
