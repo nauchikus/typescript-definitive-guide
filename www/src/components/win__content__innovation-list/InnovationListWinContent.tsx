@@ -1,4 +1,5 @@
 import React, { Fragment,FC, ReactNode, useEffect, useLayoutEffect } from "react";
+import { useParams, useLocation } from "@reach/router";
 import { observer } from "mobx-react-lite";
 import { useWinPageContentData } from "../../react__hooks/win__page-content-data-hook";
 import { SectionInformerContent } from "../content__section-informer/SectionInformerContent";
@@ -24,8 +25,11 @@ export const InnovationListWinContent: FC<IInnovationListWinContentProps> = obse
   } = useWhatIsNewPageStores();
   let winContentData=useWinPageContentData();
 
+  let location = useLocation();
+  let params = useParams();
 
 
+  console.log(params, new URLSearchParams(location.search).get(`p0`));
 
   let contentItemAll = winContentData.innovations
     .filter( innovation => versionFilter.canDisplayedByVersion( new Version(innovation.version).preReleaseName ) )

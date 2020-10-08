@@ -50,6 +50,7 @@ type DisposerRefs={
 const WhatIsNewPageProvider: FC<IWhatIsNewPageProviderProps> = ( { pageContext,location } ) => {
     let { localization,innovationData,winTocTree,pageNavDataAll } = pageContext;
 
+    console.log(location);
     let mobxStores = WinPageMobxEntry.getInstance({
         winTocTree,
         innovationData,
