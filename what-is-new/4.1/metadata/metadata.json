@@ -15,6 +15,14 @@
     {
       "id": "",
       "version": "4.1@beta",
+      "innovationName": "Изменение механизма проверки индексной сигнатуры",
+      "dateRelease": "September 18, 2020",
+      "datePublication": "October 08, 2020",
+      "tags": ["Нововведение"]
+    },
+    {
+      "id": "",
+      "version": "4.1@beta",
       "innovationName": "Шаблонный литеральный строковой тип",
       "dateRelease": "September 18, 2020",
       "datePublication": "September 18, 2020",
