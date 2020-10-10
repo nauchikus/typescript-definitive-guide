@@ -3,8 +3,11 @@ import { IWinPageContentData } from "../types/IWhatIsNewToc";
 import { toVersionInfo } from "../utils/version-utils";
 
 export type ReleaseInfo={
+  stage:string;
   version:string;
+  updateVersion: string;
   dateRelease:string;
+  datePublication:string;
 }
 export type VersionInfoMeta = ReleaseInfo & { count: number; };
 
@@ -18,11 +21,22 @@ export const innovationDataToVersionInfoTransformer = ( dataAll: IWinPageContent
 
     return hash;
   }, {} as Record<string, number> );
-  let versionInfoAll = dataAll.releaseHistory.map( versionInfo => ( {
-    version: toVersionInfo( versionInfo.version ).preReleaseName,
-    dateRelease: DateUtils.toAppShortDateFormat( versionInfo.dateRelease ),
-    count: counts[ versionInfo.version ] ?? 0
-  } ) );
+  let releaseHistoryAll = [...dataAll.releaseHistory]
+    .sort((a, b) => Date.parse(b.datePublication) - Date.parse(a.datePublication));
+
+
+  let versionInfoAll = releaseHistoryAll.map( versionInfo => {
+    let version = toVersionInfo(versionInfo.version);
+
+    return {
+      stage: version.preReleaseName,
+      version: versionInfo.version,
+      updateVersion: version.updateVersion,
+      dateRelease: DateUtils.toAppShortDateFormat( versionInfo.dateRelease ),
+      datePublication: DateUtils.toAppShortDateFormat( versionInfo.datePublication ),
+      count: counts[ versionInfo.version ] ?? 0
+    }
+  }  );
 
 
   return versionInfoAll;

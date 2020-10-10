@@ -117,7 +117,10 @@ export class RouterStore {
   }
 
   get search(){
-    return new URLSearchParams( this.location.search );
+    return this.location.search;
+  }
+  get urlSearchParams(){
+    return new URLSearchParams(this.search);
   }
   constructor ( public location:ILocation, private _locale: string = RouterStore.EMPTY_LOCALE) {
   }
@@ -160,6 +163,9 @@ export class RouterStore {
     }
   }
 
+  removeSearch(){
+    navigate(this.pathname);
+  }
   reset(){
     this.location = {
       ...this.location,
@@ -178,6 +184,7 @@ decorate( RouterStore, {
   anchor: computed,
   route: computed,
   search: computed,
+  urlSearchParams: computed,
 
   location: observable,
 
@@ -185,7 +192,8 @@ decorate( RouterStore, {
   reset: action,
   setLocation: action,
   updateLocationWhenHashChanged: action,
-  scrollToAnchor: action
+  scrollToAnchor: action,
+  removeSearch: action,
 } );
 
 

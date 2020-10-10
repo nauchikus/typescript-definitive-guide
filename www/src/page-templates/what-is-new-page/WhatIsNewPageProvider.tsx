@@ -50,7 +50,7 @@ type DisposerRefs={
 const WhatIsNewPageProvider: FC<IWhatIsNewPageProviderProps> = ( { pageContext,location } ) => {
     let { localization,innovationData,winTocTree,pageNavDataAll } = pageContext;
 
-    console.log(location);
+
     let mobxStores = WinPageMobxEntry.getInstance({
         winTocTree,
         innovationData,
@@ -70,21 +70,21 @@ const WhatIsNewPageProvider: FC<IWhatIsNewPageProviderProps> = ( { pageContext,l
 
 
     useLayoutEffect( () => {
-        let { versionFilter } = stores;
-
-        versionFilter.clean();
-        versionFilter.addVersionInfo(
-          ...innovationDataToVersionInfoTransformer( innovationData )
-        );
-
-
-        let versionFilterCheckedIdAll = urlSearchFilterParamToVersionFilterItemTransformer(
-          router.search.get( `filter` )
-        );
-
-        versionFilterCheckedIdAll.length > 0 ?
-          versionFilter.checkedByVersion( ...versionFilterCheckedIdAll ) :
-          versionFilter.checkedAllVersion();
+        // let { versionFilter } = stores;
+        //
+        // versionFilter.clean();
+        // versionFilter.addVersionInfo(
+        //   ...innovationDataToVersionInfoTransformer( innovationData )
+        // );
+        //
+        //
+        // let versionFilterCheckedIdAll = urlSearchFilterParamToVersionFilterItemTransformer(
+        //   router.search.get( `filter` )
+        // );
+        //
+        // versionFilterCheckedIdAll.length > 0 ?
+        //   versionFilter.checkedByVersion( ...versionFilterCheckedIdAll ) :
+        //   versionFilter.checkedAllVersion();
 
     }, [router.pageName] );
 

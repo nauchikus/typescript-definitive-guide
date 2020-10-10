@@ -1,6 +1,4 @@
-import { createToggleState, ToggleUiState } from "./AppStateService";
-import { createToggle } from "../utils/toggle";
-import { IWhatIsNewToc, IWhatIsNewTocInnovation, IWhatIsNewTocVersionStatus } from "../types/IWhatIsNewToc";
+import { IWhatIsNewToc } from "../types/IWhatIsNewToc";
 import { observable } from "mobx";
 import { Version } from "../utils/Version";
 
@@ -54,8 +52,8 @@ export const createWhatIsNewTocTree=<T>(tree:TreeNode<IWhatIsNewToc>[],isCollaps
         ?.data.innovations;
     }
   })
-  
-  
+
+
   return store;
 };
 

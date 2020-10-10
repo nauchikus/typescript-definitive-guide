@@ -2,7 +2,13 @@
   "releaseHistory": [
     {
       "version": "4.1@beta",
-      "dateRelease": "September 18, 2020"
+      "dateRelease": "September 18, 2020",
+      "datePublication": "September 18, 2020"
+    },
+    {
+      "version": "4.1@beta_1",
+      "dateRelease": "September 18, 2020",
+      "datePublication": "October 08, 2020"
     }
   ],
   "colors": {
@@ -14,7 +20,7 @@
   "innovations": [
     {
       "id": "",
-      "version": "4.1@beta",
+      "version": "4.1@beta_1",
       "innovationName": "Изменение механизма проверки индексной сигнатуры",
       "dateRelease": "September 18, 2020",
       "datePublication": "October 08, 2020",

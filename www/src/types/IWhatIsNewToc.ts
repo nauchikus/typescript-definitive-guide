@@ -9,16 +9,25 @@ export interface IWhatIsNewTocTag {
 
 }
 
+
+export enum WhatIsNewTocInnovationFilterKey {
+  Id = "id",
+  DatePublication = "datePublication",
+}
+
 export interface IWhatIsNewTocInnovation {
-  id: string;
+  [WhatIsNewTocInnovationFilterKey.Id]: string;
   version: string;
   innovationName: string;
   path:string;
   dateRelease:string;
-  datePublication: string;
+  [WhatIsNewTocInnovationFilterKey.DatePublication]: string;
   tags: IWhatIsNewTocTag[];
 }
 
+// export interface IReleaseInfo {
+//
+// }
 export interface IWhatIsNewToc {
   releaseHistory:ReleaseInfo[];
   innovations: IWhatIsNewTocInnovation[];

@@ -38,6 +38,10 @@ export class VersionFilterStore {
     return this.checkboxStore.inputModelAll.length !== 0 && this.checkboxStore.inputModelAll
       .every( inputModel => inputModel.checked );
   }
+  get isAllVersionUnchecked(){
+    return this.checkboxStore.inputModelAll.length !== 0 && this.checkboxStore.inputModelAll
+      .every( inputModel => !inputModel.checked );
+  }
   get isLastVersionChecked(){
     if ( this.checkboxStore.inputModelAll.length === 0 ) {
       return false;
@@ -95,6 +99,7 @@ decorate( VersionFilterStore, {
   length: computed,
   checkedLength: computed,
   isAllVersionChecked: computed,
+  isAllVersionUnchecked: computed,
   isLastVersionChecked: computed,
 
   addVersionInfo: action,

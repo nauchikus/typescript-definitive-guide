@@ -4,12 +4,21 @@ class Version {
   /**
    *
    * @param version{string}
-   * @returns {{patch: string, mmp: string, preReleaseVersion: string, major: string, minor: string, preReleaseName: string}}
+   * @returns {{patch: string, mmp: string, preReleaseVersion: string, major: string, minor: string, preReleaseName: string, updateVersion: string}}
    */
   static parse ( version ) {
-    let [, mmp = ``, preRelease = ``] = /([\w|.]*)(?:-?)?(.*)/gi.exec( version ) || [];
+    let [, mmp = ``, preReleaseAndUpd = ``] = /([\w|.]*)(?:-?)?(.*)/gi.exec( version ) || [];
     let [major, minor = ``, patch = ``] = mmp.split( "." );
-    let [, preReleaseName = ``, preReleaseVersion = ``] = /([^\d]+)(\d+)?/gi.exec( preRelease.substring(1) ) || [undefined, `release`, ``];
+
+    let [preRelease = ``, updateVersion = ``] = preReleaseAndUpd
+        .split(`_`)
+        .filter(Boolean);
+
+    preRelease = preRelease.length ? preRelease.substring(1) : preRelease;
+
+
+
+    let [, preReleaseName = ``, preReleaseVersion = ``] = /([^\d]+)(\d+)?/gi.exec( preRelease ) || [undefined, `release`, ``];
 
 
     return {
@@ -19,6 +28,7 @@ class Version {
       mmp,
       preReleaseName,
       preReleaseVersion,
+      updateVersion,
       version,
     };
   }
@@ -73,11 +83,18 @@ class Version {
   get preReleaseVersion () {
     return this.versionInfo.preReleaseVersion;
   }
+  /**
+   *
+   * @returns {string}
+   */
+  get updateVersion () {
+    return this.versionInfo.updateVersion;
+  }
 
 
   /**
    *
-   * @param version{string}
+   * @param version{string} 1.2.3@alpha4+5
    */
   constructor ( version ) {
     // @private
@@ -86,7 +103,7 @@ class Version {
 
   /**
    *
-   * @returns {{patch: string, mmp: string, preReleaseVersion: string, major: string, minor: string, preReleaseName: string}}
+   * @returns {{patch: string, mmp: string, preReleaseVersion: string, major: string, minor: string, preReleaseName: string, updateVersion: string}}
    */
   toInfo () {
     return { ...this.versionInfo };

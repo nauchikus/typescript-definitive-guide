@@ -7,5 +7,5 @@ export const useRouterUpdater = (location: Location, router: RouterStore) => {
     router.scrollToAnchor(router.anchor);
 
     return () => router.reset();
-  }, [location.hash]);
+  }, [location.hash, location.search]);
 }

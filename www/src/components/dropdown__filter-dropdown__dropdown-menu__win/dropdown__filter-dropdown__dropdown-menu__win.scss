@@ -64,7 +64,7 @@
   align-items: center;
 
 }
-.win-filter-content-form__label_version {
+.win-filter-content-form__label_stage {
   color: var(--color_dark_20);
   font-size: 1rem;
 
@@ -79,15 +79,28 @@
   }
 
 }
+.win-filter-content-form__label_update-version {
+  color: var(--color_dark_40);
+  font-size: .8rem;
+
+  margin: 0 16px 0 0;
+
+  display:inline-block;
+}
 .win-filter-content-form__label_date {
   color: var(--color_dark_60);
   font-size: .8rem;
 
+  margin-left: auto;
 }
 .win-filter-content-form__label_count {
-  @extend .win-filter-content-form__label_date;
+  text-align: right;
 
-  margin: 0 -8px 0 auto;
+  min-width: 24px;
+
+  margin: 0 -8px 0 8px;
+
+  @extend .win-filter-content-form__label_date;
 }
 
 

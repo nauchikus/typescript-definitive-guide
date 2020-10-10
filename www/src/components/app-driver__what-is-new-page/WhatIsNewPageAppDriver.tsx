@@ -81,7 +81,8 @@ export const WhatIsNewPageAppDriver: FC<IWhatIsNewPageAppDriverProps> = observer
     path: innovation.path,
     name: innovation.innovationName,
     anchor: innovation.path,
-    version: new Version( innovation.version ).preReleaseName
+    version: innovation.version
+    // version: new Version( innovation.version ).preReleaseName
   } ) );
 
 

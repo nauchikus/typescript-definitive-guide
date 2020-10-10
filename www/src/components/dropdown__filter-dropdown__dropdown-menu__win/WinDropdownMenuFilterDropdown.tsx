@@ -8,6 +8,7 @@ import { observer } from "mobx-react-lite";
 import { InputModel } from "../../stores/CheckboxStore";
 import { ReleaseInfo, VersionInfoMeta } from "../../transformers/innovationDataToVersionInfoTransformer";
 import { useVersionFilter } from "../../mobx__entry/WinPageMobxEntry";
+import { If } from "../if-operator/If";
 
 
 interface IWinDropdownMenuFilterDropdownProps {
@@ -60,6 +61,7 @@ export const VersionFilterWinFilterContentForm: FC<IVersionFilterWinFilterConten
   let versionFilter = useVersionFilter();
 
 
+
   let listItemAll = versionFilter.versionInfoAll.map( ( inputModel:Required<InputModel<VersionInfoMeta>>, index:number ) => (
     <li key={ index } className="win-filter-content-form__list-item">
       <Checkbox id={ inputModel.data.version }
@@ -69,7 +71,10 @@ export const VersionFilterWinFilterContentForm: FC<IVersionFilterWinFilterConten
                 checked={ inputModel.checked }>
         <Label className="win-filter-content-form__label">
           <CheckboxIconGroup/>
-          <span className="win-filter-content-form__label_version">{ inputModel.data.version }</span>
+          <span className="win-filter-content-form__label_stage">{ inputModel.data.stage }</span>
+          <If condition={inputModel.data.updateVersion !== ''}>
+            <span className="win-filter-content-form__label_update-version">upd{ inputModel.data.updateVersion }</span>
+          </If>
           <span className="win-filter-content-form__label_date">({ inputModel.data.dateRelease })</span>
           <span className="win-filter-content-form__label_count">{ inputModel.data.count }</span>
         </Label>

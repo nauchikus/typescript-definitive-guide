@@ -5,15 +5,28 @@ import { IconButton, Size } from "../icon-button/IconButton";
 import { FilterListSvgIcon } from "../icon__svg-icon/svg-icons";
 import { DropdownMenu } from "../dropdown/DropdownMenu";
 import { Tooltip, TooltipPosition } from "../tooltip/Tooltip";
+import { Activity, ActivityState } from "../activity/Activity";
+import { useVersionFilter } from "../../mobx__entry/WinPageMobxEntry";
+import { observer } from "mobx-react-lite";
 
 interface IFilterDropdownProps {
   children: ReactElement | ReactElement[];
 }
 
-export const FilterDropdown:FC<IFilterDropdownProps>=({children})=>{
-  return(
+
+export const FilterDropdown: FC<IFilterDropdownProps> = observer(({ children }) => {
+  let versionFilter = useVersionFilter();
+  versionFilter.isAllVersionChecked;
+  return (
     <Dropdown className="filter-dropdown">
       <DropdownToggle>
+        <Activity isActive={!versionFilter.isAllVersionChecked}
+                  state={
+                    versionFilter.isAllVersionUnchecked ?
+                      ActivityState.Inactive :
+                      ActivityState.Active
+                  }
+        />
         <IconButton size={Size.SM}>
           <FilterListSvgIcon/>
           <Tooltip position={TooltipPosition.BottomCenter}>
@@ -28,4 +41,4 @@ export const FilterDropdown:FC<IFilterDropdownProps>=({children})=>{
       </DropdownMenu>
     </Dropdown>
   );
-}
+});

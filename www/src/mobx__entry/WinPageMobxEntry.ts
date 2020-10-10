@@ -1,5 +1,5 @@
 import { createToggleState, ToggleUiState } from "../stores/AppStateService";
-import { createWhatIsNewTocTree, TreeNode } from "../stores/WhatIsNewTocTreeStore";
+import { TreeNode } from "../stores/WhatIsNewTocTreeStore";
 import { IWinPageContentData, IWhatIsNewToc } from "../types/IWhatIsNewToc";
 import { VersionFilterStore } from "../stores/VersionFilterStore";
 import { createIntersectionObserverStore } from "../stores/IntersectionObserverStore";
@@ -14,6 +14,9 @@ import { ContentSectionWithFilterStore } from "../stores/ContentSectionWithFilte
 import { LocationPartial, RouterStore } from "../stores/RouterStore";
 import { createContext, useContext } from "react";
 import { CollapseTreeMobxStore } from "../stores/CollapseTreeMobxStore";
+import { InnovationDataStore } from "../stores/InnovationDataStore";
+import { FormInnovationFilter } from "../filters/FormInnovationFilter";
+import { InnovationFilterSearchParamsParser } from "../parsers/InnovationFilterSearchParamsParser";
 
 
 interface IWhatIsNewPageStoresParams {
@@ -34,10 +37,16 @@ export class WinPageMobxEntry {
       containerSelector:`main.content`,
       sectionSelector:`section.content__section`,
     } );
+
     let versionFilter = new VersionFilterStore({});
     versionFilter.addVersionInfo( ...versionInfoAll );
-    initialCheckedVersion.length ?
-      versionFilter.checkedByVersion( ...initialCheckedVersion ) :
+
+    let versionFilterSearchParamsAll = InnovationFilterSearchParamsParser.parse(
+      router.urlSearchParams
+    );
+
+    versionFilterSearchParamsAll.length ?
+      versionFilter.checkedByVersion( ...versionFilterSearchParamsAll ) :
       versionFilter.checkedAllVersion();
 
     let visibleSectionValidator = VisibleSectionValidator.create( {
@@ -56,6 +65,13 @@ export class WinPageMobxEntry {
       versionFilter,
       visibleSectionValidator,
     } );
+
+    let innovations = new InnovationDataStore(
+      innovationData.innovations
+    );
+    innovations.addFilter(new FormInnovationFilter(versionFilter));
+
+
 
 
     let pageNav = PageNavWithFilterStore.create( {
@@ -77,13 +93,14 @@ export class WinPageMobxEntry {
         contentDownPanelStore:createToggleState(ToggleUiState.Close),
         behaviorNotificationStore:createBehaviorNotification(),
         versionFilter,
+        innovations,
         router,
         contentIntersectionObserver,
         contentNav,
         contentSection,
       },
       validators:{
-        visibleSectionValidator
+        visibleSectionValidator,
       }
     }
   }
@@ -108,4 +125,9 @@ export const useVersionFilter = ():UseWhatIsNewPageStores["versionFilter"] => {
   let { versionFilter } = useWhatIsNewPageStores();
 
   return versionFilter;
+};
+export const useInnovations = ():UseWhatIsNewPageStores["innovations"] => {
+  let { innovations } = useWhatIsNewPageStores();
+
+  return innovations;
 };

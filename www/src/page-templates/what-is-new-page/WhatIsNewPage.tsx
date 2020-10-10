@@ -21,8 +21,8 @@ interface IWhatIsNewPageProps{
 
 }
 
-const WhatIsNewPage: FC<IWhatIsNewPageProps> = observer( ( {} ) => {
 
+const WhatIsNewPage: FC<IWhatIsNewPageProps> = observer( ( {} ) => {
   return (
     <SliderSecondSpaceLayout
       driver={ <WhatIsNewPageAppDriver/> }
