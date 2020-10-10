@@ -26,6 +26,7 @@ interface IWhatIsNewTocPageProviderProps {
 const WhatIsNewTocPageProvider: FC<IWhatIsNewTocPageProviderProps> = ( { pageContext,location } ) => {
   let {localization,winTocTree} = pageContext;
 
+  let { pages,...appSharedLocalization } = localization;
   let mobxEntry = WinTocPageMobxEntry.getInstance({ location, winTocTree });
 
   // useNativeLinkDisableDefaultBehavior(mobxEntry.router);
@@ -36,7 +37,7 @@ const WhatIsNewTocPageProvider: FC<IWhatIsNewTocPageProviderProps> = ( { pageCon
         <RouterStoreContext.Provider value={mobxEntry.router}>
           <Localization.Provider value={ localization }>
             <BaseLayout>
-              <SEO/>
+              <SEO {...{...appSharedLocalization}}/>
               <WhatIsNewTocPage/>
             </BaseLayout>
           </Localization.Provider>

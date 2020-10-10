@@ -27,7 +27,7 @@ interface IBookTocPageProviderProps {
 
 const BookTocPageProvider: FC<IBookTocPageProviderProps> = ( { pageContext, location} ) => {
     let { bookTocTree, localization } = pageContext;
-    console.log(bookTocTree);
+    let { pages,...appSharedLocalization } = localization;
     let mobxEntry = BookTocPageMobxEntry.getInstance({ bookTocTree, location });
 
 
@@ -45,7 +45,7 @@ const BookTocPageProvider: FC<IBookTocPageProviderProps> = ( { pageContext, loca
                 <Localization.Provider value={localization}>
                     <RouterStoreContext.Provider value={mobxEntry.router}>
                         <BaseLayout>
-                            <SEO/>
+                            <SEO {...{...appSharedLocalization}}/>
                             <BookTocPage/>
                         </BaseLayout>
                     </RouterStoreContext.Provider>

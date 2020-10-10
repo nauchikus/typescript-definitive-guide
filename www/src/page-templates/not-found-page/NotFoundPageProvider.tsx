@@ -28,7 +28,7 @@ const NotFoundPageProvider: FC<INotFoundPageProviderProps> = ( { pageContext,loc
     <Localization.Provider value={ localization }>
       <RouterStoreContext.Provider value={mobxRef.router}>
         <BaseLayout>
-          <SEO {...appSharedLocalization}/>
+          <SEO {...{...appSharedLocalization}}/>
           <NotFoundPage/>
         </BaseLayout>
       </RouterStoreContext.Provider>

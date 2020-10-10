@@ -38,6 +38,7 @@ interface IBookPageProviderProps {
 
 const BookPageProvider: FC<IBookPageProviderProps> = ( { pageContext,location } ) => {
   let { locale, pageContentData,pageNavDataAll,localization } = pageContext;
+  let { pages,...appSharedLocalization } = localization;
   let mobxEntry = BookPageMobxEntry.getInstance({ locale, location, pageNavDataAll });
 
 
@@ -45,12 +46,6 @@ const BookPageProvider: FC<IBookPageProviderProps> = ( { pageContext,location } 
 
   useRouterUpdater(location, router);
 
-  // useLayoutEffect(() => {
-  //   router.setLocation(location);
-  //   router.scrollToAnchor(router.anchor);
-  //
-  //   return () => router.reset();
-  // }, [location.hash]);
 
 
   return (
@@ -62,7 +57,7 @@ const BookPageProvider: FC<IBookPageProviderProps> = ( { pageContext,location } 
               <ContentDownPanelStoreContext.Provider value={mobxEntry.contentDownPanelStore}>
                 <RouterStoreContext.Provider value={router}>
                   <BaseLayout key="base-layout">
-                    <SEO/>
+                    <SEO {...{...appSharedLocalization}}/>
                     <ContentIntersectionObserverStoreContext.Provider value={mobxEntry.contentIntersectionObserver}>
                       <BookChapterPageContentDataContext.Provider value={pageContentData}>
                         <BookPage/>

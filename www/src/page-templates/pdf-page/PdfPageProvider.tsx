@@ -25,6 +25,7 @@ const PdfPageProvider: FC<IIndexPageProviderProps> = ({ pageContext,location } )
     let { localization, versionInfo } = pageContext;
 
     let { pages,...appSharedLocalization } = localization;
+    let seo = { ...appSharedLocalization, ...pages.pdf.metadata };
 
     let mobxEntry = IndexPageMobxEntry.getInstance({ location });
 
@@ -41,7 +42,7 @@ const PdfPageProvider: FC<IIndexPageProviderProps> = ({ pageContext,location } )
             <VersionInfoContext.Provider value={versionInfo}>
                 <RouterStoreContext.Provider value={mobxEntry.router}>
                     <BaseLayout>
-                        <SEO {...appSharedLocalization}/>
+                        <SEO {...seo}/>
                         <PdfPage/>
                     </BaseLayout>
                 </RouterStoreContext.Provider>

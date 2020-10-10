@@ -50,7 +50,7 @@ type DisposerRefs={
 const WhatIsNewPageProvider: FC<IWhatIsNewPageProviderProps> = ( { pageContext,location } ) => {
     let { localization,innovationData,winTocTree,pageNavDataAll } = pageContext;
 
-
+    let { pages,...appSharedLocalization } = localization;
     let mobxStores = WinPageMobxEntry.getInstance({
         winTocTree,
         innovationData,
@@ -69,26 +69,6 @@ const WhatIsNewPageProvider: FC<IWhatIsNewPageProviderProps> = ( { pageContext,l
     useRouterUpdater(location, router);
 
 
-    useLayoutEffect( () => {
-        // let { versionFilter } = stores;
-        //
-        // versionFilter.clean();
-        // versionFilter.addVersionInfo(
-        //   ...innovationDataToVersionInfoTransformer( innovationData )
-        // );
-        //
-        //
-        // let versionFilterCheckedIdAll = urlSearchFilterParamToVersionFilterItemTransformer(
-        //   router.search.get( `filter` )
-        // );
-        //
-        // versionFilterCheckedIdAll.length > 0 ?
-        //   versionFilter.checkedByVersion( ...versionFilterCheckedIdAll ) :
-        //   versionFilter.checkedAllVersion();
-
-    }, [router.pageName] );
-
-
 
     return (
       <MobxWhatIsNewPageContext.Provider value={ stores }>
@@ -101,7 +81,7 @@ const WhatIsNewPageProvider: FC<IWhatIsNewPageProviderProps> = ( { pageContext,l
                                   <ContentNavStoreContext.Provider value={stores.contentNav}>
                                       <ContentDownPanelStoreContext.Provider value={stores.contentDownPanelStore}>
                                           <BaseLayout>
-                                              <SEO/>
+                                              <SEO {...{...appSharedLocalization}}/>
                                               <WinPageContentDataContext.Provider value={ innovationData }>
                                                   <WhatIsNewPage/>
                                                   <CustomNotification/>
