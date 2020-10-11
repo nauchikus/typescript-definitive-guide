@@ -674,7 +674,8 @@
       "watchFile",
       "watchDirectory",
       "fallbackPolling",
-      "synchronousWatchDirectory"
+      "synchronousWatchDirectory",
+      "noUncheckedIndexedAccess"
     ]
   }
 ]
