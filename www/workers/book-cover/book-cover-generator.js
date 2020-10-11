@@ -71,6 +71,7 @@ async function generateBookCovers (bookCoverSourcePath, ...options ) {
         width: 595,
         height: 841
     });
+    await page.addStyleTag({ path: path.join(__dirname, `book-cover.css`) });
 
     await Promise.all(options.map(currentOptions => generateBookCover(
         page,

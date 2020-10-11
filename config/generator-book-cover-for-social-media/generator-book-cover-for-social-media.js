@@ -30,11 +30,11 @@ const generateBookCover = async () => {
 
     await BookCoverGenerator.generateBookCovers(
         path.join(process.cwd(), `./www/workers/book-cover/tdg.svg`), {
-            outputPath: path.join(process.cwd(), 'bool-cover-for-social-media.png'),
+            outputPath: path.join(process.cwd(), 'book-cover-for-social-media.png'),
             coverOptions: {
                 version: versionInfo.mmp,
                 versionStage: versionInfo.preReleaseName,
-                colors: lastMetadata.colors
+                colors: lastMetadata.colors.bookCoverColors
             }
         }
     )

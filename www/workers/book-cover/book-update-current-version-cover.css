@@ -1,0 +1,30 @@
+@import "https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Comfortaa:wght@300;400;500;515;600;700&display=swap";
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+html {
+    --color: black;
+}
+
+.container {
+    display: inline-flex;
+    position: relative;
+}
+
+
+svg {
+    width: 100%;
+    height: 100%;
+
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+#rectangle {
+    fill: var(--color);
+}

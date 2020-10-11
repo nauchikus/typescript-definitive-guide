@@ -12,10 +12,15 @@
     }
   ],
   "colors": {
-    "--color_light": "#fff",
-    "--color_middle-lite": "#93cf94",
-    "--color_accent": "#aff933",
-    "--color_ambient": "#a12d2d"
+    "bookCoverColors": {
+      "--color_light": "#fff",
+      "--color_middle-lite": "#93cf94",
+      "--color_accent": "#aff933",
+      "--color_ambient": "#a12d2d"
+    },
+    "bookUpdateCurrentVersionCoverColors": {
+      "--color": "#3107a4"
+    }
   },
   "innovations": [
     {
