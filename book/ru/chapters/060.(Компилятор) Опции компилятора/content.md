@@ -2483,3 +2483,89 @@ const ref = React.createRef(); // Ok, доступ к глобальному о�
 **default**: `false`
 **values**: `true`, `false`
 
+
+## noUncheckedIndexedAccess
+
+
+`--noUncheckedIndexedAccess` - при активной текущей опции обращаться к динамическим членам объекта разрешается только после подтверждения их существования, а также совместно с такими механизмами как опциональный оператор `!.` или оператор опциональной последовательности `?.` .
+
+`````json
+// @filename: tsconfig.json
+
+{
+    "watchOptions": {
+        "noUncheckedIndexedAccess": "true"
+    }
+}
+`````
+
+**type**: `boolean`
+**default**: `true`
+**values**: `true`, `false`
+
+`````json
+// @filename: tsconfig.json
+
+{
+    "compilerOptions": {
+        "noUncheckedIndexedAccess": false
+    }
+}
+`````
+
+`````ts
+type T = {
+    [key: string]: number | string;
+}
+
+function f(p: T) {
+    /**
+     * Обращение к несуществующим полям
+     */
+    p.bad.toString(); // Ok -> Ошибка времени исполнения
+    p[Math.random()].toString(); // Ok -> Ошибка времени исполнения
+}
+`````
+
+
+`````json
+// @filename: tsconfig.json
+
+{
+    "compilerOptions": {
+        "noUncheckedIndexedAccess": true
+    }
+}
+`````
+
+`````ts
+type T = {
+  [key: string]: number | string;
+}
+
+
+function f0(p: T) {
+  /**
+   * Обращение к несуществующим полям
+   */
+  p.bad.toString(); // Error -> Object is possibly 'undefined'.ts(2532)
+  p[Math.random()].toString(); // Error -> Object is possibly 'undefined'.ts(2532)
+
+
+  // Проверка наличия поля bad
+  if("bad" in p){
+      p.bad?.toString(); // Ok
+  }
+
+  // Использование опциолнального оператора
+  p[Math.random()]!.toString(); // Ok -> ошибка во время выполнения
+
+  p[Math.random()]?.toString();  // Ok -> Ошибка не возникнет
+}
+
+function f1(array: string[]) {
+    for(let i = 0; i < array.length; i++){
+        array[i].toString(); // Error -> Object is possibly 'undefined'.
+    }
+}
+`````
