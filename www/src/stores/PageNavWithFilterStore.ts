@@ -8,10 +8,12 @@ import { IPageNavPage, IPageNavSection } from "../types/IPageNavData";
 import { computed, decorate, observable } from "mobx";
 import { IPageNavStore } from "./PageNavStore";
 import * as StringUtils from "../utils/string-utils";
+import { InnovationDataStore } from "./InnovationDataStore";
 
 
 export interface IPageNavWithFilterStoreParams {
   pageNavDataAll: IWinPageNavData[];
+  innovationStore: InnovationDataStore;
   router: RouterStore;
   versionFilter: VersionFilterStore;
   contentSection: IContentSectionStore;
@@ -22,12 +24,13 @@ export interface IPageNavWithFilterStoreParams {
 export class PageNavWithFilterStore implements IPageNavStore<null,IVersionable> {
   public static create = ( params: IPageNavWithFilterStoreParams ) => new PageNavWithFilterStore(
     params.pageNavDataAll,
+    params.innovationStore,
     params.router,
     params.versionFilter,
     params.contentSection
   );
 
-  readonly pageNavTree: IPageNavPage<null, IVersionable>[];
+  // readonly pageNavTree: IPageNavPage<null, IVersionable>[];
 
   get pageItem () {
     let currentPageItem = this.pageNavTree
@@ -60,17 +63,46 @@ export class PageNavWithFilterStore implements IPageNavStore<null,IVersionable> 
 
   }
 
+  get pageNavTree(): IPageNavPage<null, IVersionable>[]{
+    let versions = this.innovationStore.innovationDataAll
+      .reduce((set, innovation) => set.add(innovation.version), new Set<string>())
+    let mmpVersions = Array.from(versions)
+      .map(version => new Version(version).mmp)
+      .reduce((set, mmp) => set.add(mmp), new Set<string>());
+
+
+
+    let pageNavDataAll = this.pageNavDataAll
+      .map(pageNavData => {
+        if (!mmpVersions.has(pageNavData.name)) {
+          return pageNavData;
+        }
+
+        return {
+          ...pageNavData,
+          sections: pageNavData.sections
+            .filter(section => this.innovationStore.innovationDataAll
+              .some(innovation => innovation.innovationName === section.name)
+            )
+        }
+      });
+
+
+    return PageNavTreeCreator.createPageNavTree( pageNavDataAll )
+  }
+
   constructor ( private pageNavDataAll: IWinPageNavData[],
+                private innovationStore: InnovationDataStore,
                 private router: RouterStore,
                 private versionFilter: VersionFilterStore,
                 private contentSection: IContentSectionStore ) {
-    this.pageNavTree = PageNavTreeCreator.createPageNavTree( pageNavDataAll );
+    // this.pageNavTree = ;
 
   }
 }
 
 decorate( PageNavWithFilterStore, {
-  pageNavTree: observable,
+  pageNavTree: computed,
   pageItem: computed,
   sectionItem: computed
 } );

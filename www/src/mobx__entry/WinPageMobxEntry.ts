@@ -73,9 +73,9 @@ export class WinPageMobxEntry {
 
 
 
-
     let pageNav = PageNavWithFilterStore.create( {
       pageNavDataAll,
+      innovationStore: innovations,
       router,
       versionFilter,
       contentSection
