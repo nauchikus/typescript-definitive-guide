@@ -84,6 +84,7 @@ export const createPages: GatsbyCreatePages<ICreatePageSharedOptions> = async ( 
         let versionMMP = new Version( innovationInfo.releaseHistory[ 0 ].version ).mmp;
         let innovationVersionMMP = StringUtils.escapeString( versionMMP );
 
+        console.log(`create page: ${versionMMP}`);
 
         let innovationDataPromiseAll = innovations.map( async ( innovation ) => {
             let innovationEscapedName = StringUtils.escapeString( innovation.innovationName );
@@ -127,13 +128,13 @@ export const createPages: GatsbyCreatePages<ICreatePageSharedOptions> = async ( 
 
         let innovationDataAll = await Promise.all( innovationDataPromiseAll );
         let innovationData = {
+            versionMMP,
             ...innovationInfo,
             innovations: innovationDataAll
         };
 
 
-
-        await createPage( {
+        return createPage( {
             path: RouterUtils.whatIsNewRoutes.getWhatIsNewRoute( { version: versionMMP } ),
             component: path.resolve( __dirname, "../../src/page-templates/what-is-new-page/WhatIsNewPageProvider.tsx" ),
             context: {
@@ -146,5 +147,5 @@ export const createPages: GatsbyCreatePages<ICreatePageSharedOptions> = async ( 
         } );
     } );
 
-    await Promise.all( winPagePromiseAll );
+    return await Promise.all( winPagePromiseAll );
 };

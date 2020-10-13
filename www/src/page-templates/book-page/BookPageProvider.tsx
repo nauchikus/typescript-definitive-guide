@@ -44,7 +44,7 @@ const BookPageProvider: FC<IBookPageProviderProps> = ( { pageContext,location } 
 
   let {router} = mobxEntry;
 
-  useRouterUpdater(location, router);
+  useRouterUpdater(router);
 
 
 

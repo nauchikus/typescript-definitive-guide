@@ -1,7 +1,10 @@
 import { RouterStore } from "../stores/RouterStore";
 import { useLayoutEffect } from "react";
+import { useLocation } from "@reach/router";
 
-export const useRouterUpdater = (location: Location, router: RouterStore) => {
+export const useRouterUpdater = (router: RouterStore) => {
+  let location = useLocation();
+
   useLayoutEffect(() => {
     router.setLocation(location);
     router.scrollToAnchor(router.anchor);

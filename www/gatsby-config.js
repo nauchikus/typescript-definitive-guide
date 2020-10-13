@@ -101,13 +101,6 @@ const getPlugins = ({ locale, lang }) => [
       path: ProjectPath.LOCALIZATION_RU
     }
   },
-  // {
-  //   resolve: `gatsby-source-filesystem`,
-  //   options: {
-  //     name: `navigation_ru`,
-  //     path: ProjectPath.NAVIGATION_RU,
-  //   },
-  // },
   {
     resolve: 'gatsby-source-filesystem',
     options: {
@@ -182,10 +175,6 @@ const getPlugins = ({ locale, lang }) => [
             maxWidth: 608
           }
         },
-        // {
-        //   resolve: `gatsby-remark-decorate-what-is-new-heading-h1`,
-        // },
-
         {
           resolve: 'gatsby-remark-prismjs',
           options: {
@@ -202,11 +191,6 @@ const getPlugins = ({ locale, lang }) => [
             noInlineHighlight: true
           }
         },
-        // {
-        //   resolve: `gatsby-remark-inline-code-add-class`,
-        //   options: {  },
-        // },
-
         {
           resolve: 'gatsby-remark-transform-link',
           options: {
@@ -256,11 +240,6 @@ const getPlugins = ({ locale, lang }) => [
             lang
           }
         }
-
-        // {
-        //   resolve:`gatsby-remark-copy-linked-files`,
-        //   options:{}
-        // },
       ]
     }
   },

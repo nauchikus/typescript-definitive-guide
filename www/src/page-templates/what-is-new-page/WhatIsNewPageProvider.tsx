@@ -23,6 +23,7 @@ import { RouterStoreContext } from "../../stores/RouterStore";
 import { WinPageMobxEntry, MobxWhatIsNewPageContext } from "../../mobx__entry/WinPageMobxEntry";
 import { useNativeLinkDisableDefaultBehavior } from "../../react__hooks/useNativeLinkDisableDefaultBehavior";
 import { useRouterUpdater } from "../../react__hooks/useRouterUpdater";
+import { useLocation } from "@reach/router";
 
 
 export interface IVersionable {
@@ -50,23 +51,22 @@ type DisposerRefs={
 const WhatIsNewPageProvider: FC<IWhatIsNewPageProviderProps> = ( { pageContext,location } ) => {
     let { localization,innovationData,winTocTree,pageNavDataAll } = pageContext;
 
+    console.log(`winpp`, innovationData.mmp);
+
+
     let { pages,...appSharedLocalization } = localization;
     let mobxStores = WinPageMobxEntry.getInstance({
         winTocTree,
         innovationData,
         pageNavDataAll,
-        location,
-        // initialCheckedVersion: urlSearchFilterParamToVersionFilterItemTransformer(
-        //   new URLSearchParams( location.search ).get( `filter` )
-        // ),
-        // versionInfoAll: innovationDataToVersionInfoTransformer( innovationData )
-    })
+        location
+    });
 
     let { stores, validators } = mobxStores;
     let { router, contentDataWinPageStore } = stores;
 
 
-    useRouterUpdater(location, router);
+    useRouterUpdater(router);
 
 
     useEffect(() => {
