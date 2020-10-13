@@ -36,6 +36,7 @@
     "github-token-configurator__init": "node ./config/github-repository-token-configurator/github-repository-token-configurator__init.js",
     "github-token-configurator__validate": "node ./config/github-repository-token-configurator/github-repository-token-configurator__validate.js",
     "develop": "cd www && npm run develop",
+    "serve": "cd www && npm run clean && npm run serve",
     "prettier:md:contents": "prettier --write -- ./{book,what-is-new}/**/*.{md,json}",
     "lint": "eslint ./test.md  --fix",
     "build": "cd www && npm run build",

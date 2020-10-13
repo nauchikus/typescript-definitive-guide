@@ -168,29 +168,6 @@ const toPath = compose(
     // spaceToSymbol,
     // encodeURIComponent
 );
-// const toNativeElementAttributeValue = compose(
-//     toPath,
-//     normalizeSpaceForSelector,
-// );
-// const urlToNativeElementAttributeValue = compose(
-//     decodeURIComponent,
-//     toNativeElementAttributeValue,
-// );
-// const urlToPath = url => decodeURIComponent(url);
-// const hadingToNativeElementAttributeValue = compose(
-//     toPath,
-//     normalizeSpaceForSelector,
-//     text => text
-//         .replace(`/\[\]<>\(\)=/g`, `//$&`)
-// );
-// const pathToNativeElementAttributeValue = hadingToNativeElementAttributeValue;
-// const
-// const urlToSelector = compose(
-//     decodeURIComponent,
-//     toSelector,
-// );
-// const toPath = name => pathTransformerAll
-//     .reduce((result, current) => current(result), name);
 const generateStringId = ( ( length = 6, count = -1 ) => () =>
     "0".repeat( length - ( count++ ).toString().length ).concat( count.toString() )
 )();
@@ -209,13 +186,6 @@ module.exports = {
   toLowerCase,
   replaceSpace,
   escapeUrl,
-  // toSelector,
-  // hadingToNativeElementAttributeValue,
-  // urlToSelector,
-  // toNativeElementAttributeValue,
-  // urlToNativeElementAttributeValue,
-  // pathToNativeElementAttributeValue,
-  // urlToPath,
   toCharCodeId,
 };
 

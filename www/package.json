@@ -73,6 +73,7 @@
     "clean": "gatsby clean",
     "format": "prettier --write \"**/*.{js,jsx,json,md}\"",
     "start": "npm run develop",
+    "preserve": "gatsby clean",
     "serve": "gatsby serve",
     "test": "jest --watch"
   },

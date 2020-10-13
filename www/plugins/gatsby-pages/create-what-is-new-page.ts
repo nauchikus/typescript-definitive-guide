@@ -114,6 +114,7 @@ export const createPages: GatsbyCreatePages<ICreatePageSharedOptions> = async ( 
 
 
             let innovationData = {
+                mmp: versionMMP,
                 ...innovation,
                 html: innovationContentHtml,
                 commitInfoAll,

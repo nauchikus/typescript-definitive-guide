@@ -2,20 +2,21 @@ import { IWinPageContentData } from "../types/IWhatIsNewToc";
 import { VersionFilterStore } from "../stores/VersionFilterStore";
 import { Version } from "../utils/Version";
 import * as StringUtils from "../utils/string-utils";
+import { ContentDataWinPageStore } from "../stores/ContentDataWinPageStore";
 
 
 interface IVisibleSectionValidatorParams {
-  contentData:IWinPageContentData;
+  contentDataWinPageStore:ContentDataWinPageStore;
   versionFilter: VersionFilterStore;
 }
 
 export class VisibleSectionValidator {
-  static readonly create = ( { contentData, versionFilter }: IVisibleSectionValidatorParams ) =>
-    new VisibleSectionValidator( contentData, versionFilter );
+  static readonly create = ( { contentDataWinPageStore, versionFilter }: IVisibleSectionValidatorParams ) =>
+    new VisibleSectionValidator( contentDataWinPageStore, versionFilter );
 
   private static DEFAULT_SECTION_ID = ``;
 
-  constructor ( private contentData: IWinPageContentData, private versionFilter: VersionFilterStore ) {
+  constructor (private contentDataWinPageStore: ContentDataWinPageStore, private versionFilter: VersionFilterStore ) {
 
   }
 
@@ -25,7 +26,7 @@ export class VisibleSectionValidator {
     }
 
 
-    let currentInnovation = this.contentData.innovations
+    let currentInnovation = this.contentDataWinPageStore.pageContent.innovations
       .find( innovation => innovation.path === id );
 
 

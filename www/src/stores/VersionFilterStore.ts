@@ -63,7 +63,7 @@ export class VersionFilterStore {
     this.checkboxStore = params.checkboxStore ?? new CheckboxStore<VersionInfoMeta>();
   }
 
-  addVersionInfo ( ...versionInfoAll: VersionInfoMeta[] ) {
+  addVersionInfo ( versionInfoAll: VersionInfoMeta[] ) {
     versionInfoAll.forEach( versionInfo => this.checkboxStore.addInputModel( {
       id: versionInfo.version,
       data: versionInfo

@@ -14,6 +14,7 @@ export class FormInnovationFilter extends BaseMobxFilter<FilterId.WinFormFilter>
 
 
   readonly predicate = (innovation: IWhatIsNewTocInnovationWithContent) => {
+
     return this.versionFilterStore.canDisplayedByVersion(innovation.version);
   }
 

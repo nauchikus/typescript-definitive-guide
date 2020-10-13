@@ -17,6 +17,9 @@ import { CollapseTreeMobxStore } from "../stores/CollapseTreeMobxStore";
 import { InnovationDataStore } from "../stores/InnovationDataStore";
 import { FormInnovationFilter } from "../filters/FormInnovationFilter";
 import { InnovationFilterSearchParamsParser } from "../parsers/InnovationFilterSearchParamsParser";
+import { ContentDataWinPageStore } from "../stores/ContentDataWinPageStore";
+import { computed, observe } from "mobx";
+import { InnovationVersionFilterDataStore } from "../stores/InnovationVersionFilterDataStore";
 
 
 interface IWhatIsNewPageStoresParams {
@@ -24,22 +27,36 @@ interface IWhatIsNewPageStoresParams {
   innovationData:IWinPageContentData;
   pageNavDataAll:IWinPageNavData[];
   location:LocationPartial;
-  initialCheckedVersion:string[];
-  versionInfoAll:VersionInfoMeta[];
+  // initialCheckedVersion:string[];
+  // versionInfoAll:VersionInfoMeta[];
 }
 
 export class WinPageMobxEntry {
   private static instance: ReturnType<typeof WinPageMobxEntry.create>;
 
-  static create = ({ innovationData,versionInfoAll,initialCheckedVersion,winTocTree,pageNavDataAll,location}: IWhatIsNewPageStoresParams) => {
+  static create = ({ innovationData,winTocTree,pageNavDataAll,location}: IWhatIsNewPageStoresParams) => {
     let router = new RouterStore( location );
     let contentIntersectionObserver = createIntersectionObserverStore( {
       containerSelector:`main.content`,
       sectionSelector:`section.content__section`,
     } );
 
+    let contentDataWinPageStore = ContentDataWinPageStore.create({
+      pageContent: innovationData
+    });
+
+    let innovationVersionFilterDataStore = InnovationVersionFilterDataStore.create({
+      contentDataWinPageStore
+    })
+
     let versionFilter = new VersionFilterStore({});
-    versionFilter.addVersionInfo( ...versionInfoAll );
+    versionFilter.addVersionInfo( innovationVersionFilterDataStore.versionFilterDataAll );
+
+    computed(()=>innovationVersionFilterDataStore.versionFilterDataAll).observe(({newValue})=>{
+      versionFilter.clean();
+      versionFilter.addVersionInfo(newValue);
+      versionFilter.checkedAllVersion();
+    })
 
     let versionFilterSearchParamsAll = InnovationFilterSearchParamsParser.parse(
       router.urlSearchParams
@@ -50,7 +67,7 @@ export class WinPageMobxEntry {
       versionFilter.checkedAllVersion();
 
     let visibleSectionValidator = VisibleSectionValidator.create( {
-      contentData: innovationData,
+      contentDataWinPageStore,
       versionFilter
     } );
 
@@ -66,11 +83,13 @@ export class WinPageMobxEntry {
       visibleSectionValidator,
     } );
 
-    let innovations = new InnovationDataStore(
-      innovationData.innovations
-    );
+    let innovations = new InnovationDataStore(contentDataWinPageStore);
     innovations.addFilter(new FormInnovationFilter(versionFilter));
 
+    computed(() => router.pageName).observe(() => {
+      innovations.deleteAllFilter();
+      innovations.addFilter(new FormInnovationFilter(versionFilter));
+    });
 
 
     let pageNav = PageNavWithFilterStore.create( {
@@ -94,6 +113,7 @@ export class WinPageMobxEntry {
         behaviorNotificationStore:createBehaviorNotification(),
         versionFilter,
         innovations,
+        contentDataWinPageStore,
         router,
         contentIntersectionObserver,
         contentNav,

@@ -20,12 +20,10 @@ export const InnovationListWinContent: FC<IInnovationListWinContentProps> = obse
   let {
     innovations,
   } = useWhatIsNewPageStores();
-  // let winContentData=useWinPageContentData();
+
 
 
   let contentItemAll = innovations.innovationDataAll
-    // .filter(innovation => versionFilter.canDisplayedByVersion(new Version(innovation.version).preReleaseName))
-    // .filter(innovation => innovationFilter.canRenderInnovation(innovation))
     .map((innovation, index) => (
       <section key={index}
                id={innovation.path}

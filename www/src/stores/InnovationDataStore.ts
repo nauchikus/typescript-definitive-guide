@@ -2,6 +2,7 @@ import { action, computed, decorate, observable } from "mobx";
 import {
   IWhatIsNewTocInnovationWithContent,
 } from "../types/IWhatIsNewToc";
+import { ContentDataWinPageStore } from "./ContentDataWinPageStore";
 
 
 interface IInnovationFilter<Id=unknown> {
@@ -13,14 +14,14 @@ interface IInnovationFilter<Id=unknown> {
 
 export class InnovationDataStore {
   get isActive(){
-    return this.innovationDataAll.length !== this._innovationDataAll.length;
+    return this.innovationDataAll.length !== this.contentDataWinPageStore.pageContent.innovations.length;
   }
 
   get filters(){
     return this.filterAll.filter(filter => filter.isActive);
   }
   get innovationDataAll(){
-    return this._innovationDataAll.filter(innovation =>
+    return this.contentDataWinPageStore.pageContent.innovations.filter(innovation =>
       this.filters.every(filter => filter.predicate(innovation))
     );
   }
@@ -28,12 +29,17 @@ export class InnovationDataStore {
   readonly filterAll: IInnovationFilter[] = [];
 
 
-  constructor (private _innovationDataAll: IWhatIsNewTocInnovationWithContent[]) {
+  constructor (readonly contentDataWinPageStore: ContentDataWinPageStore) {
   }
 
   readonly addFilter = (filter: IInnovationFilter) => this.filterAll.push(filter);
   readonly deleteFilter = (filter: IInnovationFilter) => this.filterAll
     .splice(this.filterAll.indexOf(filter), 1);
+  readonly deleteAllFilter = () => {
+    while(this.filterAll.length){
+      this.filterAll.pop();
+    }
+  };
   readonly isFilterActiveById = <T>(filterId:T) => {
     let filter = this.filters.find(item => item.id === filterId);
 

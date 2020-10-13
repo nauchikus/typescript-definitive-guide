@@ -30,11 +30,11 @@ export class PageNavWithFilterStore implements IPageNavStore<null,IVersionable> 
     params.contentSection
   );
 
-  // readonly pageNavTree: IPageNavPage<null, IVersionable>[];
 
   get pageItem () {
     let currentPageItem = this.pageNavTree
       .find( item => {
+        // console.log(item.name === this.router.pageName, item.name, item.sections);
         return item.name === this.router.pageName;
       } );
 
@@ -52,6 +52,7 @@ export class PageNavWithFilterStore implements IPageNavStore<null,IVersionable> 
       .find(section => {
         return section.path === this.contentSection.currentSectionId;
       });
+
 
 
     if ( this.contentSection.currentSectionId !== `` && !currentSection ) {
@@ -96,7 +97,6 @@ export class PageNavWithFilterStore implements IPageNavStore<null,IVersionable> 
                 private router: RouterStore,
                 private versionFilter: VersionFilterStore,
                 private contentSection: IContentSectionStore ) {
-    // this.pageNavTree = ;
 
   }
 }

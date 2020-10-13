@@ -56,19 +56,25 @@ const WhatIsNewPageProvider: FC<IWhatIsNewPageProviderProps> = ( { pageContext,l
         innovationData,
         pageNavDataAll,
         location,
-        initialCheckedVersion: urlSearchFilterParamToVersionFilterItemTransformer(
-          new URLSearchParams( location.search ).get( `filter` )
-        ),
-        versionInfoAll: innovationDataToVersionInfoTransformer( innovationData )
+        // initialCheckedVersion: urlSearchFilterParamToVersionFilterItemTransformer(
+        //   new URLSearchParams( location.search ).get( `filter` )
+        // ),
+        // versionInfoAll: innovationDataToVersionInfoTransformer( innovationData )
     })
 
     let { stores, validators } = mobxStores;
-    let { router } = stores;
+    let { router, contentDataWinPageStore } = stores;
 
 
     useRouterUpdater(location, router);
 
 
+    useEffect(() => {
+        if (innovationData.mmp !== contentDataWinPageStore.pageContent.mmp) {
+            contentDataWinPageStore.setPageContent(innovationData);
+            console.log(`reset`);
+        }
+    }, [innovationData]);
 
     return (
       <MobxWhatIsNewPageContext.Provider value={ stores }>

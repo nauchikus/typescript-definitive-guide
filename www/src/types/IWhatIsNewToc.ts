@@ -39,7 +39,7 @@ export interface IWhatIsNewTocInnovationWithContent extends IWhatIsNewTocInnovat
   fileOnGithubLink:string;
 }
 export interface IWinPageContentData extends IWhatIsNewToc{
-  // versionMMP:string;
+  mmp:string;
   // lastVersionStatus:IWhatIsNewTocVersionStatus;
   innovations: IWhatIsNewTocInnovationWithContent[];
 }
