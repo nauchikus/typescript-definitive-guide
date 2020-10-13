@@ -85,7 +85,6 @@ export const WhatIsNewPageAppDriver: FC<IWhatIsNewPageAppDriverProps> = observer
     // version: new Version( innovation.version ).preReleaseName
   } ) );
 
-  console.log(`!!!`);
 
 
   let contentNavLinkDataAll = navItemAll.map( ( { name, path, anchor, version }, index ) => ( {

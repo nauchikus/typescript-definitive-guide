@@ -48,10 +48,11 @@ interface IWhatIsNewPageProviderProps {
 type DisposerRefs={
     versionFilterChangeDisposer: ( () => void ) | null;
 }
+
 const WhatIsNewPageProvider: FC<IWhatIsNewPageProviderProps> = ( { pageContext,location } ) => {
     let { localization,innovationData,winTocTree,pageNavDataAll } = pageContext;
 
-    console.log(`winpp`, innovationData.mmp);
+    console.log(`winpp`, innovationData.mmp, innovationData.innovations[0].html);
 
 
     let { pages,...appSharedLocalization } = localization;
@@ -69,12 +70,20 @@ const WhatIsNewPageProvider: FC<IWhatIsNewPageProviderProps> = ( { pageContext,l
     useRouterUpdater(router);
 
 
-    useEffect(() => {
-        if (innovationData.mmp !== contentDataWinPageStore.pageContent.mmp) {
-            contentDataWinPageStore.setPageContent(innovationData);
-            console.log(`reset`);
-        }
-    }, [innovationData]);
+    if (innovationData.mmp !== contentDataWinPageStore.pageContent.mmp) {
+        contentDataWinPageStore.setPageContent(innovationData);
+    }
+
+    // contentDataWinPageStore.setPageContent(innovationData);
+
+    // console.log(innovationData.mmp, contentDataWinPageStore.pageContent.mmp);
+    // useEffect(() => {
+    //     console.log(`effect`);
+    //     if (innovationData.mmp !== contentDataWinPageStore.pageContent.mmp) {
+    //         contentDataWinPageStore.setPageContent(innovationData);
+    //         console.log(`reset`);
+    //     }
+    // }, [innovationData]);
 
     return (
       <MobxWhatIsNewPageContext.Provider value={ stores }>

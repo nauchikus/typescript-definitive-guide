@@ -84,7 +84,6 @@ export const createPages: GatsbyCreatePages<ICreatePageSharedOptions> = async ( 
         let versionMMP = new Version( innovationInfo.releaseHistory[ 0 ].version ).mmp;
         let innovationVersionMMP = StringUtils.escapeString( versionMMP );
 
-        console.log(`create page: ${versionMMP}`);
 
         let innovationDataPromiseAll = innovations.map( async ( innovation ) => {
             let innovationEscapedName = StringUtils.escapeString( innovation.innovationName );
@@ -147,5 +146,5 @@ export const createPages: GatsbyCreatePages<ICreatePageSharedOptions> = async ( 
         } );
     } );
 
-    return await Promise.all( winPagePromiseAll );
+    return Promise.all( winPagePromiseAll );
 };

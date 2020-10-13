@@ -71,7 +71,7 @@ const createEditBookChapterFileOnGithubLink = ( { locale, chapterEscapedGithubNa
 );
 
 export const createPages: GatsbyCreatePages<ICreatePageSharedOptions> = async ( helpers, options ) => {
-  let { actions: { createPage }, getNodesByType, graphql } = helpers;
+    let { actions: { createPage }, getNodesByType, graphql } = helpers;
     let { locale, lang } = options;
 
 
@@ -86,7 +86,7 @@ export const createPages: GatsbyCreatePages<ICreatePageSharedOptions> = async ( 
 
     let pageNavDataAll = bookTocToPageNav( toc );
     // let bookToc: IBookTocWithContentNode[] = toc.map( async (chapter,index) => {
-    let bookChapterPageContentPromiseAll = toc.filter((item,index)=>true).map( async (chapter,index) => {
+    let bookChapterPageContentPromiseAll = toc.map( async (chapter,index) => {
         let chapterEscapedName = StringUtils.escapeString( chapter.title );
         let chapterEscapedPath = chapter.title;
         let chapterGithubName = createBookChapterName( {

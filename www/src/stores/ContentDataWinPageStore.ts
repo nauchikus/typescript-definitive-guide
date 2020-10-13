@@ -12,7 +12,6 @@ export class ContentDataWinPageStore {
   );
 
   get innovations () {
-    console.log("OOOOOOOOOOOOOOOOOOOOOOO");
     return this.pageContent.innovations;
   }
 

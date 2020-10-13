@@ -16,29 +16,30 @@ interface ICreatePagesOptions {
 }
 
 export const createPages: GatsbyCreatePages<ICreatePagesOptions> = async (...params) => {
-    // await Promise.all([
-    //     IndexPageCreator.createPages(...params),
-    //     BookPageCreator.createPages(...params),
-    //     BookTocPageCreator.createPages(...params),
+    await Promise.all([
+        IndexPageCreator.createPages(...params),
+
+        BookPageCreator.createPages(...params),
+        BookTocPageCreator.createPages(...params),
+
+        WhatIsNewPageCreator.createPages(...params),
+        WhatIsNewTocPageCreator.createPages(...params),
+
+        PdfPageCreator.createPages(...params),
+
+        NotFoundPageCreator.createPages(...params)
+    ]);
+
+    // await IndexPageCreator.createPages( ...params );
+
+    // await BookPageCreator.createPages( ...params );
+    // await BookTocPageCreator.createPages( ...params );
+
+    // await WhatIsNewPageCreator.createPages( ...params );
+    // await WhatIsNewTocPageCreator.createPages( ...params );
     //
-    //     WhatIsNewPageCreator.createPages(...params),
-    //     WhatIsNewTocPageCreator.createPages(...params),
+    // await PdfPageCreator.createPages( ...params );
     //
-    //     PdfPageCreator.createPages(...params),
-    //
-    //     NotFoundPageCreator.createPages(...params)
-    // ]);
-
-    await IndexPageCreator.createPages( ...params );
-
-    await BookPageCreator.createPages( ...params );
-    await BookTocPageCreator.createPages( ...params );
-
-    await WhatIsNewPageCreator.createPages( ...params );
-    await WhatIsNewTocPageCreator.createPages( ...params );
-
-    await PdfPageCreator.createPages( ...params );
-
-    await NotFoundPageCreator.createPages( ...params );
+    // await NotFoundPageCreator.createPages( ...params );
     // await RedirectCreator.createRedirects( ...params );
 };
