@@ -1,5 +1,4 @@
-import { observable } from "mobx";
-import * as AppUtils from "../utils/app-utils";
+import { action, computed, decorate, observable } from "mobx";
 
 
 export enum ToggleUiState{
@@ -7,85 +6,84 @@ export enum ToggleUiState{
   Close = 'close',
 }
 
-const getDriverInitialBrowserState = () => {
-  let currentWidth = window.innerWidth;
 
-  let driverWidth = parseInt( getComputedStyle( document.documentElement )
-    .getPropertyValue( '--content-layout__left-layout_width' ) );
-  let contentWidth = parseInt( getComputedStyle( document.documentElement )
-    .getPropertyValue( '--content-layout__center-layout_width' ) );
 
-  let minWidth = driverWidth + contentWidth;
 
-  if ( currentWidth < minWidth ) {
-    return ToggleUiState.Close;
+export class Toggle {
+  get isOpen(){
+    return this.isToggle;
+  }
+  get isClose(){
+    return !this.isOpen;
   }
 
-
-  return ToggleUiState.Open;
-}
-
-export const getDriverInitialState = () => {
-  if (AppUtils.isBrowser()) {
-    return getDriverInitialBrowserState();
-
-  }
-
-
-  return ToggleUiState.Close;
-};
-
-const getMenuInitialBrowserState = () => {
-  let currentWidth = window.innerWidth;
-
-  let driverWidth = parseInt( getComputedStyle( document.documentElement )
-    .getPropertyValue( '--content-layout__left-layout_width' ) );
-  let contentWidth = parseInt( getComputedStyle( document.documentElement )
-    .getPropertyValue( '--content-layout__center-layout_width' ) );
-
-  let minWidth = driverWidth + contentWidth;
-
-  if ( currentWidth < minWidth ) {
-    return ToggleUiState.Close;
-  }
-
-
-  return ToggleUiState.Open;
-}
-export const getMenuInitialState = () => {
-  if (AppUtils.isBrowser()) {
-    return getMenuInitialBrowserState();
-  }
-
-  return ToggleUiState.Close;
-};
-
-export const createToggleState = ( initialState: ToggleUiState = ToggleUiState.Open ) => observable( {
-  state: initialState,
-  isOpen: initialState === ToggleUiState.Open,
-  isClose: initialState === ToggleUiState.Close,
-  isToggle: initialState === ToggleUiState.Open,
   get invertState () {
     return this.state === ToggleUiState.Open ?
       ToggleUiState.Close :
       ToggleUiState.Open;
-  },
+  }
 
-  open () {
-    this.isOpen = this.isToggle = true;
-    this.isClose = false;
+  public state;
+  public isToggle;
+
+  constructor(initialState: ToggleUiState = ToggleUiState.Open) {
+    this.state = initialState;
+    this.isToggle = this.state === ToggleUiState.Open;
+  }
+
+  readonly open = () => {
+    this.isToggle = true;
 
     return this.state = ToggleUiState.Open;
-  },
-  close () {
-    this.isOpen = this.isToggle = false;
-    this.isClose = true;
+  }
+  readonly close = () => {
+    this.isToggle = false;
 
     return this.state = ToggleUiState.Close;
-  },
-  toggle () {
+  }
+  readonly toggle = () => {
     return this.state === ToggleUiState.Open ? this.close() : this.open();
   }
-} );
+}
+
+decorate(Toggle, {
+  state: observable,
+  isToggle: observable,
+
+  isOpen: computed,
+  isClose: computed,
+  invertState: computed,
+
+  open: action,
+  close: action,
+  toggle: action
+})
+// export const createToggleState = ( initialState: ToggleUiState = ToggleUiState.Open ) => observable( {
+//   state: initialState,
+//   isOpen: initialState === ToggleUiState.Open,
+//   isClose: initialState === ToggleUiState.Close,
+//   isToggle: initialState === ToggleUiState.Open,
+//   get invertState () {
+//     return this.state === ToggleUiState.Open ?
+//       ToggleUiState.Close :
+//       ToggleUiState.Open;
+//   },
+//
+//   open () {
+//     this.isOpen = this.isToggle = true;
+//     this.isClose = false;
+//
+//     return this.state = ToggleUiState.Open;
+//   },
+//   close () {
+//     this.isOpen = this.isToggle = false;
+//     this.isClose = true;
+//
+//     return this.state = ToggleUiState.Close;
+//   },
+//   toggle () {
+//     return this.state === ToggleUiState.Open ? this.close() : this.open();
+//   }
+// } );
 
 

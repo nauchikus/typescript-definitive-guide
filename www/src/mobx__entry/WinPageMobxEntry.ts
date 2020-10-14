@@ -1,11 +1,10 @@
-import { createToggleState, ToggleUiState } from "../stores/AppStateService";
+import { Toggle, ToggleUiState } from "../stores/AppStateService";
 import { TreeNode } from "../stores/WhatIsNewTocTreeStore";
 import { IWinPageContentData, IWhatIsNewToc } from "../types/IWhatIsNewToc";
 import { VersionFilterStore } from "../stores/VersionFilterStore";
 import { createIntersectionObserverStore } from "../stores/IntersectionObserverStore";
 import { ContentSectionStore } from "../stores/ContentSectionStore";
 import { VisibleSectionValidator } from "../validators/VisibleSectionValidator";
-import { VersionInfoMeta } from "../transformers/innovationDataToVersionInfoTransformer";
 import { PageNavWithFilterStore } from "../stores/PageNavWithFilterStore";
 import { createBehaviorNotification } from "../stores/behavior-notificaion-store";
 import { IWinPageNavData } from "../page-templates/what-is-new-page/WhatIsNewPageProvider";
@@ -109,7 +108,7 @@ export class WinPageMobxEntry {
     return{
       stores:{
         winTocCollapseStore:new CollapseTreeMobxStore(winTocTree,false),
-        contentDownPanelStore:createToggleState(ToggleUiState.Close),
+        contentDownPanelStore:new Toggle(ToggleUiState.Close),
         behaviorNotificationStore:createBehaviorNotification(),
         versionFilter,
         innovations,

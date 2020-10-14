@@ -1,8 +1,7 @@
-import { createToggleState, getDriverInitialState, ToggleUiState } from "../stores/AppStateService";
+import { Toggle, ToggleUiState } from "../stores/AppStateService";
 import { useContext } from "react";
-import { createToggle } from "../utils/toggle";
 import { MobxSharedContext } from "../react__context/MobxSharedContext";
-import { AppDriverInitializationStateType } from "../consts/AppDriverInitializationStateType";
+import { AppDriverToggleStateDetector } from "../components/app-driver/AppDriverToggleStateDetector";
 
 
 interface ISharedPageMobxEntryParams {
@@ -14,23 +13,13 @@ export class SharedPageMobxEntry {
   private static instance: ReturnType<typeof SharedPageMobxEntry.create>;
 
   static create = ( params ?: ISharedPageMobxEntryParams) => {
-    // let appDriverState = params?.appDriverComputedInitialStateType === AppDriverInitializationStateType.Auto ?
-      // getDriverInitialState() :
-      // ToggleUiState.Close;
-
-
-    let appDriverState = getDriverInitialState();
-
-
     return {
       appStore: {
-        menuToggle: createToggleState(ToggleUiState.Close),
-        driverToggle: createToggleState( appDriverState  ),
+        menuToggle: new Toggle(ToggleUiState.Close),
+        driverToggle: new Toggle(
+          AppDriverToggleStateDetector.getDriverInitialState()
+        )
       },
-      appSearch: {
-        active: createToggleState(ToggleUiState.Close),
-        match: createToggle(false)
-      }
     };
   }
   static getInstance(params?: ISharedPageMobxEntryParams){
@@ -56,11 +45,6 @@ export const useAppMenuToggle = () => {
   let { appStore:{menuToggle} } = useShareStores();
 
   return menuToggle;
-};
-export const useAppSearch = () => {
-  let { appSearch } = useShareStores();
-
-  return appSearch;
 };
 
 

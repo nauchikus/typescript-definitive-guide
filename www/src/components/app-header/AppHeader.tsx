@@ -5,8 +5,6 @@ import {
   NavToggleButton,
 } from "../app-menu-buttons/app-menu-buttons";
 import { AppBar } from "../app-bar/AppBar";
-import { useRouter } from "../../stores/RouterStore";
-import { useAppSearch } from "../../mobx__entry/SharedPageMobxEntry";
 import { AppLogoSvgIcon } from "../icon__svg-icon/svg-icons";
 import { Link } from "gatsby";
 import { RouterUtils } from "../../utils/router-utils";
@@ -17,13 +15,11 @@ interface IAppHeaderProps {
 }
 
 export const AppHeader: FC<IAppHeaderProps> = observer(( {...props} ) => {
-  let appSearch = useAppSearch();
-
   useDocsearch();
 
 
   return (
-    <header className="app-header app-header-grid" app-search-toggle={appSearch.active.state}>
+    <header className="app-header app-header-grid">
       <div className="app-header-grid-item__nav-toggle">
         <NavToggleButton/>
       </div>

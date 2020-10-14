@@ -1,4 +1,4 @@
-import { createToggleState, ToggleUiState } from "../stores/AppStateService";
+import { Toggle, ToggleUiState } from "../stores/AppStateService";
 import { createBehaviorNotification } from "../stores/behavior-notificaion-store";
 import { createContext, useContext } from "react";
 import { IBookChapterPageNavData } from "../page-templates/book-page/BookPageProvider";
@@ -47,7 +47,7 @@ export class BookPageMobxEntry {
       contentIntersectionObserver,
       // tocFilterStore: createToggleState( ToggleUiState.Close ),
       // bookTocTreeStore: createBookTocTree( bookTocTree, false ),
-      contentDownPanelStore:createToggleState(ToggleUiState.Close),
+      contentDownPanelStore:new Toggle(ToggleUiState.Close),
       behaviorNotificationStore: createBehaviorNotification(),
       contentSection,
       contentNav,

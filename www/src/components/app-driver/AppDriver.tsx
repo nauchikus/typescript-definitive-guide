@@ -1,5 +1,4 @@
 import React, { FC, ReactNode, useRef } from "react";
-import { DriverContext } from "../../react__hooks/app-driver-hook";
 import { ScrollProviderCallback, ScrollProviderContext } from "../../react__hooks/scroll-provider-hook";
 
 interface IAppDriverProps {

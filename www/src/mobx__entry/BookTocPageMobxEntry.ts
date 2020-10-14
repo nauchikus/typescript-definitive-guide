@@ -1,5 +1,5 @@
 import { BookTocNode, createBookTocTree, TreeNode } from "../stores/BookTocTreeStore";
-import { createToggleState, ToggleUiState } from "../stores/AppStateService";
+import { Toggle, ToggleUiState } from "../stores/AppStateService";
 import { createBehaviorNotification } from "../stores/behavior-notificaion-store";
 import { RouterStore } from "../stores/RouterStore";
 import { createContext, useContext } from "react";
@@ -17,7 +17,7 @@ export class BookTocPageMobxEntry {
 
   static create = ({bookTocTree,location}: IBookTocPageMobxEntryParams) => {
     let router = RouterStore.create( { location } )
-    let tocFilterStore = createToggleState(ToggleUiState.Close);
+    let tocFilterStore = new Toggle(ToggleUiState.Close);
     let bookTocCollapseStore = new CollapseTreeMobxStore(bookTocTree, false);
     let bookTocSectionStore = new TocTreeWithSectionMobxStore(bookTocCollapseStore.tree);
     // let bookTocTreeStore = createBookTocTree(bookTocTree, false);

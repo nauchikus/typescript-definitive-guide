@@ -1,13 +1,10 @@
 import React, { FC, FormEvent, useCallback, useImperativeHandle, useRef } from "react";
 import { MagnifierSvgIcon, SearchSvgIcon } from "../icon__svg-icon/svg-icons";
 import { observer } from "mobx-react-lite";
-import { OutsideClick } from "../outside-click/OutsideClick";
 import { ScaleButton } from "../button__scale-button/ScaleButton";
 import { useScale, useScaleControl } from "../transform__scale-container/ScaleContainer";
 import { useTranslator } from "../../react__hooks/translator.hook";
 import { LocalizationPaths, SharedLayoutLocalization } from "../../localization";
-import { If } from "../if-operator/If";
-import { useAppSearch } from "../../mobx__entry/SharedPageMobxEntry";
 
 interface ISearchProps {
 }
@@ -17,7 +14,6 @@ const SCALE_CONTROL_ID = "app-search";
 export const Search: FC<ISearchProps> = observer(( {} ) => {
   let [shared] = useTranslator<[SharedLayoutLocalization]>( LocalizationPaths.SharedLayout );
   let { appHeader: {appSearch:appSearchTranslation} } = shared;
-  let appSearch = useAppSearch();
   let control = useScaleControl(SCALE_CONTROL_ID);
   let inputRef = useRef<HTMLInputElement>(null);
 
@@ -32,15 +28,6 @@ export const Search: FC<ISearchProps> = observer(( {} ) => {
     let { current: input } = inputRef;
 
     input && ( input.value = "" );
-  };
-  const onChange = ( event: React.ChangeEvent<HTMLInputElement> ) => {
-    let isInputEmptyValid = isStringEmpty( event.target.value );
-
-    if ( isInputEmptyValid && appSearch.match.isOn ) {
-      appSearch.match.off();
-    } else if ( !isInputEmptyValid && appSearch.match.isOff ) {
-      appSearch.match.on();
-    }
   };
   const formSubmit = ( event: React.FormEvent | React.KeyboardEvent ) => {
     event.preventDefault();
