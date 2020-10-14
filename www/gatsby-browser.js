@@ -27,14 +27,6 @@ const isIndexPage = () => {
 
 
 export const wrapRootElement = ({ element }) => {
-    let sharedMobxParams = {
-        appDriverComputedInitialStateType: isIndexPage() ?
-            AppDriverInitializationStateType.Close :
-            AppDriverInitializationStateType.Auto
-    };
-
-
-
     return (
         <MobxSharedContext.Provider value={ SharedPageMobxEntry.getInstance() }>
             { element }

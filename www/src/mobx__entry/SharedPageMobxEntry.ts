@@ -13,6 +13,8 @@ export class SharedPageMobxEntry {
   private static instance: ReturnType<typeof SharedPageMobxEntry.create>;
 
   static create = ( params ?: ISharedPageMobxEntryParams) => {
+    console.log(`driver initial state: ${AppDriverToggleStateDetector.getDriverInitialState()}`);
+
     return {
       appStore: {
         menuToggle: new Toggle(ToggleUiState.Close),
