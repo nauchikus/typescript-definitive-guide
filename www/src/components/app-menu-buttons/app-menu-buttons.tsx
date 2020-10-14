@@ -23,6 +23,8 @@ export const NavToggleButton: FC<IAppMenuButtonProps> = observer(() => {
   let { appHeader: { navToggleButton: { tooltips } } } = shared;
 
 
+  console.log(`NavToggleButton`, appDriver.isOpen, appDriver.state);
+
   return (
     <IconButton onClick={ () => appDriver.toggle() } disabled={router.isIndexPage}>
       <MainNavAnimatedCssIcon state={ appDriver.invertState }/>

@@ -7,8 +7,6 @@ export enum ToggleUiState{
 }
 
 
-
-
 export class Toggle {
   get isOpen(){
     return this.isToggle;
@@ -42,7 +40,7 @@ export class Toggle {
     return this.state = ToggleUiState.Close;
   }
   readonly toggle = () => {
-    return this.state === ToggleUiState.Open ? this.close() : this.open();
+    return this.isToggle ? this.close() : this.open();
   }
 }
 
@@ -57,33 +55,4 @@ decorate(Toggle, {
   open: action,
   close: action,
   toggle: action
-})
-// export const createToggleState = ( initialState: ToggleUiState = ToggleUiState.Open ) => observable( {
-//   state: initialState,
-//   isOpen: initialState === ToggleUiState.Open,
-//   isClose: initialState === ToggleUiState.Close,
-//   isToggle: initialState === ToggleUiState.Open,
-//   get invertState () {
-//     return this.state === ToggleUiState.Open ?
-//       ToggleUiState.Close :
-//       ToggleUiState.Open;
-//   },
-//
-//   open () {
-//     this.isOpen = this.isToggle = true;
-//     this.isClose = false;
-//
-//     return this.state = ToggleUiState.Open;
-//   },
-//   close () {
-//     this.isOpen = this.isToggle = false;
-//     this.isClose = true;
-//
-//     return this.state = ToggleUiState.Close;
-//   },
-//   toggle () {
-//     return this.state === ToggleUiState.Open ? this.close() : this.open();
-//   }
-// } );
-
-
+});
