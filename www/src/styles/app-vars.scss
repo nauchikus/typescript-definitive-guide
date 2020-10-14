@@ -321,3 +321,8 @@ $content__nav_down_media:400px;
 /*warning*/
 $book-toc__aside_height:554px;
 /**/
+
+
+$media__app-driver_auto-open:
+        $content-layout__left-layout_width +
+        $content-layout__center-layout_width;

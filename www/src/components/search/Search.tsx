@@ -46,7 +46,6 @@ export const Search: FC<ISearchProps> = observer(( {} ) => {
 
   const input_blurHandler = useCallback((event: FormEvent<HTMLInputElement>) => {
     // (event.target as HTMLInputElement).
-    console.log('blur');
   }, []);
 
 

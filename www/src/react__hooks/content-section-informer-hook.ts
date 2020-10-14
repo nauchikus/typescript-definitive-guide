@@ -16,7 +16,6 @@ export const useContentSectionInformer = () => {
 
 
   useEffect( () => {
-    console.log(`activeSection.sectionId: ${activeSection.sectionId}`)
     setState( { activeSectionId: activeSection.sectionId } );
   }, [activeSection.sectionId] );
 

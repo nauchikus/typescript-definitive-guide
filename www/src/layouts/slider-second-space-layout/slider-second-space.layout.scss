@@ -44,6 +44,20 @@
     }
   }
 }
+
+.app-driver__driver-layout_placeholder {
+  @media (min-width: $media__app-driver_auto-open) {
+    margin-left: 0!important;
+    transition-duration: 0s!important;
+  }
+}
+.app-driver__content-layout_placeholder {
+  @media (min-width: $media__app-driver_auto-open) {
+    margin-left: 0!important;
+    transition-duration: 0s!important;
+  }
+}
+
 .float-content__driver-layout {
   ///TODO:[refactor][mobile][primary] (set size 100%)
   //width: 100%;

@@ -4,13 +4,11 @@ import React, { ReactElement, useRef } from "react";
 import {FC} from "react"
 import { AppCollapseInformerRotator } from "../../components/app__collapse-informer-rotator/AppCollapseInformerRotator";
 import { AppHeader } from "../../components/app-header/AppHeader";
-import { createInformerRotator } from "../../react__hooks/collapse-informer-hook";
 import { createBaseLayoutStores, UseBaseLayoutStores } from "../../stores/base-layout-stores";
 import { useLocalStore } from "mobx-react-lite";
 import { BaseLayoutMoxContext } from "../../mobx__react-content-provider/BaseLayoutMobxProvider";
 import { AppFooter } from "../../components/app-footer/AppFooter";
-import { Media } from "../../components/media/Media";
-import { MediaQuery } from "../../meadia/MediaQuery";
+import { useAppDriverToggleDetector } from "../../react__hooks/useAppDriverToggleDetector";
 
 
 interface IBaseLayoutProps {
@@ -21,7 +19,7 @@ const BaseLayout: FC<IBaseLayoutProps> = ( { children } ) => {
   let contextRef = useRef<UseBaseLayoutStores>( createBaseLayoutStores() );
   let baseLayoutMobxStores = useLocalStore( () => contextRef.current );
 
-
+  useAppDriverToggleDetector();
 
   return (
     <BaseLayoutMoxContext.Provider value={baseLayoutMobxStores}>

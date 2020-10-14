@@ -61,7 +61,6 @@ export const GatsbyImage: FC<IGatsbyImageProps> = ( { className,path,alt } ) => 
     fluid: { originalName: string }
   };
 
-  console.log( `[Image Path] > ${ path }` );
 
   let node = data.images.nodes.find( ( node: ImageNode ) => node.parent.relativePath === path );
 

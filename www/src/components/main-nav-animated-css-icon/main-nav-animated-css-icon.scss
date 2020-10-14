@@ -1,3 +1,5 @@
+@import "../../styles/app-vars";
+
 .css-icon-viewbox {
     width: 24px;
     height: 24px;
@@ -7,7 +9,7 @@
     align-items: center;
 
 }
-    
+
 .main-nav-animated-css-icon {
     width: 18px;
     height: 18px;
@@ -26,14 +28,40 @@
     transition: .3s;
 }
 
-.main-nav-animated-css-icon_on>.main-nav-animated-css-icon__line:nth-child(1) {
-    transform: translateY(5px) translateZ(0) rotate(45deg);
+
+@mixin icon_on() {
+    &:nth-child(1) {
+        transform: translateY(5px) translateZ(0) rotate(45deg);
+    }
+    &:nth-child(2) {
+        opacity: 0;
+    }
+    &:nth-child(3) {
+        transform: translateY(-5px) rotate(-45deg);
+    }
 }
 
-
-.main-nav-animated-css-icon_on>.main-nav-animated-css-icon__line:nth-child(2){
-    opacity: 0
+.main-nav-animated-css-icon_on {
+    & > .main-nav-animated-css-icon__line {
+        @include icon_on();
+    }
 }
-.main-nav-animated-css-icon_on>.main-nav-animated-css-icon__line:nth-child(3){
-    transform: translateY(-5px)rotate(-45deg)
+//.main-nav-animated-css-icon_on>.main-nav-animated-css-icon__line:nth-child(1) {
+//
+//}
+//
+//
+//.main-nav-animated-css-icon_on>.main-nav-animated-css-icon__line:nth-child(2){
+//
+//}
+//.main-nav-animated-css-icon_on>.main-nav-animated-css-icon__line:nth-child(3){
+//
+//}
+
+.main-nav-animated-css-icon_placeholder {
+    @media (min-width: $media__app-driver_auto-open) {
+        & > .main-nav-animated-css-icon__line {
+            @include icon_on();
+        }
+    }
 }

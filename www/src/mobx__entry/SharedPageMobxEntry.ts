@@ -2,6 +2,7 @@ import { Toggle, ToggleUiState } from "../stores/AppStateService";
 import { useContext } from "react";
 import { MobxSharedContext } from "../react__context/MobxSharedContext";
 import { AppDriverToggleStateDetector } from "../components/app-driver/AppDriverToggleStateDetector";
+import { ToggleIsomorphic } from "../stores/ToggleIsomorphic";
 
 
 interface ISharedPageMobxEntryParams {
@@ -13,14 +14,11 @@ export class SharedPageMobxEntry {
   private static instance: ReturnType<typeof SharedPageMobxEntry.create>;
 
   static create = ( params ?: ISharedPageMobxEntryParams) => {
-    console.log(`driver initial state: ${AppDriverToggleStateDetector.getDriverInitialState()}`);
 
     return {
       appStore: {
         menuToggle: new Toggle(ToggleUiState.Close),
-        driverToggle: new Toggle(
-          AppDriverToggleStateDetector.getDriverInitialState()
-        )
+        driverToggle: new ToggleIsomorphic(ToggleUiState.Close)
       },
     };
   }

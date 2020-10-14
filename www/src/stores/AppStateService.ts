@@ -21,11 +21,12 @@ export class Toggle {
       ToggleUiState.Open;
   }
 
+  readonly defaultState;
   public state;
   public isToggle;
 
   constructor(initialState: ToggleUiState = ToggleUiState.Open) {
-    this.state = initialState;
+    this.defaultState = this.state = initialState;
     this.isToggle = this.state === ToggleUiState.Open;
   }
 
@@ -41,6 +42,38 @@ export class Toggle {
   }
   readonly toggle = () => {
     return this.isToggle ? this.close() : this.open();
+  }
+}
+
+export function createToggle(initialState: ToggleUiState = ToggleUiState.Open){
+  return {
+    state: initialState,
+    isToggle: initialState === ToggleUiState.Open,
+    get isOpen(){
+      return this.isToggle;
+    },
+    get isClose(){
+      return !this.isOpen;
+    },
+
+    get invertState () {
+      return this.state === ToggleUiState.Open ?
+        ToggleUiState.Close :
+        ToggleUiState.Open;
+    },
+    open() {
+      this.isToggle = true;
+
+      return this.state = ToggleUiState.Open;
+    },
+    close() {
+      this.isToggle = false;
+
+      return this.state = ToggleUiState.Close;
+    },
+    toggle() {
+      return this.isToggle ? this.close() : this.open();
+    }
   }
 }
 

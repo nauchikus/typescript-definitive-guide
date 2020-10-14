@@ -1,12 +1,14 @@
 import "./slider-second-space.layout.scss";
 
 import React, { FC, ReactElement, useLayoutEffect } from "react";
+import { default as cn } from "classnames";
 import { observer } from "mobx-react-lite";
 import { Media } from "../../components/media/Media";
 import { If } from "../../components/if-operator/If";
 import { useCssPropertyAsNumber } from "../../react__hooks/media-hook";
 import { CssPropertyName } from "../../CssPropertyName";
 import { useAppDriver } from "../../mobx__entry/SharedPageMobxEntry";
+import { ToggleUiState } from "../../stores/AppStateService";
 
 interface HTMLDivElement{
   toggle:boolean;
@@ -26,13 +28,21 @@ const SliderSecondSpaceLayout: FC<ISliderSecondSpaceLayoutProps> = observer( ( {
 
   const isRenderAsideLayout = () => aside != null;
 
+  let driverLayoutClasses = cn(`float-content__driver-layout`, {
+    ["app-driver__driver-layout_placeholder"]: !appDriver.isBrowserInit
+  });
+  let contentLayoutClasses = cn(`float-content__content-layout`, {
+    ["app-driver__content-layout_placeholder"]: !appDriver.isBrowserInit
+  });
+
+
 
   return (
     <div className="float-content" toggle-state={ appDriver.state }>
-      <div className="float-content__driver-layout">
+      <div className={driverLayoutClasses}>
         { driver }
       </div>
-      <div className="float-content__content-layout">
+      <div className={contentLayoutClasses}>
         {content}
       </div>
       <If condition={isRenderAsideLayout()}>
