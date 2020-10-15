@@ -12,6 +12,8 @@ import { useWhatIsNewPageStores } from "../../mobx__entry/WinPageMobxEntry";
 import * as WinTocVersionUtils from "../../utils/win-toc-version-utils";
 import * as StringUtils from "../../utils/string-utils";
 import { RouterUtils } from "../../utils/router-utils";
+import { useVersionFilterUpdater } from "../../react__hooks/useVersionFilterUpdater";
+import { useVersionFilterInitializer } from "../../react__hooks/useVersionFilterInitializer";
 
 interface IWhatIsNewPageAppDriverProps {
 }
@@ -97,6 +99,10 @@ export const WhatIsNewPageAppDriver: FC<IWhatIsNewPageAppDriverProps> = observer
     disabled: !versionFilter.isCheckedByVersion( version ),
     activeClassName: "app-driver__link_page-nav-item_active"
   } ) );
+
+
+  useVersionFilterInitializer();
+  useVersionFilterUpdater();
 
 
 

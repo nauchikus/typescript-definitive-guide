@@ -153,7 +153,6 @@ export class RouterStore {
         ?.querySelector(`section[id="${sectionId}"]`);
 
 
-      // console.log(sectionId);
 
       if (section) {
         window.scrollBy(0, section.getBoundingClientRect().top);

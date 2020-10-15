@@ -50,20 +50,8 @@ export class WinPageMobxEntry {
 
     let versionFilter = new VersionFilterStore({});
     versionFilter.addVersionInfo( innovationVersionFilterDataStore.versionFilterDataAll );
+    versionFilter.checkedAllVersion();
 
-    computed(()=>innovationVersionFilterDataStore.versionFilterDataAll).observe(({newValue})=>{
-      versionFilter.clean();
-      versionFilter.addVersionInfo(newValue);
-      versionFilter.checkedAllVersion();
-    })
-
-    let versionFilterSearchParamsAll = InnovationFilterSearchParamsParser.parse(
-      router.urlSearchParams
-    );
-
-    versionFilterSearchParamsAll.length ?
-      versionFilter.checkedByVersion( ...versionFilterSearchParamsAll ) :
-      versionFilter.checkedAllVersion();
 
     let visibleSectionValidator = VisibleSectionValidator.create( {
       contentDataWinPageStore,
@@ -110,6 +98,7 @@ export class WinPageMobxEntry {
         winTocCollapseStore:new CollapseTreeMobxStore(winTocTree,false),
         contentDownPanelStore:new Toggle(ToggleUiState.Close),
         behaviorNotificationStore:createBehaviorNotification(),
+        innovationVersionFilterDataStore,
         versionFilter,
         innovations,
         contentDataWinPageStore,
@@ -149,4 +138,9 @@ export const useInnovations = ():UseWhatIsNewPageStores["innovations"] => {
   let { innovations } = useWhatIsNewPageStores();
 
   return innovations;
+};
+export const useInnovationVersionFilterData = ():UseWhatIsNewPageStores["innovationVersionFilterDataStore"] => {
+  let { innovationVersionFilterDataStore } = useWhatIsNewPageStores();
+
+  return innovationVersionFilterDataStore;
 };

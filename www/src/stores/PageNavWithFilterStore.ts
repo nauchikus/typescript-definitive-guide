@@ -34,7 +34,6 @@ export class PageNavWithFilterStore implements IPageNavStore<null,IVersionable> 
   get pageItem () {
     let currentPageItem = this.pageNavTree
       .find( item => {
-        // console.log(item.name === this.router.pageName, item.name, item.sections);
         return item.name === this.router.pageName;
       } );
 

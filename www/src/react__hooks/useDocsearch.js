@@ -35,7 +35,6 @@ export const useDocsearch = () => {
 
                     url = url.replace(origin, ``);
 
-                    console.log(encodeURIComponent(url));
                     navigate(encodeURIComponent(url));
                 }
             }

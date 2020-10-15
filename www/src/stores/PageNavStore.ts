@@ -46,7 +46,6 @@ export class PageNavStore<TNodeData=null,TLeafData=null> implements IPageNavStor
   get sectionItem () {
     let currentSection = ( this.pageItem.sections as Required<IPageNavSection<TLeafData>>[] )
       .find( section => {
-        console.log(section.path, this.contentSection.currentSectionId);
         return section.path === this.contentSection.currentSectionId;
       } );
 
