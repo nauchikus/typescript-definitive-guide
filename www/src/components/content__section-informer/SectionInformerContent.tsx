@@ -94,7 +94,7 @@ export const SectionInformerContent: FC<ISectionInformerContentProps> = ( { comm
       </section>
       <section className="section-informer__section section-informer__section_contributor">
         <header className="section-informer__he/*<a href={}></a>*/}ader section-informer__header_section-contributer">
-          <span className="section-informer__label">Обнавлено:</span>
+          <span className="section-informer__label">Обновлено:</span>
         </header>
         <div className="section-informer__body">
           <time className="section-informer__last-update-date" dateTime={lastUpdateDate}>{lastUpdateDateFormated}</time>
