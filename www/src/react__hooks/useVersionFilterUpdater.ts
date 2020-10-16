@@ -1,14 +1,12 @@
-import { useEffect } from "react";
+import { useLayoutEffect } from "react";
 import { useInnovationVersionFilterData, useVersionFilter } from "../mobx__entry/WinPageMobxEntry";
-import { InnovationFilterSearchParamsParser } from "../parsers/InnovationFilterSearchParamsParser";
-import { useRouter } from "../stores/RouterStore";
 import { computed } from "mobx";
 
 export function useVersionFilterUpdater(){
   let versionFilter = useVersionFilter();
   let innovationVersionFilterData = useInnovationVersionFilterData();
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     computed(() => innovationVersionFilterData.versionFilterDataAll).observe(({ newValue }) => {
       versionFilter.clean();
       versionFilter.addVersionInfo(newValue);

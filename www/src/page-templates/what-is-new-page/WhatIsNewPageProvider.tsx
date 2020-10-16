@@ -11,8 +11,6 @@ import { WinPageContentDataContext } from "../../react__hooks/win__page-content-
 import { TreeNode } from "../../stores/WhatIsNewTocTreeStore";
 import { IPageNavLeaf, IPageNavNode } from "../../types/IPageNavData";
 import { WinPageNavDataContext } from "../../react__context/WinPageNavDataContext";
-import { innovationDataToVersionInfoTransformer } from "../../transformers/innovationDataToVersionInfoTransformer";
-import { urlSearchFilterParamToVersionFilterItemTransformer } from "../../transformers/url-search-filter-param-to-version-filter-item-transformer";
 import { WhatIsNewValidatorsContext } from "../../validators/create-what-is-new-validators";
 import { BehaviorNotificationContext } from "../../react__context/BehaviorNotificationContext";
 import { BehaviorNotification as CustomNotification } from "../../components/notification__behavior-notification/BehaviorNotification";
@@ -21,9 +19,7 @@ import { ContentNavStoreContext } from "../../mobx__mobx-shared-store__react-con
 import { ContentIntersectionObserverStoreContext } from "../../react__context/ContentIntersectionObserverStoreContext";
 import { RouterStoreContext } from "../../stores/RouterStore";
 import { WinPageMobxEntry, MobxWhatIsNewPageContext } from "../../mobx__entry/WinPageMobxEntry";
-import { useNativeLinkDisableDefaultBehavior } from "../../react__hooks/useNativeLinkDisableDefaultBehavior";
 import { useRouterUpdater } from "../../react__hooks/useRouterUpdater";
-import { useLocation } from "@reach/router";
 
 
 export interface IVersionable {
@@ -66,6 +62,7 @@ const WhatIsNewPageProvider: FC<IWhatIsNewPageProviderProps> = ( { pageContext,l
 
 
     useRouterUpdater(router);
+
 
 
     if (innovationData.mmp !== contentDataWinPageStore.pageContent.mmp) {

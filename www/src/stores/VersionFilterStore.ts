@@ -78,6 +78,9 @@ export class VersionFilterStore {
   checkedByVersion(...versionAll:string[]){
     this.checkboxStore.checkedById( ...versionAll );
   }
+  checkedOnlyByVersion(...versionAll:string[]){
+    this.checkboxStore.checkedOnlyById( ...versionAll );
+  }
   checkedAllVersion(){
     this.checkboxStore.checkedAll();
   }
@@ -105,6 +108,7 @@ decorate( VersionFilterStore, {
   addVersionInfo: action,
   checkedByVersion: action,
   checkedAllVersion: action,
-  checkedLastVersion: action
+  checkedLastVersion: action,
+  isCheckedByVersion: action,
 
 } );

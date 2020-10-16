@@ -82,6 +82,9 @@ export class CheckboxStore<TData>{
   checkedById ( ...inputModelIdAll: string[] ) {
     change( InputStates.Checked, this.inputModelAll, inputModelIdAll )
   }
+  checkedOnlyById = action((...idAll: string[]) => {
+    this.inputModelAll.forEach(inputModel => inputModel.checked = idAll.includes(inputModel.id));
+  })
   uncheckedById ( ...inputModelIdAll: string[] ) {
     change( InputStates.NotChecked, this.inputModelAll, inputModelIdAll )
   }

@@ -3,17 +3,11 @@ import { AppDriver } from "../app-driver/AppDriver";
 import { default as cn } from "classnames";
 import { FooterAppDriver } from "../app-driver__footer/FooterAppDriver";
 import { Link } from "gatsby";
-import { Version } from "../../utils/Version";
 import { observer } from "mobx-react-lite";
 import { useRouter } from "../../stores/RouterStore";
 import { AppNavSectionAppDriver } from "../app-driver__nav-section_app-nav/AppNavSectionAppDriver";
 import { ContentNavSectionAppDriver } from "../app-driver__nav-section_page-nav/ContentNavSectionAppDriver";
-import { useWhatIsNewPageStores } from "../../mobx__entry/WinPageMobxEntry";
-import * as WinTocVersionUtils from "../../utils/win-toc-version-utils";
-import * as StringUtils from "../../utils/string-utils";
-import { RouterUtils } from "../../utils/router-utils";
-import { useVersionFilterUpdater } from "../../react__hooks/useVersionFilterUpdater";
-import { useVersionFilterInitializer } from "../../react__hooks/useVersionFilterInitializer";
+import { useAppDriverNav, useWhatIsNewPageStores } from "../../mobx__entry/WinPageMobxEntry";
 
 interface IWhatIsNewPageAppDriverProps {
 }
@@ -58,58 +52,18 @@ export const LinkAppDriver: FC<ILinkAppDriverProps> = ( { path, name, isActive, 
 
 
 export const WhatIsNewPageAppDriver: FC<IWhatIsNewPageAppDriverProps> = observer( ( {} ) => {
-  let { winTocCollapseStore } = useWhatIsNewPageStores();
-  let routerStore = useRouter();
-  let { contentSection, versionFilter } = useWhatIsNewPageStores();
+  let appDriverNav = useAppDriverNav();
 
 
-  let innovationAll = WinTocVersionUtils.getInnovationAllByVersionMMP(
-    routerStore.pageName,
-    winTocCollapseStore.tree,
-  );
-
-
-  const hasPageNavLinkActive = (currentSectionId: string, anchor: string) => {
-    return anchor === currentSectionId;
+  if (!appDriverNav.driverNavLinkDataAll) {
+    throw new Error(`driverNavLinkDataAll not cannot have undefined.`);
   }
-
-
-  if ( !innovationAll ) {
-    throw new Error( "Innovation not found" );
-  }
-
-
-  let navItemAll = innovationAll.map( innovation => ( {
-    path: innovation.path,
-    name: innovation.innovationName,
-    anchor: innovation.path,
-    version: innovation.version
-    // version: new Version( innovation.version ).preReleaseName
-  } ) );
-
-
-
-  let contentNavLinkDataAll = navItemAll.map( ( { name, path, anchor, version }, index ) => ( {
-    name,
-    path: RouterUtils.whatIsNewRoutes.getWhatIsNewRoute({
-      version:routerStore.pageName,
-      innovation: anchor
-    }),
-    isActive: hasPageNavLinkActive( contentSection.currentSectionId, anchor ),
-    disabled: !versionFilter.isCheckedByVersion( version ),
-    activeClassName: "app-driver__link_page-nav-item_active"
-  } ) );
-
-
-  useVersionFilterInitializer();
-  useVersionFilterUpdater();
-
 
 
   return (
     <AppDriver>
       <AppNavSectionAppDriver/>
-      <ContentNavSectionAppDriver contentNavLinkDataAll={contentNavLinkDataAll}/>
+      <ContentNavSectionAppDriver contentNavLinkDataAll={appDriverNav.driverNavLinkDataAll}/>
       <FooterAppDriver/>
     </AppDriver>
   );

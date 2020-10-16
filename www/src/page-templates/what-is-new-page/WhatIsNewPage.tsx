@@ -15,6 +15,8 @@ import { WinDropdownMenuFilterDropdown } from "../../components/dropdown__filter
 import { ConclusionContent } from "../../components/content__conclusion/ConclusionContent";
 import { ContentPlaceholderAutodetect } from "../../components/content__placeholder-autodetect/ContentPlaceholderAutodetect";
 import { ContentWithNavLayer } from "../../components/layer__content__content-with-nav/ContentWithNavLayer";
+import { useVersionFilterInitializer } from "../../react__hooks/useVersionFilterInitializer";
+import { useVersionFilterUpdater } from "../../react__hooks/useVersionFilterUpdater";
 
 
 interface IWhatIsNewPageProps{
@@ -23,6 +25,9 @@ interface IWhatIsNewPageProps{
 
 
 const WhatIsNewPage: FC<IWhatIsNewPageProps> = observer( ( {} ) => {
+  useVersionFilterInitializer();
+  useVersionFilterUpdater();
+
   return (
     <SliderSecondSpaceLayout
       driver={ <WhatIsNewPageAppDriver/> }

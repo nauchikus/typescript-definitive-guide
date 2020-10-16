@@ -1,5 +1,5 @@
 import { BOOK_TOC_SECTION_NAME_ALL } from "./BookTocTreeStore";
-import { TreeNode } from "./CollapseTreeMobxStore";
+import { CollapseTreeNode } from "./CollapseTreeMobxStore";
 import { computed, decorate, observable } from "mobx";
 
 export interface ISection {
@@ -8,7 +8,7 @@ export interface ISection {
 
 export class TocTreeWithSectionMobxStore<T extends ISection> {
   private static BOOK_TOC_SECTION_NAME_ALL = ``;
-  private static getNumSection = <T extends ISection>(tree:TreeNode<T>[]) => tree.reduce( ( result, current ) => {
+  private static getNumSection = <T extends ISection>(tree:CollapseTreeNode<T>[]) => tree.reduce( (result, current ) => {
     let { section } = current.data;
 
     let count = result.has( section ) ? ( result.get( section ) ?? 0 ) + 1 : 1;
@@ -26,14 +26,14 @@ export class TocTreeWithSectionMobxStore<T extends ISection> {
   get treeFiltered () {
     return this.isAllSection ?
       this.tree :
-      this.tree.filter( (node:TreeNode<T>) => node.data.section === this.showTocWithSectionName );
+      this.tree.filter( (node:CollapseTreeNode<T>) => node.data.section === this.showTocWithSectionName );
   }
 
 
   public showTocWithSectionName = TocTreeWithSectionMobxStore.BOOK_TOC_SECTION_NAME_ALL;
   private sectionMatchCount: Map<string, number>;
 
-  constructor(public tree:TreeNode<T>[]) {
+  constructor(public tree:CollapseTreeNode<T>[]) {
     this.sectionMatchCount = TocTreeWithSectionMobxStore.getNumSection(this.tree);
   }
   hideBySectionName ( sectionName: string ) {

@@ -1,6 +1,6 @@
 import { action, decorate, observable } from "mobx";
 
-export interface TreeNode<T> {
+export interface CollapseTreeNode<T> {
   id:string;
   isCollapse:boolean;
   index:number;
@@ -8,7 +8,7 @@ export interface TreeNode<T> {
 }
 
 export class CollapseTreeMobxStore<TData> {
-  constructor(public tree:TreeNode<TData>[],public isCollapseAll=false) {
+  constructor(public tree:CollapseTreeNode<TData>[], public isCollapseAll=false) {
   }
 
   getNodeById ( id: string ) {

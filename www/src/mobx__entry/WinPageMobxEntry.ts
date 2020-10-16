@@ -19,6 +19,8 @@ import { InnovationFilterSearchParamsParser } from "../parsers/InnovationFilterS
 import { ContentDataWinPageStore } from "../stores/ContentDataWinPageStore";
 import { computed, observe } from "mobx";
 import { InnovationVersionFilterDataStore } from "../stores/InnovationVersionFilterDataStore";
+import { DriverNavMobx } from "../stores/DriverNavMobx";
+import { WinAppDriverNavMobx } from "../stores/WinAppDriverNavMobx";
 
 
 interface IWhatIsNewPageStoresParams {
@@ -92,10 +94,19 @@ export class WinPageMobxEntry {
       contentSection,
     } );
 
+    let winTocCollapseStore = new CollapseTreeMobxStore(winTocTree, false);
+    let driverNav = new DriverNavMobx(router, winTocCollapseStore);
+
+    let appDriverNav = new WinAppDriverNavMobx(
+      driverNav,
+      router,
+      versionFilter,
+      contentSection
+    );
 
     return{
       stores:{
-        winTocCollapseStore:new CollapseTreeMobxStore(winTocTree,false),
+        winTocCollapseStore,
         contentDownPanelStore:new Toggle(ToggleUiState.Close),
         behaviorNotificationStore:createBehaviorNotification(),
         innovationVersionFilterDataStore,
@@ -105,6 +116,7 @@ export class WinPageMobxEntry {
         router,
         contentIntersectionObserver,
         contentNav,
+        appDriverNav,
         contentSection,
       },
       validators:{
@@ -143,4 +155,14 @@ export const useInnovationVersionFilterData = ():UseWhatIsNewPageStores["innovat
   let { innovationVersionFilterDataStore } = useWhatIsNewPageStores();
 
   return innovationVersionFilterDataStore;
+};
+// export const useDriverNav = ():UseWhatIsNewPageStores["driverNav"] => {
+//   let { driverNav } = useWhatIsNewPageStores();
+//
+//   return driverNav;
+// };
+export const useAppDriverNav = ():UseWhatIsNewPageStores["appDriverNav"] => {
+  let { appDriverNav } = useWhatIsNewPageStores();
+
+  return appDriverNav;
 };
