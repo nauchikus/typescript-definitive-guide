@@ -1,8 +1,10 @@
 const isServer = () => {
-    return globalThis.hasOwnProperty(`module`);
+    return process && process.env.NODE_ENV === "production"
+    // return `module` in globalThis;
 }
 const isBrowser = () => {
-    return globalThis.hasOwnProperty(`window`);
+    return process && process.env.NODE_ENV === "development"
+    // return `window` in globalThis;
 }
 
 module.exports = {

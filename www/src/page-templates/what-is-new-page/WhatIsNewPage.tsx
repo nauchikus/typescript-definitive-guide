@@ -17,6 +17,8 @@ import { ContentPlaceholderAutodetect } from "../../components/content__placehol
 import { ContentWithNavLayer } from "../../components/layer__content__content-with-nav/ContentWithNavLayer";
 import { useVersionFilterInitializer } from "../../react__hooks/useVersionFilterInitializer";
 import { useVersionFilterUpdater } from "../../react__hooks/useVersionFilterUpdater";
+import { useWinPageContentData } from "../../react__hooks/win__page-content-data-hook";
+import { useWhatIsNewPageStores } from "../../mobx__entry/WinPageMobxEntry";
 
 
 interface IWhatIsNewPageProps{
@@ -27,6 +29,11 @@ interface IWhatIsNewPageProps{
 const WhatIsNewPage: FC<IWhatIsNewPageProps> = observer( ( {} ) => {
   useVersionFilterInitializer();
   useVersionFilterUpdater();
+
+  let innovationData = useWinPageContentData();
+  let { contentDataWinPageStore } = useWhatIsNewPageStores();
+
+
 
   return (
     <SliderSecondSpaceLayout

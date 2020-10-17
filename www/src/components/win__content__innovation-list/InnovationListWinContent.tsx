@@ -22,6 +22,7 @@ export const InnovationListWinContent: FC<IInnovationListWinContentProps> = obse
   } = useWhatIsNewPageStores();
 
 
+
   let contentItemAll = innovations.innovationDataAll
     .map((innovation, index) => (
       <section key={index}

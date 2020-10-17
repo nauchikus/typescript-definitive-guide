@@ -15,12 +15,13 @@ import { createContext, useContext } from "react";
 import { CollapseTreeMobxStore } from "../stores/CollapseTreeMobxStore";
 import { InnovationDataStore } from "../stores/InnovationDataStore";
 import { FormInnovationFilter } from "../filters/FormInnovationFilter";
-import { InnovationFilterSearchParamsParser } from "../parsers/InnovationFilterSearchParamsParser";
 import { ContentDataWinPageStore } from "../stores/ContentDataWinPageStore";
 import { computed, observe } from "mobx";
 import { InnovationVersionFilterDataStore } from "../stores/InnovationVersionFilterDataStore";
 import { DriverNavMobx } from "../stores/DriverNavMobx";
 import { WinAppDriverNavMobx } from "../stores/WinAppDriverNavMobx";
+import { isServer, isBrowser } from "../utils/app-utils";
+
 
 
 interface IWhatIsNewPageStoresParams {
@@ -33,9 +34,11 @@ interface IWhatIsNewPageStoresParams {
 }
 
 export class WinPageMobxEntry {
-  private static instance: ReturnType<typeof WinPageMobxEntry.create>;
+  private static instance: ReturnType<typeof WinPageMobxEntry.create> | null;
 
+  static destroy = () => WinPageMobxEntry.instance = null;
   static create = ({ innovationData,winTocTree,pageNavDataAll,location}: IWhatIsNewPageStoresParams) => {
+
     let router = new RouterStore( location );
     let contentIntersectionObserver = createIntersectionObserverStore( {
       containerSelector:`main.content`,
@@ -45,6 +48,8 @@ export class WinPageMobxEntry {
     let contentDataWinPageStore = ContentDataWinPageStore.create({
       pageContent: innovationData
     });
+
+
 
     let innovationVersionFilterDataStore = InnovationVersionFilterDataStore.create({
       contentDataWinPageStore

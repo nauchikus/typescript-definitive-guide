@@ -3,7 +3,7 @@ import {
   IWhatIsNewTocInnovationWithContent,
 } from "../types/IWhatIsNewToc";
 import { ContentDataWinPageStore } from "./ContentDataWinPageStore";
-import { Observable } from "rxjs";
+import { Observable, Subscription } from "rxjs";
 
 
 export interface IInnovationFilter<Id=unknown> {
@@ -16,8 +16,11 @@ export interface IInnovationFilter<Id=unknown> {
 }
 
 export class InnovationDataStore {
+  private filterSubscriptionMap = new Map<IInnovationFilter, Subscription>();
+
+
   get isActive(){
-    return this.innovationDataAll.length !== this.contentDataWinPageStore.pageContent.innovations.length;
+    return this.innovationDataAll.length !== this.contentDataWinPageStore.innovations.length;
   }
 
   get filters(){
@@ -41,13 +44,20 @@ export class InnovationDataStore {
   readonly addFilter = (filter: IInnovationFilter) => {
     this.filterAll.push(filter)
 
-    filter.getObservable().subscribe(this.update);
+    let subscription = filter.getObservable()
+      .subscribe(() => this.innovationDataAll = this.update());
+
+    this.filterSubscriptionMap.set(filter, subscription);
   };
   readonly deleteFilter = (filter: IInnovationFilter) => this.filterAll
     .splice(this.filterAll.indexOf(filter), 1);
   readonly deleteAllFilter = () => {
     while(this.filterAll.length){
-      this.filterAll.pop();
+      let filter = this.filterAll.pop();
+
+      if (filter) {
+        this.filterSubscriptionMap.delete(filter);
+      }
     }
   };
   readonly isFilterActiveById = <T>(filterId:T) => {
@@ -57,11 +67,11 @@ export class InnovationDataStore {
   }
 
   private update = () => {
-    this.innovationDataAll = this.contentDataWinPageStore.pageContent.innovations.filter(innovation =>
+    let innovationDataAll = this.contentDataWinPageStore.innovations.filter(innovation =>
       this.filters.every(filter => filter.predicate(innovation))
     );
 
-    return this.innovationDataAll;
+    return innovationDataAll;
   }
 }
 

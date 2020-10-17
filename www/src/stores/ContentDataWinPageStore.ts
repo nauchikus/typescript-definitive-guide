@@ -14,17 +14,21 @@ export class ContentDataWinPageStore {
   get innovations () {
     return this.pageContent.innovations;
   }
+  get pageContent () {
+    return this._pageContent;
+  }
 
-  constructor ( public pageContent: IWinPageContentData) {
+  constructor ( public _pageContent: IWinPageContentData) {
 
   }
 
 
   setPageContent = (pageContent: IWinPageContentData) =>
-    this.pageContent = pageContent;
+    this._pageContent = pageContent;
 }
 
 decorate( ContentDataWinPageStore, {
-  pageContent: observable,
+  _pageContent: observable,
+  pageContent: computed,
   innovations: computed,
 } );

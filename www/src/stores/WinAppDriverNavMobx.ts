@@ -27,7 +27,6 @@ export class WinAppDriverNavMobx {
 
     this.driverNavLinkDataAll = this.generateDriverNavLinkDataAll();
 
-    console.log(this.versionFilter.length, this.versionFilter.checkedLength);
     computed(() => this.versionFilter.checkedLength).observe(update);
     computed(() => this.router.hash).observe(update);
     computed(() => this.contentSection.currentSectionId).observe(update);

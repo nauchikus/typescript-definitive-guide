@@ -20,6 +20,9 @@ import { ContentIntersectionObserverStoreContext } from "../../react__context/Co
 import { RouterStoreContext } from "../../stores/RouterStore";
 import { WinPageMobxEntry, MobxWhatIsNewPageContext } from "../../mobx__entry/WinPageMobxEntry";
 import { useRouterUpdater } from "../../react__hooks/useRouterUpdater";
+import html from "remark-html";
+import { useMobxInitializer } from "../../react__hooks/useMobxInitializer";
+import { useUpdateContentDataWinPage } from "../../react__hooks/useUpdateContentDataWinPage";
 
 
 export interface IVersionable {
@@ -45,17 +48,21 @@ type DisposerRefs={
     versionFilterChangeDisposer: ( () => void ) | null;
 }
 
+let count = 0;
+
 const WhatIsNewPageProvider: FC<IWhatIsNewPageProviderProps> = ( { pageContext,location } ) => {
     let { localization,innovationData,winTocTree,pageNavDataAll } = pageContext;
 
 
     let { pages,...appSharedLocalization } = localization;
-    let mobxStores = WinPageMobxEntry.getInstance({
+
+    let mobxStores = useMobxInitializer(WinPageMobxEntry,{
         winTocTree,
         innovationData,
         pageNavDataAll,
         location
     });
+
 
     let { stores, validators } = mobxStores;
     let { router, contentDataWinPageStore } = stores;
@@ -65,9 +72,14 @@ const WhatIsNewPageProvider: FC<IWhatIsNewPageProviderProps> = ( { pageContext,l
 
 
 
-    if (innovationData.mmp !== contentDataWinPageStore.pageContent.mmp) {
-        contentDataWinPageStore.setPageContent(innovationData);
-    }
+
+    // useEffect(()=> {
+    //     console.log(`update innovations: ${innovationData.mmp} | ${contentDataWinPageStore.pageContent.mmp}`);
+    //     if (innovationData.mmp !== contentDataWinPageStore.pageContent.mmp) {
+    //         console.log(`set innovation`);
+    //         contentDataWinPageStore.setPageContent(innovationData);
+    //     }
+    // }, [innovationData.mmp])
 
 
 
