@@ -22,6 +22,7 @@ export const InnovationListWinContent: FC<IInnovationListWinContentProps> = obse
   } = useWhatIsNewPageStores();
 
 
+  // innovations.innovationDataAll.forEach(i=>console.log(i.version))
 
   let contentItemAll = innovations.innovationDataAll
     .map((innovation, index) => (

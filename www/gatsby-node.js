@@ -37,59 +37,59 @@ const getLastVersionInfo = winToc => {
     return versionInfo;
 }
 
-// exports.onPostBootstrap = async ({ actions: {createJobV2}, getNodesByType }) => {
-//     let [bookTocGatsbyNode] = getNodesByType(CustomGatsbyNodeType.BookTocSource);
-//     let { toc: bookToc } = bookTocGatsbyNode;
-//
-//     let [winTocGatsbyNode] = getNodesByType(CustomGatsbyNodeType.WhatIsNewToc);
-//     let { toc: winToc } = winTocGatsbyNode;
-//
-//     let versionInfo = getLastVersionInfo(winToc);
-//
-//     if (process.env.NODE_ENV !== `production`) {
-//         console.info(`Running jobs is missed `);
-//
-//         return Promise.resolve();
-//     }
-//
-//
-//     console.time(`[GENERATED BOOK COVERS]`);
-//     await createJobV2({
-//         name: `BOOK_COVER_WORKER`,
-//         inputPaths: [Paths.BOOK_COVER_SOURCE],
-//         outputDir: Paths.BOOK_COVERS_OUTPUT_DIR,
-//         args: {
-//             filenames: {
-//                 bookCover: FileNames.BOOK_COVER,
-//                 bookCoverForSocialMedia: FileNames.BOOK_COVER_FOR_SOCIAL_MEDIA,
-//             },
-//             versionInfo
-//         }
-//     });
-//     console.timeEnd(`[GENERATED BOOK COVERS]`);
-//
-//
-//     let inputPaths = bookToc.map((tocItem, index) => path.join(
-//         process.cwd(),
-//         `..//book/ru/chapters`,
-//         toChapterName(index, tocItem.section, tocItem.title),
-//         `content.md`
-//     ));
-//
-//
-//     console.time(`[GENERATED PDF]`);
-//     await createJobV2({
-//         name: `BOOK_PDF_WORKER`,
-//         inputPaths,
-//         outputDir: Paths.BOOK_PDF_OUTPUT_DIR,
-//         args: {
-//             bookName: `TypeScript Подробное Руководство`,
-//             bookCoverPath: Paths.BOOK_COVER,
-//             bookPdfOutputPath: path.join(Paths.BOOK_PDF_OUTPUT_DIR, `TypeScript Подробное Руководство.pdf`),
-//             bookToc,
-//             versionInfo
-//         }
-//     });
-//     console.timeEnd(`[GENERATED PDF]`);
-//
-// }
+exports.onPostBootstrap = async ({ actions: {createJobV2}, getNodesByType }) => {
+    let [bookTocGatsbyNode] = getNodesByType(CustomGatsbyNodeType.BookTocSource);
+    let { toc: bookToc } = bookTocGatsbyNode;
+
+    let [winTocGatsbyNode] = getNodesByType(CustomGatsbyNodeType.WhatIsNewToc);
+    let { toc: winToc } = winTocGatsbyNode;
+
+    let versionInfo = getLastVersionInfo(winToc);
+
+    if (process.env.NODE_ENV !== `production`) {
+        console.info(`Running jobs is missed `);
+
+        return Promise.resolve();
+    }
+
+
+    console.time(`[GENERATED BOOK COVERS]`);
+    await createJobV2({
+        name: `BOOK_COVER_WORKER`,
+        inputPaths: [Paths.BOOK_COVER_SOURCE],
+        outputDir: Paths.BOOK_COVERS_OUTPUT_DIR,
+        args: {
+            filenames: {
+                bookCover: FileNames.BOOK_COVER,
+                bookCoverForSocialMedia: FileNames.BOOK_COVER_FOR_SOCIAL_MEDIA,
+            },
+            versionInfo
+        }
+    });
+    console.timeEnd(`[GENERATED BOOK COVERS]`);
+
+
+    let inputPaths = bookToc.map((tocItem, index) => path.join(
+        process.cwd(),
+        `..//book/ru/chapters`,
+        toChapterName(index, tocItem.section, tocItem.title),
+        `content.md`
+    ));
+
+
+    console.time(`[GENERATED PDF]`);
+    await createJobV2({
+        name: `BOOK_PDF_WORKER`,
+        inputPaths,
+        outputDir: Paths.BOOK_PDF_OUTPUT_DIR,
+        args: {
+            bookName: `TypeScript Подробное Руководство`,
+            bookCoverPath: Paths.BOOK_COVER,
+            bookPdfOutputPath: path.join(Paths.BOOK_PDF_OUTPUT_DIR, `TypeScript Подробное Руководство.pdf`),
+            bookToc,
+            versionInfo
+        }
+    });
+    console.timeEnd(`[GENERATED PDF]`);
+
+}
