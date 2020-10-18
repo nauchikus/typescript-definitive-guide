@@ -15,8 +15,6 @@ const getLastWinMetadata = async () => {
     let versionNameSortedAll = versionNameAll.sort((a, b) => parseFloat(a) - parseFloat(b));
     let lastVersionName = versionNameSortedAll.pop();
 
-    console.log(lastVersionName, path.join(WIN_DIR, lastVersionName, `metadata/metadata.json`));
-
     let lastMetadataContent = await fsp.readFile(path.join(WIN_DIR, lastVersionName, `metadata/metadata.json`), `utf-8`);
     let lastMetadata = JSON.parse(lastMetadataContent);
 
@@ -25,9 +23,6 @@ const getLastWinMetadata = async () => {
 
 const generateBookCover = async () => {
     let lastMetadata = await getLastWinMetadata();
-
-    let a = await fsp.readFile(path.join(process.cwd(), `book-cover-for-social-media.png`), `base64`)
-    let b = await fsp.readFile(path.join(process.cwd(), `book-cover-for-social-media.png`))
 
 
     let lastVersion = lastMetadata.releaseHistory[lastMetadata.releaseHistory.length - 1];

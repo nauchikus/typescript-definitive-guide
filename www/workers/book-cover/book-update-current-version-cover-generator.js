@@ -79,9 +79,8 @@ module.exports = { generateCover };
 async function generateCover (bookUpdateCurrentVersionCoverSourcePath, options ) {
     let html = await getHtml({
         bookUpdateCurrentVersionCoverSourcePath,
-        bookCoverSourcePath:path.relative(__dirname, options.coverOptions.bookCoverPath)
+        bookCoverSourcePath: options.coverOptions.bookCoverPath
     });
-
 
 
     const browser = await puppeteer.launch({
@@ -97,11 +96,6 @@ async function generateCover (bookUpdateCurrentVersionCoverSourcePath, options )
     });
     await page.addStyleTag({ path: path.join(__dirname, `book-update-current-version-cover.css`) });
 
-
-    console.log(bookUpdateCurrentVersionCoverSourcePath);
-    console.log(path.relative(__dirname, options.coverOptions.bookCoverPath));
-    console.log(options.outputPath,
-        options.coverOptions);
 
     await generateBookCover(
         page,
