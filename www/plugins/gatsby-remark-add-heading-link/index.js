@@ -1,6 +1,7 @@
 const visit=require('unist-util-visit');
 
 const StringUtils=require('../../src/utils/string-utils');
+const ConverterPathUtils=require('../../src/utils/converter-path-utils');
 const Utils=require('../utils');
 
 module.exports = ( ...params ) => {
@@ -49,7 +50,7 @@ module.exports = ( ...params ) => {
 
 
     if ( isH2( headingNode ) ) {
-      path = StringUtils.chapterHeadingToPath( heading );
+      path = ConverterPathUtils.toUrl( heading );
     }
 
 

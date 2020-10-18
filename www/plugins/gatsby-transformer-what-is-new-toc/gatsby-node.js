@@ -21,49 +21,7 @@ const findLastVersionInnovationByMetadata = metadata => {
   return lastVersionInnovation;
 };
 const getLastVersionInfo = metadata => metadata.releaseHistory[ 0 ];
-// const getReleaseHistory = metadata => {
-//   const isFirstDateIsLaterThanSecond = (a, b) =>
-//       (Date.parse(a.dateRelease) - Date.parse(b.dateRelease)) >= 0;
-//
-//   let sortedInnovationAll = metadata.innovations
-//       .sort(sortInnovationByDate);
-//   let versionInfoAll = sortedInnovationAll.map(({ version, dateRelease }) => ({
-//     version,
-//     dateRelease
-//   }));
-//   let versionInfoWithoutDuplicateMap = versionInfoAll.reduce((map, currentVersionInfo) => {
-//     let currentDateRelease = map.get(currentVersionInfo.version);
-//
-//     if(! currentDateRelease || (currentDateRelease && isFirstDateIsLaterThanSecond(currentVersionInfo.dateRelease, currentDateRelease))){
-//       map.set(currentVersionInfo.version, currentVersionInfo.dateRelease);
-//     }
-//
-//     return map;
-//   }, new Map());
-//   let realiseHistoryAll = Array.from(versionInfoWithoutDuplicateMap.entries())
-//       .map(([version, dateRelease]) => ({
-//         version,
-//         dateRelease
-//       }));
-//
-//
-//   return realiseHistoryAll;
-// }
-// const getLastVersionInfo = metadata => {
-//   let realiseHistoryAll = getReleaseHistory(metadata)
-//   let lastInnovationVersion = realiseHistoryAll[0];
-//   let lastVersionInfo = {...lastInnovationVersion};
-//
-//   return lastVersionInfo;
-// }
-// const innovationToVersionInfoConverter = versionInfo => ( {
-//   version: new Version(versionInfo.version).preReleaseName,
-//   date: versionInfo.dateRelease
-// } );
-// const getCurrentReleaseStatusByMetadata = metadata =>
-//   innovationToVersionInfoConverter(
-//     getLastVersionInfo( metadata )
-//   );
+
 
 
 const getLastVersionDate = metadata => getLastVersionInfo( metadata ).version;
@@ -82,7 +40,7 @@ const metadataToToc = metadata => {
     mmp: toMMP( getLastVersionInfo( metadata ).version ),
     innovations: innovations.map( innovation =>
       Object.assign( innovation, {
-        path: innovation.innovationName
+        path: ConverterPathUtils.toUrl(innovation.innovationName)
       } ) )
   };
 

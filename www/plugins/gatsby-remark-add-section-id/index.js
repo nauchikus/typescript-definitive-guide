@@ -56,7 +56,7 @@ module.exports = ( ...params ) => {
 
 
             if ( isH2( headingNode ) ) {
-                sectionId = heading;
+                sectionId = ConverterPathUtils.toId(heading);
             }
 
 

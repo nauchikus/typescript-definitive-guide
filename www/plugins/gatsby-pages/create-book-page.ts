@@ -35,12 +35,12 @@ export type CreateBookChapterNameParams={
 
 const bookTocToPageNav = ( toc: IBookTocSource[] ) => toc.map( ( { title, subtitles } ) => ( {
     name: title,
-    path: title,
+    path: ConverterPathUtils.toUrl(title),
 
     sections: subtitles
       .map( subtitle => ( {
         name: subtitle,
-        path: subtitle
+        path: ConverterPathUtils.toUrl(subtitle)
       } ) )
   } ) );
 
@@ -88,7 +88,7 @@ export const createPages: GatsbyCreatePages<ICreatePageSharedOptions> = async ( 
     // let bookToc: IBookTocWithContentNode[] = toc.map( async (chapter,index) => {
     let bookChapterPageContentPromiseAll = toc.map( async (chapter,index) => {
         let chapterEscapedName = StringUtils.escapeString( chapter.title );
-        let chapterEscapedPath = chapter.title;
+        let chapterEscapedPath = ConverterPathUtils.toUrl(chapter.title);
         let chapterGithubName = createBookChapterName( {
             index,
             sectionName: chapter.section,

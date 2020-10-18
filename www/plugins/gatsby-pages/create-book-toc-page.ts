@@ -33,10 +33,10 @@ export const createPages: GatsbyCreatePages<ICreatePageSharedOptions> = async ( 
     let bookToc: BookTocNode[] = toc.map( chapter => ( {
         title: chapter.title,
         section: chapter.section,
-        path: chapter.title,
+        path: ConverterPathUtils.toUrl(chapter.title),
         subtitles: chapter.subtitles.map( subchapter => ( {
             subtitle: subchapter,
-            path: `${chapter.title}#${subchapter}`
+            path: `${ConverterPathUtils.toUrl(chapter.title)}#${ConverterPathUtils.toUrl(subchapter)}`
         } ) )
     } ) );
     let bookTocTree: TreeNode<BookTocNode>[] = bookToc.map( ( node, index ) => ( {
