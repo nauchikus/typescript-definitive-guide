@@ -54,7 +54,7 @@
   color: var(--color_dark);
   font-size: .8rem;
   line-height: 100%;
-  
+
 }
 .section-informer__label{
   color:var(--color_darkmiddle);
@@ -123,7 +123,7 @@
 
 .contributor__card {
   min-width: 180px;
-  max-width:300px;
+  max-width:180px;
   width: max-content;
 
   white-space: normal;
@@ -177,6 +177,7 @@
   color: var(--color_darkmiddle);
 
   font-size: .7rem;
+  text-align: center;
 
   margin: 0 0 8px 0;
 }

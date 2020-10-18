@@ -142,7 +142,7 @@ query GetGithubCommitHistory($path: String!, $owner: String!, $repositoryName: S
             history(path: $path) {
               commits: nodes {
                 committedDate
-                committer {
+                committer: author {
                   name
                 }
                 message
