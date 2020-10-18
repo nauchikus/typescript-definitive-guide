@@ -3,8 +3,7 @@ const isServer = () => {
     // return `module` in globalThis;
 }
 const isBrowser = () => {
-    return process && process.env.NODE_ENV === "development"
-    // return `window` in globalThis;
+    return `window` in globalThis;
 }
 
 module.exports = {
