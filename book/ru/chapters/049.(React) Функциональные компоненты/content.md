@@ -174,6 +174,59 @@ export default function InformerDecorator({decor, message}: InformerDecoratorPro
 
 В случаях когда компонент-провайдер нуждается только в части пропсов определенных в типе представляющих их, ненужную часть можно исключить с помощью типа `Omit<T, K>` или `Exclude<T, U>`.
 
+Тем, кому ближе минимализм, может прийтись по душе подход с получением типа пропсов без его экспорта. 
+
+`````ts
+// @filename: Informer.tsx
+import React from "react";
+
+// InformerProps не экспортируется наружу
+interface InformerProps {
+    message: string;
+}
+
+export default function Informer({message}: InformerProps){
+  return <h1>{message}</h1>
+}
+`````
+
+`````ts
+// @filename: InformerDecorator.tsx
+
+                  /**[0] */
+import React, { ComponentType } from "react";
+    /**[1] */
+import type Informer from "./Informer";
+
+    /**[2] */  /**[3] */        /**[4] */   /**[5] */   /**[6] *//**[7] */
+type GetProps<T> = T extends ComponentType<infer Props> ? Props : unknown;
+
+        /**[8] */               /**[9] */
+type InformerProps = GetProps<typeof Informer>;
+
+                                                  /**[10] */
+export interface InformerDecoratorProps extends InformerProps {
+    decor: number;
+}
+
+/**
+ * [0] Импортируем обобщенный тип ComponentType<Props>
+ * представляющий объединение классового и функционального
+ * компонента. [1] Импортируем как "только тип" функциональный
+ * компонент Informer. [2] Определяем тип GetProps<T> параметр типа
+ * которого ожидает тип React компонента. Далее, с помощью механизма
+ * определения типа на основе условия (условный тип) выясняем принадлежит
+ * ли тип [3] T к React компоненту и в этот момент определяем переменную
+ * infer Props [5], которая и будет представлять тип пропсов компонент T.
+ * Если условие верно, то возвращаем тип [6] Props, иначе unknown.
+ * [8] С помощью типа GetProps, на основе типа Informer, полученного
+ * с помощью запроса типа [9], определяем новый  тип InformerProps,
+ * который в дальнейшем используем по назначению.
+ */
+`````
+
+Подобный способ будет не заменим при работе со сторонними библиотеками _React_ компонентов, которые не имеют экспорты типов описывающих свои пропсы.
+
 Не будет лишним напомнить, что при помощи модификатора `readonly` не удастся избежать изменений переменных ссылки на которые были получены с помощью механизма деструктуризации.
 
 `````ts
