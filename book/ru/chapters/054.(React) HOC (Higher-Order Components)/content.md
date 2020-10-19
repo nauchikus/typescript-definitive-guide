@@ -14,49 +14,55 @@ _HOC_ — это функция, которая на входе принимае
 
 В качестве примера реализуем сценарий при котором пропсы _компонента обертки_ определяемого в теле _hoc_ разделяются на две категории. Первая необходима исключительно самому компоненту-обертке для генерации новых пропсов, которые в дальнейшем будут объединены с пропсами относящихся ко второй категории и установлены _оборачиваемому компоненту_. 
 
-Начать стоит с детального рассмотрения сигнатуры универсальной функции, ожидающей в качестве единственного параметра типа тип `WrappedProps` представляющий пропсы предназначенные исключительно оборачиваемому-компоненту ссылка на который доступна через единственный параметр `WrappedComponent`. `WrappedComponent` может принадлежать, как к функциональному `FC<T>`, так и классовому типу `ComponentClass<T>` пропсы которого, помимо типа представленного аргументом типа `WrappedProps`, должны принадлежать ещё и к типу `WrapperForWrappedProps` описывающего значения создаваемые и устанавливаемые компонентом-оберткой. Поскольку в нашем конкретном примере _функция hoc_ в качестве компонента-обертки определяет функциональный компонент, тип возвращаемого значения указан соответствующим образом `FC<T>`. Пропсы компонента-обертки должны принадлежать к нескольким типам одновременно поскольку для его работы требуются не только пропсы необходимые исключительно ему (`WrapperProps`), но и пропсы которые он лишь пробрасывает оборачиваемому-компоненту (`WrappedProps`). Поэтому аргумент типа представляющего возвращаемое значение является типом пересечение `WrappedProps & WrapperProps`.
+Начать стоит с детального рассмотрения сигнатуры универсальной функции, ожидающей в качестве единственного параметра типа тип `WrappedProps` представляющий пропсы предназначенные исключительно оборачиваемому-компоненту ссылка на который доступна через единственный параметр `WrappedComponent`. `WrappedComponent` может принадлежать, как к функциональному `FC<T>`, так и классовому типу `ComponentClass<T>`, поэтому указываем ему в аннотации обобщенный тип `Component<P>` пропсы которого, помимо типа представленного аргументом типа `WrappedProps`, должны принадлежать ещё и к типу `WrapperForWrappedProps` описывающего значения создаваемые и устанавливаемые компонентом-оберткой.
+
+Стоит упомянуть что, тип`Component<P>` является типом объединением представляющим классовые и функциональные _React_ компоненты.
+
+Поскольку в нашем конкретном примере _функция hoc_ в качестве компонента-обертки определяет функциональный компонент, тип возвращаемого значения указан соответствующим образом `FC<T>`. Пропсы компонента-обертки должны принадлежать к нескольким типам одновременно поскольку для его работы требуются не только пропсы необходимые исключительно ему (`WrapperProps`), но и пропсы которые он лишь пробрасывает оборачиваемому-компоненту (`WrappedProps`). Поэтому аргумент типа представляющего возвращаемое значение является типом пересечение `WrappedProps & WrapperProps`.
 
 
 `````ts
-import React, {FC, ComponentClass} from "react";
+                /**[0] */
+import React, {ComponentType} from "react";
 
 
-/**[0] */
+/**[1] */
 export interface WrapperProps {
     a: number;
     b: string;
 }
-/**[1] */
+/**[2] */
 export interface WrapperForWrappedProps {
     c: boolean;
 }
 
 /**
- * [0] WrapperProps описывает данные необходимые
+ * [0] Импортируем обобщенный тип Component<P> представляющий
+ * объединение классового и функционального React компонента.
+ * [1] WrapperProps описывает данные необходимые
  * исключительно компоненту-обертке определяемому
  * внутри функции hoc, который генерирует
  * и устанавливает данные принадлежащие к типу 
- * WrapperForWrappedProps [1] обертываемому-компоненту.
+ * WrapperForWrappedProps [2] обертываемому-компоненту.
  */
 
 
-                /**[2]      [3] */
+                /**[3]      [4] */
 export function withHoc<WrappedProps>(
-        /**[4]        [5]      [6]              [7]                     [8]           [6]                 [7] */
-    WrappedComponent: FC<WrappedProps & WrapperForWrappedProps> | ComponentClass<WrappedProps & WrapperForWrappedProps>)
+        /**[5]              [6]         [7]                 [8] */
+    WrappedComponent: ComponentType<WrappedProps & WrapperForWrappedProps>)
        /**[9]    [10]           [11] */
         : FC<WrappedProps & WrapperProps>
 
 /**
- * [2] определение универсальной функции hoc
- * чей единственный параметр типа WrappedProps [3]
+ * [3] определение универсальной функции hoc
+ * чей единственный параметр типа WrappedProps [4]
  * представляет часть пропсов обертываемого-компонента, а их оставшаяся часть, генерируемая
  * компонентом-оберткой определенным в теле hoc, к типу WrapperForWrappedProps.
  * 
- * Единственный параметр hoc WrappedComponent [4] принадлежит
- * к типу объединение состоящему из типов функционального [5] и классового [8] компонента
- * котором в качестве аргумента типа установлен тип пересечение определяемый типами WrappedProps [6]
- * и WrapperForWrappedProps [7].
+ * Единственный параметр hoc WrappedComponent [5] принадлежит
+ * к обобщенному типу Component<P> [6], которому в качестве аргумента типа установлен
+ * тип пересечение определяемый типами WrappedProps [7] и WrapperForWrappedProps [8].
  * 
  * Тип возвращаемого hoc значения обозначен как функциональный компонент [9] который по мимо пропсов
  * устанавливаемых разработчиком и прокидываемых компонентом-оберткой WrappedProps [10] ожидает ещё и пропсы
@@ -71,7 +77,7 @@ export function withHoc<WrappedProps>(
 
 
 `````ts
-import React, {FC, ComponentClass} from "react";
+import React, {ComponentType} from "react";
 
 
 export interface WrapperProps {
@@ -83,7 +89,7 @@ export interface WrapperForWrappedProps {
 }
 
 export function withHoc<WrappedProps>(
-    WrappedComponent: FC<WrappedProps & WrapperForWrappedProps> | ComponentClass<WrappedProps & WrapperForWrappedProps>)
+    WrappedComponent: ComponentType<WrappedProps & WrapperForWrappedProps>)
         : FC<WrappedProps & WrapperProps> {
 
                     /**[0]         [1]    [2]             [3] */
@@ -172,7 +178,7 @@ export const CustomComponentWrapped = withHoc(CustomComponent);
 Поскольку пример для _hoc_, возвращающего в качестве компонента-обертки классовый компонент, отличается от предыдущего лишь заменой функции на класс и объявлением для него двух дополнительных типов `*State` и `*Snapshot`, в повторном комментировании происходящего попросту нет смысла.
 
 `````ts
-import React, {FC, ComponentClass, Component} from "react";
+import React, {ComponentType, Component} from "react";
 
 
 export interface WrapperProps {
@@ -204,7 +210,7 @@ export interface WrapperForWrappedProps {
  */
 
 export function withHoc<WrappedProps>(
-    WrappedComponent: FC<WrappedProps & WrapperForWrappedProps> | ComponentClass<WrappedProps & WrapperForWrappedProps>)
+    WrappedComponent: ComponentType<WrappedProps & WrapperForWrappedProps>)
         : ComponentClass<WrappedProps & WrapperProps> {
 
                     /**[2] */
