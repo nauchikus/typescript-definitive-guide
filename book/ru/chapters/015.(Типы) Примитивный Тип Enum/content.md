@@ -70,7 +70,7 @@ enum Keys {
 Вдобавок ко всему `enum` позволяет задавать _псевдонимы_ (_alias_). Псевдонимам устанавливается значение константы, на которую они ссылаются.
 
 `````ts
-enum Langues {
+enum Languages {
     Apple, // en, value = 0
     Apfel = Apple, // de, value = 0
     LaPomme = Apple // fr, value = 0
