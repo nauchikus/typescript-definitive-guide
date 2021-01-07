@@ -60,7 +60,7 @@ enum Enums {
 const v = Enums.Value; // const v: Enums.Value
 
 class Identifier {
-  readonly f = Enums.Value; // f: Enums.Value
+    readonly f = Enums.Value; // f: Enums.Value
 }
 `````
 
@@ -88,8 +88,8 @@ type TypeAlias = number;
 let typeInterface: InterfaceType;
 let typeTypeAlias: TypeAlias;
 
-let v0 = { a: 5, b: 'text', c: true }; // let v0: { a: number, b:string, c: boolean }
-const v1 = { a: 5, b: 'text', c: true }; // const v1: { a: number, b: string, c: boolean }
+let v0 = { a: 5, b: 'text', c: true }; // let v0: {a: number, b:string, c: boolean}
+const v1 = { a: 5, b: 'text', c: true }; // const v1: {a: number, b: string, c: boolean}
 
 let v3 = new ClassType(); // let v3: ClassType
 let v4 = typeInterface; // let v4: InterfaceType
