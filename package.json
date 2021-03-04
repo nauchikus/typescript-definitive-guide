@@ -51,18 +51,18 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@commitlint/cli": "^9.1.2",
-    "@types/nodegit": "^0.26.7",
-    "@types/puppeteer": "^3.0.2",
-    "commitizen": "^4.2.1",
+    "@commitlint/cli": "^12.0.1",
+    "@types/nodegit": "^0.26.14",
+    "@types/puppeteer": "^5.4.3",
+    "commitizen": "^4.2.3",
     "cz-customizable": "^6.3.0",
-    "husky": "^4.2.5",
-    "lint-staged": "^10.2.13",
+    "husky": "^5.1.2",
+    "lint-staged": "^10.5.4",
     "nodegit": "^0.27.0",
-    "prettier": "^2.0.2",
-    "react": "^16.13.1",
+    "prettier": "^2.2.1",
+    "react": "^17.0.1",
     "rm": "^0.1.8",
-    "simple-git": "^2.20.1"
+    "simple-git": "^2.35.2"
   },
   "dependencies": {}
 }

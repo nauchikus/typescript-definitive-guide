@@ -1,0 +1,158 @@
+{
+  "releaseHistory": [
+    {
+      "version": "4.2",
+      "dateRelease": "February 23, 2021",
+      "datePublication": "March 4, 2021"
+    }
+  ],
+  "colors": {
+    "bookCoverColors": {
+      "--color_light": "#fff",
+      "--color_middle-lite": "#93cf94",
+      "--color_accent": "#aff933",
+      "--color_ambient": "#a12d2d"
+    },
+    "bookUpdateCurrentVersionCoverColors": {
+      "--color": "#265589"
+    }
+  },
+  "innovations": [
+    {
+      "id": "",
+      "version": "4.2",
+      "innovationName": "Изменение поведения указания остаточных типов в кортеже",
+      "dateRelease": "February 23, 2021",
+      "datePublication": "March 4, 2021",
+      "tags": ["Изменение"]
+    },
+    {
+      "id": "",
+      "version": "4.2",
+      "innovationName": "Изменение вывода для псевдонимов типов",
+      "dateRelease": "February 23, 2021",
+      "datePublication": "March 4, 2021",
+      "tags": ["Улучшение"]
+    },
+    {
+      "id": "",
+      "version": "4.2",
+      "innovationName": "Ужесточение правил проверки для оператора in",
+      "dateRelease": "February 23, 2021",
+      "datePublication": "March 4, 2021",
+      "tags": ["Нововведение"]
+    },
+    {
+      "id": "",
+      "version": "4.2",
+      "innovationName": "Новый флаг --noPropertyAccessFromIndexSignature",
+      "dateRelease": "February 23, 2021",
+      "datePublication": "March 4, 2021",
+      "tags": ["Нововведение"]
+    },
+    {
+      "id": "",
+      "version": "4.2",
+      "innovationName": "Модификатор abstract для описания типа конструктора",
+      "dateRelease": "February 23, 2021",
+      "datePublication": "March 4, 2021",
+      "tags": ["Нововведение"]
+    },
+    {
+      "id": "",
+      "version": "4.2",
+      "innovationName": "Понимание структуры проекта с флагом --explainFiles",
+      "dateRelease": "February 23, 2021",
+      "datePublication": "March 4, 2021",
+      "tags": ["Нововведение"]
+    },
+    {
+      "id": "",
+      "version": "4.2",
+      "innovationName": "Проверка вызова функций в логических выражениях",
+      "dateRelease": "February 23, 2021",
+      "datePublication": "March 4, 2021",
+      "tags": ["Улучшение"]
+    },
+    {
+      "id": "",
+      "version": "4.2",
+      "innovationName": "Смягчение правил между необязательными членами и строковых индексных сигнатур",
+      "dateRelease": "February 23, 2021",
+      "datePublication": "March 4, 2021",
+      "tags": ["Изменение"]
+    },
+    {
+      "id": "",
+      "version": "4.2",
+      "innovationName": "Деструктурированные переменные можно явно пометить как неиспользуемые",
+      "dateRelease": "February 23, 2021",
+      "datePublication": "March 4, 2021",
+      "tags": ["Нововведение"]
+    },
+    {
+      "id": "",
+      "version": "4.2",
+      "innovationName": "[КРИТИЧЕСКОЕ ИЗМЕНЕНИЕ] Обновление lib.d.ts",
+      "dateRelease": "February 23, 2021",
+      "datePublication": "March 4, 2021",
+      "tags": ["Критическое изменение"]
+    },
+    {
+      "id": "",
+      "version": "4.2",
+      "innovationName": "[КРИТИЧЕСКОЕ ИЗМЕНЕНИЕ] noImplicitAny и новое поведение для оператора yield тип которого не может быть установлен явно",
+      "dateRelease": "February 23, 2021",
+      "datePublication": "March 4, 2021",
+      "tags": ["Критическое изменение"]
+    },
+    {
+      "id": "",
+      "version": "4.2",
+      "innovationName": "[КРИТИЧЕСКОЕ ИЗМЕНЕНИЕ] Проверка вызова функций в условных операторах приурочена к флагу --strictNullChecks",
+      "dateRelease": "February 23, 2021",
+      "datePublication": "March 4, 2021",
+      "tags": ["Критическое изменение"]
+    },
+    {
+      "id": "",
+      "version": "4.2",
+      "innovationName": "[КРИТИЧЕСКОЕ ИЗМЕНЕНИЕ] Лимит для механизма spread в кортежах",
+      "dateRelease": "February 23, 2021",
+      "datePublication": "March 4, 2021",
+      "tags": ["Критическое изменение"]
+    },
+    {
+      "id": "",
+      "version": "4.2",
+      "innovationName": "[КРИТИЧЕСКОЕ ИЗМЕНЕНИЕ] Изменение правил для оператора in",
+      "dateRelease": "February 23, 2021",
+      "datePublication": "March 4, 2021",
+      "tags": ["Критическое изменение"]
+    },
+    {
+      "id": "",
+      "version": "4.2",
+      "innovationName": "[КРИТИЧЕСКОЕ ИЗМЕНЕНИЕ] Расширение .d.ts теперь нельзя использовать в путях импорта",
+      "dateRelease": "February 23, 2021",
+      "datePublication": "March 4, 2021",
+      "tags": ["Критическое изменение"]
+    },
+    {
+      "id": "",
+      "version": "4.2",
+      "innovationName": "[КРИТИЧЕСКОЕ ИЗМЕНЕНИЕ] Изменение типа параметра функции обратного вызова передаваемой в качестве аргумента функции visitNode",
+      "dateRelease": "February 23, 2021",
+      "datePublication": "March 4, 2021",
+      "tags": ["Критическое изменение"]
+    },
+    {
+      "id": "",
+      "version": "4.2",
+      "innovationName": "[КРИТИЧЕСКОЕ ИЗМЕНЕНИЕ] Отмена поведения литерального вывода шаблона из версии 4.2@beta",
+      "dateRelease": "February 23, 2021",
+      "datePublication": "March 4, 2021",
+      "tags": ["Критическое изменение"]
+    }
+  ]
+}

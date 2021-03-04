@@ -24,7 +24,6 @@ const {
 } = process.env
 
 
-
 if(!isRepoInfo() && NODE_ENV === `development`){
   console.warn(`[GITHUB_TOKEN WARN] Github token not found.`);
 }

@@ -9,7 +9,7 @@
 const isRepoInfo = () => {
     const {
         GITHUB_TOKEN,
-        GATSBY_REPOSITORY_NAME,
+        GATSBY_REPOSITORY_NAME = 'typescript-definitive-guide',
         GATSBY_REPOSITORY_OWNER,
         GATSBY_REPOSITORY_BRANCH
     } = process.env;
