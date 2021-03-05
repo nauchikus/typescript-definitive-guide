@@ -3,5 +3,12 @@
 
 npm run book-heading-validate
 
-commitlint --edit $1 --config ../typescript-definitive-guide/config/git/commitlint.js
+echo $1
+echo $2
+echo $3
+echo $4
+echo $5
+echo $6
+
+commitlint --config ../typescript-definitive-guide/config/git/commitlint.js
 
