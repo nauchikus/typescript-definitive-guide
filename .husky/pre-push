@@ -3,6 +3,5 @@
 
 npm run book-heading-validate
 
-# .husky/commit-msg
-commitlint -e $1 -g './config/git/commitlint.js'
+commitlint --edit $2 --config ../typescript-definitive-guide/config/git/commitlint.js
 
