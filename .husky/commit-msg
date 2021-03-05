@@ -1,0 +1,6 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+#commitlint -E HUSKY_GIT_PARAMS -g './config/git/commitlint.js'
+#commitlint --env ./config/git/commitlint.js
+commitlint --config "../config/git/commitlint.js"

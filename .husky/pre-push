@@ -1,0 +1,8 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+npm run book-heading-validate
+
+# .husky/commit-msg
+commitlint -e HUSKY_GIT_PARAMS -g './config/git/commitlint.js'
+
