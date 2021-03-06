@@ -40,7 +40,6 @@ export const GatsbyImage: FC<IGatsbyImageProps> = ( { className,path,alt } ) => 
                   }
                   fluid {
                       base64
-                      tracedSVG
                       aspectRatio
                       src
                       srcSet

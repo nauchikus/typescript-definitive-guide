@@ -34,7 +34,9 @@ export abstract class BaseFileOnGithubCommitHistoryDataProvider<TInitializeParam
     };
   }
 
-  public abstract async getData (params:TInitializeParams): Promise<ResultData>;
+  public async getData (params:TInitializeParams): Promise<ResultData> {
+    throw new Error( `Method must be override in subclasses.` );
+  }
 
 }
 
