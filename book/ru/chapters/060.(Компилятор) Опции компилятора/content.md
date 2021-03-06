@@ -2572,7 +2572,6 @@ function f1(array: string[]) {
 
 ## noPropertyAccessFromIndexSignature
 
-
 `--noPropertyAccessFromIndexSignature` - активирует поведение запрещающее обращение через точечную нотацию к динамическим членам объекта определяющего строковую индексную сигнатуру, 
 
 `````json
@@ -2621,14 +2620,12 @@ function configurate(settings: Settings){
 
 ## explainFiles
 
-
 `--explainFiles` - команда, позволяющая выводить информацию о зависимостях проекта не только в консоль, но и файл, или даже открывать в _visual studio code_.
 
 `````bash
-// вывод в файл
+# вывод в файл
 tsc --explainFiles > expanation.txt
     
-// вывод в редактор vsc
+# вывод в редактор vsc
 tsc --explainFiles | code -
 `````
-
