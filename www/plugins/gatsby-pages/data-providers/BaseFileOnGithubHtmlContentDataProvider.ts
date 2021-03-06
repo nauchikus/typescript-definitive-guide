@@ -27,9 +27,7 @@ export abstract class BaseFileOnGithubHtmlContentDataProvider<TInitializeParams>
     };
   }
 
-  public async getData (params:TInitializeParams): Promise<ResultData> {
-    throw new Error( `Method must be override in subclasses.` );
-  }
+  public abstract async getData (params:TInitializeParams): Promise<ResultData>;
 
 }
 

@@ -18,7 +18,7 @@ const { isRepoInfo } = require(`./src/utils/env-utils`);
 const {
   NODE_ENV,
   GITHUB_TOKEN,
-  GATSBY_REPOSITORY_NAME = `typescript-definitive-guide`,
+  GATSBY_REPOSITORY_NAME,
   GATSBY_REPOSITORY_OWNER,
   GATSBY_REPOSITORY_BRANCH,
 } = process.env
@@ -125,13 +125,7 @@ const getPlugins = ({ locale, lang }) => [
       checkSupportedExtensions: false
     }
   },
-  {
-    resolve: 'gatsby-plugin-sharp',
-    options: {
-      failOnError: false
-    }
-  },
-
+  'gatsby-plugin-sharp',
   {
     resolve: 'gatsby-plugin-manifest',
     options: {
@@ -294,8 +288,7 @@ module.exports = {
   pathPrefix: process.env.GATSBY_REPOSITORY_NAME,
   siteMetadata: {
     repository: {
-      name: `typescript-definitive-guide`,
-      // name: process.env.GATSBY_REPOSITORY_NAME,
+      name: process.env.GATSBY_REPOSITORY_NAME,
       owner: process.env.GATSBY_REPOSITORY_OWNER,
       branch: process.env.GATSBY_REPOSITORY_BRANCH,
     },
