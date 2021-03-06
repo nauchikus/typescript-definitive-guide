@@ -427,5 +427,16 @@ function tuple<T extends any[]>(...args: T): T {
 let numberAll: number[] = [0, 1, 2];
 let v0 = tuple(5, '', true); // let v0: [number, string, boolean]
 let v1 = tuple(5, ...numberAll); // let v1: [number, ...number[]]
-let v2 = tuple(5, ...numberAll, ''); // let v2: [number, ...number[], string]
+`````
+
+Но нужно быть внимательным, так как порядок передачи аргументов, содержащих расширяющий синтаксис, может привести к неочевидным результатам. Дело в том, что остаточный тип определяется не только типами самого массива, но и типами аргументов, переданных после него.
+
+`````ts
+function tuple<T extends any[]>(...args: T): T {
+    return args;
+}
+
+let numberAll: number[] = [0, 1, 2];
+let v0 = tuple(5, ...numberAll);  // let v0: [number, ...number[]]
+let v1 = tuple(5, ...numberAll, ''); // let v1: [number, ...(string | number)[]]
 `````
