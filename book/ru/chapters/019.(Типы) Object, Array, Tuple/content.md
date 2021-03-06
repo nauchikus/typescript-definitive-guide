@@ -36,7 +36,7 @@ O = undefined; // Error, strictNullChecks = true
 `````ts
 class SeaLion {
     rotate(): void {}
-    
+
     voice(): void {}
 }
 
@@ -223,28 +223,48 @@ function f(...rest: [number, string?, boolean?]): [number, string?, boolean?] {
 let l = f(5).length; // let l: 1 | 2 | 3
 `````
 
-Кроме того, для кортежа существует возможность указывать `spread` в любой его части, а не только в конце.
+Кроме того, для кортежа применим механизм распространения (`spread`), который может быть указан в любой части определения типа. Но существуют два исключения. Во первых, определение типа кортежа может включать только одно распространение.
 
 `````ts
-type Strings = [string, string];
-type Numbers = [number, number];
+/**
+ * [0] A rest element cannot follow another rest element.ts(1265)
+ *
+ */
+let v0: [...boolean[], ...string[]]; // Error [0]
+let v1: [...boolean[], boolean, ...string[]]; // Error [0]
 
-// type Mixed = [string, string, number, number]
-type Mixed = [...Strings, ...Numbers];
+let v2: [...boolean[], number]; // Ok
+let v3: [number, ...boolean[]]; // Ok
+let v4: [number, ...boolean[], number]; // Ok
 `````
 
-Когда `spread` применяется к типу без известной длины (обычный массив `...number[]`), то тип, получаемый в результате, также становится неограниченным и все типы следующие после такого распространения (обычный массив) образуют с ним тип объединение (`Union`).
+И во вторых, распространение не может быть указанно перед необязательными типами.
+
+`````ts
+/**
+ * [0] An optional element cannot follow a rest element.ts(1266)
+ *
+ */
+let v5: [...boolean[], boolean?]; // Error [1]
+
+let v6: [boolean?, ...boolean[]]; // Ok
+`````
+
+В результате распространения, получается тип с логически предсказуемой последовательностью типов, определяющих кортеж.
 
 `````ts
 type Strings = [string, string];
 type BooleanArray = boolean[];
 
-// type Unbounded0 = [string, string, ...(boolean | symbol)[]]
+// type Unbounded0 = [string, string, ...boolean[], symbol]
 type Unbounded0 = [...Strings, ...BooleanArray, symbol];
 
-// type Unbounded1 = [string, string, ...(string | boolean | symbol)[]]
+// type Unbounded1 = [string, string, ...boolean[], symbol, string, string]
 type Unbounded1 = [ ...Strings, ...BooleanArray, symbol, ...Strings]
 `````
+
+Стоит заметить, что поскольку механизм распространения участвует в рекурсивном процессе формирования типа, способного значительно замедлять компилятор, установленно ограничение в размере 10000 итераций.
+
 
 Механизм объявления множественного распространения (`spread`) значительно упрощает  аннотирование сигнатуры функции при реализации непростых сценариев, один из которых будет рассмотрен далее в главе (Массивоподобные readonly типы)[].
 
@@ -305,4 +325,3 @@ let elephantData = ['Dambo', 1]; // type Array (string | number)[]
 
 
 Тип `Tuple` является уникальным для _TypeScript_, в _JavaScript_ подобного типа не существует.
-

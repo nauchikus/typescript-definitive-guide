@@ -288,7 +288,8 @@ module.exports = {
   pathPrefix: process.env.GATSBY_REPOSITORY_NAME,
   siteMetadata: {
     repository: {
-      name: process.env.GATSBY_REPOSITORY_NAME,
+      name: `typescript-definitive-guide`,
+      // name: process.env.GATSBY_REPOSITORY_NAME,
       owner: process.env.GATSBY_REPOSITORY_OWNER,
       branch: process.env.GATSBY_REPOSITORY_BRANCH,
     },

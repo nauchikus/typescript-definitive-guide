@@ -5,6 +5,7 @@ www/node_modules/
 www/public/
 www/dest/
 www/gen/
+www/workers/pdf/book-cover.png
 node_modules/
 /package-lock.json
 #chapters/
@@ -14,3 +15,4 @@ public/
 .env.github.development
 book-cover-for-social-media.png
 book-update-current-version-cover-for-social-media.png
+

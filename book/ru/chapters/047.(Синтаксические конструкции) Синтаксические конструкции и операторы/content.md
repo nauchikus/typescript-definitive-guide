@@ -1,6 +1,6 @@
 # Синтаксические конструкции и операторы
 
-Кроме типизации, _TypeScript_ пытается сделать жизнь разработчиков более комфортной за счет добавления синтаксического сахара в виде операторов не существующих в _JavaScript_ мире. Помимо этого, текущая глава поведает о неоднозначных моментах связанных с уже хорошо известными, по _JavaScript_, операторами. 
+Кроме типизации, _TypeScript_ пытается сделать жизнь разработчиков более комфортной за счет добавления синтаксического сахара в виде операторов не существующих в _JavaScript_ мире. Помимо этого, текущая глава поведает о неоднозначных моментах связанных с уже хорошо известными, по _JavaScript_, операторами.
 
 ## Операторы присваивания короткого замыкания (&&=, ||=, &&=)
 
@@ -130,4 +130,206 @@ type T4 = {
 
 const f4 = (o: T4) => delete o.field; // Error -> The operand of a 'delete' operator must be optional.
 
+`````
+
+## Объявление переменных 'необязательными' при деструктуризации массивоподобных объектов
+
+При активном рекомендуемым флаге `--noUnusedLocals`, компилятор выбрасывает ошибки, если переменные, объявленные при деструктуризации массивоподобных объектов, не задействованы в коде.
+
+`````ts
+function getPlayerControlAll(){
+    return [()=>{}, ()=>{}];
+}
+
+/**
+ * Где-то в другом файле
+ */
+function f(){
+    /**
+     * [*] Error -> 'stop' is declared but its value is never read.
+     */
+    let [stop /** [*] */, play] = getPlayerControlAll();
+
+    return play;
+}
+`````
+
+Несмотря на то, что существует способ получать только необходимые значения, это не решит проблему семантики кода, поскольку идентификатор переменной является частью мозайки иллюстрирующей работу логики. И хотя в _TypeScript_, эту проблему можно решить и другими способами, они не чем не смогут помочь скомпилированному в _JavaScript_ коду.
+
+`````ts
+function getPlayerControlAll(){
+    return [()=>{}, ()=>{}];
+}
+
+/**
+ * Где-то в другом файле
+ */
+function f(){
+    /**
+     * Ошибки больше нет, поскольку первый, неиспользуемый
+     * элемент пропущен. Но не смотря на это, семантически становится
+     * не понятно, что же возвражает функция getPlayerControlAll().
+     *
+     * И несмотря на способы способные решить проблему в TypeScript,
+     * в скомпилированном виде, от них не останется и следа.
+     */
+    let [, play] = getPlayerControlAll();
+
+    return play;
+}
+
+`````
+
+Для таких случаев, в _TypeScript_ существует возможность, при деструктуризации массивоподобных объектов, объявлять переменные, как - _необязательные_. ЧТобы переменная расценивалась компилятором, как _необязательная_, её идентификатор должен начинаться с нижнего подчёркивания `_identifier`.
+
+`````ts
+function getPlayerControlAll(){
+    return [()=>{}, ()=>{}];
+}
+
+/**
+ * Где-то в другом файле
+ */
+function f(){
+    /**
+     * [*] Ok -> несмотря на то, что переменная stop не
+     * задействована в коде, ошибки не возникает, что позволяет
+     * более глубоко понять логику кода. 
+     */
+    let [_stop /** [*] */, play] = getPlayerControlAll();
+
+    return play;
+}
+`````
+
+
+## Модификатор abstract для описания типа конструктора
+
+Абстрактные классы предназначены исключительно для расширения (невозможно создать его экземпляр с помощью оператора `new`), а его абстрактные члены должны обязательно должны быть переопределены потомками.
+
+`````ts
+/**
+ * Абстрактный класс с одним абстрактным методом.
+ */
+abstract class Shape {
+    abstract getRectangle(): ClientRect;
+}
+
+/**
+ * Из-за того, что класс абстрактный не получится создать его экземпляр с помощью оператора new.
+ */
+new Shape(); // Error -> Cannot create an instance of an abstract class.ts(2511)
+
+
+/**
+ * [0] Кроме этого, подкласс обязательно должен переопределять абстрактные члены своего суперкласса.
+ */
+class Circle extends Shape {
+    getRectangle(){// [0]
+        return {
+            width:0,
+            height: 0,
+            top: 0,
+            right: 0,
+            bottom: 0,
+            left: 0
+        };
+    }
+}
+`````
+
+Но правила, с помощью которых компилятор работает с абстрактными классами, делают типы абстрактных и конкретных конструкторов несовместимыми. Другими словами, абстрактный класс нельзя передать по ссылке ограниченной более общим типом.
+
+`````ts
+interface IHasRectangle {
+    getRectangle(): ClientRect;
+}
+
+type HasRectangleClass = new() => IHasRectangle;
+
+/**
+ * [*] Type 'typeof Shape' is not assignable to type 'HasRectangleClass'.
+ Cannot assign an abstract constructor type to a non-abstract constructor type.ts(2322)
+ */
+let ClassType: HasRectangleClass = Shape; // Error [*]
+
+`````
+
+Кроме этого, невозможно получить тип экземпляра абстрактного класса с помощью вспомогательного типа `InstanceType<T>`.
+
+`````ts
+/**
+ * [*] Type 'typeof Shape' does not satisfy the constraint 'new (...args: any) => any'.
+  Cannot assign an abstract constructor type to a non-abstract constructor type.ts(2344)
+ */
+type Instance = InstanceType<typeof Shape>; // Error [*]
+`````
+
+Это в свою очередь не позволяет реализовать механизм динамического наследования.
+
+`````ts
+function subclassCreator(Base: new() => IHasRectangle){
+    return class extends Base {
+        getRectangle(){
+            return {
+                width:0,
+                height: 0,
+                top: 0,
+                right: 0,
+                bottom: 0,
+                left: 0
+            };
+        }
+    }
+}
+
+/**
+ * [*] Argument of type 'typeof Shape' is not assignable to parameter of type 'new () => IHasRectangle'.
+ Cannot assign an abstract constructor type to a non-abstract constructor type.ts(2345)
+ */
+subclassCreator(Shape); // Error [*] -> передача в качестве аргумента абстрактный класс
+subclassCreator(Circle); // Ok -> передача в качестве аргумента конкретный класс
+`````
+
+Для решения этой проблемы, в _TypeScript_ существует модификатор `abstract` предназначенный для указания в описании типа конструктора.
+
+`````ts
+interface IHasRectangle {
+    getRectangle(): ClientRect;
+}
+
+type HasRectangleClass = abstract new() => IHasRectangle;
+
+
+let ClassType: HasRectangleClass = Shape; // Ok
+`````
+
+Несмотря на то, что тип класса имеет абстрактный модификатор, он также остается совместимым с типами конкретных классов.
+
+`````ts
+function subclassCreator(Base: abstract new() => IHasRectangle){
+    return class extends Base {
+        getRectangle(){
+            return {
+                width:0,
+                height: 0,
+                top: 0,
+                right: 0,
+                bottom: 0,
+                left: 0
+            };
+        }
+    }
+}
+
+subclassCreator(Shape); // Ok -> абстрактный класс
+subclassCreator(Circle); // Ok -> конкретный класс
+`````
+
+Также с помощью данного оператора можно реализовать собственный вспомогательный тип, позволяющий получить тип экземпляра.
+
+`````ts
+type AbstractInstanceType<T extends abstract new (...args: any) => any> = T extends new (...args: any) => infer R ? R : any;
+
+type Instance = AbstractInstanceType<typeof Shape>; // Ok
 `````

@@ -107,11 +107,11 @@ class Square {
      * Поля без явной аннотации типа.
      * Вывод типов определяет их
      * принадлежность к типу any.
-     * 
+     *
      * (property) Square.area: any
      * (property) Square.sideLength: any
-     * 
-     * От этого возникает ошибка -> 
+     *
+     * От этого возникает ошибка ->
      * TS7008: Member 'area' implicitly has an 'any' type.
      * TS7008: Member 'sideLength' implicitly has an 'any' type.
      */
@@ -134,9 +134,9 @@ class Square {
      * к типу number, так как поле sideLength
      * инициализиируется в конструкторе его параметром,
      * принадлежащим к типу number, а поле area инициализируется
-     * там же с помощью выражения, результат которого 
+     * там же с помощью выражения, результат которого
      * также принадлежит к типу number.
-     * 
+     *
      * (property) Square.area: number
      * (property) Square.sideLength: number
      */
@@ -155,10 +155,10 @@ class Square {
 
 `````ts
 class Square {
-  /**
-   * Error ->
-   * TS7008: Member 'area' implicitly has an 'any' type.
-   */
+    /**
+     * Error ->
+     * TS7008: Member 'area' implicitly has an 'any' type.
+     */
     area;
     sideLength;
 
@@ -180,7 +180,7 @@ class Square {
     /**
      * [1] ...вывод типов определяет принадлежность
      * поля sideLength как ->
-     * 
+     *
      * (property) Square.sideLength: number | undefined
      */
     sideLength;
@@ -202,7 +202,7 @@ class Square {
          * поскольку операция возведения в степень
          * производится над значением, которое может
          * быть undefined
-         * 
+         *
          * Error ->
          * Object is possibly 'undefined'.
          */
@@ -234,8 +234,8 @@ let item = v[0]; // let item: string | number | boolean
 
 `````ts
 let v = [
-  { a: 5, b: 'text' },
-  { a: 6, b: 'text' }
+    { a: 5, b: 'text' },
+    { a: 6, b: 'text' }
 ]; // let v: { a: number, b: string }[]
 `````
 
@@ -245,9 +245,9 @@ let v = [
 
 `````ts
 let v = [
-  { a: 5, b: 'text' },
-  { a: 6 },
-  { a: 7, b: true }
+    { a: 5, b: 'text' },
+    { a: 6 },
+    { a: 7, b: true }
 ]; // let v: ({ a: number, b: string } | { a: number, b?: undefined } | { a: number, b: boolean })[]
 `````
 
@@ -255,9 +255,9 @@ let v = [
 
 `````ts
 let v = [
-  { a: 5, b: 'text' },
-  { a: 6 },
-  { a: 7, b: true }
+    { a: 5, b: 'text' },
+    { a: 6 },
+    { a: 7, b: true }
 ]; // let v: ({ a: number, b: string } | { a: number, b?: undefined } | { a: number, b: boolean })[]
 
 let a = v[0].a; // let a: number
@@ -277,8 +277,8 @@ class B {
 }
 
 let v = [
-   new A(),
-   new B()
+    new A(),
+    new B()
 ]; // let v: (A | B)[]
 `````
 
@@ -320,7 +320,7 @@ let v2 = false ? new C() : new D();  // let v2: C | D
 type A = {
     type: "a"; // дискриминантное поле
 
-    a: number; 
+    a: number;
 };
 type B = {
     type: "b"; // дискриминантное поле
@@ -328,7 +328,7 @@ type B = {
     b: number;
 };
 type C = {
-    c: number; 
+    c: number;
 };
 type D = {
     d: number;
@@ -341,7 +341,7 @@ type D = {
  * принадлежащее к разным типам "a" и "b",
  * поэтому тип T будет определен
  * как тип never.
- * 
+ *
  * type T = never
  */
 
@@ -354,7 +354,7 @@ type T = A & B & C & D;
 type A = {
     type: "a"; // дискриминантное поле с типом a
 
-    a: number; 
+    a: number;
 };
 type B = {
     type: "a"; // дискриминантное поле с типом b
@@ -362,7 +362,7 @@ type B = {
     b: number;
 };
 type C = {
-    c: number; 
+    c: number;
 };
 type D = {
     d: number;
@@ -375,9 +375,9 @@ type D = {
  * раз они принадлежат к одному типу "a",
  * поэтому тип T будет определен ожидаемым
  * образом.
- * 
- * 
- * 
+ *
+ *
+ *
  * type T = A & B & C & D
  */
 
@@ -427,16 +427,5 @@ function tuple<T extends any[]>(...args: T): T {
 let numberAll: number[] = [0, 1, 2];
 let v0 = tuple(5, '', true); // let v0: [number, string, boolean]
 let v1 = tuple(5, ...numberAll); // let v1: [number, ...number[]]
-`````
-
-Но нужно быть внимательным, так как порядок передачи аргументов, содержащих расширяющий синтаксис, может привести к неочевидным результатам. Дело в том, что остаточный тип определяется не только типами самого массива, но и типами аргументов, переданных после него.
-
-`````ts
-function tuple<T extends any[]>(...args: T): T {
-    return args;
-}
-
-let numberAll: number[] = [0, 1, 2];
-let v0 = tuple(5, ...numberAll);  // let v0: [number, ...number[]]
-let v1 = tuple(5, ...numberAll, ''); // let v1: [number, ...(string | number)[]]
+let v2 = tuple(5, ...numberAll, ''); // let v2: [number, ...number[], string]
 `````

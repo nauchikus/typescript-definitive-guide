@@ -2569,3 +2569,65 @@ function f1(array: string[]) {
     }
 }
 `````
+
+## noPropertyAccessFromIndexSignature
+
+
+`--noPropertyAccessFromIndexSignature` - активирует поведение запрещающее обращение через точечную нотацию к динамическим членам объекта определяющего строковую индексную сигнатуру,
+
+`````json
+// @filename: tsconfig.json
+
+{
+    "compilerOptions": {
+        "noPropertyAccessFromIndexSignature": "false"
+    }
+}
+`````
+
+**type**: `boolean`
+**default**: `false`
+**values**: `true`, `false`
+
+
+`````ts
+type Settings = {
+    env?: string[]; // определение необязательного предопределенного поля
+
+    [key: string]: any; // опеределение динамических полей
+}
+
+
+function configurate(settings: Settings){
+    //---------------------------
+    // динамическое поле
+    if(settings.envs){ // Ошибка при активном флаге и Ok при не активном
+
+    }
+    if(settings['envs']){ // Ok при любом значении флага
+
+    }
+
+    //----------------------------
+    // предопределенное поле
+    if(settings.env){ // Ok [1]
+
+    }
+    if(settings['env']){ // Ok при любом значении флага
+
+    }
+}
+`````
+
+## explainFiles
+
+
+`--explainFiles` - команда, позволяющая выводить информацию о зависимостях проекта не только в консоль, но и файл, или даже открывать в _visual studio code_.
+
+`````bash
+// вывод в файл
+tsc --explainFiles > expanation.txt
+    
+// вывод в редактор vsc
+tsc --explainFiles | code -
+`````

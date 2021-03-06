@@ -29,20 +29,12 @@ function configurate(settings: Settings){
     if(settings['envs']){ // Ok [0]
 
     }
-    
+
     //----------------------------
     if(settings.env){ // Ok [0]
 
     }
     if(settings['env']){ // Ok [0]
-
-    }
-    
-    //----------------------------
-    if(settings.dynamic){ // Ok [1]
-
-    }
-    if(settings['dynamic']){ // Ok
 
     }
 }
@@ -80,14 +72,6 @@ function configurate(settings: Settings){
 
     }
     if(settings['env']){ // Ok [1]
-
-    }
-
-    //----------------------------
-    if(settings.dynamic){ // Error [0]
-
-    }
-    if(settings['dynamic']){ // Ok
 
     }
 }
