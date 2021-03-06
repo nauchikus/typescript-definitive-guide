@@ -4,5 +4,5 @@
 npm run book-heading-validate
 
 # .husky/commit-msg
-commitlint -e $1 -g './config/git/commitlint.js'
+commitlint -e HUSKY_GIT_PARAMS -g './config/git/commitlint.js'
 
