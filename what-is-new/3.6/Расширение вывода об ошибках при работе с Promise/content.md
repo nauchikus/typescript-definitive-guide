@@ -1,6 +1,6 @@
 ##Расширение вывода об ошибках при работе с Promise
 
-Поскольку работа с `Promise` является очень важной частью повседневной разработки, `TypeScript`, начиная с версии `v3.6`, расширила информирование при возникновении ошибок связанными с ними, а также били добавлены механизмы их быстрогоустранения.
+Поскольку работа с `Promise` является очень важной частью повседневной разработки, `TypeScript`, начиная с версии `v3.6`, расширила информирование при возникновении ошибок связанными с ними, а также били добавлены механизмы их быстрого устранения.
 
 `````ts
 interface Person {
@@ -13,13 +13,13 @@ declare function printPersonInfo(personData: Person): void;
 
 async function main() {
     /**
-     * До v3.6 возникала ошибка говорящая что
+     * До v3.6 возникала ошибка говорящая, что 
      * тип Promise<Person> не соответствует типу Person
      *
      * Argument of type 'Promise<Person>' is not assignable
      * to parameter of type 'Person'.
      * Type 'Promise<Person>' is missing the following properties
-     * from type 'Person': name, agets(2345)
+     * from type 'Person': name, age ts(2345)
      *
      *
      * После v3.6 вывод расширили предложением пофиксить

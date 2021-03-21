@@ -9,7 +9,7 @@ array[0] = 1; // Error, Index signature in type 'readonly number[]' only permits
 array[array.length] = 3; // Error, Index signature in type 'readonly number[]' only permits reading.ts(2542)
 ```
 
-Кроме того, тип `ReadonlyArray<T>` не сождержит методы, способные изменить, удалить существующие или добавить новые элементы.
+Кроме того, тип `ReadonlyArray<T>` не содержит методы, способные изменить, удалить существующие или добавить новые элементы.
 
 `````ts
 let array: ReadonlyArray<number> = [0, 1, 2];

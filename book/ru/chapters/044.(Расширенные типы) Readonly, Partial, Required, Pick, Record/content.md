@@ -39,7 +39,7 @@ function mutableAction(person: IPerson) {
 
 /**
  * Надежная функция защищающая свои
- * парметры от изменения не требуя описания
+ * параметры от изменения не требуя описания
  * нового неизменяемого типа.
  */
 function immutableAction(person: Readonly<IPerson>) {
@@ -65,7 +65,7 @@ type Person = Readonly<IPerson> // type Person = { readonly gender?: string; }
  * провайдеров с которыми будет сопряженно
  * приложение. Кроме того, интерфейс описывает
  * поставляемые данные как только для чтения,
- * что в будущем может сэкономить время.
+ *, что в будущем может сэкономить время.
  */
 interface IDataProvider<OutputData, InputData = null> {
   getData(): Readonly<OutputData>;
@@ -74,7 +74,7 @@ interface IDataProvider<OutputData, InputData = null> {
 /**
  * Абстрактный класс описание определяющий
  * поле data доступный только потомка как
- * только для чтения. Это позволит предатвратить
+ * только для чтения. Это позволит предотвратить
  * случайное изменение данных в классах потомках.
  */
 abstract class DataProvider<InputData, OutputData = null> implements IDataProvider<InputData, OutputData> {
@@ -131,7 +131,7 @@ type Partial<T> = {
 
 `````ts
 interface IPerson {
-  readonly name: string; // поле помеченно как только для чтения
+  readonly name: string; // поле помечено, как только для чтения
 }
 
 /**
@@ -190,7 +190,7 @@ createConfig({
 
 ## Required<T> (сделать все необязательные члены обязательными)
 
-Сопоставимый тип `Required<T>` удаляет все необязательные модификаторы `?:` приводя члены объекта к обязательным. Достигается это путем удаления необязательных модификаторов при помощи механизма _префиксов - и +_ рассматриваемого в главе [“Оператор keyof, Lookup Types, Mapped Types, Mapped Types - префиксы + и -”](../042.(Работа%20с%20типами)%20Оператор%20keyof,%20Lookup%20Types,%20Mapped%20Types,%20Mapped%20Types%20-%20префиксы%20+%20и%20-)).
+Сопоставимый тип `Required<T>` удаляет все необязательные модификаторы `?:` приводя члены объекта к обязательным. Достигается это путем удаления необязательных модификаторов при помощи механизма _префиксов - и +_ рассматриваемого в главе [“Оператор keyof, Lookup Types, Mapped Types, Mapped Types - префиксы + и -”](../042.%28Работа%20с%20типами%29%20Оператор%20keyof%2C%20Lookup%20Types%2C%20Mapped%20Types%2C%20Mapped%20Types%20-%20префиксы%20%2B%20и%20-/content.md)).
 
 `````ts
 type Required<T> = {
@@ -271,7 +271,7 @@ interface IT {
 }
 
 /**
- * Поле "с" отфильтрованно ->
+ * Поле "с" отфильтровано ->
  * 
  * type T0 = { a: number; b: string; }
  */
@@ -364,7 +364,7 @@ interface IConfigurationIndexSignature {
 
 /**
  * Поле payload определенно как
- * Record<string, string> что аналогично
+ * Record<string, string>, что аналогично
  * предыдущему варианту, но выглядит более
  * декларативно.
  */
@@ -400,7 +400,7 @@ let wwwConfig: WwwConfig = {
 };
 `````
 
-В занном случае было бы даже более корректным использовать `Record<K, T>` в совокупности с ранее рассмотренным типом `Partial<T>`.
+В данном случае было бы даже более корректным использовать `Record<K, T>` в совокупности с ранее рассмотренным типом `Partial<T>`.
 
 `````ts
 type WwwConfig = Partial<Record<"port" | "domain", string>>
@@ -416,8 +416,8 @@ let wwwConfig: WwwConfig = {
 
 `````ts
 /**
- * Ok -> поле a ассоциированно с таким
- * же типом что указан в индексной сигнатуре.
+ * Ok -> поле a ассоциировано с таким
+ * же типом, что указан в индексной сигнатуре.
  */
 interface T0 {
   a: number;

@@ -106,7 +106,7 @@ let derived = new Derived();
 
 console.log(derived.value); // 'derived'
 
-derived.value = `new derived`; // не сложно догадатся что при пресваивании нового значения console.log в сеттер базового класса вызвана не будет
+derived.value = `new derived`; // не сложно догадаться, что при присваивании нового значения console.log в сеттер базового класса вызвана не будет
 
 console.log(derived.value); // 'new derived'
 

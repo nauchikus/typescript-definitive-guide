@@ -58,10 +58,10 @@ class Bird extends Animal {
 }
 
 let animal: Animal = new Animal();
-animal.nickname = 'newanimal';
+animal.nickname = 'newAnimal';
 
 let bird: Bird = new Bird();
-bird.nickname = 'newbird';
+bird.nickname = 'newBird';
 `````
 
 Члены, у которых отсутствует указание какого-либо модификатора доступа, воспринимаются компилятором как `public`:
@@ -96,10 +96,10 @@ class Bird extends Animal {
 }
 
 let animal: Animal = new Animal();
-animal.metainfo = 'newanimal'; // Error
+animal.metainfo = 'newAnimal'; // Error
 
 let bird: Bird = new Bird();
-bird.metainfo = 'newbird'; // Error
+bird.metainfo = 'newBird'; // Error
 `````
 
 ## Модификатор доступа protected (защищенный)
@@ -174,7 +174,7 @@ let age: number = AnimalUtil.ageFromMsToDayFormat(animal.age);
 let util = new AnimalUtil(); // Ошибка при компиляции, нельзя создать экземпляр
 `````
 
-Кроме того, класс, у которого конструктор объявлен с модификатором доступа `private`, нельзя расширять (`extends`). 
+Кроме того, класс, у которого конструктор объявлен с модификатором доступа `private`, нельзя расширять (`extends`).
 
 `````ts
 class AnimalUtil {

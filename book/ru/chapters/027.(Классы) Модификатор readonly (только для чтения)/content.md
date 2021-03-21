@@ -32,10 +32,10 @@ class Fish implements IAnimal {
 }
 
 const bird: Bird = new Bird();
-bird.name = 'newbird'; // Error
+bird.name = 'newBird'; // Error
 
 const fish: Fish = new Fish();
-fish.name = 'newfish'; // Ok
+fish.name = 'newFish'; // Ok
 `````
 
 Это правило работает и в обратном направлении — поле, описанное в интерфейсе без указания модификатора `readonly`, может быть помечено этим модификатором при реализации.
@@ -50,7 +50,7 @@ class Bird implements IAnimal {
 }
 
 const bird: Bird = new Bird();
-bird.name = 'newbird'; // Error
+bird.name = 'newBird'; // Error
 `````
 
 Модификатор `readonly`, примененный к параметрам конструктора, заставляет компилятор расценивать их как поля класса.
@@ -147,7 +147,7 @@ interface IAnimal {
 
 const animal: IAnimal = { name: 'animal' };
 
-animal.name = 'newanimal'; // Error
+animal.name = 'newAnimal'; // Error
 `````
 
 Если полям, помеченным _“только для чтения”_, не указан тип, а присвоение примитивного значения происходит в месте объявления, то для таких полей вывод типов укажет принадлежность к литеральному типу.
