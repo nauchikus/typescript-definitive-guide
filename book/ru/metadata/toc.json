@@ -656,7 +656,7 @@
       "preserveSymlinks",
       "strictFunctionTypes",
       "locale",
-      "strinctPropertyInitialization",
+      "strictPropertyInitialization",
       "esModuleInterop",
       "emitDeclarationsOnly",
       "resolveJsonModule",
