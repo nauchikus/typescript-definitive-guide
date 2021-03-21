@@ -12,7 +12,7 @@ class T {
 let t = new T();
 /**
  * @deprecated — use method new()
- * 'old' is deprecatedts(6385)
+ * 'old' is deprecated ts(6385)
  */
 t.old();
 `````

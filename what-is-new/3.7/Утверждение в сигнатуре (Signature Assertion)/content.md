@@ -28,11 +28,11 @@ function stringAssert(condition: any, message?: string): asserts condition {
 }
 
 const toUpperCase = (text: any) => {
-    text.touppercase(); // not error
+    text.toUpperCase(); // not error
 
     stringAssert(typeof text === 'string');
 
-    // text.touppercase(); // error
+    // text.toUpperCase(); // error
 
     return text.toUpperCase();
 };
@@ -47,17 +47,17 @@ function isStringAssert(value: any): asserts value is string {
     }
 }
 const toUpperCase = (text: any) => {
-    text.touppercase(); // not error
+    text.toUpperCase(); // not error
 
     isStringAssert(text);
 
-    // text.touppercase(); // error
+    // text.toUpperCase(); // error
 
     return text.toUpperCase();
 };
 ```
 
-Стоит заметить, что в случае переноса условного выражения в тело утверждающей функции сигнатура которой лишина _утверждения типов_, то есть содержащей исключительно _утверждения в сигнатуре_, подобный механизм функционировать не будет.
+Стоит заметить, что в случае переноса условного выражения в тело утверждающей функции сигнатура которой лишена _утверждения типов_, то есть содержащей исключительно _утверждения в сигнатуре_, подобный механизм функционировать не будет.
 
 ```ts
 function isStringAssert(value: any): asserts value {
@@ -66,11 +66,11 @@ function isStringAssert(value: any): asserts value {
     }
 }
 const toUpperCase = (text: any) => {
-    text.touppercase(); // not error
+    text.toUpperCase(); // not error
 
     isStringAssert(text);
 
-    text.touppercase(); // not error
+    text.toUpperCase(); // not error
 
     return text.toUpperCase();
 };

@@ -95,7 +95,7 @@ class T1 {
 
 Простыми словами, когда в режиме `--strictNullChecks` происходит обращение к значению объекта или метода, которые могут иметь значение `null` или `undefined`, компилятор, с целью предотвращения возможной ошибки, накладывает запрет на операции обращения и вызова. Разрешить подобные операции возможно с помощью оператора `Not-Null Not-Undefined`, который обозначается восклицательным знаком `!`.
 
-Чтобы понять принцип оператора `Non-Null Non-Undefined`, достаточно представить слушатель события, у которого единственный параметр `event`, принадлежность которого указана к типу `UserEvent`, помечен как необязательный. Это означает, что, помимо обусловленного типа `UserEvent`, параметр может принадлежать ещё и к типу `undefined`. А это значит, что при попытке обратится к какому-либо члену объекта события `event`, может возникнуть исключение, вызванное обращением через ссылку на `null` или `undefined`. С целью предотвращения исключения во время выполнения, компилятор, во время компиляции, выведет сообщение об ошибке, вызванной обнаружением потенциально опасного кода.
+Чтобы понять принцип оператора `Non-Null Non-Undefined`, достаточно представить слушатель события, у которого единственный параметр `event`, принадлежность которого указана к типу `UserEvent`, помечен как необязательный. Это означает, что , помимо обусловленного типа `UserEvent`, параметр может принадлежать ещё и к типу `undefined`. А это значит, что при попытке обратится к какому-либо члену объекта события `event`, может возникнуть исключение, вызванное обращением через ссылку на `null` или `undefined`. С целью предотвращения исключения во время выполнения, компилятор, во время компиляции, выведет сообщение об ошибке, вызванной обнаружением потенциально опасного кода.
 
 `````ts
 /** strictNullChecks: true */
@@ -117,7 +117,7 @@ function handler(event?: UserEvent): void {
 type UserEvent = { type: string };
 
 function handler(event?: UserEvent): void {
-    // указываем компилятору что берем этот участок кода под собственный контроль
+    // указываем компилятору, что берем этот участок кода под собственный контроль
     let type = event!.type; // Ok
 }
 `````
@@ -140,11 +140,11 @@ type UserEvent = {
 function handler(event?: UserEvent): void {
     let type = event!.type; // 1 !
     let target = event!.target!.name; // 2 !
-    let currenttarget = event!.currentTarget.name; // 1 !
+    let currentTarget = event!.currentTarget.name; // 1 !
 }
 `````
 
-При обращении к необязательным методам объекта, оператор `Not-Null Not-Undefined` указывается между идентификатором (именем) и круглыми скобками. Стоит обратить внимание, что, когда происходит обращение к необязательному полю или свойству объекта, оператор `Not-Null Not-Undefined` указывается лишь один раз `optioanlObject!.firstLevel.secondLevel`. При обращении к необязательному методу того же объекта, оператор `Not-Null Not-Undefined` указывается дважды `optionalObject!.toString!()`.
+При обращении к необязательным методам объекта, оператор `Not-Null Not-Undefined` указывается между идентификатором (именем) и круглыми скобками. Стоит обратить внимание, что , когда происходит обращение к необязательному полю или свойству объекта, оператор `Not-Null Not-Undefined` указывается лишь один раз `optionalObject!.firstLevel.secondLevel`. При обращении к необязательному методу того же объекта, оператор `Not-Null Not-Undefined` указывается дважды `optionalObject!.toString!()`.
 
 `````ts
 /** strictNullChecks: true  */
@@ -163,7 +163,7 @@ type UserEvent = {
 function handler(event?: UserEvent): void {
     let type = event!.type; // 1 !
     let target = event!.target!.name; // 2 !
-    let currenttarget = event!.currentTarget.name; // 1 !
+    let currentTarget = event!.currentTarget.name; // 1 !
     let meta = event!.toString!(); // 2 !
 }
 `````
@@ -188,7 +188,7 @@ type UserEvent = {
 function handler(event?: any): void {
     let type = event.type; // 0 !
     let target = event.target.name; // 0 !
-    let currenttarget = event.currentTarget.name; // 0 !
+    let currentTarget = event.currentTarget.name; // 0 !
     let meta = event.toString(); // 0 !
     let value = event.valueOf(); // 0 !
 }
@@ -214,7 +214,7 @@ type UserEvent = {
 function handler(event: UserEvent | undefined): void {
     let type = event.type; // Error
     let target = event.target.name; // Error
-    let currenttarget = event.currentTarget.name; // Error
+    let currentTarget = event.currentTarget.name; // Error
     let meta = event.toString(); // Error
     let value = event.valueOf(); // Error
 }
@@ -240,7 +240,7 @@ type UserEvent = {
 function handler(event: UserEvent | undefined | any): void {
     let type = event.type; // Ok
     let target = event.target.name; // Ok
-    let currenttarget = event.currentTarget.name; // Ok
+    let currentTarget = event.currentTarget.name; // Ok
     let meta = event.toString(); // Ok
     let value = event.valueOf(); // Ok
 }

@@ -22,7 +22,7 @@ function action(value: ValueType){
 
 /**
  * Подобное поведение аналогично и для любых
- * других похожих случиев.
+ * других похожих случаев.
  * 
  * let v0: ValueType
  * let v1: string | number | boolean | undefined
@@ -38,7 +38,7 @@ type ValueType = number | string | boolean;
 
 
 /**
- * Псеевдоним типа не разварачивается
+ * Псевдоним типа не разворачивается
  * function action(value: ValueType): ValueType | undefined
  * 
  */
@@ -52,7 +52,7 @@ function action(value: ValueType){
 
 /**
  * Подобное поведение аналогично и для любых
- * других похожих случиев.
+ * других похожих случаев.
  * 
  * let v0: ValueType
  * let v1: ValueType | undefined

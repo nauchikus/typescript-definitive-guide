@@ -1,6 +1,6 @@
 ## unknown как тип исключения блока catch
 
-До текущей версии при попытке типизировать параметр блока `catch` возникала ошибка, хотя по умолчанию тип исключения расценивался копилятором как тип `any` что снижало типобезопасность программы.
+До текущей версии при попытке типизировать параметр блока `catch` возникала ошибка, хотя по умолчанию тип исключения расценивался компилятором как тип `any`, что снижало типобезопасность программы.
 
 `````ts
 /**
@@ -10,25 +10,25 @@
 try {
     throw new Error(`Error!`);
 }catch(e){ // Ok
-    e.meSSage.touppercase(); // Ошибка времени исполнения
+    e.meSSage.toUpperCase(); // Ошибка времени исполнения
 }
 
 try {
 
 }catch(e: Error){ // Error -> [*]
-    e.meSSage.touppercase();
+    e.meSSage.toUpperCase();
 }
 
 try {
     
 }catch(e: any){ // Error -> [*]
-    e.meSSage.touppercase();
+    e.meSSage.toUpperCase();
 }
 
 try {
     
 }catch(e: unknown){ // Error -> [*]
-    e.meSSage.touppercase();
+    e.meSSage.toUpperCase();
 }
 
 /**
@@ -46,25 +46,25 @@ try {
 try {
     throw new Error(`Error!`);
 }catch(e){ // Ok
-    e.meSSage.touppercase(); // Ошибка времени исполнения
+    e.meSSage.toUpperCase(); // Ошибка времени исполнения
 }
 
 try {
 
 }catch(e: Error){ // Error -> Catch clause variable type annotation must be 'any' or 'unknown' if specified.
-    e.meSSage.touppercase();
+    e.meSSage.toUpperCase();
 }
 
 try {
     
 }catch(e: any){ // Ok
-    e.meSSage.touppercase(); // Ошибка времени исполнения
+    e.meSSage.toUpperCase(); // Ошибка времени исполнения
 }
 
 try {
     
 } catch (e: unknown) { // Ok
-    e.meSSage.touppercase(); // Ошибка времени исполнения
+    e.meSSage.toUpperCase(); // Ошибка времени исполнения
     e.message; // Error -> поскольку у типа unknown отсутствует свойство message
 }
 `````
@@ -76,7 +76,7 @@ try {
 try {
     
 } catch (e: unknown) { // Ok
-    e.meSSage.touppercase(); // Ошибка времени исполнения
+    e.meSSage.toUpperCase(); // Ошибка времени исполнения
     e.message; // Error -> поскольку у типа unknown отсутствует свойство message
 
     if (e instanceof Error) {
