@@ -17,7 +17,7 @@
         {
             "id": "",
             "version": "3.5",
-            "innovationName": "Улучшение механизма проверки избыточных полей в объедененных типах (Union types)",
+            "innovationName": "Улучшение механизма проверки избыточных полей в объединённых типах (Union types)",
             "dateRelease": "May 29, 2019",
             "datePublication": "May 29, 2019",
             "tags": []

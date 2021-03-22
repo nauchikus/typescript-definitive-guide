@@ -9,7 +9,7 @@
         {
             "id": "",
             "version": "3.6",
-            "innovationName": "Повышение типобезопасности генероторов",
+            "innovationName": "Повышение типобезопасности генераторов",
             "dateRelease": "August 28, 2019",
             "datePublication": "August 28, 2019",
             "tags": []
@@ -17,7 +17,7 @@
         {
             "id": "",
             "version": "3.6",
-            "innovationName": "Добавление хелпера иметирующего механизм spread array при компиляции в ecmascript ниже версии 6 при неактивном флаге --downlevelIteration",
+            "innovationName": "Добавление хелпера имитирующего механизм spread array при компиляции в ecmascript ниже версии 6 при неактивном флаге --downlevelIteration",
             "dateRelease": "August 28, 2019",
             "datePublication": "August 28, 2019",
             "tags": []

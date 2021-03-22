@@ -53,7 +53,7 @@
         {
             "id": "",
             "version": "3.7-beta",
-            "innovationName": "Проверка невызванных функций",
+            "innovationName": "Проверка не вызванных функций",
             "dateRelease": "November 3, 2019",
             "datePublication": "November 5, 2019",
             "tags": ["баг"]
@@ -61,7 +61,7 @@
         {
             "id": "",
             "version": "3.7-beta",
-            "innovationName": "Рекурсивность для псевдононимов типов",
+            "innovationName": "Рекурсивность для псевдонимов типов",
             "dateRelease": "November 3, 2019",
             "datePublication": "November 5, 2019",
             "tags": ["компилятор"]
