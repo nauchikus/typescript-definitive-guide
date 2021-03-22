@@ -12,8 +12,8 @@ type RectCssStyle = {
 
 let graphics: RectCssStyle = {
     width: '24px',
-    height: '24px',
 
+    height: '24px',
     colour: 'red', // Error
 };
 ```

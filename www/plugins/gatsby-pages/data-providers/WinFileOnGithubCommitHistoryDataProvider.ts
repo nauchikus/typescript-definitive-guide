@@ -32,7 +32,7 @@ export class WinFileOnGithubCommitHistoryDataProvider extends BaseFileOnGithubCo
 
 
     if ( !super.isResponseValid( response ) ) {
-      throw new Error( `Invalid commit history data. \n GraphQl request errors stack: \n ${ ( response?.errors as string[] ).join( `\n` ) }` );
+      throw new Error( `Invalid commit history data. \n GraphQl request errors stack: \n ${ ( response?.errors as string[] )?.join( `\n` ) }` );
     }
 
 
