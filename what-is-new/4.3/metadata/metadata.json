@@ -1,0 +1,86 @@
+{
+  "releaseHistory": [
+    {
+      "version": "4.3@beta",
+      "dateRelease": "April 1, 2021",
+      "datePublication": "April 6, 2021"
+    }
+  ],
+  "colors": {
+    "bookCoverColors": {
+      "--color_light": "#fff",
+      "--color_middle-lite": "#c93737",
+      "--color_accent": "#e6e63a",
+      "--color_ambient": "#ff9443"
+    },
+    "bookUpdateCurrentVersionCoverColors": {
+      "--color": "#265589"
+    }
+  },
+  "innovations": [
+    {
+      "id": "",
+      "version": "4.2",
+      "innovationName": "Отдельные типы аксеcсоров",
+      "dateRelease": "April 1, 2021",
+      "datePublication": "April 6, 2021",
+      "tags": ["Улучшение"]
+    },
+    {
+      "id": "",
+      "version": "4.2",
+      "innovationName": "Модификатор override и флаг --noImplicitOverride",
+      "dateRelease": "April 1, 2021",
+      "datePublication": "April 6, 2021",
+      "tags": ["Нововведение"]
+    },
+    {
+      "id": "",
+      "version": "4.2",
+      "innovationName": "Улучшение работы шаблонного строкового типа",
+      "dateRelease": "April 1, 2021",
+      "datePublication": "April 6, 2021",
+      "tags": ["Улучшение"]
+    },
+    {
+      "id": "",
+      "version": "4.2",
+      "innovationName": "Изменение поведения для объекта Promise в условных выражениях",
+      "dateRelease": "April 1, 2021",
+      "datePublication": "April 6, 2021",
+      "tags": ["Изменение"]
+    },
+    {
+      "id": "",
+      "version": "4.2",
+      "innovationName": "Индексные сигнатуры класса",
+      "dateRelease": "April 1, 2021",
+      "datePublication": "April 6, 2021",
+      "tags": ["Улучшение"]
+    },
+    {
+      "id": "",
+      "version": "4.2",
+      "innovationName": "Расширение возможностей ECMAScript приватного модификатора и флаг --useDefineForClassFields",
+      "dateRelease": "April 1, 2021",
+      "datePublication": "April 6, 2021",
+      "tags": ["Улучшение"]
+    },
+    {
+      "id": "",
+      "version": "4.2",
+      "innovationName": "[КРИТИЧЕСКОЕ ИЗМЕНЕНИЕ] Изменения в lib.d.ts",
+      "dateRelease": "April 1, 2021",
+      "datePublication": "April 6, 2021",
+      "tags": ["Критическое изменение"]
+    },
+    {
+      "id": "",
+      "version": "4.2",
+      "innovationName": "[КРИТИЧЕСКОЕ ИЗМЕНЕНИЕ] Enum больше нельзя сравнивать с произвольными числами",
+      "dateRelease": "April 1, 2021",
+      "datePublication": "April 6, 2021",
+      "tags": ["Критическое изменение"]
+    }
+  ]
+}

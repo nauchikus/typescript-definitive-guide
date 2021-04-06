@@ -19,3 +19,4 @@ book-update-current-version-cover-for-social-media.png
 .gitignore
 /package.json
 package.json
+/tsconfig.json
