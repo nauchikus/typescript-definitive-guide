@@ -14,6 +14,8 @@ const CHAPTERS_DIR = path.join(process.cwd(), `/book/ru/chapters`);
 
 const removeIndex = async ({CHAPTERS_DIR, chapterDirNameAll}) => {
     return await Promise.all(chapterDirNameAll.map(chapterName => {
+        console.log(`[# rename]`, path.join(CHAPTERS_DIR, chapterName),
+          path.join(CHAPTERS_DIR, bookChapterNameRemoveIndex(chapterName)));
         return fs.rename(
             path.join(CHAPTERS_DIR, chapterName),
             path.join(CHAPTERS_DIR, bookChapterNameRemoveIndex(chapterName))
