@@ -305,6 +305,13 @@
     ]
   },
   {
+    "section": "Тонкости TypeScript",
+    "title": "Аксессоры",
+    "subtitles": [
+      "Нюансы на практике"
+    ]
+  },
+  {
     "section": "Работа с типами",
     "title": "Операторы - Optional, Not-Null Not-Undefined, Definite Assignment Assertion",
     "subtitles": [

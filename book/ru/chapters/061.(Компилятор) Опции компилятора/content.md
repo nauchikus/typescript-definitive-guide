@@ -2631,3 +2631,23 @@ tsc --explainFiles > explanation.txt
 // вывод в редактор vsc
 tsc --explainFiles | code -
 `````
+
+## noImplicitOverride
+
+
+`--noImplicitOverride` - активирует механизм предотвращающий объявление суперклассом членов уже объявленных в его потомках.
+
+`````json
+// @filename: tsconfig.json
+
+{
+    "compilerOptions": {
+        "noImplicitOverride": "false"
+    }
+}
+`````
+
+**type**: `boolean`
+**default**: `false`
+**values**: `true`, `false`
+
