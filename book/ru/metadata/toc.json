@@ -283,6 +283,13 @@
   },
   {
     "section": "Классы",
+    "title": "Модификатор override",
+    "subtitles": [
+      "Модификатор override и флаг --noImplicitOverride"
+    ]
+  },
+  {
+    "section": "Классы",
     "title": "Классы — Тонкости",
     "subtitles": [
       "Классы - Тонкости implements",
