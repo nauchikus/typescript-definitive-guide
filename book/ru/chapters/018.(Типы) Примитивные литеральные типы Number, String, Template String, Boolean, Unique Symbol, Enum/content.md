@@ -138,6 +138,17 @@ type C = `${Capitalize<"abcd">}`; // type C = "Abcd"
 type D = `${Uncapitalize<"Abcd">}`; // type D = "abcd"
 `````
 
+Помимо этого, компилятор _TypeScript _ умеет понимать, что строка объявленная с помощью косых кавычек и сформированная при помощи значения ассоциированного с переменной, совместима с шаблонным строковым литеральным типом.
+
+`````ts
+/**
+ * [*] Ok!
+ */
+function f(param: string): `Hello ${string}` {
+  return `Hello ${param}`; // [*]
+}
+`````
+
 ## Литеральный Тип Boolean (Boolean Literal Types)
 
 Литеральный тип `boolean` ограничен всего двумя литеральными значениями `true` и `false`.
