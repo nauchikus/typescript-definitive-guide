@@ -2,19 +2,23 @@
     "releaseHistory": [
         {
             "version": "3.7",
-            "dateRelease": "November 5, 2019"
+            "dateRelease": "November 5, 2019",
+            "datePublication": "November 5, 2019"
         },
         {
             "version": "3.7-rc",
-            "dateRelease": "November 4, 2019"
+            "dateRelease": "November 4, 2019",
+            "datePublication": "November 5, 2019"
         },
         {
             "version": "3.7-beta",
-            "dateRelease": "November 3, 2019"
+            "dateRelease": "November 3, 2019",
+            "datePublication": "November 5, 2019"
         },
         {
             "version": "3.7-alpha",
-            "dateRelease": "November 2, 2019"
+            "dateRelease": "November 2, 2019",
+            "datePublication": "November 5, 2019"
         }
     ],
     "innovations": [
@@ -22,7 +26,7 @@
             "id": "",
             "version": "3.7-rc",
             "innovationName": "Оператор опциональной последовательности (?.)",
-            "dateRelease": "November 5, 2019",
+            "dateRelease": "November 4, 2019",
             "datePublication": "November 5, 2019",
             "tags": ["исправление", "Критическое изменение", "Компилятор"]
         },
@@ -30,7 +34,7 @@
             "id": "",
             "version": "3.7-rc",
             "innovationName": "Оператор объединения со значением null (??)",
-            "dateRelease": "November 5, 2019",
+            "dateRelease": "November 4, 2019",
             "datePublication": "November 5, 2019",
             "tags": ["высокая ожидаемость"]
         },
@@ -38,7 +42,7 @@
             "id": "",
             "version": "3.7-rc",
             "innovationName": "Утверждение в сигнатуре (Signature Assertion)",
-            "dateRelease": "November 5, 2019",
+            "dateRelease": "November 4, 2019",
             "datePublication": "November 5, 2019",
             "tags": ["важно"]
         },

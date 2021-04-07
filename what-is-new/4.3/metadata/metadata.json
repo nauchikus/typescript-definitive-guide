@@ -20,7 +20,7 @@
   "innovations": [
     {
       "id": "",
-      "version": "4.2",
+      "version": "4.3@beta",
       "innovationName": "Отдельные типы аксеcсоров",
       "dateRelease": "April 1, 2021",
       "datePublication": "April 6, 2021",
@@ -28,7 +28,7 @@
     },
     {
       "id": "",
-      "version": "4.2",
+      "version": "4.3@beta",
       "innovationName": "Модификатор override и флаг --noImplicitOverride",
       "dateRelease": "April 1, 2021",
       "datePublication": "April 6, 2021",
@@ -36,7 +36,7 @@
     },
     {
       "id": "",
-      "version": "4.2",
+      "version": "4.3@beta",
       "innovationName": "Улучшение работы шаблонного строкового типа",
       "dateRelease": "April 1, 2021",
       "datePublication": "April 6, 2021",
@@ -44,7 +44,7 @@
     },
     {
       "id": "",
-      "version": "4.2",
+      "version": "4.3@beta",
       "innovationName": "Изменение поведения для объекта Promise в условных выражениях",
       "dateRelease": "April 1, 2021",
       "datePublication": "April 6, 2021",
@@ -52,7 +52,7 @@
     },
     {
       "id": "",
-      "version": "4.2",
+      "version": "4.3@beta",
       "innovationName": "Индексные сигнатуры класса",
       "dateRelease": "April 1, 2021",
       "datePublication": "April 6, 2021",
@@ -60,7 +60,7 @@
     },
     {
       "id": "",
-      "version": "4.2",
+      "version": "4.3@beta",
       "innovationName": "Расширение возможностей ECMAScript приватного модификатора и флаг --useDefineForClassFields",
       "dateRelease": "April 1, 2021",
       "datePublication": "April 6, 2021",
@@ -68,7 +68,7 @@
     },
     {
       "id": "",
-      "version": "4.2",
+      "version": "4.3@beta",
       "innovationName": "[КРИТИЧЕСКОЕ ИЗМЕНЕНИЕ] Изменения в lib.d.ts",
       "dateRelease": "April 1, 2021",
       "datePublication": "April 6, 2021",
@@ -76,7 +76,7 @@
     },
     {
       "id": "",
-      "version": "4.2",
+      "version": "4.3@beta",
       "innovationName": "[КРИТИЧЕСКОЕ ИЗМЕНЕНИЕ] Enum больше нельзя сравнивать с произвольными числами",
       "dateRelease": "April 1, 2021",
       "datePublication": "April 6, 2021",

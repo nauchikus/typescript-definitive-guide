@@ -37,7 +37,7 @@
     {
       "id": "",
       "version": "4.2",
-      "innovationName": "Ужесточение правил проверки для оператора in",
+      "innovationName": "Ужесточение правил проверки для in-оператора",
       "dateRelease": "February 23, 2021",
       "datePublication": "March 4, 2021",
       "tags": ["Нововведение"]

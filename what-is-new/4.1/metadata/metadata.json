@@ -74,6 +74,22 @@
     {
       "id": "",
       "version": "4.1@beta",
+      "innovationName": "jsx фабрики для React 17",
+      "dateRelease": "September 18, 2020",
+      "datePublication": "September 18, 2020",
+      "tags": ["Изменение"]
+    },
+    {
+      "id": "",
+      "version": "4.1@beta",
+      "innovationName": "Поддержка тега @see для JSDoc",
+      "dateRelease": "September 18, 2020",
+      "datePublication": "September 18, 2020",
+      "tags": ["Изменение"]
+    },
+    {
+      "id": "",
+      "version": "4.1@beta",
       "innovationName": "[КРИТИЧЕСКОЕ ИЗМЕНЕНИЕ] abstract больше не совместим с async",
       "dateRelease": "September 18, 2020",
       "datePublication": "September 18, 2020",
