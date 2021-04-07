@@ -108,17 +108,8 @@ function getTitle(content){
 
 
 
-let content = `
-## \[КРИТИЧЕСКОЕ ИЗМЕНЕНИЕ\] Обновление lib.d.ts
-
-Библ
-`.trim();
-
-// console.log(getTitle(content));
-
-
 winTocValidate({
-  WIN_DIR: path.join(path.relative(process.cwd(), `../../`), `what-is-new`),
+  WIN_DIR: path.join(path.relative(__dirname, `../../`), `what-is-new`),
 })
   .then(()=>console.log(`WIN TOC VALIDATION COMPLETE`))
   .catch(console.error);
