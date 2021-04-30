@@ -1,9 +1,9 @@
 [
   {
     "section": "Общее",
-    "title": "Что такое и для чего нужен TypeScript",
+    "title": "Что такое TypeScript и для чего он нужен",
     "subtitles": [
-      "Что такое TypeScript",
+      "Определение",
       "История TypeScript",
       "Для чего нужен TypeScript",
       "Зачем разработчику TypeScript"
@@ -12,8 +12,7 @@
   {
     "section": "Экскурс в типизацию",
     "title": "Вступление",
-    "subtitles": [
-    ]
+    "subtitles": []
   },
   {
     "section": "Экскурс в типизацию",
