@@ -65,7 +65,7 @@ identifier(c, d); // валидно
 
 class Identifier {
     constructor(p1: T1, p2: T2);
-    constructor(p1: T3, p2: T4);
+    constructor(p1: T4, p2: T5);
     constructor(p1: T, p2: T) {
     
     }
