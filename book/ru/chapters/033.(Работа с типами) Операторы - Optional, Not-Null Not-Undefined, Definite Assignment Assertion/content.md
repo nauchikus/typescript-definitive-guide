@@ -89,6 +89,20 @@ class T1 {
 }
 `````
 
+Поскольку значение `undefined` присвоенное полю объекта далеко не то же самое, что отсутствие члена вовсе, при котором также возвращается `undefined`, в _TypeScript_ существует флаг `--exactOptionalPropertyTypes`, при активации которого, в подобных случаях будут возникать ошибки.
+
+`````ts
+type T = {
+    a: number;
+    b?: string;
+}
+
+let o: T = {
+    a: 5,
+    b: undefined // Error -> Type 'undefined' is not assignable to type 'string'.ts(2322)
+};
+`````
+
 ## Оператор ! (Non-Null and Non-Undefined Operator)
 
 Оператор `Not-Null Not-Undefined`, при активной опции `--strictNullChecks`, в случаях, допускающих обращение к несуществующим членам, позволяет приглушать сообщения об ошибках.
