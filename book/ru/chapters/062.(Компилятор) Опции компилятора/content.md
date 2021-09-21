@@ -2682,3 +2682,39 @@ try {
 **default**: `true`
 **values**: `true`, `false`
 
+## exactOptionalPropertyTypes
+
+
+`--exactOptionalPropertyTypes` - при активном флаге запрещается присваивать значение `undefined` необязательным полям объекта без явной принадлежности к типу `undefined`.
+
+`````json
+// @filename: tsconfig.json
+
+{
+    "compilerOptions": {
+        "exactOptionalPropertyTypes": "false"
+    }
+}
+`````
+
+`````ts
+// exactOptionalPropertyTypes = true
+
+type T = {
+    a: number;
+    b?: string;
+}
+
+let o: T = {
+    a: 5,
+    b: undefined // Error -> Type 'undefined' is not assignable to type 'string'.ts(2322)
+};
+`````
+
+**type**: `boolean`
+**default**: `false`
+**values**: `true`, `false`
+
+
+
+
