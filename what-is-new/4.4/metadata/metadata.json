@@ -1,0 +1,102 @@
+{
+  "releaseHistory": [
+    {
+      "version": "4.4",
+      "dateRelease": "August 26, 2021",
+      "datePublication": "April 6, 2021"
+    }
+  ],
+  "colors": {
+    "bookCoverColors": {
+      "--color_light": "#fff",
+      "--color_middle-lite": "#c93737",
+      "--color_accent": "#e6e63a",
+      "--color_ambient": "#ff9443"
+    },
+    "bookUpdateCurrentVersionCoverColors": {
+      "--color": "#265589"
+    }
+  },
+  "innovations": [
+    {
+      "id": "",
+      "version": "4.4",
+      "innovationName": "Анализ потока для результата условного выражения",
+      "dateRelease": "August 26, 2021",
+      "datePublication": "April 6, 2021",
+      "tags": ["Нововведение"]
+    },
+    {
+      "id": "",
+      "version": "4.4",
+      "innovationName": "Типы symbol и literal template string в индексной сигнатуре",
+      "dateRelease": "August 26, 2021",
+      "datePublication": "April 6, 2021",
+      "tags": ["Нововведение"]
+    },
+    {
+      "id": "",
+      "version": "4.4",
+      "innovationName": "Изменение типа ошибки в блоке catch и флаг --useUnknownInCatchVariables",
+      "dateRelease": "August 26, 2021",
+      "datePublication": "April 6, 2021",
+      "tags": ["Адаптация"]
+    },
+    {
+      "id": "",
+      "version": "4.4",
+      "innovationName": "Типы необязательных свойств теперь более точные",
+      "dateRelease": "August 26, 2021",
+      "datePublication": "April 6, 2021",
+      "tags": ["Улучшение"]
+    },
+    {
+      "id": "",
+      "version": "4.4",
+      "innovationName": "Статические блоки в классах",
+      "dateRelease": "August 26, 2021",
+      "datePublication": "April 6, 2021",
+      "tags": ["Улучшение"]
+    },
+    {
+      "id": "",
+      "version": "4.4",
+      "innovationName": "Модернизация вывода tsc --help",
+      "dateRelease": "August 26, 2021",
+      "datePublication": "April 6, 2021",
+      "tags": ["Улучшение"]
+    },
+    {
+      "id": "",
+      "version": "4.4",
+      "innovationName": "Улучшение производительности",
+      "dateRelease": "August 26, 2021",
+      "datePublication": "April 6, 2021",
+      "tags": ["Улучшение"]
+    },
+    {
+      "id": "",
+      "version": "4.4",
+      "innovationName": "[КРИТИЧЕСКОЕ ИЗМЕНЕНИЕ] Изменение поведения контекста для функций",
+      "dateRelease": "August 26, 2021",
+      "datePublication": "April 6, 2021",
+      "tags": ["Критическое изменение"]
+    },
+    {
+      "id": "",
+      "version": "4.4",
+      "innovationName": "[КРИТИЧЕСКОЕ ИЗМЕНЕНИЕ] Изменение поведения контекста для функций",
+      "dateRelease": "August 26, 2021",
+      "datePublication": "April 6, 2021",
+      "tags": ["Критическое изменение"]
+    },
+    {
+      "id": "",
+      "version": "4.4",
+      "innovationName": "[КРИТИЧЕСКОЕ ИЗМЕНЕНИЕ] Абстрактные поля больше не могут быть инициализированы",
+      "dateRelease": "August 26, 2021",
+      "datePublication": "April 6, 2021",
+      "tags": ["Критическое изменение"]
+    }
+  ]
+}
