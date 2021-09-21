@@ -14,30 +14,41 @@ _Индексная сигнатура_ (_index signature_) состоит из 
 { [identifier: Type]: Type }
 `````
 
-Идентификатору привязки можно дать любое имя, которое должно быть ассоциировано только с типами `string` или `number`, а в качестве типа указанного справа от двоеточия, может быть указан любой тип.
+Идентификатору привязки можно дать любое имя, которое должно быть ассоциировано только с типами `string`, `number`, `symbol` или `literal template string` , а в качестве типа указанного справа от двоеточия, может быть указан любой тип.
 
 `````ts
+// именование ключа - идентификатор ключа может быть любым
 interface Identifier {
-    [identifier: string]: string;
+    [identifier: string]: string; // идентификатор - identifier
 }
-
 // или
 interface Identifier {
-    [key: number]: string;
+    [someKey: string]: string; // идентификатор - someKey
 }
 
-// или
+// допустимые типы - string, number, symbol или litelral template string
 interface Identifier {
-    [name: number]: string;
+    [key: string]: string; // будет соответствовать o[`key`]
+}
+interface Identifier {
+    [key: number]: string; // будет соответствовать o[5]
+}
+interface Identifier {
+    [key: symbol]: string; // будет соответствовать o[Symbol(`key`)]
+}
+interface Identifier {
+    [key: `data-${string}`]: string; // будет соответствовать o[`data-*`]
 }
 `````
 
-В одном объектном типе одновременно могут быть объявлены индексные сигнатуры, чьи идентификаторы привязки принадлежат к типу `string` и типу `number`. Но с одной оговоркой. Их типы, указанные в аннотации типов, должны быть совместимы (совместимость типов подробно рассматривается в главах [“Типизация - Совместимость объектов”](../038.(Типизация)%20Совместимость%20объектных%20типов%20(Compatible%20Object%20Types)) и [“Типизация - Совместимость функций”](../039.(Типизация)%20Совместимость%20функциональных%20типов%20(Compatible%20Function%20Types))).
+В одном объектном типе одновременно могут быть объявлены индексные сигнатуры, чьи идентификаторы привязки принадлежат к типу `string`, `number`, `symbol` или `literal template string`. Но с одной оговоркой. Их типы, указанные в аннотации типов, должны быть совместимы (совместимость типов подробно рассматривается в главах [“Типизация - Совместимость объектов”](../038.(Типизация)%20Совместимость%20объектных%20типов%20(Compatible%20Object%20Types)) и [“Типизация - Совместимость функций”](../039.(Типизация)%20Совместимость%20функциональных%20типов%20(Compatible%20Function%20Types))).
 
 `````ts
 interface A {
     [key: string]: string;
     [key: number]: string;
+    [key: symbol]: string;
+    [key: `data-${string}`]: string;
 }
 
 let a: A = {
@@ -79,6 +90,20 @@ d[0] = new SubClass(); // Ok
 interface E {
     [identifier: string]: SubClass; // Ok
     [identifier: number]: SuperClass; // Error, SuperClass несовместим с SubClass
+}
+`````
+
+Множественное определение типов, к которым могут принадлежать ключи индексной сигнатуры, можно записать также с помощью типа объединение.
+
+`````ts
+interface A {
+    [key: string | number | symbol | `data-${string}`]: string; // это тоже самое, что и...
+}
+interface A { // ...это
+    [key: string]: string;
+    [key: number]: string;
+    [key: symbol]: string;
+    [key: `data-${string}`]: string;
 }
 `````
 
