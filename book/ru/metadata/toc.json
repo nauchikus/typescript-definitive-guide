@@ -307,7 +307,7 @@
     "section": "Тонкости TypeScript",
     "title": "Аксессоры",
     "subtitles": [
-      "Нюансы на практике"
+      "Отдельные типы аксеcсоров"
     ]
   },
   {
@@ -695,7 +695,9 @@
       "noUncheckedIndexedAccess",
       "noPropertyAccessFromIndexSignature",
       "explainFiles",
-      "useUnknownInCatchVariables"
+      "noImplicitOverride",
+      "useUnknownInCatchVariables",
+      "exactOptionalPropertyTypes"
     ]
   }
 ]

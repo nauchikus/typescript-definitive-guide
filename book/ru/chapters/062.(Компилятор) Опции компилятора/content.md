@@ -2715,6 +2715,3 @@ let o: T = {
 **default**: `false`
 **values**: `true`, `false`
 
-
-
-
