@@ -115,6 +115,10 @@ class Identifier<T> {
     static staticMethod <T, U>(param0: Type, param1: Type): Type { // член класса
     
     }
+    
+    static { // статический блок
+        
+    }
 
     [indexSignature: Type]: Type; // член класса
     
