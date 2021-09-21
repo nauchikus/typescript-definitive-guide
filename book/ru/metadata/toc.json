@@ -694,7 +694,8 @@
       "synchronousWatchDirectory",
       "noUncheckedIndexedAccess",
       "noPropertyAccessFromIndexSignature",
-      "explainFiles"
+      "explainFiles",
+      "useUnknownInCatchVariables"
     ]
   }
 ]

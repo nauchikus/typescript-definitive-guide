@@ -2651,3 +2651,34 @@ tsc --explainFiles | code -
 **default**: `false`
 **values**: `true`, `false`
 
+## useUnknownInCatchVariables
+
+
+`--useUnknownInCatchVariables` - при активном флаге единственный параметр блока `catch` принадлежит к типу `unknown`. Иначе, к типу `any`.
+Данный флаг входит в состав группировки `strict`.
+
+`````json
+// @filename: tsconfig.json
+
+{
+    "compilerOptions": {
+        "useUnknownInCatchVariables": "true"
+    }
+}
+`````
+
+`````ts
+try {
+    
+}catch(error){
+    /**
+     * useUnknownInCatchVariables === true - error is unknown
+     * useUnknownInCatchVariables === false - error is any
+     */
+}
+`````
+
+**type**: `boolean`
+**default**: `true`
+**values**: `true`, `false`
+
