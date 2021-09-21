@@ -1,8 +1,0 @@
-.tree {
-
-}
-@for $i from 0 through 5 {
-  .tree-level_#{$i} {
-    padding-left: 16px * $i;
-  }
-}

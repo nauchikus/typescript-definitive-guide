@@ -1,7 +1,0 @@
-@import "./app-vars";
-
-.button-with-svg-icon{
-  &:hover .svg-icon {
-    fill:var(--svg-icon_color-default_hover);
-  }
-}

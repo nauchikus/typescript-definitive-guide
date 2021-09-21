@@ -1,8 +1,0 @@
-@import "./css-icon__informer-content-icon";
-
-.informer__css-icon_question-icon {
-  @include content-icon("?");
-}
-.informer__css-icon_attention-icon {
-  @include content-icon("!");
-}
