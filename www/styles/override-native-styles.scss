@@ -1,0 +1,32 @@
+// button
+@mixin btn-override-native-style(){
+  &{
+    background: none;
+    border: none;
+
+    cursor: pointer;
+  }
+  &:focus,
+  &:focus-within,
+  &:active{
+    outline: none;
+
+  }
+  &:disabled{
+    opacity: .3;
+    pointer-events: none;
+  }
+}
+
+@mixin ul-override-native-style(){
+  & {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+}
+@mixin a-override-native-style(){
+  & {
+    text-decoration: none
+  }
+}

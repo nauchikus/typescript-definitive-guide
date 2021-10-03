@@ -1,0 +1,59 @@
+@import "styles/vars-scss";
+@import "styles/override-native-styles";
+
+
+
+.app-nav__dropdown {
+  &:hover > .app-nav__dropdown-toggle_adaptive,
+  &[open] > .app-nav__dropdown-toggle_adaptive {
+    background-color: var(--color_dark_95);
+
+    border-radius: var(--button_border-radius);
+  }
+}
+.app-nav__dropdown-menu_adaptive {
+  @media (min-width: $size_sm) {
+    display: initial;
+    position: relative;
+  }
+}
+.app-nav__divide_adaptive,
+.app-nav__link-bar {
+  @media (min-width: $size_sm) {
+    display: none;
+  }
+}
+
+.app-menu__toggle-btn {
+  @include btn-override-native-style();
+
+  padding: 12px;
+}
+
+
+.app-nav__menu_adaptive {
+  min-width: 192px;
+
+  display: flex;
+  flex-direction: column;
+
+  @media (min-width: $size_sm) {
+    flex-direction: row;
+  }
+}
+.app-nav__dropdown-toggle_adaptive {
+  padding: 8px;
+
+
+  @media (min-width: $size_sm) {
+    display: none;
+  }
+}
+.app-nav__menu-item_adaptive {
+  @media (min-width: $size_sm) {
+    &:hover{
+      background-color: initial;
+    }
+  }
+}
+

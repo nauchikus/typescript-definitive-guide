@@ -1,0 +1,11 @@
+.svg-icon {
+  fill: #8BC34A;
+  display: flex;
+
+  align-content: center;
+}
+.svg-icon-with-inherit-fill {
+  @extend .svg-icon;
+
+  fill: context-fill;
+}

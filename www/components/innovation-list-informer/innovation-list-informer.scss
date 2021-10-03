@@ -1,0 +1,44 @@
+.innovation__link_main {
+  font-size: 18px;
+
+  margin: 0 0 16px 0;
+  display: inline-flex;
+  align-items: center;
+
+  position: relative;
+
+  &:after {
+    content: "";
+
+    width: 100%;
+    height: 2px;
+
+    background-color: var(--color_base_50);
+
+
+    display: block;
+
+    visibility: hidden;
+
+    position: absolute;
+    bottom: 0;
+
+
+    transition: visibility .1s;
+
+
+  }
+  &:hover:after {
+    visibility: visible;
+  }
+}
+
+.innovation__link__label_last-version {
+  color: var(--color_base_50);
+
+  margin: 0 16px 0 0;
+}
+
+.innovation__link__label_date_release {
+  color: var(--color_dark_20);
+}

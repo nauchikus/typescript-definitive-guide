@@ -1,0 +1,336 @@
+@use "sass:math";
+
+@import "./breakpoints";
+
+
+$book-toc__section-color_common: #607D8B;
+$book-toc__section-color_typing-introduction:#FF5722;
+$book-toc__section-color_syntactic-construction:#795548;
+$book-toc__section-color_types:#8BC34A;
+$book-toc__section-color_typescript-features:#FFC107;
+$book-toc__section-color_working-with-types:#009688;
+$book-toc__section-color_typing:#9C27B0;
+$book-toc__section-color_extended-types:#E91E63;
+$book-toc__section-color_react:#2196F3;
+$book-toc__section-color_assembly:#9E9E9E;
+$book-toc__section-color_compiler:#F44336;
+$book-toc__section-color_classes:#3F51B5;
+
+
+$bookChapterSectionNames:(
+        common:$book-toc__section-color_common,
+        typing-introduction:$book-toc__section-color_typing-introduction,
+        syntactic-construction:$book-toc__section-color_syntactic-construction,
+        types:$book-toc__section-color_types,
+        typescript-features:$book-toc__section-color_typescript-features,
+        working-with-types:$book-toc__section-color_working-with-types,
+        typing:$book-toc__section-color_typing,
+        extended-types:$book-toc__section-color_extended-types,
+        react:$book-toc__section-color_react,
+        assembly:$book-toc__section-color_assembly,
+        compiler:$book-toc__section-color_compiler,
+        classes:$book-toc__section-color_classes
+);
+
+
+$programLanguageNameToColorMap:(
+        ts:#0077C7,
+        typescript:#0077C7,
+        js:#F0D91D,
+        javascript:#F0D91D,
+        json:#9E9E9E,
+        sh:#404040
+);
+
+/*[[PADDING]]*/
+$padding_4:4px;
+$padding_8:8px;
+$padding_12:12px;
+$padding_16:16px;
+$padding_24:24px;
+$padding_32:32px;
+$padding_40:40px;
+$padding_48:48px;
+$padding_56:56px;
+$padding_64:64px;
+$padding_72:72px;
+
+$padding_4x2:$padding_4*2;
+$padding_8x2:$padding_8*2;
+$padding_12x2:$padding_12*2;
+$padding_16x2:$padding_16*2;
+$padding_24x2:$padding_24*2;
+$padding_32x2:$padding_32*2;
+$padding_40x2:$padding_40*2;
+$padding_48x2:$padding_48*2;
+$padding_56:56px;
+$padding_64:64px;
+$padding_72:72px;
+$padding_96:96px;
+
+$win_content_primary-content-bar_padding_x_xl:24px;
+$win_content_content_padding_x_lg: 16px;
+$win_content_content_padding_x_xl: $win_content_content_padding_x_lg * 2;
+/**/
+
+$app-header_height:72px;
+$app-footer_height:64px;
+$app-menu_height:300px;
+$app-secondary-bar_height:72px;
+
+$content-nav-down_height: 64px;
+
+$content__aside-bar_width:48px;
+$content__control-bar_height:   40px;
+$content__control-bar__dropdown-menu_padding_y:   16px;
+$content__control-bar__dropdown-menu__header_height:   42px;
+$content__control-bar__dropdown-menu__header_margin-bottom:   4px;
+
+$content__control-bar_top_media_xs:   $app-header_height + $content__control-bar_height;
+$content__control-bar_bottom_media_xs:   24px;
+$content__control-bar_right_media_xs:   24px;
+
+
+//$content__aside-bar_
+
+//$content__control-bar_media_xs_max-height:
+
+$donate-dropdown_max-width:320px;
+
+$app-content_width:608px;
+$app-content_content-nav_label_visible_media_xs:460px;
+
+$app-header_padding:(16px 8px 16px 16px);
+$app-header_padding-left:nth($app-header_padding,4);
+$app-header_padding-right:nth($app-header_padding,2);
+$app-header_padding_x:nth($app-header_padding,2) + nth($app-header_padding,4);
+
+$app-driver__section-control_height:40px;
+
+
+$app-scroll_y_size:16px;
+
+
+$app-search__width_open-state:320px;
+$app-search__max-width_open-state:320px;
+$app-search__max-height_open-state:40px;
+$app-search__height_open-state:40px;
+$app-search__width_close-state:40px;
+$app-search__match-output_max-height:300px;
+
+$app-bar__menu_full-width:40px * 3;
+
+
+$app-content_media_xs: $app-content_width + $padding_24x2;
+
+$content-layout__left-layout_width:280px;
+$content-layout__center-layout_width:800px;
+$content-layout__right-layout_min-width:180px;
+$content-layout__right-layout_max-width:280px;
+$content-layout__driver-and-content_min-width:$content-layout__left-layout_width + $content-layout__center-layout_width;
+$content-layout__width:
+        $content-layout__left-layout_width +
+        $content-layout__center-layout_width +
+        $content-layout__right-layout_min-width;
+
+
+
+/*app-search toggle animation*/
+$app-search__search__submit-button-placeholder_transition_duration: .2s;
+$app-search__search__submit-button-placeholder_transition_delay:.4s;
+
+$app-search_transition_duration:.4s;
+$app-search_transition_delay:$app-search__search__submit-button-placeholder_transition_duration;
+
+$app-search__grid-item_transition_duration:.4s;
+$app-search__grid-item_transition_delay: $app-search__search__submit-button-placeholder_transition_duration;
+
+$app-search__submit-button_transition_duration:.2s;
+$app-search__submit-button_transition_delay:
+        $app-search_transition_duration +
+        $app-search__search__submit-button-placeholder_transition_duration;
+/**/
+
+
+//$color_darklite:rgba(0, 0, 0, .05);
+$color__default-lite:#ffffff;
+$color_darklite_max: lighten(#000000, 95%);
+$color_darklite: lighten(#000000, 95%);
+$color_darklite_hover: lighten(#000000, 93%);
+$color_darklite_90: lighten(#000000, 90%);
+$color_darkmiddle_rgba: rgba(#000,.3);
+$color_darkmiddle: lighten(#000000, 50%);
+$color_darklarge: #666666;
+$color_darklarge_hover: #555555;
+$color_dark: rgba(0,0,0,.8);
+$color_dark_hover: rgba(0,0,0,.9);
+
+$color_dark_lite:lighten(#000000,95%);
+$color_dark_95:lighten(#000000,95%);
+$color_dark_90:lighten(#000000,90%);
+$color_dark_80:lighten(#000000,80%);
+$color_dark_60:lighten(#000000,60%);
+$color_dark_50:lighten(#000000,50%);
+$color_dark_40:lighten(#000000,40%);
+$color_dark_30:lighten(#000000,30%);
+$color_dark_20:lighten(#000000,20%);
+$color_dark_10:lighten(#000000,10%);
+$color_dark_5:lighten(#000000,5%);
+$color_base_50:#007ACC;
+$color_red_50: #cc0029;
+
+
+$color_dark_60:lighten(#000,60%);
+
+$border__color_darklite: lighten(#000000, 90%);
+
+
+/*app-bar elements size*/
+$app-bar__icon-button_width:40px;
+$app-bar__driver-toggle-button_width:40px;
+$app-bar__logo_width:80px;
+$app-bar__grid_gap-column:4px;
+$app-bar__book-chapter-info_width:320px;
+$app-bar__search_width:40px;
+$app-bar__donate-button_full-width:128px;
+$app-bar__donate-button_short-width:40px;
+$app-bar__pdf-button_width:40px;
+$app-bar__telegram-button_width:40px;
+$app-bar__github-button_width:40px;
+$app-bar__menu-toggle-button_width:40px;
+
+/*app size*/
+$app_padding-left_xs:24px;
+$app_padding-right_xs:24px;
+
+$app_padding-left_xl:24px;
+$app_padding-right_xl:24px;
+
+$app-header_column-gap:4px;
+$app-header_element-count_xs:6;
+$app-header_element-count_xl:6;
+
+
+
+/*app-search*/
+$app-search_media_width-less-min:
+        $app-bar__driver-toggle-button_width+
+        $app-search__width_open-state+
+        $app-bar__donate-button_short-width+
+        $app-bar__menu-toggle-button_width+
+        $app_padding-left_xs+
+        $app_padding-right_xs+
+        $app-header_column-gap * 2;
+$app-search_outside-width_xs:
+        $app-bar__driver-toggle-button_width+
+        $app-bar__menu-toggle-button_width+
+        $app_padding-left_xs+
+        $app_padding-right_xs+
+        $app-header_column-gap * 2;
+//$app-search_outside-width_xs:
+//  $app-bar__driver-toggle-button_width+
+//  $app-bar__logo_width+
+//  $app-bar__donate-button_short-width+
+//  $app-bar__menu-toggle-button_width+
+//  $app_padding-left_xs+
+//  $app_padding-right_xs+
+//  $app-header_column-gap * ($app-header_element-count_xs - 1);
+$app-search_outside-width_md:
+        $app-bar__driver-toggle-button_width+
+        $app-bar__logo_width+
+        $app-search__width_open-state+
+        $app-bar__donate-button_full-width+
+        $app-bar__menu_full-width+
+        $app_padding-left_xl+
+        $app_padding-right_xl+
+        $app-header_column-gap * ($app-header_element-count_xl - 1);
+$app-bar__search_outside-width_xl:
+        $app-bar__driver-toggle-button_width+
+  $app-bar__logo_width+
+  $app-bar__donate-button_full-width+
+  $app-bar__menu_full-width+
+  $app_padding-left_xl+
+  $app_padding-right_xl+
+  $app-header_column-gap * ($app-header_element-count_xl - 1);
+
+
+//$app-search_outside-x_md:
+
+$app-bar__search_outside-short-width_xl:
+        $app-bar__driver-toggle-button_width+
+  $app-bar__menu-toggle-button_width+
+  $app_padding-left_xs+
+  $app_padding-right_xs+
+  $app-header_column-gap * 2;
+
+$app-search_position-right_xs:
+        $app-bar__menu-toggle-button_width+
+  $app_padding-right_xs -
+  $app-header_column-gap;
+
+$app-bar__search_border_short-size: math.div($app-header_height - $app-search__height_open-state, 2);
+$app-bar__search_border-left_full-size:
+        $app-header_column-gap * ($app-header_element-count_xl - 1);
+//$app-bar__search_border-x_full-size:
+//$app-bar__search_border-y_full-size: ($app-header_height - $app-search__height_open-state) / 2;
+
+
+/*app-nav media*/
+
+$size_sm: 580px;
+
+$app-nav_adaptive_width: 580px;
+
+
+$app-bar_media_xs:
+        $app-bar__driver-toggle-button_width+
+  $app-bar__logo_width+
+  $app-bar__book-chapter-info_width+
+  $app-bar__search_width+
+  $app-bar__donate-button_short-width+
+  $app-bar__menu-toggle-button_width;
+
+$app-search_media_xs:$app-bar_media_xs;
+$app-search_media_md:
+        $app-bar__driver-toggle-button_width+
+        $app-bar__logo_width+
+        $app-search__width_open-state+
+        $app-bar__donate-button_full-width+
+        $app-bar__menu_full-width+
+        $app_padding-left_xl+
+        $app_padding-right_xl+
+        $app-header_column-gap * ($app-header_element-count_xl - 1);
+
+
+//secondary-bar
+$content-layout__right-layout_media_width_xl:
+        $content-layout__left-layout_width +
+        $content-layout__center-layout_width +
+        $content-layout__right-layout_min-width;
+$content-layout__right-layout_media_height_xl:556px;//556 is height all secondary-bar
+
+/*donate dropdown media*/
+$donate-dropdown-menu__media_xs:
+        $donate-dropdown_max-width+
+        $app-padding-left_xs+
+        $app-padding-right_xs+
+        $app-bar__menu_toggle-button_width+
+        $app-search__width_close-state;
+/**/
+
+/*what-is-new-toc [media]*/
+$win_content_primary-content-bar_media_xl:
+        $content-layout__center-layout_width - $win_content_primary-content-bar_padding_x_xl * 2;
+/**/
+/*content nav [media]*/
+$content__nav_down_media:400px;
+
+/**/
+/*warning*/
+$book-toc__aside_height:554px;
+/**/
+
+
+$media__app-driver_auto-open:
+        $content-layout__left-layout_width +
+        $content-layout__center-layout_width;

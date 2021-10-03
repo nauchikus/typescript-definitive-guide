@@ -1,0 +1,28 @@
+.github-file-info-bar {
+  padding: 24px 0 24px 0;
+  display: flex;
+  justify-content: space-between;
+}
+
+.github-file-info-bar__label {
+  color: var(--color_dark_60);
+  font-size: 12px;
+
+}
+.github-file-info-bar__section {
+  display: flex;
+  flex-direction: column;
+}
+.github-file-info-bar__section_update-info {
+  align-items: flex-end;
+}
+.github-file-info-bar__section_contributors {
+
+}
+.github-file-info-bar__avatar-btn {
+  border: none;
+
+  &:not(:first-child){
+    margin: 0 0 0 -8px;
+  }
+}

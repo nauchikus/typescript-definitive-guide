@@ -1,4 +1,4 @@
-/// TODO: [refactoring][remove after merge with src/utils/book-chapter-path-utils.js]
+/// TODO: [refactoring][remove after merge with src/utils/book-chapter-path-utils.ts]
 
 
 const toIndex = (index, length = 3, symbol = `0`) =>

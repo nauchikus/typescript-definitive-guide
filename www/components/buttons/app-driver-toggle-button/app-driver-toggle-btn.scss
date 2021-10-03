@@ -1,0 +1,10 @@
+@import "styles/override-native-styles";
+
+.app-driver-toggle-btn {
+  @include btn-override-native-style();
+
+  padding: 12px;
+  display: flex;
+
+  fill: white;
+}

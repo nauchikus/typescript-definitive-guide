@@ -1,0 +1,9 @@
+@import "override-native-styles";
+
+.link {
+  @include a-override-native-style();
+
+  white-space: nowrap;
+
+  display: inline-flex;
+}

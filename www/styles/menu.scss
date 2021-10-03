@@ -1,0 +1,32 @@
+@import "styles/override-native-styles";
+
+.menu {
+  @include ul-override-native-style();
+
+  display: flex;
+}
+
+.menu_horizontal {
+
+}
+.menu_vertical {
+  flex-direction: column;
+}
+
+.menu-item {
+  color: var(--color_dark_30);
+
+  padding: 16px 12px;
+
+  transition: background-color .1s ease-in-out;
+
+  &:hover {
+    color: var(--color_dark_10);
+    background-color: var(--color_dark_90);
+  }
+}
+.menu-item_active {
+  color: var(--color_base_50);
+
+}
+

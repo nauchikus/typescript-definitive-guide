@@ -1,0 +1,36 @@
+@import "styles/override-native-styles";
+
+
+.dropdown{
+  position:relative;
+
+  z-index:999;
+
+
+  &:hover, &[open] {
+    &>.dropdown__menu{
+      display: initial;
+    }
+  }
+}
+.dropdown__menu{
+  display: none;
+
+  position: absolute;
+  right: 0;
+
+  z-index: 999;
+
+  transition: all .1s ease;
+  transition-delay: .1s;
+
+  pointer-events: all;
+}
+.dropdown__toggle {
+  @include btn-override-native-style();
+
+  padding: 12px;
+  display: flex;
+}
+
+

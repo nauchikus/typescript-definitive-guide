@@ -2,7 +2,7 @@ const fsp = require(`fs/promises`);
 const path = require(`path`);
 
 const BookUpdateVersionCoverGenerator = require(`../../www/workers/book-cover/book-update-current-version-cover-generator`);
-const { Version } = require('../../www/src/utils/Version');
+const { Version } = require('../../www/src/utils/VersionInfo');
 
 const WIN_DIR = path.join(process.cwd(), './what-is-new');
 const BOOK_COVER_PATH = path.join(process.cwd(), 'bool-cover-for-social-media.png');
