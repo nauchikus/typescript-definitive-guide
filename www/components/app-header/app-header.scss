@@ -1,0 +1,37 @@
+@import "styles/vars-scss";
+@import "app-header.grid";
+
+.app-header {
+  --app-bar_bg-color: white;
+
+  max-width: 100%;
+  background-color: var(--app-bar_bg-color);
+
+  border-bottom: 1px solid grey;
+
+  position: sticky;
+  top: 0;
+
+  z-index: 1;
+}
+.app-header__primary-bar {
+  display: flex;
+}
+.primary-bar_right-bar {
+  margin-left: auto;
+  display: flex;
+
+  @media (min-width: $app-nav_adaptive_width) {
+    //justify-content: revert;
+  }
+}
+.app-header__secondary-bar {
+  display: flex;
+  justify-content: flex-end;
+}
+
+
+
+.app-logo__svg-icon{
+  transform: scale(2);
+}

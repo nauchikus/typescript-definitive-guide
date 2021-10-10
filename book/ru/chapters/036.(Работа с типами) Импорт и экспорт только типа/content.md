@@ -26,7 +26,7 @@ export class FirstLevel {
 }
 `````
 `````ts
-// @filename: ./index.ts
+// @filename: ./index.js
 export { FirstLevel } from "./FirstLevel";
 `````
 
@@ -102,14 +102,14 @@ export default class DefaultClassType {}
 export class ClassType {}
 `````
 `````ts
-// @filename: ./index.ts
+// @filename: ./index.js
 
 // пример с обычным импортом
 
 import DefaultClassType, { ClassType } from "./types"; // Ok -> обычный импорт
 `````
 `````ts
-// @filename: ./index.ts
+// @filename: ./index.js
 
 // неправильный пример с импортом только типа
 
@@ -123,7 +123,7 @@ import type DefaultClassType, { ClassType } from "./types"; // Error -> импо
 Как можно почерпнуть из текста ошибки, решение заключается в создании отдельных форм импорта.
 
 `````ts
-// @filename: ./index.ts
+// @filename: ./index.js
 
 // правильный пример с импортом только типа
 
@@ -189,7 +189,7 @@ export class Base {}
 `````
 
 `````ts
-// @filename: index.ts
+// @filename: index.js
 
 import type { Base } from "./Base";
 
@@ -377,7 +377,7 @@ incrementVisitCounterLocalStorage(); // ожидается, что вызов п
 `````
 
 `````ts
-// @filename: index.ts
+// @filename: index.js
 
 import { IDataFromModuleWithSideEffects } from './module';
 
@@ -440,7 +440,7 @@ export interface IDataFromModuleWithoutSideEffects {};
 `````
 
 `````ts
-// @filename: index.ts
+// @filename: index.js
 
 // Без уточнения
 import { IDataFromModuleWithSideEffects } from './module-with-side-effects';
@@ -465,7 +465,7 @@ let dataFromModuleWithoutSideEffects = {};
 В случае уточнения поведение при компиляции останется прежним. То есть импорты в скомпилированный файл включены не будут.
 
 `````ts
-// @filename: index.ts
+// @filename: index.js
 
 // С уточнением
 import type { IDataFromModuleWithSideEffects } from './module-with-side-effects';
@@ -489,7 +489,7 @@ let dataFromModuleWithoutSideEffects = {};
 Если флаг `--importsNotUsedAsValues` имеет значение `error`, то при импортировании типов без явного уточнения будет считаться ошибочным поведением.
 
 `````ts
-// @filename: index.ts
+// @filename: index.js
 
 /**
  *

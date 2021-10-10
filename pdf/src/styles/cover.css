@@ -1,0 +1,27 @@
+.book-cover {
+    width: 210mm;
+    height: auto;
+
+    display: block;
+
+    position: relative;
+    top: -144px;
+    left: -56px;
+    right: 56px;
+
+    page: no-chapter;
+    page-break-after: always;
+}
+
+#cover {
+    height: 297mm;
+}
+
+@page:first {
+    background: url(../../public/default-cover.png) no-repeat center;
+    background-size: cover;
+    margin: 0;
+
+    page-break-before: always;
+    page-break-after: always;
+}

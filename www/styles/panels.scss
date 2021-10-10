@@ -1,0 +1,10 @@
+.flat-panel {
+  background-color: var(--app_base-color);
+  border: 1px solid var(--color_dark_90);
+  border-radius: var(--app_border-radius-default);
+
+  @media (min-width: $app-nav_adaptive_width) {
+    border: none;
+    border-radius: 0;
+  }
+}

@@ -41,12 +41,21 @@ jobs:
           GATSBY_REPOSITORY_OWNER: nauchikus
           GATSBY_REPOSITORY_NAME: typescript-definitive-guide
           GATSBY_REPOSITORY_BRANCH: master
-        working-directory: ./www
+        working-directory: ./
         run: |
+          cd ./www
+          npm ci
+          npm run build && npm run export
+          cd ../pdf
           npm ci
           npm run build
+          cd ../
+          mkdir public
+          mkdir public/pdf
+          cp -r ./www/out ./public
+          cp ./pdf/public/tgd.pdf ./public/pdf
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./www/public
+          publish_dir: ./public

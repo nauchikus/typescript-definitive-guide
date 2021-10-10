@@ -1,0 +1,23 @@
+.pdf__layer {
+  display: flex;
+  justify-content: center;
+}
+
+.pdf__title {
+  font-size: 26px;
+  font-weight: bold;
+
+  text-align: center;
+
+  line-height: 26px;
+
+  padding: 8px 0 24px 0;
+}
+.card__bg {
+  max-width: 602px;
+  padding: 48px;
+}
+
+.pdf__iframe_donate-form {
+  width: 100%;
+}

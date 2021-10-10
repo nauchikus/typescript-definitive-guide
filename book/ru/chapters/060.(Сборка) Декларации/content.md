@@ -52,10 +52,10 @@ npm i -D @types/name
 npm i -D react
 `````
 
-Открыв директорию `/node_modules/` можно убедиться, что библиотека _React_ успешно установлена, поэтому сразу же попытаемся импортировать её в файл `index.ts` расположенным в директории _src_, предварительно изменив его расширение на требуемое для работы с _React_ — `.tsx`.
+Открыв директорию `/node_modules/` можно убедиться, что библиотека _React_ успешно установлена, поэтому сразу же попытаемся импортировать её в файл `index.js` расположенным в директории _src_, предварительно изменив его расширение на требуемое для работы с _React_ — `.tsx`.
 
 `````ts
-// @filename: src/index.tsx
+// @filename: src/index.js
 
 
 import React, {Component} from 'react'; // Error
@@ -189,7 +189,7 @@ declare module "wildAnimal" { // Ok
 `````
 
 `````ts
-// Файл index.ts
+// Файл index.js
 
 
 import Pig from ‘Pig’; // From which library should import module?
@@ -202,7 +202,7 @@ import Pig from ‘Pig’; // From which library should import module?
 
 ## Декларации для библиотек с одной точкой входа
 
-В проекте созданном в теме посвященной настройке рабочего пространства, в директории `src` создайте две точки входа, одну для разработки `index.ts`, а другую для _prod-версии_, имя которой должно соответствовать имени библиотеки, в нашем случае это будет `index.lib.ts`.
+В проекте созданном в теме посвященной настройке рабочего пространства, в директории `src` создайте две точки входа, одну для разработки `index.js`, а другую для _prod-версии_, имя которой должно соответствовать имени библиотеки, в нашем случае это будет `index.lib.ts`.
 
 По умолчанию точкой входа, как _npm_ пакета, так и декларации, является файл с именем `index`. Поэтому, если в проект библиотеки имеет несколько точек входа, то важно не забыть указать имя файла с помощью свойства `types` `package.json`. Если для сборки используется _webpack_, то будет значительно проще изменить имя на `index` во время компиляции.
 
@@ -218,7 +218,7 @@ import Pig from ‘Pig’; // From which library should import module?
          * Fish.ts
       * IAnimal.ts
       * Zoo.ts
-      * index.ts
+      * index.js
       * index.lib.ts
       * tsconfig.prod.ts
 `````
@@ -296,7 +296,7 @@ export default class Zoo {
 `````
 
 `````ts
-// Файл index.ts
+// Файл index.js
 
 
 import Bird from "./animals/Bird";
@@ -353,7 +353,7 @@ export const zoo: Zoo = new Zoo(); // instance
    },
    "exclude": [
      "/node_modules",
-     "./index.ts"
+     "./index.js"
    ]
  }
 `````
@@ -698,7 +698,7 @@ export declare interface IAnimal {
 `````
 
 `````ts
-// file src/index.ts
+// file src/index.js
 
 import * as DTS from "declaration-excluded-from-global-scope/animal";
 
@@ -735,7 +735,7 @@ export function printAnimalInfo(animal){ animal.type; // autocomplete }
 `````
 
 `````ts
-// file src/index.ts
+// file src/index.js
 
 import * as AnimalUtils from "lib/index.js";
 

@@ -55,14 +55,18 @@
     "@commitlint/cli": "^12.0.1",
     "@types/nodegit": "^0.26.14",
     "@types/puppeteer": "^5.4.3",
+    "@types/react": "^17.0.27",
     "commitizen": "^4.2.3",
     "cz-customizable": "^6.3.0",
     "husky": "^5.1.2",
     "lint-staged": "^10.5.4",
     "nodegit": "^0.27.0",
     "prettier": "^2.2.1",
-    "react": "^17.0.1",
+    "react": "^17.0.2",
+    "react-markdown": "^7.0.1",
+    "react-syntax-highlighter": "^15.4.4",
     "rm": "^0.1.8",
-    "simple-git": "^2.35.2"
+    "simple-git": "^2.35.2",
+    "typescript": "^4.4.3"
   }
 }

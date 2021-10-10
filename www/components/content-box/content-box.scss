@@ -1,0 +1,160 @@
+@use "sass:math";
+
+$btn-size: 48px;
+
+.content-box {
+  display: flex;
+}
+.content-box__page-nav {
+  position: relative;
+
+  @media (min-width: $size_sm) {
+    min-width: $btn-size;
+  }
+
+}
+.content-box__page-nav_left {
+}
+content-box__page-nav_right {
+
+}
+
+
+
+
+.page-nav__bar {
+  padding: 8px 8px 16px 8px;
+  display: flex;
+
+  position: fixed;
+
+  flex-direction: row;
+
+  z-index: 1;
+
+  @media (min-width: $size_sm) {
+    flex-direction: column;
+  }
+}
+.page-nav__bar_left,
+.page-nav__bar_right {
+
+}
+
+.page-nav__bar_left {
+  width: 100%;
+  background-color: var(--app_base-color);
+
+  border-top: 1px solid var(--app_border_color-default);
+
+  left: 0;
+  bottom: 0;
+
+  @media (min-width: $size_sm) {
+    width: initial;
+    background-color: initial;
+
+    left: initial;
+    top: calc(100vh / 2 - #{math.div($btn-size, 2)});
+  }
+
+
+}
+.page-nav__bar_right {
+  right: 0;
+  bottom: 0;
+
+  @media (min-width: $size_sm) {
+    right: initial;
+    top: calc(100vh / 2 - #{math.div($btn-size * 3, 2)});
+
+    & > .page-nav__btn:not(&:last-child) {
+      margin: 0 0 2px 0;
+
+    }
+  }
+}
+
+span.page-nav__btn.ant-tooltip-disabled-compatible-wrapper {
+  & > button {
+    width: 48px!important;
+    height: 48px!important;
+  }
+}
+.page-nav__btn {
+  width: 48px;
+  height: 48px;
+
+  &:first-child, &:last-child {
+    margin-right: 4px;
+  }
+}
+
+.page-nav__btn_next-page {
+  order: 3;
+
+  @media (min-width: $size_sm) {
+    order: 0;
+  }
+}
+
+
+.content-box__html {
+  padding: 0 24px;
+
+  @media (min-width: $size_sm) {
+    padding: 0 48px;
+  }
+}
+
+.post-content-bar__nav {
+  margin: 48px 0;
+  display: flex;
+  justify-content: space-between;
+
+  @media (min-width: 580px) {
+    //margin: 48px 0;
+    //display: flex;
+    //justify-content: space-between;
+  }
+}
+
+.post-content-bar__nav__btn {
+  min-height: 64px;
+  width: 47%;
+  height: auto;
+
+  padding: 0!important;
+
+}
+.post-content-bar__nav__btn_prev {
+  & > .post-content-bar__nav__btn_padding-fix {
+    justify-content: flex-start;
+  }
+
+}
+.post-content-bar__nav__btn_next {
+  & > .post-content-bar__nav__btn_padding-fix {
+    justify-content: flex-end;
+  }
+}
+.post-content-bar__nav__btn_padding-fix { // fixed antd styles from js
+  height: 100%;
+  padding: 16px;
+
+  display: flex;
+  align-items: center;
+}
+.post-content-bar__nav__btn__label {
+  word-break: break-word;
+  white-space: pre-wrap;
+  line-height: 100%;
+}
+
+.post-content-bar__nav__btn__icon_prev {
+  margin: 0 16px 0 0;
+}
+.post-content-bar__nav__btn__icon_next {
+  margin: 0 0 0 16px;
+}
+

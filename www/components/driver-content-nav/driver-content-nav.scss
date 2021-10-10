@@ -1,0 +1,10 @@
+$border_width: 2px;
+
+.driver-content-nav {
+  max-width: calc(var(--driver_width) - #{$border_width});
+}
+
+.driver-content-nav__menu {
+  max-width: calc(var(--driver_width) - #{$border_width});
+  border: none;
+}

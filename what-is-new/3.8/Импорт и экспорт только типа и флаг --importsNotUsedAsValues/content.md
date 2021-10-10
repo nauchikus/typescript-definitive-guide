@@ -18,7 +18,7 @@ export type AliasType = {};
 `````
 
 `````ts
-// @file index.ts
+// @file index.js
 
 import type {ClassType, IInterfaceType, AliasType} from "./types";
 export type {ClassType, IInterfaceType, AliasType};
@@ -41,7 +41,7 @@ export function fd(){}
 `````
 
 `````ts
-// @file index.ts
+// @file index.js
 
 // import type {o, fe, fd} from "./types"; // Error! Type-only import must reference a type, but 'o' is a value.ts(1361)
 // import type {o, fe, fd, ClassType, IInterfaceType, AliasType} from "./types"; // Error! Type-only import must reference a type, but 'o' is a value.ts(1361)
@@ -63,7 +63,7 @@ export class ExportType {}
 `````
 
 `````ts
-// @file index.ts
+// @file index.js
 
 /**
  * Error!
@@ -82,7 +82,7 @@ export class Base {}
 `````
 
 `````ts
-// @file index.ts
+// @file index.js
 
 import type {Base} from "./Base";
 
@@ -280,7 +280,7 @@ incrementVisitCounterLocalStorage(); // ожидается, что вызов п
 `````
 
 `````ts
-// @file index.ts
+// @file index.js
 
 import {IDataFromModuleWithSideEffects} from "./module";
 
@@ -358,7 +358,7 @@ incrementVisitCounterLocalStorage();
 export interface IDataFromModuleWithoutSideEffects{};
 `````
 `````ts
-// @file index.ts
+// @file index.js
 
 
 // Без уточнения
@@ -390,7 +390,7 @@ let dataFromModuleWithoutSideEffects = {};
 В случае уточнения поведение при компиляции останется прежним. То есть в импорты в скомпилированный файл включены не будут.
  
 `````ts
-// @file index.ts
+// @file index.js
 
 
 // С уточнением
@@ -417,7 +417,7 @@ let dataFromModuleWithoutSideEffects = {};
 Если же флагу `--importsNotUsedAsValues` задано значение `error`, то при импортировании типов без явного уточнения будет считаться ошибочным поведением.
 
 `````ts
-// @file index.ts
+// @file index.js
 
 /**
  * 

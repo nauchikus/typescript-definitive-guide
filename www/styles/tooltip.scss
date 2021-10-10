@@ -1,0 +1,246 @@
+@use "sass:math";
+@import "vars-scss";
+
+$TOOLTIP_DIRECTION_TOP:"top";
+$TOOLTIP_DIRECTION_RIGHT:"right";
+$TOOLTIP_DIRECTION_BOTTOM:"bottom";
+$TOOLTIP_DIRECTION_LEFT:"left";
+
+@mixin tooltip_hide_base-state{
+  &{
+    visibility: hidden;
+    opacity: 0;
+  }
+}
+@mixin tooltip_show_base-state{
+  &{
+    visibility: visible;
+    opacity: 1;
+    transition-delay: .5s;
+  }
+}
+
+@mixin tooltip-hide_from-yourself-direction($direction:$TOOLTIP_DIRECTION_BOTTOM){
+  & {
+
+    @include tooltip_hide_base-state;
+
+    //@if $direction == $TOOLTIP_DIRECTION_TOP {
+    //  transform: translateY(-16px);
+    //} @else if $direction == $TOOLTIP_DIRECTION_RIGHT {
+    //  transform: translateY(-16px);
+    //} @else if $direction == $TOOLTIP_DIRECTION_BOTTOM {
+    //  transform: translateY(-16px);
+    //} @else if $direction == $TOOLTIP_DIRECTION_LEFT {
+    //  transform: translateY(-16px);
+    //}
+  }
+}
+@mixin tooltip-show_to-yourself-direction($direction:$TOOLTIP_DIRECTION_BOTTOM){
+  &{
+    @include tooltip_show_base-state();
+  }
+}
+//@mixin tooltip-show(){
+//  &{
+//    visibility: visible;
+//    opacity: 1;
+//    transform: translateY(0);
+//    transition-delay: .5s;
+//  }
+//}
+
+@mixin tooltip-hover-hook-with-media(){
+  @media all and (min-width: $app-bar_media_xs){
+    &:hover > .tooltip{
+      @include tooltip-show_to-yourself-direction();
+    }
+  }
+}
+
+.tooltip {
+  text-align: center;
+
+  background-color: var(--color_darklite);
+
+  color: var(--app_base_darkmiddle-color);
+  font-size: 12px;
+  word-break: normal;
+
+  border: 1px solid var(--app_border_color-default);
+  border-radius: var(--app_border-radius-default);
+
+  padding: 4px;
+
+  position: absolute;
+
+  transition: opacity .4s ease 0s,
+  transform .4s ease 0s,
+  visibility .4s ease 0s;
+
+  z-index: 99999999999999999999999999999999999999;
+
+  pointer-events: none;
+
+
+  @include tooltip-hide_from-yourself-direction();
+
+}
+
+
+
+$tooltip__tail_size:8px;
+$tooltip__margin:8px;
+$tooltip__tail_offset:math.sqrt(8)*1px;
+
+.tooltip__tail:after{
+  content: "";
+
+  width: $tooltip__tail_size;
+  height: $tooltip__tail_size;
+
+  background-color: inherit;
+
+  border-top: 1px solid var(--app_border_color-default);
+  border-left: 1px solid var(--app_border_color-default);
+
+  display: block;
+
+  position: absolute;
+  transform: rotate(45deg);
+}
+
+
+
+@mixin get-tooltip-tail-by-direction($direction:$TOOLTIP_DIRECTION_BOTTOM){
+  &{
+    @extend .tooltip__tail;
+
+    &{
+      @if $direction == $TOOLTIP_DIRECTION_TOP {
+        left: calc(50% - #{$tooltip__tail_offset});
+        bottom: #{$tooltip__tail_offset * -1};
+      } @else if $direction == $TOOLTIP_DIRECTION_RIGHT {
+        left: calc(50% - #{$tooltip__tail_offset});
+        top: #{$tooltip__tail_offset * -1};
+      } @else if $direction == $TOOLTIP_DIRECTION_BOTTOM {
+        left: calc(50% - #{$tooltip__tail_offset});
+        top: #{$tooltip__tail_offset * -1};
+      } @else if $direction == $TOOLTIP_DIRECTION_LEFT {
+        left: calc(50% - #{$tooltip__tail_offset});
+        top: #{$tooltip__tail_offset * -1};
+      }
+    }
+  }
+}
+
+
+@function contains($source,$values){
+  @if(length($source) != length($values)){
+    @return false;
+  }
+
+  $isContains: true;
+
+  @each $value in $values{
+    @if( $isContains == true and index($source, $value) == null ){
+      $isContains: false;
+    }
+  }
+
+  @return $isContains;
+}
+
+$TOOLTIP-POSITION_BOTTOM-CENTER:[bottom center];
+$TOOLTIP-POSITION_BOTTOM-LEFT:[bottom left];
+$TOOLTIP-POSITION_BOTTOM-RIGHT:[bottom right];
+$TOOLTIP-POSITION_LEFT-CENTER:[left center];
+$TOOLTIP-POSITION_RIGHT-CENTER:[right center];
+
+@mixin get-tooltip-position($position:$TOOLTIP-POSITION_BOTTOM-CENTER){
+  & {
+    @if contains($position, $TOOLTIP-POSITION_LEFT-CENTER) {
+      margin-right: $tooltip__margin;
+
+      right: 100%;
+      top: 50%;
+      transform: translateY(-50%);
+
+      box-shadow: -5px 0px 6px 4px rgba(204, 204, 204, 1);
+    } @else if contains($position, $TOOLTIP-POSITION_RIGHT-CENTER) {
+      margin-left: $tooltip__margin;
+
+      left: 100%;
+      top: 50%;
+      transform: translateY(-50%);
+
+      box-shadow: 5px 0px 6px 4px rgba(204, 204, 204, 1);
+    } @else if contains($position, $TOOLTIP-POSITION_BOTTOM-CENTER) {
+      margin-top: $tooltip__margin;
+
+      left: 50%;
+      top: 100%;
+
+      transform: translateX(-50%);
+
+      box-shadow: 0px 5px 6px 4px rgba(204, 204, 204, 1);
+    } @else if contains($position, $TOOLTIP-POSITION_BOTTOM-LEFT) {
+      margin-top: $tooltip__margin;
+
+      left: 0;
+      top: 100%;
+
+      box-shadow: 0px 5px 6px 4px rgba(204, 204, 204, 1);
+    } @else if contains($position, $TOOLTIP-POSITION_BOTTOM-RIGHT) {
+      margin-top: $tooltip__margin;
+
+      right: 0;
+      top: 100%;
+
+      box-shadow: 0px 5px 6px 4px rgba(204, 204, 204, 1);
+    }@else if contains($position, $TOOLTIP-POSITION_BOTTOM-CENTER) {
+      margin-top: $tooltip__margin;
+
+      left: 100%;
+      top: 100%;
+
+      box-shadow: 0px 5px 6px 4px rgba(204, 204, 204, 1);
+    }
+  }
+}
+
+.tooltip__tail_bottom-center:after {
+  @include get-tooltip-tail-by-direction()
+}
+
+.tooltip__tail_bottom-right:after {
+  @extend .tooltip__tail;
+
+  right: 14px;
+  top: -4px;
+}
+.tooltip__tail_bottom-left:after {
+  @extend .tooltip__tail;
+
+  left: 14px;
+  top: -4px;
+}
+
+.tooltip_bottom-center {
+  @include get-tooltip-position($TOOLTIP-POSITION_BOTTOM-CENTER);
+}
+.tooltip_bottom-right {
+  @include get-tooltip-position($TOOLTIP-POSITION_BOTTOM-RIGHT);
+}
+.tooltip_bottom-left {
+  @include get-tooltip-position($TOOLTIP-POSITION_BOTTOM-LEFT);
+
+}
+.tooltip_left-center {
+  @include get-tooltip-position($TOOLTIP-POSITION_LEFT-CENTER);
+
+}
+.tooltip_right-center {
+  @include get-tooltip-position($TOOLTIP-POSITION_RIGHT-CENTER);
+
+}

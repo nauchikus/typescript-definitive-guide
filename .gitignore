@@ -6,6 +6,9 @@ www/public/
 www/dest/
 www/gen/
 www/workers/pdf/book-cover.png
+www/.env.local
+www/.next
+www/out
 node_modules/
 /package-lock.json
 #chapters/
@@ -17,6 +20,7 @@ book-cover-for-social-media.png
 book-update-current-version-cover-for-social-media.png
 
 .gitignore
+<<<<<<< HEAD
 /package.json
 package.json
 /tsconfig.json
@@ -24,3 +28,10 @@ package.json
 
 www/.env.development.local
 www/.next
+=======
+/tsconfig.json
+
+pdf/node_modules/
+pdf/public/
+pdf/dist/
+>>>>>>> re-www

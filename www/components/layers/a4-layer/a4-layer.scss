@@ -1,0 +1,11 @@
+.a4-layer_base {
+  display: flex;
+  justify-content: center;
+}
+
+.a4-layer {
+  max-width: 800px;
+  min-height: calc(100vh - var(--app-header_height));
+
+  width: 100%;
+}

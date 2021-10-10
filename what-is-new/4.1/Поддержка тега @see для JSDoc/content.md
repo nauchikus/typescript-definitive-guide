@@ -8,7 +8,7 @@ export class Animal { }
 export class Fish { }
 export class Bird { }
 
-// @filename: index.ts
+// @filename: index.js
 import * as animals from './animals';
 
 /**
