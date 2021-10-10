@@ -13,6 +13,7 @@
     "@apollo/client": "^3.4.15",
     "antd": "^4.16.13",
     "graphql": "^15.6.0",
+    "mobx": "^6.3.3",
     "mobx-react-lite": "^3.2.1",
     "next": "11.1.2",
     "next-share": "^0.12.2",
