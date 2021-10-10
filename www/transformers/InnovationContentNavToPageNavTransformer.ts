@@ -9,7 +9,7 @@ export class InnovationContentNavToPageNavTransformer {
 
 
         const isPrevPage = currentItemIndex >= 0;
-        const isNextPage = currentItemIndex >= 0 && currentItemIndex < versionAll.length;
+        const isNextPage = currentItemIndex >= 0 && currentItemIndex < versionAll.length - 1;
 
 
 

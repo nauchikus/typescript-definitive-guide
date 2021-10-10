@@ -78,7 +78,7 @@ let v1: T1 = {f1: 0, f2: ''}; // suppressExcessPropertyErrors === false ? Error 
 `````
 
 `````ts
-// index.ts
+// index.js
 
 interface Member {
 
@@ -109,7 +109,7 @@ indexMemberObject['name'] = 'object'; // Ok
 `````
 
 `````ts
-// index.ts
+// index.js
 
 interface Member {
 
@@ -217,7 +217,7 @@ export function sum(a,b){
 `````
 
 `````ts
-// file index.ts
+// file index.js
 
 import {sum} from "./sum.js";
 
@@ -236,7 +236,7 @@ export function sum( a,b){
 `````
 
 `````ts
-// file index.ts
+// file index.js
 
 import {sum} from "./sum.js";
 
@@ -592,7 +592,7 @@ class T1 {
 
 // tsconfig.json  "baseUrl": "./node_modules"
 
-// index.ts
+// index.js
 
 import M1 from 'm1';
 `````
@@ -759,11 +759,11 @@ import jquery from 'jQ';
 `````ts
 // terminal
 
-tsc index.ts T1 --noResolve
+tsc index.js T1 --noResolve
 `````
 
 `````ts
-// index.ts
+// index.js
 
 import T1 from './T1'; // Ok
 import T2 from './T2'; // Error
@@ -1042,7 +1042,7 @@ class C {
 `````
 
 `````ts
-// index.ts
+// index.js
 
 class T1 extends React.Component {} // Ok -> global
 
@@ -1067,7 +1067,7 @@ class T2 extends Component {} // Ok -> import
 `````
 
 `````ts
-// index.ts
+// index.js
 
 class T1 extends React.Component {} // Error -> global
 
@@ -1090,7 +1090,7 @@ class T2 extends Component {} // Ok -> import
 `````
 
 `````ts
-// index.ts
+// index.js
 
 class T1 extends React.Component {} // Ok -> global
 
@@ -1304,7 +1304,7 @@ import T1 from './T1';
 
 export default class T2 extends T1 {}
 
-// index.ts
+// index.js
 
 import T2 from './T2';
 
@@ -1421,7 +1421,7 @@ export default function sum(a, b){
   return a + b;
 }
 
-// index.ts
+// index.js
 
 import sum from './sum';
 
@@ -1452,7 +1452,7 @@ let result: number = sum(1, 1);
 *Пример*
 
 `````ts
-// index.tsx
+// index.js
 
 import {jsxFactory} from "jsxFactory";
 
@@ -2089,7 +2089,7 @@ class Identifier {
   "age": 0
 }
 
-// file index.ts
+// file index.js
 
 
 import config from "./config.json";

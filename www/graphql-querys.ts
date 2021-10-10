@@ -1,5 +1,3 @@
-import { GraphQlQuery, GraphQlResponse } from "../types/gatsby-create-pages";
-
 /* GET WHAT IS NEW VERSION LIST */
 export interface WinVersionListItem {
   version: string;
@@ -41,7 +39,7 @@ export interface IGetSiteMetadataRequest {
   }
 }
 
-export const getSiteMetadataRequest: GraphQlQuery = () => ( `
+export const getSiteMetadataRequest = () => ( `
 query SiteMetadataQuery {
     site {
         siteMetadata {
@@ -67,7 +65,7 @@ export interface IGetContentHtmlResponse{
     html:string;
   }
 }
-export const getWhatIsNewContentHtmlRequest: GraphQlQuery = () => ( `
+export const getWhatIsNewContentHtmlRequest = () => ( `
 query ($regexp:String!){
   markdownRemark(fileAbsolutePath: {regex: $regexp}) {
     html
@@ -94,7 +92,7 @@ type WhatIsNewNewAppFileList = {
     }
   }
 }
-const getWhatIsNewNewAppFileListQuery:GraphQlQuery=()=>(`
+const getWhatIsNewNewAppFileListQuery=()=>(`
 query GetWhatIsNewFileList($owner: String!, $repositoryName: String!) {
   github {
     repository(owner: $owner, name: $repositoryName) {
@@ -260,7 +258,7 @@ export interface IGetFileOnGithubHistoryInfoResponse {
     }
   }
 }
-export const getGithubCommitHistoryQuery: GraphQlQuery = (  ) => ( `
+export const getGithubCommitHistoryQuery = (  ) => ( `
 query GetGithubCommitHistory($path: String!, $owner: String!, $repositoryName: String!, $branch: String!) {
   github {
     repository(owner: $owner, name: $repositoryName) {
@@ -286,7 +284,7 @@ query GetGithubCommitHistory($path: String!, $owner: String!, $repositoryName: S
   }
 }
 ` );
-export const getFileOnGithubHistoryInfoQuery: GraphQlQuery = (  ) => ( `
+export const getFileOnGithubHistoryInfoQuery = (  ) => ( `
 query GetWhatIsNewFileHistory($path: String!, $owner: String!, $repositoryName: String!) {
   github {
     repository(owner: $owner, name: $repositoryName) {
@@ -333,7 +331,7 @@ export interface IGetGithubUserResponse {
   }
 }
 
-export const getGithubUserQuery: GraphQlQuery = (  ) => ( `
+export const getGithubUserQuery = (  ) => ( `
 query GetGithubUser($userName: String!) {
   github {
     search(query:$userName, type:USER, first:1){
@@ -355,3 +353,5 @@ query GetGithubUser($userName: String!) {
 export interface ICommitInfo extends ICommitHistory{
   committer: IGithubUser
 }
+
+/// TODO: [refactoring][remove] Remove unused query.

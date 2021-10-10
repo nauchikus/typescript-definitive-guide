@@ -10,11 +10,12 @@ import {ClockCircleOutlined} from "@ant-design/icons";
 import {WinMetadataProvider} from "../../provaders/WinMetadataProvider";
 import {toLastVersion} from "../../utils/version-utils";
 import {VersionInfo} from "../../utils/VersionInfo";
+import { InnovationMetadata, VersionMetadata } from "../../models/WinMetadata";
 
 export interface Innovation {
-    version: WinVersion;
+    version: VersionMetadata;
     dateRelease: string;
-    innovations: Innovation[];
+    innovations: InnovationMetadata[];
 }
 
 interface IChaptersProps {
@@ -22,20 +23,24 @@ interface IChaptersProps {
 }
 const Index: NextPage<IChaptersProps> = ({innovationAll, children}) => {
     const createListItem = (innovation: Innovation["innovations"][0], version: string, index: number) => {
+        const createUrl = (path: string, hash: string) => {
+            return `/what-is-new/${version}${hash.length ? `#${hash}` : ``}`;
+        }
+
         return (
             <List.Item key={`${version}_${index}`}>
-                <Link href={`/what-is-new/${version}/${toUrl(innovation.innovationName)}`}>
+                <Link href={createUrl(version, toUrl(innovation.innovationName))}>
                     {innovation.innovationName}
                 </Link>
             </List.Item>
         );
     }
     const timelineItemAll = innovationAll.map(innovation => {
-        const version = new VersionInfo(innovation.version);
+        const version = new VersionInfo(innovation.version.toString());
 
 
         return (
-            <Timeline.Item key={innovation.version}
+            <Timeline.Item key={innovation.version.toString()}
                            dot={<ClockCircleOutlined className="timeline-clock-icon"/>}>
                 <Link href={`/what-is-new/${version.mmp}`}>
                     <a className="innovation__link_main">
@@ -69,34 +74,7 @@ const Index: NextPage<IChaptersProps> = ({innovationAll, children}) => {
 
 export default Index;
 
-export interface Innovation {
-    "id": string;
-    "version": string;
-    "innovationName": string;
-    "dateRelease": string;
-    "datePublication": string;
-    "tags": string[];
-}
-export interface WinVersion {
-    "version": string;
-    "dateRelease": string;
-    "datePublication": string;
-}
-export interface WinMetadata {
-    "releaseHistory": WinVersion[];
-    "colors": {
-        "bookCoverColors": {
-            "--color_light": string;
-            "--color_middle-lite": string;
-            "--color_accent": string;
-            "--color_ambient": string;
-        },
-        "bookUpdateCurrentVersionCoverColors": {
-            "--color": string;
-        }
-    };
-    "innovations": Innovation[];
-}
+
 
 
 

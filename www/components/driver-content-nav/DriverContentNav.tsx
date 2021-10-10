@@ -15,25 +15,25 @@ export const DriverContentNav = observer<IDriverContentNav>(({className}) => {
 
     const classes = cn(`layer`, `driver-content-nav`, className);
 
-    const linkClickHandler = (event: React.UIEvent<HTMLLinkElement>) => {
+    const linkClickHandler: React.MouseEventHandler<HTMLAnchorElement> = (event) => {
         // event.preventDefault();
-        let link = event.target;
+        let link = event.target as HTMLLinkElement;
         let elementId = link.href.replace(/(.*)?#/, ``);
-        let element = document.getElementById(elementId);
+        let element = document.getElementById(decodeURIComponent(elementId)) as HTMLElement;
         let clientRect = element.getBoundingClientRect();
 
         window.scrollTo({
-            top: window.pageYOffset + clientRect.top - 100,
+            top: window.pageYOffset + clientRect.top,
             left: 0
         })
     }
 
 
-    const items = contentNav.tree.children.map(({path, title, key}) => {
+    const items = contentNav.tree.children?.map(({path, title, key}) => {
         return (
             <Menu.Item key={key}>
                 <Link href={`#${path}`} scroll={false}>
-                    <a  onClick={linkClickHandler}>{title}</a>
+                    <a onClick={linkClickHandler}>{title}</a>
                 </Link>
             </Menu.Item>
         );
@@ -43,7 +43,7 @@ export const DriverContentNav = observer<IDriverContentNav>(({className}) => {
             <Menu className="driver-content-nav__menu"
                   mode="inline"
                   defaultOpenKeys={[`content-nav`]}
-                  selectedKeys={contentNav.activeKeys}>
+                  selectedKeys={contentNav.activeKeys as string[]}> /// TODO: [refactoring]
                 <Menu.SubMenu key="content-nav" title="Содержание">
                     {items}
                 </Menu.SubMenu>

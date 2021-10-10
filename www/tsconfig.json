@@ -8,23 +8,26 @@
     ],
     "allowJs": true,
     "skipLibCheck": true,
+    "skipDefaultLibCheck": true,
+    "noImplicitAny": false,
     "strict": true,
     "forceConsistentCasingInFileNames": true,
     "noEmit": true,
+    "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
     "module": "esnext",
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "preserve",
+    "rootDir": "./",
     "typeRoots": [
-      "node_modules/@types"
+      "node_modules/@types",
+      "types"
     ]
   },
   "include": [
-    "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx"
+    "next-env.d.ts"
   ],
   "exclude": [
     "node_modules"

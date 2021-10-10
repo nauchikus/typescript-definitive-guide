@@ -3,7 +3,6 @@ import {Layer} from "../../../components/layers/slide-layer/SlideLayer";
 import React from "react";
 import {Divider, Tree} from "antd";
 import {toUrl} from "../../../utils/converter-path-utils";
-import {BookChapterContentNavProvider} from "../../../provaders/BookChapterContentNavProvider";
 import Title from "antd/lib/typography/Title";
 import {ContentNavTreeNode} from "../../../components/book-toc-custom-tree-node/BookTocCustomTreeNode";
 import {BookTocProvider} from "../../../provaders/BookTocProvider";
@@ -13,7 +12,8 @@ interface IChaptersProps {
     tocTreeDataAll: []
 }
 const Index: NextPage<IChaptersProps> = ({tocTreeDataAll, children}) => {
-    return (
+  /// TODO:[refactoring] resolve type any
+  return (
       <Layer>
           <Divider>
               <Title type="secondary">Оглавление</Title>
@@ -21,7 +21,7 @@ const Index: NextPage<IChaptersProps> = ({tocTreeDataAll, children}) => {
           <Tree treeData={tocTreeDataAll}
                 showLine={true}
                 defaultExpandAll={true}
-                titleRender={ContentNavTreeNode} />
+                titleRender={ContentNavTreeNode as any} />
       </Layer>
   );
 }

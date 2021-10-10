@@ -18,11 +18,13 @@
 @import "components/dropdown/dropdown";
 @import "components/buttons/svg-link-button/svg-link-btn";
 
+@import "styles-entry/index";
 @import "styles-entry/base-layout";
 @import "styles-entry/chapters";
 @import "styles-entry/chapter";
 @import "styles-entry/win";
 @import "styles-entry/wins";
+@import "styles-entry/pdf";
 
 @import "prism-vs.theme";
 @import "content";

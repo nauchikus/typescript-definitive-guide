@@ -5,6 +5,6 @@ export interface Contributor {
     githubUrl: string;
 }
 export interface GithubFileInfo {
-    lastUpdate: string,
+    lastUpdate: number,
     contributorAll: Contributor[];
 }

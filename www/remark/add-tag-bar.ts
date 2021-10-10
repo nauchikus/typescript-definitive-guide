@@ -1,4 +1,3 @@
-import { default as cn } from "classnames";
 import {Tag} from "../components/tags/tags";
 
 
@@ -36,13 +35,9 @@ export const addTagBar = ({tags} ) => (ast) => {
     try {
         let title = ast.children[ 0 ];
 
-        console.log(tags)
-
         if ( title.type !== `heading` ) {
             throw new Error( `Invalid h2Node.` );
         }
-
-        console.log(tags)
 
 
         let tagBarNode = createTagBarTemplate( tags );

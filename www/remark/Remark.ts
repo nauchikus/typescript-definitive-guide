@@ -1,7 +1,6 @@
 import {unified} from "unified";
 import remarkParse from "remark-parse";
 import remarkRehype from "remark-rehype";
-import rehypeRaw from "rehype-raw";
 import rehypeStringify from "rehype-stringify";
 import prism from "remark-prism";
 
@@ -11,6 +10,7 @@ import {addSectionId} from "./add-section-id";
 import {decorateBlockCode} from "./decorate-block-code";
 import {addHeadingLink} from "./add-heading-link";
 import {addTagBar} from "./add-tag-bar";
+import {addClasses} from "./add-classes";
 
 
 export type RemarkCompilerConfig = typeof Remark["DEFAULT_REMARK_COMPILER_BUILD_CONFIG"];
@@ -32,6 +32,7 @@ export class Remark {
         decorateBlockCode: {isActive: true},
         addHeadingLink: {isActive: true},
         addTagBar: {isActive: true},
+        addClasses: {isActive: true},
         remarkParse: {isActive: true},
         remarkRehype: {isActive: true, settings: {allowDangerousHtml: true}},
         rehypeStringify: {isActive: true, settings: {allowDangerousHtml: true}},
@@ -45,6 +46,7 @@ export class Remark {
         ["decorateBlockCode", decorateBlockCode],
         ["addHeadingLink", addHeadingLink],
         ["addTagBar", addTagBar],
+        ["addClasses", addClasses],
         ["remarkParse", remarkParse],
         ["remarkRehype", remarkRehype],
         ["rehypeStringify", rehypeStringify],

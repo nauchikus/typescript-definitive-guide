@@ -23,7 +23,6 @@ export function useContentNavStore(contentNavService: ContentNavService){
                 return store.activeElementId ? contentNavService.isNext(store.activeElementId) : false;
             },
             get activeElementId() {
-                console.log(`[[ELEMENT_ID ${intersectionStore.elementId}]]`)
                 return intersectionStore.elementId;
             },
             goPrev() {

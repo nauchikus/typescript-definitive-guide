@@ -1,37 +1,36 @@
 import React, {useEffect, useLayoutEffect} from "react";
 import {useRouter} from "next/router";
-import {Scroll} from "../services/Scroll";
 
 
 export function useContentAutoscroll(){
-    let router = useRouter();
+    const router = useRouter();
 
+    useEffect(() => {
+        function scrollHandler() {
+            if (window.pageXOffset === 0) {
+                window.removeEventListener("scroll", scrollHandler);
 
-    useLayoutEffect(() => {
-        /* scroll stabilisation */
+                return;
+            }
 
-        function scrollHandler(event) {
             window.scrollTo({
-                left: 0,
+                left: 0
             });
+        }
+
+        function startHashChangeHandler() {
+            window.addEventListener("scroll", scrollHandler);
         }
 
         window.addEventListener("scroll", scrollHandler);
 
 
+        router.events.on(`hashChangeStart`, startHashChangeHandler);
 
-        /* scroll to anchor (#) */
-
-        if (window.location.hash.includes(`#`)) {
-            let hash = window.location.hash.replace(`#`, ``);
-            let sectionId = decodeURIComponent(hash);
-            let element = document.getElementById<HTMLElement>(`${sectionId}`);
-
-            element.scrollIntoViewIfNeeded(false);
-        }
 
         return () => {
+            router.events.off(`hashChangeStart`, startHashChangeHandler);
             window.removeEventListener("scroll", scrollHandler);
         }
-    }, [router.asPath]);
+    }, []);
 }

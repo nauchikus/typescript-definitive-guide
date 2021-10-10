@@ -2,7 +2,6 @@ import { createDropdownContext, DropdownContext } from "./dropdown-hook";
 import { OutsideClick } from "../outside-click/OutsideClick";
 import { default as cn } from "classnames";
 import React, {FC, ReactElement, Reducer, useReducer} from "react";
-import {useLocalObservable} from "mobx-react-lite";
 
 
 

@@ -30,9 +30,20 @@ import {GithubFileInfo} from "../../../models/GithubFileInfo";
 import {BookTocProvider} from "../../../provaders/BookTocProvider";
 import {toUrl} from "../../../utils/converter-path-utils";
 import {BookTocToContentNavTransformer} from "../../../transformers/BookTocToContentNavTransformer";
-import {ContentNavTreeNode} from "../../what-is-new/[version]";
 import {ContentNavItem} from "../../../models/ContentNav";
 import {GithubFileInfoBar} from "../../../components/github-file-info-bar/GithubFileInfoBar";
+import ReactMarkdown from "react-markdown";
+import {addClasses} from "../../../remark/add-classes";
+import {components} from "../../../components/contents/content-component-map";
+import {
+    BookContentSectionInfoTransformer,
+    ChapterSectionInfo
+} from "../../../transformers/BookContentSectionInfoTransformer";
+import {BookChapterMdToSectionMdTransformer} from "../../../transformers/BookChapterMdToSectionMdTransformer";
+import {
+    ContentNavToUrlResolverTransformer,
+    UrlResolver
+} from "../../../transformers/ContentNavToUrlResolverTransformer";
 
 
 
@@ -63,14 +74,15 @@ type LevelId = {
 
 
 type Chapters = {
-    html: string;
+    urlResolver: UrlResolver;
+    sectionInfoAll: ChapterSectionInfo[];
     contentNavData: ContentNavItem;
     githubFileInfo: GithubFileInfo;
     pageNav: PageNavInfo;
 
 
 }
-const Chapters = observer<Chapters>(({html, pageNav, githubFileInfo, contentNavData, children}) => {
+const Chapters = observer<Chapters>(({urlResolver, sectionInfoAll, pageNav, githubFileInfo, contentNavData, children}) => {
     const contentNavService = useMemo(() => new ContentNavService(contentNavData), EMPTY_ARRAY);
 
 
@@ -83,7 +95,18 @@ const Chapters = observer<Chapters>(({html, pageNav, githubFileInfo, contentNavD
     useContentAutoscroll();
 
 
-
+    const sections = sectionInfoAll.map(({key, elementId, markdown}) => {
+        return (
+            <section key={key} id={elementId} className="content__section">
+                <ReactMarkdown remarkPlugins={[addClasses]}
+                               transformImageUri={(path)=>{
+                                   return urlResolver.image.concat(path.substring(path.lastIndexOf(`/`) + 1))
+                               }}
+                               components={components}
+                               children={markdown} />
+            </section>
+        )
+    });
 
 
 
@@ -112,11 +135,11 @@ const Chapters = observer<Chapters>(({html, pageNav, githubFileInfo, contentNavD
                                 </Link>
                             </div>
                         </div>
-                        <main className="content-box__html">
+                        <main id="content" className="content-box__html">
                             <aside>
                                 <GithubFileInfoBar githubFileInfo={githubFileInfo} />
                             </aside>
-                            <div id="content" dangerouslySetInnerHTML={{__html: html}}></div>
+                            {sections}
                             <aside className="content-box__page__content-bar_post">
                                 <nav className="post-content-bar__nav">
                                     <Link href={pageNav.prevPage.path}>
@@ -195,7 +218,7 @@ export const getStaticPaths: GetStaticPaths = async (context) => {
 
     return {
         paths,
-        fallback: true,
+        fallback: false,
     }
 }
 
@@ -204,7 +227,7 @@ export const getStaticProps: GetStaticProps = async ({params}) => {
 
     const currentBookToc = bookToc.find(item => toUrl(item.title) === params.chapterId);
 
-    console.log(currentBookToc)
+
 
     if (!currentBookToc) {
         throw new Error(`Book toc item for url "${params.chapterId}" not found.`);
@@ -213,16 +236,22 @@ export const getStaticProps: GetStaticProps = async ({params}) => {
     const currentContentNavItem = BookTocToContentNavTransformer.transform(currentBookToc, bookToc);
 
 
+    const urlResolver = ContentNavToUrlResolverTransformer.transform(currentContentNavItem);
+
     /* get book chapter from github */
 
     const {index, section, title} = currentContentNavItem;
     const name = `${generateIndex(index, 3)}.(${section}) ${title}`;
 
 
-    const contentMd = await BookTocFileProvider.getData(name);
-    const {value: html} = await Remark.compile(contentMd, {
-        addTagBar: {isActive: false}
-    });
+    const markdown = await BookTocFileProvider.getData(name);
+    const markdownAll = BookChapterMdToSectionMdTransformer.transform(markdown);
+
+    const sectionInfoAll = BookContentSectionInfoTransformer.transform(markdownAll, currentContentNavItem);
+
+    // const {value: html} = await Remark.compile(contentMd, {
+    //     addTagBar: {isActive: false}
+    // });
 
     /* file commit info */
     const commitAll = await BookChapterCommitInfoProviderCommit.getData(name);
@@ -236,10 +265,10 @@ export const getStaticProps: GetStaticProps = async ({params}) => {
     );
 
 
-
     return {
         props: {
-            html,
+            urlResolver,
+            sectionInfoAll,
             githubFileInfo,
             pageNav,
             contentNavData: currentContentNavItem,

@@ -11,7 +11,7 @@ $grid-gap:$app-bar__grid_gap-column;
   display: grid;
 
   grid-template-columns: 48px auto 1fr 48px;
-  grid-template-rows: 1fr;
+  grid-template-rows: 48px;
   grid-template-areas:
           "driver-toggle logo search primary-bar";
 
@@ -23,7 +23,7 @@ $grid-gap:$app-bar__grid_gap-column;
 
   @media (min-width: $app-nav_adaptive_width) {
     grid-template-columns: 48px auto 1fr auto;
-    grid-template-rows: auto auto;
+    grid-template-rows: 48px auto;
     grid-template-areas:
           "driver-toggle logo search secondary-bar"
           "primary-bar primary-bar primary-bar primary-bar";

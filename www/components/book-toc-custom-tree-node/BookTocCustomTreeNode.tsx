@@ -6,7 +6,13 @@ import {BookTocSectionIcon} from "../icons/book-toc-section-icon/BookTocSectionI
 
 
 
-export type ContentNavTreeNodeProps = {};
+export type ContentNavTreeNodeProps = {
+  key: string;
+  level: number;
+  section: string;
+  title: string;
+  path: string;
+};
 
 export const ContentNavTreeNode: FC<ContentNavTreeNodeProps> = ({key, level, section, title, path}) => {
     if (level === 0) {

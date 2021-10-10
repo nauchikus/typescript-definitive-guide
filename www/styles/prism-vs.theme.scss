@@ -49,7 +49,7 @@ pre[class*="language-"] {
 }
 
 /* Inline code */
-:not(pre) > code[class*="language-"] {
+:not(pre.content__pre) > code.content__code_inline[class*="language-"] {
   padding: .2em;
   padding-top: 1px; padding-bottom: 1px;
   background: #f8f8f8;

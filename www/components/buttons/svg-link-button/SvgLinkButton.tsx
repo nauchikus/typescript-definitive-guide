@@ -3,8 +3,9 @@ import {default as cn} from "classnames";
 
 
 interface ISvgLinkButtonProps {
-    href: string;
-    title?: string;
+  className?: string;
+  href: string;
+  title?: string;
 }
 
 export const SvgLinkButton: FC<ISvgLinkButtonProps> = ( {href, title, className, children} ) => {

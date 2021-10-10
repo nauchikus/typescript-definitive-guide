@@ -1,6 +1,7 @@
 import {BOTTOM_CONTENT_INTERSECTION, TOP_CONTENT_INTERSECTION} from "../consts/intersection-observer";
 import {action, computed, makeObservable, observable} from "mobx";
 import {ContentNavItem} from "../models/ContentNav";
+import {Scroll} from "./Scroll";
 
 type ContentNavMetadata = { index: number, elementId: string, path: string, key: string };
 type SetId = string | null | undefined;
@@ -84,16 +85,11 @@ export class ContentNavService {
     }
 
     readonly update  = (contentNavTreeNode: ContentNavItem) => {
-        console.log(contentNavTreeNode)
         this.contentNavTreeNode = contentNavTreeNode;
         this.contentNavMetadataAll = ContentNavService.createContentNavMetadataAll(this.contentNavTreeNode);
         this.elementIdByKeyMap = ContentNavService.createElementIdByKeyMap(this.contentNavMetadataAll);
         this.prevIds = ContentNavService.createPrevIds(this.contentNavMetadataAll);
         this.nextIds = ContentNavService.createNextIds(this.contentNavMetadataAll);
-
-
-        // console.log(this.contentNavMetadataAll)
-        // console.log(this.nextIds)
     }
 
     private isStartContent = (elementId: string | null |undefined) => elementId === TOP_CONTENT_INTERSECTION;
@@ -116,11 +112,6 @@ export class ContentNavService {
         let sectionId = decodeURIComponent(anchor);
         let element = document.getElementById<HTMLElement>(`${sectionId}`);
 
-        console.log(`SCROLL`)
-        // window.scrollTo({
-        //     left: 0,
-        //     top: element.getBoundingClientRect().top + 100
-        // });
         element.scrollIntoView();
     }
 

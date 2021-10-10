@@ -75,7 +75,7 @@ export var v3 = 'v3';
 `````
 
 `````ts
-Файл index.ts
+Файл index.js
 
 
 import {T2} from './declaration';
@@ -95,7 +95,7 @@ export namespace Bird {
 `````
 
 `````ts
-// Файл index.ts
+// Файл index.js
 
 
 import {Bird} from "./declaration";
@@ -127,7 +127,7 @@ namespace NS1 {
    * src
       * Raven.ts
       * Owl.ts
-      * index.ts
+      * index.js
    * package.json
    * tsconfig.json
 `````
@@ -151,7 +151,7 @@ namespace Bird {
 `````
 
 `````ts
-// @filename: index.ts
+// @filename: index.js
 
 
 namespace App {

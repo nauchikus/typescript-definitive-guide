@@ -10,7 +10,7 @@
 // @filename: ./utils.ts
 export const toLowerCase = (text: string) => text.toLowerCase();
 
-// @filename: ./index.ts
+// @filename: ./index.js
 export * from "./utils";
 `````
 

@@ -16,7 +16,7 @@ export type Version = {
 }
 export type InnovationSection = {
     key: string;
-    html,
+    markdown: string,
     version: Version;
     path: string;
     elementId: string;
@@ -46,28 +46,28 @@ export class WinMetadataToInnovationPageInfoAsyncTransformer {
 
 
         const sections = await Promise.all(metadata.innovations.map(async (innovation) => {
-            const md = await WinInnovationMdProvider.getData(
+            const markdown = await WinInnovationMdProvider.getData(
                 version.mmp,
                 innovation.innovationName
             );
-            const {value: html} = await Remark.compile(md, {
-                divisionIntoSections: {isActive: false},
-                addSectionId: {isActive: false},
-                addTagBar: {isActive: true, settings: {tags: innovation.tags}},
-            });
+            // const {value: html} = await Remark.compile(md, {
+            //     divisionIntoSections: {isActive: false},
+            //     addSectionId: {isActive: false},
+            //     addTagBar: {isActive: true, settings: {tags: innovation.tags}},
+            // });
 
             const commitAll = await InnovationCommitInfoProviderCommit.getData(
                 version.version,
                 innovation.innovationName
             );
-            const githubFileInfo = CommitInfoTransformer.transform(commitAll);
+            const githubFileInfo = CommitInfoTransformer.transform(commitAll, innovation.innovationName);
 
 
             return {
                 key: createKey(version.version),
                 title: innovation.innovationName,
                 tags: innovation.tags,
-                html,
+                markdown,
                 githubFileInfo,
                 path: toUrl(innovation.innovationName),
                 elementId: toId(innovation.innovationName),

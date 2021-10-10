@@ -1,8 +1,6 @@
 import React, {FC, ReactElement, Reducer, useMemo, useReducer} from "react";
 import {InnovationPage} from "../../transformers/WinMetadataToInnovationPageInfoAsyncTransformer";
 import {VersionInfo} from "../../utils/VersionInfo";
-import Image from "next/image"
-import {Head} from "next/document";
 import {
     FacebookIcon,
     FacebookShareButton,
@@ -25,7 +23,7 @@ interface IInnovationPresenterProps {
 export const InnovationPresenter: FC<IInnovationPresenterProps> = ({data} ) => {
     const version = useMemo(() => new VersionInfo(data.version.version), [data]);
     const share = {
-        url: `https://typescript-definitive-guide/what-is-new/${version.mpp}`,
+        url: `https://typescript-definitive-guide/what-is-new/${version.mmp}`,
         quote: ``
     };
 

@@ -10,6 +10,7 @@ import {
     RightOutlined,
     UpOutlined
 } from "@ant-design/icons";
+import ReactMarkdown from "react-markdown";
 import {observer, useLocalObservable} from "mobx-react-lite";
 import {WinVersionListProvider} from "../../provaders/WinVersionListProvider";
 import {InnovationContentNavToPageNavTransformer} from "../../transformers/InnovationContentNavToPageNavTransformer";
@@ -32,7 +33,8 @@ import {GithubFileInfoBar} from "../../components/github-file-info-bar/GithubFil
 import Head from "next/head";
 import {useCopyToBufferButtonFromNativeMarkup} from "../../hooks/copy-to-buffer-button-from-native-markup-hook";
 
-
+import {components} from "../../components/contents/content-component-map";
+import {addClasses} from "../../remark/add-classes";
 
 /* local types */
 type Contributor = {
@@ -75,7 +77,8 @@ type Innovations = {
 
 
 }
-const Innovation = observer<Innovations>(({innovationPage, pageNav, contentNavData, children}) => {
+const Innovation:NextPage<Innovations> = observer(({ innovationPage, pageNav, contentNavData, children }) => {
+
     const contentNavService = useMemo(() => new ContentNavService(contentNavData), EMPTY_ARRAY);
 
     useEffect(() => {
@@ -90,25 +93,21 @@ const Innovation = observer<Innovations>(({innovationPage, pageNav, contentNavDa
 
 
 
-    const sections = innovationPage.sections.map(({key, elementId, html, githubFileInfo}) => {
-
+    const sections = innovationPage.sections.map(({key, elementId, markdown, githubFileInfo}) => {
         return (
             <section key={key} id={elementId} className="content__section">
                 <aside>
                     <GithubFileInfoBar githubFileInfo={githubFileInfo} />
                 </aside>
-                <div dangerouslySetInnerHTML={{__html: html}}></div>
+                <ReactMarkdown remarkPlugins={[addClasses]} components={components} children={markdown} />
             </section>
         )
     });
 
 
     return (
-        <ContentNavContext.Provider value={contentNavStore}>
+      <ContentNavContext.Provider value={contentNavStore}>
             <SlideLayer>
-                <Head>
-                    <script async src="https://yastatic.net/share2/share.js"></script>
-                </Head>
                 <DriverSlideLayer>
                     <div className="driver">
                         <DriverContentNav/>
@@ -194,7 +193,7 @@ const Innovation = observer<Innovations>(({innovationPage, pageNav, contentNavDa
     )
 });
 
-export default Innovation;
+
 
 export const getStaticPaths: GetStaticPaths = async (context) => {
     const winVersionAll = await WinVersionListProvider.getData();
@@ -206,11 +205,16 @@ export const getStaticPaths: GetStaticPaths = async (context) => {
 
     return {
         paths,
-        fallback: true,
+        fallback: false,
     }
 }
 
-export const getStaticProps: GetStaticProps = async ({params}) => {
+type Params = {
+    params: {
+        version: string;
+    }
+}
+export const getStaticProps: GetStaticProps = async ({params}: Params) => {
     const winVersionAll = await WinVersionListProvider.getData();
     const metadata = await WinMetadataProvider.getData(params.version);
     const innovationPage = await WinMetadataToInnovationPageInfoAsyncTransformer.transform(metadata);
@@ -229,3 +233,5 @@ export const getStaticProps: GetStaticProps = async ({params}) => {
         }
     };
 }
+
+export default Innovation;

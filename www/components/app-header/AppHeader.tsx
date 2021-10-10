@@ -5,6 +5,8 @@ import {AppDriverToggleButton} from "../buttons/app-driver-toggle-button/AppDriv
 import {AppNav} from "../app-nav/AppNav";
 import {AppLinkBar} from "../app-link-bar/AppLinkNav";
 import {Search} from "../search/Search";
+import {AppLogo} from "../app-logo/AppLogo";
+import {Head} from "next/document";
 
 
 interface IAppHeaderProps {
@@ -19,9 +21,7 @@ export const AppHeader: FC<IAppHeaderProps> = observer(( {...props} ) => {
         </div>
 
         <div className="app-header-grid-item__logo">
-            <Link href="/">
-                <a>TDG</a>
-            </Link>
+            <AppLogo/>
         </div>
 
         <div className="app-header-grid-item__search">

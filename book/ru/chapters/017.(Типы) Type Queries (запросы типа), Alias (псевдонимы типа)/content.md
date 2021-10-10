@@ -172,7 +172,7 @@ export type AnimalSignProvider =
     InsectSignDataProvider;
 
 
-// index.ts
+// index.js
 import { AnimalSignProvider } from './aliases';
 
 import BirdSignDataProvider from './BirdSignDataProvider';

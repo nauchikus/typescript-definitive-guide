@@ -1,0 +1,8 @@
+.app-logo {
+  display: flex;
+
+  & > svg {
+    width: auto;
+    height: 48px;
+  }
+}

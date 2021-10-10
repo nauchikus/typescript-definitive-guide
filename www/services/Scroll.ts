@@ -1,40 +1,63 @@
 import {has} from "mobx/src/api/object-api";
 
+/// TODO: [refactoring][optimize]
+export class ScrollOffsetStrategy {
+    get offset(){
+        let appHeaderHeight = window
+            .getComputedStyle(document.body)
+            .getPropertyValue(`--app-header_height`);
+
+
+        return parseFloat(appHeaderHeight);
+    }
+    constructor() {
+    }
+}
+
 export class Scroll {
-    static getClientRectByElementId = (id: string) => {
-        let element = document.getElementById(id);
+    /// TODO: [refactoring]
+    static offset = new ScrollOffsetStrategy();
+
+    static getHash = () => window.location.hash.replace(`#`, ``);
+    static get isHash(){
+        return Scroll.getHash().length > 0;
+    }
+    static get isAutoscrollComplete(){
+        let clientRect = Scroll.getCurrentClientRect();
+
+        return Math.round(clientRect.top) < Scroll.offset.offset;
+    }
+    static getClientRectById = (id: string) => {
+        let element = document.getElementById<HTMLElement>(`${id}`);
         let clientRect = element.getBoundingClientRect();
 
         return clientRect;
     }
-    static scrollToElementWithId = (id: string) => {
-        let {top} = Scroll.getClientRectByElementId(id);
+    static getCurrentAnchor = () => {
+        let hash = Scroll.getHash();
+        let anchor = decodeURIComponent(hash);
 
-        Scroll.scrollTo({
-            top
-        });
+        return anchor;
     }
-    static scrollTo = (settings: {top?: number, left?: number}) => {
-        window.scrollTo(settings);
+    static getCurrentClientRect = () =>
+        Scroll.getClientRectById(Scroll.getCurrentAnchor());
+    static scrollToCurrentHash = () => {
+        if (Scroll.isHash) {
+            window.scrollTo({
+                left: 0,
+                top: Scroll.isAutoscrollComplete ? pageYOffset - Scroll.offset.offset : pageYOffset
+            });
+        }
+    }
+    static scrollTo = () => {
+
     }
     static scrollToAnchor = (anchor: string) => {
-        let {top} = Scroll.getClientRectByElementId(anchor);
+        let clientRect = Scroll.getClientRectById(anchor);
 
         window.scrollTo({
-            top: top + 50
-        })
-        // Scroll.scrollTo({
-        //     left: 0,
-        //     top
-        // });
-
-    }
-    static scrollToHash = (hash: string) => {
-        let anchor = hash.replace(`#`, ``);
-        Scroll.scrollToAnchor(anchor);
-    }
-    static scrollToCurrentHash = () => {
-        let {hash} = window.location;
-        Scroll.scrollToHash(hash);
+            left: 0,
+            top: clientRect.top + pageYOffset - Scroll.offset.offset
+        });
     }
 }

@@ -8,10 +8,10 @@
   ],
   "colors": {
     "bookCoverColors": {
-      "--color_light": "#fff",
-      "--color_middle-lite": "#c93737",
-      "--color_accent": "#e6e63a",
-      "--color_ambient": "#ff9443"
+      "--color_light": " #fff",
+      "--color_middle-lite": "#cfb193",
+      "--color_accent": " #33e0f9",
+      "--color_ambient": " #6c2da1"
     },
     "bookUpdateCurrentVersionCoverColors": {
       "--color": "#265589"
@@ -24,7 +24,9 @@
       "innovationName": "Анализ потока для результата условного выражения",
       "dateRelease": "August 26, 2021",
       "datePublication": "Sep 21, 2021",
-      "tags": ["Нововведение"]
+      "tags": [
+        "Нововведение"
+      ]
     },
     {
       "id": "",
@@ -32,7 +34,9 @@
       "innovationName": "Типы symbol и literal template string в индексной сигнатуре",
       "dateRelease": "August 26, 2021",
       "datePublication": "Sep 21, 2021",
-      "tags": ["Нововведение"]
+      "tags": [
+        "Нововведение"
+      ]
     },
     {
       "id": "",
@@ -40,7 +44,9 @@
       "innovationName": "Изменение типа ошибки в блоке catch и флаг --useUnknownInCatchVariables",
       "dateRelease": "August 26, 2021",
       "datePublication": "Sep 21, 2021",
-      "tags": ["Адаптация"]
+      "tags": [
+        "Адаптация"
+      ]
     },
     {
       "id": "",
@@ -48,7 +54,9 @@
       "innovationName": "Типы необязательных свойств теперь более точные",
       "dateRelease": "August 26, 2021",
       "datePublication": "Sep 21, 2021",
-      "tags": ["Улучшение"]
+      "tags": [
+        "Улучшение"
+      ]
     },
     {
       "id": "",
@@ -56,7 +64,9 @@
       "innovationName": "Статические блоки в классах",
       "dateRelease": "August 26, 2021",
       "datePublication": "Sep 21, 2021",
-      "tags": ["Улучшение"]
+      "tags": [
+        "Улучшение"
+      ]
     },
     {
       "id": "",
@@ -64,7 +74,9 @@
       "innovationName": "Модернизация вывода tsc --help",
       "dateRelease": "August 26, 2021",
       "datePublication": "Sep 21, 2021",
-      "tags": ["Улучшение"]
+      "tags": [
+        "Улучшение"
+      ]
     },
     {
       "id": "",
@@ -72,7 +84,9 @@
       "innovationName": "Улучшение производительности",
       "dateRelease": "August 26, 2021",
       "datePublication": "Sep 21, 2021",
-      "tags": ["Улучшение"]
+      "tags": [
+        "Улучшение"
+      ]
     },
     {
       "id": "",
@@ -80,7 +94,9 @@
       "innovationName": "[КРИТИЧЕСКОЕ ИЗМЕНЕНИЕ] Изменение поведения контекста для функций",
       "dateRelease": "August 26, 2021",
       "datePublication": "Sep 21, 2021",
-      "tags": ["Критическое изменение"]
+      "tags": [
+        "Критическое изменение"
+      ]
     },
     {
       "id": "",
@@ -88,7 +104,9 @@
       "innovationName": "[КРИТИЧЕСКОЕ ИЗМЕНЕНИЕ] Изменение проверки await для функций",
       "dateRelease": "August 26, 2021",
       "datePublication": "Sep 21, 2021",
-      "tags": ["Критическое изменение"]
+      "tags": [
+        "Критическое изменение"
+      ]
     },
     {
       "id": "",
@@ -96,7 +114,9 @@
       "innovationName": "[КРИТИЧЕСКОЕ ИЗМЕНЕНИЕ] Абстрактные поля больше не могут быть инициализированы",
       "dateRelease": "August 26, 2021",
       "datePublication": "Sep 21, 2021",
-      "tags": ["Критическое изменение"]
+      "tags": [
+        "Критическое изменение"
+      ]
     }
   ]
 }
