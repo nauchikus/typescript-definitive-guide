@@ -54,6 +54,7 @@ jobs:
           mkdir public/pdf
           cp -r ./www/out/* ./public
           mv ./pdf/public/tdg.pdf ./public/pdf
+          cp ./www/public/CNAME ./public
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
         with:
