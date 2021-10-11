@@ -33,6 +33,7 @@ const Pdf: NextPage = ({}) => {
                           size="large"
                           icon={<DownloadOutlined/>}
                           block={true}
+                          href="pdf/tdg.pdf"
                           download={true}
                           onClick={onClick}>Скачать</Button>
               </Card>
