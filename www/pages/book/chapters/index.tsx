@@ -7,6 +7,7 @@ import Title from "antd/lib/typography/Title";
 import {ContentNavTreeNode} from "../../../components/book-toc-custom-tree-node/BookTocCustomTreeNode";
 import {BookTocProvider} from "../../../provaders/BookTocProvider";
 import {BookTocToContentNavTransformer} from "../../../transformers/BookTocToContentNavTransformer";
+import { A4Layer } from "../../../components/layers/a4-layer/A4Layer";
 
 interface IChaptersProps {
     tocTreeDataAll: []
@@ -15,13 +16,15 @@ const Index: NextPage<IChaptersProps> = ({tocTreeDataAll, children}) => {
   /// TODO:[refactoring] resolve type any
   return (
       <Layer>
-          <Divider>
-              <Title type="secondary">Оглавление</Title>
-          </Divider>
-          <Tree treeData={tocTreeDataAll}
-                showLine={true}
-                defaultExpandAll={true}
-                titleRender={ContentNavTreeNode as any} />
+          <A4Layer className="toc__layer">
+            <div className="toc__header">
+              <h1 className="toc__title">Оглавление</h1>
+            </div>
+            <Tree treeData={tocTreeDataAll}
+                  showLine={true}
+                  defaultExpandAll={true}
+                  titleRender={ContentNavTreeNode as any} />
+          </A4Layer>
       </Layer>
   );
 }

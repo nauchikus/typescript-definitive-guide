@@ -11,6 +11,7 @@ import {WinMetadataProvider} from "../../provaders/WinMetadataProvider";
 import {toLastVersion} from "../../utils/version-utils";
 import {VersionInfo} from "../../utils/VersionInfo";
 import { InnovationMetadata, VersionMetadata } from "../../models/WinMetadata";
+import { A4Layer } from "../../components/layers/a4-layer/A4Layer";
 
 export interface Innovation {
     version: VersionMetadata;
@@ -62,12 +63,14 @@ const Index: NextPage<IChaptersProps> = ({innovationAll, children}) => {
 
     return (
       <Layer>
-          <Divider>
-              <Title type="secondary">Что нового?</Title>
-          </Divider>
-          <Timeline>
+          <A4Layer className="toc__layer">
+            <div className="toc__header">
+              <h1 className="toc__title">Что нового?</h1>
+            </div>
+            <Timeline>
               {timelineItemAll}
-          </Timeline>
+            </Timeline>
+          </A4Layer>
       </Layer>
   );
 }
