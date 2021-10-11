@@ -1,4 +1,0 @@
-User-agent: *
-Allow: /
-Sitemap: https://typescript-definitive-guide.ru/sitemap.xml
-Host: https://typescript-definitive-guide.ru
