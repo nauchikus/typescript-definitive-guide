@@ -5,9 +5,10 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "build-cover": "webpack --config webpack.cover.config.js && node --no-warnings dist/cover.bundle.js MODE=all",
+    "cover_current": "webpack --config webpack.cover.config.js && node --no-warnings dist/cover.bundle.js MODE=current",
+    "cover_default": "webpack --config webpack.cover.config.js && node --no-warnings dist/cover.bundle.js MODE=default",
     "build-pdf": "webpack --config ./webpack.pdf.config.js && node --no-warnings ./dist/cover.bundle.js MODE=current",
-    "build": "webpack --config webpack.config.js && node --no-warnings ./dist/cover.bundle.js MODE=cover && node --no-warnings ./dist/pdf.bundle.js",
+    "build": "webpack --config webpack.config.js && node --no-warnings ./dist/cover.bundle.js MODE=default && node --no-warnings ./dist/pdf.bundle.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
