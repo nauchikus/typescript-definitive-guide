@@ -53,7 +53,7 @@ jobs:
           mkdir public
           mkdir public/pdf
           cp -r ./www/out ./public
-          mv ./pdf/public/tgd.pdf ./public/pdf
+          mv ./pdf/public/tdg.pdf ./public/pdf
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
         with:
