@@ -1,7 +1,6 @@
 .idea/
 .vscode/
 www/node_modules/
-www/public/
 www/.env.local
 www/.next
 www/out
@@ -16,7 +15,6 @@ pdf/dist/
 node_modules/
 /package-lock.json
 dest/
-public/
 
 .env.github.development
 .env.local
