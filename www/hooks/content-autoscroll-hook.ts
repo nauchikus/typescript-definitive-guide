@@ -7,15 +7,19 @@ export function useContentAutoscroll(){
 
     useEffect(() => {
         function scrollHandler() {
-            if (window.pageXOffset === 0) {
+            if (window.scrollX === 0) {
                 window.removeEventListener("scroll", scrollHandler);
+
+                // hack for mobile
+                setTimeout(()=>{
+                    if ( scrollX > 0 ) {
+                        document.scrollingElement.scrollLeft = 0;
+                    }
+                })
 
                 return;
             }
-
-            window.scrollTo({
-                left: 0
-            });
+            document.scrollingElement.scrollLeft = 0;
         }
 
         function startHashChangeHandler() {
