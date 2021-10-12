@@ -4,6 +4,7 @@ import {default as cn} from "classnames";
 import {Menu} from "antd";
 import {observer} from "mobx-react-lite";
 import {useContentNav} from "../../contexts/content-nav-context";
+import { useSharedStore } from "../../stores/shared-store";
 
 
 interface IDriverContentNav {
@@ -12,11 +13,22 @@ interface IDriverContentNav {
 
 export const DriverContentNav = observer<IDriverContentNav>( ( { className } ) => {
     const contentNav = useContentNav();
+    const sharedStore = useSharedStore();
 
     const classes = cn( `layer`, `driver-content-nav`, className );
 
     const linkClickHandler: React.MouseEventHandler<HTMLAnchorElement> = ( event ) => {
-        // event.preventDefault();
+      const BREAKPOINT_SM = window
+        .getComputedStyle( document.body )
+        .getPropertyValue( `--breakpoint_sm` );
+
+      if ( document.documentElement.clientWidth < parseFloat(BREAKPOINT_SM) ) {
+        setTimeout( () => {
+          sharedStore.appDriverToggle.close();
+        }, 600 );
+      }
+
+      // event.preventDefault();
         let link = event.target as HTMLLinkElement;
         let elementId = link.href.replace( /(.*)?#/, `` );
         let element = document.getElementById( decodeURIComponent( elementId ) ) as HTMLElement;

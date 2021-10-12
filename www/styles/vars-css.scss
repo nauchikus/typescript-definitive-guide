@@ -19,7 +19,7 @@
 
 :root {
   /*breakpoints*/
-  --breakpoint_sm: 576px;
+  --breakpoint_sm: #{$size_sm};
   /*warning*/
   --book-toc__aside_height: #{$book-toc__aside_height};
   /**/
