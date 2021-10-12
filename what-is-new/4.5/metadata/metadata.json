@@ -1,0 +1,135 @@
+{
+  "releaseHistory": [
+    {
+      "version": "4.5@beta",
+      "dateRelease": "October 1, 2021",
+      "datePublication": "April 6, 2021"
+    }
+  ],
+  "colors": {
+    "bookCoverColors": {
+      "--color_light": "#fff",
+      "--color_middle-lite": "#c93737",
+      "--color_accent": "#e6e63a",
+      "--color_ambient": "#ff9443"
+    },
+    "bookUpdateCurrentVersionCoverColors": {
+      "--color": "#265589"
+    }
+  },
+  "innovations": [
+    {
+      "id": "",
+      "version": "4.5@beta",
+      "innovationName": "Поддержка ECMAScript модулей в NodeJs",
+      "dateRelease": "October 1, 2021",
+      "datePublication": "April 6, 2021",
+      "tags": ["Улучшение"]
+    },
+    {
+      "id": "",
+      "version": "4.5@beta",
+      "innovationName": "Поддержка lib из node_modules",
+      "dateRelease": "October 1, 2021",
+      "datePublication": "April 6, 2021",
+      "tags": ["Нововведение"]
+    },
+    {
+      "id": "",
+      "version": "4.5@beta",
+      "innovationName": "Тип Awaited",
+      "dateRelease": "October 1, 2021",
+      "datePublication": "April 6, 2021",
+      "tags": ["Нововведение"]
+    },
+    {
+      "id": "",
+      "version": "4.5@beta",
+      "innovationName": "Указание шаблонного литерального строкового типа в качестве дискриминанта",
+      "dateRelease": "October 1, 2021",
+      "datePublication": "April 6, 2021",
+      "tags": ["Нововведение"]
+    },
+    {
+      "id": "",
+      "version": "4.5@beta",
+      "innovationName": "Стабильная поддержка --module es2022",
+      "dateRelease": "October 1, 2021",
+      "datePublication": "April 6, 2021",
+      "tags": ["Улучшение"]
+    },
+    {
+      "id": "",
+      "version": "4.5@beta",
+      "innovationName": "Исключение хвостовой рекурсии на условных типа",
+      "dateRelease": "October 1, 2021",
+      "datePublication": "April 6, 2021",
+      "tags": ["Улучшение"]
+    },
+    {
+      "id": "",
+      "version": "4.5@beta",
+      "innovationName": "Отключение исключения неиспользуемого импорта",
+      "dateRelease": "October 1, 2021",
+      "datePublication": "April 6, 2021",
+      "tags": ["Улучшение"]
+    },
+    {
+      "id": "",
+      "version": "4.5@beta",
+      "innovationName": "Совмещение import type с обычным import",
+      "dateRelease": "October 1, 2021",
+      "datePublication": "April 6, 2021",
+      "tags": ["Улучшение"]
+    },
+    {
+      "id": "",
+      "version": "4.5@beta",
+      "innovationName": "Проверка наличия ECMAScript приватного поля",
+      "dateRelease": "October 1, 2021",
+      "datePublication": "April 6, 2021",
+      "tags": ["Адаптация"]
+    },
+    {
+      "id": "",
+      "version": "4.5@beta",
+      "innovationName": "Утверждение импорта",
+      "dateRelease": "October 1, 2021",
+      "datePublication": "April 6, 2021",
+      "tags": ["Адаптация"]
+    },
+
+    {
+      "id": "",
+      "version": "4.5@beta",
+      "innovationName": "Ускорение загрузки с помощью realPathSync.native",
+      "dateRelease": "October 1, 2021",
+      "datePublication": "April 6, 2021",
+      "tags": ["Улучшение"]
+    },
+    {
+      "id": "",
+      "version": "4.5@beta",
+      "innovationName": "[КРИТИЧЕСКОЕ ИЗМЕНЕНИЕ] Изменения в lib.d.ts",
+      "dateRelease": "October 1, 2021",
+      "datePublication": "April 6, 2021",
+      "tags": ["Критическое изменение"]
+    },
+    {
+      "id": "",
+      "version": "4.5@beta",
+      "innovationName": "[КРИТИЧЕСКОЕ ИЗМЕНЕНИЕ] Изменения от вывода Awaited",
+      "dateRelease": "October 1, 2021",
+      "datePublication": "April 6, 2021",
+      "tags": ["Критическое изменение"]
+    },
+    {
+      "id": "",
+      "version": "4.5@beta",
+      "innovationName": "[КРИТИЧЕСКОЕ ИЗМЕНЕНИЕ] Проверка корневых параметров комилятора в tsconfig.json",
+      "dateRelease": "October 1, 2021",
+      "datePublication": "April 6, 2021",
+      "tags": ["Критическое изменение"]
+    }
+  ]
+}

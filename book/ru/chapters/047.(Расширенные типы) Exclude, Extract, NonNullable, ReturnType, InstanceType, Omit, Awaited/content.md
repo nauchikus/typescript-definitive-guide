@@ -1,4 +1,4 @@
-# Exclude, Extract, NonNullable, ReturnType, InstanceType, Omit
+# Exclude, Extract, NonNullable, ReturnType, InstanceType, Omit, Awaited
 
 Чтобы сэкономить время разработчиков, в систему типов _TypeScript_ были включены несколько часто требующихся условных типов, каждый из которых будут подробно рассмотрен в этой главе.
 
@@ -302,4 +302,20 @@ type Person = {
  * }
  */
 type PersonName = Omit<Person, 'age'>; // исключение признаков связанных с полем age из типа Person
+`````
+
+
+## Awaited<T> (рекурсивное развертывания промисов)
+
+Расширенный тип `Awaited<T>` предназначен для рекурсивного развертывания промисов, что в повседневной работе с асинхронными операциями является незаменимым помощником.
+
+`````ts
+// A = string
+type A = Awaited<Promise<string>>;
+
+// B = string
+type B = Awaited<Promise<Promise<string>>>;
+
+// C = string | number
+type C = Awaited<string | Promise<number>>;
 `````

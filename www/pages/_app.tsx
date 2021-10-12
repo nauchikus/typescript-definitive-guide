@@ -12,6 +12,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
       <BaseAppLayout>
           <Head>
+              <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, maximum-scale=1, user-scalable=no"/>
               <link key="algolia_css"
                     rel="stylesheet"
                     href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css"/>

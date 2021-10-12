@@ -2715,3 +2715,24 @@ let o: T = {
 **default**: `false`
 **values**: `true`, `false`
 
+
+
+## preserveValueImports
+
+
+`--preserveValueImports` - отключение механизма исключающего из сборки импортированные, но не используемые конструкции.
+
+`````json
+// @filename: tsconfig.json
+
+{
+    "compilerOptions": {
+        "preserveValueImports": "false"
+    }
+}
+`````
+
+
+**type**: `boolean`
+**default**: `false`
+**values**: `true`, `false`
