@@ -7,11 +7,12 @@
     }
   ],
   "colors": {
-    "--color_light":" #fff",
-    "--color_middle-lite":" #93b1cf",
-    "--color_accent":" #ddf933",
-    "--color_ambient":" #362da1"
-  },
+    "bookCoverColors": {
+      "--color_light":" #fff",
+      "--color_middle-lite":" #93b1cf",
+      "--color_accent":" #ddf933",
+      "--color_ambient":" #362da1"
+    },
     "bookUpdateCurrentVersionCoverColors": {
       "--color": "#265589"
     }
