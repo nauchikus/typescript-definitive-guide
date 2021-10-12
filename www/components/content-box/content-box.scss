@@ -100,7 +100,8 @@ span.page-nav__btn.ant-tooltip-disabled-compatible-wrapper {
 
 
 .content-box__html {
-  padding: 0 24px;
+  max-width: 100vw;
+  padding: 0 12px;
 
   @media (min-width: $size_sm) {
     padding: 0 48px;
