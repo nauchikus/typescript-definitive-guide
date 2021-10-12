@@ -57,11 +57,12 @@ export class WinMetadataToInnovationPageInfoAsyncTransformer {
             // });
 
             const commitAll = await InnovationCommitInfoProviderCommit.getData(
-                version.version,
+                version.mmp,
                 innovation.innovationName
             );
             const githubFileInfo = CommitInfoTransformer.transform(commitAll, innovation.innovationName);
 
+            console.log(githubFileInfo)
 
             return {
                 key: createKey(version.version),

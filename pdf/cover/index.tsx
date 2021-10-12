@@ -32,6 +32,8 @@ async function getDefaultCoverOptions(): Promise<CoverGeneratorOptions> {
 async function getCurrentCoverOptions(): Promise<CoverGeneratorOptions>{
   const options = await getLastCoverGeneratorOptions();
 
+  console.log(options)
+
   return options;
 }
 

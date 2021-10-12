@@ -30,7 +30,7 @@ export async function getLastCoverGeneratorOptions(){
   const data: CoverGeneratorOptions = {
     imageName: version.mmp.replace(`.`, `_`),
     version: version.mmp,
-    versionStage: version.preReleaseVersion,
+    versionStage: version.preReleaseName,
     colors: { ...metadata.colors.bookCoverColors }
   };
 
