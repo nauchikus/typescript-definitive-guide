@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://typescript-definitive-guide.ru
+
+# Sitemaps
+Sitemap: https://typescript-definitive-guide.ru/sitemap.xml
