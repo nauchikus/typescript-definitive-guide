@@ -7,6 +7,7 @@
     "build": "next build",
     "start": "next start",
     "export": "next export",
+    "postexport": "next-sitemap",
     "lint": "next lint"
   },
   "dependencies": {
@@ -25,6 +26,7 @@
     "@svgr/webpack": "^5.5.0",
     "@types/react": "^17.0.27",
     "@types/react-syntax-highlighter": "^13.5.2",
+    "next-sitemap": "^1.6.184",
     "react-markdown": "^7.0.1",
     "react-syntax-highlighter": "^15.4.4",
     "rehype-raw": "^6.1.0",
