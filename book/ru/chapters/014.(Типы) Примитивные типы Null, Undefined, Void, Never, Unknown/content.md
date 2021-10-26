@@ -63,12 +63,6 @@ TypeSystem.null = TypeSystem.boolean; // Error
 TypeSystem.null = TypeSystem.undefined; // Ok
 `````
 
-При активном флаге `--strictNullChecks`, при условии, что в качестве значения выступает значение `null`, вывод типов определяет принадлежность к типу `null`.
-
-`````ts
-let identifier = null; // identifier: null
-`````
-
 Тип `null` идентичен по своей работе с одноимённым типом из _JavaScript_.
 
 
