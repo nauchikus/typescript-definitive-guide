@@ -17,50 +17,21 @@
 let identifier: null = null; // null, указанный после оператора двоеточия, это имеющийся только в TypeScript псевдоним (alias) для глобального типа Null. В, то время как null, указанный после оператора присваивания, это единственное значение типа Null.
 `````
 
-Тип `Null` является подтипом всех типов, за исключением типа `Undefined`, поэтому его единственное значение `null` совместимо со всеми остальными типами данных.
+Тип `null` является подтипом только одного типа `any`. Это в свою очередь означает, что значение `null` может быть совместимо только с типами `any` и `null`, а они с ним.
 
 `````ts
-class TypeSystem {
-    static any: any = null; // Ok
-    static number: number = null; // Ok
-    static string: string = null; // Ok
-    static boolean: boolean = null; // Ok
-    static null: null = null; // Ok
-}
-`````
-
-В, то время как тип `null` совместим со всеми типами, помимо него самого, с ним самим совместим лишь тип `undefined` и `any`.
-
-`````ts
-TypeSystem.null = TypeSystem.any; // Ok
-TypeSystem.null = TypeSystem.number; // Error
-TypeSystem.null = TypeSystem.string; // Error
-TypeSystem.null = TypeSystem.boolean; // Error
-TypeSystem.null = TypeSystem.null; // Ok
+let a: any = null;// Ok
+let b: number = null;// Error
+let c: string = null;// Error
+let d: boolean = null;// Error
+let e: undefined = null;// Error
+let f: null = null;// Ok
 `````
 
 Тогда, когда тип данных указывается не явно, а в качестве значения используется значение `null`, вывод типов определяет принадлежность к типу `any`.
 
 `````ts
 let identifier = null; // identifier: any
-`````
-
-Создатели _TypeScript_ во избежание ошибок возникающих при операциях в которых вместо ожидаемого значения возможно значение `null`, рекомендуют вести разработку с активным флагом `--strictNullChecks`. При активном флаге `--strictNullChecks` тип `null` является подтипом только одного типа `any`. Это в свою очередь означает, что значение `null` может быть совместимо только с типами `any` и `null`.
-
-`````ts
-class TypeSystem {
-    static any: any = null; // Ok
-    static number: number = null; // Error
-    static string: string = null; // Error
-    static boolean: boolean = null; // Error
-    static null: null = null; // Ok
-}
-
-TypeSystem.null = TypeSystem.any; // Ok
-TypeSystem.null = TypeSystem.number; // Error
-TypeSystem.null = TypeSystem.string; // Error
-TypeSystem.null = TypeSystem.boolean; // Error
-TypeSystem.null = TypeSystem.undefined; // Ok
 `````
 
 Тип `null` идентичен по своей работе с одноимённым типом из _JavaScript_.
