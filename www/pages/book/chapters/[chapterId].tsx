@@ -1,5 +1,6 @@
 import type {GetStaticPaths, GetStaticProps, NextPage} from 'next'
 import Link from 'next/link';
+import Head from "next/head";
 import {ContentSlideLayer, DriverSlideLayer, SlideLayer} from "../../../components/layers/slide-layer/SlideLayer";
 import React, {useEffect, useMemo} from "react";
 import {createBox, generateContentSectionIncrementalId, generateIndex} from "../../../utils/string-utils";
@@ -44,6 +45,7 @@ import {
     ContentNavToUrlResolverTransformer,
     UrlResolver
 } from "../../../transformers/ContentNavToUrlResolverTransformer";
+import { MetaMultiDescription } from "../../../components/meta-multi-description/MetaMultyDescription";
 
 
 
@@ -80,9 +82,9 @@ type Chapters = {
     githubFileInfo: GithubFileInfo;
     pageNav: PageNavInfo;
 
-
+    pageDescription: string;
 }
-const Chapters = observer<Chapters>(({urlResolver, sectionInfoAll, pageNav, githubFileInfo, contentNavData, children}) => {
+const Chapters = observer<Chapters>(({pageDescription, urlResolver, sectionInfoAll, pageNav, githubFileInfo, contentNavData, children}) => {
     const contentNavService = useMemo(() => new ContentNavService(contentNavData), EMPTY_ARRAY);
 
 
@@ -114,6 +116,9 @@ const Chapters = observer<Chapters>(({urlResolver, sectionInfoAll, pageNav, gith
 
     return (
         <ContentNavContext.Provider value={contentNavStore}>
+            <Head>
+                <MetaMultiDescription description={pageDescription} />
+            </Head>
             <SlideLayer>
                 <DriverSlideLayer>
                     <div className="driver">
@@ -265,6 +270,16 @@ export const getStaticProps: GetStaticProps = async ({params}) => {
     );
 
 
+    const getMainTitle = (markdown: string) => {
+        const [, title] = markdown.match( /^(?:# )(.*)$/m );
+
+        if ( !title ) {
+            throw new Error( `Chapter description not found` );
+        }
+
+        return title.trim();
+    }
+
     return {
         props: {
             urlResolver,
@@ -272,6 +287,8 @@ export const getStaticProps: GetStaticProps = async ({params}) => {
             githubFileInfo,
             pageNav,
             contentNavData: currentContentNavItem,
+
+            pageDescription: getMainTitle( markdown )
         }
     };
 }

@@ -1,8 +1,10 @@
-import type { NextPage } from 'next'
+import type { NextPage } from 'next';
+import Head from "next/head";
 import React, {CSSProperties, useMemo} from "react";
 import {A4Layer} from "../../components/layers/a4-layer/A4Layer";
 import {Button, Card} from "antd";
 import {DownloadOutlined} from "@ant-design/icons";
+import { MetaMultiDescription } from "../../components/meta-multi-description/MetaMultyDescription";
 
 
 const Pdf: NextPage = ({}) => {
@@ -18,6 +20,9 @@ const Pdf: NextPage = ({}) => {
 
     return (
       <A4Layer className="pdf__layer">
+        <Head>
+          <MetaMultiDescription description="Скачать руководство в формате Pdf" />
+        </Head>
           <div className="card__bg">
               <Card headStyle={headStyles}>
                   <h1 className="pdf__title">TypeScript Подробное Руководство</h1>

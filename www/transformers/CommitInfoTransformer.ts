@@ -26,7 +26,6 @@ export class CommitInfoTransformer {
 
           return githubFileInfo;
         }catch ( error ){
-          console.log(commitInfoAll)
           throw new Error( `[filename ${ filename }] > ${ error.message }` );
         }
 

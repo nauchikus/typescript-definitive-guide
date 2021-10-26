@@ -62,7 +62,6 @@ export class WinMetadataToInnovationPageInfoAsyncTransformer {
             );
             const githubFileInfo = CommitInfoTransformer.transform(commitAll, innovation.innovationName);
 
-            console.log(githubFileInfo)
 
             return {
                 key: createKey(version.version),

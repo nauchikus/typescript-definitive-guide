@@ -1,5 +1,6 @@
 import type {GetStaticPaths, GetStaticProps, NextPage} from 'next'
 import Link from 'next/link';
+import Head from "next/head";
 import React, {useEffect, useMemo} from "react";
 import {Avatar, Button, Descriptions, Tooltip} from "antd";
 import {
@@ -30,11 +31,12 @@ import {ContentNavContext} from "../../contexts/content-nav-context";
 import {DriverContentNav} from "../../components/driver-content-nav/DriverContentNav";
 import {ContentNavItem} from "../../models/ContentNav";
 import {GithubFileInfoBar} from "../../components/github-file-info-bar/GithubFileInfoBar";
-import Head from "next/head";
 import {useCopyToBufferButtonFromNativeMarkup} from "../../hooks/copy-to-buffer-button-from-native-markup-hook";
 
 import {components} from "../../components/contents/content-component-map";
 import {addClasses} from "../../remark/add-classes";
+import { MetaMultiDescription } from "../../components/meta-multi-description/MetaMultyDescription";
+import { appConfig } from "../../app-config";
 
 /* local types */
 type Contributor = {
@@ -75,9 +77,10 @@ type Innovations = {
     contentNavData: ContentNavItem;
     pageNav: PageNavInfo;
 
+    pageDescription: string;
 
 }
-const Innovation:NextPage<Innovations> = observer(({ innovationPage, pageNav, contentNavData, children }) => {
+const Innovation:NextPage<Innovations> = observer(({ innovationPage, pageDescription, pageNav, contentNavData, children }) => {
 
     const contentNavService = useMemo(() => new ContentNavService(contentNavData), EMPTY_ARRAY);
 
@@ -106,91 +109,96 @@ const Innovation:NextPage<Innovations> = observer(({ innovationPage, pageNav, co
 
 
     return (
-      <ContentNavContext.Provider value={contentNavStore}>
-            <SlideLayer>
-                <DriverSlideLayer>
-                    <div className="driver">
-                        <DriverContentNav/>
-                    </div>
-                </DriverSlideLayer>
-                <ContentSlideLayer>
-                    <div className="content-box">
-                        <div className="content-box__page-nav content-box__page-nav_left">
-                            <div className="page-nav__bar page-nav__bar_left">
-                                <Link href={pageNav.prevPage.path}>
-                                    <Tooltip placement="right" title="Предыдущая глава">
-                                        <Button className="page-nav__btn"
-                                                type="primary"
-                                                size="middle"
-                                                icon={<LeftOutlined/>}
-                                                disabled={!pageNav.isPrevPage}/>
-                                    </Tooltip>
-                                </Link>
-                            </div>
-                        </div>
-                        <main id="content" className="content-box__html">
-                            <InnovationPresenter data={innovationPage}/>
-                            {sections}
-                            <aside className="content-box__page__content-bar_post">
-                                <nav className="post-content-bar__nav">
-                                    <Link href={pageNav.prevPage.path}>
-                                        <Button className="post-content-bar__nav__btn post-content-bar__nav__btn_prev"
-                                                size="large"
-                                                href={pageNav.prevPage.path}
-                                                disabled={!pageNav.isPrevPage}
-                                                block>
-                                            <div className="post-content-bar__nav__btn_padding-fix">
-                                                <ArrowLeftOutlined className="post-content-bar__nav__btn__icon_prev"/>
-                                                <span className="post-content-bar__nav__btn__label">{pageNav.prevPage.title}</span>
-                                            </div>
-                                        </Button>
-                                    </Link>
-                                    <Link href={pageNav.nextPage.path}>
-                                        <Button className="post-content-bar__nav__btn post-content-bar__nav__btn_next"
-                                                size="large"
-                                                href={pageNav.nextPage.path}
-                                                disabled={!pageNav.isNextPage}
-                                                block>
-                                            <div className="post-content-bar__nav__btn_padding-fix">
-                                                <span className="post-content-bar__nav__btn__label">{pageNav.nextPage.title}</span>
-                                                <ArrowRightOutlined className="post-content-bar__nav__btn__icon_next"/>
-                                            </div>
-                                        </Button>
-                                    </Link>
-                                </nav>
-                            </aside>
-                        </main>
-                        <div className="content-box__page-nav content-box__page-nav_right">
-                            <div className="page-nav__bar page-nav__bar_right">
-                                <Tooltip placement="left" title="Предыдущая подглава">
-                                    <Button className="page-nav__btn"
-                                            type="primary"
-                                            icon={<UpOutlined/>}
-                                            disabled={!contentNavStore.isPrev}
-                                            onClick={()=>contentNavStore.goPrev()}/>
-                                </Tooltip>
-                                <Link href={pageNav.nextPage.path}>
-                                    <Tooltip placement="left" title="Следующая глава">
-                                        <Button className="page-nav__btn page-nav__btn_next-page"
-                                                type="primary"
-                                                icon={<RightOutlined/>}
-                                                disabled={!pageNav.isNextPage}/>
-                                    </Tooltip>
-                                </Link>
-                                <Tooltip placement="left" title="Следующая подглава">
-                                    <Button className="page-nav__btn"
-                                            type="primary"
-                                            icon={<DownOutlined/>}
-                                            disabled={!contentNavStore.isNext}
-                                            onClick={()=>contentNavStore.goNext()}/>
-                                </Tooltip>
-                            </div>
-                        </div>
-                    </div>
-                </ContentSlideLayer>
-            </SlideLayer>
-        </ContentNavContext.Provider>
-    )
+      <ContentNavContext.Provider value={ contentNavStore }>
+          <Head>
+              <MetaMultiDescription title={appConfig.title} description={pageDescription} />
+          </Head>
+          <SlideLayer>
+              <DriverSlideLayer>
+                  <div className="driver">
+                      <DriverContentNav/>
+                  </div>
+              </DriverSlideLayer>
+              <ContentSlideLayer>
+                  <div className="content-box">
+                      <div className="content-box__page-nav content-box__page-nav_left">
+                          <div className="page-nav__bar page-nav__bar_left">
+                              <Link href={ pageNav.prevPage.path }>
+                                  <Tooltip placement="right" title="Предыдущая глава">
+                                      <Button className="page-nav__btn"
+                                              type="primary"
+                                              size="middle"
+                                              icon={ <LeftOutlined/> }
+                                              disabled={ !pageNav.isPrevPage }/>
+                                  </Tooltip>
+                              </Link>
+                          </div>
+                      </div>
+                      <main id="content" className="content-box__html">
+                          <InnovationPresenter data={ innovationPage }/>
+                          { sections }
+                          <aside className="content-box__page__content-bar_post">
+                              <nav className="post-content-bar__nav">
+                                  <Link href={ pageNav.prevPage.path }>
+                                      <Button className="post-content-bar__nav__btn post-content-bar__nav__btn_prev"
+                                              size="large"
+                                              href={ pageNav.prevPage.path }
+                                              disabled={ !pageNav.isPrevPage }
+                                              block>
+                                          <div className="post-content-bar__nav__btn_padding-fix">
+                                              <ArrowLeftOutlined className="post-content-bar__nav__btn__icon_prev"/>
+                                              <span
+                                                className="post-content-bar__nav__btn__label">{ pageNav.prevPage.title }</span>
+                                          </div>
+                                      </Button>
+                                  </Link>
+                                  <Link href={ pageNav.nextPage.path }>
+                                      <Button className="post-content-bar__nav__btn post-content-bar__nav__btn_next"
+                                              size="large"
+                                              href={ pageNav.nextPage.path }
+                                              disabled={ !pageNav.isNextPage }
+                                              block>
+                                          <div className="post-content-bar__nav__btn_padding-fix">
+                                              <span
+                                                className="post-content-bar__nav__btn__label">{ pageNav.nextPage.title }</span>
+                                              <ArrowRightOutlined className="post-content-bar__nav__btn__icon_next"/>
+                                          </div>
+                                      </Button>
+                                  </Link>
+                              </nav>
+                          </aside>
+                      </main>
+                      <div className="content-box__page-nav content-box__page-nav_right">
+                          <div className="page-nav__bar page-nav__bar_right">
+                              <Tooltip placement="left" title="Предыдущая подглава">
+                                  <Button className="page-nav__btn"
+                                          type="primary"
+                                          icon={ <UpOutlined/> }
+                                          disabled={ !contentNavStore.isPrev }
+                                          onClick={ () => contentNavStore.goPrev() }/>
+                              </Tooltip>
+                              <Link href={ pageNav.nextPage.path }>
+                                  <Tooltip placement="left" title="Следующая глава">
+                                      <Button className="page-nav__btn page-nav__btn_next-page"
+                                              type="primary"
+                                              icon={ <RightOutlined/> }
+                                              disabled={ !pageNav.isNextPage }/>
+                                  </Tooltip>
+                              </Link>
+                              <Tooltip placement="left" title="Следующая подглава">
+                                  <Button className="page-nav__btn"
+                                          type="primary"
+                                          icon={ <DownOutlined/> }
+                                          disabled={ !contentNavStore.isNext }
+                                          onClick={ () => contentNavStore.goNext() }/>
+                              </Tooltip>
+                          </div>
+                      </div>
+                  </div>
+              </ContentSlideLayer>
+          </SlideLayer>
+      </ContentNavContext.Provider>
+    );
 });
 
 
@@ -230,6 +238,8 @@ export const getStaticProps: GetStaticProps = async ({params}: Params) => {
             innovationPage,
             contentNavData,
             pageNav,
+
+            pageDescription: `Обзор нововведений и изменений для версии ${ params.version }`
         }
     };
 }
