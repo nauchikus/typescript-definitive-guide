@@ -310,7 +310,7 @@ let identifier = error(); // let identifier: never
 let identifier = action(); // let identifier: never
 `````
 
-Стоит заметить, что без явного указания типа `never` вывод типов определит принадлежность возвращаемого значения к типу `void`.
+Стоит заметить, что без явного указания типа `never` для декларации функции (_function declaration_) вывод типов определит принадлежность возвращаемого значения к типу `void`.
 
 `````ts
 function error(message: string) { // function error(): void 
@@ -321,6 +321,20 @@ function loop() { // function loop(): void
     while(true) {
         
     }
+}
+`````
+
+Тем не менее для функционального выражения (_function expression_) будет выведен тип `never`.
+
+`````ts
+const error = function error(message: string) { // const error: (message: string) => never
+  throw new Error(message);
+}
+
+const loop = function loop() { // const loop: () => never
+  while(true) {
+
+  }
 }
 `````
 
