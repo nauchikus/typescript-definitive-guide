@@ -1,6 +1,7 @@
 import {Code} from "./Code";
 import {ContentImage} from "./ContentImage";
 import { ReactElement } from "react";
+import { ContentLink } from "./ContentLink";
 
 export const components = {
     pre: ({children, ...params}: {children: ReactElement[]}) => {
@@ -33,4 +34,7 @@ export const components = {
 
         return <p>{paragraph.children}</p>;
     },
+    a: ( { href, children }) => {
+        return <ContentLink href={ href }>{ children }</ContentLink>;
+    }
 }

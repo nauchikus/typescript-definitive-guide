@@ -96,11 +96,19 @@ const Chapters = observer<Chapters>(({pageDescription, urlResolver, sectionInfoA
 
     useContentAutoscroll();
 
+    // http://localhost:3000/book/chapters/Readonly,Partial,Required,Pick,Record
+
 
     const sections = sectionInfoAll.map(({key, elementId, markdown}) => {
         return (
             <section key={key} id={elementId} className="content__section">
                 <ReactMarkdown remarkPlugins={[addClasses]}
+                               transformLinkUri={(path: string) => {
+                                   let normalizeLink = decodeURIComponent( path )
+                                     .replace( /(\.\/|\.\/\/)(\d\d\d)(\.)(\((.*)?\) )/g, `./chapters/` )
+                                     .replace( /\/content.md$/m, `` );
+                                   return toUrl( normalizeLink );
+                               }}
                                transformImageUri={(path)=>{
                                    return urlResolver.image.concat(path.substring(path.lastIndexOf(`/`) + 1))
                                }}
