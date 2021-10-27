@@ -36,6 +36,8 @@ main {
 }
 
 h1.content__heading, h2.content__heading, h3.content__heading, h4.content__heading {
+  line-height: 100%;
+
   padding: var(--content__h2_padding-top) 0 var(--content__h2_padding-bottom) 0 !important;
 
   display: flex;
