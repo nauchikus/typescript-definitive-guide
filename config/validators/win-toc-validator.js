@@ -107,9 +107,9 @@ function getTitle(content){
 }
 
 
-
+// console.log(,path.join(process.cwd(), `what-is-new`))
 winTocValidate({
-  WIN_DIR: path.join(path.relative(__dirname, `../../`), `what-is-new`),
+  WIN_DIR: path.join(process.cwd(), `what-is-new`),
 })
   .then(()=>console.log(`WIN TOC VALIDATION COMPLETE`))
   .catch(console.error);
