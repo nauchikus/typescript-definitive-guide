@@ -3,12 +3,15 @@
   "version": "1.0.0",
   "description": "",
   "main": "vue.config.js",
+  "engines": {
+    "node": "14.19.1"
+  },
   "config": {
     "commitizen": {
       "path": "node_modules/cz-customizable"
     },
     "cz-customizable": {
-      "config": "config/git/commitizen.js"
+      "config": "config/git/commitizen.jspu"
     }
   },
   "husky": {
@@ -20,7 +23,7 @@
   "scripts": {
     "cz": "cz",
     "www-link-validator": "node ./config/www-link-validator/www-link-validator.js",
-    "book-cover-generate": "node ./config/generator-book-cover-for-social-media/generator-book-cover-for-social-media.js",
+    "book-cover-generate": "ts-node ./config/generator-book-cover-for-social-media/generator-book-cover-for-social-media.js",
     "book-cover-update-current-version-generate": "npm run book-cover-generate && node ./config/generator-book-update-current-version-cover-for-social-media/generator-book-update-current-version-cover-for-social-media.js",
     "book-heading-validate": "node ./config/book-heading-validator/heading-with-toc-validate.js",
     "postrebook-reindex": "npm run book-toc-validate",
@@ -67,6 +70,7 @@
     "react-syntax-highlighter": "^15.4.4",
     "rm": "^0.1.8",
     "simple-git": "^2.35.2",
+    "ts-node": "^10.7.0",
     "typescript": "^4.4.3"
   }
 }

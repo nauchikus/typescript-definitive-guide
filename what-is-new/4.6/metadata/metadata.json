@@ -1,0 +1,102 @@
+{
+  "releaseHistory": [
+    {
+      "version": "4.6",
+      "dateRelease": "October 1, 2021",
+      "datePublication": "October 12, 2021"
+    }
+  ],
+  "colors": {
+    "bookCoverColors": {
+      "--color_light":" #fff",
+      "--color_middle-lite":"#2b4770",
+      "--color_accent":"#00fffc",
+      "--color_ambient":"#449def"
+    },
+    "bookUpdateCurrentVersionCoverColors": {
+      "--color": "#265589"
+    }
+  },
+  "innovations": [
+    {
+      "id": "",
+      "version": "4.6",
+      "innovationName": "Выполнение кода в конструкторе потомке до вызова super",
+      "dateRelease": "October 1, 2021",
+      "datePublication": "October 12, 2021",
+      "tags": ["Улучшение"]
+    },
+    {
+      "id": "",
+      "version": "4.6",
+      "innovationName": "Сохранение потока управления при деструктуризации размеченных объединений",
+      "dateRelease": "October 1, 2021",
+      "datePublication": "October 12, 2021",
+      "tags": ["Улучшение"]
+    },
+    {
+      "id": "",
+      "version": "4.6",
+      "innovationName": "Улучшение проверки глубоких рекурсии",
+      "dateRelease": "October 1, 2021",
+      "datePublication": "October 12, 2021",
+      "tags": ["Улучшение"]
+    },
+    {
+      "id": "",
+      "version": "4.6",
+      "innovationName": "Улучшение вывода для индексных значений",
+      "dateRelease": "October 1, 2021",
+      "datePublication": "October 12, 2021",
+      "tags": ["Улучшение"]
+    },
+    {
+      "id": "",
+      "version": "4.6",
+      "innovationName": "Анализ потока управления для остаточных параметров",
+      "dateRelease": "October 1, 2021",
+      "datePublication": "October 12, 2021",
+      "tags": ["Улучшение"]
+    },
+    {
+      "id": "",
+      "version": "4.6",
+      "innovationName": "Исключение хвостовой рекурсии на условных типа",
+      "dateRelease": "October 1, 2021",
+      "datePublication": "October 12, 2021",
+      "tags": ["Улучшение"]
+    },
+    {
+      "id": "",
+      "version": "4.6",
+      "innovationName": "--target es2022",
+      "dateRelease": "October 1, 2021",
+      "datePublication": "October 12, 2021",
+      "tags": ["Улучшение"]
+    },
+    {
+      "id": "",
+      "version": "4.6",
+      "innovationName": "Анализатор трассировки TypeScript",
+      "dateRelease": "October 1, 2021",
+      "datePublication": "October 12, 2021",
+      "tags": ["Улучшение"]
+    },
+    {
+      "id": "",
+      "version": "4.6",
+      "innovationName": "[КРИТИЧЕСКОЕ ИЗМЕНЕНИЕ] Остаточные параметры исключают некоторые члены объекта",
+      "dateRelease": "October 1, 2021",
+      "datePublication": "October 12, 2021",
+      "tags": ["Критическое изменение"]
+    },
+    {
+      "id": "",
+      "version": "4.6",
+      "innovationName": "[КРИТИЧЕСКОЕ ИЗМЕНЕНИЕ] Постоянная проверка грамматики и биндингов",
+      "dateRelease": "October 1, 2021",
+      "datePublication": "October 12, 2021",
+      "tags": ["Критическое изменение"]
+    }
+  ]
+}

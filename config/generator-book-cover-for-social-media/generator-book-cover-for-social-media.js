@@ -2,7 +2,7 @@ const fsp = require(`fs/promises`);
 const path = require(`path`);
 
 const BookCoverGenerator = require(`../../www/workers/book-cover/book-cover-generator`);
-const { Version } = require('../../www/src/utils/VersionInfo');
+const { VersionInfo } = require('../../www/utils/VersionInfo');
 
 const WIN_DIR = path.join(process.cwd(), './what-is-new')
 
@@ -24,7 +24,7 @@ const generateBookCover = async () => {
     let lastMetadata = await getLastWinMetadata();
 
     let lastVersion = lastMetadata.releaseHistory[lastMetadata.releaseHistory.length - 1];
-    let version = new Version(lastVersion.version);
+    let version = new VersionInfo(lastVersion.version);
     let versionInfo = version.toInfo();
 
 
