@@ -327,7 +327,8 @@
       "Обобщения в TypeScript",
       "Параметры типа - extends (generic constraints)",
       "Параметра типа - значение по умолчанию = (generic parameter defaults)",
-      "Параметры типа - как тип данных"
+      "Параметры типа - как тип данных",
+      "Модификаторы вариантности параметров типа in и out"
     ]
   },
   {
@@ -344,7 +345,8 @@
       "Предыстория возникновения import type и export type",
       "import type и export type - форма объявления",
       "Импорт и экспорт только типа на практике",
-      "Вспомогательный флаг --importsNotUsedAsValues"
+      "Вспомогательный флаг --importsNotUsedAsValues",
+      "Разрешение импорта и экспорта только типа с помощью resolution-mode"
     ]
   },
   {
@@ -437,7 +439,8 @@
     "subtitles": [
       "Условные типы на практике",
       "Распределительные условные типы (Distributive Conditional Types)",
-      "Вывод типов в условном типе"
+      "Вывод типов в условном типе",
+      "Ограничение infer с помощью extends"
     ]
   },
   {
@@ -700,7 +703,8 @@
       "noImplicitOverride",
       "useUnknownInCatchVariables",
       "exactOptionalPropertyTypes",
-      "preserveValueImports"
+      "preserveValueImports",
+      "moduleSuffixes"
     ]
   }
 ]
