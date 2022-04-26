@@ -1,0 +1,118 @@
+{
+  "releaseHistory": [
+    {
+      "version": "4.7@beta",
+      "dateRelease": "April 8, 2022",
+      "datePublication": "April 26, 2022"
+    }
+  ],
+  "colors": {
+    "bookCoverColors": {
+      "--color_light":"#dee755",
+      "--color_middle-lite":"#ffffff",
+      "--color_accent":"#82ff7a",
+      "--color_ambient":"#00b6b6"
+    },
+    "bookUpdateCurrentVersionCoverColors": {
+      "--color": "#265589"
+    }
+  },
+  "innovations": [
+    {
+      "id": "",
+      "version": "4.7@beta",
+      "innovationName": "Модификаторы вариантности параметров типа in и out",
+      "dateRelease": "April 8, 2022",
+      "datePublication": "OApril 26, 2022",
+      "tags": ["Улучшение"]
+    },
+    {
+      "id": "",
+      "version": "4.7@beta",
+      "innovationName": "Анализ потока управления для вычисляемых свойств",
+      "dateRelease": "April 8, 2022",
+      "datePublication": "OApril 26, 2022",
+      "tags": ["Улучшение"]
+    },
+    {
+      "id": "",
+      "version": "4.7@beta",
+      "innovationName": "Улучшение вывода функций",
+      "dateRelease": "April 8, 2022",
+      "datePublication": "OApril 26, 2022",
+      "tags": ["Улучшение"]
+    },
+    {
+      "id": "",
+      "version": "4.7@beta",
+      "innovationName": "Конкретизация ссылки на функцию",
+      "dateRelease": "April 8, 2022",
+      "datePublication": "OApril 26, 2022",
+      "tags": ["Улучшение"]
+    },
+    {
+      "id": "",
+      "version": "4.7@beta",
+      "innovationName": "Ограничение infer с помощью extends",
+      "dateRelease": "April 8, 2022",
+      "datePublication": "OApril 26, 2022",
+      "tags": ["Улучшение"]
+    },
+    {
+      "id": "",
+      "version": "4.7@beta",
+      "innovationName": "typeof для #приватных членов",
+      "dateRelease": "April 8, 2022",
+      "datePublication": "OApril 26, 2022",
+      "tags": ["Улучшение"]
+    },
+    {
+      "id": "",
+      "version": "4.7@beta",
+      "innovationName": "Настройка разрешения поиска модулей с помощью moduleSuffixes",
+      "dateRelease": "April 8, 2022",
+      "datePublication": "OApril 26, 2022",
+      "tags": ["Нововведение"]
+    },
+    {
+      "id": "",
+      "version": "4.7@beta",
+      "innovationName": "Разрешение импорта и экспорта только типа с помощью resolution-mode",
+      "dateRelease": "April 8, 2022",
+      "datePublication": "OApril 26, 2022",
+      "tags": ["Улучшение"]
+    },
+    {
+      "id": "",
+      "version": "4.7@beta",
+      "innovationName": "Поддержка ECMAScript модулей в Node.js",
+      "dateRelease": "April 8, 2022",
+      "datePublication": "OApril 26, 2022",
+      "tags": ["Улучшение"]
+    },
+    {
+      "id": "",
+      "version": "4.7@beta",
+      "innovationName": "[КРИТИЧЕСКОЕ ИЗМЕНЕНИЕ] Параметры типа больше не совместимы с {} в strictNullChecks",
+      "dateRelease": "April 8, 2022",
+      "datePublication": "OApril 26, 2022",
+      "tags": ["Критическое изменение"]
+    },
+    {
+      "id": "",
+      "version": "4.7@beta",
+      "innovationName": "[КРИТИЧЕСКОЕ ИЗМЕНЕНИЕ] Метод readFile  класса LanguageServiceHost теперь обязательный",
+      "dateRelease": "April 8, 2022",
+      "datePublication": "OApril 26, 2022",
+      "tags": ["Критическое изменение"]
+    },
+    {
+      "id": "",
+      "version": "4.7@beta",
+      "innovationName": "[КРИТИЧЕСКОЕ ИЗМЕНЕНИЕ] Свойство length у кортежа теперь readonly",
+      "dateRelease": "April 8, 2022",
+      "datePublication": "OApril 26, 2022",
+      "tags": ["Критическое изменение"]
+    }
+  ]
+}
