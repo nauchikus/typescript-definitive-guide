@@ -43,10 +43,10 @@ export class Scroll {
         Scroll.getClientRectById(Scroll.getCurrentAnchor());
     static scrollToCurrentHash = () => {
         if (Scroll.isHash) {
-            window.scrollTo({
-                left: 0,
-                top: Scroll.isAutoscrollComplete ? pageYOffset - Scroll.offset.offset : pageYOffset
-            });
+            // window.scrollTo({
+            //     left: 0,
+            //     top: Scroll.isAutoscrollComplete ? pageYOffset - Scroll.offset.offset : pageYOffset
+            // });
         }
     }
     static scrollTo = () => {
@@ -55,9 +55,9 @@ export class Scroll {
     static scrollToAnchor = (anchor: string) => {
         let clientRect = Scroll.getClientRectById(anchor);
 
-        window.scrollTo({
-            left: 0,
-            top: clientRect.top + pageYOffset - Scroll.offset.offset
-        });
+        // window.scrollTo({
+        //     left: 0,
+        //     top: clientRect.top + pageYOffset - Scroll.offset.offset
+        // });
     }
 }

@@ -5,7 +5,12 @@ import { goToAnchor } from "../utils/scroll.utls";
 
 export function useContentAutoscroll(){
     const router = useRouter();
-
+    useLayoutEffect(()=>{
+        let hash = location.hash.slice( 1 );
+        if ( hash ) {
+            goToAnchor( hash );
+        }
+    },[])
     useEffect(() => {
         function scrollHandler() {
             // if (window.scrollX === 0) {
@@ -24,15 +29,17 @@ export function useContentAutoscroll(){
         }
 
         function startHashChangeHandler() {
-            setTimeout( () => {
-                let hash = location.hash.slice( 1 );
 
+
+            requestAnimationFrame(()=>{
+                let hash = location.hash.slice( 1 );
                 goToAnchor( hash );
-                window.addEventListener( "scroll", scrollHandler );
-            }, 100 );
+            })
+            // window.addEventListener( "scroll", scrollHandler );
         }
 
-        window.addEventListener("scroll", scrollHandler);
+
+        // window.addEventListener("scroll", scrollHandler);
 
 
         router.events.on(`hashChangeStart`, startHashChangeHandler);

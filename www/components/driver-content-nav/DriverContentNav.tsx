@@ -5,6 +5,7 @@ import {Menu} from "antd";
 import {observer} from "mobx-react-lite";
 import {useContentNav} from "../../contexts/content-nav-context";
 import { useSharedStore } from "../../stores/shared-store";
+import { goToAnchor } from "../../utils/scroll.utls";
 
 
 interface IDriverContentNav {
@@ -30,8 +31,9 @@ export const DriverContentNav = observer<IDriverContentNav>( ( { className } ) =
 
       // event.preventDefault();
 
-      //   let link = event.target as HTMLLinkElement;
-      //   let elementId = link.href.replace( /(.*)?#/, `` );
+        // let link = event.target as HTMLLinkElement;
+        // let elementId = link.href.replace( /(.*)?#/, `` );
+        // goToAnchor()
       //   let element = document.getElementById( decodeURIComponent( elementId ) ) as HTMLElement;
       //   let clientRect = element.getBoundingClientRect();
       //

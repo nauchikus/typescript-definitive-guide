@@ -2,7 +2,7 @@ import type {GetStaticPaths, GetStaticProps, NextPage} from 'next'
 import Link from 'next/link';
 import Head from "next/head";
 import {ContentSlideLayer, DriverSlideLayer, SlideLayer} from "../../../components/layers/slide-layer/SlideLayer";
-import React, {useEffect, useMemo} from "react";
+import React, { useEffect, useLayoutEffect, useMemo } from "react";
 import {createBox, generateContentSectionIncrementalId, generateIndex} from "../../../utils/string-utils";
 
 
@@ -92,11 +92,11 @@ const Chapters = observer<Chapters>(({pageDescription, urlResolver, sectionInfoA
         contentNavService.update(contentNavData);
     }, [contentNavData]);
 
+
+
     const contentNavStore = useContentNavStore(contentNavService);
 
     useContentAutoscroll();
-
-    // http://localhost:3000/book/chapters/Readonly,Partial,Required,Pick,Record
 
 
     const sections = sectionInfoAll.map(({key, elementId, markdown}) => {
