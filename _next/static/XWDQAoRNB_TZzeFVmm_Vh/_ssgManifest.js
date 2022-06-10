@@ -1,0 +1,1 @@
+self.__SSG_MANIFEST=new Set(["\u002Fbook\u002Fchapters","\u002Fwhat-is-new","\u002F","\u002Fbook\u002Fchapters\u002F[chapterId]","\u002Fwhat-is-new\u002F[version]"]);self.__SSG_MANIFEST_CB&&self.__SSG_MANIFEST_CB()
