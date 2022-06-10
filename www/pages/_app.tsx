@@ -11,6 +11,7 @@ function MyApp({ Component, pageProps }: AppProps) {
     useDocSearch();
 
 
+
   return (
     <BaseAppLayout>
       <Head>
@@ -20,8 +21,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         <link key="algolia_css"
               rel="stylesheet"
               href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css"/>
-        <script async
-                key="algolia_script"
+        <script key="algolia_script"
                 type="text/javascript"
                 src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
         <title>{appConfig.title}</title>
