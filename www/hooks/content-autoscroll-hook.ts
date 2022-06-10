@@ -8,25 +8,28 @@ export function useContentAutoscroll(){
 
     useEffect(() => {
         function scrollHandler() {
-            if (window.scrollX === 0) {
-                window.removeEventListener("scroll", scrollHandler);
-
-                // hack for mobile
-                setTimeout(()=>{
-                    if ( scrollX > 0 ) {
-                        document.scrollingElement.scrollLeft = 0;
-                    }
-                })
-
-                return;
-            }
-            document.scrollingElement.scrollLeft = 0;
+            // if (window.scrollX === 0) {
+            //     window.removeEventListener("scroll", scrollHandler);
+            //
+            //     // hack for mobile
+            //     setTimeout(()=>{
+            //         if ( scrollX > 0 ) {
+            //             document.scrollingElement.scrollLeft = 0;
+            //         }
+            //     })
+            //
+            //     return;
+            // }
+            // document.scrollingElement.scrollLeft = 0;
         }
 
         function startHashChangeHandler() {
-            let hash = location.hash.slice( 1 );
-            goToAnchor( hash );
-            window.addEventListener("scroll", scrollHandler);
+            setTimeout( () => {
+                let hash = location.hash.slice( 1 );
+
+                goToAnchor( hash );
+                window.addEventListener( "scroll", scrollHandler );
+            }, 100 );
         }
 
         window.addEventListener("scroll", scrollHandler);
