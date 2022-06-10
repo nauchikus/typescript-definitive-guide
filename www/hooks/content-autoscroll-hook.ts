@@ -1,5 +1,6 @@
 import React, {useEffect, useLayoutEffect} from "react";
 import {useRouter} from "next/router";
+import { goToAnchor } from "../utils/scroll.utls";
 
 
 export function useContentAutoscroll(){
@@ -23,6 +24,8 @@ export function useContentAutoscroll(){
         }
 
         function startHashChangeHandler() {
+            let hash = location.hash.slice( 1 );
+            goToAnchor( hash );
             window.addEventListener("scroll", scrollHandler);
         }
 

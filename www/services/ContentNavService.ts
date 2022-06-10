@@ -1,7 +1,7 @@
 import {BOTTOM_CONTENT_INTERSECTION, TOP_CONTENT_INTERSECTION} from "../consts/intersection-observer";
 import {action, computed, makeObservable, observable} from "mobx";
 import {ContentNavItem} from "../models/ContentNav";
-import {Scroll} from "./Scroll";
+import { goToAnchor } from "../utils/scroll.utls";
 
 type ContentNavMetadata = { index: number, elementId: string, path: string, key: string };
 type SetId = string | null | undefined;
@@ -99,20 +99,29 @@ export class ContentNavService {
     private getLastMetadata = () => this.contentNavMetadataAll[this.contentNavMetadataAll.length - 1];
 
     private goToAnchor = (anchor: string) => {
-        function scrollHandler(event) {
-            window.removeEventListener("scroll", scrollHandler);
-
-            window.scrollTo({
-                left: 0,
-            });
-        }
-
-        window.addEventListener("scroll", scrollHandler);
-
-        let sectionId = decodeURIComponent(anchor);
-        let element = document.getElementById<HTMLElement>(`${sectionId}`);
-
-        element.scrollIntoView();
+        goToAnchor( anchor );
+        // function scrollHandler(event) {
+        //     window.removeEventListener("scroll", scrollHandler);
+        //
+        //     window.scrollTo({
+        //         left: 0,
+        //     });
+        // }
+        //
+        // window.addEventListener("scroll", scrollHandler);
+        //
+        // let sectionId = decodeURIComponent(anchor);
+        // let element = document.getElementById(`${sectionId}`);
+        //
+        // console.log( `SCROLL_POSITION` );
+        // element.scrollIntoView();
+          //
+          // let clientRect = element.getBoundingClientRect();
+          //
+          // window.scrollTo( {
+          //     top: window.pageYOffset + clientRect.top,
+          //     left: 0
+          // } )
     }
 
     private getPrevAnchor = (currentelementId: string) => {

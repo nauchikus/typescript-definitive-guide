@@ -29,15 +29,17 @@ export const DriverContentNav = observer<IDriverContentNav>( ( { className } ) =
       }
 
       // event.preventDefault();
-        let link = event.target as HTMLLinkElement;
-        let elementId = link.href.replace( /(.*)?#/, `` );
-        let element = document.getElementById( decodeURIComponent( elementId ) ) as HTMLElement;
-        let clientRect = element.getBoundingClientRect();
 
-        window.scrollTo( {
-            top: window.pageYOffset + clientRect.top,
-            left: 0
-        } )
+        console.log( `CHANGE_PAGE_POSITION` );
+      //   let link = event.target as HTMLLinkElement;
+      //   let elementId = link.href.replace( /(.*)?#/, `` );
+      //   let element = document.getElementById( decodeURIComponent( elementId ) ) as HTMLElement;
+      //   let clientRect = element.getBoundingClientRect();
+      //
+      //   window.scrollTo( {
+      //       top: window.pageYOffset + clientRect.top,
+      //       left: 0
+      //   } )
     }
 
 

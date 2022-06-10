@@ -39,7 +39,7 @@ export const useDocSearch = () => {
 
                     url = url.replace(origin, ``);
 
-                    router.push(url);
+                    router.push( url );
                 }
             }
         });
