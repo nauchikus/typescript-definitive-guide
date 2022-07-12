@@ -5,8 +5,20 @@
 
 
 `````ts
-- import { SomeValue, SomeType } from "some-module";
-+ import { SomeValue } from "some-module";
+// было
+
+import { SomeValue, SomeType } from "some-module";
+
+/**
+ -  * @type {SomeType}
+ +  * @type {import("some-module").SomeType}
+ */
+export const value = SomeValue;
+
+
+// стало
+
+import { SomeValue } from "some-module";
 
 /**
  -  * @type {SomeType}
@@ -16,13 +28,23 @@ export const value = SomeValue;
 `````
 
 `````ts
+// было
+
+/**
+ * @typedef {string | number} SomeType
+ */
+
+export { SomeType as SomeTypeExported };
+    
+
+// стало
+
   /**
  * @typedef {string | number} SomeType
  */
 
-+ /**
+/**
  +  * @typedef {SomeType} SomeTypeExported
  +  */
-    - export { SomeType as SomeTypeExported };
 `````
 

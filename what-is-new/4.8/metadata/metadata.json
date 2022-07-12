@@ -57,6 +57,22 @@
       "dateRelease": "June 21, 2022",
       "datePublication": "Jul 12, 2022",
       "tags": ["Изменение"]
+    },
+    {
+      "id": "",
+      "version": "4.8@beta",
+      "innovationName": "[КРИТИЧЕСКОЕ ИЗМЕНЕНИЕ] Неограниченные генерики больше не совместимы с {}",
+      "dateRelease": "June 21, 2022",
+      "datePublication": "Jul 12, 2022",
+      "tags": ["Критическое изменение"]
+    },
+    {
+      "id": "",
+      "version": "4.8@beta",
+      "innovationName": "## [КРИТИЧЕСКОЕ ИЗМЕНЕНИЕ] Типы больше не могут быть импортированы и экспортированы в JavaScript файлах",
+      "dateRelease": "June 21, 2022",
+      "datePublication": "Jul 12, 2022",
+      "tags": ["Критическое изменение"]
     }
   ]
 }
