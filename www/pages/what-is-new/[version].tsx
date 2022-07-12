@@ -70,6 +70,17 @@ type LevelId = {
 // ----
 // ----
 
+export const Yoomany = () => (
+    <iframe
+        src="https://yoomoney.ru/quickpay/shop-widget?writer=seller&targets=%D0%9D%D0%B0%20%D1%87%D0%B0%D1%88%D0%BA%D1%83%20%D0%BA%D0%BE%D1%84%D0%B5&default-sum=200&button-text=14&payment-type-choice=on&mobile-payment-type-choice=on&successURL=&quickpay=shop&account=410016532024848&"
+        style={{backgroundColor: "transparent"}}
+        width="100%"
+        height="222"
+        frameBorder="0"
+        scrolling="no">
+    </iframe>
+)
+
 /* local types */
 
 type Innovations = {
@@ -138,6 +149,7 @@ const Innovation:NextPage<Innovations> = observer(({ innovationPage, pageDescrip
                           <InnovationPresenter data={ innovationPage }/>
                           { sections }
                           <aside className="content-box__page__content-bar_post">
+                              <Yoomany></Yoomany>
                               <nav className="post-content-bar__nav">
                                   <Link href={ pageNav.prevPage.path }>
                                       <Button className="post-content-bar__nav__btn post-content-bar__nav__btn_prev"
