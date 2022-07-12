@@ -33,6 +33,14 @@
       "dateRelease": "June 21, 2022",
       "datePublication": "Jul 12, 2022",
       "tags": ["Улучшение"]
+    },
+    {
+      "id": "",
+      "version": "4.8@beta",
+      "innovationName": "Улучшение производительности для флагов --build, --watch и --incremental",
+      "dateRelease": "June 21, 2022",
+      "datePublication": "Jul 12, 2022",
+      "tags": ["Улучшение"]
     }
   ]
 }
