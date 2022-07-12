@@ -104,7 +104,7 @@ let v2: IB = intersection(a, b); // Error -> Property 'c' is missing in type 'Pi
 `````ts
 // @filename: lib.d.ts
 
-type NonNullable<T> = T extends null | undefined ? never : T;
+type NonNullable<T> = T & {};
 `````
 
 Простыми словами, данный тип удаляет из аннотации типа такие типы, как `null` и `undefined`.
