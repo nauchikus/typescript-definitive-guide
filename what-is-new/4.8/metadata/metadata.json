@@ -41,6 +41,14 @@
       "dateRelease": "June 21, 2022",
       "datePublication": "Jul 12, 2022",
       "tags": ["Улучшение"]
+    },
+    {
+      "id": "",
+      "version": "4.8@beta",
+      "innovationName": "Возникновение ошибки при проверке на равенство с литералом объектного типа",
+      "dateRelease": "June 21, 2022",
+      "datePublication": "Jul 12, 2022",
+      "tags": ["Изменение"]
     }
   ]
 }
