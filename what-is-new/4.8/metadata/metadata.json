@@ -49,6 +49,14 @@
       "dateRelease": "June 21, 2022",
       "datePublication": "Jul 12, 2022",
       "tags": ["Изменение"]
+    },
+    {
+      "id": "",
+      "version": "4.8@beta",
+      "innovationName": "Ужесточение правил вывода типов",
+      "dateRelease": "June 21, 2022",
+      "datePublication": "Jul 12, 2022",
+      "tags": ["Изменение"]
     }
   ]
 }
