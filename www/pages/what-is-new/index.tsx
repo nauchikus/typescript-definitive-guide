@@ -19,6 +19,17 @@ export interface Innovation {
     innovations: InnovationMetadata[];
 }
 
+export const Yoomany = () => (
+    <iframe
+        src="https://yoomoney.ru/quickpay/shop-widget?writer=seller&targets=%D0%9D%D0%B0%20%D1%87%D0%B0%D1%88%D0%BA%D1%83%20%D0%BA%D0%BE%D1%84%D0%B5&default-sum=200&button-text=14&payment-type-choice=on&mobile-payment-type-choice=on&successURL=&quickpay=shop&account=410016532024848&"
+        width="423"
+        height="222"
+        frameBorder="0"
+        allowTransparency="true"
+        scrolling="no">
+    </iframe>
+)
+
 interface IChaptersProps {
     innovationAll: Innovation[]
 }
@@ -62,17 +73,17 @@ const Index: NextPage<IChaptersProps> = ({innovationAll, children}) => {
     })
 
     return (
-      <Layer>
-          <A4Layer className="toc__layer">
-            <div className="toc__header">
-              <h1 className="toc__title">Что нового?</h1>
-            </div>
-            <Timeline>
-              {timelineItemAll}
-            </Timeline>
-          </A4Layer>
-      </Layer>
-  );
+        <Layer>
+            <A4Layer className="toc__layer">
+                <div className="toc__header">
+                    <h1 className="toc__title">Что нового?</h1>
+                </div>
+                <Timeline>
+                    { timelineItemAll }
+                </Timeline>
+            </A4Layer>
+        </Layer>
+    );
 }
 
 export default Index;

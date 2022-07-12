@@ -9,9 +9,9 @@
   "colors": {
     "bookCoverColors": {
       "--color_light":"#dee755",
-      "--color_middle-lite":"#ffffff",
-      "--color_accent":"#82ff7a",
-      "--color_ambient":"#00b6b6"
+      "--color_middle-lite":"#ffeb5d",
+      "--color_accent":"#ffffff",
+      "--color_ambient":"#2da151"
     },
     "bookUpdateCurrentVersionCoverColors": {
       "--color": "#265589"
