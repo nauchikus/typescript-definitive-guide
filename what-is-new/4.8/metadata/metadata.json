@@ -1,0 +1,30 @@
+{
+  "releaseHistory": [
+    {
+      "version": "4.8@beta",
+      "dateRelease": "June 21, 2022",
+      "datePublication": "Jul 12, 2022"
+    }
+  ],
+  "colors": {
+    "bookCoverColors": {
+      "--color_light":"#dee755",
+      "--color_middle-lite":"#ffeb5d",
+      "--color_accent":"#ffffff",
+      "--color_ambient":"#2da151"
+    },
+    "bookUpdateCurrentVersionCoverColors": {
+      "--color": "#265589"
+    }
+  },
+  "innovations": [
+    {
+      "id": "",
+      "version": "4.8@beta",
+      "innovationName": "Улучшение пересечений, объединений и механизма сужения типов",
+      "dateRelease": "June 21, 2022",
+      "datePublication": "Jul 12, 2022",
+      "tags": ["Улучшение"]
+    }
+  ]
+}
