@@ -1,0 +1,78 @@
+{
+  "releaseHistory": [
+    {
+      "version": "4.8@beta",
+      "dateRelease": "June 21, 2022",
+      "datePublication": "April 26, 2022"
+    }
+  ],
+  "colors": {
+    "bookCoverColors": {
+      "--color_light":"#dee755",
+      "--color_middle-lite":"#ffffff",
+      "--color_accent":"#82ff7a",
+      "--color_ambient":"#00b6b6"
+    },
+    "bookUpdateCurrentVersionCoverColors": {
+      "--color": "#265589"
+    }
+  },
+  "innovations": [
+    {
+      "id": "",
+      "version": "4.8@beta",
+      "innovationName": "Улучшение пересечений, объединений и механизма сужения типов",
+      "dateRelease": "June 21, 2022",
+      "datePublication": "Jul 12, 2022",
+      "tags": ["Улучшение"]
+    },
+    {
+      "id": "",
+      "version": "4.8@beta",
+      "innovationName": "Улучшение вывода для infer в литеральных строковых типах",
+      "dateRelease": "June 21, 2022",
+      "datePublication": "Jul 12, 2022",
+      "tags": ["Улучшение"]
+    },
+    {
+      "id": "",
+      "version": "4.8@beta",
+      "innovationName": "Улучшение производительности для флагов --build, --watch и --incremental",
+      "dateRelease": "June 21, 2022",
+      "datePublication": "Jul 12, 2022",
+      "tags": ["Улучшение"]
+    },
+    {
+      "id": "",
+      "version": "4.8@beta",
+      "innovationName": "Возникновение ошибки при проверке на равенство с литералом объектного типа",
+      "dateRelease": "June 21, 2022",
+      "datePublication": "Jul 12, 2022",
+      "tags": ["Изменение"]
+    },
+    {
+      "id": "",
+      "version": "4.8@beta",
+      "innovationName": "Ужесточение правил вывода типов",
+      "dateRelease": "June 21, 2022",
+      "datePublication": "Jul 12, 2022",
+      "tags": ["Изменение"]
+    },
+    {
+      "id": "",
+      "version": "4.8@beta",
+      "innovationName": "[КРИТИЧЕСКОЕ ИЗМЕНЕНИЕ] Неограниченные генерики больше не совместимы с {}",
+      "dateRelease": "June 21, 2022",
+      "datePublication": "Jul 12, 2022",
+      "tags": ["Критическое изменение"]
+    },
+    {
+      "id": "",
+      "version": "4.8@beta",
+      "innovationName": "## [КРИТИЧЕСКОЕ ИЗМЕНЕНИЕ] Типы больше не могут быть импортированы и экспортированы в JavaScript файлах",
+      "dateRelease": "June 21, 2022",
+      "datePublication": "Jul 12, 2022",
+      "tags": ["Критическое изменение"]
+    }
+  ]
+}
