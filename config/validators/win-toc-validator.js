@@ -77,6 +77,7 @@ function innovationVersionValidate({innovation, innovationReleaseHistoryAll, ver
     throw new Error( `[Version ${version}] Innovation with name: "${ innovation.innovationName }" - metadata invalid dateRelease` );
   }
   if ( releaseInfo.datePublication.toLowerCase() !== innovation.datePublication.toLowerCase() ) {
+    console.log(releaseInfo.datePublication, innovation.datePublication)
     throw new Error( `[Version ${version}] Innovation with name: "${ innovation.innovationName }" - metadata invalid datePublication` );
   }
 }

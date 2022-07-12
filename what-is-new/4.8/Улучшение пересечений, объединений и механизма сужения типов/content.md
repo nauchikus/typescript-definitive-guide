@@ -31,8 +31,8 @@ let v: NonNullable<string | number | null | undefined>; // let v: string | numbe
 `````
 
 `````ts
-- type NonNullable<T> = T extends null | undefined ? never : T;
-+ type NonNullable<T> = T & {};
+type NonNullable<T> = T extends null | undefined ? never : T;
+type NonNullable<T> = T & {};
 `````
 
 Поскольку пересечения `{} & null` и `{} & undefined` сужаются до типа `never`, а объединение `never | ConcreteType` сужаются до конкретного типа, то по факту новая логика `NonNullable<T>` просто отбрасывает из объединения все `null` и `undefined`.
