@@ -5,6 +5,7 @@ import {createSharedStore, SharedStoreContext} from "../../stores/shared-store";
 import {useLocalObservable} from "mobx-react-lite";
 import Head from "next/head";
 import { YMInitializer } from "react-yandex-metrika";
+import { GoogleAnalytics } from "../../analytics/google-analytics";
 
 
 const BaseAppLayout: FC = ({children}) => {
@@ -15,6 +16,7 @@ const BaseAppLayout: FC = ({children}) => {
         <SharedStoreContext.Provider value={sharedStore}>
 
             <div className="base-layout">
+                <GoogleAnalytics/>
               <YMInitializer accounts={[51846272]} />
                 <AppHeader></AppHeader>
                     {children}

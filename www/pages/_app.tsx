@@ -15,7 +15,6 @@ function MyApp({ Component, pageProps }: AppProps) {
     return (
         <BaseAppLayout>
             <Head>
-                <GoogleAnalytics/>
                 <MetaMultiDescription title={ appConfig.title } description={ appConfig.description }/>
                 <meta name="yandex-verification" content="d7555ce264b8a099"/>
                 <meta name="viewport"
