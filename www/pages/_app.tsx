@@ -6,6 +6,7 @@ import {useDocSearch} from "../hooks/use-doc-search";
 import React from "react";
 import { MetaMultiDescription } from "../components/meta-multi-description/MetaMultyDescription";
 import { appConfig } from "../app-config";
+import { GoogleAnalytics } from "../analytics/google-analytics";
 
 function MyApp({ Component, pageProps }: AppProps) {
     useDocSearch();
@@ -14,6 +15,7 @@ function MyApp({ Component, pageProps }: AppProps) {
     return (
         <BaseAppLayout>
             <Head>
+                <GoogleAnalytics/>
                 <MetaMultiDescription title={ appConfig.title } description={ appConfig.description }/>
                 <meta name="yandex-verification" content="d7555ce264b8a099"/>
                 <meta name="viewport"
