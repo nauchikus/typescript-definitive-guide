@@ -105,7 +105,10 @@ const Innovation:NextPage<Innovations> = observer(({ innovationPage, pageDescrip
     useContentAutoscroll();
     useCopyToBufferButtonFromNativeMarkup();
 
-
+    const onClick = (event: React.MouseEvent)=>{
+        event.stopPropagation();
+        event.preventDefault();
+    }
 
     const sections = innovationPage.sections.map(({key, elementId, markdown, githubFileInfo}) => {
         return (
@@ -136,7 +139,7 @@ const Innovation:NextPage<Innovations> = observer(({ innovationPage, pageDescrip
                           <div className="page-nav__bar page-nav__bar_left">
                               <Link href={ pageNav.prevPage.path }>
                                   <Tooltip placement="right" title="Предыдущая глава">
-                                      <Button className="page-nav__btn"
+                                      <Button className={!pageNav.isPrevPage ? `page-nav__btn link_disabled`: `page-nav__btn`}
                                               type="primary"
                                               size="middle"
                                               icon={ <LeftOutlined/> }
@@ -164,7 +167,7 @@ const Innovation:NextPage<Innovations> = observer(({ innovationPage, pageDescrip
                                           </div>
                                       </Button>
                                   </Link>
-                                  <Link href={ pageNav.nextPage.path }>
+                                  <Link href={ pageNav.nextPage.path}>
                                       <Button className="post-content-bar__nav__btn post-content-bar__nav__btn_next"
                                               size="large"
                                               href={ pageNav.nextPage.path }
@@ -191,7 +194,8 @@ const Innovation:NextPage<Innovations> = observer(({ innovationPage, pageDescrip
                               </Tooltip>
                               <Link href={ pageNav.nextPage.path }>
                                   <Tooltip placement="left" title="Следующая глава">
-                                      <Button className="page-nav__btn page-nav__btn_next-page"
+                                      <Button className={!pageNav.isNextPage ? `page-nav__btn page-nav__btn_next-page link_disabled` : `page-nav__btn page-nav__btn_next-page`}
+                                              onClick={onClick}
                                               type="primary"
                                               icon={ <RightOutlined/> }
                                               disabled={ !pageNav.isNextPage }/>

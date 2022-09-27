@@ -88,6 +88,10 @@ span.page-nav__btn.ant-tooltip-disabled-compatible-wrapper {
   &:first-child, &:last-child {
     margin-right: 4px;
   }
+
+  &:disabled {
+    pointer-events: none!important;
+  }
 }
 
 .page-nav__btn_next-page {
@@ -159,3 +163,7 @@ span.page-nav__btn.ant-tooltip-disabled-compatible-wrapper {
   margin: 0 0 0 16px;
 }
 
+.link_disabled {
+  cursor: not-allowed;
+  pointer-events: none;
+}
