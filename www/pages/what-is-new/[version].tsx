@@ -105,10 +105,6 @@ const Innovation:NextPage<Innovations> = observer(({ innovationPage, pageDescrip
     useContentAutoscroll();
     useCopyToBufferButtonFromNativeMarkup();
 
-    const onClick = (event: React.MouseEvent)=>{
-        event.stopPropagation();
-        event.preventDefault();
-    }
 
     const sections = innovationPage.sections.map(({key, elementId, markdown, githubFileInfo}) => {
         return (
@@ -195,7 +191,6 @@ const Innovation:NextPage<Innovations> = observer(({ innovationPage, pageDescrip
                               <Link href={ pageNav.nextPage.path }>
                                   <Tooltip placement="left" title="Следующая глава">
                                       <Button className={!pageNav.isNextPage ? `page-nav__btn page-nav__btn_next-page link_disabled` : `page-nav__btn page-nav__btn_next-page`}
-                                              onClick={onClick}
                                               type="primary"
                                               icon={ <RightOutlined/> }
                                               disabled={ !pageNav.isNextPage }/>
