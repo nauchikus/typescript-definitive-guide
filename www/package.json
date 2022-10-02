@@ -16,7 +16,7 @@
     "graphql": "^15.6.0",
     "mobx": "^6.3.3",
     "mobx-react-lite": "^3.2.1",
-    "next": "11.1.2",
+    "next": "11.1.4",
     "next-share": "^0.12.2",
     "react": "17.0.2",
     "react-dom": "17.0.2",
