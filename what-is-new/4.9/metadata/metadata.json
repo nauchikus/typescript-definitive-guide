@@ -33,6 +33,14 @@
       "dateRelease": "September 23, 2022",
       "datePublication": "Oct 13, 2022",
       "tags": ["Улучшение"]
+    },
+    {
+      "id": "",
+      "version": "4.9@beta",
+      "innovationName": "Ужесточение проверок на NaN",
+      "dateRelease": "September 23, 2022",
+      "datePublication": "Oct 13, 2022",
+      "tags": ["Улучшение"]
     }
   ]
 }
