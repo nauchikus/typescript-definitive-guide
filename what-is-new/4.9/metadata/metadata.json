@@ -1,0 +1,38 @@
+{
+  "releaseHistory": [
+    {
+      "version": "4.9@beta",
+      "dateRelease": "September 23, 2022",
+      "datePublication": "Oct 13, 2022"
+    }
+  ],
+  "colors": {
+    "bookCoverColors": {
+      "--color_light":"#fff",
+      "--color_middle-lite":"#fff500",
+      "--color_accent":"#642d2d",
+      "--color_ambient":"#cb7d36"
+    },
+    "bookUpdateCurrentVersionCoverColors": {
+      "--color": "#265589"
+    }
+  },
+  "innovations": [
+    {
+      "id": "",
+      "version": "4.9@beta",
+      "innovationName": "Оператор satisfies",
+      "dateRelease": "September 23, 2022",
+      "datePublication": "Oct 13, 2022",
+      "tags": ["Нововведение"]
+    },
+    {
+      "id": "",
+      "version": "4.9@beta",
+      "innovationName": "Улучшение работы оператора in",
+      "dateRelease": "September 23, 2022",
+      "datePublication": "Oct 13, 2022",
+      "tags": ["Улучшение"]
+    }
+  ]
+}
