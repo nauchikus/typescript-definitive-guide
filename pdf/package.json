@@ -15,7 +15,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@svgr/webpack": "^5.5.0",
+    "@svgr/webpack": "^7.0.0",
     "@types/node": "^16.10.3",
     "@types/puppeteer": "^5.4.4",
     "@types/react": "^17.0.27",
