@@ -23,7 +23,7 @@
     "react-yandex-metrika": "^2.6.0"
   },
   "devDependencies": {
-    "@svgr/webpack": "^5.5.0",
+    "@svgr/webpack": "^7.0.0",
     "@types/react": "^17.0.27",
     "@types/react-syntax-highlighter": "^13.5.2",
     "next-sitemap": "^1.6.184",
